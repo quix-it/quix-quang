@@ -1,0 +1,59 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins.scss";
+
+.box {
+  display: flex;
+  align-items: center;
+
+  label {
+    &.readonly {
+      pointer-events: none;
+    }
+
+    &:first-child {
+      order: 2;
+    }
+
+  }
+
+  input {
+    display: none;
+
+    &:disabled {
+      & + label {
+        background: $input-disabled-bg;
+      }
+    }
+
+    &:checked {
+      & + label {
+        span {
+          visibility: visible;
+        }
+      }
+    }
+
+    & + label {
+      order: 1;
+      border: 1px solid $input-border-color;
+      border-radius: 50%;
+      height: 1.5rem;
+      width: 1.5rem;
+      line-height: 1.3rem;
+      margin-right: 1rem;
+      text-align: center;
+
+      span {
+        display: inline-block;
+        visibility: hidden;
+        transition: all .3s;
+        border-radius: 50%;
+        height: .6rem;
+        width: .6rem;
+        line-height: .6rem;
+        background: $primary;
+      }
+    }
+  }
+}

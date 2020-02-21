@@ -1,0 +1,22 @@
+<div class="form-group">
+  <label [htmlFor]="id" [attr.aria-label]="ariaLabel">{{label | translate}}</label>
+  <mat-slider
+    [id]="id"
+    [ngClass]="getClass()"
+    [vertical]="vertical"
+    thumbLabel
+    [tickInterval]="interval"
+    [max]="maxValue"
+    [min]="minValue"
+    [value]="value"
+    [(ngModel)]="value"
+    [disabled]="disabled"
+    [attr.aria-label]="ariaLabel"
+  ></mat-slider>
+  <div class="valid-feedback">
+    {{successMessage | translate}}
+  </div>
+  <div [attr.aria-errormessage]="errorMessage" class="invalid-feedback">
+    {{errorMessage | translate}}
+  </div>
+</div>

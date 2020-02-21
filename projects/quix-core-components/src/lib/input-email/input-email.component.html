@@ -1,0 +1,23 @@
+<div class="form-group">
+  <label [htmlFor]="id" [attr.aria-label]="ariaLabel">{{label | translate}}</label>
+  <input type="email"
+         class="form-control"
+         [id]="id"
+         placeholder="{{placeholder | translate}}"
+         [readOnly]="readonly"
+         [multiple]="multiple"
+         [autofocus]="autofocus"
+         [pattern]="pattern"
+         [disabled]="disabled"
+         [ngClass]="getClass()"
+         [(ngModel)]="value"
+         [attr.aria-label]="ariaLabel"
+         [tabIndex]="tabIndex"
+  >
+  <div class="valid-feedback">
+    {{successMessage | translate}}
+  </div>
+  <div class="invalid-feedback" [attr.aria-errormessage]="errorMessage">
+    {{errorMessage | translate}}
+  </div>
+</div>

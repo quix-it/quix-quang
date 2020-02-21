@@ -1,0 +1,11 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins.scss";
+@import "~bootstrap/scss/variables";
+
+mat-slider {
+  width: 100%;
+}
+
+.mat-accent .mat-slider-track-fill, .mat-accent .mat-slider-thumb, .mat-accent .mat-slider-thumb-label {
+  background-color: $primary;
+}

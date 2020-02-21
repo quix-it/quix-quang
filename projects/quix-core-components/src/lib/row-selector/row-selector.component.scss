@@ -1,0 +1,21 @@
+@import "~bootstrap/scss/mixins.scss";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+.rowSelectorWrapper {
+  display: flex;
+  flex-basis: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: .8rem;
+  color: $gray-600;
+  select {
+    &.form-control {
+      width: 5.5rem;
+    }
+  }
+  span {
+    margin-left :.5rem;
+    margin-right :.5rem;
+
+  }
+}

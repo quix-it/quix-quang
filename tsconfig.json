@@ -8,6 +8,7 @@
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
@@ -18,6 +19,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "quix-core-components": [
+        "dist/quix-core-components"
+      ],
+      "quix-core-components/*": [
+        "dist/quix-core-components/*"
+      ]
+    }
   }
 }

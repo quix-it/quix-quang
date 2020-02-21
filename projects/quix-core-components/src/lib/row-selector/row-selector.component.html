@@ -1,0 +1,17 @@
+<div class="rowSelectorWrapper" [ngClass]="customClass">
+  <select
+    [id]="id"
+    class="form-control"
+  (change)="onSelectChange()"
+  [(ngModel)]="selected">
+    <option
+      *ngFor="let item of list"
+      [value]="item.id">
+      {{item.label}}
+    </option>
+  </select>
+  <span>{{showingLabel | translate}}</span>
+  {{fromItem}} - {{toItem}}
+  <span>{{ofLabel | translate}}</span>
+  {{totalItem}}
+</div>

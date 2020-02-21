@@ -1,0 +1,24 @@
+<div class="form-group">
+  <label [htmlFor]="id" [attr.aria-label]="ariaLabel">{{label | translate}}</label>
+  <textarea class="form-control"
+            id="{{id}}"
+            placeholder="{{placeholder | translate}}"
+            [ngClass]="getClass()"
+            [maxLength]="maxlength"
+            [minLength]="minlength"
+            [disabled]="disabled"
+            [readOnly]="readonly"
+            [autofocus]="autofocus"
+            [rows]="rows"
+            [cols]="cols"
+            [(ngModel)]="value"
+            [attr.aria-label]="ariaLabel"
+            [tabIndex]="tabIndex"
+  ></textarea>
+  <div class="valid-feedback">
+    {{successMessage | translate}}
+  </div>
+  <div class="invalid-feedback" [attr.aria-errormessage]="errorMessage">
+    {{errorMessage | translate}}
+  </div>
+</div>

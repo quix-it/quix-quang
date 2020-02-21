@@ -2,5 +2,41 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "quix-core-components": {
+      "projectType": "library",
+      "root": "projects/quix-core-components",
+      "sourceRoot": "projects/quix-core-components/src",
+      "prefix": "quix",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/quix-core-components/tsconfig.lib.json",
+            "project": "projects/quix-core-components/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/quix-core-components/src/test.ts",
+            "tsConfig": "projects/quix-core-components/tsconfig.spec.json",
+            "karmaConfig": "projects/quix-core-components/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/quix-core-components/tsconfig.lib.json",
+              "projects/quix-core-components/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "defaultProject": "quix-core-components"
 }

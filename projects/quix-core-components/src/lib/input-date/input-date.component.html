@@ -1,0 +1,50 @@
+<div class="form-group">
+  <label
+    [htmlFor]="id"
+    [attr.aria-label]="ariaLabel">
+    {{label}}
+  </label>
+  <div class="input-group">
+    <input type="text"
+           [id]="id"
+           [placeholder]="placeolder | translate"
+           class="form-control"
+           [ngClass]="getClass()"
+           [bsConfig]="config"
+           [disabled]="disabled"
+           [isDisabled]="checkPopUp()"
+           [readOnly]="readonly"
+           bsDatepicker
+           [autofocus]="autofocus"
+           [minDate]="minDate"
+           [maxDate]="maxDate"
+           [daysDisabled]="disabledDaysOfTheWeek"
+           [datesDisabled]="disabledDates"
+           autocomplete="autocomplete_off_hack_xfr4!k"
+           #dp="bsDatepicker"
+           [(ngModel)]="value"
+           [attr.aria-label]="ariaLabel"
+           [tabIndex]="tabIndex"
+    >
+    <div class="input-group-append">
+      <button
+        class="btn"
+        [ngClass]="btnClass"
+        type="button"
+        [ngStyle]="{'pointer-event': readonly || disabled ? 'none' : null}"
+        (click)="dp.toggle()"
+        [hidden]="readonly">
+        <i [ngClass]="iconClass"></i>
+      </button>
+    </div>
+    <div class="valid-feedback">
+      {{successMessage | translate}}
+    </div>
+    <div class="invalid-feedback"
+         [attr.aria-errormessage]="errorMessage">
+      {{errorMessage | translate}}
+    </div>
+
+  </div>
+</div>
+
