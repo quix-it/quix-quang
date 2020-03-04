@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
 import {QuixLoaderService} from './quix-loader.service';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 
 @Injectable()
 export class QuixLoaderInterceptor implements HttpInterceptor {
@@ -26,6 +26,12 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
           }
         }
         return event;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        if (activateLoader) {
+          this.loaderService.subLoader();
+        }
+        return throwError(error);
       })
     );
   }

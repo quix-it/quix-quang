@@ -37,7 +37,12 @@
     "ol": "^6.1.1",
     "@types/googlemaps": "^3.38.1",
     "moment": "^2.24.0",
-    "ngx-moment": "^3.5.0"
+    "ngx-moment": "^3.5.0",
+    "@ngrx/effects": "^8.6.0",
+    "@ngrx/store": "^8.6.0",
+    "@ngrx/store-devtools": "^8.6.0",
+    "angular-oauth2-oidc": "^8.0.4",
+    "@fortawesome/fontawesome-free": "^5.11.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.20",

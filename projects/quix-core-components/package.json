@@ -1,6 +1,6 @@
 {
   "name": "@quix/quix-core-components",
-  "version": "0.27.0",
+  "version": "0.29.0",
   "peerDependencies": {
     "@angular/common": "^8.0.3",
     "@angular/core": "^8.0.3",
@@ -16,6 +16,7 @@
     "@types/googlemaps": "^3.38.1",
     "moment": "^2.24.0",
     "ngx-moment": "^3.5.0",
-    "ng-lazyload-image": "^6.1.0"
+    "ng-lazyload-image": "^6.1.0",
+    "@fortawesome/fontawesome-free": "^5.11.2"
   }
 }

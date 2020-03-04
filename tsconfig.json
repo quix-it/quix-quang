@@ -26,6 +26,12 @@
       ],
       "quix-core-components/*": [
         "dist/quix-core-components/*"
+      ],
+      "quix-core-authentication": [
+        "dist/quix-core-authentication"
+      ],
+      "quix-core-authentication/*": [
+        "dist/quix-core-authentication/*"
       ]
     }
   }

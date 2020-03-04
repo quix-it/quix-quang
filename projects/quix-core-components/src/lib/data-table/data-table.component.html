@@ -11,6 +11,9 @@
           [ngStyle]="{'cursor': defaultAction ? 'pointer': null}">
         {{element[col.dataParams]}}
       </td>
+      <td mat-cell [hidden]="data.length" [colSpan]="columns.length">
+        {{noResultLabel | translate}}
+      </td>
       <td mat-footer-cell *matFooterCellDef [hidden]="!col.tfooterValue">
         {{col.tfooterValue}}
       </td>

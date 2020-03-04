@@ -38,6 +38,10 @@ import {SliderComponent} from './slider/slider.component';
 import {ToggleComponent} from './toggle/toggle.component';
 import {PictureComponent} from './picture/picture.component';
 import {RowSelectorComponent} from './row-selector/row-selector.component';
+import {QuixHttpErrorComponent} from './http-error/quix-http-error.component';
+import {QuixHttpErrorService} from './http-error/quix-http-error.service';
+import {QuixHttpErrorInterceptor} from './http-error/quix-http-error.interceptor';
+import {QuixValidationService} from './validation/quix-validation.service';
 
 @NgModule({
   declarations: [
@@ -61,23 +65,24 @@ import {RowSelectorComponent} from './row-selector/row-selector.component';
     SliderComponent,
     ToggleComponent,
     PictureComponent,
-    RowSelectorComponent
+    RowSelectorComponent,
+    QuixHttpErrorComponent
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    NgxWebstorageModule.forRoot(),
     TranslateModule,
-    ModalModule.forRoot(),
-    BsDropdownModule.forRoot(),
+    NgxWebstorageModule.forRoot(),
+    FormsModule,
+    MomentModule,
     NgxEchartsModule,
     MatSnackBarModule,
     MatTableModule,
-    BsDatepickerModule.forRoot(),
-    TimepickerModule.forRoot(),
-    MomentModule,
     MatSliderModule,
     MatSlideToggleModule,
+    ModalModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }),
@@ -89,7 +94,10 @@ import {RowSelectorComponent} from './row-selector/row-selector.component';
     QuixOfflineService,
     QuixLoaderService,
     {provide: HTTP_INTERCEPTORS, useClass: QuixLoaderInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: QuixHttpErrorInterceptor, multi: true},
     QuixStyleService,
+    QuixHttpErrorService,
+    QuixValidationService
   ],
   exports: [
     QuixModalComponent,
@@ -112,7 +120,11 @@ import {RowSelectorComponent} from './row-selector/row-selector.component';
     SliderComponent,
     ToggleComponent,
     PictureComponent,
-    RowSelectorComponent
+    RowSelectorComponent,
+    QuixHttpErrorComponent
+  ],
+  entryComponents: [
+    QuixHttpErrorComponent
   ]
 })
 export class QuixCoreComponentsModule {

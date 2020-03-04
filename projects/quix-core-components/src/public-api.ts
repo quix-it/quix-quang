@@ -70,4 +70,8 @@ export * from './lib/window/quix-window.service';
 export * from './lib/row-selector/row-selector.component';
 export * from './lib/row-selector/row-selector.model';
 
+export * from './lib/http-error/quix-http-error.component';
+export * from './lib/http-error/quix-http-error.interceptor';
+export * from './lib/http-error/quix-http-error.service';
 
+export * from './lib/validation/quix-validation.service';

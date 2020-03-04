@@ -16,6 +16,7 @@ export class DataTableComponent implements OnInit {
   @Input() fixFooter: boolean;
   @Input() actionIcon: Array<string>;
   @Input() actionList: Array<ActionDataTableModel>;
+  @Input() noResultLabel: string;
   @Output() defaultAction = new EventEmitter<any>();
   @Output() action = new EventEmitter<any>();
 
