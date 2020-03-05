@@ -7,6 +7,7 @@
   </div>
   <div class="modal-body">
     <i class="fas fa-user-lock" [hidden]="status !== 401"></i>
+    <i class="fas fa-user-slash" [hidden]="status !== 403"></i>
     <i class="fas fa-server" [hidden]="status < 500"></i>
 
     <p>
