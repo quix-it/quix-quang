@@ -1,0 +1,48 @@
+<ngx-file-drop [dropZoneLabel]="dropLabel"
+               (onFileDrop)="dropped($event)"
+               (onFileOver)="fileOver($event)"
+               (onFileLeave)="fileLeave($event)">
+  <ng-template
+    ngx-file-drop-content-tmp
+    let-openFileSelector="openFileSelector">
+    <div class="form-group">
+      <label
+        [htmlFor]="id"
+        [attr.aria-label]="ariaLabel">
+        {{label | translate}}
+      </label>
+      <div class="input-group">
+        <input
+          type="text"
+          [id]="id"
+          class="form-control"
+          [placeholder]="placeholder"
+          readonly
+          [(ngModel)]="fileName"
+          [ngClass]="getClass()"
+          [attr.aria-label]="ariaLabel"
+          [tabIndex]="tabIndex"
+        >
+        <div class="input-group-append">
+          <button class="btn"
+                  type="button"
+                  [ngClass]="buttonClass "
+                  [id]="id"
+                  (click)="openFileSelector()"
+                  [disabled]="disabled">
+            {{buttonText | translate}}
+          </button>
+        </div>
+        <div class="valid-feedback">
+          {{successMessage | translate}}
+        </div>
+        <div class="invalid-feedback">
+          {{errorMessage | translate}}
+        </div>
+        <div class="invalid-feedback" *ngIf="wrongFile">
+          {{wrongFileMssage | translate}}
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ngx-file-drop>

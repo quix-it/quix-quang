@@ -12,16 +12,12 @@ export * from './lib/loader/quix-loader.interceptor';
 
 export * from './lib/snackbar/quix-snackbar.service';
 
-export * from './lib/modal/quix-modal.component';
 export * from './lib/modal/quix-modal.service';
 
 export * from './lib/chart/chart.component';
 export * from './lib/chart/chart-axis.model';
 export * from './lib/chart/chart-data.model';
 export * from './lib/chart/chart-tooltip.model';
-
-export * from './lib/pie/pie.component';
-export * from './lib/pie/pie-data.model';
 
 export * from './lib/data-table/action-data-table.model';
 export * from './lib/data-table/column-data-table.model';
@@ -75,3 +71,18 @@ export * from './lib/http-error/quix-http-error.interceptor';
 export * from './lib/http-error/quix-http-error.service';
 
 export * from './lib/validation/quix-validation.service';
+
+export * from './lib/input-autocomplete/autocomplete.component';
+export * from './lib/input-autocomplete/autocomplete.model';
+
+export * from './lib/input-file/input-file.component';
+
+export * from './lib/toast/toasts.service';
+export * from './lib/toast/toasts.model';
+export * from './lib/toast/toasts.component';
+
+export * from './lib/paginator/paginator.component';
+
+export * from './lib/pie/pie-data.model';
+export * from './lib/pie/pie.component';
+export * from './lib/pie/chart-toolbox.model';

@@ -1,0 +1,30 @@
+<div class="form-group">
+  <label [for]="id" [attr.aria-label]="ariaLabel">{{label | translate}}</label>
+  <input
+    [(ngModel)]="select"
+    [typeahead]="list"
+    [id]="id"
+    placeholder="{{placeHolder | translate}}"
+    class="form-control"
+    [adaptivePosition]="true"
+    [ngClass]="getClass()"
+    [typeaheadOptionField]="searchBy"
+    [typeaheadOptionsLimit]="listElement"
+    [typeaheadMinLength]="minLength"
+    [typeaheadScrollable]="scrollAfter"
+    [typeaheadOptionsInScrollableView]="scrollAfter"
+    (typeaheadOnSelect)="writeValue($event)"
+    autocomplete="autocomplete_off_hack_xfr4!k"
+    type="text"
+    (typeaheadNoResults)="noResultEvent($event)"
+  >
+  <div class="valid-feedback">
+    {{successMessage | translate}}
+  </div>
+  <div class="invalid-feedback">
+    {{errorMessage | translate}}
+  </div>
+  <div [hidden]="!noResult">
+    {{noResultMessage |translate}}
+  </div>
+</div>

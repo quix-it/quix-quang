@@ -2,7 +2,9 @@ import {Component, Injectable} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {Subscription} from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class QuixModalService {
   config = {
     keyboard: null,

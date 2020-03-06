@@ -1,0 +1,11 @@
+<div>
+  <pagination
+    [totalItems]="totalItems"
+    [maxSize]="5"
+    (pageChanged)="pageChanged($event)"
+    [itemsPerPage]="localItemsPerPage"
+    [nextText]="nextText"
+    [previousText]="previousText"
+    [(ngModel)]="currentPage"
+  ></pagination>
+</div>

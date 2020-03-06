@@ -1,9 +1,15 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {TranslateModule} from '@ngx-translate/core';
-import {BsDatepickerModule, BsDropdownModule, ModalModule, TimepickerModule} from 'ngx-bootstrap';
+import {
+  BsDatepickerModule,
+  BsDropdownModule,
+  ModalModule,
+  PaginationConfig, PaginationModule,
+  TimepickerModule,
+  TypeaheadModule
+} from 'ngx-bootstrap';
 import {CommonModule} from '@angular/common';
-import {QuixModalComponent} from './modal/quix-modal.component';
 import {QuixStorageService} from './storage/quix-storage.service';
 import {QuixModalService} from './modal/quix-modal.service';
 import {NgxEchartsModule} from 'ngx-echarts';
@@ -42,10 +48,15 @@ import {QuixHttpErrorComponent} from './http-error/quix-http-error.component';
 import {QuixHttpErrorService} from './http-error/quix-http-error.service';
 import {QuixHttpErrorInterceptor} from './http-error/quix-http-error.interceptor';
 import {QuixValidationService} from './validation/quix-validation.service';
+import {AutocompleteComponent} from "./input-autocomplete/autocomplete.component";
+import {InputFileComponent} from "./input-file/input-file.component";
+import {ToastsComponent} from "./toast/toasts.component";
+import {ToastsService} from "./toast/toasts.service";
+import {NgxFileDropModule} from "ngx-file-drop";
+import {PaginatorComponent} from "./paginator/paginator.component";
 
 @NgModule({
   declarations: [
-    QuixModalComponent,
     ChartComponent,
     PieComponent,
     DataTableComponent,
@@ -66,7 +77,11 @@ import {QuixValidationService} from './validation/quix-validation.service';
     ToggleComponent,
     PictureComponent,
     RowSelectorComponent,
-    QuixHttpErrorComponent
+    QuixHttpErrorComponent,
+    AutocompleteComponent,
+    InputFileComponent,
+    ToastsComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -86,6 +101,9 @@ import {QuixValidationService} from './validation/quix-validation.service';
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }),
+    TypeaheadModule.forRoot(),
+    NgxFileDropModule,
+    PaginationModule
   ],
   providers: [
     QuixStorageService,
@@ -97,10 +115,10 @@ import {QuixValidationService} from './validation/quix-validation.service';
     {provide: HTTP_INTERCEPTORS, useClass: QuixHttpErrorInterceptor, multi: true},
     QuixStyleService,
     QuixHttpErrorService,
-    QuixValidationService
+    QuixValidationService,
+    ToastsService
   ],
   exports: [
-    QuixModalComponent,
     ChartComponent,
     PieComponent,
     DataTableComponent,
@@ -121,7 +139,11 @@ import {QuixValidationService} from './validation/quix-validation.service';
     ToggleComponent,
     PictureComponent,
     RowSelectorComponent,
-    QuixHttpErrorComponent
+    QuixHttpErrorComponent,
+    AutocompleteComponent,
+    InputFileComponent,
+    ToastsComponent,
+    PaginatorComponent
   ],
   entryComponents: [
     QuixHttpErrorComponent
