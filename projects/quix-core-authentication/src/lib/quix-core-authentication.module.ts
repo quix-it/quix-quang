@@ -1,6 +1,6 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {StoreModule} from '@ngrx/store';
-import {QUIX_AUTH_REDUCERS, quixAuthReducers} from './auth/quix-auth.reducers';
+import {QUIX_AUTH_STATE, quixAuthReducers} from './auth/quix-auth.reducers';
 import {QuixCoreAuthenticationModel} from './quix-core-authentication.model';
 import {CommonModule} from '@angular/common';
 import {QuixWindowService} from './window/quix-window.service';
@@ -11,7 +11,7 @@ import {QuixAuthService} from './auth/quix-auth.service';
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forFeature(QUIX_AUTH_REDUCERS, quixAuthReducers)
+    StoreModule.forFeature(QUIX_AUTH_STATE, quixAuthReducers)
   ],
   providers: [
     QuixWindowService,

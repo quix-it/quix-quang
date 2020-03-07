@@ -3,16 +3,22 @@ import {NullValidationHandler, OAuthService} from 'angular-oauth2-oidc';
 import {QuixWindowService} from '../window/quix-window.service';
 import {QuixCoreAuthenticationModel} from '../quix-core-authentication.model';
 import {UserState} from './store/user.reducer';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {RoleState} from './store/role.reducer';
 import {storeRoles} from './store/role.action';
 import {userLogin} from './store/user.action';
+import {Observable} from 'rxjs';
+import {selectUser} from './store/user.selector';
+import {haveRole, haveRoles, selectRoles} from './store/role.selector';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuixAuthService {
   public config: QuixCoreAuthenticationModel;
+  public $user: Observable<any>;
+  public $roles: Observable<any>;
+  public $hasRole: Observable<any>;
 
   constructor(
     private oauthService: OAuthService,
@@ -58,5 +64,31 @@ export class QuixAuthService {
         this.roleStore.dispatch(storeRoles({roleData: user.realm_access.roles}));
       }
     );
+  }
+
+  getUser() {
+    return this.oauthService.loadUserProfile();
+  }
+
+  getStoredUser() {
+    this.$user = this.userStore.pipe(select(selectUser));
+    return this.$user;
+  }
+
+  getRoles() {
+    this.$roles = this.roleStore.pipe(select(selectRoles));
+    return this.$roles;
+  }
+
+  getStoredRoles() {
+    return this.oauthService.loadUserProfile();
+  }
+
+  hasRole(role: string) {
+    this.$hasRole = this.roleStore.pipe(select(haveRole, {roleId: role}));
+  }
+
+  hasRoles(roles: Array<string>) {
+    this.$hasRole = this.roleStore.pipe(select(haveRoles, {roleIds: roles}));
   }
 }
