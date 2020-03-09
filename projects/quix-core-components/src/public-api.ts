@@ -86,3 +86,5 @@ export * from './lib/paginator/paginator.component';
 export * from './lib/pie/pie-data.model';
 export * from './lib/pie/pie.component';
 export * from './lib/pie/chart-toolbox.model';
+
+export * from './lib/input-color/input-color.component';

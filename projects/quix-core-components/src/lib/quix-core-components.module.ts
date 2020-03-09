@@ -54,6 +54,7 @@ import {ToastsComponent} from "./toast/toasts.component";
 import {ToastsService} from "./toast/toasts.service";
 import {NgxFileDropModule} from "ngx-file-drop";
 import {PaginatorComponent} from "./paginator/paginator.component";
+import {InputColorComponent} from './input-color/input-color.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import {PaginatorComponent} from "./paginator/paginator.component";
     AutocompleteComponent,
     InputFileComponent,
     ToastsComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    InputColorComponent
   ],
   imports: [
     CommonModule,
@@ -143,7 +145,8 @@ import {PaginatorComponent} from "./paginator/paginator.component";
     AutocompleteComponent,
     InputFileComponent,
     ToastsComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    InputColorComponent
   ],
   entryComponents: [
     QuixHttpErrorComponent

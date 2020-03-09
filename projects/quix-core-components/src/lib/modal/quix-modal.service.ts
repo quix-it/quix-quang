@@ -1,6 +1,6 @@
 import {Component, Injectable} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class QuixModalService {
   };
   modalRef: BsModalRef;
   subscriptions: Subscription[] = [];
+  public modalEvent = new Subject<string>();
 
   constructor(private modalService: BsModalService) {
   }
@@ -24,8 +25,6 @@ export class QuixModalService {
             modalParams?: any,
             closeWithKeyboard?: boolean,
             ignoreCloseWithClick?: true,
-            onShowFunction?: (reason) => {},
-            onCloseFunction?: (reason) => {},
   ) {
     this.modalRef = new BsModalRef();
     this.config = {
@@ -34,27 +33,27 @@ export class QuixModalService {
       class: '',
       initialState: modalParams
     };
-    this.setEvent(onShowFunction, onCloseFunction);
+    this.setEvent();
     this.setSize(size);
     this.modalRef = this.modalService.show(modalComponent, this.config);
     this.modalRef.content.title = modalTitle;
   }
 
-  setEvent(onShowFunction, onCloseFunction) {
-    if (onShowFunction) {
-      this.subscriptions.push(
-        this.modalService.onShow.subscribe((reason: string) => {
-          onShowFunction(reason);
-        })
-      );
-    }
-    if (onCloseFunction) {
-      this.subscriptions.push(
-        this.modalService.onHide.subscribe((reason: string) => {
-          onCloseFunction(reason);
-        })
-      );
-    }
+  setEvent() {
+    this.subscriptions.push(
+      this.modalService.onShow.subscribe((reason: string) => {
+        if (reason) {
+          this.modalEvent.next(reason);
+        }
+      })
+    );
+    this.subscriptions.push(
+      this.modalService.onHide.subscribe((reason: string) => {
+        if (reason) {
+          this.modalEvent.next(reason);
+        }
+      })
+    );
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
         this.unsubscribe();

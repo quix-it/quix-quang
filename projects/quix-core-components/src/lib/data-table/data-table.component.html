@@ -9,10 +9,12 @@
       </th>
       <td mat-cell *matCellDef="let element" (click)="rowClick(element)"
           [ngStyle]="{'cursor': defaultAction ? 'pointer': null}">
-        {{element[col.dataParams]}}
-      </td>
-      <td mat-cell [hidden]="data.length" [colSpan]="columns.length">
-        {{noResultLabel | translate}}
+        <span *ngIf="isDate(element[col.dataParams])">
+          {{element[col.dataParams] | date: dateFormat}}
+        </span>
+        <span *ngIf="!isDate(element[col.dataParams])">
+          {{element[col.dataParams]}}
+        </span>
       </td>
       <td mat-footer-cell *matFooterCellDef [hidden]="!col.tfooterValue">
         {{col.tfooterValue}}
@@ -46,4 +48,6 @@
     <tr mat-footer-row *matFooterRowDef="displayColumn; sticky: fixFooter"></tr>
   </table>
 </div>
-
+<div class="no-results" [hidden]="data.length">
+  {{noResultLabel | translate}}
+</div>

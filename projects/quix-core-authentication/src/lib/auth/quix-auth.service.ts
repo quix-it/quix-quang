@@ -33,7 +33,13 @@ export class QuixAuthService {
   }
 
   initAuth() {
-    this.oauthService.configure(this.window.nativeWindow.authConfig);
+    if (this.config.oidcConfig) {
+      this.oauthService.configure(this.config.oidcConfig);
+    } else if (this.window.nativeWindow.authConfig) {
+      this.oauthService.configure(this.window.nativeWindow.authConfig);
+    } else {
+      alert('Insert auth config');
+    }
     this.oauthService.setStorage(localStorage);
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndLogin().then(isLoggedIn => {
@@ -47,6 +53,10 @@ export class QuixAuthService {
         }
       }
     });
+  }
+
+  logOut() {
+    this.oauthService.logOut();
   }
 
   storeUser() {

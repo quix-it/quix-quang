@@ -17,6 +17,7 @@ export class DataTableComponent implements OnInit {
   @Input() actionIcon: Array<string>;
   @Input() actionList: Array<ActionDataTableModel>;
   @Input() noResultLabel: string;
+  @Input() dateFormat: string;
   @Output() defaultAction = new EventEmitter<any>();
   @Output() action = new EventEmitter<any>();
 
@@ -45,5 +46,8 @@ export class DataTableComponent implements OnInit {
     this.action.emit({row: element, actionName: action});
   }
 
+  isDate(element: any): boolean {
+    return element instanceof Date;
+  }
 
 }

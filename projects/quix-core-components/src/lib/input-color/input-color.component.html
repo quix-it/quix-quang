@@ -1,0 +1,22 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel | translate">
+    {{label | translate}}
+  </label>
+  <input type="color"
+         class="form-control"
+         [id]="id"
+         [ngClass]="getClass()"
+         [disabled]="disabled"
+         [autofocus]="autofocus"
+         [(ngModel)]="value"
+         [attr.aria-label]="ariaLabel | translate"
+         [tabIndex]="tabIndex"
+  >
+  <div class="valid-feedback">
+    {{successMessage | translate}}
+  </div>
+  <div [attr.aria-errormessage]="errorMessage | translate" class="invalid-feedback">
+    {{errorMessage | translate}}
+  </div>
+</div>
