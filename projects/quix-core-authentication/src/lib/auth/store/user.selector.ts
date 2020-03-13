@@ -1,5 +1,5 @@
 import {createSelector} from '@ngrx/store';
-import {selectAuthState} from '../quix-auth.selector';
-import {QuixAuthState} from '../quix-auth.reducers';
+import {quixCoreAuthenticationSelector} from '../../quix-core-authentication.selector';
+import {QuixCoreAuthenticationState} from '../../quix-core-authentication.reducers';
 
-export const selectUser = createSelector(selectAuthState, (state: QuixAuthState) => state.userState.user);
+export const selectUser = createSelector(quixCoreAuthenticationSelector, (state: QuixCoreAuthenticationState) => state.userState.user);

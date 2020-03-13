@@ -2,6 +2,8 @@
  * Public API Surface of quix-core-components
  */
 export * from './lib/quix-core-components.module';
+export * from './lib/quix-core-components.reducers';
+export * from './lib/quix-core-components.selector';
 
 export * from './lib/storage/quix-storage.service';
 
@@ -77,9 +79,12 @@ export * from './lib/input-autocomplete/autocomplete.model';
 
 export * from './lib/input-file/input-file.component';
 
-export * from './lib/toast/toasts.service';
+export * from './lib/toast/quix-toasts.service';
 export * from './lib/toast/toasts.model';
 export * from './lib/toast/toasts.component';
+export * from './lib/toast/toasts-store/toasts.action';
+export * from './lib/toast/toasts-store/toasts.reducer';
+export * from './lib/toast/toasts-store/toasts.selector';
 
 export * from './lib/paginator/paginator.component';
 

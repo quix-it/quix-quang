@@ -8,6 +8,7 @@ import {ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Ou
 export class PaginatorComponent implements OnInit, OnChanges {
 
   @Input() currentPage: number;
+  @Input() id: string;
   @Input() initialPage: number;
   @Input() totalItems: number;
   @Input() localItemsPerPage: number;

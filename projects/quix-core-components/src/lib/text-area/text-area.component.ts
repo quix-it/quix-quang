@@ -68,8 +68,12 @@ export class TextAreaComponent implements ControlValueAccessor {
 
   // This is a basic setter that the forms API is going to use
   writeValue(value) {
-    if (value.target) {
-      this.value = value.target.value;
+    if (value) {
+      if (value.target) {
+        this.value = value.target.value;
+      } else {
+        this.value = value;
+      }
     } else {
       this.value = value;
     }

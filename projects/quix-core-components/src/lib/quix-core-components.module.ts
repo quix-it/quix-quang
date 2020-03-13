@@ -48,13 +48,15 @@ import {QuixHttpErrorComponent} from './http-error/quix-http-error.component';
 import {QuixHttpErrorService} from './http-error/quix-http-error.service';
 import {QuixHttpErrorInterceptor} from './http-error/quix-http-error.interceptor';
 import {QuixValidationService} from './validation/quix-validation.service';
-import {AutocompleteComponent} from "./input-autocomplete/autocomplete.component";
-import {InputFileComponent} from "./input-file/input-file.component";
-import {ToastsComponent} from "./toast/toasts.component";
-import {ToastsService} from "./toast/toasts.service";
-import {NgxFileDropModule} from "ngx-file-drop";
-import {PaginatorComponent} from "./paginator/paginator.component";
 import {InputColorComponent} from './input-color/input-color.component';
+import {QuixToastsService} from './toast/quix-toasts.service';
+import {AutocompleteComponent} from './input-autocomplete/autocomplete.component';
+import {PaginatorComponent} from './paginator/paginator.component';
+import {InputFileComponent} from './input-file/input-file.component';
+import {ToastsComponent} from './toast/toasts.component';
+import {NgxFileDropModule} from 'ngx-file-drop';
+import {StoreModule} from '@ngrx/store';
+import {CORECOMPONENTS_KEY, quixCoreComponetsReducers} from './quix-core-components.reducers';
 
 @NgModule({
   declarations: [
@@ -100,12 +102,14 @@ import {InputColorComponent} from './input-color/input-color.component';
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
+    PaginationModule.forRoot(),
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }),
     TypeaheadModule.forRoot(),
     NgxFileDropModule,
-    PaginationModule
+    PaginationModule,
+    StoreModule.forFeature(CORECOMPONENTS_KEY, quixCoreComponetsReducers)
   ],
   providers: [
     QuixStorageService,
@@ -118,7 +122,7 @@ import {InputColorComponent} from './input-color/input-color.component';
     QuixStyleService,
     QuixHttpErrorService,
     QuixValidationService,
-    ToastsService
+    QuixToastsService
   ],
   exports: [
     ChartComponent,

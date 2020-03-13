@@ -3,7 +3,6 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {QuixStyleService} from '../style/style.service';
 
 
-
 @Component({
   selector: 'quix-input-text',
   templateUrl: './input-text.component.html',
@@ -46,26 +45,35 @@ export class InputTextComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  constructor(private style: QuixStyleService) { }
+  constructor(private style: QuixStyleService) {
+  }
 
-  onChange(val) { }
+  onChange(val) {
+  }
 
-  onTouched() { }
+  onTouched() {
+  }
 
   // We implement this method to keep a reference to the onChange
   // callback function passed by the forms API
   registerOnChange(fn) {
     this.onChange = fn;
   }
+
   // We implement this method to keep a reference to the onTouched
   // callback function passed by the forms API
   registerOnTouched(fn) {
     this.onTouched = fn;
   }
+
   // This is a basic setter that the forms API is going to use
   writeValue(value) {
-    if (value.target) {
-      this.value = value.target.value;
+    if (value) {
+      if (value.target) {
+        this.value = value.target.value;
+      } else {
+        this.value = value;
+      }
     } else {
       this.value = value;
     }

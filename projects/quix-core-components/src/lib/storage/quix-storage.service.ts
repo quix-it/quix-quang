@@ -15,6 +15,13 @@ export class QuixStorageService {
     return JSON.parse(this.sessionStorage.retrieve(key));
   }
 
+  getSessionDefault(key: string, defaultValue: string): string {
+    if (JSON.parse(this.sessionStorage.retrieve(key))) {
+      return JSON.parse(this.sessionStorage.retrieve(key));
+    }
+    return defaultValue;
+  }
+
   clearSession(key: string): void {
     this.sessionStorage.clear(key);
   }
@@ -27,8 +34,15 @@ export class QuixStorageService {
     this.localStorage.store(key, JSON.stringify(value));
   }
 
-  getLocal(key: string): string {
+  getLocal(key: string, defaultValue: string): string {
     return JSON.parse(this.localStorage.retrieve(key));
+  }
+
+  getLocalDefault(key: string, defaultValue: string): string {
+    if (JSON.parse(this.localStorage.retrieve(key))) {
+      return JSON.parse(this.localStorage.retrieve(key));
+    }
+    return defaultValue;
   }
 
   clearLocal(key: string): void {

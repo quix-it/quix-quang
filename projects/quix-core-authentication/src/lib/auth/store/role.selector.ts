@@ -1,15 +1,15 @@
 import {createSelector} from '@ngrx/store';
-import {RoleState} from './role.reducer';
-import {selectAuthState} from '../quix-auth.selector';
-import {QuixAuthState} from '../quix-auth.reducers';
+import {quixCoreAuthenticationSelector} from '../../quix-core-authentication.selector';
+import {QuixCoreAuthenticationState} from '../../quix-core-authentication.reducers';
 
-export const selectRoles = createSelector(selectAuthState, (state: QuixAuthState) => state.roleState);
+
+export const selectRoles = createSelector(quixCoreAuthenticationSelector, (state: QuixCoreAuthenticationState) => state.roleState);
 export const haveRole = createSelector(
-  selectAuthState,
-  (state: QuixAuthState, proops: { roleId: string }) => state.roleState.roles.includes(proops.roleId));
+  quixCoreAuthenticationSelector,
+  (state: QuixCoreAuthenticationState, proops: { roleId: string }) => state.roleState.roles.includes(proops.roleId));
 export const haveRoles = createSelector(
-  selectAuthState,
-  (state: QuixAuthState, proops: { roleIds: Array<string> }) => {
+  quixCoreAuthenticationSelector,
+  (state: QuixCoreAuthenticationState, proops: { roleIds: Array<string> }) => {
     let hasAllRole = true;
     proops.roleIds.forEach((roleId: string) => {
       hasAllRole = hasAllRole && state.roleState.roles.includes(roleId);

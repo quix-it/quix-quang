@@ -6,6 +6,8 @@
   position: fixed;
   transition: all .5s;
   min-width: 200px;
+  z-index: 999999;
+  transform: scale(0);
 
   &.top-left {
     top: 2rem;

@@ -1,11 +1,10 @@
-<div>
-  <pagination
-    [totalItems]="totalItems"
-    [maxSize]="5"
-    (pageChanged)="pageChanged($event)"
-    [itemsPerPage]="localItemsPerPage"
-    [nextText]="nextText"
-    [previousText]="previousText"
-    [(ngModel)]="currentPage"
-  ></pagination>
-</div>
+<pagination
+  [id]="id"
+  [totalItems]="totalItems"
+  [maxSize]="5"
+  (pageChanged)="pageChanged($event)"
+  [itemsPerPage]="localItemsPerPage"
+  [nextText]="nextText |translate"
+  [previousText]="previousText | translate"
+  [(ngModel)]="currentPage"
+></pagination>

@@ -8,8 +8,10 @@ export class GoogleMapService {
   public key: string;
 
   constructor(@Optional() config: QuixConfigModel) {
-    if (config) {
+    if (config.googleKey) {
       this.key = config.googleKey;
+    } else {
+      alert('You need a googleKey for the map');
     }
   }
 
