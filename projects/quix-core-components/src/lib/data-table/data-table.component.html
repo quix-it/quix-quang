@@ -32,7 +32,7 @@
     <li *ngFor="let act of actionList" [hidden]="!act.condition(element)">
       <a class="dropdown-item" (click)="actionClick(element, act.actionName)">
         <i [ngClass]="act.icon"></i>
-        {{act.actionName | translate}}
+        {{act.actionLabel | translate}}
       </a>
     </li>
   </ul>
