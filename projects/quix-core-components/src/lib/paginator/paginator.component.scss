@@ -1,0 +1,9 @@
+.paginatorContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  .form-group {
+    display: inline-block;
+    margin-bottom: .5rem;
+  }
+}

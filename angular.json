@@ -185,6 +185,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "quix-core-components"
+    }
+  },
+  "defaultProject": "quix-core-components",
+  "cli": {
+    "analytics": "4c69ff4f-b242-4742-a667-c15cf0e09a78"
+  }
 }

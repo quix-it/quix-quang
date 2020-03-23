@@ -1,10 +1,32 @@
-<pagination
-  [id]="id"
-  [totalItems]="totalItems"
-  [maxSize]="5"
-  (pageChanged)="pageChanged($event)"
-  [itemsPerPage]="localItemsPerPage"
-  [nextText]="nextText |translate"
-  [previousText]="previousText | translate"
-  [(ngModel)]="currentPage"
-></pagination>
+<div class="paginatorContainer"
+     [id]="id"
+     [ngClass]="customClass">
+  <div class="form-group">
+    <label
+      for="pageSize"
+      [attr.aria-label]="ariaLabel"
+    >
+      {{sizeListLabel | translate}}
+    </label>
+    <select
+      [tabIndex]=""
+      name="pageSize"
+      id="pageSize"
+      class="form-control"
+      (change)="onChangeSize($event)"
+      [(ngModel)]="sizeValue"
+    >
+      <option [value]="size" *ngFor="let size of sizeList">{{size}}</option>
+    </select>
+  </div>
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="sizeValue"
+    [pageSizeOptions]="sizeList"
+    [pageIndex]="_pageValue"
+    (page)="onChangePage($event)"
+    [hidePageSize]="true"
+    [showFirstLastButtons]="true"
+  >
+  </mat-paginator>
+</div>

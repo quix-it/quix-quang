@@ -1,0 +1,33 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel | translate">
+    {{label | translate}}
+  </label>
+  <input [(ngModel)]="_searchValue"
+         [typeahead]="dataList"
+         class="form-control"
+         [id]="id"
+         [ngClass]="getClass()"
+         [disabled]="disabled"
+         [readOnly]="readonly"
+         [autofocus]="autofocus"
+         [attr.aria-label]="ariaLabel | translate"
+         [tabIndex]="tabIndex"
+         autocomplete="off"
+         [isAnimated]="true"
+         [adaptivePosition]="true"
+         [typeaheadOptionField]="searchBy"
+         [typeaheadScrollable]="true"
+         [typeaheadOptionsInScrollableView]="18"
+         [typeaheadMinLength]="startAfter"
+         (typeaheadOnSelect)="writeValue($event)"
+         (ngModelChange)="clearObj()"
+  >
+  <div class="valid-feedback">
+    {{successMessage | translate}}
+  </div>
+  <div [attr.aria-errormessage]="errorMessage | translate" class="invalid-feedback">
+    {{errorMessage | translate}}
+  </div>
+</div>
+<input type="text" [(ngModel)]="value" style="display: none; width: 0; height: 0">

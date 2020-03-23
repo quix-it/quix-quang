@@ -1,36 +1,23 @@
-<div class="form-check">
-  <div class="box"
-       *ngFor="let radio of radioList"
-       [ngClass]="getClass()"
-  >
-    <label
-      [htmlFor]="radio.label"
-      [ngClass]="{'readonly': readonly}"
-      [attr.aria-label]="ariaLabel"
-    >
-      {{radio.label |translate}}
-    </label>
-    <input type="radio"
-           [name]="groupName"
-           [id]="radio.label"
-           [(ngModel)]="value"
-           [disabled]="disabled"
-           [value]="radio.value"
-           [readOnly]="readonly"
-           [attr.aria-label]="ariaLabel"
-           [tabIndex]="tabIndex"
-    >
-    <label [htmlFor]="radio.label"
-           [attr.aria-label]="ariaLabel"
-           [ngClass]="{'readonly': readonly}"
-    >
-      <span></span>
-    </label>
-  </div>
-  <div class="valid-feedback">
+<div class="custom-control custom-radio"
+     *ngFor="let radio of radioList; let last = last; let index = index;"
+     [ngClass]="getClass()">
+  <input type="radio"
+         class="custom-control-input"
+         [name]="groupName"
+         [id]="radio[labelValue]"
+         [(ngModel)]="value"
+         [disabled]="disabled"
+         [tabIndex]="tabIndex + index"
+         [value]="radio[returnValue]">
+  <label class="custom-control-label"
+         [attr.aria-label]="ariaLabel"
+         [htmlFor]="radio[labelValue]">
+    {{radio[labelValue] |translate}}
+  </label>
+  <div class="valid-feedback" *ngIf="last">
     {{successMessage | translate}}
   </div>
-  <div [attr.aria-errormessage]="errorMessage" class="invalid-feedback">
+  <div [attr.aria-errormessage]="errorMessage" class="invalid-feedback" *ngIf="last">
     {{errorMessage | translate}}
   </div>
 </div>

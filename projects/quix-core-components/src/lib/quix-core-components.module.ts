@@ -21,7 +21,7 @@ import {QuixLoaderInterceptor} from './loader/quix-loader.interceptor';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {PieComponent} from './pie/pie.component';
 import {MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule} from '@angular/material';
-import {DataTableComponent} from './data-table/data-table.component';
+
 import {OSMapComponent} from './osmap/osmap.component';
 import {GoogleMapComponent} from './googleMap/google-map.component';
 import {QuixConfigModel} from './quix-config.model';
@@ -50,13 +50,19 @@ import {QuixHttpErrorInterceptor} from './http-error/quix-http-error.interceptor
 import {QuixValidationService} from './validation/quix-validation.service';
 import {InputColorComponent} from './input-color/input-color.component';
 import {QuixToastsService} from './toast/quix-toasts.service';
-import {AutocompleteComponent} from './input-autocomplete/autocomplete.component';
 import {PaginatorComponent} from './paginator/paginator.component';
 import {InputFileComponent} from './input-file/input-file.component';
 import {ToastsComponent} from './toast/toasts.component';
 import {NgxFileDropModule} from 'ngx-file-drop';
 import {StoreModule} from '@ngrx/store';
 import {CORECOMPONENTS_KEY, quixCoreComponetsReducers} from './quix-core-components.reducers';
+import {DataTableComponent} from "./data-table/data-table.component";
+import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
+import {PaginatorLanguage} from "./paginator/paginatorLanguage";
+import {AutocompleteStrgComponent} from "./autocomplete/autocomplete-strg/autocomplete-strg.component";
+import {AutocompleteStrgAsyncComponent} from "./autocomplete/autocomplete-strg-async/autocomplete-strg-async.component";
+import {AutocompleteObjComponent} from "./autocomplete/autocomplete-obj/autocomplete-obj.component";
+import {AutocompleteObjAsyncComponent} from "./autocomplete/autocomplete-obj-async/autocomplete-obj-async.component";
 
 @NgModule({
   declarations: [
@@ -81,11 +87,14 @@ import {CORECOMPONENTS_KEY, quixCoreComponetsReducers} from './quix-core-compone
     PictureComponent,
     RowSelectorComponent,
     QuixHttpErrorComponent,
-    AutocompleteComponent,
     InputFileComponent,
     ToastsComponent,
     PaginatorComponent,
-    InputColorComponent
+    InputColorComponent,
+    AutocompleteStrgComponent,
+    AutocompleteStrgAsyncComponent,
+    AutocompleteObjComponent,
+    AutocompleteObjAsyncComponent
   ],
   imports: [
     CommonModule,
@@ -103,6 +112,7 @@ import {CORECOMPONENTS_KEY, quixCoreComponetsReducers} from './quix-core-compone
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     PaginationModule.forRoot(),
+    MatPaginatorModule,
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }),
@@ -122,7 +132,9 @@ import {CORECOMPONENTS_KEY, quixCoreComponetsReducers} from './quix-core-compone
     QuixStyleService,
     QuixHttpErrorService,
     QuixValidationService,
-    QuixToastsService
+    QuixToastsService,
+    PaginatorLanguage,
+    {provide: MatPaginatorIntl, useClass: PaginatorLanguage}
   ],
   exports: [
     ChartComponent,
@@ -146,11 +158,14 @@ import {CORECOMPONENTS_KEY, quixCoreComponetsReducers} from './quix-core-compone
     PictureComponent,
     RowSelectorComponent,
     QuixHttpErrorComponent,
-    AutocompleteComponent,
     InputFileComponent,
     ToastsComponent,
     PaginatorComponent,
-    InputColorComponent
+    InputColorComponent,
+    AutocompleteStrgComponent,
+    AutocompleteStrgAsyncComponent,
+    AutocompleteObjComponent,
+    AutocompleteObjAsyncComponent
   ],
   entryComponents: [
     QuixHttpErrorComponent

@@ -1,36 +1,57 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
+import {PaginatorLanguage} from "./paginatorLanguage";
 
 @Component({
   selector: 'quix-paginator',
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.scss']
 })
-export class PaginatorComponent implements OnInit, OnChanges {
-
-  @Input() currentPage: number;
+export class PaginatorComponent implements OnInit {
   @Input() id: string;
-  @Input() initialPage: number;
+  @Input() customClass: string;
   @Input() totalItems: number;
-  @Input() localItemsPerPage: number;
-  @Input() maxSize: number;
-  @Input() nextText: string;
-  @Input() previousText: string;
+  @Input() tabIndex: number;
+  @Input() sizeListLabel: string;
+  @Input() ariaLabel: string;
+  @Input() sizeValue: number;
+  @Input() sizeList: Array<number>;
+  @Output() changedSize = new EventEmitter<any>();
   @Output() changedPage = new EventEmitter<any>();
+  _pageValue: number;
 
-  constructor(
-    private cd: ChangeDetectorRef
-  ) { }
-
-  ngOnInit() { }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.localItemsPerPage) {
-      this.cd.detectChanges();
-      this.currentPage = 1;
+  @Input() set pageValue(value: number) {
+    if (value || value === 0) {
+      this._pageValue = value;
+      this.changedPage.emit(this.pageValue)
     }
   }
 
-  pageChanged(event) {
-    this.changedPage.emit(event);
+  get pageValue(): number {
+    return this._pageValue;
+  }
+
+  constructor(
+    private paginatorLanguage: PaginatorLanguage
+  ) {
+  }
+
+  ngOnInit() {
+  }
+
+  onChangePage(event) {
+    this.pageValue = event.pageIndex;
+  }
+
+  onChangeSize(event) {
+    this.changedSize.emit(this.sizeValue)
   }
 }

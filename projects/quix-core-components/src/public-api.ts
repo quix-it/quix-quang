@@ -46,7 +46,6 @@ export * from './lib/input-email/input-email.component';
 export * from './lib/input-checkbox/input-checkbox.component';
 
 export * from './lib/input-radio/input-radio.component';
-export * from './lib/input-radio/input-radio.model';
 
 export * from './lib/input-date/input-date.component';
 
@@ -74,9 +73,6 @@ export * from './lib/http-error/quix-http-error.service';
 
 export * from './lib/validation/quix-validation.service';
 
-export * from './lib/input-autocomplete/autocomplete.component';
-export * from './lib/input-autocomplete/autocomplete.model';
-
 export * from './lib/input-file/input-file.component';
 
 export * from './lib/toast/quix-toasts.service';
@@ -87,9 +83,16 @@ export * from './lib/toast/toasts-store/toasts.reducer';
 export * from './lib/toast/toasts-store/toasts.selector';
 
 export * from './lib/paginator/paginator.component';
+export * from './lib/paginator/paginatorLanguage';
 
 export * from './lib/pie/pie-data.model';
 export * from './lib/pie/pie.component';
 export * from './lib/pie/chart-toolbox.model';
 
 export * from './lib/input-color/input-color.component';
+
+export * from './lib/autocomplete/autocomplete-strg/autocomplete-strg.component';
+export * from './lib/autocomplete/autocomplete-strg-async/autocomplete-strg-async.component';
+export * from './lib/autocomplete/autocomplete-obj/autocomplete-obj.component';
+export * from './lib/autocomplete/autocomplete-obj-async/autocomplete-obj-async.component';
+

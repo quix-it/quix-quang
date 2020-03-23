@@ -1,6 +1,7 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {QuixStyleService} from "../style/style.service";
 
 @Component({
   selector: 'quix-input-checkbox',
@@ -21,8 +22,12 @@ export class InputCheckboxComponent implements ControlValueAccessor {
   @Input() customClass: Array<string>;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
+  @Input() inline: boolean;
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
+  @Input() successMessage: string;
+  @Input() errorMessage: string;
+  @Input() validator: string | null;
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
@@ -37,7 +42,9 @@ export class InputCheckboxComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  constructor() { }
+  constructor(
+    private style: QuixStyleService
+  ) { }
 
   onChange(val) { }
 
@@ -60,5 +67,12 @@ export class InputCheckboxComponent implements ControlValueAccessor {
     } else {
       this.value = value;
     }
+  }
+  getClass() {
+    var arrayClass = this.style.getClassArray(this.validator, this.customClass);
+    if (this.inline) {
+      arrayClass.push('custom-control-inline')
+    }
+    return arrayClass
   }
 }

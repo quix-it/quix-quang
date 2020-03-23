@@ -85,20 +85,20 @@ export class QuixAuthService {
     return this.$user;
   }
 
-  getRoles() {
+  getStoredRoles() {
     this.$roles = this.roleStore.pipe(select(selectRoles));
     return this.$roles;
   }
 
-  getStoredRoles() {
+  getRoles() {
     return this.oauthService.loadUserProfile();
   }
 
-  hasRole(role: string) {
+  hasStoredRole(role: string) {
     this.$hasRole = this.roleStore.pipe(select(haveRole, {roleId: role}));
   }
 
-  hasRoles(roles: Array<string>) {
+  hasStoredRoles(roles: Array<string>) {
     this.$hasRole = this.roleStore.pipe(select(haveRoles, {roleIds: roles}));
   }
 }

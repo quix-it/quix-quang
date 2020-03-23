@@ -1,23 +1,21 @@
-<div class="form-check">
-  <div class="box" [ngClass]="customClass">
-    <label
-      [htmlFor]="id"
-      [ngClass]="{'readonly': readonly}"
-      [attr.aria-label]="ariaLabel"
-    >
-      {{label | translate}}
-    </label>
-    <input type="checkbox"
-           [name]="id"
-           [id]="id"
-           [(ngModel)]="value"
-           [disabled]="disabled"
-           [readOnly]="readonly"
-           [attr.aria-label]="ariaLabel"
-           [tabIndex]="tabIndex"
-    >
-    <label [htmlFor]="id" [ngClass]="{'readonly': readonly}">
-      <i [ngClass]="iconCheckClass"></i>
-    </label>
+<div class="custom-control custom-checkbox"
+     [ngClass]="getClass()">
+  <input type="checkbox" class="custom-control-input"
+         [name]="id"
+         [id]="id"
+         [(ngModel)]="value"
+         [disabled]="disabled"
+         [attr.aria-label]="ariaLabel"
+         [tabIndex]="tabIndex">
+  <label class="custom-control-label"
+         [attr.aria-label]="ariaLabel"
+         [htmlFor]="id">
+    {{label | translate}}
+  </label>
+  <div class="valid-feedback">
+    {{successMessage | translate}}
+  </div>
+  <div [attr.aria-errormessage]="errorMessage" class="invalid-feedback">
+    {{errorMessage | translate}}
   </div>
 </div>

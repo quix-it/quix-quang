@@ -1,0 +1,30 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel | translate">
+    {{label | translate}}
+  </label>
+  <input [(ngModel)]="value"
+         [typeahead]="suggestions$"
+         [typeaheadAsync]="true"
+         class="form-control"
+         [id]="id"
+         [ngClass]="getClass()"
+         [disabled]="disabled"
+         [readOnly]="readonly"
+         [autofocus]="autofocus"
+         [attr.aria-label]="ariaLabel | translate"
+         [tabIndex]="tabIndex"
+         autocomplete="off"
+         [isAnimated]="true"
+         [adaptivePosition]="true"
+         [typeaheadScrollable]="true"
+         [typeaheadOptionsInScrollableView]="18"
+         [typeaheadMinLength]="startAfter"
+  >
+  <div class="valid-feedback">
+    {{successMessage | translate}}
+  </div>
+  <div [attr.aria-errormessage]="errorMessage | translate" class="invalid-feedback">
+    {{errorMessage | translate}}
+  </div>
+</div>
