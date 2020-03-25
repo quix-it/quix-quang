@@ -1,9 +1,23 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins.scss";
+@import "~bootstrap/scss/variables";
+
 .paginatorContainer {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-end;
+  flex-wrap: wrap;
+  @include media-breakpoint-up(xs) {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
   .form-group {
     display: inline-block;
     margin-bottom: .5rem;
+    order: 2;
+    @include media-breakpoint-up(xs) {
+      order: 1;
+    }
   }
 }

@@ -28,7 +28,7 @@ export class AutocompleteObjComponent implements OnInit {
   @Input() returnValue: string;
   @Input() tabIndex: number;
   @Input() startAfter: number;
-  @Input() dataList: Array<string> = [];
+  @Input() dataList: Array<any> = [];
   // tslint:disable-next-line:no-input-rename
   @Input('value')
     // tslint:disable-next-line:variable-name
@@ -43,6 +43,8 @@ export class AutocompleteObjComponent implements OnInit {
     this._value = val;
     if (!this._searchValue) {
       this.findObj()
+    } else if (!val) {
+      this._searchValue = val
     }
     this.onChange(val);
     this.onTouched();

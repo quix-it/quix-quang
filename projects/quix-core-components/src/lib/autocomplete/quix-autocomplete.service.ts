@@ -11,7 +11,11 @@ export class QuixAutocompleteAsyncService {
   ) {
   }
   getRestList(baseUrl: string, url: string, param: string) {
+    if(param){
     return this.http.get(baseUrl + url + '/' + param)
+    } else {
+      return this.http.get(baseUrl + url)
+    }
   }
   getList(baseUrl: string, url: string, param: string, paramId: string) {
     const urlParam = {params: new HttpParams().set(paramId, param)};

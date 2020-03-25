@@ -50,6 +50,8 @@ export class AutocompleteObjAsyncComponent implements OnInit {
     this._value = val;
     if (!this._searchValue) {
       this.getList()
+    } else if (!val) {
+      this._searchValue = val
     }
     this.onChange(val);
     this.onTouched();
