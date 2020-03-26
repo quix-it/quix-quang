@@ -96,3 +96,4 @@ export * from './lib/autocomplete/autocomplete-strg-async/autocomplete-strg-asyn
 export * from './lib/autocomplete/autocomplete-obj/autocomplete-obj.component';
 export * from './lib/autocomplete/autocomplete-obj-async/autocomplete-obj-async.component';
 
+export * from './lib/input-password/input-password.component';

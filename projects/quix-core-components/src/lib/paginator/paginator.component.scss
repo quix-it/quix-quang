@@ -10,6 +10,7 @@
   @include media-breakpoint-up(xs) {
     flex-wrap: nowrap;
     justify-content: flex-start;
+    order: 2;
   }
 
   .form-group {

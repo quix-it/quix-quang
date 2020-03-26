@@ -63,6 +63,7 @@ import {AutocompleteStrgComponent} from "./autocomplete/autocomplete-strg/autoco
 import {AutocompleteStrgAsyncComponent} from "./autocomplete/autocomplete-strg-async/autocomplete-strg-async.component";
 import {AutocompleteObjComponent} from "./autocomplete/autocomplete-obj/autocomplete-obj.component";
 import {AutocompleteObjAsyncComponent} from "./autocomplete/autocomplete-obj-async/autocomplete-obj-async.component";
+import {InputPasswordComponent} from "./input-password/input-password.component";
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import {AutocompleteObjAsyncComponent} from "./autocomplete/autocomplete-obj-asy
     AutocompleteStrgComponent,
     AutocompleteStrgAsyncComponent,
     AutocompleteObjComponent,
-    AutocompleteObjAsyncComponent
+    AutocompleteObjAsyncComponent,
+    InputPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -165,7 +167,8 @@ import {AutocompleteObjAsyncComponent} from "./autocomplete/autocomplete-obj-asy
     AutocompleteStrgComponent,
     AutocompleteStrgAsyncComponent,
     AutocompleteObjComponent,
-    AutocompleteObjAsyncComponent
+    AutocompleteObjAsyncComponent,
+    InputPasswordComponent
   ],
   entryComponents: [
     QuixHttpErrorComponent
