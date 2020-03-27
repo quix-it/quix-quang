@@ -6,9 +6,12 @@
     </button>
   </div>
   <div class="modal-body">
+    <i class="fas fa-times-circle" [hidden]="status !== 400"></i>
     <i class="fas fa-user-lock" [hidden]="status !== 401"></i>
     <i class="fas fa-user-slash" [hidden]="status !== 403"></i>
-    <i class="fas fa-server" [hidden]="status < 500"></i>
+    <i class="fas fa-compress-arrows-alt" [hidden]="status !== 409"></i>
+    <i class="fas fa-server" [hidden]="status !== 500"></i>
+    <i class="fas fa-laptop-house" [hidden]="status !== 502"></i>
 
     <p>
       {{'httpErrorModal.' + status + '.errorMessage' | translate}}
