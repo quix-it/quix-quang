@@ -40,7 +40,6 @@ export class PaginatorComponent implements OnInit {
   }
 
   constructor(
-    private paginatorLanguage: PaginatorLanguage
   ) {
   }
 

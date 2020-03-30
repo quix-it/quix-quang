@@ -5,7 +5,7 @@ import {
   BsDatepickerModule,
   BsDropdownModule,
   ModalModule,
-  PaginationModule,
+  PaginationConfig, PaginationModule,
   TimepickerModule,
   TypeaheadModule
 } from 'ngx-bootstrap';
