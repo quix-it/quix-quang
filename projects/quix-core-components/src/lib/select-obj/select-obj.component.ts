@@ -1,21 +1,20 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
-
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {QuixStyleService} from "../style/style.service";
 
 @Component({
-  selector: 'quix-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+  selector: 'quix-select-obj',
+  templateUrl: './select-obj.component.html',
+  styleUrls: ['./select-obj.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectComponent),
+      useExisting: forwardRef(() => SelectObjComponent),
       multi: true
     }
   ]
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectObjComponent implements ControlValueAccessor {
   @Input() ariaLabel: string;
   @Input() label: string;
   @Input() placeholder: string;
@@ -26,9 +25,9 @@ export class SelectComponent implements ControlValueAccessor {
   @Input() validator: string | null;
   @Input() autofocus: boolean;
   @Input() disabled: boolean;
-  @Input() list: Array<any>;
-  @Input() itemLabel: string;
-  @Input() itemData: string;
+  @Input() list: Array<{}>;
+  @Input() labelValue: string;
+  @Input() returnValue: string;
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
@@ -65,8 +64,12 @@ export class SelectComponent implements ControlValueAccessor {
 
   // This is a basic setter that the forms API is going to use
   writeValue(value) {
-    if (value.target) {
-      this.value = value.target.value;
+    if (value) {
+      if (value.target) {
+        this.value = value.target.value;
+      } else {
+        this.value = value.value
+      }
     } else {
       this.value = value;
     }
@@ -75,5 +78,6 @@ export class SelectComponent implements ControlValueAccessor {
   getClass() {
     return this.style.getClassArray(this.validator, this.customClass);
   }
+
 
 }

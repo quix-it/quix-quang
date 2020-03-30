@@ -33,8 +33,6 @@ export * from './lib/googleMap/google-map.component';
 
 export * from './lib/input-text/input-text.component';
 
-export * from './lib/select/select.component';
-
 export * from './lib/style/style.service';
 
 export * from './lib/text-area/text-area.component';
@@ -97,3 +95,6 @@ export * from './lib/autocomplete/autocomplete-obj/autocomplete-obj.component';
 export * from './lib/autocomplete/autocomplete-obj-async/autocomplete-obj-async.component';
 
 export * from './lib/input-password/input-password.component';
+
+export * from './lib/select-obj/select-obj.component'
+export * from './lib/select-strg/select-strg.component'

@@ -5,7 +5,7 @@ import {
   BsDatepickerModule,
   BsDropdownModule,
   ModalModule,
-  PaginationConfig, PaginationModule,
+  PaginationModule,
   TimepickerModule,
   TypeaheadModule
 } from 'ngx-bootstrap';
@@ -26,7 +26,6 @@ import {OSMapComponent} from './osmap/osmap.component';
 import {GoogleMapComponent} from './googleMap/google-map.component';
 import {QuixConfigModel} from './quix-config.model';
 import {InputTextComponent} from './input-text/input-text.component';
-import {SelectComponent} from './select/select.component';
 import {QuixStyleService} from './style/style.service';
 import {FormsModule} from '@angular/forms';
 import {TextAreaComponent} from './text-area/text-area.component';
@@ -64,6 +63,8 @@ import {AutocompleteStrgAsyncComponent} from "./autocomplete/autocomplete-strg-a
 import {AutocompleteObjComponent} from "./autocomplete/autocomplete-obj/autocomplete-obj.component";
 import {AutocompleteObjAsyncComponent} from "./autocomplete/autocomplete-obj-async/autocomplete-obj-async.component";
 import {InputPasswordComponent} from "./input-password/input-password.component";
+import {SelectStrgComponent} from "./select-strg/select-strg.component";
+import {SelectObjComponent} from "./select-obj/select-obj.component";
 
 @NgModule({
   declarations: [
@@ -73,7 +74,6 @@ import {InputPasswordComponent} from "./input-password/input-password.component"
     OSMapComponent,
     GoogleMapComponent,
     InputTextComponent,
-    SelectComponent,
     TextAreaComponent,
     InputNumberComponent,
     InputEmailComponent,
@@ -96,7 +96,9 @@ import {InputPasswordComponent} from "./input-password/input-password.component"
     AutocompleteStrgAsyncComponent,
     AutocompleteObjComponent,
     AutocompleteObjAsyncComponent,
-    InputPasswordComponent
+    InputPasswordComponent,
+    SelectStrgComponent,
+    SelectObjComponent
   ],
   imports: [
     CommonModule,
@@ -145,7 +147,6 @@ import {InputPasswordComponent} from "./input-password/input-password.component"
     OSMapComponent,
     GoogleMapComponent,
     InputTextComponent,
-    SelectComponent,
     TextAreaComponent,
     InputNumberComponent,
     InputEmailComponent,
@@ -168,7 +169,9 @@ import {InputPasswordComponent} from "./input-password/input-password.component"
     AutocompleteStrgAsyncComponent,
     AutocompleteObjComponent,
     AutocompleteObjAsyncComponent,
-    InputPasswordComponent
+    InputPasswordComponent,
+    SelectStrgComponent,
+    SelectObjComponent
   ],
   entryComponents: [
     QuixHttpErrorComponent
