@@ -64,9 +64,9 @@ export class SelectStrgComponent implements ControlValueAccessor {
   writeValue(value) {
     if (value) {
       if (value.target) {
-        this.value = value.target.value;
+        this.value = value.target;
       } else {
-        this.value = value.value
+        this.value = value
       }
     } else {
       this.value = value;
