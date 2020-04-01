@@ -10,7 +10,7 @@
   >
     <option value=""></option>
     <option *ngFor="let item of list" [value]="item">
-      {{item}}
+      {{item | translate}}
     </option>
   </select>
   <div class="valid-feedback">
