@@ -1,13 +1,14 @@
 {
   "name": "@quix/quix-core-authentication",
-  "version": "0.7.7",
+  "version": "0.8.7",
   "peerDependencies": {
     "@angular/common": "^8.0.3",
     "@angular/core": "^8.0.3",
     "angular-oauth2-oidc": "^8.0.4",
     "@ngrx/effects": "^8.6.0",
     "@ngrx/store": "^8.6.0",
-    "@ngrx/store-devtools": "^8.6.0"
-
+    "@ngrx/store-devtools": "^8.6.0",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0"
   }
 }

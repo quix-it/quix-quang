@@ -8,8 +8,9 @@ import {RoleState} from './store/role.reducer';
 import {storeRoles} from './store/role.action';
 import {userLogin} from './store/user.action';
 import {Observable} from 'rxjs';
-import {selectUser} from './store/user.selector';
+import {selectLocale, selectUser} from './store/user.selector';
 import {haveRole, haveRoles, selectRoles} from './store/role.selector';
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class QuixAuthService {
   public config: QuixCoreAuthenticationModel;
   public $user: Observable<any>;
   public $roles: Observable<any>;
+  public $locale: Observable<any>;
   public $hasRole: Observable<any>;
 
   constructor(
@@ -25,6 +27,7 @@ export class QuixAuthService {
     private window: QuixWindowService,
     private roleStore: Store<RoleState>,
     private userStore: Store<UserState>,
+    private translate: TranslateService,
     @Optional() config: QuixCoreAuthenticationModel
   ) {
     if (config) {
@@ -35,11 +38,16 @@ export class QuixAuthService {
   initAuth() {
     if (this.config.oidcConfig) {
       this.oauthService.configure(this.config.oidcConfig);
+      this.startAuth()
     } else if (this.window.nativeWindow.authConfig) {
       this.oauthService.configure(this.window.nativeWindow.authConfig);
+      this.startAuth()
     } else {
       alert('Insert auth config');
     }
+  }
+
+  private startAuth() {
     this.oauthService.setStorage(localStorage);
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndLogin().then(isLoggedIn => {
@@ -64,6 +72,9 @@ export class QuixAuthService {
       (user: any) => {
         delete user.realm_access;
         this.userStore.dispatch(userLogin({userData: user}));
+        if (this.config.initStoreLocale) {
+          this.initStoreLocale()
+        }
       }
     );
   }
@@ -100,5 +111,26 @@ export class QuixAuthService {
 
   hasStoredRoles(roles: Array<string>) {
     this.$hasRole = this.roleStore.pipe(select(haveRoles, {roleIds: roles}));
+  }
+
+  getStoreLocale() {
+    this.$locale = this.userStore.pipe(select(selectLocale));
+    return this.$locale;
+  }
+
+  private initStoreLocale() {
+    this.getStoreLocale().subscribe(
+      (locale: string) => {
+        this.translate.setDefaultLang(locale);
+      }
+    )
+  }
+
+  initLocale() {
+    this.getUser().then(
+      (user: any) => {
+        this.translate.setDefaultLang(user.locale);
+      }
+    )
   }
 }

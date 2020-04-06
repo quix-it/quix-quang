@@ -98,3 +98,6 @@ export * from './lib/input-password/input-password.component';
 
 export * from './lib/select-obj/select-obj.component'
 export * from './lib/select-strg/select-strg.component'
+
+export * from './lib/multi-select-obj/multi-select-obj.component'
+export * from './lib/multi-select-strg/multi-select-strg.component'

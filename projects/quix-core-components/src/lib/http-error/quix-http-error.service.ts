@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {BsModalRef, BsModalService} from "ngx-bootstrap";
+
 import {QuixHttpErrorComponent} from "./quix-http-error.component";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 
 @Injectable({
   providedIn: 'root'

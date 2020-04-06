@@ -1,6 +1,6 @@
 import {Component, Injectable} from '@angular/core';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {Subject, Subscription} from 'rxjs';
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 
 @Injectable({
   providedIn: 'root'

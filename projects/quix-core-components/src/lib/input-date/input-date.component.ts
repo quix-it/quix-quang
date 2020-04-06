@@ -1,8 +1,8 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {BsDatepickerConfig, BsLocaleService} from 'ngx-bootstrap';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import * as _moment from 'moment';
 import {QuixStyleService} from '../style/style.service';
+import {BsDatepickerConfig, BsLocaleService} from "ngx-bootstrap/datepicker";
 
 @Component({
   selector: 'quix-input-date',

@@ -13,7 +13,7 @@
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "tsConfig": "projects/quix-core-components/tsconfig.lib.json",
-            "project": "projects/quix-core-components/ng-package.json"
+            "project": "projects/quix-core-components/ng-package.json",
           }
         },
         "test": {
@@ -48,7 +48,7 @@
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "tsConfig": "projects/quix-core-authentication/tsconfig.lib.json",
-            "project": "projects/quix-core-authentication/ng-package.json"
+            "project": "projects/quix-core-authentication/ng-package.json",
           }
         },
         "test": {
@@ -69,119 +69,6 @@
             "exclude": [
               "**/node_modules/**"
             ]
-          }
-        }
-      }
-    },
-    "theWhiteProject": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "projects/theWhiteProject",
-      "sourceRoot": "projects/theWhiteProject/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/theWhiteProject",
-            "index": "projects/theWhiteProject/src/index.html",
-            "main": "projects/theWhiteProject/src/main.ts",
-            "polyfills": "projects/theWhiteProject/src/polyfills.ts",
-            "tsConfig": "projects/theWhiteProject/tsconfig.app.json",
-            "aot": false,
-            "assets": [
-              "projects/theWhiteProject/src/favicon.ico",
-              "projects/theWhiteProject/src/assets"
-            ],
-            "styles": [
-              "projects/theWhiteProject/src/styles.css"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/theWhiteProject/src/environments/environment.ts",
-                  "with": "projects/theWhiteProject/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "theWhiteProject:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "theWhiteProject:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "theWhiteProject:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/theWhiteProject/src/test.ts",
-            "polyfills": "projects/theWhiteProject/src/polyfills.ts",
-            "tsConfig": "projects/theWhiteProject/tsconfig.spec.json",
-            "karmaConfig": "projects/theWhiteProject/karma.conf.js",
-            "assets": [
-              "projects/theWhiteProject/src/favicon.ico",
-              "projects/theWhiteProject/src/assets"
-            ],
-            "styles": [
-              "projects/theWhiteProject/src/styles.css"
-            ],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/theWhiteProject/tsconfig.app.json",
-              "projects/theWhiteProject/tsconfig.spec.json",
-              "projects/theWhiteProject/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/theWhiteProject/e2e/protractor.conf.js",
-            "devServerTarget": "theWhiteProject:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "theWhiteProject:serve:production"
-            }
           }
         }
       }

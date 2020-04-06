@@ -34,5 +34,11 @@
         "dist/quix-core-authentication/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "enableIvy": false,
+    "allowEmptyCodegenFiles": false,
+    "strictInjectionParameters": true
   }
 }

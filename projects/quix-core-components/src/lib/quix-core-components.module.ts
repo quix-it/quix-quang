@@ -1,14 +1,6 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {TranslateModule} from '@ngx-translate/core';
-import {
-  BsDatepickerModule,
-  BsDropdownModule,
-  ModalModule,
-  PaginationConfig, PaginationModule,
-  TimepickerModule,
-  TypeaheadModule
-} from 'ngx-bootstrap';
 import {CommonModule} from '@angular/common';
 import {QuixStorageService} from './storage/quix-storage.service';
 import {QuixModalService} from './modal/quix-modal.service';
@@ -20,8 +12,6 @@ import {QuixLoaderService} from './loader/quix-loader.service';
 import {QuixLoaderInterceptor} from './loader/quix-loader.interceptor';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {PieComponent} from './pie/pie.component';
-import {MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule} from '@angular/material';
-
 import {OSMapComponent} from './osmap/osmap.component';
 import {GoogleMapComponent} from './googleMap/google-map.component';
 import {QuixConfigModel} from './quix-config.model';
@@ -65,6 +55,18 @@ import {AutocompleteObjAsyncComponent} from "./autocomplete/autocomplete-obj-asy
 import {InputPasswordComponent} from "./input-password/input-password.component";
 import {SelectStrgComponent} from "./select-strg/select-strg.component";
 import {SelectObjComponent} from "./select-obj/select-obj.component";
+import {ModalModule} from "ngx-bootstrap/modal";
+import {BsDropdownModule} from "ngx-bootstrap/dropdown";
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import {PaginationModule} from "ngx-bootstrap/pagination";
+import {TimepickerModule} from "ngx-bootstrap/timepicker";
+import {TypeaheadModule} from "ngx-bootstrap/typeahead";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatSliderModule} from "@angular/material/slider";
+import {MatTableModule} from "@angular/material/table";
+import {MultiSelectStrgComponent} from "./multi-select-strg/multi-select-strg.component";
+import {MultiSelectObjComponent} from "./multi-select-obj/multi-select-obj.component";
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import {SelectObjComponent} from "./select-obj/select-obj.component";
     AutocompleteObjAsyncComponent,
     InputPasswordComponent,
     SelectStrgComponent,
-    SelectObjComponent
+    SelectObjComponent,
+    MultiSelectObjComponent,
+    MultiSelectStrgComponent
   ],
   imports: [
     CommonModule,
@@ -171,7 +175,9 @@ import {SelectObjComponent} from "./select-obj/select-obj.component";
     AutocompleteObjAsyncComponent,
     InputPasswordComponent,
     SelectStrgComponent,
-    SelectObjComponent
+    SelectObjComponent,
+    MultiSelectObjComponent,
+    MultiSelectStrgComponent
   ],
   entryComponents: [
     QuixHttpErrorComponent

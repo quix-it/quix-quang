@@ -3,3 +3,4 @@ import {quixCoreAuthenticationSelector} from '../../quix-core-authentication.sel
 import {QuixCoreAuthenticationState} from '../../quix-core-authentication.reducers';
 
 export const selectUser = createSelector(quixCoreAuthenticationSelector, (state: QuixCoreAuthenticationState) => state.userState.user);
+export const selectLocale = createSelector(quixCoreAuthenticationSelector, (state: QuixCoreAuthenticationState) => state.userState.user.locale);

@@ -3,6 +3,7 @@ export class QuixCoreAuthenticationModel {
     public oidcConfig: {},
     public storeUser: boolean,
     public storeRole: boolean,
+    public initStoreLocale: boolean,
   ) {
   }
 }
