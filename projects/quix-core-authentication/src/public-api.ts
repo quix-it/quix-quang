@@ -22,3 +22,5 @@ export * from './lib/window/quix-window.service';
 export * from './lib/quix-core-authentication.reducers';
 export * from './lib/quix-core-authentication.selector';
 
+export * from './lib/auth-guard/quix-auth-store.guard';
+export * from './lib/auth-guard/quix-auth.guard';

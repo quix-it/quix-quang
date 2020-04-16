@@ -1,5 +1,4 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {StyleService} from "../style.service";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {QuixStyleService} from "../style/style.service";
 

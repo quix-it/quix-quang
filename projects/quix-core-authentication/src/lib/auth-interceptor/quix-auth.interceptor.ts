@@ -16,7 +16,6 @@ export class QuixAuthInterceptor implements HttpInterceptor {
     function urlTest(apiUrl) {
       return url.indexOf(apiUrl) >= 0;
     }
-
     const find = this.window.nativeWindow.authConfig.apiBaseUrl.find(urlTest);
     return find;
   };

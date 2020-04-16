@@ -5,6 +5,11 @@
 
 .table-responsive {
   overflow: auto;
+  table {
+    &.table {
+      margin-bottom: 0;
+    }
+  }
 
   th.mat-header-cell {
     font-size: 1rem;

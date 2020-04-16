@@ -1,4 +1,5 @@
-<div class="table-responsive" [ngStyle]="{'max-height': maxHeight, 'max-width': maxWidth}">
+<div class="table-responsive"
+     [ngStyle]="{'max-height': maxHeight, 'max-width': maxWidth, 'padding-bottom': actionList.length + 'rem'}">
   <table mat-table [dataSource]="data" class="table">
     <ng-container matColumnDef="{{col.dataParams}}"
                   *ngFor="let col of columns, let last = last"

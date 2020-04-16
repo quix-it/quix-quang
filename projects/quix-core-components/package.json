@@ -1,6 +1,6 @@
 {
   "name": "@quix/quix-core-components",
-  "version": "0.45.0",
+  "version": "0.45.2",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
@@ -18,6 +18,9 @@
     "ngx-moment": "^3.5.0",
     "ng-lazyload-image": "^6.1.0",
     "@fortawesome/fontawesome-free": "^5.11.2",
-    "ngx-file-drop": "^8.0.8"
+    "ngx-file-drop": "^8.0.8",
+    "@ngrx/effects": "^8.6.0",
+    "@ngrx/store": "^8.6.0",
+    "@ngrx/store-devtools": "^8.6.0"
   }
 }

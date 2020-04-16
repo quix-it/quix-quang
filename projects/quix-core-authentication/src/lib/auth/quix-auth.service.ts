@@ -8,7 +8,7 @@ import {RoleState} from './store/role.reducer';
 import {storeRoles} from './store/role.action';
 import {userLogin} from './store/user.action';
 import {Observable} from 'rxjs';
-import {selectLocale, selectUser} from './store/user.selector';
+import {selectUser} from './store/user.selector';
 import {haveRole, haveRoles, selectRoles} from './store/role.selector';
 import {TranslateService} from "@ngx-translate/core";
 
@@ -19,7 +19,6 @@ export class QuixAuthService {
   public config: QuixCoreAuthenticationModel;
   public $user: Observable<any>;
   public $roles: Observable<any>;
-  public $locale: Observable<any>;
   public $hasRole: Observable<any>;
 
   constructor(
@@ -91,6 +90,10 @@ export class QuixAuthService {
     return this.oauthService.loadUserProfile();
   }
 
+  getRoles() {
+    return this.oauthService.loadUserProfile();
+  }
+
   getStoredUser() {
     this.$user = this.userStore.pipe(select(selectUser));
     return this.$user;
@@ -101,35 +104,26 @@ export class QuixAuthService {
     return this.$roles;
   }
 
-  getRoles() {
-    return this.oauthService.loadUserProfile();
-  }
 
   hasStoredRole(role: string) {
     this.$hasRole = this.roleStore.pipe(select(haveRole, {roleId: role}));
+    return this.$hasRole
   }
 
   hasStoredRoles(roles: Array<string>) {
     this.$hasRole = this.roleStore.pipe(select(haveRoles, {roleIds: roles}));
+    return this.$hasRole
   }
 
-  getStoreLocale() {
-    this.$locale = this.userStore.pipe(select(selectLocale));
-    return this.$locale;
-  }
 
   private initStoreLocale() {
-    this.getStoreLocale().subscribe(
-      (locale: string) => {
-        this.translate.setDefaultLang(locale);
-      }
-    )
-  }
-
-  initLocale() {
-    this.getUser().then(
+    let lang = navigator.language.slice(0, 2);
+    this.translate.setDefaultLang(lang);
+    this.getStoredUser().subscribe(
       (user: any) => {
-        this.translate.setDefaultLang(user.locale);
+        if (user.locale) {
+          this.translate.use(user.locale);
+        }
       }
     )
   }
