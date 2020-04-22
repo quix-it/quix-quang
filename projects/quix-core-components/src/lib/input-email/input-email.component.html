@@ -19,6 +19,12 @@
          [tabIndex]="tabIndex"
          [required]="required"
   >
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="validator"
+         *ngIf="helpMsg">
+    {{helpMsg | translate}}
+  </small>
   <div class="valid-feedback">
     {{successMessage | translate}}
   </div>

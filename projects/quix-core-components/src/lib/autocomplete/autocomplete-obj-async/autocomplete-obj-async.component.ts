@@ -22,6 +22,7 @@ export class AutocompleteObjAsyncComponent implements OnInit {
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
+  @Input() helpMsg: string;
   @Input() validator: string | null;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;

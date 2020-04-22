@@ -25,6 +25,7 @@ export class InputNumberComponent implements ControlValueAccessor {
   @Input() min: number;
   @Input() max: number;
   @Input() pattern: string;
+  @Input() helpMsg: string;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;

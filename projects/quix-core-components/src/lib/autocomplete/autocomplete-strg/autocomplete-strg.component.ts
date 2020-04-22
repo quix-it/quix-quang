@@ -24,6 +24,7 @@ export class AutocompleteStrgComponent implements OnInit {
   @Input() readonly: boolean;
   @Input() disabled: boolean;
   @Input() ariaLabel: string;
+  @Input() helpMsg: string;
   @Input() tabIndex: number;
   @Input() dataList: Array<string> = [];
   // tslint:disable-next-line:no-input-rename

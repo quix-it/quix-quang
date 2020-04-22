@@ -21,6 +21,7 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit {
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
+  @Input() helpMsg: string;
   @Input() iconClassView: string[];
   @Input() iconClassClose: string[];
   @Input() buttonClass: string[];

@@ -23,6 +23,7 @@ export class InputEmailComponent implements ControlValueAccessor {
   @Input() errorMessage: string;
   @Input() validator: string | null;
   @Input() pattern: string;
+  @Input() helpMsg: string;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;

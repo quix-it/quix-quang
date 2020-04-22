@@ -22,6 +22,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit {
   @Input() placeholder: string;
   @Input() validator: string;
   @Input() customClass: string;
+  @Input() helpMsg: string;
   @Input() dateFormat: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;

@@ -21,6 +21,7 @@ export class InputColorComponent implements ControlValueAccessor {
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
+  @Input() helpMsg: string;
   @Input() validator: string | null;
   @Input() autofocus: boolean;
   @Input() disabled: boolean;

@@ -17,6 +17,7 @@ import {QuixStyleService} from "../style/style.service";
 export class MultiSelectObjComponent implements ControlValueAccessor {
   @Input() ariaLabel: string;
   @Input() label: string;
+  @Input() helpMsg: string;
   @Input() placeholder: string;
   @Input() id: string;
   @Input() successMessage: string;

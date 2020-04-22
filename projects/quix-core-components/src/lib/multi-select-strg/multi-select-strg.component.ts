@@ -19,6 +19,7 @@ export class MultiSelectStrgComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() id: string;
+  @Input() helpMsg: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;

@@ -23,6 +23,7 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit {
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() validator: string;
+  @Input() helpMsg: string;
   @Input() customClass: string;
   @Input() disabled: boolean;
   @Input() required: boolean;

@@ -18,6 +18,7 @@ export class AutocompleteObjComponent implements OnInit {
   @Input() id: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
+  @Input() helpMsg: string;
   @Input() customClass: string;
   @Input() validator: string | null;
   @Input() autofocus: boolean;

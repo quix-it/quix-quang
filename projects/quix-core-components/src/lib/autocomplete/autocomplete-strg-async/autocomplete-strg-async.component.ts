@@ -27,6 +27,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
   @Input() readonly: boolean;
   @Input() disabled: boolean;
   @Input() ariaLabel: string;
+  @Input() helpMsg: string;
   @Input() tabIndex: number;
   @Input() restApi: boolean;
   @Input() baseUrl: string;

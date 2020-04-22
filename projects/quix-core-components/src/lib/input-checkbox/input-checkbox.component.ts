@@ -17,6 +17,7 @@ import {QuixStyleService} from "../style/style.service";
 })
 export class InputCheckboxComponent implements ControlValueAccessor {
   @Input() id: string;
+  @Input() helpMsg: string;
   @Input() label: string;
   @Input() iconCheckClass: Array<string>;
   @Input() customClass: Array<string>;
@@ -26,6 +27,7 @@ export class InputCheckboxComponent implements ControlValueAccessor {
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
   @Input() successMessage: string;
+  @Input() helMsg: string;
   @Input() errorMessage: string;
   @Input() validator: string | null;
   @Input('value')

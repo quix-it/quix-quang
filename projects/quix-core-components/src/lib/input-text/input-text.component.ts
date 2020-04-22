@@ -19,6 +19,7 @@ export class InputTextComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() ariaLabel: string;
   @Input() placeholder: string;
+  @Input() helpMsg: string;
   @Input() id: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
