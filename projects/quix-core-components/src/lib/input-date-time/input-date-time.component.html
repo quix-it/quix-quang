@@ -3,6 +3,7 @@
     <label [htmlFor]="id"
            [attr.aria-label]="ariaLabel">
       {{label | translate}}
+      <span [hidden]="!required">*</span>
     </label>
     <div class="input-group">
       <input type="text" [id]="id"
@@ -24,6 +25,7 @@
              [(ngModel)]="value"
              [attr.aria-label]="ariaLabel + ' date'"
              [tabIndex]="tabIndex"
+             [required]="required"
       >
       <div class="input-group-append">
         <button

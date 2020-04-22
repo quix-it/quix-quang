@@ -1,5 +1,8 @@
 <div class="form-group">
-  <label [htmlFor]="id" [attr.aria-label]="ariaLabel">{{label | translate}}</label>
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel">
+    {{label | translate}}
+    <span [hidden]="!required">*</span></label>
   <input type="number"
          class="form-control"
          [id]="id"
@@ -15,6 +18,7 @@
          [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
          [step]="step"
+         [required]="required"
   >
   <div class="valid-feedback">
     {{successMessage | translate}}

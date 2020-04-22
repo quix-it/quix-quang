@@ -24,6 +24,7 @@
          (typeaheadOnSelect)="writeValue($event)"
          (ngModelChange)="clearObj()"
          [placeholder]="placeholder | translate"
+         (typeaheadNoResults)="checkValue()"
   >
   <div class="valid-feedback">
     {{successMessage | translate}}

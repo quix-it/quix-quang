@@ -1,7 +1,7 @@
 <div class="form-group">
   <label [htmlFor]="id"
          [attr.aria-label]="ariaLabel | translate">
-    {{label | translate}}
+    {{label | translate}}<span [hidden]="!required">*</span>
   </label>
   <input type="color"
          class="form-control"
@@ -12,6 +12,7 @@
          [(ngModel)]="value"
          [attr.aria-label]="ariaLabel | translate"
          [tabIndex]="tabIndex"
+         [required]="required"
   >
   <div class="valid-feedback">
     {{successMessage | translate}}

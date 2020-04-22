@@ -28,6 +28,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit {
   @Input() locale: string;
   @Input() disabled: boolean;
   @Input() readonly: boolean;
+  @Input() required: boolean;
   @Input() showSecond: boolean;
   @Input() showWeekNumbers: boolean;
   @Input() showSelector: boolean;

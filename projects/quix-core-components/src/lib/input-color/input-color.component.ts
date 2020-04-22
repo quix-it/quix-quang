@@ -24,6 +24,7 @@ export class InputColorComponent implements ControlValueAccessor {
   @Input() validator: string | null;
   @Input() autofocus: boolean;
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() ariaLabel: string = this.label;
   @Input() tabIndex: number;
   // tslint:disable-next-line:no-input-rename

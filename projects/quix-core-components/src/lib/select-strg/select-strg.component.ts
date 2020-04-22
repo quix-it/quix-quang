@@ -24,6 +24,7 @@ export class SelectStrgComponent implements ControlValueAccessor {
   @Input() customClass: string;
   @Input() validator: string | null;
   @Input() autofocus: boolean;
+  @Input() required: boolean;
   @Input() disabled: boolean;
   @Input() list: Array<string | number>;
   @Input('value')

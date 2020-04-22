@@ -25,6 +25,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor {
   @Input() validator: string | null;
   @Input() autofocus: boolean;
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() list: Array<{}>;
   @Input() labelValue: string;
   @Input() returnValue: string;

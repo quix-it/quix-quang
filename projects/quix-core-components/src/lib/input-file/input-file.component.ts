@@ -26,6 +26,7 @@ export class InputFileComponent implements ControlValueAccessor {
   @Input() errorMessage: string;
   @Input() wrongFileMssage: string;
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() validator: string;
   @Input() customClass: string;
   @Input() ariaLabel: string;

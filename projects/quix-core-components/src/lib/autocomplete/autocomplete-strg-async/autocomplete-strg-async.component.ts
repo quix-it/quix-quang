@@ -60,7 +60,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
         observer.next(this.value);
       }).pipe(
         switchMap((query: string) => {
-          if (query) {
+          if (this.value) {
             return this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, this.value).pipe(
               map((data: any) => data || []),
             )
@@ -73,7 +73,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
         observer.next(this.value);
       }).pipe(
         switchMap((query: string) => {
-          if (query) {
+          if (this.value) {
             return this.autocompleteService.getList(this.baseUrl, this.apiUrl, this.value, this.apiParamName).pipe(
               map((data: any) => data || []),
             )

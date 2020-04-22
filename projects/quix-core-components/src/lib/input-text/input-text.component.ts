@@ -30,6 +30,7 @@ export class InputTextComponent implements ControlValueAccessor {
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() tabIndex: number;
   @Input('value')
     // tslint:disable-next-line:variable-name

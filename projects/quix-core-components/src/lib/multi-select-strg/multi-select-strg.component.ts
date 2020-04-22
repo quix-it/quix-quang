@@ -25,6 +25,7 @@ export class MultiSelectStrgComponent implements ControlValueAccessor {
   @Input() validator: string | null;
   @Input() autofocus: boolean;
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() rowVisible: number;
   @Input() list: Array<string | number>;
   @Input('value')

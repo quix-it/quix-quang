@@ -26,6 +26,7 @@ export class InputEmailComponent implements ControlValueAccessor {
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() multiple: boolean;
   @Input() customClass: string;
   @Input() ariaLabel: string;

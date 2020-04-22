@@ -1,4 +1,4 @@
-<div class="table-responsive"
+<div class="table-responsive" [hidden]="!data.length"
      [ngStyle]="{'max-height': maxHeight, 'max-width': maxWidth, 'padding-bottom': actionList.length + 'rem'}">
   <table mat-table [dataSource]="data" class="table">
     <ng-container matColumnDef="{{col.dataParams}}"
@@ -49,6 +49,6 @@
     <tr mat-footer-row *matFooterRowDef="displayColumn; sticky: fixFooter"></tr>
   </table>
 </div>
-<div class="no-results" [hidden]="data.length">
+<div id="no-results" role="alert" class="alert alert-secondary" [hidden]="data.length">
   {{noResultLabel | translate}}
 </div>

@@ -2,7 +2,8 @@
   <label
     [attr.aria-label]="ariaLabel"
     [htmlFor]="id">
-    {{label}}
+    {{label | translate}}
+    <span [hidden]="!required">*</span>
   </label>
   <div class="input-group">
     <input type="text" [id]="id"
@@ -22,6 +23,7 @@
            autocomplete="autocomplete_off_hack_xfr4!k"
            #drp="bsDaterangepicker"
            [(ngModel)]="value"
+           [required]="required"
     >
     <div class="input-group-append">
       <button class="btn"

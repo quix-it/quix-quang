@@ -24,6 +24,7 @@ export class SelectObjComponent implements ControlValueAccessor {
   @Input() customClass: string;
   @Input() validator: string | null;
   @Input() autofocus: boolean;
+  @Input() required: boolean;
   @Input() disabled: boolean;
   @Input() list: Array<{}>;
   @Input() labelValue: string;

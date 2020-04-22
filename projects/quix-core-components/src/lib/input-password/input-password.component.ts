@@ -14,13 +14,16 @@ import {QuixStyleService} from "../style/style.service";
     }
   ]
 })
-export class InputPasswordComponent implements ControlValueAccessor {
+export class InputPasswordComponent implements ControlValueAccessor, OnInit {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() id: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
+  @Input() iconClassView: string[];
+  @Input() iconClassClose: string[];
+  @Input() buttonClass: string[];
   @Input() validator: string | null;
   @Input() min: number;
   @Input() max: number;
@@ -28,12 +31,15 @@ export class InputPasswordComponent implements ControlValueAccessor {
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
+  @Input() required: boolean;
+  @Input() viewPassword: boolean;
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
   // tslint:disable-next-line:no-input-rename
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
+  type: string = 'password'
 
   get value() {
     return this._value;
@@ -46,6 +52,8 @@ export class InputPasswordComponent implements ControlValueAccessor {
   }
 
   constructor(private style: QuixStyleService) {
+  }
+  ngOnInit() {
   }
 
   onChange(val) {
@@ -76,6 +84,14 @@ export class InputPasswordComponent implements ControlValueAccessor {
 
   getClass() {
     return this.style.getClassArray(this.validator, this.customClass);
+  }
+
+  toggleType() {
+    if (this.type === 'password') {
+      this.type = 'text'
+    } else {
+      this.type = 'password'
+    }
   }
 }
 

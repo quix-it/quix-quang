@@ -27,6 +27,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit {
   @Input() successMessage: string;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() showWeekNumbers: boolean;
   @Input() dateFormat: string;
   @Input() locale: string;

@@ -98,6 +98,11 @@ export class AutocompleteObjComponent implements OnInit {
       this.value = ''
     }
   }
+  checkValue() {
+    if (this.value) {
+      this.value = ''
+    }
+  }
 
   getClass() {
     return this.style.getClassArray(this.validator, this.customClass);

@@ -25,6 +25,7 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit {
   @Input() validator: string;
   @Input() customClass: string;
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() readonly: boolean;
   @Input() showMeridianButton: boolean;
   @Input() minTime: Date;

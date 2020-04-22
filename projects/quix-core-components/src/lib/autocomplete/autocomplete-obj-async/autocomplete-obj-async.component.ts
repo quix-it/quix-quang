@@ -48,7 +48,7 @@ export class AutocompleteObjAsyncComponent implements OnInit {
 
   set value(val) {
     this._value = val;
-    if (!this._searchValue) {
+    if (!this._searchValue && val) {
       this.getList()
     } else if (!val) {
       this._searchValue = val
@@ -67,7 +67,7 @@ export class AutocompleteObjAsyncComponent implements OnInit {
         observer.next(this._searchValue);
       }).pipe(
         switchMap((query: string) => {
-          if (query) {
+          if (this._searchValue) {
             return this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, this._searchValue).pipe(
               map((data: any) => data || []),
             )
@@ -80,7 +80,7 @@ export class AutocompleteObjAsyncComponent implements OnInit {
         observer.next(this._searchValue);
       }).pipe(
         switchMap((query: string) => {
-          if (query) {
+          if (this._searchValue) {
             return this.autocompleteService.getList(this.baseUrl, this.apiUrl, this._searchValue, this.apiParamName).pipe(
               map((data: any) => data || []),
             )
@@ -88,6 +88,12 @@ export class AutocompleteObjAsyncComponent implements OnInit {
           return of([]);
         })
       );
+    }
+  }
+
+  checkValue() {
+    if (this.value) {
+      this.value = ''
     }
   }
 

@@ -10,6 +10,7 @@
         [htmlFor]="id"
         [attr.aria-label]="ariaLabel">
         {{label | translate}}
+        <span [hidden]="!required">*</span>
       </label>
       <div class="input-group">
         <input
@@ -22,6 +23,7 @@
           [ngClass]="getClass()"
           [attr.aria-label]="ariaLabel"
           [tabIndex]="tabIndex"
+          [required]="required"
         >
         <div class="input-group-append">
           <button class="btn"

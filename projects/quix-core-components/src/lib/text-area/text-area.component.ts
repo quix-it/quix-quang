@@ -23,10 +23,11 @@ export class TextAreaComponent implements ControlValueAccessor {
   @Input() errorMessage: string;
   @Input() customClass: string;
   @Input() validator: string | null;
-  @Input() minlength: number;
-  @Input() maxlength: number;
+  @Input() min: number;
+  @Input() max: number;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
+  @Input() required: boolean;
   @Input() disabled: boolean;
   @Input() rows: number;
   @Input() cols: number;

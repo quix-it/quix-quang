@@ -2,6 +2,7 @@
   <label [htmlFor]="id"
          [attr.aria-label]="ariaLabel">
     {{label | translate}}
+    <span [hidden]="!required">*</span>
   </label>
   <timepicker
     [id]="id"
@@ -20,6 +21,7 @@
     [ngClass]="getClass()"
     [attr.aria-label]="ariaLabel"
     [tabIndex]="tabIndex"
+    [required]="required"
   ></timepicker>
   <div class="valid-feedback">
     {{successMessage | translate}}

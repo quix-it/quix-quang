@@ -1,5 +1,9 @@
 <div class="form-group">
-  <label [htmlFor]="id" [attr.aria-label]="ariaLabel">{{label | translate}}</label>
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel">
+    {{label | translate}}
+    <span [hidden]="!required">*</span>
+  </label>
   <select class="custom-select" multiple
           size="rowVisible"
           [id]="id"
@@ -8,6 +12,7 @@
           [autofocus]="autofocus"
           [(ngModel)]="value"
           [attr.aria-label]="ariaLabel"
+          [required]="required"
   >
     <option value=""></option>
     <option *ngFor="let item of list" [value]="item[returnValue]">
