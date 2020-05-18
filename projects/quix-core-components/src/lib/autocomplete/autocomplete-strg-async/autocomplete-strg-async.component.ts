@@ -1,7 +1,7 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Observable, Observer, of} from "rxjs";
-import {map, switchMap} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
 import {QuixAutocompleteAsyncService} from "../quix-autocomplete.service";
 import {QuixStyleService} from "../../style/style.service";
 
@@ -60,6 +60,8 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
       this.suggestions$ = new Observable((observer: Observer<string>) => {
         observer.next(this.value);
       }).pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
         switchMap((query: string) => {
           if (this.value) {
             return this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, this.value).pipe(
@@ -73,6 +75,8 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
       this.suggestions$ = new Observable((observer: Observer<string>) => {
         observer.next(this.value);
       }).pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
         switchMap((query: string) => {
           if (this.value) {
             return this.autocompleteService.getList(this.baseUrl, this.apiUrl, this.value, this.apiParamName).pipe(

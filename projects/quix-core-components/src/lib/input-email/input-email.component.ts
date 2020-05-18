@@ -21,9 +21,9 @@ export class InputEmailComponent implements ControlValueAccessor {
   @Input() id: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input() pattern: string;
-  @Input() helpMsg: string;
+  @Input() helpMessage: string;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
@@ -81,6 +81,6 @@ export class InputEmailComponent implements ControlValueAccessor {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 }

@@ -3,17 +3,25 @@
      [ngClass]="getClass()">
   <input type="radio"
          class="custom-control-input"
+         [ngClass]="classValidation"
          [name]="groupName"
-         [id]="radio[labelValue]"
+         [id]="id + radio[labelValue]"
          [(ngModel)]="value"
          [disabled]="disabled"
          [tabIndex]="tabIndex + index"
-         [value]="radio[returnValue]">
+         [value]="radio[returnValue]"
+         [required]="required">
   <label class="custom-control-label"
          [attr.aria-label]="ariaLabel"
-         [htmlFor]="radio[labelValue]">
+         [htmlFor]="id + radio[labelValue]">
     {{radio[labelValue] |translate}}
   </label>
+  <small [id]="radio[labelValue] + 'Help'"
+         class="form-text text-muted"
+         [hidden]="classValidation"
+         *ngIf="helpMessage && last">
+    {{helpMessage | translate}}
+  </small>
   <div class="valid-feedback" *ngIf="last">
     {{successMessage | translate}}
   </div>

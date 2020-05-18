@@ -2,6 +2,8 @@ import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {QuixStyleService} from "../style/style.service";
 
+
+
 @Component({
   selector: 'quix-input-password',
   templateUrl: './input-password.component.html',
@@ -16,16 +18,16 @@ import {QuixStyleService} from "../style/style.service";
 })
 export class InputPasswordComponent implements ControlValueAccessor, OnInit {
   @Input() label: string;
-  @Input() placeholder: string;
+  @Input() placeholder: string = '';
   @Input() id: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
-  @Input() helpMsg: string;
+  @Input() helpMessage: string;
   @Input() iconClassView: string[];
-  @Input() iconClassClose: string[];
+  @Input() iconClassHide: string[];
   @Input() buttonClass: string[];
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input() min: number;
   @Input() max: number;
   @Input() pattern: string;
@@ -54,6 +56,7 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit {
 
   constructor(private style: QuixStyleService) {
   }
+
   ngOnInit() {
   }
 
@@ -84,7 +87,7 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 
   toggleType() {

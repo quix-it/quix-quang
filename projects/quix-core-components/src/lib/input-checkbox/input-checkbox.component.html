@@ -1,22 +1,25 @@
 <div class="custom-control custom-checkbox"
      [ngClass]="getClass()">
   <input type="checkbox" class="custom-control-input"
+         [ngClass]="classValidation"
          [name]="id"
          [id]="id"
          [(ngModel)]="value"
          [disabled]="disabled"
          [attr.aria-label]="ariaLabel"
-         [tabIndex]="tabIndex">
+         [tabIndex]="tabIndex"
+         [required]="required">
   <label class="custom-control-label"
          [attr.aria-label]="ariaLabel"
          [htmlFor]="id">
     {{label | translate}}
+    <span [hidden]="!required">*</span>
   </label>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="validator"
-         *ngIf="helpMsg">
-    {{helpMsg | translate}}
+         [hidden]="classValidation"
+         *ngIf="helpMessage">
+    {{helpMessage | translate}}
   </small>
   <div class="valid-feedback">
     {{successMessage | translate}}

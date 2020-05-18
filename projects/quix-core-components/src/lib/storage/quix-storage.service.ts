@@ -34,7 +34,7 @@ export class QuixStorageService {
     this.localStorage.store(key, JSON.stringify(value));
   }
 
-  getLocal(key: string, defaultValue: string): string {
+  getLocal(key: string): string {
     return JSON.parse(this.localStorage.retrieve(key));
   }
 

@@ -1,6 +1,7 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
+import {QuixStyleService} from "../style/style.service";
+
 
 @Component({
   selector: 'quix-input-radio',
@@ -16,18 +17,20 @@ import {QuixStyleService} from '../style/style.service';
 })
 export class InputRadioComponent implements ControlValueAccessor {
   @Input() groupName: string;
+  @Input() id: string;
   @Input() customClass: Array<string>;
-  @Input() readonly: boolean;
   @Input() disabled: boolean;
   @Input() inline: boolean;
+  @Input() required: boolean;
   @Input() radioList: Array<any>;
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
   @Input() successMessage: string;
+  @Input() helpMessage: string;
   @Input() errorMessage: string;
   @Input() labelValue: string;
   @Input() returnValue: string;
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
@@ -77,7 +80,7 @@ export class InputRadioComponent implements ControlValueAccessor {
   }
 
   getClass() {
-    var arrayClass = this.style.getClassArray(this.validator, this.customClass);
+    var arrayClass = this.style.getClassArray(this.classValidation, this.customClass);
     if (this.inline) {
       arrayClass.push('custom-control-inline')
     }

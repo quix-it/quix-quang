@@ -1,5 +1,4 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
-
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {QuixStyleService} from "../style/style.service";
 
@@ -17,19 +16,17 @@ import {QuixStyleService} from "../style/style.service";
 })
 export class InputCheckboxComponent implements ControlValueAccessor {
   @Input() id: string;
-  @Input() helpMsg: string;
   @Input() label: string;
-  @Input() iconCheckClass: Array<string>;
   @Input() customClass: Array<string>;
-  @Input() readonly: boolean;
   @Input() disabled: boolean;
   @Input() inline: boolean;
+  @Input() required: boolean;
   @Input() ariaLabel: string;
+  @Input() classValidation: string;
   @Input() tabIndex: number;
   @Input() successMessage: string;
-  @Input() helMsg: string;
   @Input() errorMessage: string;
-  @Input() validator: string | null;
+  @Input() helpMessage: string;
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
@@ -71,8 +68,8 @@ export class InputCheckboxComponent implements ControlValueAccessor {
     }
   }
   getClass() {
-    var arrayClass = this.style.getClassArray(this.validator, this.customClass);
-    if (this.inline) {
+    var arrayClass = this.style.getClassArray(this.classValidation, this.customClass);
+    if(this.inline){
       arrayClass.push('custom-control-inline')
     }
     return arrayClass

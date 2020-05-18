@@ -16,11 +16,6 @@ export * from './lib/snackbar/quix-snackbar.service';
 
 export * from './lib/modal/quix-modal.service';
 
-export * from './lib/chart/chart.component';
-export * from './lib/chart/chart-axis.model';
-export * from './lib/chart/chart-data.model';
-export * from './lib/chart/chart-tooltip.model';
-
 export * from './lib/data-table/action-data-table.model';
 export * from './lib/data-table/column-data-table.model';
 export * from './lib/data-table/data-table.component';
@@ -69,8 +64,6 @@ export * from './lib/http-error/quix-http-error.component';
 export * from './lib/http-error/quix-http-error.interceptor';
 export * from './lib/http-error/quix-http-error.service';
 
-export * from './lib/validation/quix-validation.service';
-
 export * from './lib/input-file/input-file.component';
 
 export * from './lib/toast/quix-toasts.service';
@@ -96,8 +89,14 @@ export * from './lib/autocomplete/autocomplete-obj-async/autocomplete-obj-async.
 
 export * from './lib/input-password/input-password.component';
 
-export * from './lib/select-obj/select-obj.component'
-export * from './lib/select-strg/select-strg.component'
+export * from './lib/select-obj/select-obj.component';
+export * from './lib/select-strg/select-strg.component';
 
-export * from './lib/multi-select-obj/multi-select-obj.component'
-export * from './lib/multi-select-strg/multi-select-strg.component'
+export * from './lib/multi-select-obj/multi-select-obj.component';
+export * from './lib/multi-select-strg/multi-select-strg.component';
+
+export * from './lib/chart-bar/chart-bar.component';
+export * from './lib/chart-bar/chart-bar.model';
+
+export * from './lib/chart-line/chart-line.component';
+export * from './lib/chart-line/chart-line.model';

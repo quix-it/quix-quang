@@ -1,6 +1,7 @@
 <div class="form-group">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel">
+         [attr.aria-label]="ariaLabel"
+  [hidden]="!label">
     {{label | translate}}
     <span [hidden]="!required">*</span>
   </label>
@@ -21,9 +22,9 @@
   >
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="validator"
-         *ngIf="helpMsg">
-    {{helpMsg | translate}}
+         [hidden]="classValidation"
+         *ngIf="helpMessage">
+    {{helpMessage | translate}}
   </small>
   <div class="valid-feedback">
     {{successMessage | translate}}

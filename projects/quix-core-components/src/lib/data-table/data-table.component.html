@@ -1,5 +1,5 @@
 <div class="table-responsive" [hidden]="!data.length"
-     [ngStyle]="{'max-height': maxHeight, 'max-width': maxWidth, 'padding-bottom': actionList.length + 'rem'}">
+     [ngStyle]="{'max-height': maxHeight, 'max-width': maxWidth, 'padding-bottom': actionList?.length + 'rem'}">
   <table mat-table [dataSource]="data" class="table">
     <ng-container matColumnDef="{{col.dataParams}}"
                   *ngFor="let col of columns, let last = last"
@@ -30,7 +30,7 @@
      aria-controls="basic-link-dropdown">
     <i [ngClass]="actionIcon"></i>
   </a>
-  <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu"
+  <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu dropdown-menu-right"
       role="menu" aria-labelledby="basic-link">
     <li *ngFor="let act of actionList" [hidden]="!act.condition(element)">
       <a class="dropdown-item" (click)="actionClick(element, act.actionName)">

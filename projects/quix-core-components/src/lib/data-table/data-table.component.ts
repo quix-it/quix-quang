@@ -1,13 +1,23 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {ColumnDataTableModel} from './column-data-table.model';
 import {ActionDataTableModel} from './action-data-table.model';
 
 @Component({
   selector: 'quix-data-table',
   templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.scss']
+  styleUrls: ['./data-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DataTableComponent implements OnInit {
+export class DataTableComponent implements OnInit, OnChanges{
   @Input() columns: Array<ColumnDataTableModel>;
   @Input() data: Array<any>;
   @Input() maxHeight: string;
@@ -27,12 +37,16 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.displayColumn = [];
     if (this.columns.length) {
       this.columns.forEach((col) => {
         this.displayColumn.push(col.dataParams);
       });
-      if (this.actionList) {
+      if (this.actionList?.length) {
         this.displayColumn.push('action');
       }
     }

@@ -5,6 +5,8 @@
 
 .table-responsive {
   overflow: auto;
+  width: 1px;
+  min-width: 100%;
   table {
     &.table {
       margin-bottom: 0;

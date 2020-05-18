@@ -25,13 +25,14 @@ export class InputNumberComponent implements ControlValueAccessor {
   @Input() min: number;
   @Input() max: number;
   @Input() pattern: string;
-  @Input() helpMsg: string;
+  @Input() helpMessage: string;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() customClass: string;
   @Input() ariaLabel: string;
+  @Input() autocomplete: string;
   @Input() tabIndex: number;
   @Input() step: number;
   @Input('value')

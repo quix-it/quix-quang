@@ -24,3 +24,7 @@ export * from './lib/quix-core-authentication.selector';
 
 export * from './lib/auth-guard/quix-auth-store.guard';
 export * from './lib/auth-guard/quix-auth.guard';
+
+export * from './lib/auth-directive/has-store-role.directive';
+export * from './lib/auth-directive/has-store-roles.directive';
+export * from './lib/auth-directive/user-is-logged.directive';
