@@ -64,6 +64,7 @@ import {MultiSelectStrgComponent} from "./multi-select-strg/multi-select-strg.co
 import {MultiSelectObjComponent} from "./multi-select-obj/multi-select-obj.component";
 import {ChartLineComponent} from "./chart-line/chart-line.component";
 import {ChartBarComponent} from "./chart-bar/chart-bar.component";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import {ChartBarComponent} from "./chart-bar/chart-bar.component";
     TypeaheadModule.forRoot(),
     NgxFileDropModule,
     PaginationModule,
-    StoreModule.forFeature(CORECOMPONENTS_KEY, quixCoreComponetsReducers)
+    StoreModule.forFeature(CORECOMPONENTS_KEY, quixCoreComponetsReducers),
+    MatInputModule
   ],
   providers: [
     QuixStorageService,

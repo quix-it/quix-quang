@@ -1,7 +1,6 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {QuixStyleService} from "../style/style.service";
-
 
 
 @Component({
@@ -16,7 +15,7 @@ import {QuixStyleService} from "../style/style.service";
     }
   ]
 })
-export class InputPasswordComponent implements ControlValueAccessor, OnInit {
+export class InputPasswordComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   @Input() label: string;
   @Input() placeholder: string = '';
   @Input() id: string;
@@ -43,6 +42,7 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit {
     // tslint:disable-next-line:variable-name
   _value: string;
   type: string = 'password'
+  @ViewChild('input') input: ElementRef<HTMLInputElement>
 
   get value() {
     return this._value;
@@ -55,6 +55,13 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit {
   }
 
   constructor(private style: QuixStyleService) {
+  }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    },0)
   }
 
   ngOnInit() {

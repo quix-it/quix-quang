@@ -1,6 +1,7 @@
 <div class="form-group">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel">
+         [attr.aria-label]="ariaLabel"
+         [hidden]="!label">
     {{label | translate}}
     <span [hidden]="!required">*</span>
   </label>
@@ -8,10 +9,10 @@
           [id]="id"
           [ngClass]="getClass()"
           [disabled]="disabled"
-          [autofocus]="autofocus"
           [(ngModel)]="value"
           [attr.aria-label]="ariaLabel"
           [required]="required"
+          #input
   >
     <option value=""></option>
     <option *ngFor="let item of list" [value]="item">
@@ -20,9 +21,9 @@
   </select>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="validator"
-         *ngIf="helpMsg">
-    {{helpMsg | translate}}
+         [hidden]="classValidation"
+         *ngIf="helpMessage">
+    {{helpMessage | translate}}
   </small>
   <div class="valid-feedback">
     {{successMessage | translate}}

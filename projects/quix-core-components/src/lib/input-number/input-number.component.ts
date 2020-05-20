@@ -1,6 +1,7 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
+import {QuixStyleService} from "../style/style.service";
+
 
 
 @Component({
@@ -15,13 +16,13 @@ import {QuixStyleService} from '../style/style.service';
     }
   ]
 })
-export class InputNumberComponent implements ControlValueAccessor {
+export class InputNumberComponent implements ControlValueAccessor, AfterViewInit {
   @Input() label: string;
-  @Input() placeholder: string;
+  @Input() placeholder: string = '';
   @Input() id: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input() min: number;
   @Input() max: number;
   @Input() pattern: string;
@@ -38,6 +39,7 @@ export class InputNumberComponent implements ControlValueAccessor {
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
+  @ViewChild('input') input: ElementRef<HTMLInputElement>
 
   get value() {
     return this._value;
@@ -50,6 +52,14 @@ export class InputNumberComponent implements ControlValueAccessor {
   }
 
   constructor(private style: QuixStyleService) {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    }, 0)
   }
 
   onChange(val) {
@@ -80,6 +90,6 @@ export class InputNumberComponent implements ControlValueAccessor {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 }

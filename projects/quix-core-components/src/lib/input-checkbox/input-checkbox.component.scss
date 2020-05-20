@@ -1,5 +1,5 @@
-.custom-control{
-  &:hover {
+.custom-checkbox {
+  .custom-control-label::after{
     cursor: pointer;
   }
 }

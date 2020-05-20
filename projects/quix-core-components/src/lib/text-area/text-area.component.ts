@@ -1,6 +1,8 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
+
+import {CdkTextareaAutosize} from "@angular/cdk/text-field";
+import {QuixStyleService} from "../style/style.service";
 
 
 @Component({
@@ -15,28 +17,34 @@ import {QuixStyleService} from '../style/style.service';
     }
   ]
 })
-export class TextAreaComponent implements ControlValueAccessor {
+export class TextAreaComponent implements ControlValueAccessor, AfterViewInit {
   @Input() label: string;
-  @Input() placeholder: string;
+  @Input() placeholder: string = '';
   @Input() id: string;
-  @Input() helpMsg: string;
+  @Input() helpMessage: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input() min: number;
-  @Input() max: number;
+  @Input() max: number = 255;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
+  @Input() autoResize: boolean;
   @Input() required: boolean;
   @Input() disabled: boolean;
   @Input() rows: number;
   @Input() cols: number;
   @Input() tabIndex: number;
   @Input() ariaLabel: string;
+  @Input() resizeMode: 'none' | 'auto' | 'vertical'| 'horizzontal' = 'auto';
+
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
+  @ViewChild('input') input: ElementRef<HTMLTextAreaElement>
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+
   get value() {
     return this._value;
   }
@@ -48,6 +56,17 @@ export class TextAreaComponent implements ControlValueAccessor {
   }
 
   constructor(private style: QuixStyleService) {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    }, 0)
+    if(this.autoResize){
+      this.autosize.resizeToFitContent(true);
+    }
   }
 
   onChange(val) {
@@ -82,6 +101,6 @@ export class TextAreaComponent implements ControlValueAccessor {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 }

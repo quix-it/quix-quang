@@ -2,6 +2,8 @@ import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {QuixStyleService} from "../style/style.service";
 
+
+
 @Component({
   selector: 'quix-multi-select-obj',
   templateUrl: './multi-select-obj.component.html',
@@ -17,13 +19,12 @@ import {QuixStyleService} from "../style/style.service";
 export class MultiSelectObjComponent implements ControlValueAccessor {
   @Input() ariaLabel: string;
   @Input() label: string;
-  @Input() helpMsg: string;
-  @Input() placeholder: string;
+  @Input() helpMessage: string;
   @Input() id: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input() autofocus: boolean;
   @Input() disabled: boolean;
   @Input() required: boolean;
@@ -79,7 +80,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 
 }

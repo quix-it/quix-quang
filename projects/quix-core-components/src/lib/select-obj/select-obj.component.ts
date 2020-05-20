@@ -1,6 +1,8 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {QuixStyleService} from "../style/style.service";
+
+
 
 @Component({
   selector: 'quix-select-obj',
@@ -14,16 +16,16 @@ import {QuixStyleService} from "../style/style.service";
     }
   ]
 })
-export class SelectObjComponent implements ControlValueAccessor {
+export class SelectObjComponent implements ControlValueAccessor, AfterViewInit {
   @Input() ariaLabel: string;
   @Input() label: string;
-  @Input() placeholder: string;
   @Input() id: string;
   @Input() helpMsg: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
+  @Input() helpMessage: string;
   @Input() customClass: string;
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input() autofocus: boolean;
   @Input() required: boolean;
   @Input() disabled: boolean;
@@ -33,6 +35,8 @@ export class SelectObjComponent implements ControlValueAccessor {
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
+  @ViewChild('input') input: ElementRef<HTMLSelectElement>
+
   get value() {
     return this._value;
   }
@@ -44,6 +48,14 @@ export class SelectObjComponent implements ControlValueAccessor {
   }
 
   constructor(private style: QuixStyleService) {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    },0)
   }
 
   onChange(val) {
@@ -78,7 +90,7 @@ export class SelectObjComponent implements ControlValueAccessor {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 
 

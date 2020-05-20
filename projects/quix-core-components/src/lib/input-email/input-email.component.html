@@ -11,7 +11,6 @@
          placeholder="{{placeholder | translate}}"
          [readOnly]="readonly"
          [multiple]="multiple"
-         [autofocus]="autofocus"
          [pattern]="pattern"
          [disabled]="disabled"
          [ngClass]="getClass()"
@@ -19,6 +18,7 @@
          [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
          [required]="required"
+         #input
   >
   <small [id]="id + 'Help'"
          class="form-text text-muted"

@@ -5,13 +5,11 @@ import {
   forwardRef,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
-import {createViewChild} from "@angular/compiler/src/core";
+import {QuixStyleService} from "../style/style.service";
 
 
 @Component({
@@ -44,7 +42,6 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() tabIndex: number;
-  @Input() autocomplete: string;
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
@@ -64,9 +61,11 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   }
 
   ngAfterViewInit(): void {
-    if (this.autofocus) {
-      this.input.nativeElement.focus()
-    }
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    },0)
   }
 
   ngOnChanges(changes: SimpleChanges): void {

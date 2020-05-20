@@ -2,6 +2,7 @@ import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {QuixStyleService} from "../style/style.service";
 
+
 @Component({
   selector: 'quix-multi-select-strg',
   templateUrl: './multi-select-strg.component.html',
