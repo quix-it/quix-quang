@@ -1,6 +1,17 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
+import {QuixStyleService} from "../style/style.service";
+
 
 
 @Component({
@@ -15,23 +26,23 @@ import {QuixStyleService} from '../style/style.service';
     }
   ]
 })
-export class InputColorComponent implements ControlValueAccessor {
+export class InputColorComponent implements ControlValueAccessor,  AfterViewInit, OnChanges {
   @Input() id: string;
   @Input() label: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
-  @Input() helpMsg: string;
-  @Input() validator: string | null;
+  @Input() helpMessage: string;
+  @Input() classValidation: string | null;
   @Input() autofocus: boolean;
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() ariaLabel: string = this.label;
   @Input() tabIndex: number;
-  // tslint:disable-next-line:no-input-rename
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;
+  @ViewChild('input') input: ElementRef<HTMLInputElement>;
 
   get value() {
     return this._value;
@@ -42,11 +53,29 @@ export class InputColorComponent implements ControlValueAccessor {
     this.onChange(val);
     this.onTouched();
   }
-  constructor(private style: QuixStyleService) { }
 
-  onChange(val) { }
+  constructor(private style: QuixStyleService) {
+  }
 
-  onTouched() { }
+  onChange(val) {
+  }
+
+  onTouched() {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    },0)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus()
+    }
+  }
 
   registerOnChange(fn) {
     this.onChange = fn;
@@ -65,7 +94,7 @@ export class InputColorComponent implements ControlValueAccessor {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 
 }

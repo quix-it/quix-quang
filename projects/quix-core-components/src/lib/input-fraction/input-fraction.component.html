@@ -1,0 +1,90 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | translate}}
+    <span [hidden]="!required">*</span>
+  </label>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <button type="button"
+              [ngClass]="addButtonClass"
+              (click)="addInteger()"
+              [disabled]="disabled || readonly"
+      >
+        <i [ngClass]="addButtonIcon"></i>
+      </button>
+    </div>
+
+    <input type="text"
+           class="form-control text-right"
+           [id]="id + 'dec'"
+           [step]="stepInteger"
+           [ngClass]="getClass()"
+           [(ngModel)]="_valueInteger"
+           [disabled]="disabled"
+           [readOnly]="readonly"
+           (change)="writeValueInteger($event)"
+           [attr.aria-label]="ariaLabel"
+           [tabIndex]="tabIndex"
+           [required]="required"
+           #input
+    >
+
+    <div class="input-group-append">
+      <button type="button"
+              [ngClass]="removeButtonClass"
+              (click)="removeInteger()"
+              [disabled]="disabled || readonly"
+      >
+        <i [ngClass]="removeButtonIcon"></i>
+      </button>
+    </div>
+    <div class="input-group-append">
+      <span class="input-group-text">,</span>
+    </div>
+    <div class="input-group-append">
+      <button type="button"
+              [ngClass]="addButtonClass"
+              (click)="addFraction()"
+              [disabled]="disabled || readonly"
+      >
+        <i [ngClass]="addButtonIcon"></i>
+      </button>
+    </div>
+    <input type="text"
+           class="form-control"
+           [id]="id + 'int'"
+           [step]="stepFraction"
+           [ngClass]="getClass()"
+           [(ngModel)]="_valueFraction"
+           (change)="writeValueFraction($event)"
+           [attr.aria-label]="ariaLabel"
+           [disabled]="disabled"
+           [readOnly]="readonly"
+
+    >
+    <div class="input-group-append">
+      <button type="button"
+              [ngClass]="removeButtonClass"
+              (click)="removeFraction()"
+              [disabled]="disabled || readonly"
+      >
+        <i [ngClass]="removeButtonIcon"></i>
+      </button>
+    </div>
+    <div class="valid-feedback">
+      {{successMessage | translate}}
+    </div>
+    <div [attr.aria-errormessage]="errorMessage" class="invalid-feedback">
+      {{errorMessage | translate}}
+    </div>
+  </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="classValidation"
+         *ngIf="helpMessage">
+    {{helpMessage | translate}}
+  </small>
+</div>
+

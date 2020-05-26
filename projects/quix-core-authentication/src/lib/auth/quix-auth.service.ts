@@ -35,11 +35,11 @@ export class QuixAuthService {
   }
 
   initAuth() {
-    if (this.config.oidcConfig) {
-      this.oauthService.configure(this.config.oidcConfig);
-      this.startAuth()
-    } else if (this.window.nativeWindow.authConfig) {
+    if (this.window.nativeWindow.authConfig) {
       this.oauthService.configure(this.window.nativeWindow.authConfig);
+      this.startAuth()
+    } else if (this.config.oidcConfig) {
+      this.oauthService.configure(this.config.oidcConfig);
       this.startAuth()
     } else {
       alert('Insert auth config');

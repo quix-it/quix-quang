@@ -1,6 +1,8 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
+import {QuixStyleService} from "../style/style.service";
+
+
 
 @Component({
   selector: 'quix-slider',
@@ -20,10 +22,12 @@ export class SliderComponent implements ControlValueAccessor {
   @Input() ariaLAbel: string;
   @Input() id: string;
   @Input() successMessage: string;
+  @Input() helpMessage: string;
   @Input() errorMessage: string;
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input() disabled: boolean;
   @Input() vertical: boolean;
+  @Input() required: boolean;
   @Input() tabIndex: number;
   @Input() interval: number;
   @Input() maxValue: number;
@@ -72,6 +76,6 @@ export class SliderComponent implements ControlValueAccessor {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 }

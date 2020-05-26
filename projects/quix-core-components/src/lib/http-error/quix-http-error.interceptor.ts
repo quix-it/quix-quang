@@ -17,7 +17,7 @@ export class QuixHttpErrorInterceptor implements HttpInterceptor {
         return resp
       }),
       catchError((error: HttpErrorResponse) => {
-        this.quixHttpErrorService.openHttpErrorModal(error.status)
+        this.quixHttpErrorService.openErrorModal(error)
         return throwError(error);
       })
   )

@@ -1,6 +1,6 @@
 {
   "name": "@quix/quix-core-components",
-  "version": "0.46.32",
+  "version": "0.48.16",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
@@ -10,8 +10,8 @@
     "bootstrap": "^4.4.1",
     "ngx-webstorage": "^4.0.1",
     "@angular/material": "^8.2.3",
-    "ngx-echarts": "^4.2.2",
-    "echarts": "^4.5.0",
+    "ngx-echarts": "^5.0.0",
+    "echarts": "^4.8.0",
     "ol": "^6.1.1",
     "@types/googlemaps": "^3.38.1",
     "moment": "^2.24.0",

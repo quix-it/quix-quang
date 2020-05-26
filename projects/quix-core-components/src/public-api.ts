@@ -9,8 +9,9 @@ export * from './lib/storage/quix-storage.service';
 
 export * from './lib/offline/quix-offline.service';
 
-export * from './lib/loader/quix-loader.service';
+
 export * from './lib/loader/quix-loader.interceptor';
+export * from './lib/loader/loader/loader.component';
 
 export * from './lib/snackbar/quix-snackbar.service';
 
@@ -60,7 +61,7 @@ export * from './lib/window/quix-window.service';
 export * from './lib/row-selector/row-selector.component';
 export * from './lib/row-selector/row-selector.model';
 
-export * from './lib/http-error/quix-http-error.component';
+export * from './lib/http-error/quix-http-error-modal/quix-http-error-modal.component';
 export * from './lib/http-error/quix-http-error.interceptor';
 export * from './lib/http-error/quix-http-error.service';
 
@@ -100,3 +101,5 @@ export * from './lib/chart-bar/chart-bar.model';
 
 export * from './lib/chart-line/chart-line.component';
 export * from './lib/chart-line/chart-line.model';
+
+export * from './lib/input-fraction/input-fraction.component';

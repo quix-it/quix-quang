@@ -1,24 +1,26 @@
 <div class="form-group">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel | translate">
-    {{label | translate}}<span [hidden]="!required">*</span>
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | translate}}
+    <span [hidden]="!required">*</span>
   </label>
   <input type="color"
          class="form-control"
          [id]="id"
          [ngClass]="getClass()"
          [disabled]="disabled"
-         [autofocus]="autofocus"
          [(ngModel)]="value"
          [attr.aria-label]="ariaLabel | translate"
          [tabIndex]="tabIndex"
          [required]="required"
+         #input
   >
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="validator"
-         *ngIf="helpMsg">
-    {{helpMsg | translate}}
+         [hidden]="classValidation"
+         *ngIf="helpMessage">
+    {{helpMessage | translate}}
   </small>
   <div class="valid-feedback">
     {{successMessage | translate}}

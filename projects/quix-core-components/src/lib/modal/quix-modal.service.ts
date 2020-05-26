@@ -24,7 +24,7 @@ export class QuixModalService {
             size: 'lg' | 'md' | 'sm',
             modalParams?: any,
             closeWithKeyboard?: boolean,
-            ignoreCloseWithClick?: true,
+            ignoreCloseWithClick?: boolean,
   ) {
     this.modalRef = new BsModalRef();
     this.config = {

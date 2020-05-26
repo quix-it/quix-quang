@@ -4,10 +4,9 @@ import {TranslateModule} from '@ngx-translate/core';
 import {CommonModule} from '@angular/common';
 import {QuixStorageService} from './storage/quix-storage.service';
 import {QuixModalService} from './modal/quix-modal.service';
-import {NgxEchartsModule} from 'ngx-echarts';
+
 import {QuixSnackbarService} from './snackbar/quix-snackbar.service';
 import {QuixOfflineService} from './offline/quix-offline.service';
-import {QuixLoaderService} from './loader/quix-loader.service';
 import {PieComponent} from './pie/pie.component';
 import {OSMapComponent} from './osmap/osmap.component';
 import {GoogleMapComponent} from './googleMap/google-map.component';
@@ -30,7 +29,7 @@ import {SliderComponent} from './slider/slider.component';
 import {ToggleComponent} from './toggle/toggle.component';
 import {PictureComponent} from './picture/picture.component';
 import {RowSelectorComponent} from './row-selector/row-selector.component';
-import {QuixHttpErrorComponent} from './http-error/quix-http-error.component';
+
 import {QuixHttpErrorService} from './http-error/quix-http-error.service';
 import {InputColorComponent} from './input-color/input-color.component';
 import {QuixToastsService} from './toast/quix-toasts.service';
@@ -65,7 +64,11 @@ import {MultiSelectObjComponent} from "./multi-select-obj/multi-select-obj.compo
 import {ChartLineComponent} from "./chart-line/chart-line.component";
 import {ChartBarComponent} from "./chart-bar/chart-bar.component";
 import {MatInputModule} from "@angular/material/input";
-
+import {QuixHttpErrorModalComponent} from "./http-error/quix-http-error-modal/quix-http-error-modal.component";
+import {LoaderComponent} from "./loader/loader/loader.component";
+import {InputFractionComponent} from "./input-fraction/input-fraction.component";
+import * as echarts from 'echarts';
+import {NgxEchartsModule} from "ngx-echarts";
 @NgModule({
   declarations: [
     PieComponent,
@@ -86,7 +89,6 @@ import {MatInputModule} from "@angular/material/input";
     ToggleComponent,
     PictureComponent,
     RowSelectorComponent,
-    QuixHttpErrorComponent,
     InputFileComponent,
     ToastsComponent,
     PaginatorComponent,
@@ -101,7 +103,10 @@ import {MatInputModule} from "@angular/material/input";
     MultiSelectObjComponent,
     MultiSelectStrgComponent,
     ChartLineComponent,
-    ChartBarComponent
+    ChartBarComponent,
+    LoaderComponent,
+    InputFractionComponent,
+    QuixHttpErrorModalComponent
   ],
   imports: [
     CommonModule,
@@ -109,7 +114,6 @@ import {MatInputModule} from "@angular/material/input";
     NgxWebstorageModule.forRoot(),
     FormsModule,
     MomentModule,
-    NgxEchartsModule,
     MatSnackBarModule,
     MatTableModule,
     MatSliderModule,
@@ -127,14 +131,14 @@ import {MatInputModule} from "@angular/material/input";
     NgxFileDropModule,
     PaginationModule,
     StoreModule.forFeature(CORECOMPONENTS_KEY, quixCoreComponetsReducers),
-    MatInputModule
+    MatInputModule,
+    NgxEchartsModule.forRoot({echarts}),
   ],
   providers: [
     QuixStorageService,
     QuixModalService,
     QuixSnackbarService,
     QuixOfflineService,
-    QuixLoaderService,
     // {provide: HTTP_INTERCEPTORS, useClass: QuixLoaderInterceptor, multi: true},
     // {provide: HTTP_INTERCEPTORS, useClass: QuixHttpErrorInterceptor, multi: true},
     QuixStyleService,
@@ -162,7 +166,7 @@ import {MatInputModule} from "@angular/material/input";
     ToggleComponent,
     PictureComponent,
     RowSelectorComponent,
-    QuixHttpErrorComponent,
+    QuixHttpErrorModalComponent,
     InputFileComponent,
     ToastsComponent,
     PaginatorComponent,
@@ -177,10 +181,12 @@ import {MatInputModule} from "@angular/material/input";
     MultiSelectObjComponent,
     MultiSelectStrgComponent,
     ChartLineComponent,
-    ChartBarComponent
+    ChartBarComponent,
+    LoaderComponent,
+    InputFractionComponent
   ],
   entryComponents: [
-    QuixHttpErrorComponent
+    QuixHttpErrorModalComponent
   ]
 })
 export class QuixCoreComponentsModule {

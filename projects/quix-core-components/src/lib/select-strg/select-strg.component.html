@@ -1,7 +1,7 @@
 <div class="form-group">
   <label [htmlFor]="id"
          [attr.aria-label]="ariaLabel"
-         [hidden]="!label">
+         *ngIf="label">
     {{label | translate}}
     <span [hidden]="!required">*</span>
   </label>

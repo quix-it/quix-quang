@@ -1,5 +1,10 @@
 <div class="form-group">
-  <label [htmlFor]="id" [attr.aria-label]="ariaLabel">{{label | translate}}</label>
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | translate}}
+    <span [hidden]="!required">*</span>
+  </label>
   <mat-slider
     [id]="id"
     [ngClass]="getClass()"
@@ -13,10 +18,17 @@
     [disabled]="disabled"
     [attr.aria-label]="ariaLabel"
   ></mat-slider>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="classValidation"
+         *ngIf="helpMessage">
+    {{helpMessage | translate}}
+  </small>
   <div class="valid-feedback">
     {{successMessage | translate}}
   </div>
-  <div [attr.aria-errormessage]="errorMessage" class="invalid-feedback">
+  <div [attr.aria-errormessage]="errorMessage"
+       class="invalid-feedback">
     {{errorMessage | translate}}
   </div>
 </div>
