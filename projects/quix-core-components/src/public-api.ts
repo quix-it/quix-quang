@@ -103,3 +103,5 @@ export * from './lib/chart-line/chart-line.component';
 export * from './lib/chart-line/chart-line.model';
 
 export * from './lib/input-fraction/input-fraction.component';
+
+export * from './lib/video/video.component';

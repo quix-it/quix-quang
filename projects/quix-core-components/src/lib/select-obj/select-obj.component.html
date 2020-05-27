@@ -14,7 +14,7 @@
           [required]="required"
           #input
   >
-    <option value=""></option>
+    <option [ngValue]="null"></option>
     <option *ngFor="let item of list" [value]="item[returnValue]">
       {{item[labelValue] | translate}}
     </option>
