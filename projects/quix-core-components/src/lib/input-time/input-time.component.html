@@ -1,13 +1,13 @@
 <div class="form-group">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel">
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
     {{label | translate}}
     <span [hidden]="!required">*</span>
   </label>
   <timepicker
     [id]="id"
     [(ngModel)]="value"
-    [readonlyInput]="readonly"
     [disabled]="disabled"
     [min]="minTime"
     [max]="maxTime"
@@ -25,9 +25,9 @@
   ></timepicker>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="validator"
-         *ngIf="helpMsg">
-    {{helpMsg | translate}}
+         [hidden]="classValidation"
+         *ngIf="helpMessage">
+    {{helpMessage | translate}}
   </small>
   <div class="valid-feedback">
     {{successMessage | translate}}

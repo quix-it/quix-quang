@@ -24,7 +24,7 @@ import {InputTimeComponent} from './input-time/input-time.component';
 import {InputDateRangeComponent} from './input-date-range/input-date-range.component';
 import {InputDateTimeComponent} from './input-date-time/input-date-time.component';
 import {MomentModule} from 'ngx-moment';
-import {intersectionObserverPreset, LazyLoadImageModule} from 'ng-lazyload-image';
+
 import {SliderComponent} from './slider/slider.component';
 import {ToggleComponent} from './toggle/toggle.component';
 import {PictureComponent} from './picture/picture.component';
@@ -71,6 +71,7 @@ import * as echarts from 'echarts';
 import {NgxEchartsModule} from "ngx-echarts";
 import {VideoComponent} from "./video/video.component";
 import {QuixThreeSixtyImageComponent} from "./quix-three-sixty-image/quix-three-sixty-image.component";
+import {LazyLoadImageModule} from "ng-lazyload-image";
 @NgModule({
   declarations: [
     PieComponent,
@@ -128,9 +129,7 @@ import {QuixThreeSixtyImageComponent} from "./quix-three-sixty-image/quix-three-
     TimepickerModule.forRoot(),
     PaginationModule.forRoot(),
     MatPaginatorModule,
-    LazyLoadImageModule.forRoot({
-      preset: intersectionObserverPreset
-    }),
+    LazyLoadImageModule,
     TypeaheadModule.forRoot(),
     NgxFileDropModule,
     PaginationModule,

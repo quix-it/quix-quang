@@ -1,8 +1,8 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import * as _moment from 'moment';
-import {QuixStyleService} from '../style/style.service';
 import {BsLocaleService} from "ngx-bootstrap/datepicker";
+import {QuixStyleService} from "../style/style.service";
 
 
 @Component({
@@ -22,12 +22,11 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit {
   @Input() label: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
-  @Input() validator: string;
-  @Input() helpMsg: string;
+  @Input() classValidation: string;
+  @Input() helpMessage: string;
   @Input() customClass: string;
   @Input() disabled: boolean;
   @Input() required: boolean;
-  @Input() readonly: boolean;
   @Input() showMeridianButton: boolean;
   @Input() minTime: Date;
   @Input() maxTime: Date;
@@ -102,6 +101,6 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 }

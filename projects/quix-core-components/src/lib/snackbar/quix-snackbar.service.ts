@@ -1,17 +1,18 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class QuixSnackbarService {
   snackBar: any;
 
   constructor(private snackBarService: MatSnackBar) {
   }
 
-  openSnackbar(message: string, action: string, actionFunction?: any, time?: number) {
+  openSnackbar(message: string, time?: number, action?: string, actionFunction?: any,) {
     this.snackBar = this.snackBarService.open(message, action, {
-      duration: time ? time : 3000
+      duration: time ? time : null
     });
     if (actionFunction) {
       this.snackBar.onAction().subscribe(actionFunction);
