@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PictureModel} from './picture.model';
+import {QuixPicture} from './picture.model';
 
 @Component({
   selector: 'quix-picture',
@@ -10,7 +10,7 @@ export class PictureComponent implements OnInit {
   @Input() id: string;
   @Input() alt: string;
   @Input() src: string;
-  @Input() responsiveList: Array<PictureModel>;
+  @Input() responsiveList: Array<QuixPicture>;
 
 
   constructor() {

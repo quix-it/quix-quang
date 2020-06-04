@@ -26,7 +26,7 @@ export class QuixThreeSixtyImageComponent implements OnInit, AfterViewInit {
   currentFrame: number = 0
   intervalId: any
   mouseStateDown = false
-  imageUrl: any;
+  imageUrl: string;
 
 
   constructor(
@@ -35,7 +35,7 @@ export class QuixThreeSixtyImageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
+    this.imageUrl = 'url("' + this.imageList[0] + '")'
   }
 
   ngAfterViewInit() {
@@ -43,7 +43,6 @@ export class QuixThreeSixtyImageComponent implements OnInit, AfterViewInit {
     // let image = this.render.createElement('img')
     // image.onload = this.drawImage(image)
     // image.src = this.imageList[0]
-    this.imageUrl = 'url("' + this.imageList[0] + '")'
     this.autoRotator()
   }
 

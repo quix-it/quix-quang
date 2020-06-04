@@ -1,4 +1,4 @@
-export class PictureModel {
+export class QuixPicture {
   public minWidth: string;
   public src: string;
 
