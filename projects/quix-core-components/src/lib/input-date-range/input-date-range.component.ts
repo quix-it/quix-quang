@@ -1,8 +1,19 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import * as _moment from 'moment';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
 import {BsDatepickerConfig, BsLocaleService} from "ngx-bootstrap/datepicker";
+import {QuixStyleService} from "../style/style.service";
+
 
 @Component({
   selector: 'quix-input-date-range',
@@ -16,17 +27,16 @@ import {BsDatepickerConfig, BsLocaleService} from "ngx-bootstrap/datepicker";
     }
   ]
 })
-export class InputDateRangeComponent implements ControlValueAccessor, OnInit {
+export class InputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   @Input() id: string;
   @Input() label: string;
-  @Input() placeolder: string;
-  @Input() validator: string;
+  @Input() placeolder: string = '';
+  @Input() classValidation: string;
   @Input() customClass: string;
-  @Input() helpMsg: string;
+  @Input() helpMessage: string;
   @Input() autofocus: boolean;
   @Input() errorMessage: string;
   @Input() successMessage: string;
-  @Input() readonly: boolean;
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() showWeekNumbers: boolean;
@@ -37,16 +47,17 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit {
   @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6>;
   @Input() disabledDates: Array<Date>;
   @Input() minView: 'year' | 'month' | 'day';
-  @Input() iconClass: string | Array<string>;
+  @Input() iconClass: string[];
   @Input() useMoment: boolean;
   @Input() ariaLabel: string;
-  @Input() btnClass: string;
+  @Input() buttonClass: string[];
   @Input() tabIndex: number;
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: any;
   config: Partial<BsDatepickerConfig>;
   moment = _moment;
+  @ViewChild('input') input: ElementRef<HTMLInputElement>
 
   get value() {
     return this._value;
@@ -73,6 +84,19 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit {
     });
     if (this.locale) {
       this.localeService.use(this.locale);
+    }
+  }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    },0)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus()
     }
   }
 
@@ -118,10 +142,8 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 
-  checkPopUp() {
-    return this.disabled || this.readonly;
-  }
+
 }

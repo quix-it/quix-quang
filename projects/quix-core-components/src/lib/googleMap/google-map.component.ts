@@ -12,17 +12,15 @@ declare var google: any;
 export class GoogleMapComponent implements OnInit {
   public MARKER_LIST: Array<GoogleMarkerModel> = [];
   public googleMarkers: Array<any> = [];
-  @ViewChild('map', {static: false}) mapDiv: ElementRef;
+  @ViewChild('map', {static: false}) mapDiv: ElementRef<HTMLDivElement>;
   @Input() id: string;
   @Input() height: string;
   @Input() defaultZoom: number;
   @Input() mapType: string;
-
   @Input() defaultCenter: Array<number>;
   @Output() markerClick = new EventEmitter<any>();
   @Input() enableClick: boolean;
   @Input() customIcons: boolean;
-
   @Input() set markerList(value: Array<GoogleMarkerModel>) {
     this.MARKER_LIST = value;
     if (this.map) {

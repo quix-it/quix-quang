@@ -1,8 +1,20 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import * as _moment from 'moment';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
+
 import {BsDatepickerConfig, BsLocaleService} from "ngx-bootstrap/datepicker";
+import {QuixStyleService} from "../style/style.service";
+
 
 @Component({
   selector: 'quix-input-date-time',
@@ -16,26 +28,25 @@ import {BsDatepickerConfig, BsLocaleService} from "ngx-bootstrap/datepicker";
     }
   ]
 })
-export class InputDateTimeComponent implements ControlValueAccessor, OnInit {
+export class InputDateTimeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   @Input() id: string;
   @Input() label: string;
-  @Input() placeholder: string;
-  @Input() validator: string;
+  @Input() placeholder: string = '';
+  @Input() classValidation: string;
   @Input() customClass: string;
-  @Input() helpMsg: string;
+  @Input() helpMessage: string;
   @Input() dateFormat: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() locale: string;
   @Input() disabled: boolean;
-  @Input() readonly: boolean;
   @Input() required: boolean;
   @Input() showSecond: boolean;
   @Input() showWeekNumbers: boolean;
   @Input() showSelector: boolean;
   @Input() showMeridianButton: boolean;
-  @Input() minDateTime: Date;
-  @Input() maxDateTime: Date;
+  @Input() minDate: Date;
+  @Input() maxDate: Date;
   @Input() autofocus: boolean;
   @Input() disabledDates: Array<Date>;
   @Input() iconClass: Array<string>;
@@ -45,13 +56,15 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit {
   @Input() useMoment: number;
   @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6>;
   @Input() ariaLabel: string;
-  @Input() btnClass: string;
+  @Input() buttonClass: string[];
   @Input() tabIndex: number;
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: any;
   config: Partial<BsDatepickerConfig>;
   moment = _moment;
+  margin: string
+  @ViewChild('input') input: ElementRef<HTMLInputElement>
 
   get value() {
     return this._value;
@@ -78,6 +91,29 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit {
     });
     if (this.locale) {
       this.localeService.use(this.locale);
+    }
+    if (this.label) {
+      if (this.showSelector) {
+        this.margin = '.3rem'
+      } else {
+        this.margin = '2rem'
+      }
+    } else {
+      this.margin = '0'
+    }
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    }, 0)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus()
     }
   }
 
@@ -117,10 +153,11 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 
-  checkPopUp() {
-    return this.disabled || this.readonly;
+  getMargin() {
+
   }
+
 }

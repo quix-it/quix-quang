@@ -70,6 +70,7 @@ import {InputFractionComponent} from "./input-fraction/input-fraction.component"
 import * as echarts from 'echarts';
 import {NgxEchartsModule} from "ngx-echarts";
 import {VideoComponent} from "./video/video.component";
+import {QuixThreeSixtyImageComponent} from "./quix-three-sixty-image/quix-three-sixty-image.component";
 @NgModule({
   declarations: [
     PieComponent,
@@ -108,7 +109,8 @@ import {VideoComponent} from "./video/video.component";
     LoaderComponent,
     InputFractionComponent,
     QuixHttpErrorModalComponent,
-    VideoComponent
+    VideoComponent,
+    QuixThreeSixtyImageComponent
   ],
   imports: [
     CommonModule,
@@ -186,7 +188,8 @@ import {VideoComponent} from "./video/video.component";
     ChartBarComponent,
     LoaderComponent,
     InputFractionComponent,
-    VideoComponent
+    VideoComponent,
+    QuixThreeSixtyImageComponent
   ],
   entryComponents: [
     QuixHttpErrorModalComponent

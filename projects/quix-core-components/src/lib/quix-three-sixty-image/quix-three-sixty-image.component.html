@@ -1,0 +1,19 @@
+<div class="wrapper-360"
+     #wrapper
+     [ngClass]="customClass"
+     [id]="id"
+>
+<!--  <canvas #canvas-->
+<!--          (mousedown)="mouseDown($event)"-->
+<!--          (mouseup)="mouseUp($event)"-->
+<!--          (mousemove)="mouseMove($event)"-->
+<!--  ></canvas>-->
+  <div
+    (mousedown)="mouseDown($event)"
+    (mouseup)="mouseUp($event)"
+    (mousemove)="mouseMove($event)"
+    [style.background-image]="imageUrl"
+    [style.height]="height"
+  ></div>
+</div>
+

@@ -105,3 +105,6 @@ export * from './lib/chart-line/chart-line.model';
 export * from './lib/input-fraction/input-fraction.component';
 
 export * from './lib/video/video.component';
+
+export * from './lib/quix-three-sixty-image/quix-three-sixty-image.component';
+

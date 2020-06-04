@@ -1,8 +1,20 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  Input,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import * as _moment from 'moment';
-import {QuixStyleService} from '../style/style.service';
+
 import {BsDatepickerConfig, BsLocaleService} from "ngx-bootstrap/datepicker";
+import {QuixStyleService} from "../style/style.service";
+
 
 @Component({
   selector: 'quix-input-date',
@@ -16,17 +28,16 @@ import {BsDatepickerConfig, BsLocaleService} from "ngx-bootstrap/datepicker";
     }
   ]
 })
-export class InputDateComponent implements ControlValueAccessor, OnInit {
+export class InputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   @Input() id: string;
   @Input() label: string;
-  @Input() placeolder: string;
-  @Input() validator: string;
+  @Input() placeholder: string = '';
+  @Input() classValidation: string;
   @Input() customClass: string;
-  @Input() helpMsg: string;
+  @Input() helpMessage: string;
   @Input() autofocus: boolean;
   @Input() errorMessage: string;
   @Input() successMessage: string;
-  @Input() readonly: boolean;
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() showWeekNumbers: boolean;
@@ -40,14 +51,14 @@ export class InputDateComponent implements ControlValueAccessor, OnInit {
   @Input() iconClass: string | Array<string>;
   @Input() useMoment: boolean;
   @Input() ariaLabel: string;
-  @Input() btnClass: string;
+  @Input() buttonClass: string[];
   @Input() tabIndex: number;
   @Input('value')
-    // tslint:disable-next-line:variable-name
+  // tslint:disable-next-line:variable-name
   _value: any;
   config: Partial<BsDatepickerConfig>;
-  const;
   moment = _moment;
+  @ViewChild('input') input: ElementRef<HTMLInputElement>
 
   get value() {
     return this._value;
@@ -64,6 +75,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit {
     private localeService: BsLocaleService
   ) {
   }
+
   ngOnInit(): void {
     this.config = Object.assign({}, {
       containerClass: 'theme-default',
@@ -73,6 +85,20 @@ export class InputDateComponent implements ControlValueAccessor, OnInit {
     });
     if (this.locale) {
       this.localeService.use(this.locale);
+    }
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    }, 0)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus()
     }
   }
 
@@ -112,10 +138,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 
-  checkPopUp() {
-    return this.disabled || this.readonly;
-  }
 }

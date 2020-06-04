@@ -1,7 +1,7 @@
 <div class="form-group">
-  <label
-    [attr.aria-label]="ariaLabel"
-    [htmlFor]="id">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
     {{label | translate}}
     <span [hidden]="!required">*</span>
   </label>
@@ -12,8 +12,7 @@
            [ngClass]="getClass()"
            [bsConfig]="config"
            [disabled]="disabled"
-           [isDisabled]="checkPopUp()"
-           [readOnly]="readonly"
+           [isDisabled]="disabled"
            bsDaterangepicker
            [autofocus]="autofocus"
            [minDate]="minDate"
@@ -24,31 +23,32 @@
            #drp="bsDaterangepicker"
            [(ngModel)]="value"
            [required]="required"
+           #input
     >
     <div class="input-group-append">
       <button class="btn"
-              [ngClass]="btnClass"
+              [ngClass]="buttonClass"
               type="button"
-              [ngStyle]="{'pointer-event': readonly || disabled ? 'none' : null}"
+              [ngStyle]="{'pointer-event': disabled ? 'none' : null}"
               (click)="drp.toggle()"
-              [hidden]="readonly">
+             >
         <i [ngClass]="iconClass"></i>
       </button>
     </div>
-    <small [id]="id + 'Help'"
-           class="form-text text-muted"
-           [hidden]="validator"
-           *ngIf="helpMsg">
-      {{helpMsg | translate}}
-    </small>
+
     <div class="valid-feedback">
       {{successMessage | translate}}
     </div>
     <div class="invalid-feedback" [attr.aria-errormessage]="errorMessage">
       {{errorMessage | translate}}
     </div>
-
   </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="classValidation"
+         *ngIf="helpMessage">
+    {{helpMessage | translate}}
+  </small>
 </div>
 
 
