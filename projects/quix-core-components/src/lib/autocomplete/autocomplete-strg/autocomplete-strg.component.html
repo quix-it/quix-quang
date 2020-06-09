@@ -1,7 +1,9 @@
 <div class="form-group">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel | translate">
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
     {{label | translate}}
+    <span [hidden]="!required">*</span>
   </label>
   <input [(ngModel)]="value"
          [typeahead]="dataList"
@@ -20,12 +22,13 @@
          [typeaheadOptionsInScrollableView]="18"
          [typeaheadMinLength]="startAfter"
          [placeholder]="placeholder | translate"
+         #input
   >
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="validator"
-         *ngIf="helpMsg">
-    {{helpMsg | translate}}
+         [hidden]="classValidation"
+         *ngIf="helpMessage">
+    {{helpMessage | translate}}
   </small>
   <div class="valid-feedback">
     {{successMessage | translate}}

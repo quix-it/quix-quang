@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-
-import { OfflineService } from './offline.service';
+import {QuixOfflineService} from "./offline.service";
 
 describe('OfflineService', () => {
-  let service: OfflineService;
+  let service: QuixOfflineService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(OfflineService);
+    service = TestBed.inject(QuixOfflineService);
   });
 
   it('should be created', () => {

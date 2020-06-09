@@ -1,19 +1,21 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'quix-video',
   templateUrl: './video.component.html',
-  styleUrls: ['./video.component.scss']
+  styleUrls: ['./video.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VideoComponent implements OnInit {
+export class VideoComponent implements OnInit, OnChanges {
   @Input() id: string;
-  @Input() src: string;
+  @Input() src: SafeUrl;
   @Input() baseImage: string;
   @Input() autoplay: boolean;
   @Input() viewControl: boolean;
   @Input() loop: boolean;
+  @Input() mute: boolean;
   @Input() type: 'video/mp4' | 'video/webm' | 'video/OGG';
-
 
 
   @Input() viewPlay: boolean;
@@ -24,10 +26,14 @@ export class VideoComponent implements OnInit {
   @Input() viewFull: boolean;
   @Input() viewSpeed: boolean;
 
-  constructor() {
+  constructor(private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.src = this.sanitizer.bypassSecurityTrustUrl(changes.src.currentValue)
   }
 
 }

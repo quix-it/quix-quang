@@ -6,7 +6,6 @@ import {QuixStorageService} from './storage/quix-storage.service';
 import {QuixModalService} from './modal/quix-modal.service';
 
 import {QuixSnackbarService} from './snackbar/quix-snackbar.service';
-import {QuixOfflineService} from './offline/quix-offline.service';
 import {PieComponent} from './pie/pie.component';
 import {OSMapComponent} from './osmap/osmap.component';
 import {GoogleMapComponent} from './googleMap/google-map.component';
@@ -72,6 +71,7 @@ import {NgxEchartsModule} from "ngx-echarts";
 import {VideoComponent} from "./video/video.component";
 import {QuixThreeSixtyImageComponent} from "./quix-three-sixty-image/quix-three-sixty-image.component";
 import {LazyLoadImageModule} from "ng-lazyload-image";
+import {QuixOfflineService} from "./offline/offline.service";
 @NgModule({
   declarations: [
     PieComponent,

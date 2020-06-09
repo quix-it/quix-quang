@@ -11,11 +11,14 @@ export class QuixStorageService {
     this.sessionStorage.store(key, JSON.stringify(value));
   }
 
-  getSession(key: string): string {
-    return JSON.parse(this.sessionStorage.retrieve(key));
+  getSession(key: string) {
+    if (this.sessionStorage.retrieve(key)) {
+      return JSON.parse(this.sessionStorage.retrieve(key));
+    }
+    return null
   }
 
-  getSessionDefault(key: string, defaultValue: string): string {
+  getSessionDefault(key: string, defaultValue: string | null) {
     if (JSON.parse(this.sessionStorage.retrieve(key))) {
       return JSON.parse(this.sessionStorage.retrieve(key));
     }
@@ -34,11 +37,14 @@ export class QuixStorageService {
     this.localStorage.store(key, JSON.stringify(value));
   }
 
-  getLocal(key: string): string {
-    return JSON.parse(this.localStorage.retrieve(key));
+  getLocal(key: string) {
+    if (this.localStorage.retrieve(key)) {
+      return JSON.parse(this.localStorage.retrieve(key));
+    }
+    return null
   }
 
-  getLocalDefault(key: string, defaultValue: string): string {
+  getLocalDefault(key: string, defaultValue: string | null) {
     if (JSON.parse(this.localStorage.retrieve(key))) {
       return JSON.parse(this.localStorage.retrieve(key));
     }

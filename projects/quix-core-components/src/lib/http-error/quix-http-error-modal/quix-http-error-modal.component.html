@@ -10,16 +10,16 @@
       <i class="fas fa-times-circle" *ngIf="error?.status === 400"></i>
       <i class="fas fa-user-lock" *ngIf="error?.status === 401"></i>
       <i class="fas fa-user-slash" *ngIf="error?.status === 403"></i>
-      <i class="fas fa-user-slash" *ngIf="error?.status === 404"></i>
+      <i class="far fa-compass" *ngIf="error?.status === 404"></i>
       <i class="fas fa-compress-arrows-alt" *ngIf="error?.status === 409"></i>
       <i class="fas fa-server" *ngIf="error?.status === 500"></i>
       <i class="fas fa-laptop-house" *ngIf="error?.status === 502"></i>
     </div>
-    <p *ngIf="error?.status !== 409">
+    <p *ngIf="!error?.error">
       {{'httpErrorModal.' + error?.status + '.errorMessage' | translate}}
     </p>
-    <p *ngIf="error?.status === 409">
-      {{error?.error.error.message | translate}}
+    <p *ngIf="error?.error">
+      {{error?.error | translate}}
     </p>
   </div>
   <div class="modal-footer">

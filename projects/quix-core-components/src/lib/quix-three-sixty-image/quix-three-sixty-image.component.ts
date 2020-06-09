@@ -1,19 +1,19 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
-  Input,
+  Input, OnChanges,
   OnInit,
-  Renderer2,
+  SimpleChanges,
   ViewChild
 } from '@angular/core';
+import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 
 @Component({
   selector: 'quix-three-sixty-image',
   templateUrl: './quix-three-sixty-image.component.html',
   styleUrls: ['./quix-three-sixty-image.component.scss']
 })
-export class QuixThreeSixtyImageComponent implements OnInit, AfterViewInit {
+export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   @Input() id: string
   @Input() height: string
   @Input() customClass: string[]
@@ -26,16 +26,25 @@ export class QuixThreeSixtyImageComponent implements OnInit, AfterViewInit {
   currentFrame: number = 0
   intervalId: any
   mouseStateDown = false
-  imageUrl: string;
+  imageUrl: SafeStyle;
 
 
-  constructor(
-    private render: Renderer2
-  ) {
+  constructor(private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
-    this.imageUrl = 'url("' + this.imageList[0] + '")'
+    this.imageUrl = this.sanitizer.bypassSecurityTrustStyle('url("assets/images/lazy/default-placeholder.png")')
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
+    }
+    this.imageList = changes.imageList.currentValue
+    if (this.imageList.length) {
+      this.imageUrl = this.sanitizer.bypassSecurityTrustStyle( 'url("' + this.imageList[0] + '")')
+      this.autoRotator()
+    }
   }
 
   ngAfterViewInit() {
@@ -43,7 +52,7 @@ export class QuixThreeSixtyImageComponent implements OnInit, AfterViewInit {
     // let image = this.render.createElement('img')
     // image.onload = this.drawImage(image)
     // image.src = this.imageList[0]
-    this.autoRotator()
+    // this.autoRotator()
   }
 
   drawImage(imgContext) {
@@ -93,7 +102,7 @@ export class QuixThreeSixtyImageComponent implements OnInit, AfterViewInit {
     // let image = this.render.createElement('img')
     // image.onload = this.drawImage(image)
     // image.src = this.imageList[this.currentFrame]
-    this.imageUrl = 'url("' + this.imageList[this.currentFrame] + '")'
+    this.imageUrl = this.sanitizer.bypassSecurityTrustStyle('url("' + this.imageList[this.currentFrame] + '")')
   }
 
   autoRotator() {

@@ -1,6 +1,18 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {QuixStyleService} from "../../style/style.service";
+
+
 
 @Component({
   selector: 'quix-autocomplete-strg',
@@ -12,26 +24,28 @@ import {QuixStyleService} from "../../style/style.service";
     multi: true
   }]
 })
-export class AutocompleteStrgComponent implements OnInit {
+export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() label: string;
-  @Input() placeholder: string;
+  @Input() placeholder: string = '';
   @Input() id: string;
   @Input() successMessage: string;
+  @Input() helpMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() ariaLabel: string;
-  @Input() helpMsg: string;
   @Input() tabIndex: number;
   @Input() dataList: Array<string> = [];
   // tslint:disable-next-line:no-input-rename
   @Input('value')
-    // tslint:disable-next-line:variable-name
+  // tslint:disable-next-line:variable-name
   @Input() startAfter: number;
   _value: string;
+  @ViewChild('input') input: ElementRef<HTMLInputElement>
 
   get value() {
     return this._value;
@@ -55,6 +69,20 @@ export class AutocompleteStrgComponent implements OnInit {
   onTouched() {
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    }, 0)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus()
+    }
+  }
+
   registerOnChange(fn) {
     this.onChange = fn;
   }
@@ -76,7 +104,7 @@ export class AutocompleteStrgComponent implements OnInit {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 
 }

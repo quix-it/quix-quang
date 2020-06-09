@@ -6,8 +6,8 @@ export * from './lib/quix-core-components.reducers';
 export * from './lib/quix-core-components.selector';
 
 export * from './lib/storage/quix-storage.service';
+export * from './lib/offline/offline.service';
 
-export * from './lib/offline/quix-offline.service';
 
 
 export * from './lib/loader/quix-loader.interceptor';

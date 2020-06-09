@@ -1,9 +1,20 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Observable, Observer, of} from "rxjs";
 import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
 import {QuixAutocompleteAsyncService} from "../quix-autocomplete.service";
 import {QuixStyleService} from "../../style/style.service";
+
 
 @Component({
   selector: 'quix-autocomplete-strg-async',
@@ -15,21 +26,22 @@ import {QuixStyleService} from "../../style/style.service";
     multi: true
   }]
 })
-export class AutocompleteStrgAsyncComponent implements OnInit {
+export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, OnChanges  {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() id: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
-  @Input() validator: string | null;
+  @Input() classValidation: string | null;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
   @Input() ariaLabel: string;
-  @Input() helpMsg: string;
+  @Input() helpMessage: string;
   @Input() tabIndex: number;
   @Input() restApi: boolean;
+  @Input() required: boolean;
   @Input() baseUrl: string;
   @Input() apiUrl: string;
   @Input() apiParamName: string;
@@ -40,6 +52,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
     // tslint:disable-next-line:variable-name
   _value: string;
   suggestions$: Observable<any>;
+  @ViewChild('input') input: ElementRef<HTMLInputElement>
 
   get value() {
     return this._value;
@@ -69,7 +82,8 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
             )
           }
           return of([]);
-        })
+        }),
+        map(r => r.filter(s => s.toLowerCase().includes(this.value.toLowerCase())))
       );
     } else {
       this.suggestions$ = new Observable((observer: Observer<string>) => {
@@ -84,7 +98,8 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
             )
           }
           return of([]);
-        })
+        }),
+        map(r => r.filter(s => s.toLowerCase().includes(this.value.toLowerCase())))
       );
     }
   }
@@ -102,6 +117,19 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
   registerOnTouched(fn) {
     this.onTouched = fn;
   }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus()
+      }
+    },0)
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus()
+    }
+  }
 
   writeValue(value) {
     if (value) {
@@ -116,7 +144,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+    return this.style.getClassArray(this.classValidation, this.customClass);
   }
 
 }
