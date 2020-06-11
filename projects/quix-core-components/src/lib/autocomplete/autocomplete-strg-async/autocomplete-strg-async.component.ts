@@ -73,7 +73,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
       this.suggestions$ = new Observable((observer: Observer<string>) => {
         observer.next(this.value);
       }).pipe(
-        debounceTime(1000),
+        debounceTime(500),
         distinctUntilChanged(),
         switchMap((query: string) => {
           if (this.value) {
@@ -89,7 +89,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
       this.suggestions$ = new Observable((observer: Observer<string>) => {
         observer.next(this.value);
       }).pipe(
-        debounceTime(1000),
+        debounceTime(500),
         distinctUntilChanged(),
         switchMap((query: string) => {
           if (this.value) {

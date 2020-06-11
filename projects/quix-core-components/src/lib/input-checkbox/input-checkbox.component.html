@@ -8,7 +8,8 @@
          [disabled]="disabled"
          [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
-         [required]="required">
+         [required]="required"
+         [value]="returnValue ? returnValue : true">
   <label class="custom-control-label"
          [attr.aria-label]="ariaLabel"
          [htmlFor]="id">

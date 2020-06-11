@@ -13,7 +13,6 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {QuixStyleService} from "../../style/style.service";
 
 
-
 @Component({
   selector: 'quix-autocomplete-strg',
   templateUrl: './autocomplete-strg.component.html',

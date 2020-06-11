@@ -21,6 +21,7 @@ export class InputCheckboxComponent implements ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() inline: boolean;
   @Input() required: boolean;
+  @Input() returnValue: boolean | string;
   @Input() ariaLabel: string;
   @Input() classValidation: string;
   @Input() tabIndex: number;
