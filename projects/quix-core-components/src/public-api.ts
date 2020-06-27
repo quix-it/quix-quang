@@ -8,8 +8,6 @@ export * from './lib/quix-core-components.selector';
 export * from './lib/storage/quix-storage.service';
 export * from './lib/offline/offline.service';
 
-
-
 export * from './lib/loader/quix-loader.interceptor';
 export * from './lib/loader/loader/loader.component';
 
@@ -77,10 +75,6 @@ export * from './lib/toast/toasts-store/toasts.selector';
 export * from './lib/paginator/paginator.component';
 export * from './lib/paginator/paginatorLanguage';
 
-export * from './lib/pie/pie-data.model';
-export * from './lib/pie/pie.component';
-export * from './lib/pie/chart-toolbox.model';
-
 export * from './lib/input-color/input-color.component';
 
 export * from './lib/autocomplete/autocomplete-strg/autocomplete-strg.component';
@@ -96,15 +90,36 @@ export * from './lib/select-strg/select-strg.component';
 export * from './lib/multi-select-obj/multi-select-obj.component';
 export * from './lib/multi-select-strg/multi-select-strg.component';
 
-export * from './lib/chart-bar/chart-bar.component';
-export * from './lib/chart-bar/chart-bar.model';
+export * from './lib/chart/chart-bar/chart-bar.component';
+export * from './lib/chart/chart-bar/chart-bar.model';
 
-export * from './lib/chart-line/chart-line.component';
-export * from './lib/chart-line/chart-line.model';
+export * from './lib/chart/chart-line/chart-line.component';
+export * from './lib/chart/chart-line/chart-line.model';
 
 export * from './lib/input-fraction/input-fraction.component';
 
 export * from './lib/video/video.component';
 
 export * from './lib/quix-three-sixty-image/quix-three-sixty-image.component';
+
+export * from './lib/carousel/carousel.component';
+export * from './lib/carousel/carousel.model';
+
+export * from './lib/chart/chart-area/chart-area.component';
+export * from './lib/chart/chart-area/chart-area.model';
+
+export * from './lib/chart/chart-pie/chart-pie.component';
+export * from './lib/chart/chart-pie/chart-pie.model';
+
+export * from './lib/chart/chart-doughnut/chart-doughnut.component';
+export * from './lib/chart/chart-doughnut/chart-doughnut.model';
+
+export * from './lib/chart/chart-candlestick/chart-candlestick.component';
+export * from './lib/chart/chart-candlestick/chart-candlestick.model';
+
+export * from './lib/chart/chart-treemap/chart-treemap.component';
+export * from './lib/chart/chart-treemap/chart-treemap.model';
+
+export * from './lib/chart/chart-radar/chart-radar.component';
+export * from './lib/chart/chart-radar/chart-radar.model';
 

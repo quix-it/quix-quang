@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpErrorResponse, HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
-import {catchError, map} from "rxjs/operators";
+import {catchError, finalize, map} from "rxjs/operators";
 import {Observable, throwError} from "rxjs";
 import {QuixHttpErrorService} from "./quix-http-error.service";
 

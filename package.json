@@ -40,7 +40,7 @@
     "@ngrx/effects": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
-    "angular-oauth2-oidc": "^9.2.1",
+    "angular-oauth2-oidc": "^9.2.2",
     "@fortawesome/fontawesome-free": "^5.11.2",
     "ngx-file-drop": "^8.0.8",
     "ng-lazyload-image": "^7.1.0"

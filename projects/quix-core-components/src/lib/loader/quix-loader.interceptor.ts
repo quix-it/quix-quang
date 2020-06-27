@@ -8,7 +8,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, finalize, map} from 'rxjs/operators';
 
 import {Store} from "@ngrx/store";
 import {addLoader, removeLoader} from "./loader-store/loader.action";
@@ -39,19 +39,12 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
       this.store.dispatch(addLoader());
     }
     return next.handle(request).pipe(
-      map((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          if (!noLoader) {
-            this.store.dispatch(removeLoader());
-          }
-        }
-        return event;
-      }),
-      catchError((error: HttpErrorResponse) => {
+      map((event: HttpEvent<any>) => event),
+      catchError((error: HttpErrorResponse) => throwError(error)),
+      finalize(() => {
         if (!noLoader) {
           this.store.dispatch(removeLoader());
         }
-        return throwError(error);
       })
     );
   }

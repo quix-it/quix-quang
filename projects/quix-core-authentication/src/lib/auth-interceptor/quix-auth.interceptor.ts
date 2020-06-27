@@ -13,11 +13,7 @@ export class QuixAuthInterceptor implements HttpInterceptor {
   }
 
   private checkUrl = function(url) {
-    function urlTest(apiUrl) {
-      return url.indexOf(apiUrl) >= 0;
-    }
-    const find = this.window.nativeWindow.authConfig.apiBaseUrl.find(urlTest);
-    return find;
+    return this.window.nativeWindow.authConfig?.apiTokenUrl.find(api => url.includes(api));
   };
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

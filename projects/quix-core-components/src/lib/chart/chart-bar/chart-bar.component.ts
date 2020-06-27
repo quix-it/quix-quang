@@ -41,19 +41,19 @@ export class ChartBarComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
   ngOnChanges(changes: SimpleChanges) {
-    this.chartOption.color = changes.color.currentValue
+    this.chartOption.color = changes.color?.currentValue
     this.chartOption.series = []
-    changes.chartData.currentValue.series.forEach(s => this.chartOption.series.push({
+    changes.chartData?.currentValue.series.forEach(s => this.chartOption.series.push({
       data: s,
       type: 'bar'
     }))
-    if(changes.horizontal.currentValue){
+    if(changes.horizontal?.currentValue){
       this.chartOption.xAxis = {
         type: 'value'
       }
       this.chartOption.yAxis = {
         type: 'category',
-        data: changes.chartData.currentValue.category
+        data: changes.chartData?.currentValue.category
       }
     } else {
       this.chartOption.yAxis = {
@@ -61,7 +61,7 @@ export class ChartBarComponent implements OnInit, OnChanges {
       }
       this.chartOption.xAxis = {
         type: 'category',
-        data: changes.chartData.currentValue.category
+        data: changes.chartData?.currentValue.category
       }
     }
   }

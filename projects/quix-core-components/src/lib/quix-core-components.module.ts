@@ -6,7 +6,6 @@ import {QuixStorageService} from './storage/quix-storage.service';
 import {QuixModalService} from './modal/quix-modal.service';
 
 import {QuixSnackbarService} from './snackbar/quix-snackbar.service';
-import {PieComponent} from './pie/pie.component';
 import {OSMapComponent} from './osmap/osmap.component';
 import {GoogleMapComponent} from './googleMap/google-map.component';
 import {QuixConfigModel} from './quix-config.model';
@@ -39,7 +38,7 @@ import {NgxFileDropModule} from 'ngx-file-drop';
 import {StoreModule} from '@ngrx/store';
 import {CORECOMPONENTS_KEY, quixCoreComponetsReducers} from './quix-core-components.reducers';
 import {DataTableComponent} from "./data-table/data-table.component";
-import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
+import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {PaginatorLanguage} from "./paginator/paginatorLanguage";
 import {AutocompleteStrgComponent} from "./autocomplete/autocomplete-strg/autocomplete-strg.component";
 import {AutocompleteStrgAsyncComponent} from "./autocomplete/autocomplete-strg-async/autocomplete-strg-async.component";
@@ -60,8 +59,8 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatTableModule} from "@angular/material/table";
 import {MultiSelectStrgComponent} from "./multi-select-strg/multi-select-strg.component";
 import {MultiSelectObjComponent} from "./multi-select-obj/multi-select-obj.component";
-import {ChartLineComponent} from "./chart-line/chart-line.component";
-import {ChartBarComponent} from "./chart-bar/chart-bar.component";
+import {ChartLineComponent} from "./chart/chart-line/chart-line.component";
+import {ChartBarComponent} from "./chart/chart-bar/chart-bar.component";
 import {MatInputModule} from "@angular/material/input";
 import {QuixHttpErrorModalComponent} from "./http-error/quix-http-error-modal/quix-http-error-modal.component";
 import {LoaderComponent} from "./loader/loader/loader.component";
@@ -72,6 +71,14 @@ import {VideoComponent} from "./video/video.component";
 import {QuixThreeSixtyImageComponent} from "./quix-three-sixty-image/quix-three-sixty-image.component";
 import {LazyLoadImageModule} from "ng-lazyload-image";
 import {QuixOfflineService} from "./offline/offline.service";
+import {CarouselModule} from "ngx-bootstrap/carousel";
+import {CarouselComponent} from "./carousel/carousel.component";
+import {ChartAreaComponent} from "./chart/chart-area/chart-area.component";
+import {PieComponent} from "quix-core-components";
+import {ChartDoughnutComponent} from "./chart/chart-doughnut/chart-doughnut.component";
+import {ChartCandlestickComponent} from "./chart/chart-candlestick/chart-candlestick.component";
+import {ChartTreemapComponent} from "./chart/chart-treemap/chart-treemap.component";
+import {ChartRadarComponent} from "./chart/chart-radar/chart-radar.component";
 @NgModule({
   declarations: [
     PieComponent,
@@ -111,7 +118,13 @@ import {QuixOfflineService} from "./offline/offline.service";
     InputFractionComponent,
     QuixHttpErrorModalComponent,
     VideoComponent,
-    QuixThreeSixtyImageComponent
+    QuixThreeSixtyImageComponent,
+    CarouselComponent,
+    ChartAreaComponent,
+    ChartDoughnutComponent,
+    ChartCandlestickComponent,
+    ChartTreemapComponent,
+    ChartRadarComponent
   ],
   imports: [
     CommonModule,
@@ -128,6 +141,7 @@ import {QuixOfflineService} from "./offline/offline.service";
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     PaginationModule.forRoot(),
+    CarouselModule.forRoot(),
     MatPaginatorModule,
     LazyLoadImageModule,
     TypeaheadModule.forRoot(),
@@ -142,8 +156,6 @@ import {QuixOfflineService} from "./offline/offline.service";
     QuixModalService,
     QuixSnackbarService,
     QuixOfflineService,
-    // {provide: HTTP_INTERCEPTORS, useClass: QuixLoaderInterceptor, multi: true},
-    // {provide: HTTP_INTERCEPTORS, useClass: QuixHttpErrorInterceptor, multi: true},
     QuixStyleService,
     QuixHttpErrorService,
     QuixToastsService,
@@ -188,7 +200,13 @@ import {QuixOfflineService} from "./offline/offline.service";
     LoaderComponent,
     InputFractionComponent,
     VideoComponent,
-    QuixThreeSixtyImageComponent
+    QuixThreeSixtyImageComponent,
+    CarouselComponent,
+    ChartAreaComponent,
+    ChartDoughnutComponent,
+    ChartCandlestickComponent,
+    ChartTreemapComponent,
+    ChartRadarComponent
   ],
   entryComponents: [
     QuixHttpErrorModalComponent

@@ -40,7 +40,7 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
     if (this.intervalId) {
       clearInterval(this.intervalId)
     }
-    this.imageList = changes.imageList.currentValue
+    this.imageList = changes.imageList?.currentValue
     if (this.imageList.length) {
       this.imageUrl = this.sanitizer.bypassSecurityTrustStyle( 'url("' + this.imageList[0] + '")')
       this.autoRotator()

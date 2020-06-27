@@ -1,14 +1,10 @@
 import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges
 } from '@angular/core';
-import {PaginatorLanguage} from "./paginatorLanguage";
 
 @Component({
   selector: 'quix-paginator',

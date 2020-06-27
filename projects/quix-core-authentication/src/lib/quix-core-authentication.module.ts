@@ -20,7 +20,7 @@ import {OAuthModule} from "angular-oauth2-oidc";
   imports: [
     CommonModule,
     StoreModule.forFeature(COREAUTHENTICATION_KEY, QuixCoreAuthenticationReducers),
-    OAuthModule.forRoot()
+    OAuthModule
   ],
   providers: [
     QuixWindowService,

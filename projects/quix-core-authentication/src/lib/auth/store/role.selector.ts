@@ -6,7 +6,8 @@ import {QuixCoreAuthenticationState} from '../../quix-core-authentication.reduce
 export const selectRoles = createSelector(quixCoreAuthenticationSelector, (state: QuixCoreAuthenticationState) => state.roleState);
 export const haveRole = createSelector(
   quixCoreAuthenticationSelector,
-  (state: QuixCoreAuthenticationState, proops: { roleId: string }) => state.roleState.roles.includes(proops.roleId));
+  (state: QuixCoreAuthenticationState, proops: { roleId: string }) =>
+    state.roleState.roles.includes(proops.roleId));
 export const haveRoles = createSelector(
   quixCoreAuthenticationSelector,
   (state: QuixCoreAuthenticationState, proops: { roleIds: Array<string> }) => {

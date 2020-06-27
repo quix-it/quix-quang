@@ -1,5 +1,5 @@
 import {Injectable, Optional} from '@angular/core';
-import {NullValidationHandler, OAuthService} from 'angular-oauth2-oidc';
+import {NullValidationHandler, OAuthService, UserInfo} from 'angular-oauth2-oidc';
 import {QuixWindowService} from '../window/quix-window.service';
 import {QuixCoreAuthenticationModel} from '../quix-core-authentication.model';
 import {UserState} from './store/user.reducer';
@@ -7,10 +7,11 @@ import {select, Store} from '@ngrx/store';
 import {RoleState} from './store/role.reducer';
 import {storeRoles} from './store/role.action';
 import {userLogin} from './store/user.action';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {selectUser} from './store/user.selector';
 import {haveRole, haveRoles, selectRoles} from './store/role.selector';
 import {TranslateService} from "@ngx-translate/core";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -49,48 +50,41 @@ export class QuixAuthService {
   private startAuth() {
     this.oauthService.setStorage(localStorage);
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
-    this.oauthService.loadDiscoveryDocumentAndLogin().then(isLoggedIn => {
-      if (isLoggedIn) {
-        this.oauthService.setupAutomaticSilentRefresh();
-        if (this.config.storeUser) {
-          this.storeUser();
+    from(this.oauthService.loadDiscoveryDocumentAndLogin())
+      .subscribe(isLoggedIn => {
+        if (isLoggedIn) {
+          this.oauthService.setupAutomaticSilentRefresh();
+          this.initUserInfo()
         }
-        if (this.config.storeRole) {
-          this.storeRole();
+      });
+  }
+
+  private initUserInfo() {
+    from(this.oauthService.loadUserProfile())
+      .subscribe(
+        (user: UserInfo) => {
+          if (this.config.storeRole) {
+            this.roleStore.dispatch(storeRoles({roleData: user.realm_access?.roles}));
+          }
+          if (this.config.storeUser) {
+            delete user.realm_access
+            this.userStore.dispatch(userLogin({userData: user}));
+          }
+          if (this.config.initStoreLocale) {
+            this.initStoreLocale(user)
+          }
+          if (this.config.initStoreLanguage) {
+            this.initStoreLanguage(user)
+          }
         }
-      }
-    });
+      );
   }
 
   logOut() {
     this.oauthService.logOut();
   }
 
-  storeUser() {
-    this.oauthService.loadUserProfile().then(
-      (user: any) => {
-        delete user.realm_access;
-        this.userStore.dispatch(userLogin({userData: user}));
-        if (this.config.initStoreLocale) {
-          this.initStoreLocale()
-        }
-      }
-    );
-  }
-
-  storeRole() {
-    this.oauthService.loadUserProfile().then(
-      (user: any) => {
-        this.roleStore.dispatch(storeRoles({roleData: user.realm_access.roles}));
-      }
-    );
-  }
-
-  getUser() {
-    return this.oauthService.loadUserProfile();
-  }
-
-  getRoles() {
+  getUserInfo() {
     return this.oauthService.loadUserProfile();
   }
 
@@ -104,7 +98,6 @@ export class QuixAuthService {
     return this.$roles;
   }
 
-
   hasStoredRole(role: string) {
     this.$hasRole = this.roleStore.pipe(select(haveRole, {roleId: role}));
     return this.$hasRole
@@ -116,15 +109,25 @@ export class QuixAuthService {
   }
 
 
-  private initStoreLocale() {
-    let lang = navigator.language.slice(0, 2);
-    this.translate.setDefaultLang(lang);
-    this.getStoredUser().subscribe(
-      (user: any) => {
-        if (user.locale) {
-          this.translate.use(user.locale);
-        }
-      }
-    )
+  private initStoreLocale(user: UserInfo) {
+    // recuperare il locale corrente dal localstorage poi controllar ese è uguale al nuov o nel caso reload dell'app'
+    // this.getStoredUser().subscribe(
+    //   (user: any) => {
+    //     if (user.locale) {
+    //       this.translate.use(user.locale);
+    //     }
+    //   }
+    // )
+  }
+
+  private initStoreLanguage(user: UserInfo) {
+    // this.translate.use(lang)
+    // this.getStoredUser().subscribe(
+    //   (user: any) => {
+    //     if (user.locale) {
+    //       this.translate.use(user.locale);
+    //     }
+    //   }
+    // )
   }
 }

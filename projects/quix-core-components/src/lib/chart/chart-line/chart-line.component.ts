@@ -45,13 +45,13 @@ export class ChartLineComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.chartOption.color = changes.color.currentValue
+    this.chartOption.color = changes.color?.currentValue
     this.chartOption.xAxis = {
       type: 'category',
-      data: changes.chartData.currentValue.category
+      data: changes.chartData?.currentValue.category
     }
     this.chartOption.series = []
-    changes.chartData.currentValue.series.forEach(s => this.chartOption.series.push({
+    changes.chartData?.currentValue.series.forEach(s => this.chartOption.series.push({
       data: s,
       type: 'line'
     }))

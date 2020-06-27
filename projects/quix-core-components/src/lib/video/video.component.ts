@@ -10,7 +10,7 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 export class VideoComponent implements OnInit, OnChanges {
   @Input() id: string;
   @Input() src: SafeUrl;
-  @Input() baseImage: string;
+  @Input() baseImage: SafeUrl;
   @Input() autoplay: boolean;
   @Input() viewControl: boolean;
   @Input() loop: boolean;
@@ -18,13 +18,13 @@ export class VideoComponent implements OnInit, OnChanges {
   @Input() type: 'video/mp4' | 'video/webm' | 'video/OGG';
 
 
-  @Input() viewPlay: boolean;
-  @Input() viewTime: boolean;
-  @Input() viewMute: boolean;
-  @Input() viewVolume: boolean;
-  @Input() viewBar: boolean;
-  @Input() viewFull: boolean;
-  @Input() viewSpeed: boolean;
+  // @Input() viewPlay: boolean;
+  // @Input() viewTime: boolean;
+  // @Input() viewMute: boolean;
+  // @Input() viewVolume: boolean;
+  // @Input() viewBar: boolean;
+  // @Input() viewFull: boolean;
+  // @Input() viewSpeed: boolean;
 
   constructor(private sanitizer: DomSanitizer) {
   }
@@ -33,7 +33,8 @@ export class VideoComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.src = this.sanitizer.bypassSecurityTrustUrl(changes.src.currentValue)
+    this.src = this.sanitizer.bypassSecurityTrustUrl(changes.src?.currentValue)
+    this.baseImage = this.sanitizer.bypassSecurityTrustUrl(changes.baseImage?.currentValue)
   }
 
 }
