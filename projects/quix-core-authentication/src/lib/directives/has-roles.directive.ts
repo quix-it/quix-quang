@@ -1,30 +1,31 @@
 import {Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-
 import {Subject} from "rxjs";
 import {distinctUntilChanged, takeUntil} from "rxjs/operators";
-import {QuixAuthService} from "../auth/quix-auth.service";
+import {select, Store} from "@ngrx/store";
+import {selectHasRoles} from "../store/user.selector";
 
 @Directive({
-  selector: '[quixHasStoreRole]'
+  selector: '[quixHasRoles]'
 })
-export class HasStoreRoleDirective implements OnInit, OnDestroy {
-  @Input() quixHasStoreRole: string;
-  private destroy$ = new Subject();
+export class HasRolesDirective implements OnInit, OnDestroy {
+  @Input() quixHasRoles: string[];
+  private destroy$ = new Subject()
 
   constructor(
-    private authService: QuixAuthService,
     private view: ViewContainerRef,
-    private template: TemplateRef<any>
+    private template: TemplateRef<any>,
+    private authStore: Store<any>
   ) {
   }
 
   ngOnInit(): void {
-    this.authService.hasStoredRole(this.quixHasStoreRole).pipe(
+    this.authStore.pipe(
+      select(selectHasRoles, {rolesId: this.quixHasRoles}),
       distinctUntilChanged(),
       takeUntil(this.destroy$)
     ).subscribe(hasRole => {
       if (hasRole) {
-        this.view.createEmbeddedView(this.template);
+        this.view.createEmbeddedView(this.template)
       } else {
         this.view.clear()
       }
@@ -33,6 +34,7 @@ export class HasStoreRoleDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.destroy$.next()
   }
+
 }

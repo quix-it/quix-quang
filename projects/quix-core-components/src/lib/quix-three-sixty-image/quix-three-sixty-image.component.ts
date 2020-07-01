@@ -18,7 +18,8 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   @Input() height: string
   @Input() customClass: string[]
   @Input() imageList: string[] = []
-  // @ViewChild('canvas', {static: true}) canvas: ElementRef<HTMLCanvasElement>
+  @Input() clockwise: boolean = true
+
   @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement>
   step: number = 30
   context: any;
@@ -40,9 +41,9 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
     if (this.intervalId) {
       clearInterval(this.intervalId)
     }
-    this.imageList = changes.imageList?.currentValue
+    this.imageList = changes.imageList.currentValue
     if (this.imageList.length) {
-      this.imageUrl = this.sanitizer.bypassSecurityTrustStyle( 'url("' + this.imageList[0] + '")')
+      this.imageUrl = this.sanitizer.bypassSecurityTrustStyle('url("' + this.imageList[0] + '")')
       this.autoRotator()
     }
   }
@@ -92,16 +93,23 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   }
 
   rotator(act) {
-    if (act === '-') {
-      this.currentFrame++;
-      this.currentFrame = (this.currentFrame > this.imageList.length - 1) ? 0 : this.currentFrame;
+    if (this.clockwise) {
+      if (act === '+') {
+        this.currentFrame++;
+        this.currentFrame = (this.currentFrame > this.imageList.length - 1) ? 0 : this.currentFrame;
+      } else {
+        this.currentFrame--;
+        this.currentFrame = (this.currentFrame <= 0) ? this.imageList.length - 1 : this.currentFrame;
+      }
     } else {
-      this.currentFrame--;
-      this.currentFrame = (this.currentFrame <= 0) ? this.imageList.length - 1 : this.currentFrame;
+      if (act === '-') {
+        this.currentFrame++;
+        this.currentFrame = (this.currentFrame > this.imageList.length - 1) ? 0 : this.currentFrame;
+      } else {
+        this.currentFrame--;
+        this.currentFrame = (this.currentFrame <= 0) ? this.imageList.length - 1 : this.currentFrame;
+      }
     }
-    // let image = this.render.createElement('img')
-    // image.onload = this.drawImage(image)
-    // image.src = this.imageList[this.currentFrame]
     this.imageUrl = this.sanitizer.bypassSecurityTrustStyle('url("' + this.imageList[this.currentFrame] + '")')
   }
 

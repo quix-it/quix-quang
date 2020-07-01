@@ -1,8 +1,8 @@
-import { HasStoreRolesDirective } from './has-store-roles.directive';
+import {HasRolesDirective} from "./has-roles.directive";
 
 describe('HasStoreRolesDirective', () => {
   it('should create an instance', () => {
-    const directive = new HasStoreRolesDirective();
+    const directive = new HasRolesDirective();
     expect(directive).toBeTruthy();
   });
 });

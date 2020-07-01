@@ -74,14 +74,13 @@ import {QuixOfflineService} from "./offline/offline.service";
 import {CarouselModule} from "ngx-bootstrap/carousel";
 import {CarouselComponent} from "./carousel/carousel.component";
 import {ChartAreaComponent} from "./chart/chart-area/chart-area.component";
-import {PieComponent} from "quix-core-components";
 import {ChartDoughnutComponent} from "./chart/chart-doughnut/chart-doughnut.component";
 import {ChartCandlestickComponent} from "./chart/chart-candlestick/chart-candlestick.component";
 import {ChartTreemapComponent} from "./chart/chart-treemap/chart-treemap.component";
 import {ChartRadarComponent} from "./chart/chart-radar/chart-radar.component";
+import {ChartPieComponent} from "./chart/chart-pie/chart-pie.component";
 @NgModule({
   declarations: [
-    PieComponent,
     DataTableComponent,
     OSMapComponent,
     GoogleMapComponent,
@@ -124,12 +123,13 @@ import {ChartRadarComponent} from "./chart/chart-radar/chart-radar.component";
     ChartDoughnutComponent,
     ChartCandlestickComponent,
     ChartTreemapComponent,
-    ChartRadarComponent
+    ChartRadarComponent,
+    ChartPieComponent
   ],
   imports: [
     CommonModule,
     TranslateModule,
-    NgxWebstorageModule.forRoot(),
+    NgxWebstorageModule,
     FormsModule,
     MomentModule,
     MatSnackBarModule,
@@ -163,7 +163,6 @@ import {ChartRadarComponent} from "./chart/chart-radar/chart-radar.component";
     {provide: MatPaginatorIntl, useClass: PaginatorLanguage}
   ],
   exports: [
-    PieComponent,
     DataTableComponent,
     OSMapComponent,
     GoogleMapComponent,
@@ -206,7 +205,8 @@ import {ChartRadarComponent} from "./chart/chart-radar/chart-radar.component";
     ChartDoughnutComponent,
     ChartCandlestickComponent,
     ChartTreemapComponent,
-    ChartRadarComponent
+    ChartRadarComponent,
+    ChartPieComponent
   ],
   entryComponents: [
     QuixHttpErrorModalComponent

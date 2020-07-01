@@ -1,12 +1,10 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
 
 
-@Injectable(
-  {
-    providedIn:'root'
-  }
-)
+@Injectable({
+  providedIn: 'root'
+})
 export class QuixStorageService {
   constructor(private sessionStorage: SessionStorageService, private localStorage: LocalStorageService) {
   }

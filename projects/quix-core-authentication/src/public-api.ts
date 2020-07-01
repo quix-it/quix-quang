@@ -1,30 +1,29 @@
 /*
  * Public API Surface of quix-core-authentication
  */
-export * from './lib/quix-core-authentication.module';
+export * from './lib/quix-auth.module';
+export * from './lib/quix-auth.model';
 
-export * from './lib/quix-core-authentication.model';
-
-export * from './lib/auth/quix-auth.service';
-
-export * from './lib/auth/store/role.action';
-export * from './lib/auth/store/role.reducer';
-export * from './lib/auth/store/role.selector';
-
-export * from './lib/auth/store/user.action';
-export * from './lib/auth/store/user.reducer';
-export * from './lib/auth/store/user.selector';
-
-export * from './lib/auth-interceptor/quix-auth.interceptor';
+export * from './lib/quix-auth.reducers';
+export * from './lib/quix-auth.selector';
+export * from './lib/quix-auth.effects';
 
 export * from './lib/window/quix-window.service';
 
-export * from './lib/quix-core-authentication.reducers';
-export * from './lib/quix-core-authentication.selector';
+export * from './lib/storage/quix-storage.service';
 
-export * from './lib/auth-guard/quix-auth-store.guard';
-export * from './lib/auth-guard/quix-auth.guard';
+export * from './lib/store/user.action';
+export * from './lib/store/user.reducer';
+export * from './lib/store/user.selector';
 
-export * from './lib/auth-directive/has-store-role.directive';
-export * from './lib/auth-directive/has-store-roles.directive';
-export * from './lib/auth-directive/user-is-logged.directive';
+export * from './lib/services/quix-auth.service';
+export * from './lib/services/quix-locale.service';
+
+export * from './lib/interceptors/quix-auth.interceptor';
+
+export * from './lib/guards/quix-auth-store.guard';
+
+export * from './lib/directives/user-is-logged.directive';
+export * from './lib/directives/has-roles.directive';
+export * from './lib/directives/has-until-roles.directive';
+
