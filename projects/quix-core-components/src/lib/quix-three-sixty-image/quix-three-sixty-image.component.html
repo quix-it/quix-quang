@@ -3,17 +3,46 @@
      [ngClass]="customClass"
      [id]="id"
 >
-<!--  <canvas #canvas-->
-<!--          (mousedown)="mouseDown($event)"-->
-<!--          (mouseup)="mouseUp($event)"-->
-<!--          (mousemove)="mouseMove($event)"-->
-<!--  ></canvas>-->
   <div
     (mousedown)="mouseDown($event)"
     (mouseup)="mouseUp($event)"
     (mousemove)="mouseMove($event)"
     [style.background-image]="imageUrl"
     [style.height]="height"
+  ></div>
+  <div class="command">
+    <button
+      class="btn btn-secondary"
+      [hidden]="play"
+      (click)="rotator('-')"
+    >
+      <i [ngClass]="previousIcon"></i>
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="togglePlay()"
+      *ngIf="play"
+    >
+      <i [ngClass]="stopIcon"></i>
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="togglePlay()"
+      *ngIf="!play"
+    >
+      <i [ngClass]="playIcon"></i>
+    </button>
+    <button
+      class="btn btn-secondary"
+      [hidden]="play"
+      (click)="rotator('+')"
+    >
+      <i [ngClass]="nextIcon"></i>
+    </button>
+  </div>
+  <div *ngFor="let img of imageList"
+       class="preload"
+       [style.background]="getUrl(img)"
   ></div>
 </div>
 

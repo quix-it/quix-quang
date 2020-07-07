@@ -19,6 +19,11 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   @Input() customClass: string[]
   @Input() imageList: string[] = []
   @Input() clockwise: boolean = true
+  @Input() previousIcon: string[]
+  @Input() nextIcon: string[]
+  @Input() stopIcon: string[]
+  @Input() playIcon: string[]
+  @Input() timeRotation: number
 
   @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement>
   step: number = 30
@@ -28,6 +33,7 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   intervalId: any
   mouseStateDown = false
   imageUrl: SafeStyle;
+  play: boolean = true
 
 
   constructor(private sanitizer: DomSanitizer) {
@@ -80,7 +86,9 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   mouseDown(event) {
     event.preventDefault()
     this.currentX = event.screenX
-    clearInterval(this.intervalId)
+    if (this.play) {
+      clearInterval(this.intervalId)
+    }
     this.intervalId = null;
     this.mouseStateDown = true
   }
@@ -88,7 +96,9 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   mouseUp(event) {
     event.preventDefault()
     this.currentX = event.screenX
-    this.autoRotator()
+    if (this.play) {
+      this.autoRotator()
+    }
     this.mouseStateDown = false
   }
 
@@ -117,7 +127,19 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
     this.intervalId = setInterval(
       () => {
         this.rotator('+')
-      }, 150);
+      }, this.timeRotation);
   }
 
+  togglePlay() {
+    this.play = !this.play
+    if (this.play) {
+      this.autoRotator()
+    } else {
+      clearInterval(this.intervalId)
+    }
+  }
+
+  getUrl(img) {
+    return 'url("' + img + '")'
+  }
 }
