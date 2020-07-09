@@ -7,6 +7,8 @@ import {
   ViewChild
 } from '@angular/core';
 import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
+import {of} from "rxjs";
+import {debounceTime, tap} from "rxjs/operators";
 
 @Component({
   selector: 'quix-three-sixty-image',
@@ -24,6 +26,7 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   @Input() stopIcon: string[]
   @Input() playIcon: string[]
   @Input() timeRotation: number
+  @Input() delayTime: number
 
   @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement>
   step: number = 30
@@ -36,7 +39,9 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   play: boolean = true
 
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(
+    private sanitizer: DomSanitizer,
+  ) {
   }
 
   ngOnInit(): void {
@@ -47,11 +52,13 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
     if (this.intervalId) {
       clearInterval(this.intervalId)
     }
-    this.imageList = changes.imageList.currentValue
-    if (this.imageList.length) {
+    of(changes.imageList.currentValue).pipe(
+      tap(list => this.imageList = list),
+      debounceTime(this.delayTime)
+    ).subscribe(list => {
       this.imageUrl = this.sanitizer.bypassSecurityTrustStyle('url("' + this.imageList[0] + '")')
       this.autoRotator()
-    }
+    })
   }
 
   ngAfterViewInit() {
@@ -140,6 +147,6 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
   }
 
   getUrl(img) {
-    return 'url("' + img + '")'
+    return this.sanitizer.bypassSecurityTrustStyle('url("' + img + '")')
   }
 }

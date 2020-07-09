@@ -1,6 +1,6 @@
 {
   "name": "@quix/quix-core-components",
-  "version": "0.57.6",
+  "version": "0.57.9",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",

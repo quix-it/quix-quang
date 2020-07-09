@@ -10,11 +10,12 @@ export class QuixModalService {
     keyboard: null,
     ignoreBackdropClick: null,
     class: null,
-    initialState: null
+    initialState: null,
+    animated: true
   };
   modalRef: BsModalRef;
   subscriptions: Subscription[] = [];
-  public modalEvent = new Subject<string>();
+  public modalEvent: Subject<string>
 
   constructor(private modalService: BsModalService) {
   }
@@ -28,10 +29,11 @@ export class QuixModalService {
   ) {
     this.modalRef = new BsModalRef();
     this.config = {
+      ...this.config,
       keyboard: closeWithKeyboard,
       ignoreBackdropClick: ignoreCloseWithClick,
       class: '',
-      initialState: modalParams
+      initialState: modalParams,
     };
     this.setEvent();
     this.setSize(size);
@@ -41,24 +43,43 @@ export class QuixModalService {
 
   setEvent() {
     this.subscriptions.push(
-      this.modalService.onShow.subscribe((reason: string) => {
-        if (reason) {
-          this.modalEvent.next(reason);
-        }
-      })
+      this.modalService.onShown.subscribe(
+        (reason: string) => {
+          if (reason) {
+            this.modalEvent.next(reason);
+          }
+        })
     );
     this.subscriptions.push(
-      this.modalService.onHide.subscribe((reason: string) => {
-        if (reason) {
-          this.modalEvent.next(reason);
-        }
-      })
+      this.modalService.onShow.subscribe(
+        (reason: string) => {
+          if (reason) {
+            this.modalEvent.next(reason);
+          }
+        })
     );
     this.subscriptions.push(
-      this.modalService.onHidden.subscribe((reason: string) => {
-        this.unsubscribe();
-      })
+      this.modalService.onHide.subscribe(
+        (reason: string) => {
+          if (reason) {
+            this.modalEvent.next(reason);
+          }
+        })
     );
+    this.subscriptions.push(
+      this.modalService.onHidden.subscribe(
+        (reason: string) => {
+          if (reason) {
+            this.modalEvent.next(reason);
+          }
+          this.unsubscribe();
+        })
+    );
+  }
+
+  getModalEvent() {
+    this.modalEvent = new Subject<string>();
+    return this.modalEvent
   }
 
   unsubscribe() {
@@ -66,6 +87,7 @@ export class QuixModalService {
       subscription.unsubscribe();
     });
     this.subscriptions = [];
+    this.modalEvent?.complete()
   }
 
   setSize(size) {
