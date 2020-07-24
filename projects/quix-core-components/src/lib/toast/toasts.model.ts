@@ -1,4 +1,4 @@
-export class ToastsModel {
+export class QuixToast {
   public title: string;
   public text: string;
   public timing: number;

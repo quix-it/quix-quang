@@ -43,7 +43,12 @@
     "angular-oauth2-oidc": "^9.2.2",
     "@fortawesome/fontawesome-free": "^5.11.2",
     "ngx-file-drop": "^8.0.8",
-    "ng-lazyload-image": "^7.1.0"
+    "ng-lazyload-image": "^7.1.0",
+    "@fullcalendar/angular": "^5.1.0",
+    "@fullcalendar/bootstrap": "^5.1.0",
+    "@fullcalendar/daygrid": "^5.1.0",
+    "@fullcalendar/timegrid": "^5.1.0",
+    "@fullcalendar/interaction": "^5.1.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.7",

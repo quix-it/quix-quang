@@ -23,6 +23,7 @@
            #drp="bsDaterangepicker"
            [(ngModel)]="value"
            [required]="required"
+           (bsValueChange)="writeValue($event)"
            #input
     >
     <div class="input-group-append">

@@ -137,13 +137,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
 
   // This is a basic setter that the forms API is going to use
   writeValue(value) {
-    if (value.target) {
-      if (this.useMoment) {
-        this.value = this.moment(value.target.value);
-      } else {
-        this.value = value.target.value;
-      }
-    } else {
+    if (value) {
       if (this.useMoment) {
         this.value = this.moment(value);
       } else {
@@ -154,10 +148,6 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
 
   getClass() {
     return this.style.getClassArray(this.classValidation, this.customClass);
-  }
-
-  getMargin() {
-
   }
 
 }

@@ -26,6 +26,7 @@
              [attr.aria-label]="ariaLabel + ' date'"
              [tabIndex]="tabIndex"
              [required]="required"
+             (bsValueChange)="writeValue($event)"
              #input
       >
       <div class="input-group-append">
@@ -67,6 +68,7 @@
       [(ngModel)]="value"
       [attr.aria-label]="ariaLabel + ' time'"
       [tabIndex]="tabIndex + 1"
+      (ngModelChange)="writeValue($event)"
     ></timepicker>
   </div>
 </div>

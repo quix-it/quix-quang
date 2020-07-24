@@ -25,6 +25,7 @@
            [attr.aria-label]="ariaLabel"
            [tabIndex]="tabIndex"
            [required]="required"
+           (bsValueChange)="writeValue($event)"
            #input
     >
     <div class="input-group-append">

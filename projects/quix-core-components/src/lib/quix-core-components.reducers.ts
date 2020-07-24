@@ -1,6 +1,7 @@
-import {toastReducer, ToastsState} from './toast/toasts-store/toasts.reducer';
+
 import {ActionReducerMap} from '@ngrx/store';
 import {loaderReducer, LoaderState} from "./loader/loader-store/loader.reducer";
+import {toastReducer, ToastsState} from "./toast/toast-store/toast.reducer";
 
 export const CORECOMPONENTS_KEY = 'quix-core-components';
 

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 import {of} from "rxjs";
-import {debounceTime, tap} from "rxjs/operators";
+import {debounceTime, delay, tap} from "rxjs/operators";
 
 @Component({
   selector: 'quix-three-sixty-image',
@@ -54,7 +54,7 @@ export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
     }
     of(changes.imageList.currentValue).pipe(
       tap(list => this.imageList = list),
-      debounceTime(this.delayTime)
+      delay(this.delayTime)
     ).subscribe(list => {
       this.imageUrl = this.sanitizer.bypassSecurityTrustStyle('url("' + this.imageList[0] + '")')
       this.autoRotator()

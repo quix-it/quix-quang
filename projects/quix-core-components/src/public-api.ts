@@ -65,12 +65,12 @@ export * from './lib/http-error/quix-http-error.service';
 
 export * from './lib/input-file/input-file.component';
 
-export * from './lib/toast/quix-toasts.service';
+export * from './lib/toast/toast.service';
 export * from './lib/toast/toasts.model';
-export * from './lib/toast/toasts.component';
-export * from './lib/toast/toasts-store/toasts.action';
-export * from './lib/toast/toasts-store/toasts.reducer';
-export * from './lib/toast/toasts-store/toasts.selector';
+export * from './lib/toast/toast.component';
+export * from './lib/toast/toast-store/toast.action';
+export * from './lib/toast/toast-store/toast.reducer';
+export * from './lib/toast/toast-store/toast.selector';
 
 export * from './lib/paginator/paginator.component';
 export * from './lib/paginator/paginatorLanguage';
@@ -123,3 +123,5 @@ export * from './lib/chart/chart-treemap/chart-treemap.model';
 export * from './lib/chart/chart-radar/chart-radar.component';
 export * from './lib/chart/chart-radar/chart-radar.model';
 
+export * from './lib/calendar/calendar.component';
+export * from './lib/calendar/calendar.model';

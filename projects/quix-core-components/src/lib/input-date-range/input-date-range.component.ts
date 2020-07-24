@@ -120,24 +120,12 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
 
   // This is a basic setter that the forms API is going to use
   writeValue(value) {
-    if (value.target) {
+    if (value) {
       if (this.useMoment) {
-        const temp = [];
-        value.target.forEach((date: Date) => {
-          temp.push(this.moment(date));
-        });
-        this.value = temp;
+        this.value = this.moment(value);
+      } else {
+        this.value = value;
       }
-      this.value = value.target.value;
-    } else {
-      if (this.useMoment) {
-        const temp = [];
-        value.forEach((date: Date) => {
-          temp.push(this.moment(date));
-        });
-        this.value = temp;
-      }
-      this.value = value;
     }
   }
 

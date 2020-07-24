@@ -1,6 +1,7 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import * as _moment from 'moment';
+
 import {BsLocaleService} from "ngx-bootstrap/datepicker";
 import {QuixStyleService} from "../style/style.service";
 
@@ -86,12 +87,7 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit {
 
   // This is a basic setter that the forms API is going to use
   writeValue(value) {
-    if (value.target) {
-      if (this.useMoment) {
-        this.value = this.moment(value.target.value);
-      }
-      this.value = value.target.value;
-    } else {
+    if (value) {
       if (this.useMoment) {
         this.value = this.moment(value);
       } else {

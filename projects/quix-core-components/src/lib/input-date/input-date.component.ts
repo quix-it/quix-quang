@@ -122,13 +122,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
 
   // This is a basic setter that the forms API is going to use
   writeValue(value) {
-    if (value.target) {
-      if (this.useMoment) {
-        this.value = this.moment(value.target.value);
-      } else {
-        this.value = value.target.value;
-      }
-    } else {
+    if (value) {
       if (this.useMoment) {
         this.value = this.moment(value);
       } else {

@@ -1,30 +1,37 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {QuixToastsService} from './quix-toasts.service';
-import {ToastsModel} from './toasts.model';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
+import {QuixToast} from './toasts.model';
 import {Observable, Subscription} from 'rxjs';
-import {ToastsState} from './toasts-store/toasts.reducer';
+import {ToastsState} from './toast-store/toast.reducer';
 import {select, Store} from '@ngrx/store';
-import {toastStateSelector} from './toasts-store/toasts.selector';
+import {selectToast} from './toast-store/toast.selector';
 
 @Component({
-  selector: 'quix-toasts',
-  templateUrl: './toasts.component.html',
-  styleUrls: ['./toasts.component.scss']
+  selector: 'quix-toast',
+  templateUrl: './toast.component.html',
+  styleUrls: ['./toast.component.scss']
 })
-export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
-  data: ToastsModel = new ToastsModel('', 'success');
+export class QuixToastComponent implements OnInit, AfterViewInit, OnDestroy {
+  data: QuixToast
   private $toastState: Observable<any>;
   private subscription: Subscription;
   @ViewChild('toastDom', {static: false}) toastDom: ElementRef;
 
 
-  constructor(private toastsService: QuixToastsService,
-              private renderer: Renderer2,
-              private toastStore: Store<ToastsState>) {
+  constructor(private renderer: Renderer2,
+              private store: Store<any>) {
   }
 
   ngOnInit() {
-    this.$toastState = this.toastStore.pipe(select(toastStateSelector));
+    this.$toastState = this.store.pipe(select(selectToast));
   }
 
   ngAfterViewInit() {

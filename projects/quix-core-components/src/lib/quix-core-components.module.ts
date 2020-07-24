@@ -30,10 +30,8 @@ import {RowSelectorComponent} from './row-selector/row-selector.component';
 
 import {QuixHttpErrorService} from './http-error/quix-http-error.service';
 import {InputColorComponent} from './input-color/input-color.component';
-import {QuixToastsService} from './toast/quix-toasts.service';
 import {PaginatorComponent} from './paginator/paginator.component';
 import {InputFileComponent} from './input-file/input-file.component';
-import {ToastsComponent} from './toast/toasts.component';
 import {NgxFileDropModule} from 'ngx-file-drop';
 import {StoreModule} from '@ngrx/store';
 import {CORECOMPONENTS_KEY, quixCoreComponetsReducers} from './quix-core-components.reducers';
@@ -79,6 +77,22 @@ import {ChartCandlestickComponent} from "./chart/chart-candlestick/chart-candles
 import {ChartTreemapComponent} from "./chart/chart-treemap/chart-treemap.component";
 import {ChartRadarComponent} from "./chart/chart-radar/chart-radar.component";
 import {ChartPieComponent} from "./chart/chart-pie/chart-pie.component";
+import {QuixToastComponent} from "./toast/toast.component";
+import {QuixToastService} from "./toast/toast.service";
+import {CalendarComponent} from "./calendar/calendar.component";
+import {FullCalendarModule} from "@fullcalendar/angular";
+import dayGridPlugin from '@fullcalendar/daygrid';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  bootstrapPlugin,
+  interactionPlugin,
+  timeGridPlugin
+]);
+
 @NgModule({
   declarations: [
     DataTableComponent,
@@ -99,7 +113,7 @@ import {ChartPieComponent} from "./chart/chart-pie/chart-pie.component";
     PictureComponent,
     RowSelectorComponent,
     InputFileComponent,
-    ToastsComponent,
+    QuixToastComponent,
     PaginatorComponent,
     InputColorComponent,
     AutocompleteStrgComponent,
@@ -124,12 +138,12 @@ import {ChartPieComponent} from "./chart/chart-pie/chart-pie.component";
     ChartCandlestickComponent,
     ChartTreemapComponent,
     ChartRadarComponent,
-    ChartPieComponent
+    ChartPieComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
     TranslateModule,
-    NgxWebstorageModule,
     FormsModule,
     MomentModule,
     MatSnackBarModule,
@@ -142,6 +156,7 @@ import {ChartPieComponent} from "./chart/chart-pie/chart-pie.component";
     TimepickerModule.forRoot(),
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
+    NgxWebstorageModule.forRoot(),
     MatPaginatorModule,
     LazyLoadImageModule,
     TypeaheadModule.forRoot(),
@@ -150,6 +165,7 @@ import {ChartPieComponent} from "./chart/chart-pie/chart-pie.component";
     StoreModule.forFeature(CORECOMPONENTS_KEY, quixCoreComponetsReducers),
     MatInputModule,
     NgxEchartsModule.forRoot({echarts}),
+    FullCalendarModule
   ],
   providers: [
     QuixStorageService,
@@ -158,7 +174,7 @@ import {ChartPieComponent} from "./chart/chart-pie/chart-pie.component";
     QuixOfflineService,
     QuixStyleService,
     QuixHttpErrorService,
-    QuixToastsService,
+    QuixToastService,
     PaginatorLanguage,
     {provide: MatPaginatorIntl, useClass: PaginatorLanguage}
   ],
@@ -182,7 +198,7 @@ import {ChartPieComponent} from "./chart/chart-pie/chart-pie.component";
     RowSelectorComponent,
     QuixHttpErrorModalComponent,
     InputFileComponent,
-    ToastsComponent,
+    QuixToastComponent,
     PaginatorComponent,
     InputColorComponent,
     AutocompleteStrgComponent,
@@ -206,7 +222,8 @@ import {ChartPieComponent} from "./chart/chart-pie/chart-pie.component";
     ChartCandlestickComponent,
     ChartTreemapComponent,
     ChartRadarComponent,
-    ChartPieComponent
+    ChartPieComponent,
+    CalendarComponent
   ],
   entryComponents: [
     QuixHttpErrorModalComponent

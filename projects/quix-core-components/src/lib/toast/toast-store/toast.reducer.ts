@@ -1,18 +1,17 @@
-import {ToastsModel} from '../toasts.model';
 import {Action, createReducer, on} from '@ngrx/store';
-import * as ToastsAction from './toasts.action';
-import {openToast} from './toasts.action';
+import {openToast} from './toast.action';
+import {QuixToast} from "../toasts.model";
 
 export interface ToastsState {
-  toastData: ToastsModel;
+  toastData: QuixToast;
 }
 
 export const initialState: ToastsState = {toastData: null};
-const toastsReducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(openToast, (state, action) => ({...state, toastData: action.toastData}))
 );
 
 export function toastReducer(state: ToastsState | undefined, action: Action) {
-  return toastsReducer(state, action);
+  return reducer(state, action);
 }

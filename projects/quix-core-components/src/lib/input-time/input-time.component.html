@@ -22,6 +22,7 @@
     [attr.aria-label]="ariaLabel"
     [tabIndex]="tabIndex"
     [required]="required"
+    (ngModelChange)="writeValue($event)"
   ></timepicker>
   <small [id]="id + 'Help'"
          class="form-text text-muted"

@@ -1,26 +1,3 @@
-<!--<vg-player>-->
-<!--  <vg-controls [vgAutohide]="true" [vgAutohideTime]="5">-->
-<!--    <vg-play-pause *ngIf="viewPlay"></vg-play-pause>-->
-<!--    <vg-playback-button *ngIf="viewSpeed"></vg-playback-button>-->
-<!--    <vg-time-display vgProperty="current" vgFormat="mm:ss" *ngIf="viewTime"></vg-time-display>-->
-<!--    <vg-scrub-bar style="pointer-events: none;" *ngIf="viewBar"></vg-scrub-bar>-->
-<!--    <vg-time-display vgProperty="total" vgFormat="mm:ss" *ngIf="viewTime"></vg-time-display>-->
-<!--    <vg-mute *ngIf="viewMute"></vg-mute>-->
-<!--    <vg-volume *ngIf="viewVolume"></vg-volume>-->
-<!--    <vg-fullscreen *ngIf="viewFull"></vg-fullscreen>-->
-<!--  </vg-controls>-->
-<!--  <vg-scrub-bar *ngIf="viewBar">-->
-<!--    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>-->
-<!--    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>-->
-<!--  </vg-scrub-bar>-->
-<!--  <video #myMedia-->
-<!--         [vgMedia]="myMedia"-->
-<!--         [id]="id"-->
-<!--         [src]="src"-->
-<!--         type="video/mp4">-->
-<!--  </video>-->
-<!--</vg-player>-->
-
 <video
   [id]="id"
   [controls]="viewControl"
@@ -29,8 +6,5 @@
   [loop]="loop"
   [poster]="baseImage"
   [muted]="mute"
->
-  <source [src]="src"
-          [type]="type"
-  >
-</video>
+  [src]="src"
+></video>
