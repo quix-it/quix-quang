@@ -2,8 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
-  OnChanges,
+  Input, OnChanges,
   OnInit,
   Optional,
   Renderer2,
@@ -11,32 +10,32 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {QuixConfigModel} from '../../quix-config.model';
-import {ControlValueAccessor, NgControl} from '@angular/forms';
-import {delay} from 'rxjs/operators';
 
+import {ControlValueAccessor, NgControl} from "@angular/forms";
+import {delay} from "rxjs/operators";
+import {QuixConfigModel} from "../quix-config.model";
 
 @Component({
-  selector: 'quix-autocomplete-obj',
-  templateUrl: './autocomplete-obj.component.html',
-  styleUrls: ['./autocomplete-obj.component.scss']
+  selector: 'quix-input-search',
+  templateUrl: './input-search.component.html',
+  styleUrls: ['./input-search.component.scss']
 })
-export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
+export class InputSearchComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnInit {
   @Input() label: string;
+  @Input() ariaLabel: string;
   @Input() placeholder = '';
   @Input() id: string;
-  @Input() successMessage: boolean;
-  @Input() errorMessage: boolean;
+  @Input() formName: string;
   @Input() helpMessage: boolean;
+  @Input() errorMessage: boolean;
+  @Input() successMessage: boolean;
+  @Input() min: number;
+  @Input() max: number;
+  @Input() pattern: string;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
-  @Input() ariaLabel: string;
+  @Input() disabled: boolean;
   @Input() tabIndex: number;
-  @Input() startAfter: number;
-  @Input() returnValue: string;
-  @Input() searchBy: string;
-  @Input() dataList: Array<any> = [];
-  @Input() formName: string;
   @Input('value')
   _value: string;
   _config: QuixConfigModel;
@@ -45,8 +44,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   _helpMessage: string;
   _requiredValue: any;
   _classArray: string[] = [];
-  _searchValue: string;
-  @ViewChild('input') input: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) input: ElementRef<HTMLInputElement>;
 
   get value() {
     return this._value;
@@ -54,11 +52,6 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
 
   set value(val) {
     this._value = val;
-    if (!this._searchValue) {
-      this.findObj();
-    } else if (!val) {
-      this._searchValue = val;
-    }
     this.onChange(val);
     this.onTouched();
   }
@@ -97,46 +90,28 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   onTouched() {
   }
 
+  // We implement this method to keep a reference to the onChange
+  // callback function passed by the forms API
   registerOnChange(fn) {
     this.onChange = fn;
   }
 
+  // We implement this method to keep a reference to the onTouched
+  // callback function passed by the forms API
   registerOnTouched(fn) {
     this.onTouched = fn;
   }
 
+  // This is a basic setter that the forms API is going to use
   writeValue(value) {
     if (value) {
-      if (value.item) {
-        this.value = value.item[this.returnValue];
+      if (value.target) {
+        this.value = value.target.value;
       } else {
         this.value = value;
       }
     } else {
       this.value = value;
-    }
-  }
-
-  findObj() {
-    const o = this.dataList.find(
-      (e) => {
-        return e[this.returnValue] === this.value;
-      }
-    );
-    if (o) {
-      this._searchValue = o[this.searchBy];
-    }
-  }
-
-  clearObj() {
-    if (!this._searchValue) {
-      this.value = '';
-    }
-  }
-
-  checkValue() {
-    if (this.value) {
-      this.value = '';
     }
   }
 
@@ -159,7 +134,11 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
               if (this.control.errors.hasOwnProperty(error)) {
                 if (this.control.errors[error]) {
                   this._errorMessage = this.formName + '.' + this.control.name + '.' + error;
-                  this._requiredValue = this.control.errors[error].requiredValue;
+                  if (error === 'minlength' || error === 'maxlength') {
+                    this._requiredValue = this.control.errors[error].requiredLength;
+                  } else {
+                    this._requiredValue = this.control.errors[error].requiredValue;
+                  }
                 }
               }
             }
@@ -170,5 +149,4 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
         }
       });
   }
-
 }

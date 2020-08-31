@@ -1,9 +1,9 @@
 <div class="form-group">
   <label [htmlFor]="id"
          [attr.aria-label]="ariaLabel"
-  *ngIf="label">
+         *ngIf="label">
     {{label | translate}}
-    <span [hidden]="!required">*</span>
+    <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <input type="email"
          class="form-control"
@@ -12,24 +12,23 @@
          [readOnly]="readonly"
          [multiple]="multiple"
          [pattern]="pattern"
-         [disabled]="disabled"
-         [ngClass]="getClass()"
+         [ngClass]="_classArray"
          [(ngModel)]="value"
          [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
-         [required]="required"
          #input
   >
+
+  <div class="valid-feedback">
+    {{_successMessage | translate}}
+  </div>
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage | translate">
+    {{_errorMessage | translate: {requiredValue: _requiredValue} }}
+  </div>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="classValidation"
+         [hidden]="control?.dirty && (control.valid && successMessage || control.invalid && errorMessage)"
          *ngIf="helpMessage">
-    {{helpMessage | translate}}
+    {{_helpMessage | translate}}
   </small>
-  <div class="valid-feedback">
-    {{successMessage | translate}}
-  </div>
-  <div class="invalid-feedback" [attr.aria-errormessage]="errorMessage">
-    {{errorMessage | translate}}
-  </div>
 </div>

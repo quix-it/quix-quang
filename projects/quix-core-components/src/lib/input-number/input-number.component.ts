@@ -1,45 +1,52 @@
-import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from "../style/style.service";
-
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Optional,
+  Renderer2,
+  Self,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import {ControlValueAccessor, NgControl} from '@angular/forms';
+import {QuixConfigModel} from '../quix-config.model';
+import {delay} from 'rxjs/operators';
 
 
 @Component({
   selector: 'quix-input-number',
   templateUrl: './input-number.component.html',
   styleUrls: ['./input-number.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputNumberComponent),
-      multi: true
-    }
-  ]
 })
-export class InputNumberComponent implements ControlValueAccessor, AfterViewInit {
+export class InputNumberComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   @Input() label: string;
-  @Input() placeholder: string = '';
+  @Input() placeholder = '';
   @Input() id: string;
-  @Input() successMessage: string;
-  @Input() errorMessage: string;
-  @Input() classValidation: string | null;
+  @Input() successMessage: boolean;
+  @Input() errorMessage: boolean;
   @Input() min: number;
   @Input() max: number;
   @Input() pattern: string;
-  @Input() helpMessage: string;
+  @Input() helpMessage: boolean;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
-  @Input() disabled: boolean;
-  @Input() required: boolean;
-  @Input() customClass: string;
   @Input() ariaLabel: string;
   @Input() autocomplete: string;
   @Input() tabIndex: number;
   @Input() step: number;
+  @Input() formName: string;
   @Input('value')
-    // tslint:disable-next-line:variable-name
   _value: string;
-  @ViewChild('input') input: ElementRef<HTMLInputElement>
+  _config: QuixConfigModel;
+  _successMessage: string;
+  _errorMessage: string;
+  _helpMessage: string;
+  _requiredValue: any;
+  _classArray: string[] = [];
+
+  @ViewChild('input') input: ElementRef<HTMLInputElement>;
 
   get value() {
     return this._value;
@@ -51,15 +58,32 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
     this.onTouched();
   }
 
-  constructor(private style: QuixStyleService) {
+  constructor(private renderer: Renderer2,
+              @Self() @Optional() public control: NgControl,
+              @Optional() config: QuixConfigModel) {
+    this.control && (this.control.valueAccessor = this);
+    this._config = config;
+  }
+
+  ngOnInit() {
+    if (this.helpMessage) {
+      this._helpMessage = this.formName + '.' + this.control.name + '.help';
+    }
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input.nativeElement.focus();
       }
-    }, 0)
+    }, 0);
+    this.observeValidate();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus();
+    }
   }
 
   onChange(val) {
@@ -89,7 +113,40 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
     }
   }
 
-  getClass() {
-    return this.style.getClassArray(this.classValidation, this.customClass);
+  setDisabledState(isDisabled: boolean): void {
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled);
+  }
+
+  observeValidate() {
+    this.control?.valueChanges
+      .pipe(
+        delay(0)
+      )
+      .subscribe(() => {
+        if (this.control.dirty) {
+          if (this.control.valid && this.successMessage) {
+            this._successMessage = this.formName + '.' + this.control.name + '.valid';
+            this._classArray = [this._config.inputValidClass];
+          } else if (this.control.invalid && this.errorMessage) {
+            for (const error in this.control.errors) {
+              if (this.control.errors.hasOwnProperty(error)) {
+                if (this.control.errors[error]) {
+                  this._errorMessage = this.formName + '.' + this.control.name + '.' + error;
+                  if (error === 'min') {
+                    this._requiredValue = this.control.errors[error].min;
+                  } else if (error === 'max') {
+                    this._requiredValue = this.control.errors[error].max;
+                  } else {
+                    this._requiredValue = this.control.errors[error].requiredValue;
+                  }
+                }
+              }
+            }
+            this._classArray = [this._config.inputInvalidClass];
+          }
+        } else {
+          this._classArray = [];
+        }
+      });
   }
 }

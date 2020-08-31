@@ -1,6 +1,5 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from '../style/style.service';
 
 @Component({
   selector: 'quix-toggle',
@@ -37,7 +36,7 @@ export class ToggleComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  constructor(private style: QuixStyleService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -71,6 +70,6 @@ export class ToggleComponent implements ControlValueAccessor {
   }
 
   getClass() {
-    return this.style.getClassArray(this.validator, this.customClass);
+
   }
 }

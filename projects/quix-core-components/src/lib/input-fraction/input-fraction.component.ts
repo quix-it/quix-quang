@@ -2,44 +2,35 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  forwardRef,
   Input,
   OnChanges,
   OnInit,
+  Optional,
+  Renderer2,
+  Self,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {QuixStyleService} from "../style/style.service";
-
+import {ControlValueAccessor, NgControl} from "@angular/forms";
+import {QuixConfigModel} from "../quix-config.model";
+import {delay} from "rxjs/operators";
 
 @Component({
   selector: 'quix-input-fraction',
   templateUrl: './input-fraction.component.html',
-  styleUrls: ['./input-fraction.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputFractionComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./input-fraction.component.scss']
 })
-export class InputFractionComponent implements ControlValueAccessor, AfterViewInit, OnChanges {
+export class InputFractionComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {
   @Input() id: string;
   @Input() label: string;
   @Input() stepInteger: number;
   @Input() stepFraction: number;
   @Input() ariaLabel: string;
-  @Input() helpMessage: string;
-  @Input() successMessage: string;
-  @Input() errorMessage: string;
-  @Input() customClass: string;
-  @Input() classValidation: string | null;
+  @Input() helpMessage: boolean;
+  @Input() successMessage: boolean;
+  @Input() errorMessage: boolean;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
-  @Input() disabled: boolean;
-  @Input() required: boolean;
   @Input() tabIndex: number;
   @Input() min: number;
   @Input() max: number;
@@ -47,12 +38,19 @@ export class InputFractionComponent implements ControlValueAccessor, AfterViewIn
   @Input() removeButtonClass: string[];
   @Input() addButtonIcon: string[];
   @Input() removeButtonIcon: string[];
-
-
+  @Input() formName: string;
   @Input('value')
-    // tslint:disable-next-line:variable-name
   _value: number;
-  @ViewChild('input') input: ElementRef<HTMLInputElement>
+  _config: QuixConfigModel;
+  _successMessage: string;
+  _errorMessage: string;
+  _helpMessage: string;
+  _requiredValue: any;
+  _classArray: string[] = [];
+  disabled: boolean;
+
+  @ViewChild('input1') input1: ElementRef<HTMLInputElement>;
+  @ViewChild('input2') input2: ElementRef<HTMLInputElement>;
 
   _valueInteger: string;
   _valueFraction: string;
@@ -69,21 +67,32 @@ export class InputFractionComponent implements ControlValueAccessor, AfterViewIn
     this.onTouched();
   }
 
-  constructor(private style: QuixStyleService) {
-    this.value = 0
+  constructor(private renderer: Renderer2,
+              @Self() @Optional() public control: NgControl,
+              @Optional() config: QuixConfigModel) {
+    this.control && (this.control.valueAccessor = this);
+    this._config = config;
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input1.nativeElement.focus();
       }
-    }, 0)
+    }, 0);
+    this.observeValidate();
+    this.disabled = this.input1.nativeElement.disabled;
+  }
+
+  ngOnInit() {
+    if (this.helpMessage) {
+      this._helpMessage = this.formName + '.' + this.control.name + '.help';
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
-      this.input.nativeElement.focus()
+    if (changes.autofocus && this.input1) {
+      this.input1.nativeElement.focus();
     }
   }
 
@@ -119,25 +128,27 @@ export class InputFractionComponent implements ControlValueAccessor, AfterViewIn
   }
 
   writeValueInteger(event) {
-    this.value -= Math.floor(this.value)
-    this.value += Math.floor(event.target.value)
+    this.value -= Math.floor(this.value);
+    this.value += Math.floor(event.target.value);
   }
 
   writeValueFraction(event) {
-    this.value -= this.value % 1
-    this.value += parseFloat('0.' + event.target.value)
+    this.value -= this.value % 1;
+    this.value += parseFloat('0.' + event.target.value);
   }
 
-  getClass() {
-    return this.style.getClassArray(this.classValidation, this.customClass);
+  setDisabledState(isDisabled: boolean): void {
+    this.renderer.setProperty(this.input1?.nativeElement, 'disabled', isDisabled);
+    this.renderer.setProperty(this.input2?.nativeElement, 'disabled', isDisabled);
+    this.disabled = isDisabled;
   }
 
   addInteger() {
     if (this.value < this.max && this.value >= this.min) {
       if (this.value % this.stepInteger) {
-        this.value += (this.stepInteger - (this.value % this.stepInteger))
+        this.value += (this.stepInteger - (this.value % this.stepInteger));
       } else {
-        this.value += this.stepInteger
+        this.value += this.stepInteger;
       }
     }
   }
@@ -145,9 +156,9 @@ export class InputFractionComponent implements ControlValueAccessor, AfterViewIn
   addFraction() {
     if (this.value < this.max && this.value >= this.min) {
       if (this.value % this.stepFraction) {
-        this.value += (this.stepFraction - (this.value % this.stepFraction))
+        this.value += (this.stepFraction - (this.value % this.stepFraction));
       } else {
-        this.value += this.stepFraction
+        this.value += this.stepFraction;
       }
     }
   }
@@ -155,9 +166,9 @@ export class InputFractionComponent implements ControlValueAccessor, AfterViewIn
   removeInteger() {
     if (this.value <= this.max && this.value > this.min) {
       if (this.value % this.stepInteger) {
-        this.value -= (this.stepInteger - (this.value % this.stepInteger))
+        this.value -= (this.stepInteger - (this.value % this.stepInteger));
       } else {
-        this.value -= this.stepInteger
+        this.value -= this.stepInteger;
       }
     }
   }
@@ -165,11 +176,38 @@ export class InputFractionComponent implements ControlValueAccessor, AfterViewIn
   removeFraction() {
     if (this.value <= this.max && this.value > this.min) {
       if (this.value % this.stepFraction) {
-        this.value -= (this.stepFraction - (this.value % this.stepFraction))
+        this.value -= (this.stepFraction - (this.value % this.stepFraction));
       } else {
-        this.value -= this.stepFraction
+        this.value -= this.stepFraction;
       }
     }
+  }
+
+  observeValidate() {
+    this.control?.valueChanges
+      .pipe(
+        delay(0)
+      )
+      .subscribe(() => {
+        if (this.control.dirty) {
+          if (this.control.valid && this.successMessage) {
+            this._successMessage = this.formName + '.' + this.control.name + '.valid';
+            this._classArray = [this._config.inputValidClass];
+          } else if (this.control.invalid && this.errorMessage) {
+            for (const error in this.control.errors) {
+              if (this.control.errors.hasOwnProperty(error)) {
+                if (this.control.errors[error]) {
+                  this._errorMessage = this.formName + '.' + this.control.name + '.' + error;
+                  this._requiredValue = this.control.errors[error].requiredValue;
+                }
+              }
+            }
+            this._classArray = [this._config.inputInvalidClass];
+          }
+        } else {
+          this._classArray = [];
+        }
+      });
   }
 
 }

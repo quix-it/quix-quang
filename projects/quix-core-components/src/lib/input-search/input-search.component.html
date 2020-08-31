@@ -1,33 +1,29 @@
 <div class="form-group">
+
   <label [htmlFor]="id"
          [attr.aria-label]="ariaLabel"
          *ngIf="label">
     {{label | translate}}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <input [(ngModel)]="_searchValue"
-         [typeahead]="suggestions$"
-         [typeaheadAsync]="true"
+
+  <input type="search"
          class="form-control"
          [id]="id"
-         [ngClass]="_classArray"
-         [readOnly]="readonly"
-         [autofocus]="autofocus"
-         [attr.aria-label]="ariaLabel | translate"
-         [tabIndex]="tabIndex"
-         autocomplete="off"
-         [isAnimated]="true"
-         [adaptivePosition]="true"
-         [typeaheadOptionField]="searchBy"
-         [typeaheadScrollable]="true"
-         [typeaheadOptionsInScrollableView]="18"
-         [typeaheadMinLength]="startAfter"
-         (typeaheadOnSelect)="writeValue($event)"
-         (ngModelChange)="clearObj()"
          [placeholder]="placeholder | translate"
-         (typeaheadNoResults)="checkValue()"
+         [ngClass]="_classArray"
+         [maxLength]="max"
+         [minLength]="min"
+         [pattern]="pattern"
+         [disabled]="disabled"
+         [readOnly]="readonly"
+         [(ngModel)]="value"
+         [attr.aria-label]="ariaLabel"
+         [tabIndex]="tabIndex"
          #input
+         autocomplete="off"
   >
+
   <div class="valid-feedback">
     {{_successMessage | translate}}
   </div>
@@ -43,4 +39,5 @@
     {{_helpMessage | translate}}
   </small>
 </div>
-<input type="hidden" [(ngModel)]="value" style="display: none; width: 0; height: 0">
+
+

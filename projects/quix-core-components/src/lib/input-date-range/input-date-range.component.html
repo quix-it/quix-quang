@@ -3,16 +3,16 @@
          [attr.aria-label]="ariaLabel"
          *ngIf="label">
     {{label | translate}}
-    <span [hidden]="!required">*</span>
+    <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <div class="input-group">
-    <input type="text" [id]="id"
+    <input type="text"
+           [id]="id"
            [placeholder]="placeolder"
            class="form-control"
-           [ngClass]="getClass()"
+           [ngClass]="_classArray"
            [bsConfig]="config"
            [disabled]="disabled"
-           [isDisabled]="disabled"
            bsDaterangepicker
            [autofocus]="autofocus"
            [minDate]="minDate"
@@ -22,7 +22,6 @@
            autocomplete="autocomplete_off_hack_xfr4!k"
            #drp="bsDaterangepicker"
            [(ngModel)]="value"
-           [required]="required"
            (bsValueChange)="writeValue($event)"
            #input
     >
@@ -32,23 +31,23 @@
               type="button"
               [ngStyle]="{'pointer-event': disabled ? 'none' : null}"
               (click)="drp.toggle()"
-             >
+      >
         <i [ngClass]="iconClass"></i>
       </button>
     </div>
-
     <div class="valid-feedback">
-      {{successMessage | translate}}
+      {{_successMessage | translate}}
     </div>
-    <div class="invalid-feedback" [attr.aria-errormessage]="errorMessage">
-      {{errorMessage | translate}}
+    <div class="invalid-feedback"
+         [attr.aria-errormessage]="_errorMessage">
+      {{_errorMessage | translate: {requiredValue: _requiredValue} }}
     </div>
   </div>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="classValidation"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">
-    {{helpMessage | translate}}
+    {{_helpMessage | translate}}
   </small>
 </div>
 

@@ -1,31 +1,34 @@
-<div class="custom-control custom-radio"
-     *ngFor="let radio of radioList; let last = last; let index = index;"
-     [ngClass]="getClass()">
-  <input type="radio"
-         class="custom-control-input"
-         [ngClass]="classValidation"
-         [name]="groupName"
-         [id]="id + radio[labelValue]"
-         [(ngModel)]="value"
-         [disabled]="disabled"
-         [tabIndex]="tabIndex + index"
-         [value]="radio[returnValue]"
-         [required]="required">
-  <label class="custom-control-label"
-         [attr.aria-label]="ariaLabel"
-         [htmlFor]="id + radio[labelValue]">
-    {{radio[labelValue] |translate}}
-  </label>
-  <small [id]="radio[labelValue] + 'Help'"
-         class="form-text text-muted"
-         [hidden]="classValidation"
-         *ngIf="helpMessage && last">
-    {{helpMessage | translate}}
-  </small>
-  <div class="valid-feedback" *ngIf="last">
-    {{successMessage | translate}}
+<div class="form-group">
+  <div class="custom-control custom-radio" [ngClass]="_classArray"
+       *ngFor="let radio of radioList; let index = index;">
+    <input type="radio"
+           class="custom-control-input"
+           [ngClass]="_classArray"
+           [name]="groupName"
+           [id]="id + radio[labelValue]"
+           [(ngModel)]="value"
+           [tabIndex]="tabIndex + index"
+           [value]="radio[returnValue]"
+           #input>
+    <label class="custom-control-label"
+           [attr.aria-label]="ariaLabel"
+           [htmlFor]="id + radio[labelValue]">
+      {{radio[labelValue] |translate}}
+    </label>
   </div>
-  <div [attr.aria-errormessage]="errorMessage" class="invalid-feedback" *ngIf="last">
-    {{errorMessage | translate}}
+
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control.valid && successMessage || control.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | translate}}
+  </small>
+  <div class="valid-feedback">
+    {{_successMessage | translate}}
+  </div>
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage | translate">
+    {{_errorMessage | translate: {requiredValue: _requiredValue} }}
   </div>
 </div>
+
+

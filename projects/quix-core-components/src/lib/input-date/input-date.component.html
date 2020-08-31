@@ -3,28 +3,25 @@
          [attr.aria-label]="ariaLabel"
          *ngIf="label">
     {{label | translate}}
-    <span [hidden]="!required">*</span>
+    <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <div class="input-group">
     <input type="text"
            [id]="id"
            [placeholder]="placeholder | translate"
            class="form-control"
-           [ngClass]="getClass()"
+           [ngClass]="_classArray"
            [bsConfig]="config"
-           [disabled]="disabled"
-           [isDisabled]="disabled"
            bsDatepicker
            [minDate]="minDate"
            [maxDate]="maxDate"
            [daysDisabled]="disabledDaysOfTheWeek"
            [datesDisabled]="disabledDates"
-           autocomplete="autocomplete_off_hack_xfr4!k"
+           [autocomplete]="'off'"
            #dp="bsDatepicker"
-           [(ngModel)]="value"
+           [(ngModel)]="_value"
            [attr.aria-label]="ariaLabel"
            [tabIndex]="tabIndex"
-           [required]="required"
            (bsValueChange)="writeValue($event)"
            #input
     >
@@ -34,23 +31,23 @@
         [ngClass]="buttonClass"
         type="button"
         (click)="disabled ? null : dp.toggle()"
-       >
-        <i [ngClass]="iconClass"></i>
+      >
+        <i [ngClass]="buttonIcon"></i>
       </button>
     </div>
     <div class="valid-feedback">
-      {{successMessage | translate}}
+      {{_successMessage | translate}}
     </div>
     <div class="invalid-feedback"
-         [attr.aria-errormessage]="errorMessage">
-      {{errorMessage | translate}}
+         [attr.aria-errormessage]="_errorMessage">
+      {{_errorMessage | translate: {requiredValue: _requiredValue} }}
     </div>
   </div>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="classValidation"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">
-    {{helpMessage | translate}}
+    {{_helpMessage | translate}}
   </small>
 </div>
 

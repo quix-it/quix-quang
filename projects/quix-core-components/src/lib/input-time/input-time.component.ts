@@ -1,33 +1,23 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import * as _moment from 'moment';
-
+import {AfterViewInit, Component, ElementRef, Input, OnInit, Optional, Renderer2, Self, ViewChild} from '@angular/core';
+import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {BsLocaleService} from "ngx-bootstrap/datepicker";
-import {QuixStyleService} from "../style/style.service";
-
+import {QuixConfigModel} from "../quix-config.model";
+import {delay} from "rxjs/operators";
+import moment, {Moment} from 'moment';
 
 @Component({
   selector: 'quix-input-time',
   templateUrl: './input-time.component.html',
-  styleUrls: ['./input-time.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputTimeComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./input-time.component.scss']
 })
-export class InputTimeComponent implements ControlValueAccessor, OnInit {
+export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, OnInit {
   @Input() id: string;
   @Input() label: string;
-  @Input() successMessage: string;
-  @Input() errorMessage: string;
-  @Input() classValidation: string;
-  @Input() helpMessage: string;
-  @Input() customClass: string;
-  @Input() disabled: boolean;
-  @Input() required: boolean;
+  @Input() helpMessage: boolean;
+  @Input() autofocus: boolean;
+  @Input() errorMessage: boolean;
+  @Input() successMessage: boolean;
+  @Input() formName: string;
   @Input() showMeridianButton: boolean;
   @Input() minTime: Date;
   @Input() maxTime: Date;
@@ -40,10 +30,16 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit {
   @Input() ariaLabel: string;
   @Input() locale: string;
   @Input() tabIndex: number;
+  @Input() disabled: boolean;
   @Input('value')
-    // tslint:disable-next-line:variable-name
   _value: any;
-  moment = _moment;
+  _config: QuixConfigModel;
+  _successMessage: string;
+  _errorMessage: string;
+  _helpMessage: string;
+  _requiredValue: any;
+  _classArray: string[] = [];
+  @ViewChild('input') input: ElementRef;
 
   get value() {
     return this._value;
@@ -55,16 +51,30 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit {
     this.onTouched();
   }
 
-  constructor(
-    private style: QuixStyleService,
-    private localeService: BsLocaleService
-  ) {
+  constructor(private renderer: Renderer2,
+              private localeService: BsLocaleService,
+              @Self() @Optional() public control: NgControl,
+              @Optional() config: QuixConfigModel) {
+    this.control && (this.control.valueAccessor = this);
+    this._config = config;
   }
 
   ngOnInit(): void {
     if (this.locale) {
       this.localeService.use(this.locale);
     }
+    if (this.helpMessage) {
+      this._helpMessage = this.formName + '.' + this.control.name + '.help';
+    }
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus();
+      }
+    }, 0);
+    this.observeValidate();
   }
 
   onChange(val) {
@@ -89,14 +99,43 @@ export class InputTimeComponent implements ControlValueAccessor, OnInit {
   writeValue(value) {
     if (value) {
       if (this.useMoment) {
-        this.value = this.moment(value);
+        this.value = moment(value);
       } else {
         this.value = value;
       }
     }
   }
 
-  getClass() {
-    return this.style.getClassArray(this.classValidation, this.customClass);
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
+
+  observeValidate() {
+    this.control?.valueChanges
+      .pipe(
+        delay(0)
+      )
+      .subscribe(() => {
+        if (this.control.dirty) {
+          if (this.control.valid && this.successMessage) {
+            this._successMessage = this.formName + '.' + this.control.name + '.valid';
+            this._classArray = [this._config.inputValidClass];
+          } else if (this.control.invalid && this.errorMessage) {
+            for (const error in this.control.errors) {
+              if (this.control.errors.hasOwnProperty(error)) {
+                if (this.control.errors[error]) {
+                  this._errorMessage = this.formName + '.' + this.control.name + '.' + error;
+                  this._requiredValue = this.control.errors[error].requiredValue;
+                }
+              }
+            }
+            this._classArray = [this._config.inputInvalidClass];
+          }
+        } else {
+          this._classArray = [];
+        }
+      });
+  }
+
 }

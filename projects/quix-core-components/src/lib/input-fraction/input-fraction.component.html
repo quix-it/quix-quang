@@ -3,15 +3,14 @@
          [attr.aria-label]="ariaLabel"
          *ngIf="label">
     {{label | translate}}
-    <span [hidden]="!required">*</span>
+    <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <div class="input-group">
     <div class="input-group-prepend">
       <button type="button"
               [ngClass]="addButtonClass"
               (click)="addInteger()"
-              [disabled]="disabled || readonly"
-      >
+              [disabled]="disabled || readonly">
         <i [ngClass]="addButtonIcon"></i>
       </button>
     </div>
@@ -20,16 +19,13 @@
            class="form-control text-right"
            [id]="id + 'dec'"
            [step]="stepInteger"
-           [ngClass]="getClass()"
+           [ngClass]="_classArray"
            [(ngModel)]="_valueInteger"
-           [disabled]="disabled"
            [readOnly]="readonly"
            (change)="writeValueInteger($event)"
            [attr.aria-label]="ariaLabel"
            [tabIndex]="tabIndex"
-           [required]="required"
-           #input
-    >
+           #input1>
 
     <div class="input-group-append">
       <button type="button"
@@ -56,12 +52,12 @@
            class="form-control"
            [id]="id + 'int'"
            [step]="stepFraction"
-           [ngClass]="getClass()"
+           [ngClass]="_classArray"
            [(ngModel)]="_valueFraction"
            (change)="writeValueFraction($event)"
            [attr.aria-label]="ariaLabel"
-           [disabled]="disabled"
            [readOnly]="readonly"
+           #input2
 
     >
     <div class="input-group-append">
@@ -73,18 +69,20 @@
         <i [ngClass]="removeButtonIcon"></i>
       </button>
     </div>
+
     <div class="valid-feedback">
-      {{successMessage | translate}}
+      {{_successMessage | translate}}
     </div>
-    <div [attr.aria-errormessage]="errorMessage" class="invalid-feedback">
-      {{errorMessage | translate}}
+
+    <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+      {{_errorMessage | translate: {requiredValue: _requiredValue} }}
     </div>
   </div>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="classValidation"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">
-    {{helpMessage | translate}}
+    {{_helpMessage | translate}}
   </small>
-</div>
 
+</div>

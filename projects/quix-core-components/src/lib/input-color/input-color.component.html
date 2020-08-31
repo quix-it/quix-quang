@@ -3,29 +3,29 @@
          [attr.aria-label]="ariaLabel"
          *ngIf="label">
     {{label | translate}}
-    <span [hidden]="!required">*</span>
+    <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <input type="color"
          class="form-control"
          [id]="id"
-         [ngClass]="getClass()"
-         [disabled]="disabled"
+         [ngClass]="_classArray"
          [(ngModel)]="value"
          [attr.aria-label]="ariaLabel | translate"
          [tabIndex]="tabIndex"
-         [required]="required"
          #input
   >
+  <div class="valid-feedback">
+    {{_successMessage | translate}}
+  </div>
+
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    {{_errorMessage | translate: {requiredValue: _requiredValue} }}
+  </div>
+
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="classValidation"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">
-    {{helpMessage | translate}}
+    {{_helpMessage | translate}}
   </small>
-  <div class="valid-feedback">
-    {{successMessage | translate}}
-  </div>
-  <div [attr.aria-errormessage]="errorMessage | translate" class="invalid-feedback">
-    {{errorMessage | translate}}
-  </div>
 </div>

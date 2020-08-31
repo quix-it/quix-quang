@@ -1,42 +1,38 @@
-import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from "../style/style.service";
-
+import {AfterViewInit, Component, ElementRef, Input, OnInit, Optional, Renderer2, Self, ViewChild} from '@angular/core';
+import {ControlValueAccessor, NgControl} from '@angular/forms';
+import {QuixConfigModel} from '../quix-config.model';
+import {delay} from 'rxjs/operators';
 
 
 @Component({
   selector: 'quix-input-email',
   templateUrl: './input-email.component.html',
   styleUrls: ['./input-email.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputEmailComponent),
-      multi: true
-    }
-  ]
 })
-export class InputEmailComponent implements ControlValueAccessor, AfterViewInit {
+export class InputEmailComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() id: string;
-  @Input() successMessage: string;
-  @Input() errorMessage: string;
-  @Input() classValidation: string | null;
-  @Input() pattern: string;
-  @Input() helpMessage: string;
+  @Input() successMessage: boolean;
+  @Input() errorMessage: boolean;
+  @Input() helpMessage: boolean;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() disabled: boolean;
-  @Input() required: boolean;
   @Input() multiple: boolean;
-  @Input() customClass: string;
+  @Input() pattern: string;
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
+  @Input() formName: string;
   @Input('value')
-    // tslint:disable-next-line:variable-name
   _value: string;
-  @ViewChild('input') input: ElementRef<HTMLInputElement>
+  _config: QuixConfigModel;
+  _successMessage: string;
+  _errorMessage: string;
+  _helpMessage: string;
+  _requiredValue: any;
+  _classArray: string[] = [];
+  @ViewChild('input') input: ElementRef<HTMLInputElement>;
 
   get value() {
     return this._value;
@@ -48,15 +44,26 @@ export class InputEmailComponent implements ControlValueAccessor, AfterViewInit 
     this.onTouched();
   }
 
-  constructor(private style: QuixStyleService) {
+  constructor(private renderer: Renderer2,
+              @Self() @Optional() public control: NgControl,
+              @Optional() config: QuixConfigModel) {
+    this.control && (this.control.valueAccessor = this);
+    this._config = config;
+  }
+
+  ngOnInit() {
+    if (this.helpMessage) {
+      this._helpMessage = this.formName + '.' + this.control?.name + '.help';
+    }
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input.nativeElement.focus();
       }
-    }, 0)
+    }, 0);
+    this.observeValidate();
   }
 
   onChange(val) {
@@ -90,7 +97,38 @@ export class InputEmailComponent implements ControlValueAccessor, AfterViewInit 
     }
   }
 
-  getClass() {
-    return this.style.getClassArray(this.classValidation, this.customClass);
+  setDisabledState(isDisabled: boolean): void {
+    this.renderer.setProperty(this.input.nativeElement, 'disabled', isDisabled);
+  }
+
+  observeValidate() {
+    this.control?.valueChanges
+      .pipe(
+        delay(0)
+      )
+      .subscribe(() => {
+        if (this.control.dirty) {
+          if (this.control.valid && this.successMessage) {
+            this._successMessage = this.formName + '.' + this.control.name + '.valid';
+            this._classArray = [this._config.inputValidClass];
+          } else if (this.control.invalid && this.errorMessage) {
+            for (const error in this.control.errors) {
+              if (this.control.errors.hasOwnProperty(error)) {
+                if (this.control.errors[error]) {
+                  this._errorMessage = this.formName + '.' + this.control.name + '.' + error;
+                  if (error === 'email') {
+                    this._requiredValue = this.control.errors[error].email;
+                  } else {
+                    this._requiredValue = this.control.errors[error].requiredValue;
+                  }
+                }
+              }
+            }
+            this._classArray = [this._config.inputInvalidClass];
+          }
+        } else {
+          this._classArray = [];
+        }
+      });
   }
 }

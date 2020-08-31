@@ -1,81 +1,77 @@
 <div class="inputWrapper">
-<div class="dateTimeWrapper">
-  <div class="form-group">
-    <label [htmlFor]="id"
-           [attr.aria-label]="ariaLabel">
-      {{label | translate}}
-      <span [hidden]="!required">*</span>
-    </label>
-    <div class="input-group">
-      <input type="text" [id]="id"
-             [placeholder]="placeholder | translate"
-             class="form-control"
-             [ngClass]="getClass()"
-             [bsConfig]="config"
-             [disabled]="disabled"
-             [isDisabled]="disabled"
-             bsDatepicker
-             [autofocus]="autofocus"
-             [minDate]="minDate"
-             [maxDate]="maxDate"
-             [daysDisabled]="disabledDaysOfTheWeek"
-             [datesDisabled]="disabledDates"
-             autocomplete="autocomplete_off_hack_xfr4!k"
-             #dp="bsDatepicker"
-             [(ngModel)]="value"
-             [attr.aria-label]="ariaLabel + ' date'"
-             [tabIndex]="tabIndex"
-             [required]="required"
-             (bsValueChange)="writeValue($event)"
-             #input
-      >
-      <div class="input-group-append">
-        <button
-          class="btn"
-          type="button"
-          [ngClass]="buttonClass"
-          (click)="disabled ? null : dp.toggle()"
+  <div class="dateTimeWrapper">
+    <div class="form-group">
+      <label [htmlFor]="id"
+             [attr.aria-label]="ariaLabel"
+             *ngIf="label">
+        {{label | translate}}
+        <span [hidden]="!control?.errors?.required">*</span>
+      </label>
+      <div class="input-group">
+        <input type="text" [id]="id"
+               [placeholder]="placeholder | translate"
+               class="form-control"
+               [ngClass]="_classArray"
+               [bsConfig]="config"
+               bsDatepicker
+               [autofocus]="autofocus"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               [daysDisabled]="disabledDaysOfTheWeek"
+               [datesDisabled]="disabledDates"
+               autocomplete="autocomplete_off_hack_xfr4!k"
+               #dp="bsDatepicker"
+               [(ngModel)]="value"
+               [attr.aria-label]="ariaLabel + ' date'"
+               [tabIndex]="tabIndex"
+               (bsValueChange)="writeValue($event)"
+               #input
         >
-          <i [ngClass]="iconClass"></i>
-        </button>
-      </div>
-      <div class="valid-feedback"
-           [ngClass]="getClass()">
-        {{successMessage | translate}}
-      </div>
-      <div class="invalid-feedback"
-           [attr.aria-errormessage]="errorMessage"
-           [ngClass]="getClass()">
-        {{errorMessage | translate}}
+        <div class="input-group-append">
+          <button
+            class="btn"
+            type="button"
+            [ngClass]="buttonClass"
+            (click)="disabled ? null : dp.toggle()"
+          >
+            <i [ngClass]="iconClass"></i>
+          </button>
+        </div>
+        <div class="valid-feedback">
+          {{_successMessage | translate}}
+        </div>
+
+        <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+          {{_errorMessage | translate: {requiredValue: _requiredValue} }}
+        </div>
       </div>
     </div>
+    <div class="form-group"
+         [ngStyle]="{'margin-top': margin}">
+      <timepicker
+        [id]="id"
+        [disabled]="disabled"
+        [min]="minDate"
+        [max]="maxDate"
+        [showSeconds]="showSecond"
+        [hourStep]="hourStep"
+        [minuteStep]="minuteStep"
+        [secondsStep]="secondStep"
+        [mousewheel]="true"
+        [showSpinners]="showSelector"
+        [showMeridian]="showMeridianButton"
+        [ngClass]="_classArray"
+        [(ngModel)]="value"
+        [attr.aria-label]="ariaLabel + ' time'"
+        [tabIndex]="tabIndex + 1"
+        (ngModelChange)="writeValue($event)"
+      ></timepicker>
+    </div>
   </div>
-  <div class="form-group"
-       [ngStyle]="{'margin-top': margin}">
-    <timepicker
-      [id]="id"
-      [disabled]="disabled"
-      [min]="minDate"
-      [max]="maxDate"
-      [showSeconds]="showSecond"
-      [hourStep]="hourStep"
-      [minuteStep]="minuteStep"
-      [secondsStep]="secondStep"
-      [mousewheel]="true"
-      [showSpinners]="showSelector"
-      [showMeridian]="showMeridianButton"
-      [ngClass]="getClass()"
-      [(ngModel)]="value"
-      [attr.aria-label]="ariaLabel + ' time'"
-      [tabIndex]="tabIndex + 1"
-      (ngModelChange)="writeValue($event)"
-    ></timepicker>
-  </div>
-</div>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="classValidation"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">
-    {{helpMessage | translate}}
+    {{_helpMessage | translate}}
   </small>
 </div>

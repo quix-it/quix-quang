@@ -1,50 +1,41 @@
-<ngx-file-drop [dropZoneLabel]="dropLabel"
-               (onFileDrop)="dropped($event)"
-               (onFileOver)="fileOver($event)"
-               (onFileLeave)="fileLeave($event)">
-  <ng-template
-    ngx-file-drop-content-tmp
-    let-openFileSelector="openFileSelector">
-    <div class="form-group">
-      <label
-        [htmlFor]="id"
-        [attr.aria-label]="ariaLabel">
-        {{label | translate}}
-        <span [hidden]="!required">*</span>
-      </label>
-      <div class="input-group">
-        <input
-          type="text"
-          [id]="id"
-          class="form-control"
-          [placeholder]="placeholder"
-          readonly
-          [(ngModel)]="fileName"
-          [ngClass]="getClass()"
-          [attr.aria-label]="ariaLabel"
-          [tabIndex]="tabIndex"
-          [required]="required"
-        >
-        <div class="input-group-append">
-          <button class="btn"
-                  type="button"
-                  [ngClass]="buttonClass "
-                  [id]="id"
-                  (click)="openFileSelector()"
-                  [disabled]="disabled">
-            {{buttonText | translate}}
-          </button>
-        </div>
-        <div class="valid-feedback">
-          {{successMessage | translate}}
-        </div>
-        <div class="invalid-feedback">
-          {{errorMessage | translate}}
-        </div>
-        <div class="invalid-feedback" *ngIf="wrongFile">
-          {{wrongFileMssage | translate}}
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</ngx-file-drop>
+<div class="form-group" [ngClass]="_classArray">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | translate}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <ngx-file-drop [dropZoneLabel]="_dropMessage | translate"
+                 (onFileDrop)="dropped($event)"
+                 (onFileOver)="fileOver($event)"
+                 (onFileLeave)="fileLeave($event)"
+                 [disabled]="disabled"
+
+  >
+    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+      <p *ngIf="helpMessage && ! _value">
+        {{_helpMessage | translate}}
+      </p>
+      <p *ngIf="_value">
+        {{_value?.name}}
+        <button class="btn btn-link" (click)="value = null">
+          <i [ngClass]="buttonDeleteIcon"></i>
+        </button>
+      </p>
+      <button type="button"
+              class="btn"
+              [ngClass]="buttonClass"
+              (click)="openFileSelector()"
+              [disabled]="disabled"
+      >
+        {{buttonLabel | translate}}
+      </button>
+    </ng-template>
+  </ngx-file-drop>
+  <div class="valid-feedback">
+    {{_successMessage | translate}}
+  </div>
+  <div [attr.aria-errormessage]="_errorMessage" class="invalid-feedback">
+    {{_errorMessage | translate: {requiredValue: _requiredValue} }}
+  </div>
+</div>

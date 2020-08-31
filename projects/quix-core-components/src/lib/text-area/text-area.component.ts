@@ -1,48 +1,54 @@
-import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-
-import {CdkTextareaAutosize} from "@angular/cdk/text-field";
-import {QuixStyleService} from "../style/style.service";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  Optional,
+  Renderer2,
+  Self,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import {ControlValueAccessor, NgControl} from '@angular/forms';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {QuixConfigModel} from '../quix-config.model';
+import {delay} from 'rxjs/operators';
 
 
 @Component({
   selector: 'quix-text-area',
   templateUrl: './text-area.component.html',
-  styleUrls: ['./text-area.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TextAreaComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./text-area.component.scss']
 })
-export class TextAreaComponent implements ControlValueAccessor, AfterViewInit {
+export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
   @Input() label: string;
-  @Input() placeholder: string = '';
+  @Input() placeholder = '';
   @Input() id: string;
-  @Input() helpMessage: string;
-  @Input() successMessage: string;
-  @Input() errorMessage: string;
-  @Input() customClass: string;
-  @Input() classValidation: string | null;
+  @Input() successMessage: boolean;
+  @Input() errorMessage: boolean;
+  @Input() helpMessage: boolean;
   @Input() min: number;
-  @Input() max: number = 255;
+  @Input() max = 255;
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() autoResize: boolean;
-  @Input() required: boolean;
-  @Input() disabled: boolean;
   @Input() rows: number;
   @Input() cols: number;
   @Input() tabIndex: number;
   @Input() ariaLabel: string;
-  @Input() resizeMode: 'none' | 'auto' | 'vertical'| 'horizzontal' = 'auto';
-
+  @Input() formName: string;
+  @Input() resizeMode: 'none' | 'auto' | 'vertical' | 'horizzontal' = 'auto';
   @Input('value')
-    // tslint:disable-next-line:variable-name
   _value: string;
-  @ViewChild('input') input: ElementRef<HTMLTextAreaElement>
+  _config: QuixConfigModel;
+  _successMessage: string;
+  _errorMessage: string;
+  _helpMessage: string;
+  _requiredValue: any;
+  _classArray: string[] = [];
+  @ViewChild('input') input: ElementRef<HTMLTextAreaElement>;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   get value() {
@@ -55,17 +61,34 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit {
     this.onTouched();
   }
 
-  constructor(private style: QuixStyleService) {
+  constructor(private renderer: Renderer2,
+              @Self() @Optional() public control: NgControl,
+              @Optional() config: QuixConfigModel) {
+    this.control && (this.control.valueAccessor = this);
+    this._config = config;
+  }
+
+  ngOnInit() {
+    if (this.helpMessage) {
+      this._helpMessage = this.formName + '.' + this.control.name + '.help';
+    }
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input.nativeElement.focus();
       }
-    }, 0)
-    if(this.autoResize){
+    }, 0);
+    if (this.autoResize) {
       this.autosize.resizeToFitContent(true);
+    }
+    this.observeValidate();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus();
     }
   }
 
@@ -100,7 +123,34 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit {
     }
   }
 
-  getClass() {
-    return this.style.getClassArray(this.classValidation, this.customClass);
+  setDisabledState(isDisabled: boolean): void {
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled);
+  }
+
+  observeValidate() {
+    this.control?.valueChanges
+      .pipe(
+        delay(0)
+      )
+      .subscribe(() => {
+        if (this.control.dirty) {
+          if (this.control.valid && this.successMessage) {
+            this._successMessage = this.formName + '.' + this.control.name + '.valid';
+            this._classArray = [this._config.inputValidClass];
+          } else if (this.control.invalid && this.errorMessage) {
+            for (const error in this.control.errors) {
+              if (this.control.errors.hasOwnProperty(error)) {
+                if (this.control.errors[error]) {
+                  this._errorMessage = this.formName + '.' + this.control.name + '.' + error;
+                  this._requiredValue = this.control.errors[error].requiredValue;
+                }
+              }
+            }
+            this._classArray = [this._config.inputInvalidClass];
+          }
+        } else {
+          this._classArray = [];
+        }
+      });
   }
 }

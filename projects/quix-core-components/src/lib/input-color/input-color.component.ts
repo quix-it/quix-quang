@@ -2,46 +2,43 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  forwardRef,
   Input,
   OnChanges,
   OnInit,
+  Optional,
+  Renderer2,
+  Self,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {QuixStyleService} from "../style/style.service";
-
+import {ControlValueAccessor, NgControl} from '@angular/forms';
+import {QuixConfigModel} from "../quix-config.model";
+import {delay} from "rxjs/operators";
 
 
 @Component({
   selector: 'quix-input-color',
   templateUrl: './input-color.component.html',
   styleUrls: ['./input-color.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputColorComponent),
-      multi: true
-    }
-  ]
 })
-export class InputColorComponent implements ControlValueAccessor,  AfterViewInit, OnChanges {
+export class InputColorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {
   @Input() id: string;
   @Input() label: string;
-  @Input() successMessage: string;
-  @Input() errorMessage: string;
-  @Input() customClass: string;
-  @Input() helpMessage: string;
-  @Input() classValidation: string | null;
+  @Input() successMessage: boolean;
+  @Input() errorMessage: boolean;
+  @Input() helpMessage: boolean;
   @Input() autofocus: boolean;
-  @Input() disabled: boolean;
-  @Input() required: boolean;
   @Input() ariaLabel: string = this.label;
   @Input() tabIndex: number;
+  @Input() formName: string;
   @Input('value')
-    // tslint:disable-next-line:variable-name
   _value: string;
+  _config: QuixConfigModel;
+  _successMessage: string;
+  _errorMessage: string;
+  _helpMessage: string;
+  _requiredValue: any;
+  _classArray: string[] = [];
   @ViewChild('input') input: ElementRef<HTMLInputElement>;
 
   get value() {
@@ -54,27 +51,38 @@ export class InputColorComponent implements ControlValueAccessor,  AfterViewInit
     this.onTouched();
   }
 
-  constructor(private style: QuixStyleService) {
+  constructor(private renderer: Renderer2,
+              @Self() @Optional() public control: NgControl,
+              @Optional() config: QuixConfigModel) {
+    this.control && (this.control.valueAccessor = this);
+    this._config = config;
+  }
+
+  ngOnInit() {
+    if (this.helpMessage) {
+      this._helpMessage = this.formName + '.' + this.control.name + '.help';
+    }
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.nativeElement.focus();
+      }
+    }, 0);
+    this.observeValidate();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus();
+    }
   }
 
   onChange(val) {
   }
 
   onTouched() {
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.autofocus) {
-        this.input.nativeElement.focus()
-      }
-    },0)
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
-      this.input.nativeElement.focus()
-    }
   }
 
   registerOnChange(fn) {
@@ -86,15 +94,45 @@ export class InputColorComponent implements ControlValueAccessor,  AfterViewInit
   }
 
   writeValue(value) {
-    if (value.target) {
-      this.value = value.target.value;
+    if (value) {
+      if (value.target) {
+        this.value = value.target.value;
+      } else {
+        this.value = value;
+      }
     } else {
       this.value = value;
     }
   }
 
-  getClass() {
-    return this.style.getClassArray(this.classValidation, this.customClass);
+  setDisabledState(isDisabled: boolean): void {
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled);
   }
 
+  observeValidate() {
+    this.control?.valueChanges
+      .pipe(
+        delay(0)
+      )
+      .subscribe(() => {
+        if (this.control.dirty) {
+          if (this.control.valid && this.successMessage) {
+            this._successMessage = this.formName + '.' + this.control.name + '.valid';
+            this._classArray = [this._config.inputValidClass];
+          } else if (this.control.invalid && this.errorMessage) {
+            for (const error in this.control.errors) {
+              if (this.control.errors.hasOwnProperty(error)) {
+                if (this.control.errors[error]) {
+                  this._errorMessage = this.formName + '.' + this.control.name + '.' + error;
+                  this._requiredValue = this.control.errors[error].requiredValue;
+                }
+              }
+            }
+            this._classArray = [this._config.inputInvalidClass];
+          }
+        } else {
+          this._classArray = [];
+        }
+      });
+  }
 }

@@ -85,6 +85,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import {InputSearchComponent} from "./input-search/input-search.component";
+import {ChipsComponent} from "./chips/chips.component";
+import {MatChipsModule} from "@angular/material/chips";
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -139,7 +142,9 @@ FullCalendarModule.registerPlugins([
     ChartTreemapComponent,
     ChartRadarComponent,
     ChartPieComponent,
-    CalendarComponent
+    CalendarComponent,
+    InputSearchComponent,
+    ChipsComponent
   ],
   imports: [
     CommonModule,
@@ -165,7 +170,8 @@ FullCalendarModule.registerPlugins([
     StoreModule.forFeature(CORECOMPONENTS_KEY, quixCoreComponetsReducers),
     MatInputModule,
     NgxEchartsModule.forRoot({echarts}),
-    FullCalendarModule
+    FullCalendarModule,
+    MatChipsModule,
   ],
   providers: [
     QuixStorageService,
@@ -223,7 +229,9 @@ FullCalendarModule.registerPlugins([
     ChartTreemapComponent,
     ChartRadarComponent,
     ChartPieComponent,
-    CalendarComponent
+    CalendarComponent,
+    InputSearchComponent,
+    ChipsComponent
   ],
   entryComponents: [
     QuixHttpErrorModalComponent

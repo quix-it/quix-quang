@@ -125,3 +125,8 @@ export * from './lib/chart/chart-radar/chart-radar.model';
 
 export * from './lib/calendar/calendar.component';
 export * from './lib/calendar/calendar.model';
+
+export * from './lib/input-search/input-search.component';
+
+export * from './lib/chips/chips.component';
+
