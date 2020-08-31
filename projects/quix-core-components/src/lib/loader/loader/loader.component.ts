@@ -10,7 +10,6 @@ import {QuixCoreComponentsState} from "../../quix-core-components.reducers";
   styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent implements OnInit, OnDestroy {
-  @Input() bgColor: string;
   loaderSubscription$: Subscription;
   loader$: Observable<any>
   @ViewChild('loader') loader: ElementRef<HTMLDivElement>

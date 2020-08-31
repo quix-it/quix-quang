@@ -66,7 +66,7 @@ export * from './lib/http-error/quix-http-error.service';
 export * from './lib/input-file/input-file.component';
 
 export * from './lib/toast/toast.service';
-export * from './lib/toast/toasts.model';
+export * from './lib/toast/toast.model';
 export * from './lib/toast/toast.component';
 export * from './lib/toast/toast-store/toast.action';
 export * from './lib/toast/toast-store/toast.reducer';

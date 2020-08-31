@@ -36,7 +36,7 @@ export class CalendarComponent implements OnInit, OnChanges {
   }
   @Output() onEventClick = new EventEmitter<any>()
   @Output() onDateClick = new EventEmitter<any>()
-  @Output() onViewChange = new EventEmitter<any>()
+  // @Output() onViewChange = new EventEmitter<any>()
   calendarOptions: CalendarOptions = {
     initialView: this.view,
     themeSystem: 'bootstrap',
@@ -80,25 +80,16 @@ export class CalendarComponent implements OnInit, OnChanges {
     }
   }
 
-  eventClick(event
-               :
-               any
-  ) {
+  eventClick(event: any) {
     this.onEventClick.emit(event)
   }
 
-  dateClick(event
-              :
-              any
-  ) {
+  dateClick(event: any) {
     this.onDateClick.emit(event)
   }
 
-  viewChange(event
-               :
-               any
-  ) {
-    this.onViewChange.emit(event)
-  }
+  // viewChange(event: any) {
+  //   this.onViewChange.emit(event)
+  // }
 
 }

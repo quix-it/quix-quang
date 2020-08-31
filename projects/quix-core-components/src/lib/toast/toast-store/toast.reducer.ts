@@ -1,6 +1,6 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {openToast} from './toast.action';
-import {QuixToast} from "../toasts.model";
+import {QuixToast} from "../toast.model";
 
 export interface ToastsState {
   toastData: QuixToast;

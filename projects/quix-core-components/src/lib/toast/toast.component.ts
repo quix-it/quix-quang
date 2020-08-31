@@ -8,7 +8,7 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import {QuixToast} from './toasts.model';
+import {QuixToast} from './toast.model';
 import {Observable, Subscription} from 'rxjs';
 import {ToastsState} from './toast-store/toast.reducer';
 import {select, Store} from '@ngrx/store';

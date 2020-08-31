@@ -9,7 +9,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {ChartLine} from "../chart-line/chart-line.model";
-import EChartOption = echarts.EChartOption;
+import {EChartOption} from "echarts";
 
 @Component({
   selector: 'quix-chart-bar',

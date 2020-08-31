@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {QuixToast} from "./toasts.model";
+import {QuixToast} from "./toast.model";
 import {openToast} from "./toast-store/toast.action";
 
 @Injectable({

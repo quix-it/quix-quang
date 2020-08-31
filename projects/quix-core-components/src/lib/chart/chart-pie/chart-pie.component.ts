@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import EChartOption = echarts.EChartOption;
+import {EChartOption} from "echarts";
 import {ChartPie} from "./chart-pie.model";
 
 @Component({
