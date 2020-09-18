@@ -1,5 +1,6 @@
 import {Injectable, Optional} from '@angular/core';
-import {QuixConfigModel} from '../quix-config.model';
+import {QuangConfig} from "../quang-config.model";
+
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ import {QuixConfigModel} from '../quix-config.model';
 export class GoogleMapService {
   public key: string;
 
-  constructor(@Optional() config: QuixConfigModel) {
+  constructor(@Optional() config: QuangConfig) {
     if (config.googleKey) {
       this.key = config.googleKey;
     } else {

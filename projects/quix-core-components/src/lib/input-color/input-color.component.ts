@@ -12,8 +12,8 @@ import {
   ViewChild
 } from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
-import {QuixConfigModel} from "../quix-config.model";
 import {delay} from "rxjs/operators";
+import {QuangConfig} from "../quang-config.model";
 
 
 @Component({
@@ -33,7 +33,7 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
   @Input() formName: string;
   @Input('value')
   _value: string;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -53,7 +53,7 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
 
   constructor(private renderer: Renderer2,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }

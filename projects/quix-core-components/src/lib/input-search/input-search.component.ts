@@ -13,7 +13,7 @@ import {
 
 import {ControlValueAccessor, NgControl} from "@angular/forms";
 import {delay} from "rxjs/operators";
-import {QuixConfigModel} from "../quix-config.model";
+import {QuangConfig} from "../quang-config.model";
 
 @Component({
   selector: 'quix-input-search',
@@ -38,7 +38,7 @@ export class InputSearchComponent implements ControlValueAccessor, AfterViewInit
   @Input() tabIndex: number;
   @Input('value')
   _value: string;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -58,7 +58,7 @@ export class InputSearchComponent implements ControlValueAccessor, AfterViewInit
 
   constructor(private renderer: Renderer2,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }

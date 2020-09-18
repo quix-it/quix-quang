@@ -12,8 +12,8 @@ import {
   ViewChild
 } from '@angular/core';
 import {ControlValueAccessor, NgControl} from "@angular/forms";
-import {QuixConfigModel} from "../quix-config.model";
 import {delay} from "rxjs/operators";
+import {QuangConfig} from "../quang-config.model";
 
 @Component({
   selector: 'quix-input-fraction',
@@ -41,7 +41,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   @Input() formName: string;
   @Input('value')
   _value: number;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -69,7 +69,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
 
   constructor(private renderer: Renderer2,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }

@@ -14,9 +14,9 @@ import {
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 
 import {BsDatepickerConfig, BsLocaleService} from "ngx-bootstrap/datepicker";
-import {QuixConfigModel} from "../quix-config.model";
 import {delay} from "rxjs/operators";
 import moment, {Moment} from 'moment';
+import {QuangConfig} from "../quang-config.model";
 
 @Component({
   selector: 'quix-input-date',
@@ -49,7 +49,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   @Input('value')
   _value: any;
   config: Partial<BsDatepickerConfig>;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -71,7 +71,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   constructor(private renderer: Renderer2,
               private localeService: BsLocaleService,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }

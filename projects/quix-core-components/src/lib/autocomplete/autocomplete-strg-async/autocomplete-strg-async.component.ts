@@ -15,7 +15,8 @@ import {NgControl} from '@angular/forms';
 import {Observable, Observer, of} from 'rxjs';
 import {debounceTime, delay, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
 import {QuixAutocompleteAsyncService} from '../quix-autocomplete.service';
-import {QuixConfigModel} from '../../quix-config.model';
+import {QuangConfig} from "../../quang-config.model";
+
 
 @Component({
   selector: 'quix-autocomplete-strg-async',
@@ -41,7 +42,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   @Input() startAfter: number;
   @Input('value')
   _value: string;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -63,7 +64,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   constructor(private renderer: Renderer2,
               private autocompleteService: QuixAutocompleteAsyncService,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }

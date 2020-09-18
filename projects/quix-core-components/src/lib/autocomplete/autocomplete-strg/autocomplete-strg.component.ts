@@ -9,9 +9,9 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {QuixConfigModel} from "../../quix-config.model";
 import {NgControl} from "@angular/forms";
 import {delay} from "rxjs/operators";
+import {QuangConfig} from "../../quang-config.model";
 
 
 @Component({
@@ -35,7 +35,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   @Input() startAfter: number;
   @Input('value')
   _value: string;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -55,7 +55,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
 
   constructor(private renderer: Renderer2,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }

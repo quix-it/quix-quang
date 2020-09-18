@@ -4,6 +4,7 @@
 export * from './lib/quix-core-components.module';
 export * from './lib/quix-core-components.reducers';
 export * from './lib/quix-core-components.selector';
+export * from './lib/quang-config.model';
 
 export * from './lib/storage/quix-storage.service';
 export * from './lib/offline/offline.service';
@@ -73,7 +74,8 @@ export * from './lib/toast/toast-store/toast.reducer';
 export * from './lib/toast/toast-store/toast.selector';
 
 export * from './lib/paginator/paginator.component';
-export * from './lib/paginator/paginatorLanguage';
+export * from './lib/paginator/paginator.language';
+export * from './lib/paginator/paginator.service';
 
 export * from './lib/input-color/input-color.component';
 
@@ -129,4 +131,9 @@ export * from './lib/calendar/calendar.model';
 export * from './lib/input-search/input-search.component';
 
 export * from './lib/chips/chips.component';
+
+export * from './lib/card/quix-card/quix-card.component';
+export * from './lib/card/quix-card-simple/quix-card-simple.component';
+export * from './lib/card/quix-card-action/quix-card-action.component';
+
 

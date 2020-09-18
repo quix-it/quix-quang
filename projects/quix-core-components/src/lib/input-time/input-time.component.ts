@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, Optional, Renderer2, Self, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {BsLocaleService} from "ngx-bootstrap/datepicker";
-import {QuixConfigModel} from "../quix-config.model";
 import {delay} from "rxjs/operators";
 import moment, {Moment} from 'moment';
+import {QuangConfig} from "../quang-config.model";
 
 @Component({
   selector: 'quix-input-time',
@@ -33,7 +33,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
   @Input() disabled: boolean;
   @Input('value')
   _value: any;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -54,7 +54,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
   constructor(private renderer: Renderer2,
               private localeService: BsLocaleService,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }

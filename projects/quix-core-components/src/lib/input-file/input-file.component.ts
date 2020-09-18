@@ -14,9 +14,10 @@ import {
   ViewChild
 } from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
-import {QuixConfigModel} from '../quix-config.model';
+
 import {delay} from 'rxjs/operators';
 import {FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
+import {QuangConfig} from "../quang-config.model";
 
 @Component({
   selector: 'quix-input-file',
@@ -45,7 +46,7 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
     // tslint:disable-next-line:variable-name
   _value: File;
   @ViewChild('input', {static: false}) input: ElementRef<HTMLButtonElement>;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -65,7 +66,7 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
 
   constructor(private renderer: Renderer2,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }

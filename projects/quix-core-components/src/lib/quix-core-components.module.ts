@@ -8,7 +8,6 @@ import {QuixModalService} from './modal/quix-modal.service';
 import {QuixSnackbarService} from './snackbar/quix-snackbar.service';
 import {OSMapComponent} from './osmap/osmap.component';
 import {GoogleMapComponent} from './googleMap/google-map.component';
-import {QuixConfigModel} from './quix-config.model';
 import {InputTextComponent} from './input-text/input-text.component';
 import {QuixStyleService} from './style/style.service';
 import {FormsModule} from '@angular/forms';
@@ -37,7 +36,6 @@ import {StoreModule} from '@ngrx/store';
 import {CORECOMPONENTS_KEY, quixCoreComponetsReducers} from './quix-core-components.reducers';
 import {DataTableComponent} from "./data-table/data-table.component";
 import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
-import {PaginatorLanguage} from "./paginator/paginatorLanguage";
 import {AutocompleteStrgComponent} from "./autocomplete/autocomplete-strg/autocomplete-strg.component";
 import {AutocompleteStrgAsyncComponent} from "./autocomplete/autocomplete-strg-async/autocomplete-strg-async.component";
 import {AutocompleteObjComponent} from "./autocomplete/autocomplete-obj/autocomplete-obj.component";
@@ -88,6 +86,11 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import {InputSearchComponent} from "./input-search/input-search.component";
 import {ChipsComponent} from "./chips/chips.component";
 import {MatChipsModule} from "@angular/material/chips";
+import {QuixCardActionComponent} from "./card/quix-card-action/quix-card-action.component";
+import {QuixCardComponent} from "./card/quix-card/quix-card.component";
+import {QuixCardSimpleComponent} from "./card/quix-card-simple/quix-card-simple.component";
+import {QuangConfig} from "./quang-config.model";
+import {PaginatorLanguage} from "./paginator/paginator.language";
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -144,7 +147,10 @@ FullCalendarModule.registerPlugins([
     ChartPieComponent,
     CalendarComponent,
     InputSearchComponent,
-    ChipsComponent
+    ChipsComponent,
+    QuixCardActionComponent,
+    QuixCardComponent,
+    QuixCardSimpleComponent
   ],
   imports: [
     CommonModule,
@@ -231,18 +237,21 @@ FullCalendarModule.registerPlugins([
     ChartPieComponent,
     CalendarComponent,
     InputSearchComponent,
-    ChipsComponent
+    ChipsComponent,
+    QuixCardActionComponent,
+    QuixCardComponent,
+    QuixCardSimpleComponent
   ],
   entryComponents: [
     QuixHttpErrorModalComponent
   ]
 })
 export class QuixCoreComponentsModule {
-  static forRoot(config: QuixConfigModel): ModuleWithProviders {
+  static forRoot(config: QuangConfig): ModuleWithProviders {
     return {
       ngModule: QuixCoreComponentsModule,
       providers: [
-        {provide: QuixConfigModel, useValue: config}
+        {provide: QuangConfig, useValue: config}
       ]
     };
   }

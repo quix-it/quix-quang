@@ -2,7 +2,7 @@
  * Public API Surface of quix-core-authentication
  */
 export * from './lib/quix-auth.module';
-export * from './lib/quix-auth.model';
+export * from './lib/quang-auth.model';
 
 export * from './lib/quix-auth.reducers';
 export * from './lib/quix-auth.selector';

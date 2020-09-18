@@ -1,6 +1,6 @@
 {
   "name": "@quix/quix-core-authentication",
-  "version": "0.13.14",
+  "version": "0.13.16",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",

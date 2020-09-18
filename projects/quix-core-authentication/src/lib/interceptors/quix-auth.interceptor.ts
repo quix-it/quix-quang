@@ -2,14 +2,14 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Injectable, Optional} from '@angular/core';
 import {Observable} from 'rxjs';
 import {QuixWindowService} from "../window/quix-window.service";
-import {QuixAuthModel} from "../quix-auth.model";
+import {QuangAuthConfig} from "../quang-auth.model";
 
 @Injectable()
 export class QuixAuthInterceptor implements HttpInterceptor {
-  config: QuixAuthModel
+  config: QuangAuthConfig
   constructor(
     private window: QuixWindowService,
-    @Optional() config: QuixAuthModel,
+    @Optional() config: QuangAuthConfig,
   ) {
     if (config) {
       this.config = config;

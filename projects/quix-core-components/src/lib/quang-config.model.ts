@@ -1,4 +1,4 @@
-export class QuixConfigModel {
+export class QuangConfig {
   constructor(
     public googleKey?: string,
     public inputValidClass: string = 'is-valid',

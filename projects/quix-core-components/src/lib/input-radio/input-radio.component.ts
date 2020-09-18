@@ -13,8 +13,8 @@ import {
   ViewChildren
 } from '@angular/core';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
-import {QuixConfigModel} from "../quix-config.model";
 import {delay} from "rxjs/operators";
+import {QuangConfig} from "../quang-config.model";
 
 @Component({
   selector: 'quix-input-radio',
@@ -37,14 +37,13 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   @Input() returnValue: string;
   @Input('value')
   _value: string;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
   _requiredValue: any;
   _classArray: string[] = [];
   @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>>;
-
 
   get value() {
     return this._value;
@@ -58,7 +57,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
 
   constructor(private renderer: Renderer2,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }

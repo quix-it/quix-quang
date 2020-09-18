@@ -1,5 +1,4 @@
 import {Injectable, Optional} from '@angular/core';
-import {QuixAuthModel} from "../quix-auth.model";
 import {Store} from "@ngrx/store";
 import {NullValidationHandler, OAuthService} from "angular-oauth2-oidc";
 import {from, of} from "rxjs";
@@ -7,15 +6,16 @@ import {userInfoLogout, userLogout} from "../store/user.action";
 import {TranslateService} from "@ngx-translate/core";
 import {QuixWindowService} from "../window/quix-window.service";
 import {QuixStorageService} from "../storage/quix-storage.service";
+import {QuangAuthConfig} from "../quang-auth.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuixAuthService {
-  public config: QuixAuthModel
+  public config: QuangAuthConfig
 
   constructor(
-    @Optional() config: QuixAuthModel,
+    @Optional() config: QuangAuthConfig,
     private oauthService: OAuthService,
     private window: QuixWindowService,
     private translate: TranslateService,

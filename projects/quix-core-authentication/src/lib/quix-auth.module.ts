@@ -1,6 +1,6 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {QuixAuthModel} from "./quix-auth.model";
+import {QuangAuthConfig } from "./quang-auth.model";
 import {StoreModule} from "@ngrx/store";
 import {COREAUTHENTICATION_KEY, QuixAuthReducers} from "./quix-auth.reducers";
 import {OAuthModule} from "angular-oauth2-oidc";
@@ -42,11 +42,11 @@ import {QuixLocaleService} from "./services/quix-locale.service";
     HasUntilRolesDirective
   ]
 })
-export class QuixAuthModule {  static forRoot(config: QuixAuthModel): ModuleWithProviders {
+export class QuixAuthModule {  static forRoot(config: QuangAuthConfig): ModuleWithProviders {
   return {
     ngModule: QuixAuthModule,
     providers: [
-      {provide: QuixAuthModel, useValue: config}
+      {provide: QuangAuthConfig, useValue: config}
     ]
   };
 }}

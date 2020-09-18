@@ -11,9 +11,9 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {QuixConfigModel} from '../../quix-config.model';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {delay} from 'rxjs/operators';
+import {QuangConfig} from "../../quang-config.model";
 
 
 @Component({
@@ -39,7 +39,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   @Input() formName: string;
   @Input('value')
   _value: string;
-  _config: QuixConfigModel;
+  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -65,7 +65,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
 
   constructor(private renderer: Renderer2,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuixConfigModel) {
+              @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
     this._config = config;
   }
