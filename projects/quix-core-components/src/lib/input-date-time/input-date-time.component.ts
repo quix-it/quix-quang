@@ -156,7 +156,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

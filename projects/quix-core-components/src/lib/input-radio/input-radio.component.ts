@@ -45,6 +45,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   _classArray: string[] = [];
   @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>>;
 
+
   get value() {
     return this._value;
   }
@@ -55,7 +56,8 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
     this.onTouched();
   }
 
-  constructor(private renderer: Renderer2,
+  constructor(
+              private renderer: Renderer2,
               @Self() @Optional() public control: NgControl,
               @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);

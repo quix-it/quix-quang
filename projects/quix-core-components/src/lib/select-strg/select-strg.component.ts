@@ -1,38 +1,45 @@
-import {AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {QuixStyleService} from "../style/style.service";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input, OnChanges,
+  OnInit,
+  Optional,
+  Renderer2,
+  Self,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import {ControlValueAccessor, NgControl} from '@angular/forms';
 
+import {delay} from 'rxjs/operators';
+import {QuangConfig} from "../quang-config.model";
 
 
 @Component({
   selector: 'quix-select-strg',
   templateUrl: './select-strg.component.html',
-  styleUrls: ['./select-strg.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectStrgComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./select-strg.component.scss']
 })
-export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit {
+export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnInit {
   @Input() ariaLabel: string;
   @Input() label: string;
   @Input() id: string;
-  @Input() successMessage: string;
-  @Input() errorMessage: string;
-  @Input() helpMessage: string;
-  @Input() customClass: string;
-  @Input() classValidation: string | null;
+  @Input() successMessage: boolean;
+  @Input() errorMessage: boolean;
+  @Input() helpMessage: boolean;
   @Input() autofocus: boolean;
-  @Input() required: boolean;
-  @Input() disabled: boolean;
+  @Input() formName: string;
   @Input() list: Array<string | number>;
   @Input('value')
-    // tslint:disable-next-line:variable-name
   _value: string;
-  @ViewChild('input') input: ElementRef<HTMLSelectElement>
+  _config: QuangConfig;
+  _successMessage: string;
+  _errorMessage: string;
+  _helpMessage: string;
+  _requiredValue: any;
+  _classArray: string[] = [];
+  @ViewChild('input') input: ElementRef<HTMLSelectElement>;
 
   get value() {
     return this._value;
@@ -44,15 +51,32 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit 
     this.onTouched();
   }
 
-  constructor(private style: QuixStyleService) {
+  constructor(private renderer: Renderer2,
+              @Self() @Optional() public control: NgControl,
+              @Optional() config: QuangConfig) {
+    this.control && (this.control.valueAccessor = this);
+    this._config = config;
+  }
+
+  ngOnInit() {
+    if (this.helpMessage) {
+      this._helpMessage = this.formName + '.' + this.control.name + '.help';
+    }
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input.nativeElement.focus();
       }
-    },0)
+    }, 0);
+    this.observeValidate();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.autofocus && this.input) {
+      this.input.nativeElement.focus();
+    }
   }
 
   onChange(val) {
@@ -77,17 +101,43 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit 
   writeValue(value) {
     if (value) {
       if (value.target) {
-        this.value = value.target;
+        this.value = value.target.value;
       } else {
-        this.value = value
+        this.value = value;
       }
     } else {
       this.value = value;
     }
   }
 
-  getClass() {
-    return this.style.getClassArray(this.classValidation, this.customClass);
+  setDisabledState(isDisabled: boolean): void {
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled);
   }
 
+  observeValidate() {
+    this.control?.valueChanges
+      .pipe(
+        delay(0)
+      )
+      .subscribe(() => {
+        if (this.control.dirty) {
+          if (this.control.valid && this.successMessage) {
+            this._successMessage = this.formName + '.' + this.control.name + '.valid';
+            this._classArray = [this._config.inputValidClass];
+          } else if (this.control.invalid && this.errorMessage) {
+            for (const error in this.control.errors) {
+              if (this.control.errors.hasOwnProperty(error)) {
+                if (this.control.errors[error]) {
+                  this._errorMessage = this.formName + '.' + this.control.name + '.' + error;
+                  this._requiredValue = this.control.errors[error].requiredValue;
+                }
+              }
+            }
+            this._classArray = [this._config.inputInvalidClass];
+          }
+        } else {
+          this._classArray = [];
+        }
+      });
+  }
 }

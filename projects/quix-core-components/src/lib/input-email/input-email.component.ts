@@ -103,7 +103,7 @@ export class InputEmailComponent implements ControlValueAccessor, OnInit, AfterV
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

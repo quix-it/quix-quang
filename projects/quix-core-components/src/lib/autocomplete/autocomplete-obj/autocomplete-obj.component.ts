@@ -145,7 +145,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

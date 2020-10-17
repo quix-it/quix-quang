@@ -112,7 +112,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

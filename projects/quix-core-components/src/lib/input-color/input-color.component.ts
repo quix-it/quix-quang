@@ -110,7 +110,7 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

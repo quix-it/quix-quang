@@ -122,7 +122,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

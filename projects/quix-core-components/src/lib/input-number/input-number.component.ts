@@ -119,7 +119,7 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, After
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

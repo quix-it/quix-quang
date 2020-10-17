@@ -1,19 +1,19 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges, ViewChild
 } from '@angular/core';
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'quix-paginator',
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorComponent implements OnInit, OnChanges {
   @Input() id: string;
@@ -24,8 +24,8 @@ export class PaginatorComponent implements OnInit, OnChanges {
   @Input() sizeList: Array<number>;
   @Input() defaultPageSize: number;
   @Input() defaultPageIndex: number;
-  @Output() changedSize = new EventEmitter<any>();
   @Output() onPageChange = new EventEmitter<any>();
+  @ViewChild('quixPaginator', {static: true}) paginator: MatPaginator;
   pageState: {
     length: number,
     pageIndex: number
@@ -70,6 +70,10 @@ export class PaginatorComponent implements OnInit, OnChanges {
 
   onChangeSize(e: any) {
     this.onPageChange.emit({...this.pageState, pageSize: parseInt(e.target.value)});
+  }
+
+  goToFirstPage(){
+    this.paginator.firstPage()
   }
 
 }

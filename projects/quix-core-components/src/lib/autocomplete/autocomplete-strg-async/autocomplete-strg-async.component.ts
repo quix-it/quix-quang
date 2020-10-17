@@ -155,7 +155,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

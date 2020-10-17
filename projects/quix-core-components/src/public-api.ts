@@ -8,6 +8,11 @@ export * from './lib/quang-config.model';
 
 export * from './lib/storage/quix-storage.service';
 export * from './lib/offline/offline.service';
+export * from './lib/offline/offline.interceptor';
+export * from './lib/offline/offline-store/offline.action';
+export * from './lib/offline/offline-store/offline.reducer';
+export * from './lib/offline/offline-store/offline.selector';
+
 
 export * from './lib/loader/quix-loader.interceptor';
 export * from './lib/loader/loader/loader.component';

@@ -22,6 +22,7 @@ export * from './lib/services/quix-locale.service';
 export * from './lib/interceptors/quix-auth.interceptor';
 
 export * from './lib/guards/quix-auth-store.guard';
+export * from './lib/guards/quix-not-permission.guard';
 
 export * from './lib/directives/user-is-logged.directive';
 export * from './lib/directives/has-roles.directive';

@@ -129,7 +129,7 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit, OnC
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

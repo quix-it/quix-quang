@@ -146,7 +146,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

@@ -129,7 +129,7 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

@@ -202,7 +202,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

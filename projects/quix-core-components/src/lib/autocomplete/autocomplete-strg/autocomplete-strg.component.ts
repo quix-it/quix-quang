@@ -113,7 +113,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

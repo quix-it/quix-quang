@@ -184,7 +184,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

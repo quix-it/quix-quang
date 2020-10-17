@@ -146,7 +146,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

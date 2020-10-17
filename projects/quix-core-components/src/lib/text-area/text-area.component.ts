@@ -129,7 +129,7 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   }
 
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )
