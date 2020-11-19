@@ -49,7 +49,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   _requiredValue: any;
   _classArray: string[] = [];
   suggestions$: Observable<any>;
-  @ViewChild('input') input: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) input: ElementRef<HTMLInputElement>;
 
   get value() {
     return this._value;
@@ -174,6 +174,8 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

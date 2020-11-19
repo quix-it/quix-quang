@@ -41,7 +41,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
     _helpMessage: string;
     _requiredValue: any;
     _classArray: string[] = [];
-    @ViewChild('input') input: ElementRef<HTMLInputElement>;
+    @ViewChild('input', {static: true}) input: ElementRef<HTMLInputElement>;
 
     get value() {
         return this._value;

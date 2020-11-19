@@ -203,6 +203,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

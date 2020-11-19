@@ -39,7 +39,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
   _helpMessage: string;
   _requiredValue: any;
   _classArray: string[] = [];
-  @ViewChild('input') input: ElementRef;
+  @ViewChild('input', {static: true}) input: ElementRef;
 
   get value() {
     return this._value;
@@ -131,6 +131,8 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

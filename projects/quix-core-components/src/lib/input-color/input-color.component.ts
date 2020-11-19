@@ -39,7 +39,7 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
   _helpMessage: string;
   _requiredValue: any;
   _classArray: string[] = [];
-  @ViewChild('input') input: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) input: ElementRef<HTMLInputElement>;
 
   get value() {
     return this._value;
@@ -129,6 +129,8 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

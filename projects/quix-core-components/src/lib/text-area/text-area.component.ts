@@ -49,7 +49,7 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   _helpMessage: string;
   _requiredValue: any;
   _classArray: string[] = [];
-  @ViewChild('input') input: ElementRef<HTMLTextAreaElement>;
+  @ViewChild('input', {static: true}) input: ElementRef<HTMLTextAreaElement>;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   get value() {
@@ -148,6 +148,8 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

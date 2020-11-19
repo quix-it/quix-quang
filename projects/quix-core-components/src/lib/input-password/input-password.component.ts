@@ -50,7 +50,7 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit, OnC
   _requiredValue: any;
   _classArray: string[] = [];
   type = 'password';
-  @ViewChild('input') input: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) input: ElementRef<HTMLInputElement>;
 
   get value() {
     return this._value;
@@ -152,6 +152,8 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit, OnC
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

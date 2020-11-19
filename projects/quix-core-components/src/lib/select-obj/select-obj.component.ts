@@ -40,7 +40,7 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
   _helpMessage: string;
   _requiredValue: any;
   _classArray: string[] = [];
-  @ViewChild('input') input: ElementRef<HTMLSelectElement>;
+  @ViewChild('input', {static: true}) input: ElementRef<HTMLSelectElement>;
 
   get value() {
     return this._value;
@@ -136,6 +136,8 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

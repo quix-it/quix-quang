@@ -125,8 +125,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
     this.control?.statusChanges
       .pipe(
         delay(0)
-      )
-      .subscribe(() => {
+      ).subscribe(() => {
         if (this.control.dirty) {
           if (this.control.valid && this.successMessage) {
             this._successMessage = this.formName + '.' + this.control.name + '.valid';
@@ -145,6 +144,8 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

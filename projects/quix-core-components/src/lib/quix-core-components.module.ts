@@ -91,6 +91,11 @@ import {QuixCardComponent} from "./card/quix-card/quix-card.component";
 import {QuixCardSimpleComponent} from "./card/quix-card-simple/quix-card-simple.component";
 import {QuangConfig} from "./quang-config.model";
 import {PaginatorLanguage} from "./paginator/paginator.language";
+import {QuixLoaderInterceptor} from "./loader/quix-loader.interceptor";
+import {QuixHttpErrorInterceptor} from "./http-error/quix-http-error.interceptor";
+import {QuixEventSourceService} from "./event-source/event-source.service";
+import {TextEditorComponent} from "./text-editor/text-editor.component";
+import {QuillModule} from "ngx-quill";
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -150,7 +155,8 @@ FullCalendarModule.registerPlugins([
     ChipsComponent,
     QuixCardActionComponent,
     QuixCardComponent,
-    QuixCardSimpleComponent
+    QuixCardSimpleComponent,
+    TextEditorComponent
   ],
   imports: [
     CommonModule,
@@ -178,6 +184,7 @@ FullCalendarModule.registerPlugins([
     NgxEchartsModule.forRoot({echarts}),
     FullCalendarModule,
     MatChipsModule,
+    QuillModule.forRoot(),
   ],
   providers: [
     QuixStorageService,
@@ -188,7 +195,10 @@ FullCalendarModule.registerPlugins([
     QuixHttpErrorService,
     QuixToastService,
     PaginatorLanguage,
-    {provide: MatPaginatorIntl, useClass: PaginatorLanguage}
+    {provide: MatPaginatorIntl, useClass: PaginatorLanguage},
+    QuixLoaderInterceptor,
+    QuixHttpErrorInterceptor,
+    QuixEventSourceService
   ],
   exports: [
     DataTableComponent,
@@ -240,7 +250,8 @@ FullCalendarModule.registerPlugins([
     ChipsComponent,
     QuixCardActionComponent,
     QuixCardComponent,
-    QuixCardSimpleComponent
+    QuixCardSimpleComponent,
+    TextEditorComponent
   ],
   entryComponents: [
     QuixHttpErrorModalComponent

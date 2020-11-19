@@ -48,7 +48,10 @@
     "@fullcalendar/bootstrap": "^5.1.0",
     "@fullcalendar/daygrid": "^5.1.0",
     "@fullcalendar/timegrid": "^5.1.0",
-    "@fullcalendar/interaction": "^5.1.0"
+    "@fullcalendar/interaction": "^5.1.0",
+    "event-source-polyfill": "^1.0.21",
+    "ngx-quill": "^11.1.0",
+    "quill": "^1.3.7"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.7",

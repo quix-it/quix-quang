@@ -19,7 +19,7 @@
       {{'httpErrorModal.' + error?.status + '.errorMessage' | translate}}
     </p>
     <p *ngIf="error?.error">
-      {{error?.error | translate}}
+      {{error?.message}}
     </p>
   </div>
   <div class="modal-footer">

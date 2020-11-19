@@ -143,6 +143,8 @@ export class InputSearchComponent implements ControlValueAccessor, AfterViewInit
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

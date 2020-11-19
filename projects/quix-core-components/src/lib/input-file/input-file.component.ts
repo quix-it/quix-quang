@@ -148,6 +148,8 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

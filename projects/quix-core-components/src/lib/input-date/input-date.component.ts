@@ -56,7 +56,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   _requiredValue: any;
   _classArray: string[] = [];
   disabled: boolean;
-  @ViewChild('input') input: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) input: ElementRef<HTMLInputElement>;
 
   get value() {
     return this._value;

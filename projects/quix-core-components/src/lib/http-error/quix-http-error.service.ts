@@ -8,6 +8,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class QuixHttpErrorService {
   modalError: any;
+  isOpen: boolean = false
 
   constructor(
     private quixModalService: QuixModalService
@@ -15,13 +16,31 @@ export class QuixHttpErrorService {
   }
 
   openErrorModal(error: HttpErrorResponse) {
-    this.modalError = QuixHttpErrorModalComponent
-    this.quixModalService.openModal(
-      this.modalError,
-      'httpErrorModal.' + error?.status + '.title',
-      'md',
-      {error: error},
-      true,
-      false)
+    this.quixModalService.getModalEvent().subscribe(
+      e => {
+        switch (e) {
+          case 'backdrop-click':
+            this.isOpen = false
+            break
+          case 'close':
+            this.isOpen = false
+            break
+          default:
+            this.isOpen = false
+            break
+        }
+      }
+    )
+    if (!this.isOpen) {
+      this.modalError = QuixHttpErrorModalComponent
+      this.quixModalService.openModal(
+        this.modalError,
+        'httpErrorModal.' + error?.status + '.title',
+        'md',
+        {error: error},
+        true,
+        false)
+      this.isOpen = true
+    }
   }
 }

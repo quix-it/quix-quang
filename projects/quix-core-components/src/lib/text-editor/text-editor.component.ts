@@ -1,36 +1,29 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input, OnChanges,
-  OnInit,
-  Optional,
-  Renderer2,
-  Self,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core';
-import {ControlValueAccessor, NgControl} from '@angular/forms';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, Optional, Renderer2, Self, ViewChild} from '@angular/core';
+import {NgControl} from '@angular/forms';
 
 import {delay} from 'rxjs/operators';
 import {QuangConfig} from "../quang-config.model";
 
-
 @Component({
-  selector: 'quix-select-strg',
-  templateUrl: './select-strg.component.html',
-  styleUrls: ['./select-strg.component.scss']
+  selector: 'quix-text-editor',
+  templateUrl: './text-editor.component.html',
+  styleUrls: ['./text-editor.component.scss']
 })
-export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnInit {
-  @Input() ariaLabel: string;
+export class TextEditorComponent implements OnInit, AfterViewInit, OnInit {
   @Input() label: string;
+  @Input() placeholder = '';
   @Input() id: string;
   @Input() successMessage: boolean;
   @Input() errorMessage: boolean;
   @Input() helpMessage: boolean;
   @Input() autofocus: boolean;
+  @Input() readonly: boolean;
+  @Input() tabIndex: number;
+  @Input() ariaLabel: string;
+  @Input() toolbar: any;
   @Input() formName: string;
-  @Input() list: Array<string | number>;
+
+  @ViewChild('editor') editor;
   @Input('value')
   _value: string;
   _config: QuangConfig;
@@ -39,7 +32,9 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   _helpMessage: string;
   _requiredValue: any;
   _classArray: string[] = [];
-  @ViewChild('input', {static: true}) input: ElementRef<HTMLSelectElement>;
+
+  modules: { [key: string]: string };
+  private disabled = false; // used to store initial value before ViewInit
 
   get value() {
     return this._value;
@@ -52,6 +47,7 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   }
 
   constructor(private renderer: Renderer2,
+              private elementRef: ElementRef,
               @Self() @Optional() public control: NgControl,
               @Optional() config: QuangConfig) {
     this.control && (this.control.valueAccessor = this);
@@ -59,24 +55,18 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   }
 
   ngOnInit() {
+    this.modules = {
+       toolbar: this.toolbar
+     };
     if (this.helpMessage) {
       this._helpMessage = this.formName + '.' + this.control.name + '.help';
     }
+
+
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.autofocus) {
-        this.input.nativeElement.focus();
-      }
-    }, 0);
     this.observeValidate();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
-      this.input.nativeElement.focus();
-    }
   }
 
   onChange(val) {
@@ -111,11 +101,25 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled);
+
   }
 
+  // setDisabledState(isDisabled: boolean = this.disabled): void {
+  //   // store initial value to set appropriate disabled status after ViewInit
+  //   this.disabled = isDisabled;
+  //   if (this.quillEditor) {
+  //     if (isDisabled) {
+  //       this.quillEditor.disable();
+  //       this.renderer.setAttribute(this.elementRef.nativeElement, 'disabled', 'disabled');
+  //     } else {
+  //       this.quillEditor.enable();
+  //       this.renderer.removeAttribute(this.elementRef.nativeElement, 'disabled');
+  //     }
+  //   }
+  // }
+
   observeValidate() {
-    this.control?.valueChanges
+    this.control?.statusChanges
       .pipe(
         delay(0)
       )

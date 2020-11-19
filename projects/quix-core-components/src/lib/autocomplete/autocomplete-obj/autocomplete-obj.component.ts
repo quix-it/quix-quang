@@ -46,7 +46,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   _requiredValue: any;
   _classArray: string[] = [];
   _searchValue: string;
-  @ViewChild('input') input: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) input: ElementRef<HTMLInputElement>;
 
   get value() {
     return this._value;
@@ -164,6 +164,8 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
               }
             }
             this._classArray = [this._config.inputInvalidClass];
+          } else {
+            this._classArray = [];
           }
         } else {
           this._classArray = [];

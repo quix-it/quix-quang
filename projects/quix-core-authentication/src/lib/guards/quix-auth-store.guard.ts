@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {
-  catchError, filter, switchMap,
+  catchError, filter, map, switchMap,
 } from 'rxjs/operators';
 import {select, Store} from '@ngrx/store';
 import {selectHasRoles, selectInfoUser} from "../store/user.selector";
@@ -13,25 +13,33 @@ import {selectHasRoles, selectInfoUser} from "../store/user.selector";
 })
 export class QuixAuthStoreGuard implements CanActivate {
 
-  constructor(private authStore: Store<any>) {
+  constructor(
+    private authStore: Store<any>,
+    private router: Router
+  ) {
   }
 
 
   checkRole(allowedRoles: string[]) {
     return this.authStore.pipe(
-      select(selectHasRoles, {rolesId: allowedRoles})
+      select(selectHasRoles, {rolesId: allowedRoles}),
     )
   }
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
     return this.authStore.pipe(
       select(selectInfoUser),
-      filter(user => user !== null),
+      filter(user => !!user),
       switchMap(user => this.checkRole(route.data.allowedRoles)),
+      switchMap(find => {
+        if (!find) {
+         throw find
+        }
+        return of(find)
+      }),
       catchError(e => {
-        alert('[AUTH GUARD] No role in store')
+        this.router.navigate(['403'])
         return of(false)
       })
     )

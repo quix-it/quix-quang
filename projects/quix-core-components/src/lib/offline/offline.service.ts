@@ -8,7 +8,6 @@ import {TranslateService} from "@ngx-translate/core";
   providedIn: 'root'
 })
 export class QuixOfflineService {
-  offlineLabel: string
 
   constructor(
     private quixSnackbar: QuixSnackbarService,
@@ -25,20 +24,21 @@ export class QuixOfflineService {
   }
 
   observeOffline() {
-    this.getLabel()
     this.getConnectionObserver().subscribe(
       connection => {
-        if (!connection) {
-          this.quixSnackbar.openSnackbar(this.offlineLabel)
-        } else {
-          if (this.quixSnackbar.snackBar) {
-            this.quixSnackbar.closeSnackbar()
+        this.getLabel().subscribe(l => {
+          if (!connection) {
+            this.quixSnackbar.openSnackbar(l)
+          } else {
+            if (this.quixSnackbar.snackBar) {
+              this.quixSnackbar.closeSnackbar()
+            }
           }
-        }
+        })
       })
   }
 
   getLabel() {
-    this.translate.get('offline.msg').subscribe(l => this.offlineLabel = l)
+    return this.translate.get('offline.msg')
   }
 }

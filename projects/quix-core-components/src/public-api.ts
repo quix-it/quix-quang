@@ -8,7 +8,6 @@ export * from './lib/quang-config.model';
 
 export * from './lib/storage/quix-storage.service';
 export * from './lib/offline/offline.service';
-export * from './lib/offline/offline.interceptor';
 export * from './lib/offline/offline-store/offline.action';
 export * from './lib/offline/offline-store/offline.reducer';
 export * from './lib/offline/offline-store/offline.selector';
@@ -141,4 +140,6 @@ export * from './lib/card/quix-card/quix-card.component';
 export * from './lib/card/quix-card-simple/quix-card-simple.component';
 export * from './lib/card/quix-card-action/quix-card-action.component';
 
+export * from './lib/event-source/event-source.service';
 
+export * from './lib/text-editor/text-editor.component';
