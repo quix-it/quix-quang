@@ -6,8 +6,8 @@
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <textarea class="form-control"
-            id="{{id}}"
-            placeholder="{{placeholder | translate}}"
+            [id]="id"
+            [placeholder]="placeholder | translate"
             [ngClass]="_classArray"
             [ngStyle]="{'resize': resizeMode}"
             [maxLength]="max"

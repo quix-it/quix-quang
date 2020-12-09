@@ -1,10 +1,10 @@
 import {createAction, props} from '@ngrx/store';
-import {UserInfo} from "angular-oauth2-oidc";
+
 
 
 export const userInfoLogin = createAction(
   '[USER LOGIN INFO] user info call success',
-  props<{ userData: UserInfo }>()
+  props<{ userData: any }>()
 );
 export const userInfoLogout = createAction(
   '[USER LOGOUT INFO] user info deleted'

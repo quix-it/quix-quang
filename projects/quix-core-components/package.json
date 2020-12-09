@@ -1,6 +1,6 @@
 {
   "name": "@quix/quix-core-components",
-  "version": "0.67.1",
+  "version": "0.67.3",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
@@ -29,6 +29,10 @@
     "@fullcalendar/timegrid": "^5.1.0",
     "@fullcalendar/interaction": "^5.1.0",
     "event-source-polyfill": "^1.0.21",
-    "ngx-quill": "^11.1.0"
+    "ngx-quill": "^11.1.0",
+    "quill": "^1.3.7",
+    "quill-delta": "^4.1.0",
+    "quill-emoji": "^0.1.4",
+    "quill-mention": "^2.0.4"
   }
 }

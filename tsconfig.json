@@ -33,6 +33,10 @@
       ],
       "quix-core-authentication/*": [
         "dist/quix-core-authentication/*"
+      ],
+      "quang": [
+        "dist/quang/quang",
+        "dist/quang"
       ]
     }
   },

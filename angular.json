@@ -72,6 +72,46 @@
           }
         }
       }
+    },
+    "quang": {
+      "projectType": "library",
+      "root": "projects/quang",
+      "sourceRoot": "projects/quang/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/quang/tsconfig.lib.json",
+            "project": "projects/quang/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/quang/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/quang/src/test.ts",
+            "tsConfig": "projects/quang/tsconfig.spec.json",
+            "karmaConfig": "projects/quang/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/quang/tsconfig.lib.json",
+              "projects/quang/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "quix-core-components",

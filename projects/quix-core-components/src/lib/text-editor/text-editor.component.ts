@@ -2,7 +2,10 @@ import {AfterViewInit, Component, ElementRef, Input, OnInit, Optional, Renderer2
 import {NgControl} from '@angular/forms';
 
 import {delay} from 'rxjs/operators';
+import 'quill-emoji/dist/quill-emoji.js'
+import {QuillEditorComponent} from "ngx-quill";
 import {QuangConfig} from "../quang-config.model";
+
 
 @Component({
   selector: 'quix-text-editor',
@@ -19,11 +22,26 @@ export class TextEditorComponent implements OnInit, AfterViewInit, OnInit {
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() tabIndex: number;
+  @Input() max: number;
+  @Input() min: number;
   @Input() ariaLabel: string;
   @Input() toolbar: any;
   @Input() formName: string;
+  @Input() returnHtml: boolean;
+  @Input() listBar: boolean;
+  @Input() textTypeBar: boolean;
+  @Input() textStyleBar: boolean;
+  @Input() alignBar: boolean;
+  @Input() fontBar: boolean;
+  @Input() mediaBar: boolean;
+  @Input() headerBar: boolean;
+  @Input() sizeBar: boolean;
+  @Input() emojiBar: boolean;
+  @Input() indentBar: boolean;
+  @Input() preserveWhitespace: boolean;
 
-  @ViewChild('editor') editor;
+
+  @ViewChild('input', {static: true}) input: QuillEditorComponent;
   @Input('value')
   _value: string;
   _config: QuangConfig;
@@ -32,6 +50,7 @@ export class TextEditorComponent implements OnInit, AfterViewInit, OnInit {
   _helpMessage: string;
   _requiredValue: any;
   _classArray: string[] = [];
+  _toolbar: any = {toolbar: []}
 
   modules: { [key: string]: string };
   private disabled = false; // used to store initial value before ViewInit
@@ -55,19 +74,53 @@ export class TextEditorComponent implements OnInit, AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.modules = {
-       toolbar: this.toolbar
-     };
     if (this.helpMessage) {
       this._helpMessage = this.formName + '.' + this.control.name + '.help';
     }
-
-
+    if (this.listBar) {
+      this._toolbar.toolbar.push([{list: 'ordered'}, {list: 'bullet'}])
+    }
+    if (this.textTypeBar) {
+      this._toolbar.toolbar.push(['bold', 'italic', 'underline', 'strike'])
+      this._toolbar.toolbar.push(['blockquote', 'code-block'],)
+    }
+    if (this.textStyleBar) {
+      this._toolbar.toolbar.push([{'color': []}, {'background': []}])
+    }
+    if (this.alignBar) {
+      this._toolbar.toolbar.push([{align: []}])
+    }
+    if (this.fontBar) {
+      this._toolbar.toolbar.push([{font: []}])
+    }
+    if (this.mediaBar) {
+      this._toolbar.toolbar.push(['link', 'image', 'video'])
+    }
+    if (this.headerBar) {
+      this._toolbar.toolbar.push([{header: [1, 2, 3, 4, 5, 6, false]}])
+    }
+    if (this.sizeBar) {
+      this._toolbar.toolbar.push([{size: ['small', 'normal', 'large', 'huge']}])
+    }
+    if (this.indentBar) {
+      this._toolbar.toolbar.push([{indent: '-1'}, {indent: '+1'}])
+    }
+    if (this.emojiBar) {
+      this._toolbar['emoji-shortname'] = true
+      this._toolbar['emoji-textarea'] = true
+      this._toolbar['emoji-toolbar'] = true
+    }
   }
 
   ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.autofocus) {
+        this.input.editorElem.focus()
+      }
+    }, 0);
     this.observeValidate();
   }
+
 
   onChange(val) {
   }
@@ -91,32 +144,18 @@ export class TextEditorComponent implements OnInit, AfterViewInit, OnInit {
   writeValue(value) {
     if (value) {
       if (value.target) {
-        this.value = value.target.value;
+        this.value = this.returnHtml ? value.target.value.html : value.target.value.text;
       } else {
-        this.value = value;
+        this.value = value
       }
     } else {
-      this.value = value;
+      this.value = value
     }
   }
 
   setDisabledState(isDisabled: boolean): void {
-
+    this.input.setDisabledState(isDisabled)
   }
-
-  // setDisabledState(isDisabled: boolean = this.disabled): void {
-  //   // store initial value to set appropriate disabled status after ViewInit
-  //   this.disabled = isDisabled;
-  //   if (this.quillEditor) {
-  //     if (isDisabled) {
-  //       this.quillEditor.disable();
-  //       this.renderer.setAttribute(this.elementRef.nativeElement, 'disabled', 'disabled');
-  //     } else {
-  //       this.quillEditor.enable();
-  //       this.renderer.removeAttribute(this.elementRef.nativeElement, 'disabled');
-  //     }
-  //   }
-  // }
 
   observeValidate() {
     this.control?.statusChanges

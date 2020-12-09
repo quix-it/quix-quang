@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable, of} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {
-  catchError, filter, map, switchMap,
+  catchError, filter, map, switchMap, take,
 } from 'rxjs/operators';
 import {select, Store} from '@ngrx/store';
 import {selectHasRoles, selectInfoUser} from "../store/user.selector";
@@ -23,6 +23,7 @@ export class QuixAuthStoreGuard implements CanActivate {
   checkRole(allowedRoles: string[]) {
     return this.authStore.pipe(
       select(selectHasRoles, {rolesId: allowedRoles}),
+      take(1)
     )
   }
 
@@ -31,10 +32,11 @@ export class QuixAuthStoreGuard implements CanActivate {
     return this.authStore.pipe(
       select(selectInfoUser),
       filter(user => !!user),
+      take(1),
       switchMap(user => this.checkRole(route.data.allowedRoles)),
       switchMap(find => {
         if (!find) {
-         throw find
+         throwError(find)
         }
         return of(find)
       }),

@@ -7,10 +7,16 @@
   </label>
     <quill-editor
       [id]="id"
-      (onContentChanged)="writeValue($event)"
-      [placeholder]="placeholder"
+      [placeholder]="placeholder | translate"
       [readOnly]="readonly"
       [ngClass]="_classArray"
+      [modules]="_toolbar"
+      [preserveWhitespace]="preserveWhitespace"
+      [sanitize]="true"
+      [maxLength]="max"
+      [minLength]="min"
+      [(ngModel)]="value"
+      #input
     ></quill-editor>
   <div class="valid-feedback">
     {{_successMessage | translate}}
