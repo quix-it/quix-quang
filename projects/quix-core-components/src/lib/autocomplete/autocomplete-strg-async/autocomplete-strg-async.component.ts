@@ -40,6 +40,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   @Input() apiParamName: string;
   @Input() formName: string;
   @Input() startAfter: number;
+  @Input() optionLimit: number
   @Input('value')
   _value: string;
   _config: QuangConfig;

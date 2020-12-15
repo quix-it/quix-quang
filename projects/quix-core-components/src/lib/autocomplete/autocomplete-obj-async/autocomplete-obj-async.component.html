@@ -26,6 +26,7 @@
          (ngModelChange)="clearObj()"
          [placeholder]="placeholder | translate"
          (typeaheadNoResults)="checkValue()"
+         [typeaheadOptionsLimit]="optionLimit"
          #input
   >
   <div class="valid-feedback">

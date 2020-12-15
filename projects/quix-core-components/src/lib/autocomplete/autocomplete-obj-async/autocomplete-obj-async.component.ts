@@ -42,6 +42,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   @Input() apiParamName: string;
   @Input() startAfter: number;
   @Input() formName: string;
+  @Input() optionLimit: number
   @Input('value')
   _value: string;
   _config: QuangConfig;

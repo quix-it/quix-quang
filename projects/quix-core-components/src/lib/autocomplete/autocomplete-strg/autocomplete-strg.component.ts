@@ -33,6 +33,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   @Input() dataList: Array<string> = [];
   @Input() formName: string;
   @Input() startAfter: number;
+  @Input() optionLimit: number
   @Input('value')
   _value: string;
   _config: QuangConfig;

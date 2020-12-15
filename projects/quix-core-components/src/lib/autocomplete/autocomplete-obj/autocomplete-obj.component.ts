@@ -37,6 +37,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   @Input() searchBy: string;
   @Input() dataList: Array<any> = [];
   @Input() formName: string;
+  @Input() optionLimit: number
   @Input('value')
   _value: string;
   _config: QuangConfig;
