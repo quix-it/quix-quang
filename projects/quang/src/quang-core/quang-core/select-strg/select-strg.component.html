@@ -1,0 +1,38 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | translate}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <select class="form-control"
+          [id]="id"
+          [ngClass]="customClass"
+          [class.is-valid]="control?.valid && control?.dirty"
+          [class.is-invalid]="control?.invalid && control?.dirty"
+          [attr.aria-label]="ariaLabel"
+          (input)="onChangedHandler($event)"
+          (blur)="onTouched()"
+          #input
+  >
+    <option [ngValue]="null"
+            *ngIf="nullOption"></option>
+    <option *ngFor="let item of list"
+            [value]="item"
+            [selected]="item === _value">
+      {{item | translate}}
+    </option>
+  </select>
+  <div class="valid-feedback">
+    {{_successMessage | translate}}
+  </div>
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    {{_errorMessage | translate: {requiredValue: _requiredValue} }}
+  </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | translate}}
+  </small>
+</div>
