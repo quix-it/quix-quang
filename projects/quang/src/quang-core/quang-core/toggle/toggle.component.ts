@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   Input,
   OnChanges,
   OnInit,
@@ -124,3 +125,4 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
       });
   }
 }
+

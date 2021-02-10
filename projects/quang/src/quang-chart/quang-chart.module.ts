@@ -9,6 +9,8 @@ import {ChartRadarComponent} from "./quang-chart/chart-radar/chart-radar.compone
 import {ChartTreemapComponent} from "./quang-chart/chart-treemap/chart-treemap.component";
 import * as echarts from 'echarts';
 import {NgxEchartsModule} from "ngx-echarts";
+import {TranslateModule} from '@ngx-translate/core';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import {NgxEchartsModule} from "ngx-echarts";
   ],
   imports: [
     NgxEchartsModule.forRoot({echarts}),
+    CommonModule,
+    TranslateModule,
   ],
   exports: [
     ChartAreaComponent,

@@ -25,7 +25,6 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   @Input() id: string;
   @Input() label: string;
   @Input() placeholder: string = '';
-  @Input() placement: string;
   @Input() helpMessage: boolean;
   @Input() autofocus: boolean;
   @Input() errorMessage: boolean;
@@ -45,6 +44,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   @Input() buttonClass: string[];
   @Input() tabIndex: number;
   @Input() formName: string;
+  @Input() placement: string;
   @Input() customClass: string[];
   @Input('value')
   config: Partial<BsDatepickerConfig>;
@@ -68,13 +68,13 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   }
 
   ngOnInit(): void {
-    this.config =  {
+    this.config = {
       containerClass: 'theme-default',
       isAnimated: true,
       adaptivePosition: true,
       dateInputFormat: this.dateFormat,
       rangeInputFormat : this.dateFormat
-    };
+    }
     if (this.locale) {
       this.localeService.use(this.locale);
     }
@@ -138,6 +138,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
     this._disabled = isDisabled
   }
 
+
   observeValidate() {
     this.control?.statusChanges
       .pipe(
@@ -160,4 +161,5 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
         }
       });
   }
+
 }
