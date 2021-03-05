@@ -7,38 +7,37 @@ import {
   OnInit,
   Output,
   SimpleChanges
-} from '@angular/core';
-import {EChartOption} from "echarts";
-import {ChartTreemap} from "./chart-treemap.model";
+} from '@angular/core'
+import { ChartTreemap } from './chart-treemap.model'
 
 @Component({
   selector: 'quix-chart-treemap',
   templateUrl: './chart-treemap.component.html',
-  styleUrls: ['./chart-treemap.component.scss'],
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartTreemapComponent implements OnInit, OnChanges {
   @Input() id: string
   @Input() height: string
   @Input() chartData: ChartTreemap[]
-  @Input() ariaLabel: string;
-  @Input() tabIndex: number;
+  @Input() ariaLabel: string
+  @Input() tabIndex: number
   @Output() chartClick = new EventEmitter()
-  chartOption: EChartOption = {
+  chartOption = {
     series: []
   }
 
-  constructor() {
+  constructor () {
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges (changes: SimpleChanges) {
     this.chartOption.series.push({
       type: 'treemap',
       roam: false,
-      breadcrumb: {show: false},
+      breadcrumb: { show: false },
       nodeClick: false,
       data: [{
         children: changes.chartData.currentValue
@@ -46,7 +45,7 @@ export class ChartTreemapComponent implements OnInit, OnChanges {
     })
   }
 
-  onChartClick(e) {
+  onChartClick (e) {
     this.chartClick.emit(e)
   }
 

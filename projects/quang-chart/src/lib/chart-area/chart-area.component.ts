@@ -9,12 +9,12 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {ChartLine} from "../chart-line/chart-line.model";
-import {EChartOption} from "echarts";
+
 
 @Component({
   selector: 'quix-chart-area',
   templateUrl: './chart-area.component.html',
-  styleUrls: ['./chart-area.component.scss'],
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartAreaComponent implements OnInit, OnChanges {
@@ -25,7 +25,7 @@ export class ChartAreaComponent implements OnInit, OnChanges {
   @Input() height: string;
   @Input() chartData: ChartLine
   @Output() chartClick = new EventEmitter()
-  chartOption: EChartOption = {
+  chartOption = {
     color: [],
     xAxis: {},
     yAxis: {

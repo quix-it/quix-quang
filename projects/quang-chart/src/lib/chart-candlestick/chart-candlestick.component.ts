@@ -7,36 +7,35 @@ import {
   OnInit,
   Output,
   SimpleChanges
-} from '@angular/core';
-import {EChartOption} from "echarts";
-import {ChartCandlestick} from "./chart-candlestick.model";
+} from '@angular/core'
+import { ChartCandlestick } from './chart-candlestick.model'
 
 @Component({
   selector: 'quix-chart-candlestick',
   templateUrl: './chart-candlestick.component.html',
-  styleUrls: ['./chart-candlestick.component.scss'],
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartCandlestickComponent implements OnInit, OnChanges {
-  @Input() id: string;
-  @Input() height: string;
-  @Input() chartData: ChartCandlestick;
-  @Input() ariaLabel: string;
-  @Input() tabIndex: number;
+  @Input() id: string
+  @Input() height: string
+  @Input() chartData: ChartCandlestick
+  @Input() ariaLabel: string
+  @Input() tabIndex: number
   @Output() chartClick = new EventEmitter()
-  chartOption: EChartOption = {
+  chartOption = {
     xAxis: {},
     yAxis: {},
     series: []
   }
 
-  constructor() {
+  constructor () {
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges (changes: SimpleChanges) {
     this.chartOption.series = []
     this.chartOption.xAxis = {
       data: changes.chartData.currentValue.category
@@ -47,7 +46,7 @@ export class ChartCandlestickComponent implements OnInit, OnChanges {
     })
   }
 
-  onChartClick(e) {
+  onChartClick (e) {
     this.chartClick.emit(e)
   }
 

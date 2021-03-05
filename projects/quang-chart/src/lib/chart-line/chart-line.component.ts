@@ -7,25 +7,24 @@ import {
   OnInit,
   Output,
   SimpleChanges
-} from '@angular/core';
-import {ChartLine} from "./chart-line.model";
-import {EChartOption} from "echarts";
+} from '@angular/core'
+import { ChartLine } from './chart-line.model'
 
 @Component({
   selector: 'quix-chart-line',
   templateUrl: './chart-line.component.html',
-  styleUrls: ['./chart-line.component.scss'],
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartLineComponent implements OnInit, OnChanges {
-  @Input() id: string;
-  @Input() ariaLabel: string;
-  @Input() color: string[];
-  @Input() tabIndex: number;
-  @Input() height: string;
+  @Input() id: string
+  @Input() ariaLabel: string
+  @Input() color: string[]
+  @Input() tabIndex: number
+  @Input() height: string
   @Input() chartData: ChartLine
   @Output() chartClick = new EventEmitter()
-  chartOption: EChartOption = {
+  chartOption = {
     color: [],
     xAxis: {},
     yAxis: {
@@ -34,17 +33,17 @@ export class ChartLineComponent implements OnInit, OnChanges {
     series: [],
     animationEasing: 'elasticOut',
     animationDelayUpdate: (idx) => {
-      return idx * 5;
+      return idx * 5
     }
   }
 
-  constructor() {
+  constructor () {
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges (changes: SimpleChanges) {
     this.chartOption.color = changes.color?.currentValue
     this.chartOption.xAxis = {
       type: 'category',
@@ -57,7 +56,7 @@ export class ChartLineComponent implements OnInit, OnChanges {
     }))
   }
 
-  onChartClick(e) {
+  onChartClick (e) {
     this.chartClick.emit(e)
   }
 }
