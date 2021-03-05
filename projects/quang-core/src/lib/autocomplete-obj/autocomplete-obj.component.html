@@ -1,0 +1,45 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <input [ngModel]="_searchValue"
+         [typeahead]="dataList"
+         class="form-control"
+         [id]="id"
+         [readOnly]="readonly"
+         [autofocus]="autofocus"
+         [attr.aria-label]="ariaLabel | transloco"
+         [tabIndex]="tabIndex"
+         [autocomplete]="'off'"
+         [isAnimated]="true"
+         [adaptivePosition]="true"
+         [typeaheadOptionField]="searchBy"
+         [typeaheadScrollable]="true"
+         [typeaheadOptionsInScrollableView]="18"
+         [typeaheadMinLength]="startAfter"
+         [placeholder]="placeholder | transloco"
+         [typeaheadOptionsLimit]="optionLimit"
+         [ngClass]="customClass"
+         [class.is-valid]="control?.valid && control?.dirty"
+         [class.is-invalid]="control?.invalid && control?.dirty"
+         (typeaheadOnSelect)="onChangedHandler($event)"
+         (blur)="onTouched()"
+         #input
+  >
+  <div class="valid-feedback">
+    {{_successMessage | transloco}}
+  </div>
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>
+

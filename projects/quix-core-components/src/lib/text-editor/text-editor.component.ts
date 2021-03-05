@@ -1,10 +1,18 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, Optional, Renderer2, Self, ViewChild} from '@angular/core';
-import {NgControl} from '@angular/forms';
-
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Optional,
+  Renderer2,
+  Self,
+  ViewChild
+} from '@angular/core';
+import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {delay} from 'rxjs/operators';
 import 'quill-emoji/dist/quill-emoji.js'
-import {QuillEditorComponent} from "ngx-quill";
-import {QuangConfig} from "../quang-config.model";
+import {ContentChange, QuillEditorComponent} from "ngx-quill";
 
 
 @Component({
@@ -12,7 +20,7 @@ import {QuangConfig} from "../quang-config.model";
   templateUrl: './text-editor.component.html',
   styleUrls: ['./text-editor.component.scss']
 })
-export class TextEditorComponent implements OnInit, AfterViewInit, OnInit {
+export class TextEditorComponent implements ControlValueAccessor, AfterViewInit, OnInit {
   @Input() label: string;
   @Input() placeholder = '';
   @Input() id: string;
@@ -39,43 +47,33 @@ export class TextEditorComponent implements OnInit, AfterViewInit, OnInit {
   @Input() emojiBar: boolean;
   @Input() indentBar: boolean;
   @Input() preserveWhitespace: boolean;
-
+  @Input() customClass: string[] = [];
 
   @ViewChild('input', {static: true}) input: QuillEditorComponent;
   @Input('value')
   _value: string;
-  _config: QuangConfig;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
   _requiredValue: any;
-  _classArray: string[] = [];
   _toolbar: any = {toolbar: []}
-
   modules: { [key: string]: string };
-  private disabled = false; // used to store initial value before ViewInit
 
-  get value() {
-    return this._value;
+  onTouched: any = () => {
   }
-
-  set value(val) {
-    this._value = val;
-    this.onChange(val);
-    this.onTouched();
+  onChanged: any = () => {
   }
 
   constructor(private renderer: Renderer2,
               private elementRef: ElementRef,
               @Self() @Optional() public control: NgControl,
-              @Optional() config: QuangConfig) {
+  ) {
     this.control && (this.control.valueAccessor = this);
-    this._config = config;
   }
 
   ngOnInit() {
     if (this.helpMessage) {
-      this._helpMessage = this.formName + '.' + this.control.name + '.help';
+      this._helpMessage = `${this.formName}.${this.control.name}.help`;
     }
     if (this.listBar) {
       this._toolbar.toolbar.push([{list: 'ordered'}, {list: 'bullet'}])
@@ -122,35 +120,32 @@ export class TextEditorComponent implements OnInit, AfterViewInit, OnInit {
   }
 
 
-  onChange(val) {
-  }
-
-  onTouched() {
+  checkFocus(editor) {
+    if (this.autofocus) {
+      editor.focus()
+    }
   }
 
   // We implement this method to keep a reference to the onChange
   // callback function passed by the forms API
-  registerOnChange(fn) {
-    this.onChange = fn;
+  registerOnChange(fn: any) {
+    this.onChanged = fn;
   }
 
   // We implement this method to keep a reference to the onTouched
   // callback function passed by the forms API
-  registerOnTouched(fn) {
+  registerOnTouched(fn: any) {
     this.onTouched = fn;
+  }
+
+  onChangedHandler(c: ContentChange) {
+    this.onTouched()
+    this.onChanged(this.returnHtml ? c.html : c.text === '\n' ? null : c.text)
   }
 
   // This is a basic setter that the forms API is going to use
   writeValue(value) {
-    if (value) {
-      if (value.target) {
-        this.value = this.returnHtml ? value.target.value.html : value.target.value.text;
-      } else {
-        this.value = value
-      }
-    } else {
-      this.value = value
-    }
+    this._value = value
   }
 
   setDisabledState(isDisabled: boolean): void {
@@ -165,23 +160,17 @@ export class TextEditorComponent implements OnInit, AfterViewInit, OnInit {
       .subscribe(() => {
         if (this.control.dirty) {
           if (this.control.valid && this.successMessage) {
-            this._successMessage = this.formName + '.' + this.control.name + '.valid';
-            this._classArray = [this._config.inputValidClass];
+            this._successMessage = `${this.formName}.${this.control.name}.valid`;
           } else if (this.control.invalid && this.errorMessage) {
             for (const error in this.control.errors) {
               if (this.control.errors.hasOwnProperty(error)) {
                 if (this.control.errors[error]) {
-                  this._errorMessage = this.formName + '.' + this.control.name + '.' + error;
+                  this._errorMessage = `${this.formName}.${this.control.name}.${error}`;
                   this._requiredValue = this.control.errors[error].requiredValue;
                 }
               }
             }
-            this._classArray = [this._config.inputInvalidClass];
-          } else {
-            this._classArray = [];
           }
-        } else {
-          this._classArray = [];
         }
       });
   }

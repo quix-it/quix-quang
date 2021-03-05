@@ -1,4 +1,4 @@
-export class OsmapModel {
+export class Osmap {
   public long: number;
   public lat: number;
   public src?: string;

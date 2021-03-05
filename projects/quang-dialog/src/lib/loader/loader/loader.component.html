@@ -1,0 +1,9 @@
+<div
+  class="loader-wrapper"
+  #loader
+  [hidden]="!activeLoader">
+  <ng-content
+    select="[loader]"
+    class="loader"
+  ></ng-content>
+</div>

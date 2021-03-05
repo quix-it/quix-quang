@@ -1,0 +1,36 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <mat-slider
+    [id]="id"
+    [vertical]="vertical"
+    [ngStyle]="{width: vertical ? null : '100%'}"
+    thumbLabel
+    [tickInterval]="interval"
+    [max]="maxValue"
+    [min]="minValue"
+    [attr.aria-label]="ariaLabel"
+    (change)="onChangedHandler($event)"
+    (blur)="onTouched()"
+    [ngClass]="customClass"
+    [class.is-valid]="control?.valid && control?.dirty"
+    [class.is-invalid]="control?.invalid && control?.dirty"
+    #input
+  ></mat-slider>
+  <div class="valid-feedback">
+    {{_successMessage | transloco}}
+  </div>
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
+  </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>

@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "buildComponents": "ng build quix-core-components",
-    "releaseComponents": "cd dist cd quix-core-components npm publish"
+    "releaseComponents": "cd dist cd quix-core-components npm publish",
+    "build:quang": "ng-packagr -p projects/quang && ng-packagr -p projects/quang-auth && ng-packagr -p projects/quang-calendar && ng-packagr -p projects/quang-chart && ng-packagr -p projects/quang-components && ng-packagr -p projects/quang-core && ng-packagr -p projects/quang-date && ng-packagr -p projects/quang-dialog && ng-packagr -p projects/quang-event && ng-packagr -p projects/quang-image && ng-packagr -p projects/quang-keycloak && ng-packagr -p projects/quang-map && ng-packagr -p projects/quang-utility"
   },
   "license": "UNLICENSED",
   "dependencies": {
@@ -35,12 +36,11 @@
     "zone.js": "~0.9.1",
     "bootstrap": "^4.4.1",
     "ol": "^6.1.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.1",
     "ngx-moment": "^3.5.0",
     "@ngrx/effects": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
-    "angular-oauth2-oidc": "^9.2.2",
     "@fortawesome/fontawesome-free": "^5.11.2",
     "ngx-file-drop": "^8.0.8",
     "ng-lazyload-image": "^7.1.0",
@@ -56,7 +56,9 @@
     "quill-emoji": "^0.1.4",
     "quill-mention": "^2.0.4",
     "keycloak-angular": "^7.3.1",
-    "keycloak-js": "^10.0.2"
+    "keycloak-js": "^10.0.2",
+    "@ngneat/transloco": "^2.20.0",
+    "angular-oauth2-oidc": "^10.0.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.7",
@@ -64,12 +66,13 @@
     "@angular/cli": "~9.1.7",
     "@angular/compiler-cli": "~9.1.9",
     "@angular/language-service": "~9.1.9",
-    "@types/node": "~8.9.4",
-    "@types/jasmine": "~3.3.8",
-    "@types/jasminewd2": "~2.0.3",
     "@types/echarts": "^4.6.0",
     "@types/googlemaps": "^3.38.1",
+    "@types/jasmine": "~3.3.8",
+    "@types/jasminewd2": "~2.0.3",
     "@types/moment": "^2.13.0",
+    "@types/node": "~8.9.4",
+    "caniuse-lite": "^1.0.30001016",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -78,14 +81,12 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
-    "ng-packagr": "^5.1.0",
+    "ng-lazyload-image": "^7.1.0",
+    "ng-packagr": "^9.1.5",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tsickle": "^0.35.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.8.3",
-    "caniuse-lite": "^1.0.30001016",
-    "ng-lazyload-image": "^7.1.0",
-
+    "typescript": "~3.8.3"
   }
 }

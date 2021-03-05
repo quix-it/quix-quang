@@ -1,0 +1,7 @@
+{
+  "name": "@quix/quang-components",
+  "version": "11.0.0-beta.2",
+  "peerDependencies": {
+    "bootstrap": "^4.6.0"
+  }
+}

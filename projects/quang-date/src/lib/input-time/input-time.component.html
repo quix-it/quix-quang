@@ -1,0 +1,47 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <timepicker
+    [id]="id"
+    [ngModel]="_value"
+    [min]="minTime"
+    [max]="maxTime"
+    [showSeconds]="showSecond"
+    [hourStep]="hourStep"
+    [minuteStep]="minuteStep"
+    [secondsStep]="secondStep"
+    [mousewheel]="true"
+    [showSpinners]="showSelector"
+    [showMeridian]="showMeridianButton"
+    [ngClass]="customClass"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [attr.aria-label]="ariaLabel"
+    [tabIndex]="tabIndex"
+    [accessKey]="true"
+    [hoursPlaceholder]="hoursPlaceholder | transloco"
+    [minutesPlaceholder]="minutesPlaceholder | transloco"
+    [secondsPlaceholder]="secondsPlaceholder | transloco"
+    (ngModelChange)="onChangedHandler($event)"
+    (blur)="onTouched()"
+    [disabled]="disabled"
+    #input
+  ></timepicker>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+  <div class="valid-feedback">
+    {{_successMessage | transloco}}
+  </div>
+
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  </div>
+</div>

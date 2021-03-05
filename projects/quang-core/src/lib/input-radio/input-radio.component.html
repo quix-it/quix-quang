@@ -1,0 +1,42 @@
+<div class="form-group">
+  <div class="custom-control custom-radio"
+       [class.custom-control-inline]="inline"
+       *ngFor="let radio of radioList; let index = index;">
+    <input type="radio"
+           class="custom-control-input"
+           [name]="groupName"
+           [id]="id + radio[labelValue]"
+           [tabIndex]="tabIndex + index"
+           [ngClass]="customClass"
+           [class.is-valid]="control?.valid && control?.dirty && successMessage"
+           [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+           [value]="radio[returnValue]"
+           [checked]="radio[returnValue] === _value"
+           (input)="onChangedHandler($event)"
+           (blur)="onTouched()"
+           [autocomplete]="'off'"
+           #input>
+    <label class="custom-control-label"
+           [attr.aria-label]="ariaLabel"
+           [htmlFor]="id + radio[labelValue]">
+      {{radio[labelValue] |transloco}}
+    </label>
+  </div>
+  <div class="valid-feedback"
+       [ngStyle]="{display: control?.valid && control?.dirty && successMessage ? 'block' : 'none'}">
+    {{_successMessage | transloco}}
+  </div>
+  <div class="invalid-feedback"
+       [attr.aria-errormessage]="_errorMessage | transloco"
+       [ngStyle]="{display: control?.invalid && control?.dirty && errorMessage ? 'block': 'none'}">
+    {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
+  </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control.valid && successMessage || control.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>
+
+

@@ -96,6 +96,8 @@ import {QuixHttpErrorInterceptor} from "./http-error/quix-http-error.interceptor
 import {QuixEventSourceService} from "./event-source/event-source.service";
 import {TextEditorComponent} from "./text-editor/text-editor.component";
 import {QuillModule} from "ngx-quill";
+import {QuixAuthDownloadDirective} from "./quix-auth-donwload/quix-auth-download.directive";
+import {QuixAuthImageDirective} from "./quix-auth-image/quix-auth-image.directive";
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -156,7 +158,9 @@ FullCalendarModule.registerPlugins([
     QuixCardActionComponent,
     QuixCardComponent,
     QuixCardSimpleComponent,
-    TextEditorComponent
+    TextEditorComponent,
+    QuixAuthDownloadDirective,
+    QuixAuthImageDirective
   ],
   imports: [
     CommonModule,
@@ -251,7 +255,9 @@ FullCalendarModule.registerPlugins([
     QuixCardActionComponent,
     QuixCardComponent,
     QuixCardSimpleComponent,
-    TextEditorComponent
+    TextEditorComponent,
+    QuixAuthDownloadDirective,
+    QuixAuthImageDirective
   ],
   entryComponents: [
     QuixHttpErrorModalComponent

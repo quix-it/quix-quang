@@ -1,0 +1,44 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <input type="search"
+         class="form-control"
+         [id]="id"
+         [placeholder]="placeholder | transloco"
+         [ngClass]="customClass"
+         [class.is-valid]="control?.valid && control?.dirty"
+         [class.is-invalid]="control?.invalid && control?.dirty"
+         [maxLength]="max"
+         [minLength]="min"
+         [pattern]="pattern"
+         [disabled]="disabled"
+         [readOnly]="readonly"
+         [attr.aria-label]="ariaLabel"
+         [tabIndex]="tabIndex"
+         autocomplete="off"
+         (input)="onChangedHandler($event)"
+         (blur)="onTouched()"
+         #input
+  >
+
+  <div class="valid-feedback">
+    {{_successMessage | transloco}}
+  </div>
+
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  </div>
+
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>
+
+

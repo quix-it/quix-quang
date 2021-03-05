@@ -1,0 +1,12 @@
+{
+  "name": "@quix/quang-event",
+  "version": "11.0.0-beta.2",
+  "peerDependencies": {
+    "event-source-polyfill": "^1.0.21",
+    "@vertx/eventbus-bridge-client.js": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/sockjs-client": "~1.5.0",
+    "@types/vertx3-eventbus-client": "^3.5.1"
+  }
+}

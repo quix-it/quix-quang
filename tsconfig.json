@@ -36,7 +36,61 @@
       ],
       "quang": [
         "dist/quang/quang",
+        "dist/quang",
+        "dist/quang/quang",
         "dist/quang"
+      ],
+      "quang-auth": [
+        "dist/quang-auth/quang-auth",
+        "dist/quang-auth"
+      ],
+      "quang-keycloak": [
+        "dist/quang-keycloak/quang-keycloak",
+        "dist/quang-keycloak"
+      ],
+      "quang-core": [
+        "dist/quang-core/quang-core",
+        "dist/quang-core"
+      ],
+      "quang-calendar": [
+        "dist/quang-calendar/quang-calendar",
+        "dist/quang-calendar"
+      ],
+      "quang-date": [
+        "dist/quang-date/quang-date",
+        "dist/quang-date"
+      ],
+      "quang-chart": [
+        "dist/quang-chart/quang-chart",
+        "dist/quang-chart"
+      ],
+      "quang-event": [
+        "dist/quang-event/quang-event",
+        "dist/quang-event"
+      ],
+      "quang-image": [
+        "dist/quang-image/quang-image",
+        "dist/quang-image"
+      ],
+      "quang-map": [
+        "dist/quang-map/quang-map",
+        "dist/quang-map"
+      ],
+      "quang-components": [
+        "dist/quang-components/quang-components",
+        "dist/quang-components"
+      ],
+      "qunag-dialog": [
+        "dist/qunag-dialog/qunag-dialog",
+        "dist/qunag-dialog"
+      ],
+      "quang-dialog": [
+        "dist/quang-dialog/quang-dialog",
+        "dist/quang-dialog"
+      ],
+      "quang-utility": [
+        "dist/quang-utility/quang-utility",
+        "dist/quang-utility"
       ]
     }
   },
@@ -44,6 +98,9 @@
     "fullTemplateTypeCheck": true,
     "enableIvy": false,
     "allowEmptyCodegenFiles": false,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node"
   }
 }

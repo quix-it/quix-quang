@@ -1,0 +1,23 @@
+.inputWrapper {
+  margin-bottom: 1rem;
+
+  .dateTimeWrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-basis: 100%;
+
+    .form-group {
+      margin-bottom: 0;
+
+      &:nth-child(1) {
+        flex-basis: 100%;
+      }
+
+      &:nth-child(2) {
+        margin-left: 1rem;
+      }
+    }
+  }
+}

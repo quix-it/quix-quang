@@ -1,0 +1,14 @@
+<picture [id]="id">
+  <source
+    *ngFor="let img of responsiveList"
+    [media]="img.minWidth"
+    [attr.lazyLoad]="img.src"
+    [attr.defaultImage]="'assets/images/lazy/default-placeholder.png'"
+  >
+  <img
+    [attr.defaultImage]="'assets/images/lazy/default-placeholder.png'"
+    [alt]="alt | transloco"
+    [lazyLoad]="src"
+    [useSrcset]="true"
+  >
+</picture>

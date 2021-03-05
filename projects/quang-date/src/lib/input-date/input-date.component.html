@@ -1,0 +1,56 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <div class="input-group">
+    <input type="text"
+           class="form-control"
+           bsDatepicker
+           [id]="id"
+           [placeholder]="placeholder | transloco"
+           [ngClass]="customClass"
+           [class.is-valid]="control?.valid && control?.dirty && successMessage"
+           [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+           [bsConfig]="config"
+           [minDate]="minDate"
+           [maxDate]="maxDate"
+           [daysDisabled]="disabledDaysOfTheWeek"
+           [datesDisabled]="disabledDates"
+           [autocomplete]="'off'"
+           [attr.aria-label]="ariaLabel"
+           [tabIndex]="tabIndex"
+           [ngModel]="_value"
+           [placement]="placement"
+           (bsValueChange)="onChangedHandler($event)"
+           (blur)="onTouched()"
+           #drp="bsDatepicker"
+           #input
+    >
+    <div class="input-group-append">
+      <button
+        class="btn"
+        [ngClass]="buttonClass"
+        type="button"
+        (click)="_disabled ? null : drp.toggle()"
+      >
+        <i [ngClass]="buttonIcon"></i>
+      </button>
+    </div>
+    <div class="valid-feedback">
+      {{_successMessage | transloco}}
+    </div>
+    <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+      {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+    </div>
+  </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>
+

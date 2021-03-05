@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {EventSourcePolyfill} from 'event-source-polyfill';
 
@@ -10,18 +9,18 @@ export class QuixEventSourceService {
   private evs: EventSource;
   events: Subject<any>;
 
-  constructor(private http: HttpClient) {
+  constructor() {
   }
 
   /**
-   * method to initialize and observe the eventSource objectioic capacitor ruun
+   * method to initialize and observe the eventSource message
    * @param baseUrl
    * @param url
    * @param auth
    * @param param
    * @param heartbeatTimeout
    */
-  observeEvents(baseUrl: string, url: string, auth: boolean, param?: string, heartbeatTimeout?: number): Subject<any> {
+  openEventSource(baseUrl: string, url: string, auth: boolean, param?: string, heartbeatTimeout?: number): Subject<any> {
     this.events = new Subject();
     if (auth) {
       this.evs = new EventSourcePolyfill(`${baseUrl}${url}/${param}`, {
@@ -58,7 +57,7 @@ export class QuixEventSourceService {
     };
   }
 
-  stopObserveEvents() {
+  closeEventSource() {
     this.events.complete();
     this.evs.close();
   }

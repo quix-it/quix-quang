@@ -1,31 +1,30 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
-import {select, Store} from "@ngrx/store";
-import {selectLoader} from "../loader-store/loader.selector";
-import {QuixCoreComponentsState} from "../../quix-core-components.reducers";
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { Observable, Subscription } from 'rxjs'
+import { select, Store } from '@ngrx/store'
+import { selectLoader } from '../loader-store/loader.selector'
+import { QuixCoreComponentsState } from '../../quix-core-components.reducers'
 
 @Component({
   selector: 'quix-loader',
   templateUrl: './loader.component.html',
-  styleUrls: ['./loader.component.scss']
+  styles: ['']
 })
 export class LoaderComponent implements OnInit, OnDestroy {
-  loaderSubscription$: Subscription;
+  loaderSubscription$: Subscription
   loader$: Observable<any>
   @ViewChild('loader') loader: ElementRef<HTMLDivElement>
-  activeLoader: number;
+  activeLoader: number
 
-  constructor(
+  constructor (
     private store: Store<QuixCoreComponentsState>
   ) {
-
   }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.observeLoader()
   }
 
-  observeLoader() {
+  observeLoader () {
     this.loader$ = this.store.pipe(select(selectLoader))
     this.loaderSubscription$ = this.loader$.subscribe(
       loaderNumber => {
@@ -33,7 +32,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
       })
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
     if (this.loaderSubscription$) {
       this.loaderSubscription$.unsubscribe()
     }

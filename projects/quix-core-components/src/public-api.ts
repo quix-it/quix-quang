@@ -143,3 +143,6 @@ export * from './lib/card/quix-card-action/quix-card-action.component';
 export * from './lib/event-source/event-source.service';
 
 export * from './lib/text-editor/text-editor.component';
+
+export * from './lib/quix-auth-donwload/quix-auth-download.directive';
+export * from './lib/quix-auth-image/quix-auth-image.directive';

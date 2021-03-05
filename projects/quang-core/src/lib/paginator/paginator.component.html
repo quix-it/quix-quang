@@ -1,0 +1,36 @@
+<div class="paginatorContainer"
+     [id]="id"
+     [ngClass]="customClass">
+  <div class="form-group">
+    <label
+      for="pageSize"
+      [attr.aria-label]="ariaLabel"
+    >
+      {{'quixPaginator.size' | transloco}}
+    </label>
+    <select
+      [tabIndex]=""
+      name="pageSize"
+      id="pageSize"
+      class="form-control"
+      (change)="onChangeSize($event)"
+      [(ngModel)]="pageState.pageSize"
+    >
+      <option [value]="size"
+              *ngFor="let size of sizeList"
+      >
+        {{size}}
+      </option>
+    </select>
+  </div>
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="pageState.pageSize"
+    [pageSizeOptions]="sizeList"
+    [pageIndex]="pageState.pageIndex"
+    (page)="onChangePage($event)"
+    [hidePageSize]="true"
+    [showFirstLastButtons]="true"
+    #quixPaginator
+  ></mat-paginator>
+</div>

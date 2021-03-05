@@ -1,5 +1,5 @@
 import {AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {OsmapModel} from './osmap.model';
+import {Osmap} from './osmap.model';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import {Tile, Vector} from 'ol/layer';
@@ -17,7 +17,7 @@ import {OSM} from 'ol/source';
   styleUrls: ['./osmap.component.scss']
 })
 export class OSMapComponent implements OnInit, AfterViewInit {
-  private MARKER_LIST: Array<OsmapModel> = [];
+  private MARKER_LIST: Array<Osmap> = [];
   public map: Map;
   public tile: Tile;
   public markerLayer: Vector;
@@ -32,7 +32,7 @@ export class OSMapComponent implements OnInit, AfterViewInit {
   @Output() markerClick = new EventEmitter<any>();
   @Input() enableClick = Boolean;
 
-  @Input() set markerList(value: Array<OsmapModel>) {
+  @Input() set markerList(value: Array<Osmap>) {
     if (value) {
       this.MARKER_LIST = value;
     }
@@ -45,7 +45,7 @@ export class OSMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  get markerList(): Array<OsmapModel> {
+  get markerList(): Array<Osmap> {
     return this.MARKER_LIST;
   }
 
@@ -72,7 +72,7 @@ export class OSMapComponent implements OnInit, AfterViewInit {
     });
   }
 
-  createIcon(marker: OsmapModel): Style {
+  createIcon(marker: Osmap): Style {
     return new Style({
       image: new Icon({
         anchor: marker.size,

@@ -1,0 +1,89 @@
+<div class="inputWrapper">
+  <div class="dateTimeWrapper">
+    <div class="form-group">
+      <label [htmlFor]="id"
+             [attr.aria-label]="ariaLabel"
+             *ngIf="label">
+        {{label | transloco}}
+        <span [hidden]="!control?.errors?.required">*</span>
+      </label>
+      <div class="input-group">
+        <input type="text" [id]="id"
+               class="form-control"
+               bsDatepicker
+               [placeholder]="placeholder | transloco"
+               [ngClass]="customClass"
+               [class.is-valid]="control?.valid && control?.dirty && successMessage"
+               [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+               [bsConfig]="config"
+               [autofocus]="autofocus"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               [daysDisabled]="disabledDaysOfTheWeek"
+               [datesDisabled]="disabledDates"
+               [attr.aria-label]="ariaLabel + ' date'"
+               [tabIndex]="tabIndex"
+               [autocomplete]="'off'"
+               [ngModel]="_valueDate"
+               [disabled]="_disabled"
+               [placement]="placement"
+               (bsValueChange)="onChangedDate($event)"
+               (blur)="onTouched()"
+               #drp="bsDatepicker"
+               #input
+        >
+        <div class="input-group-append">
+          <button
+            class="btn"
+            type="button"
+            [ngClass]="buttonClass"
+            (click)="_disabled ? null : drp.toggle()"
+          >
+            <i [ngClass]="buttonIcon"></i>
+          </button>
+        </div>
+        <div class="valid-feedback">
+          {{_successMessage | transloco}}
+        </div>
+
+        <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+          {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+        </div>
+      </div>
+    </div>
+    <div class="form-group"
+         [ngStyle]="{'margin-top': _margin}">
+      <timepicker
+        [id]="id"
+        [ngClass]="customClass"
+        [class.is-valid]="control?.valid && control?.dirty && successMessage"
+        [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+        [disabled]="_disabled"
+        [min]="minDate"
+        [max]="maxDate"
+        [showSeconds]="showSecond"
+        [hourStep]="hourStep"
+        [minuteStep]="minuteStep"
+        [secondsStep]="secondStep"
+        [mousewheel]="true"
+        [arrowkeys]="true"
+        [showSpinners]="showSelector"
+        [showMeridian]="showMeridianButton"
+        [hoursPlaceholder]="hoursPlaceholder | transloco"
+        [minutesPlaceholder]="minutesPlaceholder | transloco"
+        [secondsPlaceholder]="secondsPlaceholder | transloco"
+        [ngModel]="_valueTime"
+        [attr.aria-label]="ariaLabel + ' time'"
+        [tabIndex]="tabIndex + 1"
+        (ngModelChange)="onChangedTime($event)"
+        (blur)="onTouched()"
+      ></timepicker>
+    </div>
+  </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>
