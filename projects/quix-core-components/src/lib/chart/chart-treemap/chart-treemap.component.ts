@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import {EChartOption} from "echarts";
+
 import {ChartTreemap} from "./chart-treemap.model";
 
 @Component({
@@ -24,7 +24,7 @@ export class ChartTreemapComponent implements OnInit, OnChanges {
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
   @Output() chartClick = new EventEmitter()
-  chartOption: EChartOption = {
+  chartOption = {
     series: []
   }
 

@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import {EChartOption} from "echarts";
+
 import {ChartRadar} from "./chart-radar.model";
 
 @Component({
@@ -26,7 +26,7 @@ export class ChartRadarComponent implements OnInit, OnChanges {
   @Input() tabIndex: number;
   @Output() chartClick = new EventEmitter()
 
-  chartOption: EChartOption = {
+  chartOption = {
     radar: {},
     series: []
   }

@@ -38,6 +38,8 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   @Input() formName: string
   @Input() optionLimit: number
   @Input() customClass: string[] = []
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
 
   _value: string | number
   _successMessage: string
@@ -61,6 +63,9 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = this.formName + '.' + this.control.name + '.help'
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

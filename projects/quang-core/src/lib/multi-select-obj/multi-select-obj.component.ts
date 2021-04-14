@@ -31,9 +31,11 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   @Input() labelValue: string
   @Input() returnValue: string
   @Input() rowVisible: number
+  @Input() tabindex: number
   @Input() formName: string
   @Input() nullOption: boolean = true
   @Input() customClass: string[]
+  @Input() size: 'lg' | 'sm' = null
 
   _value: string[] = []
   _successMessage: string
@@ -58,6 +60,9 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

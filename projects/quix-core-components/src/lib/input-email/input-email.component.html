@@ -16,13 +16,16 @@
          [(ngModel)]="value"
          [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
+         [maxLength]="max"
+         [minLength]="min"
          #input
   >
 
   <div class="valid-feedback">
     {{_successMessage | translate}}
   </div>
-  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage | translate">
+  <div class="invalid-feedback"
+       [attr.aria-errormessage]="_errorMessage | translate">
     {{_errorMessage | translate: {requiredValue: _requiredValue} }}
   </div>
   <small [id]="id + 'Help'"

@@ -16,7 +16,7 @@ export class QuixModalService {
   }
   modalRef: BsModalRef
   subscriptions: Subscription[] = []
-  public modalEvent: Subject<string>
+  public modalEvent: Subject<string> = new Subject<string>()
 
   constructor (private modalService: BsModalService) {
   }

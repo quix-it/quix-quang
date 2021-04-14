@@ -43,6 +43,8 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   @Input() formName: string
   @Input() optionLimit: number
   @Input() customClass: string[] = []
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
 
   _value: string | number
   _searchValue: string
@@ -88,6 +90,9 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
     )
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

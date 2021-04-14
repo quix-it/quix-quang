@@ -9,7 +9,6 @@ import {
   SimpleChanges
 } from '@angular/core';
 import {ChartLine} from "./chart-line.model";
-import {EChartOption} from "echarts";
 
 @Component({
   selector: 'quix-chart-line',
@@ -25,7 +24,7 @@ export class ChartLineComponent implements OnInit, OnChanges {
   @Input() height: string;
   @Input() chartData: ChartLine
   @Output() chartClick = new EventEmitter()
-  chartOption: EChartOption = {
+  chartOption = {
     color: [],
     xAxis: {},
     yAxis: {

@@ -29,8 +29,11 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
   @Input() rowVisible: number
   @Input() list: Array<string | number>
   @Input() formName: string
+  @Input() tabindex: number
   @Input() nullOption: boolean = true
   @Input() customClass: string[]
+  @Input() size: 'lg' | 'sm' = null
+
   _value: string[]
   _successMessage: string
   _errorMessage: string
@@ -54,6 +57,9 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

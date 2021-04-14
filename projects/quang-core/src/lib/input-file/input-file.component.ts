@@ -66,6 +66,9 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
     this._dropMessage = `${this.formName}.${this.control?.name}.drop`
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
+    }
   }
 
   ngAfterViewInit (): void {

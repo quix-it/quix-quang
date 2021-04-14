@@ -42,6 +42,9 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   @Input() startAfter: number
   @Input() optionLimit: number
   @Input() customClass: string[] = []
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
+
   _value: string
   _successMessage: string
   _errorMessage: string
@@ -65,6 +68,9 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
     this.suggestions$ = new Observable((observer: Observer<string>) => {
       observer.next(this._value)

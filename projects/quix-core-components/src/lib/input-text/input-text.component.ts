@@ -37,6 +37,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   @Input() readonly: boolean;
   @Input() disabled: boolean;
   @Input() tabIndex: number;
+  @Input() autocomplete: string;
   @Input('value')
     // tslint:disable-next-line:variable-name
   _value: string;

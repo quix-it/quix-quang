@@ -41,6 +41,7 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit, OnC
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
   @Input() formName: string;
+  @Input() autocomplete: string = 'new-password'
   @Input('value')
   _value: string;
   _config: QuangConfig;

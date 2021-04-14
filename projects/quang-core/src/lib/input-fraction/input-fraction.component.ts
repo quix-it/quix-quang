@@ -39,6 +39,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   @Input() removeButtonIcon: string[]
   @Input() formName: string
   @Input() customClass: string[] = []
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
 
   _value: number
   _successMessage: string
@@ -73,6 +75,9 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

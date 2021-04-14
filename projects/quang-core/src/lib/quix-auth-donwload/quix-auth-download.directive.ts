@@ -4,7 +4,7 @@ import {map, switchMap} from "rxjs/operators";
 import {from, Observable, of} from "rxjs";
 
 @Directive({
-  selector: '[quixAuthDownload]'
+  selector: '[quangAuthDownload]'
 })
 export class QuixAuthDownloadDirective {
   @Input() url: string

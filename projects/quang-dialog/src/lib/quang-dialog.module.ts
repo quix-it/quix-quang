@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { ModuleWithProviders, NgModule } from '@angular/core'
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 import { QuixBottomSheetService } from './bottom-sheet/bottom-sheet.service'
 import { QuixModalService } from './modal/quix-modal.service'
@@ -14,6 +14,7 @@ import { ModalModule } from 'ngx-bootstrap/modal'
 import { LoaderComponent } from './loader/loader/loader.component'
 import { QuixHttpErrorModalComponent } from './http-error/quix-http-error-modal/quix-http-error-modal.component'
 import { QuixHttpErrorService } from './http-error/quix-http-error.service'
+import { QuangDialogConfig } from './quang-dialog.config'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { QuixHttpErrorService } from './http-error/quix-http-error.service'
     QuixModalService,
     QuixSnackbarService,
     QuixToastService,
-    QuixHttpErrorService
+    QuixHttpErrorService,
   ],
   exports: [
     QuixToastComponent,
@@ -42,4 +43,13 @@ import { QuixHttpErrorService } from './http-error/quix-http-error.service'
     QuixHttpErrorModalComponent
   ]
 })
-export class QuangDialogModule {}
+export class QuangDialogModule {
+  static forRoot (config?: QuangDialogConfig): ModuleWithProviders {
+    return {
+      ngModule: QuangDialogModule,
+      providers: [
+        { provide: QuangDialogConfig, useValue: config }
+      ]
+    }
+  }
+}

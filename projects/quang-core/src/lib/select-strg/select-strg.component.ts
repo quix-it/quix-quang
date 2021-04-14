@@ -27,10 +27,14 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   @Input() errorMessage: boolean;
   @Input() helpMessage: boolean;
   @Input() autofocus: boolean;
+  @Input() translateValue: boolean;
   @Input() nullOption: boolean = true;
   @Input() formName: string;
   @Input() list: Array<string | number>;
   @Input() customClass: string[];
+  @Input() tabindex: number;
+  @Input() size: 'lg' | 'sm' = null
+
   _value: string;
   _successMessage: string;
   _errorMessage: string;
@@ -55,6 +59,9 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   ngOnInit() {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`;
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

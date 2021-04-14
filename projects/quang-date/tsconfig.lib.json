@@ -7,7 +7,6 @@
     "inlineSources": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
     "types": [],
     "lib": [
       "dom",
@@ -18,7 +17,6 @@
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "enableResourceInlining": true,
-    "moduleResolution": "node",
     "esModuleInterop": true
   },
   "exclude": [

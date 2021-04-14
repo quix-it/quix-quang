@@ -10,6 +10,7 @@ import { ChartLineComponent } from './chart-line/chart-line.component'
 import { ChartPieComponent } from './chart-pie/chart-pie.component'
 import { ChartRadarComponent } from './chart-radar/chart-radar.component'
 import { ChartTreemapComponent } from './chart-treemap/chart-treemap.component'
+import { TranslocoModule } from '@ngneat/transloco'
 
 
 @NgModule({
@@ -24,8 +25,9 @@ import { ChartTreemapComponent } from './chart-treemap/chart-treemap.component'
     ChartTreemapComponent
   ],
   imports: [
-    NgxEchartsModule.forRoot({echarts}),
-    CommonModule
+    NgxEchartsModule.forRoot({ echarts }),
+    CommonModule,
+    TranslocoModule
   ],
   exports: [
     ChartAreaComponent,

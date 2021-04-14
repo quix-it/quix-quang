@@ -35,6 +35,11 @@ export class InputEmailComponent implements ControlValueAccessor, OnInit, AfterV
   @Input() tabIndex: number;
   @Input() formName: string;
   @Input() customClass: string[] = [];
+  @Input() min: number;
+  @Input() max: number;
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
+
   _value: string;
   _successMessage: string;
   _errorMessage: string;
@@ -60,6 +65,9 @@ export class InputEmailComponent implements ControlValueAccessor, OnInit, AfterV
   ngOnInit() {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`;
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

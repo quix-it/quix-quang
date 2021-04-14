@@ -49,7 +49,7 @@ export class QuixValidatorsService {
 
   fileExtensions(fileExtensions: string[]) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!fileExtensions.includes(control.value?.name.match(/(?:\.([^.]+))?$/g)[0])) {
+      if (!fileExtensions.includes(control.value?.name?.match(/(?:\.([^.]+))?$/g)[0])) {
         return {fileExtension: {requiredValue: fileExtensions.toString()}};
       }
       return null;

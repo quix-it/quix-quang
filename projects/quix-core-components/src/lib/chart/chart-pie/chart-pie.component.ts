@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import {EChartOption} from "echarts";
+
 import {ChartPie} from "./chart-pie.model";
 
 @Component({
@@ -26,7 +26,7 @@ export class ChartPieComponent implements OnInit, OnChanges {
   @Input() tabIndex: number;
   @Output() chartClick = new EventEmitter()
 
-  chartOption: EChartOption = {
+  chartOption = {
     color: [],
     series: [
       {

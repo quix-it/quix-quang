@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
-import { Observable, Subscription } from 'rxjs'
+import { Component, ElementRef, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core'
+import {  Observable, Subscription } from 'rxjs'
 import { select, Store } from '@ngrx/store'
 import { selectLoader } from '../loader-store/loader.selector'
+import { QuangDialogConfig } from '../../quang-dialog.config'
 
 @Component({
   selector: 'quix-loader',
@@ -13,10 +14,13 @@ export class LoaderComponent implements OnInit, OnDestroy {
   loader$: Observable<any>
   @ViewChild('loader') loader: ElementRef<HTMLDivElement>
   activeLoader: number
+  configModule: QuangDialogConfig = null
 
   constructor (
-    private store: Store<any>
+    private store: Store<any>,
+    @Optional() config?: QuangDialogConfig
   ) {
+    this.configModule = config
   }
 
   ngOnInit (): void {
@@ -25,10 +29,12 @@ export class LoaderComponent implements OnInit, OnDestroy {
 
   observeLoader () {
     this.loader$ = this.store.pipe(select(selectLoader))
-    this.loaderSubscription$ = this.loader$.subscribe(
-      loaderNumber => {
-        this.activeLoader = loaderNumber
-      })
+    if (!this.configModule.production) {
+      this.loaderSubscription$ = this.loader$.subscribe(
+        loaderNumber => {
+          this.activeLoader = loaderNumber
+        })
+    }
   }
 
   ngOnDestroy () {

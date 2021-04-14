@@ -50,7 +50,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   @Input() customClass: string[] = [];
 
   @ViewChild('input', {static: true}) input: QuillEditorComponent;
-  @Input('value')
+
   _value: string;
   _successMessage: string;
   _errorMessage: string;
@@ -74,6 +74,9 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   ngOnInit() {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`;
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
     if (this.listBar) {
       this._toolbar.toolbar.push([{list: 'ordered'}, {list: 'bullet'}])

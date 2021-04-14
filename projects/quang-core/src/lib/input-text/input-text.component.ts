@@ -36,8 +36,9 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   @Input() autofocus: boolean;
   @Input() readonly: boolean;
   @Input() tabIndex: number;
-  @Input('value')
-    // tslint:disable-next-line:variable-name
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
+
   _value: string;
   _successMessage: string;
   _errorMessage: string;
@@ -62,6 +63,9 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   ngOnInit() {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`;
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

@@ -37,6 +37,9 @@ export class InputSearchComponent implements ControlValueAccessor, AfterViewInit
   @Input() disabled: boolean;
   @Input() tabIndex: number;
   @Input() customClass: string[] = [];
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
+
   _value: string;
   _successMessage: string;
   _errorMessage: string;
@@ -61,6 +64,9 @@ export class InputSearchComponent implements ControlValueAccessor, AfterViewInit
   ngOnInit() {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`;
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

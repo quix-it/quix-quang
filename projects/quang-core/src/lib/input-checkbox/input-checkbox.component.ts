@@ -31,6 +31,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   @Input() helpMessage: boolean
   @Input() formName: string
   @Input() customClass: string[] = []
+  @Input() autocomplete: string = 'off';
 
   _value: boolean
   _successMessage: string
@@ -53,6 +54,9 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

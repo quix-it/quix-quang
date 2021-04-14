@@ -25,6 +25,8 @@ export class InputEmailComponent implements ControlValueAccessor, OnInit, AfterV
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
   @Input() formName: string;
+  @Input() min: number;
+  @Input() max: number;
   @Input('value')
   _value: string;
   _config: QuangConfig;

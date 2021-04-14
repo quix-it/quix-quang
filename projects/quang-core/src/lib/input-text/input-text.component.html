@@ -10,8 +10,8 @@
          [id]="id"
          [placeholder]="placeholder | transloco "
          [ngClass]="customClass"
-         [class.is-valid]="control?.valid && control?.dirty"
-         [class.is-invalid]="control?.invalid && control?.dirty"
+         [class.is-valid]="control?.valid && control?.dirty && successMessage"
+         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
          [maxLength]="max"
          [minLength]="min"
          [pattern]="pattern"
@@ -20,8 +20,10 @@
          [tabIndex]="tabIndex"
          (input)="onChangedHandler($event)"
          (blur)="onTouched()"
+         [autocomplete]="autocomplete"
+         [class.form-control-lg]="size === 'lg'"
+         [class.form-control-sm]="size === 'sm'"
          #input
-         autocomplete="off"
   >
   <div class="valid-feedback">
     {{_successMessage | transloco }}

@@ -1,7 +1,7 @@
 <div
   class="loader-wrapper"
   #loader
-  [hidden]="!activeLoader">
+  [hidden]="!(loader$ | async)">
   <ng-content
     select="[loader]"
     class="loader"

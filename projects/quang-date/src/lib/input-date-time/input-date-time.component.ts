@@ -51,7 +51,8 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   @Input() tabIndex: number
   @Input() formName: string
   @Input() customClass: string[]
-  @Input() placement: 'top' | 'bottom' | 'left' | 'right'
+  @Input() size: 'sm'| 'lg' = null
+  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
 
   _valueDate: any
   _valueTime: any
@@ -99,6 +100,9 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     }
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

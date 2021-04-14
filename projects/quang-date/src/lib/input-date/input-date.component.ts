@@ -44,7 +44,9 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   @Input() tabIndex: number
   @Input() formName: string
   @Input() customClass: string[]
-  @Input() placement: 'top' | 'bottom' | 'left' | 'right'
+  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
+  @Input() size: 'sm'| 'lg' = null
+
   _value: any
   config: Partial<BsDatepickerConfig>
   _successMessage: string
@@ -81,6 +83,9 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
     }
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

@@ -8,11 +8,14 @@
   <select class="form-control"
           [id]="id"
           [ngClass]="customClass"
-          [class.is-valid]="control?.valid && control?.dirty"
-          [class.is-invalid]="control?.invalid && control?.dirty"
-          [attr.aria-label]="ariaLabel"
+          [class.is-valid]="control?.valid && control?.dirty && successMessage"
+          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+          [attr.aria-label]="ariaLabel | transloco"
           (input)="onChangedHandler($event)"
           (blur)="onTouched()"
+          [class.form-control-lg]="size === 'lg'"
+          [class.form-control-sm]="size === 'sm'"
+          [tabIndex]="tabindex"
           #input
   >
     <option [ngValue]="null"
@@ -20,14 +23,15 @@
     <option *ngFor="let item of list"
             [value]="item"
             [selected]="item === _value">
-      {{item | transloco}}
+      {{translateValue ? (item | transloco) : item }}
     </option>
   </select>
   <div class="valid-feedback">
     {{_successMessage | transloco}}
   </div>
-  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
-    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  <div class="invalid-feedback"
+       [attr.aria-errormessage]="_errorMessage | transloco">
+    {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small [id]="id + 'Help'"
          class="form-text text-muted"

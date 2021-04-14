@@ -19,5 +19,12 @@ export * from './lib/offline/offline-store/offline.selector'
 export * from './lib/http-error/quix-http-error-modal/quix-http-error-modal.component'
 export * from './lib/http-error/quix-http-error.service'
 export * from './lib/http-error/quix-http-error.interceptor'
+export * from './lib/loader/quix-loader.interceptor'
+export * from './lib/loader/loader/loader.component'
+export * from './lib/loader/loader-store/loader.action'
+export * from './lib/loader/loader-store/loader.reducer'
+export * from './lib/loader/loader-store/loader.selector'
 
+
+export * from './lib/quang-dialog.config'
 export * from './lib/quang-dialog.module'

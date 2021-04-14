@@ -1,4 +1,10 @@
 <div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
   <div class="custom-control custom-radio"
        [class.custom-control-inline]="inline"
        *ngFor="let radio of radioList; let index = index;">
@@ -14,7 +20,7 @@
            [checked]="radio[returnValue] === _value"
            (input)="onChangedHandler($event)"
            (blur)="onTouched()"
-           [autocomplete]="'off'"
+           [autocomplete]="autocomplete"
            #input>
     <label class="custom-control-label"
            [attr.aria-label]="ariaLabel"

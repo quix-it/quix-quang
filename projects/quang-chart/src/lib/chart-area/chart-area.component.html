@@ -3,7 +3,7 @@
      echarts
      [options]="chartOption"
      [autoResize]="true"
-     [attr.aria-describedby]="ariaLabel"
+     [attr.aria-describedby]="ariaLabel | transloco"
      [tabIndex]="tabIndex"
      (chartClick)="onChartClick($event)"
 ></div>

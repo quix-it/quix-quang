@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'quix-card',
   templateUrl: './quix-card.component.html',
-  styleUrls: ['./quix-card.component.scss']
+  styles: ['']
 })
 export class QuixCardComponent implements OnInit {
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
 }

@@ -4,8 +4,7 @@
   <div class="form-group">
     <label
       for="pageSize"
-      [attr.aria-label]="ariaLabel"
-    >
+      [attr.aria-label]="ariaLabel">
       {{'quixPaginator.size' | transloco}}
     </label>
     <select
@@ -13,24 +12,23 @@
       name="pageSize"
       id="pageSize"
       class="form-control"
+      [attr.aria-label]="'page size'"
       (change)="onChangeSize($event)"
-      [(ngModel)]="pageState.pageSize"
-    >
-      <option [value]="size"
-              *ngFor="let size of sizeList"
-      >
+      #input>
+      <option [ngValue]="size"
+              [selected]="size === this._pageSize"
+              *ngFor="let size of sizeList">
         {{size}}
       </option>
     </select>
   </div>
   <mat-paginator
-    [length]="totalItems"
-    [pageSize]="pageState.pageSize"
+    id="page index"
     [pageSizeOptions]="sizeList"
-    [pageIndex]="pageState.pageIndex"
     (page)="onChangePage($event)"
     [hidePageSize]="true"
     [showFirstLastButtons]="true"
+    [attr.aria-label]="'page index'"
     #quixPaginator
   ></mat-paginator>
 </div>

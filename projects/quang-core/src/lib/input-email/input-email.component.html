@@ -13,20 +13,24 @@
          [multiple]="multiple"
          [pattern]="pattern"
          [ngClass]="customClass"
-         [class.is-valid]="control?.valid && control?.dirty"
-         [class.is-invalid]="control?.invalid && control?.dirty"
+         [class.is-valid]="control?.valid && control?.dirty && successMessage"
+         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
          [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
          (input)="onChangedHandler($event)"
          (blur)="onTouched()"
+         [maxLength]="max"
+         [minLength]="min"
          #input
-         autocomplete="off"
+         [autocomplete]="autocomplete"
+         [class.form-control-lg]="size === 'lg'"
+         [class.form-control-sm]="size === 'sm'"
   >
   <div class="valid-feedback">
     {{_successMessage | transloco}}
   </div>
   <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage | transloco">
-    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+    {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small [id]="id + 'Help'"
          class="form-text text-muted"

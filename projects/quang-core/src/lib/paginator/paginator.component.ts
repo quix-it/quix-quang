@@ -1,77 +1,82 @@
 import {
+  ChangeDetectionStrategy,
   Component, ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
-  Output,
+  Output, Renderer2,
   SimpleChanges, ViewChild
-} from '@angular/core';
+} from '@angular/core'
 import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'quix-paginator',
   templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.scss'],
+  styles: [''],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorComponent implements OnInit, OnChanges {
-  @Input() id: string;
-  @Input() customClass: string;
-  @Input() totalItems: number;
-  @Input() tabIndex: number;
-  @Input() ariaLabel: string;
-  @Input() sizeList: Array<number>;
-  @Input() defaultPageSize: number;
-  @Input() defaultPageIndex: number;
-  @Output() onPageChange = new EventEmitter<any>();
-  @ViewChild('quixPaginator', {static: true}) paginator: MatPaginator;
-  pageState: {
-    length: number,
-    pageIndex: number
-    pageSize: number
-    previousPageIndex: number
-  }
+  @Input() id: string
+  @Input() customClass: string
+  @Input() totalItems: number
+  @Input() tabIndex: number
+  @Input() ariaLabel: string
+  @Input() sizeList: number[]
+  @Input() pageSize: number
+  @Input() pageIndex: number
+  @Output() onPageChange = new EventEmitter<number>()
+  @Output() onSizeChange = new EventEmitter<number>()
+  @ViewChild('quixPaginator', { static: true }) paginator: MatPaginator
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement>
 
-  constructor() {
-    this.pageState = {
-      length: 0,
-      pageIndex: 0,
-      pageSize: 0,
-      previousPageIndex: 0
-    }
-  }
+  _length: number
+  _pageIndex: number
+  _pageSize: number
 
-  ngOnInit(): void {
+  constructor (
+    private renderer: Renderer2,
+  ) {
 
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnInit (): void {
+
+  }
+
+  ngOnChanges (changes: SimpleChanges) {
     if (changes.totalItems?.currentValue) {
-      this.pageState.length = changes.totalItems?.currentValue
+      this._length = changes.totalItems?.currentValue
+      this.paginator.length = changes.totalItems?.currentValue
     }
-    if (changes.defaultPageIndex?.currentValue) {
-      this.pageState.pageIndex = changes.defaultPageIndex?.currentValue
+    if (changes.pageIndex) {
+      if (changes.pageIndex.currentValue >= 0 && changes.pageIndex.currentValue !== this._pageIndex) {
+        this._pageIndex = changes.pageIndex.currentValue
+        this.paginator.pageIndex = changes.pageIndex.currentValue
+      }
     }
-    if (changes.defaultPageSize?.currentValue) {
-      this.pageState.pageSize = changes.defaultPageSize?.currentValue
-    }
-    if (changes.defaultPageSize?.currentValue) {
-      this.pageState.previousPageIndex = changes.defaultPageSize?.currentValue
-    }
-    if (this.pageState.pageSize && this.pageState.length) {
-      this.onPageChange.emit(this.pageState)
+    if (changes.pageSize) {
+      if (changes.pageSize.currentValue >= 0 && changes.pageSize.currentValue !== this._pageSize) {
+        this.paginator.pageSize = changes.pageSize.currentValue
+        this.renderer.setProperty(this.input?.nativeElement, 'value', changes.pageSize.currentValue)
+      }
     }
   }
 
-  onChangePage(event) {
-    this.onPageChange.emit(event);
+  onChangePage (event) {
+    if (event.pageIndex !== this._pageIndex) {
+      this._pageIndex = event.pageIndex
+      this.onPageChange.emit(this._pageIndex)
+    }
   }
 
-  onChangeSize(e: any) {
-    this.onPageChange.emit({...this.pageState, pageSize: parseInt(e.target.value)});
+  onChangeSize (event) {
+    this.paginator.pageSize = parseInt((event.target as HTMLInputElement).value)
+    this._pageSize = parseInt((event.target as HTMLInputElement).value)
+    this.onSizeChange.emit(this._pageSize)
   }
 
-  goToFirstPage(){
+  goToFirstPage () {
     this.paginator.firstPage()
   }
 

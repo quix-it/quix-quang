@@ -6,8 +6,8 @@
   <mat-slide-toggle
     [id]="id"
     [ngClass]="customClass"
-    [class.is-valid]="control?.valid && control?.dirty"
-    [class.is-invalid]="control?.invalid && control?.dirty"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [attr.aria-label]="ariaLabel"
     (input)="onChangedHandler($event)"
     (blur)="onTouched()"

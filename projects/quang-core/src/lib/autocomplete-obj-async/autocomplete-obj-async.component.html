@@ -14,7 +14,7 @@
          [autofocus]="autofocus"
          [attr.aria-label]="ariaLabel | transloco"
          [tabIndex]="tabIndex"
-         [autocomplete]="'off'"
+         [autocomplete]="autocomplete"
          [isAnimated]="true"
          [adaptivePosition]="true"
          [typeaheadOptionField]="searchBy"
@@ -27,8 +27,10 @@
          (typeaheadOnSelect)="onSelectHandler($event)"
          (input)="onChangedHandler($event)"
          (blur)="onTouched()"
-         [class.is-valid]="control?.valid && control?.dirty"
-         [class.is-invalid]="control?.invalid && control?.dirty"
+         [class.is-valid]="control?.valid && control?.dirty && successMessage"
+         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+         [class.form-control-lg]="size === 'lg'"
+         [class.form-control-sm]="size === 'sm'"
          #input
   >
   <div class="valid-feedback">

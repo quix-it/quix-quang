@@ -36,8 +36,10 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, After
   @Input() step: number;
   @Input() formName: string;
   @Input() customClass: string[];
-  @Input('value')
-  _value: string;
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
+
+  _value: number;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
@@ -62,6 +64,9 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, After
   ngOnInit() {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`;
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 
@@ -93,15 +98,15 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, After
   }
 
   onChangedHandler(e: Event) {
-    this._value = (e.target as HTMLInputElement).value
+    this._value = (e.target as HTMLInputElement).valueAsNumber
     this.onTouched()
     this.onChanged(this._value)
   }
 
   // This is a basic setter that the forms API is going to use
   writeValue(value) {
-    this._value = value
-    this.renderer.setProperty(this.input?.nativeElement, 'value', value);
+    this._value = value !== '' ? value : null
+    this.renderer.setProperty(this.input?.nativeElement, 'value', value !== '' ? value : null);
   }
 
   setDisabledState(isDisabled: boolean): void {

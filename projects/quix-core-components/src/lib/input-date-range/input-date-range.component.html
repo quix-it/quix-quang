@@ -5,7 +5,9 @@
     {{label | translate}}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <div class="input-group">
+  <div class="input-group"
+       [class.input-group-lg]="size === 'lg'"
+       [class.input-group-sm]="size === 'sm'">
     <input type="text"
            [id]="id"
            bsDaterangepicker

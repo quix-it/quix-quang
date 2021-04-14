@@ -31,7 +31,9 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
   @Input() formName: string
   @Input() readonly: boolean
   @Input() customClass: string[] = []
-  @Input() placeholder = ''
+  @Input() placeholder: string = ''
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
 
   _value: string
   _successMessage: string
@@ -55,6 +57,9 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = this.formName + '.' + this.control.name + '.help'
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

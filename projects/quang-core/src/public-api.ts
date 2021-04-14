@@ -11,6 +11,8 @@ export * from './lib/input-color/input-color.component';
 export * from './lib/input-checkbox/input-checkbox.component';
 export * from './lib/input-radio/input-radio.component';
 export * from './lib/input-fraction/input-fraction.component';
+export * from './lib/input-url/input-url.component';
+export * from './lib/input-tel/input-tel.component';
 export * from './lib/quix-auth-donwload/quix-auth-download.directive';
 export * from './lib/quix-auth-image/quix-auth-image.directive';
 export * from './lib/select-strg/select-strg.component';

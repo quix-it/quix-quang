@@ -70,6 +70,9 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
     }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
+    }
   }
 
   ngAfterViewInit (): void {

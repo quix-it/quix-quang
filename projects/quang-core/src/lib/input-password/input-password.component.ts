@@ -41,6 +41,8 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit, OnC
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
   @Input() formName: string;
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'new-password';
 
   _value: string;
   _successMessage: string;
@@ -67,6 +69,9 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit, OnC
   ngOnInit() {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`;
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

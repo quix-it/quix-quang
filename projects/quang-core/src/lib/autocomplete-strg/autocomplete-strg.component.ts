@@ -34,6 +34,8 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   @Input() startAfter: number
   @Input() optionLimit: number
   @Input() customClass: string[] = []
+  @Input() size: 'lg' | 'sm' = null
+  @Input() autocomplete: string = 'off';
 
   _value: string
   _successMessage: string
@@ -56,6 +58,9 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = this.formName + '.' + this.control.name + '.help'
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

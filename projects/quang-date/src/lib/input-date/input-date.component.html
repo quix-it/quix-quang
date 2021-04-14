@@ -1,11 +1,13 @@
 <div class="form-group">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel"
+         [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <div class="input-group">
+  <div class="input-group"
+       [class.input-group-sm]="size === 'sm'"
+       [class.input-group-lg]="size === 'lg'">
     <input type="text"
            class="form-control"
            bsDatepicker
@@ -20,7 +22,7 @@
            [daysDisabled]="disabledDaysOfTheWeek"
            [datesDisabled]="disabledDates"
            [autocomplete]="'off'"
-           [attr.aria-label]="ariaLabel"
+           [attr.aria-label]="ariaLabel | transloco"
            [tabIndex]="tabIndex"
            [ngModel]="_value"
            [placement]="placement"
@@ -36,13 +38,14 @@
         type="button"
         (click)="_disabled ? null : drp.toggle()"
       >
-        <i [ngClass]="buttonIcon"></i>
+        <ng-content select="[calendarIcon]"></ng-content>
       </button>
     </div>
     <div class="valid-feedback">
       {{_successMessage | transloco}}
     </div>
-    <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    <div class="invalid-feedback"
+         [attr.aria-errormessage]="_errorMessage | transloco">
       {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
     </div>
   </div>

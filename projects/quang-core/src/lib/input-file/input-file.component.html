@@ -16,6 +16,7 @@
                  #input>
     <ng-template ngx-file-drop-content-tmp
                  let-openFileSelector="openFileSelector">
+      <ng-content select="[uploadIcon]"></ng-content>
       <div *ngIf="multiple; else single">
         <p *ngFor="let f of _values;  let i = index">
           {{f.name}}

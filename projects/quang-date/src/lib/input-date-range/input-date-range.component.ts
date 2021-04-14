@@ -43,8 +43,9 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   @Input() buttonClass: string[]
   @Input() tabIndex: number
   @Input() formName: string
-  @Input() placement: string
   @Input() customClass: string[]
+  @Input() size: 'sm'| 'lg' = null
+  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
 
   config: Partial<BsDatepickerConfig>
   _value: any[]
@@ -82,6 +83,9 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
     }
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

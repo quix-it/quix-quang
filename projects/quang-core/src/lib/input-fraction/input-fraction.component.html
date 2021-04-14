@@ -26,7 +26,7 @@
            [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
            (input)="writeValueInteger($event)"
            (blur)="onTouched()"
-           [autocomplete]="'off'"
+           [autocomplete]="autocomplete"
            #inputInteger>
     <div class="input-group-append">
       <button type="button"
@@ -60,7 +60,7 @@
            [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
            (input)="writeValueFraction($event)"
            (blur)="onTouched()"
-           [autocomplete]="'off'"
+           [autocomplete]="autocomplete"
            #inputFraction
     >
     <div class="input-group-append">

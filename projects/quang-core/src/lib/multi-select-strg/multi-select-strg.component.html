@@ -11,11 +11,14 @@
           [id]="id"
           [autofocus]="autofocus"
           [ngClass]="customClass"
-          [class.is-valid]="control?.valid && control?.dirty"
-          [class.is-invalid]="control?.invalid && control?.dirty"
+          [class.is-valid]="control?.valid && control?.dirty && successMessage"
+          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
           [attr.aria-label]="ariaLabel"
           (input)="onChangedHandler($event)"
           (blur)="onTouched()"
+          [class.form-control-lg]="size === 'lg'"
+          [class.form-control-sm]="size === 'sm'"
+          [tabIndex]="tabindex"
           #input
   >
     <option [ngValue]="null"

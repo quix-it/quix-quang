@@ -6,7 +6,7 @@ import { HasUntilRolesDirective } from './quang-keycloak-directive/has-until-rol
 import { StoreModule } from '@ngrx/store'
 import { QUANGKEYCLOAK_KEY } from './quang-keycloak-module.selector'
 import { quangkeycloakReducer } from './quang-keycloak-module.reducer'
-import { KeycloakAngularModule } from 'keycloak-angular'
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
 import { QuangKeycloakService } from './quang-keycloak.service'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
 
@@ -27,6 +27,7 @@ import { QuangKeycloakConfig } from './quang-keycloak.config'
     IsAuthenticatedDirective
   ],
   providers: [
+    KeycloakService,
     QuangKeycloakService,
   ]
 })

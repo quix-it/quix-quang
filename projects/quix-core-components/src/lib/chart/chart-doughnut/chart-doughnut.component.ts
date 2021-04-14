@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {EChartOption} from "echarts";
 import {ChartDoughnut} from "./chart-doughnut.model";
 
 @Component({
@@ -17,7 +16,7 @@ export class ChartDoughnutComponent implements OnInit {
   @Input() tabIndex: number;
   @Output() chartClick = new EventEmitter()
 
-  chartOption: EChartOption = {
+  chartOption = {
     color: [],
     series: [
       {

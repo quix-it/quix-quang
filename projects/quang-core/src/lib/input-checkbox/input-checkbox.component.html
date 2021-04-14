@@ -10,7 +10,7 @@
          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
          (input)="onChangedHandler($event)"
          (blur)="onTouched()"
-         [autocomplete]="'off'"
+         [autocomplete]="autocomplete"
          #input
   >
   <label class="custom-control-label"

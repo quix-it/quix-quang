@@ -4,7 +4,7 @@ import {switchMap} from "rxjs/operators";
 import {of} from "rxjs";
 
 @Directive({
-  selector: '[quixAuthImage]',
+  selector: '[quangAuthImage]',
 })
 export class QuixAuthImageDirective implements OnChanges {
   @Input() src: string

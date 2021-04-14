@@ -35,6 +35,8 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   @Input() labelValue: string
   @Input() returnValue: string
   @Input() customClass: string[] = []
+  @Input() label: string;
+  @Input() autocomplete: string = 'off';
 
   _value: string
   _successMessage: string
@@ -57,6 +59,9 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

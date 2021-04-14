@@ -10,14 +10,16 @@
          [id]="id"
          [placeholder]="placeholder | transloco"
          [ngClass]="customClass"
-         [class.is-valid]="control?.valid && control?.dirty"
-         [class.is-invalid]="control?.invalid && control?.dirty"
+         [class.is-valid]="control?.valid && control?.dirty && successMessage"
+         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
          [readOnly]="readonly"
          [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
          (input)="onChangedHandler($event)"
          (blur)="onTouched()"
-         [autocomplete]="'off'"
+         [autocomplete]="autocomplete"
+         [class.form-control-lg]="size === 'lg'"
+         [class.form-control-sm]="size === 'sm'"
          #input
   >
   <div class="valid-feedback">

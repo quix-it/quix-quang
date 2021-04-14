@@ -10,8 +10,8 @@
          [id]="id"
          [placeholder]="placeholder | transloco"
          [ngClass]="customClass"
-         [class.is-valid]="control?.valid && control?.dirty"
-         [class.is-invalid]="control?.invalid && control?.dirty"
+         [class.is-valid]="control?.valid && control?.dirty && successMessage"
+         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
          [maxLength]="max"
          [minLength]="min"
          [pattern]="pattern"
@@ -19,9 +19,11 @@
          [readOnly]="readonly"
          [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
-         autocomplete="off"
+         [autocomplete]="autocomplete"
          (input)="onChangedHandler($event)"
          (blur)="onTouched()"
+         [class.form-control-lg]="size === 'lg'"
+         [class.form-control-sm]="size === 'sm'"
          #input
   >
 

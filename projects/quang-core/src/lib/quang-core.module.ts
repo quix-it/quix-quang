@@ -37,6 +37,8 @@ import { InputFractionComponent } from './input-fraction/input-fraction.componen
 import { PaginatorLanguage } from './paginator/paginator.language'
 import { InputFileComponent } from './input-file/input-file.component'
 import { NgxFileDropModule } from 'ngx-file-drop'
+import { InputUrlComponent } from './input-url/input-url.component'
+import { InputTelComponent } from './input-tel/input-tel.component'
 
 
 @NgModule({
@@ -65,7 +67,9 @@ import { NgxFileDropModule } from 'ngx-file-drop'
     SliderComponent,
     PaginatorComponent,
     InputFractionComponent,
-    InputFileComponent
+    InputFileComponent,
+    InputUrlComponent,
+    InputTelComponent
   ],
   imports: [
     CommonModule,
@@ -110,7 +114,9 @@ import { NgxFileDropModule } from 'ngx-file-drop'
     SliderComponent,
     PaginatorComponent,
     InputFractionComponent,
-    InputFileComponent
+    InputFileComponent,
+    InputUrlComponent,
+    InputTelComponent
   ]
 })
 export class QuangCoreModule {}

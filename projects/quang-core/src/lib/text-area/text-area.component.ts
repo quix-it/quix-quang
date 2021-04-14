@@ -40,19 +40,19 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   @Input() formName: string;
   @Input() resizeMode: 'none' | 'auto' | 'vertical' | 'horizzontal' = 'auto';
   @Input() customClass: string[] = [];
-  @Input('value')
+
   _value: string;
   _successMessage: string;
   _errorMessage: string;
   _helpMessage: string;
   _requiredValue: any;
-
-  @ViewChild('input', {static: true}) input: ElementRef<HTMLTextAreaElement>;
-  @ViewChild('autosize') autosize: CdkTextareaAutosize;
   onTouched: any = () => {
   }
   onChanged: any = () => {
   }
+
+  @ViewChild('input', {static: true}) input: ElementRef<HTMLTextAreaElement>;
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   constructor(private renderer: Renderer2,
               @Self() @Optional() public control: NgControl,
@@ -78,6 +78,9 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   ngOnInit() {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control.name}.help`;
+    }
+    if(!this.ariaLabel){
+      this.ariaLabel = `Input ${this.label}`
     }
   }
 

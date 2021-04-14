@@ -7,7 +7,9 @@
         {{label | transloco}}
         <span [hidden]="!control?.errors?.required">*</span>
       </label>
-      <div class="input-group">
+      <div class="input-group"
+      [class.input-group-sm]="size === 'sm'"
+      [class.input-group-lg]="size === 'lg'">
         <input type="text" [id]="id"
                class="form-control"
                bsDatepicker
@@ -39,7 +41,7 @@
             [ngClass]="buttonClass"
             (click)="_disabled ? null : drp.toggle()"
           >
-            <i [ngClass]="buttonIcon"></i>
+            <ng-content select="[calendarIcon]"></ng-content>
           </button>
         </div>
         <div class="valid-feedback">
@@ -73,7 +75,7 @@
         [minutesPlaceholder]="minutesPlaceholder | transloco"
         [secondsPlaceholder]="secondsPlaceholder | transloco"
         [ngModel]="_valueTime"
-        [attr.aria-label]="ariaLabel + ' time'"
+        [attr.aria-label]="ariaLabel + ' time' | transloco"
         [tabIndex]="tabIndex + 1"
         (ngModelChange)="onChangedTime($event)"
         (blur)="onTouched()"

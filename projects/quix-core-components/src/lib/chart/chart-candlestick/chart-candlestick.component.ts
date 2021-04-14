@@ -8,7 +8,6 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import {EChartOption} from "echarts";
 import {ChartCandlestick} from "./chart-candlestick.model";
 
 @Component({
@@ -24,7 +23,7 @@ export class ChartCandlestickComponent implements OnInit, OnChanges {
   @Input() ariaLabel: string;
   @Input() tabIndex: number;
   @Output() chartClick = new EventEmitter()
-  chartOption: EChartOption = {
+  chartOption = {
     xAxis: {},
     yAxis: {},
     series: []
