@@ -1,0 +1,177 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - develop
+      - quang11
+    tags:
+      - '**'
+
+env:
+  docker_repository: docker.quix.it/quang
+  HOST: rd.quix.it
+  USER: delivery
+  KEY: ${{ secrets.RD_SSH_KEY }}
+  VERBOSE: true
+  ARGS: -az --delete
+  SSH_ARGS: '-p 22 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+  STAGING_PATH: /tmp/staging/${{ github.sha }}
+
+jobs:
+
+  init:
+
+    runs-on: [ self-hosted, linux ]
+    outputs:
+      sha: ${{ steps.refs.outputs.sha }}
+      sha_short: ${{ steps.refs.outputs.sha_short }}
+      tag: ${{ steps.refs.outputs.tag }}
+      revision: ${{ steps.refs.outputs.revision }}
+      branch: ${{ steps.refs.outputs.branch }}
+    steps:
+
+      - name: Get git info
+        id: refs
+        run: |
+          SHA_SHORT=${SHA:0:7}
+          echo "::set-output name=sha::$SHA"
+          echo "::set-output name=sha_short::$SHA_SHORT"
+          if [[ $REF =~ "refs/tags/" ]]; then
+            TAG=${REF#refs/tags/}
+            echo "::set-output name=tag::$TAG"
+            echo "::set-output name=revision::$TAG"
+          else
+            echo "::set-output name=revision::$SHA_SHORT"
+          fi
+          if [[ $REF =~ "refs/heads/" ]]; then
+            echo "::set-output name=branch::${REF#refs/heads/}"
+          elif [[ $BASE_REF =~ "refs/heads/" ]]; then
+            echo "::set-output name=branch::${BASE_REF#refs/heads/}"
+          fi
+        env:
+          REF: ${{ github.ref }}
+          BASE_REF: ${{ github.event.base_ref }}
+          SHA: ${{ github.sha }}
+
+  build:
+
+    if: "!contains(github.event.head_commit.message, 'skip-build')"
+    runs-on: [ self-hosted, linux, docker ]
+    container:
+      image: supportquix/angular:11
+    needs: init
+
+    steps:
+
+      - name: Clean up workspace
+        uses: docker://alpine:latest
+        with:
+          entrypoint: /bin/sh
+          args: -c "rm -rf ..?* .[!.]* *"
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build documentation
+        run: |
+          npx compodoc -p tsconfig.json projects
+          
+      - name: Save artifacts - documentation
+        uses: up9cloud/action-rsync@v1.3
+        env:
+          MODE: push
+          TARGET: ${{ env.STAGING_PATH }}/documentation/
+          SOURCE: ./documentation/
+          PRE_SCRIPT: mkdir -p "${{ env.STAGING_PATH }}/documentation/"
+          RUN_SCRIPT_ON: target
+
+      - name: Clean up workspace
+        uses: docker://alpine:latest
+        with:
+          entrypoint: /bin/sh
+          args: -c "rm -rf ..?* .[!.]* *"
+
+      - name: Slack Notification
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+
+  docker-build:
+
+    runs-on: [ self-hosted, linux, docker ]
+    container:
+      image: docker:latest
+    needs: [ init, build ]
+
+    steps:
+
+      - name: Clean up workspace
+        run: |
+          rm -rf ..?* .[!.]* *
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore artifacts - documentation
+        uses: up9cloud/action-rsync@v1.3
+        env:
+          MODE: pull
+          SOURCE: ${{ env.STAGING_PATH }}/documentation/
+          TARGET: ./documentation/
+          PRE_SCRIPT: mkdir -p "./documentation/"
+          RUN_SCRIPT_ON: target
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to docker registry
+        uses: docker/login-action@v1 
+        with:
+          registry: docker.quix.it
+          username: ${{ secrets.NEXUS_QUIX_RW_USERNAME }}
+          password: ${{ secrets.NEXUS_QUIX_RW_PASSWORD }}
+
+      - name: Docker build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: docker/Dockerfile
+          push: true
+          tags: ${{ env.docker_repository}}:${{ needs.init.outputs.revision }}
+
+      - name: Clean up workspace
+        if: always()
+        run: |
+          rm -rf ..?* .[!.]* *
+
+      - name: Slack Notification
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+
+  update-test-environment:
+    
+    runs-on: [ self-hosted, linux ]
+    needs: [ init, build, docker-build ]
+
+    steps:
+
+      - name: Raise update event in test environment
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_GHA_PAT }}
+          repository: quix-it/quix-quake-rd-environment
+          event-type: update
+          client-payload: '{"QUANG_VERSION": "${{ needs.init.outputs.revision }}"}'
