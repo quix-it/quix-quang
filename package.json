@@ -10,7 +10,9 @@
     "e2e": "ng e2e",
     "buildComponents": "ng build quix-core-components",
     "releaseComponents": "cd dist cd quix-core-components npm publish",
-    "build:quang": "ng-packagr -p projects/quang && ng-packagr -p projects/quang-auth && ng-packagr -p projects/quang-calendar && ng-packagr -p projects/quang-chart && ng-packagr -p projects/quang-components && ng-packagr -p projects/quang-core && ng-packagr -p projects/quang-date && ng-packagr -p projects/quang-dialog && ng-packagr -p projects/quang-event && ng-packagr -p projects/quang-image && ng-packagr -p projects/quang-keycloak && ng-packagr -p projects/quang-map && ng-packagr -p projects/quang-utility"
+    "build:quang": "ng-packagr -p projects/quang && ng-packagr -p projects/quang-auth && ng-packagr -p projects/quang-calendar && ng-packagr -p projects/quang-chart && ng-packagr -p projects/quang-components && ng-packagr -p projects/quang-core && ng-packagr -p projects/quang-date && ng-packagr -p projects/quang-dialog && ng-packagr -p projects/quang-event && ng-packagr -p projects/quang-image && ng-packagr -p projects/quang-keycloak && ng-packagr -p projects/quang-map && ng-packagr -p projects/quang-utility",
+    "compodoc": "npx compodoc -p tsconfig.json projects -s",
+    "build:compodoc": "npx compodoc -p tsconfig.json projects"
   },
   "license": "UNLICENSED",
   "dependencies": {
@@ -59,7 +61,11 @@
     "keycloak-js": "^10.0.2",
     "@ngneat/transloco": "^2.20.0",
     "angular-oauth2-oidc": "^10.0.3",
-    "resize-observer-polyfill": "^1.5.1"
+    "resize-observer-polyfill": "^1.5.1",
+    "@sentry/angular": "^6.2.3",
+    "@sentry/tracing": "^6.2.3",
+    "@sentry/integrations": "^5.30.0",
+    "@compodoc/compodoc": "^1.1.11"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.7",

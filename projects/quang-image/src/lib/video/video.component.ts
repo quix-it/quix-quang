@@ -7,7 +7,7 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VideoComponent implements OnInit, OnChanges {
+export class VideoComponent implements OnChanges {
   @Input() id: string;
   @Input() src: SafeUrl;
   @Input() baseImage: SafeUrl;
@@ -18,9 +18,6 @@ export class VideoComponent implements OnInit, OnChanges {
   @Input() type: 'video/mp4' | 'video/webm' | 'video/OGG';
 
   constructor(private sanitizer: DomSanitizer) {
-  }
-
-  ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges) {

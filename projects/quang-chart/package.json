@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-chart",
-  "version": "11.0.0-beta.15",
+  "version": "11.0.0-beta.22",
   "peerDependencies": {
     "echarts": "^5.0.2",
     "ngx-echarts": "^6.0.0",

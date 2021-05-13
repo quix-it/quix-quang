@@ -15,6 +15,7 @@ import { LoaderComponent } from './loader/loader/loader.component'
 import { QuixHttpErrorModalComponent } from './http-error/quix-http-error-modal/quix-http-error-modal.component'
 import { QuixHttpErrorService } from './http-error/quix-http-error.service'
 import { QuangDialogConfig } from './quang-dialog.config'
+import { SentryDialogService } from './sentry/sentry-dialog.service'
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { QuangDialogConfig } from './quang-dialog.config'
     QuixSnackbarService,
     QuixToastService,
     QuixHttpErrorService,
+    SentryDialogService
   ],
   exports: [
     QuixToastComponent,

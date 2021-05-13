@@ -52,7 +52,7 @@ export class QuangKeycloakEffect {
     () => this.actions$.pipe(
       ofType(userLogout),
       exhaustMap(action =>
-        this.quangKeycloakService.logout().pipe(
+        this.quangKeycloakService.logout(action.redirectUri).pipe(
           map(() => userRolesLogout()),
           map(() => userInfoLogout())
         )

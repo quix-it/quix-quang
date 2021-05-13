@@ -12,7 +12,7 @@
            [id]="id"
            bsDaterangepicker
            class="form-control"
-           autocomplete="off"
+           [autocomplete]="autocomplete"
            [placeholder]="placeholder | transloco"
            [ngClass]="customClass"
            [class.is-valid]="_value?.length && control?.dirty && successMessage"

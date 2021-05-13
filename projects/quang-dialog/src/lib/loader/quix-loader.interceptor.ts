@@ -28,9 +28,6 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
     let found = 0
     found = _window().quixConfig?.noLoaderUrls.filter(url => request.url.indexOf(url) > 0).length
     found += _window().quixConfig?.noLoaderMethods.filter(method => request.method === method).length
-    if (_window().quixConfig?.loaderJWTMode && !localStorage.getItem('access_token')) {
-      found++
-    }
     return !!found
   }
 

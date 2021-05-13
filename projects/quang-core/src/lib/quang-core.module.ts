@@ -39,7 +39,7 @@ import { InputFileComponent } from './input-file/input-file.component'
 import { NgxFileDropModule } from 'ngx-file-drop'
 import { InputUrlComponent } from './input-url/input-url.component'
 import { InputTelComponent } from './input-tel/input-tel.component'
-
+import {MatTooltipModule} from '@angular/material/tooltip'
 
 @NgModule({
   declarations: [
@@ -81,7 +81,8 @@ import { InputTelComponent } from './input-tel/input-tel.component'
     TypeaheadModule.forRoot(),
     MatSliderModule,
     MatPaginatorModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    MatTooltipModule
   ],
   providers:[
     QuixAutocompleteAsyncService,

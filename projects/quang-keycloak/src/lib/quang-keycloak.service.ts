@@ -1,6 +1,6 @@
 import { Injectable, Optional } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { from, of } from 'rxjs'
+import { from, Observable, of } from 'rxjs'
 import { KeycloakService } from 'keycloak-angular'
 import {
   userInfoLogin,
@@ -58,7 +58,7 @@ export class QuangKeycloakService {
     })
   }
 
-  getUserRoles () {
+  getUserRoles (): Observable<any> {
     return of(this.keyCloak.getUserRoles(true))
   }
 
@@ -68,23 +68,27 @@ export class QuangKeycloakService {
     })
   }
 
-  login () {
+  login (): Observable<any> {
     return from(this.keyCloak.login())
   }
 
-  logout () {
-    if (this.authConfig.config?.redirectUri) {
-      return from(this.keyCloak.logout(this.authConfig.config?.redirectUri))
+  logout (redirectUri?: string): Observable<any> {
+    if (redirectUri) {
+      return from(this.keyCloak.logout(redirectUri))
     } else {
       alert('[AUTH KEYCLOAK SERVICE] No redirectUri config')
     }
   }
 
-  logoutAndDispatch () {
-    if (this.authConfig.config?.redirectUri) {
-      from(this.keyCloak.logout(this.authConfig.config?.redirectUri)).subscribe(
+  /**
+   * method to log out, it should only be used if you do not use the login effects
+   * @param redirectUri
+   */
+  logoutAndDispatch (redirectUri?: string): void {
+    if (redirectUri) {
+      from(this.keyCloak.logout(redirectUri)).subscribe(
         () => {
-          this.store.dispatch(userLogout())
+          this.store.dispatch(userLogout({redirectUri:redirectUri}))
           this.store.dispatch(userInfoLogout())
           this.store.dispatch(userRolesLogout())
         }

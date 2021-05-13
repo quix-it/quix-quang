@@ -29,6 +29,7 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
   @Input() successMessage: boolean;
   @Input() errorMessage: boolean;
   @Input() helpMessage: boolean;
+  @Input() labelInline: boolean;
   @Input() formName: string;
   @Input() tabIndex: number;
   @ViewChild('input', {static: true}) input: MatSlideToggle;

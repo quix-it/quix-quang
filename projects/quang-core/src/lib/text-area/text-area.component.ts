@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
+  Input, NgZone,
   OnChanges,
   OnInit,
   Optional,
@@ -10,10 +10,10 @@ import {
   Self,
   SimpleChanges,
   ViewChild
-} from '@angular/core';
+} from '@angular/core'
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {delay} from 'rxjs/operators';
+import { delay, take } from 'rxjs/operators'
 
 
 @Component({
@@ -54,7 +54,9 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   @ViewChild('input', {static: true}) input: ElementRef<HTMLTextAreaElement>;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  constructor(private renderer: Renderer2,
+  constructor(
+    private renderer: Renderer2,
+    private ngZone: NgZone,
               @Self() @Optional() public control: NgControl,
              ) {
     this.control && (this.control.valueAccessor = this);
@@ -66,9 +68,9 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
         this.input.nativeElement.focus();
       }
     }, 0);
-    if (this.autoResize) {
-      this.autosize.resizeToFitContent(true);
-    }
+    this.ngZone.onStable.pipe(
+      take(1)
+    ).subscribe(() => this.autosize.resizeToFitContent(this.autoResize));
     this.observeValidate();
   }
 

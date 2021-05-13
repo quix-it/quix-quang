@@ -19,25 +19,24 @@
       <ng-content select="[uploadIcon]"></ng-content>
       <div *ngIf="multiple; else single">
         <p *ngFor="let f of _values;  let i = index">
-          {{f.name}}
-          <button class="btn btn-link"
+          <button class="btn btn-link btn-sm"
                   *ngIf="_values.length"
                   (click)="deleteFiles(i)">
-            <i [ngClass]="buttonDeleteIcon"></i>
+            <ng-content select="[deleteIcon]"></ng-content>
           </button>
+          {{f.name}}
         </p>
       </div>
       <ng-template #single>
         <p *ngIf="_value">
-          {{_value?.name}}
-          <button class="btn btn-link"
+          <button class="btn btn-link btn-sm"
                   (click)="deleteFile()">
-            <i [ngClass]="buttonDeleteIcon"></i>
+            <ng-content select="[deleteIcon]"></ng-content>
           </button>
+          {{_value?.name}}
         </p>
       </ng-template>
       <button type="button"
-              class="btn"
               [ngClass]="buttonClass"
               (click)="openFileSelector()"
               #inputBtn>

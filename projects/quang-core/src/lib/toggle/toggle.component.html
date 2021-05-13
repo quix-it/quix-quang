@@ -1,4 +1,5 @@
-<div class="form-group">
+<div class="form-group"
+     [class.form-inline]="labelInline">
   <label [htmlFor]="id" [attr.aria-label]="ariaLabel" *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
@@ -17,9 +18,8 @@
     {{_successMessage | transloco}}
   </div>
   <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
-    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+    {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
-
   <small [id]="id + 'Help'"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"

@@ -53,6 +53,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   @Input() customClass: string[]
   @Input() size: 'sm'| 'lg' = null
   @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
+  @Input() autocomplete: string = 'off';
 
   _valueDate: any
   _valueTime: any

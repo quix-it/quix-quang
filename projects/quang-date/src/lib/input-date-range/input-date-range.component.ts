@@ -46,6 +46,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   @Input() customClass: string[]
   @Input() size: 'sm'| 'lg' = null
   @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
+  @Input() autocomplete: string = 'off';
 
   config: Partial<BsDatepickerConfig>
   _value: any[]

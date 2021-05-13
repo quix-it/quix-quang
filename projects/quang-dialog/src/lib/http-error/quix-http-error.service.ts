@@ -16,7 +16,7 @@ export class QuixHttpErrorService {
   }
 
   openErrorModal(error: HttpErrorResponse) {
-    this.quixModalService.getModalEvent().subscribe(
+    this.quixModalService.onHideEvent().subscribe(
       e => {
         switch (e) {
           case 'backdrop-click':

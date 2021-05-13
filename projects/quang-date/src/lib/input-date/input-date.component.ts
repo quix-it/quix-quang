@@ -46,6 +46,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   @Input() customClass: string[]
   @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
   @Input() size: 'sm'| 'lg' = null
+  @Input() autocomplete: string = 'off';
 
   _value: any
   config: Partial<BsDatepickerConfig>

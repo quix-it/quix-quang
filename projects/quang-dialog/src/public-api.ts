@@ -24,6 +24,7 @@ export * from './lib/loader/loader/loader.component'
 export * from './lib/loader/loader-store/loader.action'
 export * from './lib/loader/loader-store/loader.reducer'
 export * from './lib/loader/loader-store/loader.selector'
+export * from './lib/sentry/sentry-dialog.service'
 
 
 export * from './lib/quang-dialog.config'

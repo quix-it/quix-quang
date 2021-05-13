@@ -1,4 +1,10 @@
 .form-group {
+  &.form-inline {
+    label {
+      margin-right: .5rem
+    }
+  }
+
   label {
     display: block;
   }

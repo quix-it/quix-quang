@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core'
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 
 @Component({
@@ -7,7 +7,7 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
   styleUrls: ['./video.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VideoComponent implements OnInit, OnChanges {
+export class VideoComponent implements OnChanges {
   @Input() id: string;
   @Input() src: SafeUrl;
   @Input() baseImage: SafeUrl;
@@ -16,25 +16,17 @@ export class VideoComponent implements OnInit, OnChanges {
   @Input() loop: boolean;
   @Input() mute: boolean;
   @Input() type: 'video/mp4' | 'video/webm' | 'video/OGG';
-
-
-  // @Input() viewPlay: boolean;
-  // @Input() viewTime: boolean;
-  // @Input() viewMute: boolean;
-  // @Input() viewVolume: boolean;
-  // @Input() viewBar: boolean;
-  // @Input() viewFull: boolean;
-  // @Input() viewSpeed: boolean;
-
+  @ViewChild('video', {static: true}) video: HTMLVideoElement;
+  _currentTime: number = 0
   constructor(private sanitizer: DomSanitizer) {
-  }
-
-  ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.src = this.sanitizer.bypassSecurityTrustUrl(changes.src?.currentValue)
     this.baseImage = this.sanitizer.bypassSecurityTrustUrl(changes.baseImage?.currentValue)
+    this.video.pause()
+    this._currentTime = 0
+    this.video.load()
   }
 
 }

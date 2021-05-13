@@ -1,6 +1,7 @@
 import { Component, Injectable } from '@angular/core'
-import { Subject, Subscription } from 'rxjs'
+import { Observable, Subject, Subscription } from 'rxjs'
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal'
+import { take } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,6 @@ export class QuixModalService {
     animated: true
   }
   modalRef: BsModalRef
-  subscriptions: Subscription[] = []
-  public modalEvent: Subject<string> = new Subject<string>()
 
   constructor (private modalService: BsModalService) {
   }
@@ -36,59 +35,22 @@ export class QuixModalService {
       class: '',
       initialState: modalParams,
     }
-    this.setEvent()
     this.setSize(size)
     this.modalRef = this.modalService.show(modalComponent, this.config)
     this.modalRef.content.title = modalTitle
   }
 
-  setEvent () {
-    this.subscriptions.push(
-      this.modalService.onShown.subscribe(
-        (reason: string) => {
-          if (reason) {
-            this.modalEvent.next(reason)
-          }
-        })
-    )
-    this.subscriptions.push(
-      this.modalService.onShow.subscribe(
-        (reason: string) => {
-          if (reason) {
-            this.modalEvent.next(reason)
-          }
-        })
-    )
-    this.subscriptions.push(
-      this.modalService.onHide.subscribe(
-        (reason: string) => {
-          if (reason) {
-            this.modalEvent.next(reason)
-          }
-        })
-    )
-    this.subscriptions.push(
-      this.modalService.onHidden.subscribe(
-        (reason: string) => {
-          if (reason) {
-            this.modalEvent.next(reason)
-          }
-          this.unsubscribe()
-        })
-    )
+  onShownEvent(): Observable<any>{
+    return  this.modalService.onShown.pipe(take(1))
   }
-
-  getModalEvent () {
-    this.modalEvent = new Subject<string>()
-    return this.modalEvent
+  onShowEvent(): Observable<any>{
+    return  this.modalService.onShow.pipe(take(1))
   }
-
-  unsubscribe () {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe()
-    })
-    this.subscriptions = []
-    this.modalEvent?.complete()
+  onHideEvent(): Observable<any>{
+    return  this.modalService.onHide.pipe(take(1))
+  }
+  onHiddenEvent(): Observable<any>{
+    return  this.modalService.onHidden.pipe(take(1))
   }
 
   setSize (size) {
