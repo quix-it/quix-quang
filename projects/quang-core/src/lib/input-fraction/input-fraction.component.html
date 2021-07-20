@@ -11,7 +11,7 @@
               [ngClass]="addButtonClass"
               (click)="addInteger()"
               [disabled]="_disabled || readonly">
-        <i [ngClass]="addButtonIcon"></i>
+        <ng-content select="[addButtonIcon]"></ng-content>
       </button>
     </div>
     <input type="text"
@@ -34,7 +34,7 @@
               (click)="removeInteger()"
               [disabled]="_disabled || readonly"
       >
-        <i [ngClass]="removeButtonIcon"></i>
+        <ng-content select="[removeButtonIcon]"></ng-content>
       </button>
     </div>
     <div class="input-group-append">
@@ -46,7 +46,7 @@
               (click)="addFraction()"
               [disabled]="_disabled || readonly"
       >
-        <i [ngClass]="addButtonIcon"></i>
+        <ng-content select="[addButtonIcon]"></ng-content>
       </button>
     </div>
     <input type="text"
@@ -69,14 +69,14 @@
               (click)="removeFraction()"
               [disabled]="_disabled || readonly"
       >
-        <i [ngClass]="removeButtonIcon"></i>
+        <ng-content select="[removeButtonIcon]"></ng-content>
       </button>
     </div>
     <div class="valid-feedback">
       {{_successMessage | transloco}}
     </div>
     <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
-      {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+      {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
     </div>
   </div>
   <small [id]="id + 'Help'"

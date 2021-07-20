@@ -6,7 +6,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./chips.component.scss']
 })
 export class ChipsComponent implements OnInit {
-  @Input() id: string
+    /**
+   * Html id of input
+   */
+  @Input() id: string = ''
   @Input() labelValue: string
   @Input() chipsList: string[] | { [key: string]: any }[]
   @Input() buttonDelete: boolean

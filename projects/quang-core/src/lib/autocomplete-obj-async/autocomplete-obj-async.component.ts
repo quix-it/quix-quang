@@ -23,39 +23,138 @@ import { QuixAutocompleteAsyncService } from '../autocomplete-service/quix-autoc
   styles: ['']
 })
 export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() label: string
+  /**
+   * The label to display on the input field
+   */
+  @Input() label: string = ''
+  /**
+   * The placeholder of the input field
+   */
   @Input() placeholder: string = ''
-  @Input() id: string
-  @Input() successMessage: boolean
-  @Input() errorMessage: boolean
-  @Input() helpMessage: boolean
-  @Input() autofocus: boolean
-  @Input() readonly: boolean
-  @Input() ariaLabel: string
-  @Input() searchBy: string
-  @Input() returnValue: string
-  @Input() tabIndex: number
-  @Input() restApi: boolean
-  @Input() baseUrl: string
-  @Input() apiUrl: string
-  @Input() apiParamName: string
-  @Input() startAfter: number
-  @Input() formName: string
-  @Input() optionLimit: number
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * Defines if you want to display the success message for the user
+   */
+  @Input() successMessage: boolean = false
+  /**
+   * Defines if you want to display the error message for the user
+   */
+  @Input() errorMessage: boolean = false
+  /**
+   * Defines if you want to display the help message for the user
+   */
+  @Input() helpMessage: boolean = false
+  /**
+   * Indicates whether, when the page is opened,
+   * this input field should be displayed in a focused state or not
+   */
+  @Input() autofocus: boolean = false
+  /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
+  /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`
+  /**
+   * The key of the value to be searched
+   */
+  @Input() searchBy: string = ''
+  /**
+   * The key of the value to be returned as the value of the cva
+   */
+  @Input() returnValue: string = ''
+  /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0
+  /**
+   * Indicates if the call that will perform the service is in rest formats,
+   * then the search parameter is passed in the url as / param
+   */
+  @Input() restApi: boolean = false
+  /**
+   * The base url of the application is used to create the url for the ajax call
+   */
+  @Input() baseUrl: string = ''
+  /**
+   * The url of the application is used to create the url for the ajax call
+   */
+  @Input() apiUrl: string = ''
+  /**
+   * The queryParmas to add to the ajax call
+   */
+  @Input() apiParamName: string = ''
+  /**
+   * The minimum number of characters to search
+   */
+  @Input() startAfter: number = 0
+  /**
+   * The name of the form, this input is used to create keys for error, validation or help messages.
+   * It will be the first key element generated
+   */
+  @Input() formName: string = ''
+  /**
+   * The number of options that can be displayed that reflect the criteria sought
+   */
+  @Input() optionLimit: number | null = null
+  /**
+   * Array of additional classes to the input field
+   */
   @Input() customClass: string[] = []
-  @Input() size: 'lg' | 'sm' = null
-  @Input() autocomplete: string = 'off';
+  /**
+   * Adds bootstrap classes to the input that define the size of the field,
+   * if not specified the field is displayed with standard size
+   */
+  @Input() size: 'lg' | 'sm' | null = null
+  /**
+   * Defines the autocomplete tag to indicate to the browser what type of field it is
+   * and how to help the user fill it in
+   */
+  @Input() autocomplete: string = 'off'
 
+  /**
+   * The value of the input
+   */
   _value: string | number
+  /**
+   * the status of the success message
+   */
   _searchValue: string
-  _successMessage: string
-  _errorMessage: string
-  _helpMessage: string
-  _requiredValue: any
+  /**
+   * the status of the success message
+   */
+  _successMessage: string = ''
+  /**
+   * the status of the error message
+   */
+  _errorMessage: string = ''
+  /**
+   * the status of the help message
+   */
+  _helpMessage: string = ''
+  /**
+   * Contains the value required by a validation when it fails
+   */
+  _requiredValue: any = ''
   suggestions$: Observable<any>
+  /**
+   * The html input element
+   */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  /**
+   * Standard definition to create a control value accessor
+   */
   onTouched: any = () => {
   }
+  /**
+   * Standard definition to create a control value accessor
+   */
   onChanged: any = () => {
   }
 
@@ -67,6 +166,11 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
     this.control && (this.control.valueAccessor = this)
   }
 
+  /**
+   * Creates the observable that returns the list of selectable options,
+   * based on the configurations it decides which method to use
+   * Check if the help message is required and create the key
+   */
   ngOnInit (): void {
     this.suggestions$ = new Observable((observer: Observer<string>) => {
       observer.next(this._searchValue)
@@ -89,13 +193,14 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
       map(r => r.filter(s => s[this.searchBy].toLowerCase().includes(this._searchValue.toLowerCase())))
     )
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control.name}.help`
-    }
-    if(!this.ariaLabel){
-      this.ariaLabel = `Input ${this.label}`
+      this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
   }
 
+  /**
+   * After rendering the component, it checks if the input field must have focus
+   * and activates the monitoring of the validation of the entered values
+   */
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
@@ -105,24 +210,34 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
     this.observeValidate()
   }
 
-  // We implement this method to keep a reference to the onChange
-  // callback function passed by the forms API
-  registerOnChange (fn: any) {
-    this.onChanged = fn
-  }
-
-  // We implement this method to keep a reference to the onTouched
-  // callback function passed by the forms API
+  /**
+   * Standard definition to create a control value accessor
+   */
   registerOnTouched (fn: any) {
     this.onTouched = fn
   }
 
+  /**
+   * Standard definition to create a control value accessor
+   */
+  registerOnChange (fn: any) {
+    this.onChanged = fn
+  }
+
+  /**
+   * Add focus to the input field if the need comes after component initialization
+   * @param changes
+   */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.autofocus && this.input) {
       this.input.nativeElement.focus()
     }
   }
 
+  /**
+   * When the input value changes, the search status is saved and the cva flow is activated
+   * @param e
+   */
   onChangedHandler (e: Event) {
     this._searchValue = (e.target as HTMLInputElement).value
     this.onTouched()
@@ -131,12 +246,21 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
     }
   }
 
+  /**
+   * When the user selects an option, it saves the selection status and starts the cva flow
+   * @param e
+   */
   onSelectHandler (e: TypeaheadMatch) {
     this._value = e.item[this.returnValue]
     this.onTouched()
     this.onChanged(this._value)
   }
 
+  /**
+   * When the control is initialized it starts a search to match the value passed
+   * to its corresponding object in the options list
+   * @param value
+   */
   writeValue (value) {
     this._value = value
     if (this.restApi) {
@@ -150,6 +274,10 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
     }
   }
 
+  /**
+   * Based on the configuration it retrieves the values from the passed option object
+   * @param l
+   */
   findObj (l: any[]) {
     const o = l.find(
       e => e[this.returnValue] === this._value)
@@ -158,23 +286,33 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
     }
   }
 
+  /**
+   * Standard definition to create a control value accessor
+   * When the input field from the form is disabled, the html input tag is defined as disabled
+   */
   setDisabledState (isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 
+  /**
+   * When the input field changes,
+   * the validation status is retrieved and the success message or error messages displayed.
+   * If there is an error with a specific required value it is passed to the translation pipe
+   * to allow for the creation of custom messages
+   */
   observeValidate () {
     this.control?.statusChanges.pipe(
       delay(0)
     ).subscribe(() => {
       if (this.control.dirty) {
         if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control.name}.valid`
+          this._successMessage = `${this.formName}.${this.control?.name}.valid`
         }
         if (this.control.invalid && this.errorMessage) {
           for (const error in this.control.errors) {
             if (this.control.errors.hasOwnProperty(error)) {
               if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control.name}.${error}`
+                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
                 this._requiredValue = this.control.errors[error].requiredValue
               }
             }

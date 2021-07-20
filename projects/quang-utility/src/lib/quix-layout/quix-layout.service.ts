@@ -1,20 +1,23 @@
-import {Injectable} from '@angular/core';
-import {BreakpointObserver} from "@angular/cdk/layout";
+import { Injectable } from '@angular/core'
+import { BreakpointObserver } from '@angular/cdk/layout'
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuixLayoutService {
 
-  constructor(
+  constructor (
     private breakpointObserver: BreakpointObserver
   ) {
   }
 
-  getOrientation() {
+  /**
+   * returns an observable that reports the state of the device orientation
+   */
+  getOrientation () {
     return this.breakpointObserver.observe([
       '(orientation: portrait)',
       '(orientation: landscape)',
-    ]);
+    ])
   }
 }

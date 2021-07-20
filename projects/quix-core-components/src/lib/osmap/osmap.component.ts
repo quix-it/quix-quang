@@ -24,7 +24,10 @@ export class OSMapComponent implements OnInit, AfterViewInit {
   public markers: VectorSource;
   private center: Array<number>;
   @Input() height: string;
-  @Input() id: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
   @Input() defaultZoom: number;
   @Input() minZoom: number;
   @Input() maxZoom: number;

@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "moduleResolution": "node",
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -12,10 +13,12 @@
     "esModuleInterop": true,
     "module": "esnext",
     "importHelpers": true,
+    "skipLibCheck": true,
     "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
+    "types": ["google.maps", "googlemaps"],
     "lib": [
       "es2018",
       "dom"

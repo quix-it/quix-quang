@@ -7,9 +7,9 @@ import {
   OnInit,
   Output,
   SimpleChanges
-} from '@angular/core';
-import {ChartLine} from "../chart-line/chart-line.model";
-
+} from '@angular/core'
+import { ChartLine } from '../chart-line/chart-line.model'
+import { EChartOption } from 'echarts'
 
 @Component({
   selector: 'quix-chart-area',
@@ -17,15 +17,52 @@ import {ChartLine} from "../chart-line/chart-line.model";
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartAreaComponent implements OnInit, OnChanges {
-  @Input() id: string;
-  @Input() color: string[];
-  @Input() ariaLabel: string;
-  @Input() tabIndex: number;
-  @Input() height: string;
+export class ChartAreaComponent implements OnChanges {
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Chart`
+  /**
+   * the list of colors of the chart
+   */
+  @Input() color: string[] = []
+  /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0
+  /**
+   * the height of the chart container
+   */
+  @Input() height: string = ' 50vh'
+  /**
+   * the object that contains the data to make the graph
+   */
   @Input() chartData: ChartLine
-  @Output() chartClick = new EventEmitter()
-  chartOption = {
+  /**
+   * the grid that contains the graph defines the padding in the four directions
+   */
+  /**
+   * the grid that contains the graph defines the padding in the four directions
+   */
+  @Input() grid: {
+    top: number,
+    bottom: number,
+    left: number,
+    right: number
+  } = { top: 0, left: 0, right: 0, bottom: 0 }
+  /**
+   * click event on the graph
+   */
+  @Output() chartClick: EventEmitter<any> = new EventEmitter()
+  /**
+   * basic configuration of the chart
+   */
+  chartOption: EChartOption = {
     color: [],
     xAxis: {},
     yAxis: {
@@ -34,31 +71,37 @@ export class ChartAreaComponent implements OnInit, OnChanges {
     series: [],
     animationEasing: 'elasticOut',
     animationDelayUpdate: (idx) => {
-      return idx * 5;
+      return idx * 5
     }
   }
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.chartOption.color = changes.color.currentValue
-    this.chartOption.xAxis = {
-      type: 'category',
-      data: changes.chartData.currentValue.category
+  ngOnChanges (changes: SimpleChanges): void {
+    if (changes.color?.currentValue) {
+      this.chartOption.color = changes.color.currentValue
     }
-    this.chartOption.series = []
-    changes.chartData.currentValue.series.forEach(s => this.chartOption.series.push({
-      data: s,
-      type: 'line',
-      areaStyle: {},
-    }))
+    if (changes.chartData?.currentValue) {
+      this.chartOption.xAxis = {
+        type: 'category',
+        data: changes.chartData.currentValue.category
+      }
+    }
+    if (changes.chartData?.currentValue?.series.length) {
+      this.chartOption.series = changes.chartData.currentValue.series.map(s => ({
+        data: s,
+        type: 'line',
+        areaStyle: {},
+      }))
+    }
+    if (changes.grid?.currentValue) {
+      this.chartOption.grid = changes.grid.currentValue
+    }
   }
 
-  onChartClick(e) {
+  /**
+   * function triggered by clicking on an element of the chart emits an event to the parent component
+   * @param e
+   */
+  onChartClick (e): void {
     this.chartClick.emit(e)
   }
 

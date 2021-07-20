@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core'
-import {  Observable, Subscription } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 import { select, Store } from '@ngrx/store'
 import { selectLoader } from '../loader-store/loader.selector'
 import { QuangDialogConfig } from '../../quang-dialog.config'
@@ -10,10 +10,10 @@ import { QuangDialogConfig } from '../../quang-dialog.config'
   styles: ['']
 })
 export class LoaderComponent implements OnInit, OnDestroy {
-  loaderSubscription$: Subscription
-  loader$: Observable<any>
-  @ViewChild('loader') loader: ElementRef<HTMLDivElement>
-  activeLoader: number
+  @ViewChild('loader') loader: ElementRef<HTMLDivElement> | null = null
+  loaderSubscription$: Subscription = new Subscription()
+  loader$: Observable<any> = this.store.pipe(select(selectLoader))
+  activeLoader: number = 0
   configModule: QuangDialogConfig = null
 
   constructor (
@@ -27,17 +27,18 @@ export class LoaderComponent implements OnInit, OnDestroy {
     this.observeLoader()
   }
 
-  observeLoader () {
-    this.loader$ = this.store.pipe(select(selectLoader))
+  /**
+   * if we are in a development environment it traces the changes in the loader state
+   */
+  observeLoader (): void {
     if (!this.configModule.production) {
-      this.loaderSubscription$ = this.loader$.subscribe(
-        loaderNumber => {
-          this.activeLoader = loaderNumber
-        })
+      this.loaderSubscription$ = this.loader$.subscribe((loaderNumber) => {
+        this.activeLoader = loaderNumber
+      })
     }
   }
 
-  ngOnDestroy () {
+  ngOnDestroy (): void {
     if (this.loaderSubscription$) {
       this.loaderSubscription$.unsubscribe()
     }

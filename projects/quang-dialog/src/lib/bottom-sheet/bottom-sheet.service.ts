@@ -9,7 +9,12 @@ export class QuixBottomSheetService {
   constructor(private bottomSheet: MatBottomSheet) {
   }
 
-  openBottomSheet(template: any, data?: { [key: string]: any }) {
+  /**
+   * opens the bottom sheet
+   * @param template
+   * @param data
+   */
+  openBottomSheet(template: any, data?: { [key: string]: any }): void {
     this.bottomSheet.open(template, {data: data});
   }
 }

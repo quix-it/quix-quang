@@ -1,27 +1,33 @@
-import {Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
-import {Subject} from "rxjs";
-import {select, Store} from "@ngrx/store";
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core'
+import { Subject } from 'rxjs'
+import { select, Store } from '@ngrx/store'
 
-import {distinctUntilChanged, takeUntil} from "rxjs/operators";
-import {selectHasUntilRoles} from "../quang-auth-store/quang-auth.selector";
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
+import { selectHasUntilRoles } from '../quang-auth-store/quang-auth.selector'
 
 @Directive({
   selector: '[quangHasUntilRoles]'
 })
 export class HasUntilRolesDirective {
-
-  @Input() quangHasUntilRoles: string[];
+  /**
+   * List of necessary roles
+   */
+  @Input() quangHasUntilRoles: string[]
   private destroy$ = new Subject()
 
-  constructor(
+  constructor (
     private view: ViewContainerRef,
     private template: TemplateRef<any>,
     private authStore: Store<any>
   ) {
   }
-  ngOnInit(): void {
+
+  /**
+   * Check if the user in the store has the required roles and define whether to render or not
+   */
+  ngOnInit (): void {
     this.authStore.pipe(
-      select(selectHasUntilRoles, {rolesId: this.quangHasUntilRoles}),
+      select(selectHasUntilRoles, { rolesId: this.quangHasUntilRoles }),
       distinctUntilChanged(),
       takeUntil(this.destroy$)
     ).subscribe(hasRole => {
@@ -34,7 +40,7 @@ export class HasUntilRolesDirective {
 
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.destroy$.next()
   }
 }

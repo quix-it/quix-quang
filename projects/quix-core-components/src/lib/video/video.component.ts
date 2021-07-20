@@ -8,7 +8,10 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VideoComponent implements OnChanges {
-  @Input() id: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
   @Input() src: SafeUrl;
   @Input() baseImage: SafeUrl;
   @Input() autoplay: boolean;

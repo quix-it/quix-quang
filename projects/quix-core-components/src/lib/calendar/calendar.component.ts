@@ -18,11 +18,21 @@ import {QuixCalendarEvent} from "./calendar.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarComponent implements OnInit, OnChanges {
-  @Input() id: string
-  @Input() ariaLabel: string
+    /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`
   @Input() height: string
   @Input() locale: string
-  @Input() tabIndex: number
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0
   @Input() view: 'timeGridWeek' | 'dayGridMonth' | 'dayGridWeek'
   @Input() events: QuixCalendarEvent[]
   @Input() header: { [key: string]: any }

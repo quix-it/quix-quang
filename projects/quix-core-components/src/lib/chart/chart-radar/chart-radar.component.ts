@@ -18,13 +18,26 @@ import {ChartRadar} from "./chart-radar.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartRadarComponent implements OnInit, OnChanges {
-  @Input() id: string
+    /**
+   * Html id of input
+   */
+  @Input() id: string = ''
   @Input() height: string
   @Input() radarIndicators: ChartRadar[];
   @Input() chartData: number[][];
-  @Input() ariaLabel: string;
-  @Input() tabIndex: number;
-  @Output() chartClick = new EventEmitter()
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0;
+  /**
+   * click event on the graph
+   */
+  @Output() chartClick: EventEmitter<any> = new EventEmitter()
 
   chartOption = {
     radar: {},

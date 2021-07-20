@@ -18,6 +18,10 @@ export class QuangAuthGuard implements CanActivate {
   ) {
   }
 
+  /**
+   * Observable that checks if the user has all the required roles
+   * @param allowedRoles
+   */
   checkAllRole (allowedRoles: string[]) {
     return this.authStore.pipe(
       select(selectHasRoles, { rolesId: allowedRoles }),
@@ -25,6 +29,10 @@ export class QuangAuthGuard implements CanActivate {
     )
   }
 
+  /**
+   * Observable that checks if the user has until one of the required roles
+   * @param allowedRoles
+   */
   checkUntilRole (allowedRoles: string[]) {
     return this.authStore.pipe(
       select(selectHasUntilRoles, { rolesId: allowedRoles }),
@@ -32,6 +40,11 @@ export class QuangAuthGuard implements CanActivate {
     )
   }
 
+  /**
+   * Retrieve user info if it exists, check if it has the necessary roles to view the page
+   * @param route
+   * @param state
+   */
   canActivate (route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authStore.pipe(

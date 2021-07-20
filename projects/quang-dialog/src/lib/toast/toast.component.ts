@@ -6,68 +6,79 @@ import {
   OnInit,
   Renderer2,
   ViewChild
-} from '@angular/core';
-import {QuixToast} from './toast.model';
-import {Observable, Subscription} from 'rxjs';
-import {ToastsState} from './toast-store/toast.reducer';
-import {select, Store} from '@ngrx/store';
-import {selectToast} from './toast-store/toast.selector';
+} from '@angular/core'
+import { QuixToast } from './toast.model'
+import { Observable, of, Subscription } from 'rxjs'
+import { ToastsState } from './toast-store/toast.reducer'
+import { select, Store } from '@ngrx/store'
+import { selectToast } from './toast-store/toast.selector'
+import { delay, take } from 'rxjs/operators'
 
 @Component({
   selector: 'quix-toast',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss']
 })
-export class QuixToastComponent implements OnInit, AfterViewInit, OnDestroy {
+export class QuixToastComponent implements AfterViewInit, OnDestroy {
   data: QuixToast
-  private $toastState: Observable<any>;
-  private subscription: Subscription;
-  @ViewChild('toastDom', {static: false}) toastDom: ElementRef;
+  private toastState$: Observable<any> = this.store.pipe(select(selectToast))
+  private subscription: Subscription = new Subscription()
+  @ViewChild('toastDom', { static: false }) toastDom: ElementRef
 
-
-  constructor(private renderer: Renderer2,
-              private store: Store<any>) {
+  constructor (
+    private renderer: Renderer2,
+    private store: Store<any>
+  ) {
   }
 
-  ngOnInit() {
-    this.$toastState = this.store.pipe(select(selectToast));
+  ngAfterViewInit () {
+    this.observeToasts()
   }
 
-  ngAfterViewInit() {
-    this.observeToasts();
-  }
-
-  observeToasts() {
-    this.subscription = this.$toastState.subscribe((data: ToastsState) => {
+  /**
+   * observe the change of state of the toast saved in the store
+   */
+  observeToasts () {
+    this.subscription = this.toastState$.subscribe((data: ToastsState) => {
         if (data.toastData) {
-          this.data = data.toastData;
-          this.open();
+          this.data = data.toastData
+          this.open()
         }
       },
       (error) => {
-        alert('Error on toast lifecycle');
-      });
+        alert('Error on toast lifecycle')
+      })
   }
 
-  open() {
-    this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '1');
-    this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(1)');
+  /**
+   * view the toast by changing the style of the component
+   * if a timing is configured it waits for the time to expire and closes the toast
+   */
+  open () {
+    this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '1')
+    this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(1)')
     if (this.data.timing) {
-      setTimeout(() => {
-        this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '0');
-        this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(0)');
-      }, this.data.timing);
+      of('').pipe(
+        delay(this.data.timing),
+        take(1)
+      ).subscribe(() => {
+        this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '0')
+        this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(0)')
+      })
     }
   }
 
-  close() {
-    this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '0');
-    this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(0)');
+  /**
+   * closes the toast by modifying the css rules
+   */
+  close () {
+    this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '0')
+    this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(0)')
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     if (this.subscription) {
-      this.subscription.unsubscribe();
+      this.subscription.unsubscribe()
     }
   }
 }

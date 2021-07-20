@@ -43,7 +43,7 @@ import {QuixLocaleService} from "./services/quix-locale.service";
   ]
 })
 export class QuixAuthModule {
-  static forRoot(config: QuangAuthConfig): ModuleWithProviders {
+  static forRoot(config: QuangAuthConfig): ModuleWithProviders<any> {
     return {
       ngModule: QuixAuthModule,
       providers: [

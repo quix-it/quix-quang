@@ -17,16 +17,30 @@ export class QuixModalService {
   }
   modalRef: BsModalRef
 
-  constructor (private modalService: BsModalService) {
+  constructor (
+    private modalService: BsModalService
+  ) {
   }
 
-  openModal (modalComponent: Component,
+  /**
+   * opens the modal
+   * configure the modal
+   * select the size
+   * pass any data and set the title
+   * @param modalComponent
+   * @param modalTitle
+   * @param size
+   * @param modalParams
+   * @param closeWithKeyboard
+   * @param ignoreCloseWithClick
+   */
+  openModal (modalComponent: any,
     modalTitle: string,
     size: 'xl' | 'lg' | 'md' | 'sm',
     modalParams?: any,
     closeWithKeyboard?: boolean,
     ignoreCloseWithClick?: boolean,
-  ) {
+  ): void {
     this.modalRef = new BsModalRef()
     this.config = {
       ...this.config,
@@ -40,20 +54,40 @@ export class QuixModalService {
     this.modalRef.content.title = modalTitle
   }
 
-  onShownEvent(): Observable<any>{
-    return  this.modalService.onShown.pipe(take(1))
-  }
-  onShowEvent(): Observable<any>{
-    return  this.modalService.onShow.pipe(take(1))
-  }
-  onHideEvent(): Observable<any>{
-    return  this.modalService.onHide.pipe(take(1))
-  }
-  onHiddenEvent(): Observable<any>{
-    return  this.modalService.onHidden.pipe(take(1))
+  /**
+   * event that traces the opening of the modal
+   */
+  onShownEvent (): Observable<any> {
+    return this.modalService.onShown.pipe(take(1))
   }
 
-  setSize (size) {
+  /**
+   * event that traces the opening of the modal
+   */
+  onShowEvent (): Observable<any> {
+    return this.modalService.onShow.pipe(take(1))
+  }
+
+  /**
+   * event that traces the closure of the modal
+   */
+  onHideEvent (): Observable<any> {
+    return this.modalService.onHide.pipe(take(1))
+  }
+
+  /**
+   * event that traces the successful closure of the modal
+   */
+  onHiddenEvent (): Observable<any> {
+    return this.modalService.onHidden.pipe(take(1))
+  }
+
+  /**
+   * on the basis of the requested size, it sets the class of the modal that defines the size
+   * @param size
+   * @private
+   */
+  private setSize (size) {
     switch (size) {
       case 'xl':
         this.config.class = 'modal-xl'

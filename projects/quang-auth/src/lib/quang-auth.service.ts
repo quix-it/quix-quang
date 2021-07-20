@@ -1,7 +1,7 @@
 import { Injectable, Optional } from '@angular/core'
 
 import { Store } from '@ngrx/store'
-import { from, of } from 'rxjs'
+import { from, Observable, of } from 'rxjs'
 import {
   userInfoLogin, userInfoLogout,
   userLogin,
@@ -9,7 +9,6 @@ import {
   userRolesLogin,
   userRolesLogout
 } from './quang-auth-store/quang-auth.action'
-
 
 import { QuangAuthConfig } from './quang-auth.config'
 import { OAuthService } from 'angular-oauth2-oidc'
@@ -43,10 +42,23 @@ export class QuangAuthService {
     this.oauthService.configure(this.authConfig)
   }
 
-  startAuth () {
+  /**
+   * call to Start the login process
+   */
+  startAuth (): Observable<any> {
     return of(this.oauthService.loadDiscoveryDocumentAndLogin())
   }
 
+  /**
+   * call to retrieve login data and try login
+   */
+  login () {
+    return from(this.oauthService.loadDiscoveryDocumentAndTryLogin())
+  }
+
+  /**
+   * Start the login process, if the process is successful dispatch the successful login
+   */
   startAuthAndDispatch () {
     from(this.oauthService.loadDiscoveryDocumentAndLogin()).subscribe(isAuthenticated => {
       if (isAuthenticated) {
@@ -56,32 +68,46 @@ export class QuangAuthService {
     })
   }
 
+  /**
+   * returns user data
+   */
   getUserInfo () {
     return from(this.oauthService.loadUserProfile())
   }
 
+  /**
+   * call to retrieve user data
+   */
   getUserInfoAndDispatch () {
     from(this.oauthService.loadUserProfile()).subscribe((user: any) => {
       this.store.dispatch(userInfoLogin({ user: user }))
     })
   }
 
-  login () {
-    return from(this.oauthService.loadDiscoveryDocumentAndTryLogin())
-  }
-
+  /**
+   * starts the token refresh
+   */
   startRefreshToken () {
     this.oauthService.setupAutomaticSilentRefresh()
   }
 
+  /**
+   * stop the token refresh
+   */
   stopRefreshToken () {
     this.oauthService.stopAutomaticRefresh()
   }
 
+  /**
+   * log out
+   */
   logout () {
     return this.oauthService.logOut()
   }
 
+  /**
+   * log out and dispatch the actions to delete the user from the store
+   */
   logoutAndDispatch () {
     this.store.dispatch(userLogout())
     this.store.dispatch(userInfoLogout())

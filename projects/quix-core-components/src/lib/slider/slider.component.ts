@@ -17,10 +17,24 @@ import {QuixStyleService} from "../style/style.service";
   ]
 })
 export class SliderComponent implements ControlValueAccessor {
-  @Input() ariaLabel: string;
-  @Input() label: string;
-  @Input() ariaLAbel: string;
-  @Input() id: string;
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
+    /**
+   * The label to display on the input field
+   */
+  @Input() label: string = '';
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
   @Input() successMessage: string;
   @Input() helpMessage: string;
   @Input() errorMessage: string;
@@ -28,12 +42,18 @@ export class SliderComponent implements ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() vertical: boolean;
   @Input() required: boolean;
-  @Input() tabIndex: number;
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0;
   @Input() interval: number;
   @Input() maxValue: number;
   @Input() minValue: number;
   @Input() customClass: string;
   // tslint:disable-next-line:variable-name
+  /**
+   * The value of the input
+   */
   _value: number;
   get value() {
     return this._value;

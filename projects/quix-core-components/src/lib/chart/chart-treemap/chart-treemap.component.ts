@@ -18,12 +18,25 @@ import {ChartTreemap} from "./chart-treemap.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartTreemapComponent implements OnInit, OnChanges {
-  @Input() id: string
+    /**
+   * Html id of input
+   */
+  @Input() id: string = ''
   @Input() height: string
   @Input() chartData: ChartTreemap[]
-  @Input() ariaLabel: string;
-  @Input() tabIndex: number;
-  @Output() chartClick = new EventEmitter()
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0;
+  /**
+   * click event on the graph
+   */
+  @Output() chartClick: EventEmitter<any> = new EventEmitter()
   chartOption = {
     series: []
   }

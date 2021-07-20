@@ -5,7 +5,10 @@ import * as Sentry from '@sentry/angular'
   providedIn: 'root'
 })
 export class SentryDialogService implements ErrorHandler {
-
+  /**
+   * Custom error handler for sentry
+   * @param error
+   */
   handleError (error: any) {
     console.error(error)
     if (error?.name === 'HttpErrorResponse') {

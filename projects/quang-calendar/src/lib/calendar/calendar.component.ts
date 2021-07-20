@@ -4,12 +4,10 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges
-} from '@angular/core';
-import {CalendarOptions} from '@fullcalendar/angular';
-import {QuixCalendarEvent} from "./calendar.model";
+} from '@angular/core'
+import { CalendarOptions } from '@fullcalendar/angular'
 
 @Component({
   selector: 'quix-calendar',
@@ -17,16 +15,50 @@ import {QuixCalendarEvent} from "./calendar.model";
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CalendarComponent implements OnInit, OnChanges {
-  @Input() id: string
-  @Input() ariaLabel: string
+export class CalendarComponent implements OnChanges {
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Calendar ${this.id}`
+  /**
+   * the height of the calendar
+   */
   @Input() height: string
+  /**
+   * the locale of the calendar
+   */
   @Input() locale: string
-  @Input() tabIndex: number
+  /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0
+  /**
+   * Defines what to do when the calendar view changes and the events of the current view should be loaded
+   * @param e
+   * @param s
+   * @param f
+   */
   @Input() callBack: (e, s, f) => {} = (e, s, f) => []
-  @Input() view: 'timeGridWeek' | 'dayGridMonth' | 'dayGridWeek'
-  @Input() header: { [key: string]: any }
-  @Input() footer: { [key: string]: any }
+  /**
+   * Defines the type of calendar view
+   */
+  @Input() view: 'timeGridWeek' | 'dayGridMonth' | 'dayGridWeek' = 'dayGridMonth'
+  /**
+   * Defines the format of the calendar header
+   */
+  @Input() header: { [key: string]: any } = {}
+  /**
+   * Defines the format of the calendar footer
+   */
+  @Input() footer: { [key: string]: any } = {}
+  /**
+   * Defines the classes of the font-awesome icons that will be used in the buttons
+   */
   @Input() buttonsIcons: { [key: string]: any } = {
     close: 'fas fa-times',
     prev: 'fas fa-chevron-left',
@@ -34,8 +66,17 @@ export class CalendarComponent implements OnInit, OnChanges {
     prevYear: 'fas fa-angle-double-left',
     nextYear: 'fas fa-angle-double-right'
   }
+  /**
+   * Event triggered when a calendar event is clicked
+   */
   @Output() onEventClick = new EventEmitter<any>()
+  /**
+   * Event triggered when a date on the calendar is clicked
+   */
   @Output() onDateClick = new EventEmitter<any>()
+  /**
+   * Event triggered when the calendar view of the calendar changes
+   */
   @Output() onViewChange = new EventEmitter<any>()
   calendarOptions: CalendarOptions = {
     initialView: this.view,
@@ -48,16 +89,9 @@ export class CalendarComponent implements OnInit, OnChanges {
     footerToolbar: this.footer,
     buttonIcons: this.buttonsIcons,
     locale: '',
-  };
-
-  constructor() {
   }
 
-  ngOnInit(): void {
-  }
-
-  ngOnChanges(changes: SimpleChanges
-  ) {
+  ngOnChanges (changes: SimpleChanges): void {
     if (changes.height?.currentValue) {
       this.calendarOptions.height = changes.height.currentValue
     }
@@ -75,18 +109,32 @@ export class CalendarComponent implements OnInit, OnChanges {
     }
   }
 
-  eventClick(event: any) {
+  /**
+   * emits when a event is clicked
+   * @param event
+   */
+  eventClick (event: any): void {
     this.onEventClick.emit(event)
   }
 
-  dateClick(event: any) {
+  /**
+   * emits when a date is clicked
+   * @param event
+   */
+  dateClick (event: any): void {
     this.onDateClick.emit(event)
   }
 
-  viewChange(event: any, successCallback, failureCallback) {
+  /**
+   * emits when the calendar view changes,
+   * if a callback function has been defined it executes the function passed in input
+   * @param event
+   * @param successCallback
+   * @param failureCallback
+   */
+  viewChange (event: any, successCallback, failureCallback): void {
     this.onViewChange.emit(event)
     this.callBack(event, successCallback, failureCallback)
   }
-
 
 }

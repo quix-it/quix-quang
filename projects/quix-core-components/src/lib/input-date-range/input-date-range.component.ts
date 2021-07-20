@@ -22,14 +22,36 @@ import { delay } from 'rxjs/operators'
   styleUrls: ['./input-date-range.component.scss']
 })
 export class InputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
-  @Input() id: string
-  @Input() label: string
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * The label to display on the input field
+   */
+  @Input() label: string = ''
+  /**
+   * The placeholder of the input field
+   */
   @Input() placeholder: string = ''
   @Input() placement: string
-  @Input() helpMessage: boolean
-  @Input() autofocus: boolean
-  @Input() errorMessage: boolean
-  @Input() successMessage: boolean
+  /**
+   * Defines if you want to display the help message for the user
+   */
+  @Input() helpMessage: boolean = false
+  /**
+   * Indicates whether, when the page is opened,
+   * this input field should be displayed in a focused state or not
+   */
+  @Input() autofocus: boolean = false
+  /**
+   * Defines if you want to display the error message for the user
+   */
+  @Input() errorMessage: boolean = false
+  /**
+   * Defines if you want to display the success message for the user
+   */
+  @Input() successMessage: boolean = false
   @Input() returnISODate: boolean
   @Input() showWeekNumbers: boolean
   @Input() dateFormat: string
@@ -41,24 +63,63 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   @Input() minView: 'year' | 'month' | 'day'
   @Input() iconClass: string[]
   @Input() useMoment: boolean
-  @Input() ariaLabel: string
+  /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`
   @Input() buttonClass: string[]
-  @Input() tabIndex: number
-  @Input() formName: string
+  /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0
+  /**
+   * The name of the form, this input is used to create keys for error, validation or help messages.
+   * It will be the first key element generated
+   */
+  @Input() formName: string = ''
   @Input() customClass: string[]
-  @Input() size: 'lg' | 'sm' = null
+  /**
+   * Adds bootstrap classes to the input that define the size of the field,
+   * if not specified the field is displayed with standard size
+   */
+  @Input() size: 'lg' | 'sm' | null = null
 
   @Input('value')
   config: Partial<BsDatepickerConfig>
+  /**
+   * The value of the input
+   */
   _value: any[]
-  _successMessage: string
-  _errorMessage: string
-  _helpMessage: string
-  _requiredValue: any
+  /**
+   * the status of the success message
+   */
+  _successMessage: string = ''
+  /**
+   * the status of the error message
+   */
+  _errorMessage: string = ''
+  /**
+   * the status of the help message
+   */
+  _helpMessage: string = ''
+  /**
+   * Contains the value required by a validation when it fails
+   */
+  _requiredValue: any = ''
   _disabled: boolean
+  /**
+   * The html input element
+   */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  /**
+   * Standard definition to create a control value accessor
+   */
   onTouched: any = () => {
   }
+  /**
+   * Standard definition to create a control value accessor
+   */
   onChanged: any = () => {
   }
 
@@ -83,10 +144,14 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
       this.localeService.use(this.locale)
     }
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control.name}.help`
+      this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
   }
 
+  /**
+   * After rendering the component, it checks if the input field must have focus
+   * and activates the monitoring of the validation of the entered values
+   */
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
@@ -96,22 +161,28 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
     this.observeValidate()
   }
 
+  /**
+   * Add focus to the input field if the need comes after component initialization
+   * @param changes
+   */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
   }
 
-  // We implement this method to keep a reference to the onChange
-  // callback function passed by the forms API
-  registerOnChange (fn: any) {
-    this.onChanged = fn
-  }
-
-  // We implement this method to keep a reference to the onTouched
-  // callback function passed by the forms API
+  /**
+   * Standard definition to create a control value accessor
+   */
   registerOnTouched (fn: any) {
     this.onTouched = fn
+  }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  registerOnChange (fn: any) {
+    this.onChanged = fn
   }
 
   onChangedHandler (dates: Date[]) {
@@ -125,20 +196,33 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
     }
   }
 
-  // This is a basic setter that the forms API is going to use
   writeValue (value) {
-    if (!this.returnISODate && value.length) {
-      this._value = value.map(d => new Date(d))
+    if (value) {
+      if (!this.returnISODate && value?.length) {
+        this._value = value.map(d => new Date(d))
+      } else {
+        this._value = value
+      }
     } else {
-      this._value = value
+      this._value = []
     }
   }
 
+  /**
+   * Standard definition to create a control value accessor
+   * When the input field from the form is disabled, the html input tag is defined as disabled
+   */
   setDisabledState (isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
     this._disabled = isDisabled
   }
 
+  /**
+   * When the input field changes,
+   * the validation status is retrieved and the success message or error messages displayed.
+   * If there is an error with a specific required value it is passed to the translation pipe
+   * to allow for the creation of custom messages
+   */
   observeValidate () {
     this.control?.statusChanges
       .pipe(
@@ -147,12 +231,12 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
       .subscribe(() => {
         if (this.control.dirty) {
           if (this._value.length && this.successMessage) {
-            this._successMessage = `${this.formName}.${this.control.name}.valid`
+            this._successMessage = `${this.formName}.${this.control?.name}.valid`
           } else if (!this._value.length && this.errorMessage) {
             for (const error in this.control.errors) {
               if (this.control.errors.hasOwnProperty(error)) {
                 if (this.control.errors[error]) {
-                  this._errorMessage = `${this.formName}.${this.control.name}.${error}`
+                  this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
                   this._requiredValue = this.control.errors[error].requiredValue
                 }
               }

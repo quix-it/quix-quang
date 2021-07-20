@@ -18,6 +18,10 @@ export class QuangKeycloakGuard implements CanActivate {
   ) {
   }
 
+  /**
+   * check if the user has all the required roles saved in the store
+   * @param allowedRoles
+   */
   checkAllRole (allowedRoles: string[]) {
     return this.authStore.pipe(
       select(selectHasRoles, { rolesId: allowedRoles }),
@@ -25,6 +29,10 @@ export class QuangKeycloakGuard implements CanActivate {
     )
   }
 
+  /**
+   * check if the user has at least one required role saved in the store
+   * @param allowedRoles
+   */
   checkUntilRole (allowedRoles: string[]) {
     return this.authStore.pipe(
       select(selectHasUntilRoles, { rolesId: allowedRoles }),

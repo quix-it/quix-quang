@@ -1,22 +1,36 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {QuixPicture} from './picture.model';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { QuixPicture } from './picture.model'
 
 @Component({
   selector: 'quix-picture',
   templateUrl: './picture.component.html',
-  styles: ['']
+  styles: [''],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PictureComponent implements OnInit {
-  @Input() id: string;
-  @Input() alt: string;
-  @Input() src: string;
-  @Input() responsiveList: Array<QuixPicture>;
-
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
+export class PictureComponent {
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * The alt tag of the image
+   */
+  @Input() alt: string = ''
+  /**
+   * The list of images for the responsive view of the source,
+   * always insert the sorted list from the smallest to the largest view
+   */
+  @Input() responsiveList: Array<QuixPicture> = []
+  /**
+   * The default image source
+   */
+  @Input() src: string = this.responsiveList[0]?.src
+  /**
+   * the image displayed by default while the browser is loading the real image
+   */
+  @Input() loadingSrc: string = 'assets/images/lazy/default-placeholder.png'
+  /**
+   * arialael for the image
+   */
+  @Input() ariaLabel: string = ''
 }

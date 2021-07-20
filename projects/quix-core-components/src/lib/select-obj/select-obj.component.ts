@@ -21,25 +21,70 @@ import {QuangConfig} from "../quang-config.model";
   styleUrls: ['./select-obj.component.scss']
 })
 export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
-  @Input() ariaLabel: string;
-  @Input() label: string;
-  @Input() id: string;
-  @Input() successMessage: boolean;
-  @Input() errorMessage: boolean;
-  @Input() helpMessage: boolean;
-  @Input() autofocus: boolean;
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
+    /**
+   * The label to display on the input field
+   */
+  @Input() label: string = '';
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
+    /**
+   * Defines if you want to display the success message for the user
+   */
+  @Input() successMessage: boolean = false;
+    /**
+   * Defines if you want to display the error message for the user
+   */
+  @Input() errorMessage: boolean = false;
+    /**
+   * Defines if you want to display the help message for the user
+   */
+  @Input() helpMessage: boolean = false;
+    /**
+   * Indicates whether, when the page is opened,
+   * this input field should be displayed in a focused state or not
+   */
+  @Input() autofocus: boolean = false;
   @Input() list: Array<{}>;
   @Input() labelValue: string;
   @Input() returnValue: string;
-  @Input() formName: string;
+    /**
+   * The name of the form, this input is used to create keys for error, validation or help messages.
+   * It will be the first key element generated
+   */
+  @Input() formName: string = '';
   @Input('value')
+  /**
+   * The value of the input
+   */
   _value: string;
   _config: QuangConfig;
-  _successMessage: string;
-  _errorMessage: string;
-  _helpMessage: string;
-  _requiredValue: any;
+    /**
+   * the status of the success message
+   */
+  _successMessage: string = '';
+    /**
+   * the status of the error message
+   */
+  _errorMessage: string = '';
+    /**
+   * the status of the help message
+   */
+  _helpMessage: string = '';
+    /**
+   * Contains the value required by a validation when it fails
+   */
+  _requiredValue: any = '';
   _classArray: string[] = [];
+    /**
+   * The html input element
+   */
   @ViewChild('input', {static: true}) input: ElementRef<HTMLSelectElement>;
 
   get value() {

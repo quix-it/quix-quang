@@ -17,7 +17,10 @@ import {QuixCarousel} from "./carousel.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CarouselComponent implements OnInit, OnChanges {
-  @Input() id: string
+    /**
+   * Html id of input
+   */
+  @Input() id: string = ''
   @Input() height: string
   @Input() title: boolean
   @Input() subTitle: boolean

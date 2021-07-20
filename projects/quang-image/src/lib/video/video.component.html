@@ -4,8 +4,11 @@
   preload="none"
   [autoplay]="autoplay"
   [loop]="loop"
-  [poster]="baseImage"
+  [poster]="poster"
   [muted]="mute"
   [src]="src"
->
-</video>
+  [currentTime]="_currentTime"
+  [attr.aria-describedby]="ariaLabel"
+  [ngStyle]="{width: width, height: height}"
+  #video
+></video>

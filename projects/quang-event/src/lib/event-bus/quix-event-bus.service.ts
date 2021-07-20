@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Subject} from "rxjs";
+import { Injectable } from '@angular/core'
+import { Observable, Subject } from 'rxjs'
 
-declare var EventBus: any;
+declare var EventBus: any
 
 export interface QuixBusEventOptions {
   vertxbus_reconnect_attempts_max: number,
@@ -15,9 +15,9 @@ export interface QuixBusEventOptions {
   providedIn: 'root'
 })
 export class QuixEventBusService {
-  bus: Subject<any>
+  bus: Subject<any> = new Subject<any>()
   eb: any
-  address: string
+  address: string = ''
   headers: object
   options: QuixBusEventOptions = {
     vertxbus_reconnect_attempts_max: 5, // Max reconnect attempts
@@ -27,10 +27,6 @@ export class QuixEventBusService {
     vertxbus_randomization_factor: 0.5 // Randomization factor between 0 and 1
   }
 
-  constructor() {
-    this.bus = new Subject<any>()
-  }
-
   /**
    * open the event buss socket
    * @param url
@@ -38,7 +34,7 @@ export class QuixEventBusService {
    * @param headers
    * @param options
    */
-  openSocket(url: string, address: string, headers?: object, options?: QuixBusEventOptions) {
+  openSocket (url: string, address: string, headers?: object, options?: QuixBusEventOptions): Observable<any> {
     this.headers = headers
     this.address = address
     this.eb = new EventBus(url, options ? options : this.options)
@@ -52,7 +48,7 @@ export class QuixEventBusService {
    * send message on event bus socket
    * @param message
    */
-  sendMessage(message: string) {
+  sendMessage (message: string): void {
     this.eb.send(this.address, message, (e, m) => {
       if (e) {
         console.error(e)
@@ -63,7 +59,7 @@ export class QuixEventBusService {
   /**
    * close the event bus socket
    */
-  closeSocket() {
+  closeSocket (): void {
     this.bus.complete()
     if (this.eb) {
       try {
@@ -76,7 +72,12 @@ export class QuixEventBusService {
     }
   }
 
-  private onOpen() {
+  /**
+   * when the socket is opened it sends a message in the observable indicating that the socket has been opened
+   * and listens to the messages
+   * @private
+   */
+  private onOpen (): void {
     this.eb.onopen = () => {
       console.log('Socket opened')
       this.bus.next('socketInit')
@@ -84,7 +85,13 @@ export class QuixEventBusService {
     }
   }
 
-  private onMessage() {
+  /**
+   * when a reception event is issued, the message checks if it is an error,
+   * if it is not, it tries to transform the json of the response and does the next of the connected observable,
+   * if it is not a json it does the next of the response as it is
+   * @private
+   */
+  private onMessage (): void {
     this.eb.registerHandler(this.address, (e, m) => {
       if (e) {
         this.onError(e)
@@ -98,11 +105,20 @@ export class QuixEventBusService {
     })
   }
 
-  private onError(error: Error) {
+  /**
+   * handling of the error event
+   * @param error
+   * @private
+   */
+  private onError (error: Error): void {
     this.bus.error(error)
     console.error(error)
   }
 
-  private onReconnect() {
+  /**
+   * to do if necessary
+   * @private
+   */
+  private onReconnect (): void {
   }
 }

@@ -1,16 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
-import {EventSourcePolyfill} from 'event-source-polyfill';
+import { Injectable } from '@angular/core'
+import { Subject } from 'rxjs'
+import { EventSourcePolyfill } from 'event-source-polyfill'
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuixEventSourceService {
-  private evs: EventSource;
-  events: Subject<any>;
-
-  constructor() {
-  }
+  private evs: EventSource
+  events: Subject<any> = new Subject()
 
   /**
    * method to initialize and observe the eventSource message
@@ -20,48 +17,71 @@ export class QuixEventSourceService {
    * @param param
    * @param heartbeatTimeout
    */
-  openEventSource(baseUrl: string, url: string, auth: boolean, param?: string, heartbeatTimeout?: number): Subject<any> {
-    this.events = new Subject();
+  openEventSource (baseUrl: string, url: string, auth: boolean, param?: string, heartbeatTimeout?: number): Subject<any> {
+    this.events = new Subject()
     if (auth) {
       this.evs = new EventSourcePolyfill(`${baseUrl}${url}/${param}`, {
         headers: {
           Authorization: 'Bearer ' + window.localStorage.getItem('access_token')
         },
         heartbeatTimeout: heartbeatTimeout ? heartbeatTimeout : 45 * 1000
-      });
+      })
     } else {
       this.evs = new EventSourcePolyfill(`${baseUrl}${url}/${param}`,
         {
           heartbeatTimeout: heartbeatTimeout ? heartbeatTimeout : 45 * 1000
-        });
+        })
     }
-    this.onOpen();
-    this.onEvent();
-    this.onError();
-    return this.events;
+    this.onOpen()
+    this.onEvent()
+    this.onError()
+    return this.events
   }
 
-  private onOpen() {
-    this.evs.onopen = () => console.log('EventSource link opened');
+  /**
+   * management of the channel opening event,
+   * logs that the anal has been opened and sends in the observable that the channel has been opened
+   * @private
+   */
+  private onOpen (): void {
+    this.evs.onopen = () => {
+      this.events.next('eventSourceInit')
+      console.log('EventSource link opened')
+    }
   }
 
-  private onEvent() {
+  /**
+   * When an event is received from the channel
+   * it tries to transform the json into an object and to emit it in the observable
+   * if it is not possible emit the response as it came from the channel
+   * @private
+   */
+  private onEvent (): void {
     this.evs.onmessage = (m) => {
-      this.events.next(JSON.parse(m.data));
-    };
+      try {
+        this.events.next(JSON.parse(m.data))
+      } catch (e) {
+        this.events.next(m.data)
+      }
+    }
   }
 
-  private onError() {
+  /**
+   * Channel error handling sends the observable into error
+   * @private
+   */
+  private onError (): void {
     this.evs.onerror = (e) => {
-      this.events.error(e);
-    };
+      this.events.error(e)
+      console.error(e)
+    }
   }
 
   /**
    * close the event source channel
    */
-  closeEventSource() {
-    this.events.complete();
-    this.evs.close();
+  closeEventSource (): void {
+    this.events.complete()
+    this.evs.close()
   }
 }

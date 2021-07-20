@@ -1,26 +1,33 @@
-import {Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {switchMap} from "rxjs/operators";
-import {of} from "rxjs";
+import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { switchMap } from 'rxjs/operators'
+import { of } from 'rxjs'
 
 @Directive({
   selector: '[quangAuthImage]',
 })
 export class QuixAuthImageDirective implements OnChanges {
+  /**
+   * The url of the image
+   */
   @Input() src: string
 
-  constructor(private el: ElementRef,
-              private http: HttpClient) {
+  constructor (private el: ElementRef,
+    private http: HttpClient) {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  /**
+   * Download the image,
+   * With an ajax call it downloads the image blob and adds the src attribute with the file just downloaded
+   */
+  ngOnChanges (changes: SimpleChanges) {
     if (changes.src.currentValue) {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-      });
-      this.http.get(this.src, {headers: headers, responseType: 'blob' as 'json'}).pipe(
-        switchMap((resp: any) => of(new Blob([resp], {type: resp.type}))),
+      })
+      this.http.get(this.src, { headers: headers, responseType: 'blob' as 'json' }).pipe(
+        switchMap((resp: any) => of(new Blob([resp], { type: resp.type }))),
       ).subscribe(blob => {
         let reader = new FileReader()
         reader.readAsDataURL(blob)

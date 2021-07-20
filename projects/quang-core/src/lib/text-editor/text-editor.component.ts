@@ -8,12 +8,11 @@ import {
   Renderer2,
   Self,
   ViewChild
-} from '@angular/core';
-import {ControlValueAccessor, NgControl} from '@angular/forms';
-import {delay} from 'rxjs/operators';
+} from '@angular/core'
+import { ControlValueAccessor, NgControl } from '@angular/forms'
+import { delay } from 'rxjs/operators'
 import 'quill-emoji/dist/quill-emoji.js'
-import {ContentChange, QuillEditorComponent} from "ngx-quill";
-
+import { ContentChange, QuillEditorComponent } from 'ngx-quill'
 
 @Component({
   selector: 'quix-text-editor',
@@ -21,90 +20,195 @@ import {ContentChange, QuillEditorComponent} from "ngx-quill";
   styles: ['']
 })
 export class TextEditorComponent implements ControlValueAccessor, AfterViewInit, OnInit {
-  @Input() label: string;
-  @Input() placeholder = '';
-  @Input() id: string;
-  @Input() successMessage: boolean;
-  @Input() errorMessage: boolean;
-  @Input() helpMessage: boolean;
-  @Input() autofocus: boolean;
-  @Input() readonly: boolean;
-  @Input() tabIndex: number;
-  @Input() max: number;
-  @Input() min: number;
-  @Input() ariaLabel: string;
-  @Input() toolbar: any;
-  @Input() formName: string;
-  @Input() returnHtml: boolean;
-  @Input() listBar: boolean;
-  @Input() textTypeBar: boolean;
-  @Input() textStyleBar: boolean;
-  @Input() alignBar: boolean;
-  @Input() fontBar: boolean;
-  @Input() mediaBar: boolean;
-  @Input() headerBar: boolean;
-  @Input() sizeBar: boolean;
-  @Input() emojiBar: boolean;
-  @Input() indentBar: boolean;
-  @Input() preserveWhitespace: boolean;
-  @Input() customClass: string[] = [];
+  /**
+   * The label to display on the input field
+   */
+  @Input() label: string = ''
+  /**
+   * The placeholder of the input field
+   */
+  @Input() placeholder: string = ''
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * Defines if you want to display the success message for the user
+   */
+  @Input() successMessage: boolean = false
+  /**
+   * Defines if you want to display the error message for the user
+   */
+  @Input() errorMessage: boolean = false
+  /**
+   * Defines if you want to display the help message for the user
+   */
+  @Input() helpMessage: boolean = false
+  /**
+   * Indicates whether, when the page is opened,
+   * this input field should be displayed in a focused state or not
+   */
+  @Input() autofocus: boolean = false
+  /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
+  /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0
+  /**
+   * Defines the minimum length of the input field
+   */
+  @Input() min: number = 0
+  /**
+   * Defines the maximum length of the input field
+   */
+  @Input() max: number = 0
+  /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`
+  /**
+   * The name of the form, this input is used to create keys for error, validation or help messages.
+   * It will be the first key element generated
+   */
+  @Input() formName: string = ''
+  /**
+   * Defines whether the return value of the field must be in text or html format
+   */
+  @Input() returnHtml: boolean
+  /**
+   * Lists toolbar
+   */
+  @Input() listBar: boolean
+  /**
+   * Text type toolbar
+   */
+  @Input() textTypeBar: boolean
+  /**
+   * Text style toolbar
+   */
+  @Input() textStyleBar: boolean
+  /**
+   * Toolbar for text alignment
+   */
+  @Input() alignBar: boolean
+  /**
+   * Font selection toolbar
+   */
+  @Input() fontBar: boolean
+  /**
+   * Toolbar for inserting media
+   */
+  @Input() mediaBar: boolean
+  @Input() headerBar: boolean
+  /**
+   * Text size toolbar
+   */
+  @Input() sizeBar: boolean
+  /**
+   * Toolbar for selecting emojis
+   */
+  @Input() emojiBar: boolean
+  /**
+   * Toolbar for selecting indentation
+   */
+  @Input() indentBar: boolean
+  @Input() preserveWhitespace: boolean
+  /**
+   * Array of additional classes to the input field
+   */
+  @Input() customClass: string[] = []
 
-  @ViewChild('input', {static: true}) input: QuillEditorComponent;
+  /**
+   * The html input element
+   */
+  @ViewChild('input', { static: true }) input: QuillEditorComponent
 
-  _value: string;
-  _successMessage: string;
-  _errorMessage: string;
-  _helpMessage: string;
-  _requiredValue: any;
-  _toolbar: any = {toolbar: []}
-  modules: { [key: string]: string };
+  /**
+   * The value of the input
+   */
+  _value: string
+  /**
+   * the status of the success message
+   */
+  _successMessage: string = ''
+  /**
+   * the status of the error message
+   */
+  _errorMessage: string = ''
+  /**
+   * the status of the help message
+   */
+  _helpMessage: string = ''
+  /**
+   * Contains the value required by a validation when it fails
+   */
+  _requiredValue: any = ''
+  /**
+   * The status of the toolbar
+   */
+  _toolbar: any = { toolbar: [] }
+  /**
+   * The status of the modules
+   */
+  modules: { [key: string]: string }
 
+  /**
+   * Standard definition to create a control value accessor
+   */
   onTouched: any = () => {
   }
+  /**
+   * Standard definition to create a control value accessor
+   */
   onChanged: any = () => {
   }
 
-  constructor(private renderer: Renderer2,
-              private elementRef: ElementRef,
-              @Self() @Optional() public control: NgControl,
+  constructor (private renderer: Renderer2,
+    private elementRef: ElementRef,
+    @Self() @Optional() public control: NgControl,
   ) {
-    this.control && (this.control.valueAccessor = this);
+    this.control && (this.control.valueAccessor = this)
   }
 
-  ngOnInit() {
+  /**
+   * Check if the help message is required and create the key
+   * Check the selected toolbars and add them to the configuration object
+   */
+  ngOnInit () {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control.name}.help`;
-    }
-    if(!this.ariaLabel){
-      this.ariaLabel = `Input ${this.label}`
+      this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
     if (this.listBar) {
-      this._toolbar.toolbar.push([{list: 'ordered'}, {list: 'bullet'}])
+      this._toolbar.toolbar.push([{ list: 'ordered' }, { list: 'bullet' }])
     }
     if (this.textTypeBar) {
       this._toolbar.toolbar.push(['bold', 'italic', 'underline', 'strike'])
       this._toolbar.toolbar.push(['blockquote', 'code-block'],)
     }
     if (this.textStyleBar) {
-      this._toolbar.toolbar.push([{'color': []}, {'background': []}])
+      this._toolbar.toolbar.push([{ 'color': [] }, { 'background': [] }])
     }
     if (this.alignBar) {
-      this._toolbar.toolbar.push([{align: []}])
+      this._toolbar.toolbar.push([{ align: [] }])
     }
     if (this.fontBar) {
-      this._toolbar.toolbar.push([{font: []}])
+      this._toolbar.toolbar.push([{ font: [] }])
     }
     if (this.mediaBar) {
       this._toolbar.toolbar.push(['link', 'image', 'video'])
     }
     if (this.headerBar) {
-      this._toolbar.toolbar.push([{header: [1, 2, 3, 4, 5, 6, false]}])
+      this._toolbar.toolbar.push([{ header: [1, 2, 3, 4, 5, 6, false] }])
     }
     if (this.sizeBar) {
-      this._toolbar.toolbar.push([{size: ['small', 'normal', 'large', 'huge']}])
+      this._toolbar.toolbar.push([{ size: ['small', 'normal', 'large', 'huge'] }])
     }
     if (this.indentBar) {
-      this._toolbar.toolbar.push([{indent: '-1'}, {indent: '+1'}])
+      this._toolbar.toolbar.push([{ indent: '-1' }, { indent: '+1' }])
     }
     if (this.emojiBar) {
       this._toolbar['emoji-shortname'] = true
@@ -113,68 +217,93 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
     }
   }
 
-  ngAfterViewInit(): void {
+  /**
+   * Checks if focus is required when displaying the input field.
+   * Start the check on the validation of the field
+   */
+  ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
         this.input.editorElem.focus()
       }
-    }, 0);
-    this.observeValidate();
+    }, 0)
+    this.observeValidate()
   }
 
-
-  checkFocus(editor) {
+  /**
+   * check if the input field should have focus when the page is rendered
+   * @param editor
+   */
+  checkFocus (editor) {
     if (this.autofocus) {
       editor.focus()
     }
   }
 
-  // We implement this method to keep a reference to the onChange
-  // callback function passed by the forms API
-  registerOnChange(fn: any) {
-    this.onChanged = fn;
+  /**
+   * Standard definition to create a control value accessor
+   */
+  registerOnTouched (fn: any) {
+    this.onTouched = fn
   }
 
-  // We implement this method to keep a reference to the onTouched
-  // callback function passed by the forms API
-  registerOnTouched(fn: any) {
-    this.onTouched = fn;
+  /**
+   * Standard definition to create a control value accessor
+   */
+  registerOnChange (fn: any) {
+    this.onChanged = fn
   }
 
-  onChangedHandler(c: ContentChange) {
+  /**
+   * When the input changes,
+   * its value is retrieved from the html element and the status change is signaled to the form
+   * @param e
+   */
+  onChangedHandler (e: ContentChange) {
     this.onTouched()
-    this.onChanged(this.returnHtml ? c.html : c.text === '\n' ? null : c.text)
+    this.onChanged(this.returnHtml ? e.html : e.text === '\n' ? null : e.text)
   }
 
-  // This is a basic setter that the forms API is going to use
-  writeValue(value) {
+  /**
+   * Standard definition to create a control value accessor
+   * When the value of the input field from the form is set, the value of the input html tag is changed
+   */
+  writeValue (value) {
     this._value = value
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  /**
+   * Standard definition to create a control value accessor
+   * When the input field from the form is disabled, the html input tag is defined as disabled
+   */
+  setDisabledState (isDisabled: boolean): void {
     this.input.setDisabledState(isDisabled)
   }
 
-  observeValidate() {
-    this.control?.statusChanges
-      .pipe(
-        delay(0)
-      )
-      .subscribe(() => {
-        if (this.control.dirty) {
-          if (this.control.valid && this.successMessage) {
-            this._successMessage = `${this.formName}.${this.control.name}.valid`;
-          } else if (this.control.invalid && this.errorMessage) {
-            for (const error in this.control.errors) {
-              if (this.control.errors.hasOwnProperty(error)) {
-                if (this.control.errors[error]) {
-                  this._errorMessage = `${this.formName}.${this.control.name}.${error}`;
-                  this._requiredValue = this.control.errors[error].requiredValue;
-                }
+  /**
+   * When the input field changes,
+   * the validation status is retrieved and the success message or error messages displayed.
+   * If there is an error with a specific required value it is passed to the translation pipe
+   * to allow for the creation of custom messages
+   */
+  observeValidate () {
+    this.control?.statusChanges.pipe(
+      delay(0)
+    ).subscribe(() => {
+      if (this.control.dirty) {
+        if (this.control.valid && this.successMessage) {
+          this._successMessage = `${this.formName}.${this.control?.name}.valid`
+        } else if (this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            if (this.control.errors.hasOwnProperty(error)) {
+              if (this.control.errors[error]) {
+                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+                this._requiredValue = this.control.errors[error].requiredValue
               }
             }
           }
         }
-      });
+      }
+    })
   }
 }

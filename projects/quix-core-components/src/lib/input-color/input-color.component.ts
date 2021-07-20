@@ -22,23 +22,71 @@ import {QuangConfig} from "../quang-config.model";
   styleUrls: ['./input-color.component.scss'],
 })
 export class InputColorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {
-  @Input() id: string;
-  @Input() label: string;
-  @Input() successMessage: boolean;
-  @Input() errorMessage: boolean;
-  @Input() helpMessage: boolean;
-  @Input() autofocus: boolean;
-  @Input() ariaLabel: string = this.label;
-  @Input() tabIndex: number;
-  @Input() formName: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
+    /**
+   * The label to display on the input field
+   */
+  @Input() label: string = '';
+    /**
+   * Defines if you want to display the success message for the user
+   */
+  @Input() successMessage: boolean = false;
+    /**
+   * Defines if you want to display the error message for the user
+   */
+  @Input() errorMessage: boolean = false;
+    /**
+   * Defines if you want to display the help message for the user
+   */
+  @Input() helpMessage: boolean = false;
+    /**
+   * Indicates whether, when the page is opened,
+   * this input field should be displayed in a focused state or not
+   */
+  @Input() autofocus: boolean = false;
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}` = this.label;
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0;
+    /**
+   * The name of the form, this input is used to create keys for error, validation or help messages.
+   * It will be the first key element generated
+   */
+  @Input() formName: string = '';
   @Input('value')
+  /**
+   * The value of the input
+   */
   _value: string;
   _config: QuangConfig;
-  _successMessage: string;
-  _errorMessage: string;
-  _helpMessage: string;
-  _requiredValue: any;
+    /**
+   * the status of the success message
+   */
+  _successMessage: string = '';
+    /**
+   * the status of the error message
+   */
+  _errorMessage: string = '';
+    /**
+   * the status of the help message
+   */
+  _helpMessage: string = '';
+    /**
+   * Contains the value required by a validation when it fails
+   */
+  _requiredValue: any = '';
   _classArray: string[] = [];
+    /**
+   * The html input element
+   */
   @ViewChild('input', {static: true}) input: ElementRef<HTMLInputElement>;
 
   get value() {

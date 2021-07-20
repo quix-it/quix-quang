@@ -23,25 +23,63 @@ import {QuangConfig} from "../quang-config.model";
 })
 export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit {
   @Input() groupName: string;
-  @Input() id: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
   @Input() inline: boolean;
   @Input() radioList: Array<any>;
   @Input() autofocus: string;
-  @Input() ariaLabel: string;
-  @Input() tabIndex: number;
-  @Input() successMessage: boolean;
-  @Input() helpMessage: boolean;
-  @Input() errorMessage: boolean;
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0;
+    /**
+   * Defines if you want to display the success message for the user
+   */
+  @Input() successMessage: boolean = false;
+    /**
+   * Defines if you want to display the help message for the user
+   */
+  @Input() helpMessage: boolean = false;
+    /**
+   * Defines if you want to display the error message for the user
+   */
+  @Input() errorMessage: boolean = false;
   @Input() labelValue: string;
-  @Input() formName: string;
+    /**
+   * The name of the form, this input is used to create keys for error, validation or help messages.
+   * It will be the first key element generated
+   */
+  @Input() formName: string = '';
   @Input() returnValue: string;
   @Input('value')
+  /**
+   * The value of the input
+   */
   _value: string;
   _config: QuangConfig;
-  _successMessage: string;
-  _errorMessage: string;
-  _helpMessage: string;
-  _requiredValue: any;
+    /**
+   * the status of the success message
+   */
+  _successMessage: string = '';
+    /**
+   * the status of the error message
+   */
+  _errorMessage: string = '';
+    /**
+   * the status of the help message
+   */
+  _helpMessage: string = '';
+    /**
+   * Contains the value required by a validation when it fails
+   */
+  _requiredValue: any = '';
   _classArray: string[] = [];
   @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>>;
 

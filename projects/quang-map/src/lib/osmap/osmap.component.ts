@@ -1,147 +1,111 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core'
 import Map from 'ol/Map'
 import View from 'ol/View'
-import { Tile, Vector } from 'ol/layer'
-import Feature from 'ol/Feature'
-import Point from 'ol/geom/Point'
-import { Icon, Style } from 'ol/style'
-import VectorSource from 'ol/source/Vector'
-import { fromLonLat } from 'ol/proj'
+import { Tile } from 'ol/layer'
 import { OSM } from 'ol/source'
-import { Osmap } from './osmap.model'
+import * as olProj from 'ol/proj'
 
 @Component({
   selector: 'quix-osmap',
   templateUrl: './osmap.component.html',
-  styleUrls: ['./osmap.component.scss']
+  styles: ['']
 })
-export class OSMapComponent implements OnInit, AfterViewInit {
-  private MARKER_LIST: Array<Osmap> = []
-  public map: Map
-  public tile: Tile
-  public markerLayer: Vector
-  public markers: VectorSource
-  private center: Array<number>
-  @Input() height: string
-  @Input() id: string
-  @Input() defaultZoom: number
-  @Input() minZoom: number
-  @Input() maxZoom: number
-  @Input() defaultCenter: Array<number>
-  @Output() markerClick = new EventEmitter<any>()
-  @Input() enableClick = Boolean
-
-  @Input() set markerList (value: Array<Osmap>) {
-    if (value) {
-      this.MARKER_LIST = value
-    }
-    if (this.markerLayer) {
-      this.map.removeLayer(this.markerLayer)
-    }
-    if (this.map) {
-      this.createMarker()
-      this.createMarkerLayer()
-    }
-  }
-
-  get markerList (): Array<Osmap> {
-    return this.MARKER_LIST
-  }
-
-  constructor () {
-  }
-
-  ngOnInit () {
-
-  }
+export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
+  /**
+   * the height of the map
+   */
+  @Input() height: string = ''
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * index within the navigation flow by tab
+   */
+  @Input() tabIndex: number = 0
+  /**
+   * the label that describes the accessibility component
+   */
+  @Input() ariaLabel: string = ''
+  /**
+   * Initial zoom level
+   */
+  @Input() defaultZoom: number = 0
+  /**
+   * Minimum zoom level
+   */
+  @Input() minZoom: number = 0
+  /**
+   * Maximum zoom level
+   */
+  @Input() maxZoom: number = 0
+  /**
+   * Center of the starting map
+   */
+  @Input() defaultCenter: number[] = []
+  /**
+   * Enable the click on the map
+   */
+  @Input() enableClick: boolean = false
+  /**
+   * the list of markers to be drawn on the map
+   */
+  // @Input() markers: Array<OsmapMarker> = []
+  /**
+   * Click event on the marker
+   */
+  // @Output() markerClick: EventEmitter<any> = new EventEmitter<any>()
+  /**
+   * The html element in which the map will be created
+   */
+  @ViewChild('map', { static: false }) mapDiv: ElementRef<HTMLDivElement> | null = null
+  /**
+   * the map variable
+   */
+  _map: Map
+  _tile: Tile<any> = new Tile({
+    source: new OSM()
+  })
 
   ngAfterViewInit (): void {
-    this.createTile()
-    this.findCenter()
     this.createMap()
-    if (this.MARKER_LIST) {
-      this.createMarker()
-      this.createMarkerLayer()
-    }
   }
 
-  createTile () {
-    this.tile = new Tile({
-      source: new OSM()
-    })
-  }
-
-  createIcon (marker: Osmap): Style {
-    return new Style({
-      image: new Icon({
-        anchor: marker.size,
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'pixels',
-        src: marker.src
-      })
-    })
-  }
-
-  createMarker () {
-    const list = []
-    this.MARKER_LIST.forEach((marker) => {
-      const iconFeature = new Feature({
-        ...marker,
-        geometry: new Point(fromLonLat([marker.long, marker.lat]))
-      })
-      iconFeature.setStyle(this.createIcon(marker))
-      list.push(iconFeature)
-    })
-    this.markers = new VectorSource({
-      features: list
-    })
-  }
-
-  createMap () {
-    this.map = new Map({
+  /**
+   * Create the map and add the listener for the events
+   */
+  createMap (): void {
+    this._map = new Map({
       target: this.id,
-      layers: [this.tile],
+      layers: [this._tile],
       view: new View({
-        center: this.center,
+        center: olProj.fromLonLat(this.defaultCenter),
         zoom: this.defaultZoom,
         minZoom: this.minZoom,
         maxZoom: this.maxZoom
       })
     })
-    if (this.enableClick) {
-      this.map.on('click', (evt) => {
-          const feature = evt.map.forEachFeatureAtPixel(evt.pixel,
-            (feature) => {
-              return feature
-            })
-          if (feature) {
-            this.markerClick.emit(feature.values_)
-          }
-        },
-        { hitTolerance: 33 }
-      )
+  }
+
+  /**
+   * When the center of defualt changes it generates a new map
+   * When the default zoom changes it generates a new map
+   * @param changes
+   */
+  ngOnChanges (changes: SimpleChanges) {
+    if (changes.defaultCenter?.currentValue) {
+      this.createMap()
     }
-  }
-
-  createMarkerLayer () {
-    this.markerLayer = new Vector({
-      source: this.markers
-    })
-    this.map.addLayer(this.markerLayer)
-  }
-
-  findCenter () {
-    if (this.MARKER_LIST.length) {
-      let lat = 0
-      let long = 0
-      this.MARKER_LIST.forEach((marker) => {
-        long += marker.long
-        lat += marker.lat
-      })
-      this.center = fromLonLat([long / this.MARKER_LIST.length, lat / this.MARKER_LIST.length])
-    } else {
-      this.center = this.defaultCenter
+    if (changes.defaultZoom?.currentValue) {
+      this.createMap()
     }
   }
 }

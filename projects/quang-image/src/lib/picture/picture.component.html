@@ -1,14 +1,13 @@
-<picture [id]="id">
+<picture [id]="id"
+         [attr.aria-describedby]="ariaLabel">
   <source
     *ngFor="let img of responsiveList"
     [media]="img.minWidth"
     [attr.lazyLoad]="img.src"
-    [attr.defaultImage]="'assets/images/lazy/default-placeholder.png'"
-  >
+    [attr.defaultImage]="loadingSrc">
   <img
-    [attr.defaultImage]="'assets/images/lazy/default-placeholder.png'"
+    [attr.defaultImage]="loadingSrc"
     [alt]="alt | transloco"
     [lazyLoad]="src"
-    [useSrcset]="true"
-  >
+    [useSrcset]="true">
 </picture>

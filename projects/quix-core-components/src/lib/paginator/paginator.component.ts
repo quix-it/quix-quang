@@ -16,11 +16,21 @@ import {MatPaginator} from "@angular/material/paginator";
   styleUrls: ['./paginator.component.scss'],
 })
 export class PaginatorComponent implements OnInit, OnChanges {
-  @Input() id: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
   @Input() customClass: string;
   @Input() totalItems: number;
-  @Input() tabIndex: number;
-  @Input() ariaLabel: string;
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0;
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
   @Input() sizeList: Array<number>;
   @Input() defaultPageSize: number;
   @Input() defaultPageIndex: number;

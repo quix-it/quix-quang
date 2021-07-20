@@ -18,14 +18,27 @@ import {ChartLine} from "../chart-line/chart-line.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartBarComponent implements OnInit, OnChanges {
-  @Input() id: string;
-  @Input() ariaLabel: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
   @Input() color: string[];
-  @Input() tabIndex: number;
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0;
   @Input() height: string;
   @Input() horizontal: boolean = false;
   @Input() chartData: ChartLine
-  @Output() chartClick = new EventEmitter()
+  /**
+   * click event on the graph
+   */
+  @Output() chartClick: EventEmitter<any> = new EventEmitter()
   chartOption = {
     color: [],
     xAxis: {},
@@ -66,7 +79,11 @@ export class ChartBarComponent implements OnInit, OnChanges {
     }
   }
 
-  onChartClick(e) {
+  /**
+   * function triggered by clicking on an element of the chart emits an event to the parent component
+   * @param e
+   */
+  onChartClick (e): void {
     this.chartClick.emit(e)
   }
 }

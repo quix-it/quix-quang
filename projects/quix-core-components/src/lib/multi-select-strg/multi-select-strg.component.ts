@@ -16,22 +16,42 @@ import {QuixStyleService} from "../style/style.service";
   ]
 })
 export class MultiSelectStrgComponent implements ControlValueAccessor {
-  @Input() ariaLabel: string;
-  @Input() label: string;
-  @Input() placeholder: string;
-  @Input() id: string;
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
+    /**
+   * The label to display on the input field
+   */
+  @Input() label: string = '';
+    /**
+   * The placeholder of the input field
+   */
+  @Input() placeholder: string = '';
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
   @Input() helpMsg: string;
   @Input() successMessage: string;
   @Input() errorMessage: string;
   @Input() customClass: string;
   @Input() validator: string | null;
-  @Input() autofocus: boolean;
+    /**
+   * Indicates whether, when the page is opened,
+   * this input field should be displayed in a focused state or not
+   */
+  @Input() autofocus: boolean = false;
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() rowVisible: number;
   @Input() list: Array<string | number>;
   @Input('value')
     // tslint:disable-next-line:variable-name
+  /**
+   * The value of the input
+   */
   _value: string;
   get value() {
     return this._value;

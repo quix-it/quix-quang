@@ -265,7 +265,7 @@ FullCalendarModule.registerPlugins([
   ]
 })
 export class QuixCoreComponentsModule {
-  static forRoot (config: QuangConfig): ModuleWithProviders {
+  static forRoot (config: QuangConfig): ModuleWithProviders<any> {
     return {
       ngModule: QuixCoreComponentsModule,
       providers: [

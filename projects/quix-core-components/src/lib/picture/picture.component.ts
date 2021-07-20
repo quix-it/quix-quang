@@ -7,7 +7,10 @@ import {QuixPicture} from './picture.model';
   styleUrls: ['./picture.component.scss']
 })
 export class PictureComponent implements OnInit {
-  @Input() id: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
   @Input() alt: string;
   @Input() src: string;
   @Input() responsiveList: Array<QuixPicture>;

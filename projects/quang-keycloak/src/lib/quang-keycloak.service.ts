@@ -36,11 +36,17 @@ export class QuangKeycloakService {
     }
   }
 
-  startAuth () {
+  /**
+   * starts the authentication flow
+   */
+  startAuth (): Observable<any> {
     return from(this.keyCloak.init(this.authConfig))
   }
 
-  startAuthAndDispatch () {
+  /**
+   * starts the authentication flow and saves the authentication status in the store
+   */
+  startAuthAndDispatch (): void {
     from(this.keyCloak.init(this.authConfig)).subscribe(isAuthenticated => {
       if (isAuthenticated) {
         this.store.dispatch(userLogin())
@@ -48,35 +54,54 @@ export class QuangKeycloakService {
     })
   }
 
-  getUserInfo () {
+  /**
+   * retrieves the information relating to the logged in user
+   */
+  getUserInfo (): Observable<any> {
     return from(this.keyCloak.loadUserProfile())
   }
 
-  getUserInfoAndDispatch () {
+  /**
+   * retrieves the information relating to the logged in user and saves them in the store
+   */
+  getUserInfoAndDispatch (): void {
     from(this.keyCloak.loadUserProfile()).subscribe((user: any) => {
       this.store.dispatch(userInfoLogin({ user: user }))
     })
   }
 
+  /**
+   * get the user's roles
+   */
   getUserRoles (): Observable<any> {
     return of(this.keyCloak.getUserRoles(true))
   }
 
-  getUserRolesAndDispatch () {
+  /**
+   * retrieves the user's roles and saves them in the store
+   */
+  getUserRolesAndDispatch (): void {
     from(this.keyCloak.getUserRoles(true)).subscribe((roles: any) => {
       this.store.dispatch(userRolesLogin({ roles: roles }))
     })
   }
 
+  /**
+   * Login method, to be used if you are not using the authentication flow with effects
+   */
   login (): Observable<any> {
     return from(this.keyCloak.login())
   }
 
+  /**
+   * method to log out, is triggered by the effects
+   * @param redirectUri
+   */
   logout (redirectUri?: string): Observable<any> {
     if (redirectUri) {
       return from(this.keyCloak.logout(redirectUri))
     } else {
-      alert('[AUTH KEYCLOAK SERVICE] No redirectUri config')
+      alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')
     }
   }
 
@@ -86,15 +111,13 @@ export class QuangKeycloakService {
    */
   logoutAndDispatch (redirectUri?: string): void {
     if (redirectUri) {
-      from(this.keyCloak.logout(redirectUri)).subscribe(
-        () => {
-          this.store.dispatch(userLogout({redirectUri:redirectUri}))
-          this.store.dispatch(userInfoLogout())
-          this.store.dispatch(userRolesLogout())
-        }
-      )
+      from(this.keyCloak.logout(redirectUri)).subscribe(() => {
+        this.store.dispatch(userLogout({ redirectUri: redirectUri }))
+        this.store.dispatch(userInfoLogout())
+        this.store.dispatch(userRolesLogout())
+      })
     } else {
-      alert('[AUTH KEYCLOAK SERVICE] No redirectUri config')
+      alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')
     }
   }
 }

@@ -26,9 +26,9 @@
     [hoursPlaceholder]="hoursPlaceholder | transloco"
     [minutesPlaceholder]="minutesPlaceholder | transloco"
     [secondsPlaceholder]="secondsPlaceholder | transloco"
+    [disabled]="_disabled"
     (ngModelChange)="onChangedHandler($event)"
     (blur)="onTouched()"
-    [disabled]="disabled"
     #input
   ></timepicker>
   <small [id]="id + 'Help'"
@@ -40,7 +40,6 @@
   <div class="valid-feedback">
     {{_successMessage | transloco}}
   </div>
-
   <div class="invalid-feedback"
        [attr.aria-errormessage]="_errorMessage | transloco">
     {{_errorMessage | transloco: {requiredValue: _requiredValue} }}

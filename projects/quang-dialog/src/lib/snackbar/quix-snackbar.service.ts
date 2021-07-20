@@ -1,25 +1,43 @@
-import { Injectable } from '@angular/core';
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Injectable } from '@angular/core'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuixSnackbarService {
-  snackBar: any;
+  snackBar: any
 
-  constructor(private snackBarService: MatSnackBar) {
+  constructor (
+    private snackBarService: MatSnackBar
+  ) {
   }
 
-  openSnackbar(message: string, time?: number, action?: string, actionFunction?: any,) {
-    this.snackBar = this.snackBarService.open(message, action, {
-      duration: time ? time : null
-    });
+  /**
+   * He opens the snackbar
+   * in addition to the configurations,
+   * you can pass a function that will be executed when the snackbar action is triggered
+   * @param message
+   * @param time
+   * @param action
+   * @param actionFunction
+   */
+  openSnackbar (message: string, time?: number, action?: string, actionFunction?: any,) {
+    this.snackBar = this.snackBarService.open(
+      message,
+      action,
+      {
+        duration: time ? time : null
+      }
+    )
     if (actionFunction) {
-      this.snackBar.onAction().subscribe(actionFunction);
+      this.snackBar.onAction().subscribe(actionFunction)
     }
   }
 
-  closeSnackbar() {
-    this.snackBar.dismiss();
+  /**
+   * closes the snackbar
+   */
+  closeSnackbar () {
+    this.snackBar.dismiss()
   }
 }

@@ -15,7 +15,6 @@
          [maxLength]="max"
          [minLength]="min"
          [pattern]="pattern"
-         [disabled]="disabled"
          [readOnly]="readonly"
          [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
@@ -26,15 +25,13 @@
          [class.form-control-sm]="size === 'sm'"
          #input
   >
-
   <div class="valid-feedback">
     {{_successMessage | transloco}}
   </div>
-
-  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+  <div class="invalid-feedback"
+       [attr.aria-errormessage]="_errorMessage">
     {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
   </div>
-
   <small [id]="id + 'Help'"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"

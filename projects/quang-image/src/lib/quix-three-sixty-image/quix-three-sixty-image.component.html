@@ -1,8 +1,7 @@
 <div class="wrapper-360"
      #wrapper
      [ngClass]="customClass"
-     [id]="id"
->
+     [id]="id">
   <div
     (mousedown)="mouseDown($event)"
     (mouseup)="mouseUp($event)"
@@ -14,33 +13,29 @@
     <button
       class="btn btn-secondary"
       [hidden]="play"
-      (click)="rotator('-')"
-    >
-      <i [ngClass]="previousIcon"></i>
+      (click)="rotator('-')">
+      <ng-content select="[previousIcon]"></ng-content>
     </button>
     <button
       class="btn btn-primary"
       (click)="togglePlay()"
-      *ngIf="play"
-    >
-      <i [ngClass]="stopIcon"></i>
+      *ngIf="play">
+      <ng-content select="[stopIcon]"></ng-content>
     </button>
     <button
       class="btn btn-primary"
       (click)="togglePlay()"
-      *ngIf="!play"
-    >
-      <i [ngClass]="playIcon"></i>
+      *ngIf="!play">
+      <ng-content select="[playIcon]"></ng-content>
     </button>
     <button
       class="btn btn-secondary"
       [hidden]="play"
-      (click)="rotator('+')"
-    >
-      <i [ngClass]="nextIcon"></i>
+      (click)="rotator('+')">
+      <ng-content select="[nextIcon]"></ng-content>
     </button>
   </div>
-  <div *ngFor="let img of imageList"
+  <div *ngFor="let img of images"
        class="preload"
        [style.background]="getUrl(img)"
   ></div>

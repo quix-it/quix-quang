@@ -4,11 +4,9 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
-  SimpleChanges
-} from '@angular/core';
-import {QuixCarousel} from "./carousel.model";
+} from '@angular/core'
+import { QuixCarousel } from './carousel.model'
 
 @Component({
   selector: 'quix-carousel',
@@ -16,35 +14,50 @@ import {QuixCarousel} from "./carousel.model";
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CarouselComponent implements OnInit, OnChanges {
-  @Input() id: string
-  @Input() height: string
-  @Input() title: boolean
-  @Input() subTitle: boolean
-  @Input() noLoop: boolean
-  @Input() interval: number
-  @Input() showIndicators: boolean
+export class CarouselComponent {
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * the height of the carousel
+   */
+  @Input() height: string = '50vh'
+  /**
+   * indicates if you want to display the title of the slides
+   */
+  @Input() title: boolean = false
+  /**
+   * indicates if you want to display the sub-title of the slides
+   */
+  @Input() subTitle: boolean = false
+  /**
+   * indicates if you want to view the slides in circular mode, that is,
+   * after viewing the last one, you will resume viewing from the first one
+   */
+  @Input() noLoop: boolean = true
+  /**
+   * defines the time interval between one slide and another
+   */
+  @Input() interval: number = 2000
+  /**
+   * defines what side indicators of the slides are to be displayed
+   */
+  @Input() showIndicators: boolean = false
+  /**
+   * defines if you want to remove the possibility of activating the pause between slides
+   */
   @Input() noPause: boolean = true
-  @Input() slideList: QuixCarousel[]
+  /**
+   * the list of slides
+   */
+  @Input() slides: QuixCarousel[] = []
+  /**
+   * event triggered when a slide changes
+   */
   @Output() onSlideChange: EventEmitter<number> = new EventEmitter<number>()
 
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.slideList?.currentValue) {
-      this.slideList = changes.slideList.currentValue
-    }
-    if (changes.height?.currentValue) {
-      this.height = changes.height.currentValue
-    }
-  }
-
-  onSlideEvent(e: number) {
+  onSlideEvent (e: number): void {
     this.onSlideChange.emit(e)
   }
 }

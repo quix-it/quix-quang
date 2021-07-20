@@ -1,6 +1,16 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core'
 
-import {ChartDoughnut} from "./chart-doughnut.model";
+import { ChartDoughnut } from './chart-doughnut.model'
+import { EChartOption } from 'echarts'
 
 @Component({
   selector: 'quix-chart-doughnut',
@@ -8,16 +18,49 @@ import {ChartDoughnut} from "./chart-doughnut.model";
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartDoughnutComponent implements OnInit {
-  @Input() id: string;
-  @Input() height: string;
-  @Input() color: string[];
-  @Input() chartData: ChartDoughnut[];
-  @Input() ariaLabel: string;
-  @Input() tabIndex: number;
-  @Output() chartClick = new EventEmitter()
-
-  chartOption = {
+export class ChartDoughnutComponent implements OnChanges {
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * the height of the chart container
+   */
+  @Input() height: string = ' 50vh'
+  /**
+   * the list of colors of the chart
+   */
+  @Input() color: string[] = []
+  /**
+   * the object that contains the data to make the graph
+   */
+  @Input() chartData: ChartDoughnut[]
+  /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Chart`
+  /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0
+  /**
+   * the grid that contains the graph defines the padding in the four directions
+   */
+  @Input() grid: {
+    top: number,
+    bottom: number,
+    left: number,
+    right: number
+  } = { top: 0, left: 0, right: 0, bottom: 0 }
+  /**
+   * click event on the graph
+   */
+  @Output() chartClick: EventEmitter<any> = new EventEmitter()
+  /**
+   * basic configuration of the chart
+   */
+  chartOption: EChartOption = {
     color: [],
     series: [
       {
@@ -29,21 +72,27 @@ export class ChartDoughnutComponent implements OnInit {
     ],
     animationEasing: 'elasticOut',
     animationDelay: function (idx) {
-      return Math.random() * 200;
+      return Math.random() * 200
     }
   }
 
-  constructor() {
+  ngOnChanges (changes: SimpleChanges) {
+    if (changes.color?.currentValue) {
+      this.chartOption.color = changes.color.currentValue
+    }
+    if (changes.chartData?.currentValue) {
+      this.chartOption.series[0].data = changes.chartData.currentValue
+    }
+    if (changes.grid?.currentValue) {
+      this.chartOption.grid = changes.grid.currentValue
+    }
   }
 
-  ngOnInit(): void {
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.chartOption.color = changes.color.currentValue
-    this.chartOption.series[0].data = changes.chartData.currentValue
-  }
-  onChartClick(e) {
+  /**
+   * function triggered by clicking on an element of the chart emits an event to the parent component
+   * @param e
+   */
+  onChartClick (e): void {
     this.chartClick.emit(e)
   }
 

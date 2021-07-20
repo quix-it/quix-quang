@@ -17,9 +17,8 @@ export class QuixHttpErrorModalComponent {
   ) {
   }
 
-  closeModal () {
+  closeModal (): void {
     this.modalService.onHide.emit('close')
     this.modalRef.hide()
   }
-
 }

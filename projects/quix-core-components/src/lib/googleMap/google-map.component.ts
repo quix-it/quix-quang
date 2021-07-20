@@ -13,7 +13,10 @@ export class GoogleMapComponent implements OnInit {
   public MARKER_LIST: Array<GoogleMarkerModel> = [];
   public googleMarkers: Array<any> = [];
   @ViewChild('map', {static: false}) mapDiv: ElementRef<HTMLDivElement>;
-  @Input() id: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
   @Input() height: string;
   @Input() defaultZoom: number;
   @Input() mapType: string;

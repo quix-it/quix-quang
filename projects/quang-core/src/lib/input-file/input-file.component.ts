@@ -23,34 +23,109 @@ import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropComponent, Ng
   styles: ['']
 })
 
-export class InputFileComponent implements OnInit, OnChanges, ControlValueAccessor, AfterViewInit {
-  @Input() id: string
-  @Input() label: string
-  @Input() ariaLabel: string
+export class InputFileComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+  /**
+   * Html id of input
+   */
+  @Input() id: string = ''
+  /**
+   * The label to display on the input field
+   */
+  @Input() label: string = ''
+  /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`
+  /**
+   * The label to display in the button for file selection
+   */
   @Input() buttonLabel: string
-  @Input() formName: string
-  @Input() helpMessage: boolean
-  @Input() errorMessage: boolean
-  @Input() multiple: boolean
-  @Input() successMessage: boolean
-  @Input() tabIndex: number
-  @Input() buttonClass: string[]
-  @Input() buttonDeleteIcon: string[]
+  /**
+   * The name of the form, this input is used to create keys for error, validation or help messages.
+   * It will be the first key element generated
+   */
+  @Input() formName: string = ''
+  /**
+   * Defines if you want to display the help message for the user
+   */
+  @Input() helpMessage: boolean = false
+  /**
+   * Defines if you want to display the error message for the user
+   */
+  @Input() errorMessage: boolean = false
+  /**
+   * Defines whether the input field can accept multiple value
+   */
+  @Input() multiple: boolean = false
+  /**
+   * Defines if you want to display the success message for the user
+   */
+  @Input() successMessage: boolean = false
+  /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0
+  /**
+   * The classes that define the style of the button for selecting the file
+   */
+  @Input() buttonClass: string[] = []
+  /**
+   * Array of additional classes to the input field
+   */
   @Input() customClass: string[] = []
-  @Output() onDragOver = new EventEmitter<any>()
-  @Output() onDragLeave = new EventEmitter<any>()
-
+  /**
+   * Event that emits when the file being dragged is above the input field
+   */
+  @Output() onDragOver: EventEmitter<any> = new EventEmitter<any>()
+  /**
+   * Event that emits when the file in drag state is dropped on the input field
+   */
+  @Output() onDragLeave: EventEmitter<any> = new EventEmitter<any>()
+  /**
+   * The html input element
+   */
   @ViewChild('input', { static: false }) input: NgxFileDropComponent
+  /**
+   * The html button of selection
+   */
   @ViewChild('inputBtn', { static: false }) inputBtn: ElementRef<HTMLButtonElement>
+  /**
+   * The value of the input
+   */
   _value: File
+  /**
+   * The value of the input with multiple selection
+   */
   _values: File[] = []
-  _successMessage: string
-  _errorMessage: string
-  _helpMessage: string
-  _dropMessage: string
-  _requiredValue: any
+  /**
+   * the status of the success message
+   */
+  _successMessage: string = ''
+  /**
+   * the status of the error message
+   */
+  _errorMessage: string = ''
+  /**
+   * the status of the help message
+   */
+  _helpMessage: string = ''
+  /**
+   * the status of the drop message
+   */
+  _dropMessage: string = ''
+  /**
+   * Contains the value required by a validation when it fails
+   */
+  _requiredValue: any = ''
+  /**
+   * Standard definition to create a control value accessor
+   */
   onTouched: any = () => {
   }
+  /**
+   * Standard definition to create a control value accessor
+   */
   onChanged: any = () => {
   }
 
@@ -61,34 +136,43 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
     this.control && (this.control.valueAccessor = this)
   }
 
+  /**
+   * Create the key for the help and drop message
+   */
   ngOnInit () {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
     this._dropMessage = `${this.formName}.${this.control?.name}.drop`
-    if(!this.ariaLabel){
-      this.ariaLabel = `Input ${this.label}`
-    }
   }
 
+  /**
+   * After rendering the component, it checks if the input field must have focus
+   * and activates the monitoring of the validation of the entered values
+   */
   ngAfterViewInit (): void {
     this.observeValidate()
   }
 
-  ngOnChanges (changes: SimpleChanges): void {}
-
-  // We implement this method to keep a reference to the onChange
-  // callback function passed by the forms API
-  registerOnChange (fn: any) {
-    this.onChanged = fn
-  }
-
-  // We implement this method to keep a reference to the onTouched
-  // callback function passed by the forms API
+  /**
+   * Standard definition to create a control value accessor
+   */
   registerOnTouched (fn: any) {
     this.onTouched = fn
   }
 
+  /**
+   * Standard definition to create a control value accessor
+   */
+  registerOnChange (fn: any) {
+    this.onChanged = fn
+  }
+
+  /**
+   * When the input field changes value,
+   * it extracts the data of the selected file and starts the flow of the cva
+   * @param files
+   */
   onChangedHandler (files: NgxFileDropEntry[]) {
     files.forEach(f => {
       if (f.fileEntry.isFile) {
@@ -107,7 +191,11 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
     })
   }
 
-  // This is a basic setter that the forms API is going to use
+  /**
+   * When the CVA is initialized as control it initializes the internal states
+   * check if the value is a list or not and decide which state to initialize
+   * @param value
+   */
   writeValue (value: File | File []) {
     if (this.multiple) {
       this._values = value as File[]
@@ -116,23 +204,40 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
     }
   }
 
+  /**
+   * Standard definition to create a control value accessor
+   * When the input field from the form is disabled, the html input tag is defined as disabled
+   */
   setDisabledState (isDisabled: boolean): void {
     this.input.disabled = isDisabled
     this.renderer.setProperty(this.inputBtn.nativeElement, 'disabled', isDisabled)
   }
 
+  /**
+   * Delete the file, change the input status and start the cva flow
+   */
   deleteFile () {
     this._value = null
     this.onTouched()
     this.onChanged(this._value)
   }
 
+  /**
+   * Delete the file list, change the input status and start the cva flow
+   * @param index
+   */
   deleteFiles (index: number) {
     this._values = this._values.splice(index, 1)
     this.onTouched()
     this.onChanged(this._value)
   }
 
+  /**
+   * When the input field changes,
+   * the validation status is retrieved and the success message or error messages displayed.
+   * If there is an error with a specific required value it is passed to the translation pipe
+   * to allow for the creation of custom messages
+   */
   observeValidate () {
     this.control?.statusChanges
       .pipe(
@@ -141,12 +246,12 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
       .subscribe(() => {
         if (this.control.dirty) {
           if (this.control.valid && this.successMessage) {
-            this._successMessage = `${this.formName}.${this.control.name}.valid`
+            this._successMessage = `${this.formName}.${this.control?.name}.valid`
           } else if (this.control.invalid && this.errorMessage) {
             for (const error in this.control.errors) {
               if (this.control.errors.hasOwnProperty(error)) {
                 if (this.control.errors[error]) {
-                  this._errorMessage = `${this.formName}.${this.control.name}.${error}`
+                  this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
                   this._requiredValue = this.control.errors[error].requiredValue
                 }
               }
@@ -156,10 +261,18 @@ export class InputFileComponent implements OnInit, OnChanges, ControlValueAccess
       })
   }
 
+  /**
+   * When the file during a drag action and above the input field emits an event
+   * @param e
+   */
   fileOver (e: any) {
     this.onDragOver.emit(e)
   }
 
+  /**
+   * When the file is dropped into the input field during a drag action, it emits an event
+   * @param e
+   */
   fileLeave (e: any) {
     this.onDragLeave.emit(e)
   }

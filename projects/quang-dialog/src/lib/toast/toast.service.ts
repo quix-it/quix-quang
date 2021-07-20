@@ -13,6 +13,10 @@ export class QuixToastService {
   ) {
   }
 
+  /**
+   * opens the toast
+   * @param toast
+   */
   openToast(toast: QuixToast) {
     this.store.dispatch(openToast({toastData: toast}))
   }

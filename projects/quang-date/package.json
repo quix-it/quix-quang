@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-date",
-  "version": "11.0.0-beta.22",
+  "version": "11.0.0",
   "peerDependencies": {
     "moment": "^2.28.0",
     "moment-timezone": "^0.5.31"

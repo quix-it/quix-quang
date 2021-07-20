@@ -46,7 +46,7 @@ import { SentryDialogService } from './sentry/sentry-dialog.service'
   ]
 })
 export class QuangDialogModule {
-  static forRoot (config?: QuangDialogConfig): ModuleWithProviders {
+  static forRoot (config?: QuangDialogConfig): ModuleWithProviders<any> {
     return {
       ngModule: QuangDialogModule,
       providers: [

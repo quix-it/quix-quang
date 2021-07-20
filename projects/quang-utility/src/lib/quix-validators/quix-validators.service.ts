@@ -7,9 +7,10 @@ import * as moment from 'moment';
 })
 export class QuixValidatorsService {
 
-  constructor() {
-  }
-
+  /**
+   * Check if the file size is smaller than required
+   * @param maxSize
+   */
   fileMaxSize(maxSize: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value instanceof File && control.value?.size > maxSize) {
@@ -19,6 +20,10 @@ export class QuixValidatorsService {
     };
   }
 
+  /**
+   * Check if the file size is larger than required
+   * @param minSize
+   */
   fileMinSize(minSize: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value instanceof File && control.value?.size < minSize) {
@@ -28,7 +33,9 @@ export class QuixValidatorsService {
     };
   }
 
-
+  /**
+   * Check if the passed object is a file
+   */
   isFile(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value instanceof File) {
@@ -38,6 +45,10 @@ export class QuixValidatorsService {
     }
   }
 
+  /**
+   * Check if the file passed is of the type contained in the list of accepted ones
+   * @param fileTypes
+   */
   fileType(fileTypes: string[]) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (!fileTypes.includes(control.value?.type)) {
@@ -47,6 +58,10 @@ export class QuixValidatorsService {
     };
   }
 
+  /**
+   * Check if the passed file has extension contained in the list of accepted ones
+   * @param fileExtensions
+   */
   fileExtensions(fileExtensions: string[]) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (!fileExtensions.includes(control.value?.name?.match(/(?:\.([^.]+))?$/g)[0])) {
@@ -56,6 +71,9 @@ export class QuixValidatorsService {
     };
   }
 
+  /**
+   * valid if a checkbox is mandatory
+   */
   requiredCheckbox() {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (!control.value) {
@@ -65,6 +83,10 @@ export class QuixValidatorsService {
     };
   }
 
+  /**
+   * Check if the past date is more than the necessary one
+   * @param minDate
+   */
   minDate(minDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (moment(control.value).isBefore(moment(minDate))) {
@@ -74,6 +96,10 @@ export class QuixValidatorsService {
     }
   }
 
+  /**
+   * Check if the past date is earlier than needed
+   * @param maxDate
+   */
   maxDate(maxDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (moment(control.value).isAfter(moment(maxDate))) {
@@ -83,6 +109,11 @@ export class QuixValidatorsService {
     }
   }
 
+  /**
+   * Check if the past date is between the past two
+   * @param startDate
+   * @param endDate
+   */
   dateBetween(startDate: Date, endDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (!moment(control.value).isBetween(moment(startDate), moment(endDate))) {

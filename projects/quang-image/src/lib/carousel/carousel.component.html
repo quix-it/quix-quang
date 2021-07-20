@@ -7,9 +7,8 @@
     [noWrap]="noLoop"
     [interval]="interval"
     [showIndicators]="showIndicators"
-    (activeSlideChange)="onSlideEvent($event)"
-  >
-    <slide *ngFor="let slide of slideList; let i = index"
+    (activeSlideChange)="onSlideEvent($event)">
+    <slide *ngFor="let slide of slides; let i = index"
            [style.height]="height">
       <quix-picture
         [id]="'slide' + i"

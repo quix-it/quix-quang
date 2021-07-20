@@ -17,7 +17,7 @@
           (blur)="onTouched()"
           [class.form-control-lg]="size === 'lg'"
           [class.form-control-sm]="size === 'sm'"
-          [tabIndex]="tabindex"
+          [tabIndex]="tabIndex"
           #input
   >
     <option [ngValue]="null"
@@ -27,7 +27,7 @@
             [selected]="_value?.includes(item[returnValue])"
             #options
     >
-      {{item[labelValue]}}
+      {{translateValue ? (item[labelValue] | transloco) : item[labelValue] }}
     </option>
   </select>
   <div class="valid-feedback">

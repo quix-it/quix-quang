@@ -21,31 +21,79 @@ import {QuangConfig} from "../quang-config.model";
   styleUrls: ['./input-fraction.component.scss']
 })
 export class InputFractionComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {
-  @Input() id: string;
-  @Input() label: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
+    /**
+   * The label to display on the input field
+   */
+  @Input() label: string = '';
   @Input() stepInteger: number;
   @Input() stepFraction: number;
-  @Input() ariaLabel: string;
-  @Input() helpMessage: boolean;
-  @Input() successMessage: boolean;
-  @Input() errorMessage: boolean;
-  @Input() autofocus: boolean;
-  @Input() readonly: boolean;
-  @Input() tabIndex: number;
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
+    /**
+   * Defines if you want to display the help message for the user
+   */
+  @Input() helpMessage: boolean = false;
+    /**
+   * Defines if you want to display the success message for the user
+   */
+  @Input() successMessage: boolean = false;
+    /**
+   * Defines if you want to display the error message for the user
+   */
+  @Input() errorMessage: boolean = false;
+    /**
+   * Indicates whether, when the page is opened,
+   * this input field should be displayed in a focused state or not
+   */
+  @Input() autofocus: boolean = false;
+    /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false;
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0;
   @Input() min: number;
   @Input() max: number;
   @Input() addButtonClass: string[];
   @Input() removeButtonClass: string[];
   @Input() addButtonIcon: string[];
   @Input() removeButtonIcon: string[];
-  @Input() formName: string;
+    /**
+   * The name of the form, this input is used to create keys for error, validation or help messages.
+   * It will be the first key element generated
+   */
+  @Input() formName: string = '';
   @Input('value')
+  /**
+   * The value of the input
+   */
   _value: number;
   _config: QuangConfig;
-  _successMessage: string;
-  _errorMessage: string;
-  _helpMessage: string;
-  _requiredValue: any;
+    /**
+   * the status of the success message
+   */
+  _successMessage: string = '';
+    /**
+   * the status of the error message
+   */
+  _errorMessage: string = '';
+    /**
+   * the status of the help message
+   */
+  _helpMessage: string = '';
+    /**
+   * Contains the value required by a validation when it fails
+   */
+  _requiredValue: any = '';
   _classArray: string[] = [];
   disabled: boolean;
 

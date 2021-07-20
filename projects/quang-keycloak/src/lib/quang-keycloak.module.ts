@@ -32,7 +32,7 @@ import { QuangKeycloakConfig } from './quang-keycloak.config'
   ]
 })
 export class QuangKeycloakModule {
-  static forRoot (config?: QuangKeycloakConfig): ModuleWithProviders {
+  static forRoot (config?: QuangKeycloakConfig): ModuleWithProviders<any> {
     return {
       ngModule: QuangKeycloakModule,
       providers: [

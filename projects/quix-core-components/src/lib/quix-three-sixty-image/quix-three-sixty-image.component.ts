@@ -16,7 +16,10 @@ import {debounceTime, delay, tap} from "rxjs/operators";
   styleUrls: ['./quix-three-sixty-image.component.scss']
 })
 export class QuixThreeSixtyImageComponent implements OnInit, OnChanges {
-  @Input() id: string
+    /**
+   * Html id of input
+   */
+  @Input() id: string = ''
   @Input() height: string
   @Input() customClass: string[]
   @Input() imageList: string[] = []

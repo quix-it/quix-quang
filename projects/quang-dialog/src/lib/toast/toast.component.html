@@ -19,6 +19,6 @@
     </button>
   </div>
   <div class="toast-body">
-    {{data?.text | transloco}}
+    {{data?.text | transloco:{ textValue: data?.textValue } }}
   </div>
 </div>

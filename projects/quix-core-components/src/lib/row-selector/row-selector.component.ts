@@ -7,7 +7,10 @@ import {RowSelectorModel} from './row-selector.model';
   styleUrls: ['./row-selector.component.scss']
 })
 export class RowSelectorComponent implements OnInit {
-  @Input() id: string;
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
   @Input() list: Array<RowSelectorModel>;
   @Input() showingLabel: string;
   @Input() ofLabel: string;

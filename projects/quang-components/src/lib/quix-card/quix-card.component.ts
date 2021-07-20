@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 @Component({
   selector: 'quix-card',
   templateUrl: './quix-card.component.html',
-  styles: ['']
+  styles: [''],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuixCardComponent implements OnInit {
-
-  constructor () { }
-
-  ngOnInit (): void {
-  }
-
-}
+export class QuixCardComponent {}

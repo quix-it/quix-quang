@@ -21,20 +21,56 @@ import {ContentChange, QuillEditorComponent} from "ngx-quill";
   styleUrls: ['./text-editor.component.scss']
 })
 export class TextEditorComponent implements ControlValueAccessor, AfterViewInit, OnInit {
-  @Input() label: string;
-  @Input() placeholder = '';
-  @Input() id: string;
-  @Input() successMessage: boolean;
-  @Input() errorMessage: boolean;
-  @Input() helpMessage: boolean;
-  @Input() autofocus: boolean;
-  @Input() readonly: boolean;
-  @Input() tabIndex: number;
+    /**
+   * The label to display on the input field
+   */
+  @Input() label: string = '';
+    /**
+   * The placeholder of the input field
+   */
+  @Input() placeholder: string = '';
+    /**
+   * Html id of input
+   */
+  @Input() id: string = '';
+    /**
+   * Defines if you want to display the success message for the user
+   */
+  @Input() successMessage: boolean = false;
+    /**
+   * Defines if you want to display the error message for the user
+   */
+  @Input() errorMessage: boolean = false;
+    /**
+   * Defines if you want to display the help message for the user
+   */
+  @Input() helpMessage: boolean = false;
+    /**
+   * Indicates whether, when the page is opened,
+   * this input field should be displayed in a focused state or not
+   */
+  @Input() autofocus: boolean = false;
+    /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false;
+    /**
+   * Indicate the position in the page navigation flow with the tab key
+   */
+  @Input() tabIndex: number = 0;
   @Input() max: number;
   @Input() min: number;
-  @Input() ariaLabel: string;
+    /**
+   * Determine the arialabel tag for accessibility,
+   * If not specified, it takes 'input' concatenated to the label by default
+   */
+  @Input() ariaLabel: string = `Input ${this.label}`;
   @Input() toolbar: any;
-  @Input() formName: string;
+    /**
+   * The name of the form, this input is used to create keys for error, validation or help messages.
+   * It will be the first key element generated
+   */
+  @Input() formName: string = '';
   @Input() returnHtml: boolean;
   @Input() listBar: boolean;
   @Input() textTypeBar: boolean;
@@ -47,20 +83,47 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   @Input() emojiBar: boolean;
   @Input() indentBar: boolean;
   @Input() preserveWhitespace: boolean;
+    /**
+   * Array of additional classes to the input field
+   */
   @Input() customClass: string[] = [];
 
+    /**
+   * The html input element
+   */
   @ViewChild('input', {static: true}) input: QuillEditorComponent;
   @Input('value')
+  /**
+   * The value of the input
+   */
   _value: string;
-  _successMessage: string;
-  _errorMessage: string;
-  _helpMessage: string;
-  _requiredValue: any;
+    /**
+   * the status of the success message
+   */
+  _successMessage: string = '';
+    /**
+   * the status of the error message
+   */
+  _errorMessage: string = '';
+    /**
+   * the status of the help message
+   */
+  _helpMessage: string = '';
+    /**
+   * Contains the value required by a validation when it fails
+   */
+  _requiredValue: any = '';
   _toolbar: any = {toolbar: []}
   modules: { [key: string]: string };
 
+  /**
+   * Standard definition to create a control value accessor
+   */
   onTouched: any = () => {
   }
+/**
+   * Standard definition to create a control value accessor
+   */
   onChanged: any = () => {
   }
 
@@ -73,7 +136,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
 
   ngOnInit() {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control.name}.help`;
+      this._helpMessage = `${this.formName}.${this.control?.name}.help`;
     }
     if (this.listBar) {
       this._toolbar.toolbar.push([{list: 'ordered'}, {list: 'bullet'}])
@@ -160,12 +223,12 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
       .subscribe(() => {
         if (this.control.dirty) {
           if (this.control.valid && this.successMessage) {
-            this._successMessage = `${this.formName}.${this.control.name}.valid`;
+            this._successMessage = `${this.formName}.${this.control?.name}.valid`;
           } else if (this.control.invalid && this.errorMessage) {
             for (const error in this.control.errors) {
               if (this.control.errors.hasOwnProperty(error)) {
                 if (this.control.errors[error]) {
-                  this._errorMessage = `${this.formName}.${this.control.name}.${error}`;
+                  this._errorMessage = `${this.formName}.${this.control?.name}.${error}`;
                   this._requiredValue = this.control.errors[error].requiredValue;
                 }
               }
