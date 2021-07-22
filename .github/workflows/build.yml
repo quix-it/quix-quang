@@ -65,16 +65,15 @@ jobs:
     steps:
 
       - name: Clean up workspace
-        uses: docker://alpine:latest
-        with:
-          entrypoint: /bin/sh
-          args: -c "rm -rf ..?* .[!.]* *"
+        run: |
+          rm -rf ..?* .[!.]* *
 
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Build documentation
         run: |
+          npm ci
           npx compodoc -p tsconfig.json projects
           
       - name: Save artifacts - documentation
@@ -87,10 +86,8 @@ jobs:
           RUN_SCRIPT_ON: target
 
       - name: Clean up workspace
-        uses: docker://alpine:latest
-        with:
-          entrypoint: /bin/sh
-          args: -c "rm -rf ..?* .[!.]* *"
+        run: |
+          rm -rf ..?* .[!.]* *
 
       - name: Slack Notification
         if: always()
