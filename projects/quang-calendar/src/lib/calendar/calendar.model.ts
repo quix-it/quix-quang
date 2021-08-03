@@ -1,9 +1,12 @@
+/**
+ * calendar event
+ */
 export class QuixCalendarEvent {
   /**
-   * calendar event
-   * @param title
-   * @param date
-   * @param allDay
+   * calendar event constructor
+   * @param title define event title
+   * @param date define event date
+   * @param allDay define event allday
    */
   constructor(
     /**

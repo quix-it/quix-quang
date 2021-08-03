@@ -29,7 +29,7 @@ export class QuixGoogleMapService {
     } else if (this._window().quixConfig.googleKey) {
       this.key = this._window().quixConfig.googleKey
     } else {
-      alert('[QUANG CONFIG] You need a googleKey for the map')
+      alert('[QUANG MAP CONFIG] You need a googleKey for the map')
     }
   }
 

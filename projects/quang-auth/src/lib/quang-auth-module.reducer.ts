@@ -16,6 +16,9 @@ export interface QuangAuthState {
  * connection interface with the key for connection to the general state of the application
  */
 export interface QuangAuthModuleState {
+  /**
+   * link key to state definition
+   */
   [QUANGAUTH_KEY]: QuangAuthState
 }
 

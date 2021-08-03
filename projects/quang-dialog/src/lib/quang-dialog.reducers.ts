@@ -26,6 +26,9 @@ export interface QuangDialogState {
  * connection interface with the key for connection to the general state of the application
  */
 export interface QuangDialogStateModule {
+  /**
+   * link key to state definition
+   */
   [QUANGDIALOG_KEY]: QuangDialogState;
 }
 

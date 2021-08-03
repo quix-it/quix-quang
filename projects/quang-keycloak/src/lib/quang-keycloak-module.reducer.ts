@@ -16,6 +16,9 @@ export interface QuangKeycloakState {
  * connection interface with the key for connection to the general state of the application
  */
 export interface QuangkeycloakModuleState {
+  /**
+   * link key to state definition
+   */
   [QUANGKEYCLOAK_KEY]: QuangKeycloakState
 }
 
