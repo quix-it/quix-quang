@@ -4,6 +4,9 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for web storage management
+ */
 export class QuixStorageService {
   constructor (
     private sessionStorage: SessionStorageService,

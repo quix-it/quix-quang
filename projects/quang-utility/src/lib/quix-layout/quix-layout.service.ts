@@ -4,6 +4,9 @@ import { BreakpointObserver } from '@angular/cdk/layout'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for layout
+ */
 export class QuixLayoutService {
 
   constructor (

@@ -6,4 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * bootstrap card wrapper with action and header
+ */
 export class QuixCardActionHeaderComponent {}

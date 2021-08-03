@@ -6,6 +6,9 @@ import {openToast} from "./toast-store/toast.action";
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for toast management
+ */
 export class QuixToastService {
 
   constructor(

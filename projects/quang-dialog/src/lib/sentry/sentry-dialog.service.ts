@@ -4,6 +4,9 @@ import * as Sentry from '@sentry/angular'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for sentry error handler wrapper
+ */
 export class SentryDialogService implements ErrorHandler {
   /**
    * Custom error handler for sentry

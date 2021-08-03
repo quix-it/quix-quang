@@ -10,6 +10,9 @@ import { TranslocoService } from '@ngneat/transloco'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for offline management
+ */
 export class QuixOfflineService {
   /**
    * message that notifies the user of the lack of connection
@@ -17,9 +20,9 @@ export class QuixOfflineService {
   offlineLabel: string
 
   constructor (
-    private quixSnackbar: QuixSnackbarService,
-    private translate: TranslocoService,
-    private store: Store<any>
+    private readonly quixSnackbar: QuixSnackbarService,
+    private readonly translate: TranslocoService,
+    private readonly store: Store<any>
   ) {
   }
 

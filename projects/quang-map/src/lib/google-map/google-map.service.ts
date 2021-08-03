@@ -5,8 +5,13 @@ import { QuangMapConfig } from '../quang-map.config'
   providedIn: 'root',
 })
 export class QuixGoogleMapService {
-
+  /**
+   * google map key
+   */
   public key: string
+  /**
+   * window access
+   */
   _window = (): any => window
 
   constructor (

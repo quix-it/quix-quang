@@ -6,4 +6,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * bootstrap card wrapper with only body
+ */
 export class QuixCardSimpleComponent {}

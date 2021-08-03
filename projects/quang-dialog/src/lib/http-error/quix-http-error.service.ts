@@ -6,6 +6,9 @@ import { HttpErrorResponse } from '@angular/common/http'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for http error management
+ */
 export class QuixHttpErrorService {
   /**
    * modal container
@@ -17,7 +20,7 @@ export class QuixHttpErrorService {
   isOpen: boolean = false
 
   constructor (
-    private quixModalService: QuixModalService
+    private readonly quixModalService: QuixModalService
   ) {
   }
 

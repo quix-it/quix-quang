@@ -6,8 +6,13 @@ import { take } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for modal management
+ */
 export class QuixModalService {
-
+  /**
+   * modal configuration
+   */
   config = {
     keyboard: null,
     ignoreBackdropClick: null,
@@ -15,10 +20,13 @@ export class QuixModalService {
     initialState: null,
     animated: true
   }
+  /**
+   * modal wrapper
+   */
   modalRef: BsModalRef
 
   constructor (
-    private modalService: BsModalService
+    private readonly modalService: BsModalService
   ) {
   }
 
