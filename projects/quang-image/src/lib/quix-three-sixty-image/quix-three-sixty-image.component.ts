@@ -62,6 +62,10 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
   imageUrl: SafeStyle = ''
   play: boolean = true
 
+  /**
+   * constructor
+   * @param sanitizer
+   */
   constructor (
     private readonly sanitizer: DomSanitizer,
   ) {

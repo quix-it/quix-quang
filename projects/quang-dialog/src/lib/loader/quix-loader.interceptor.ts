@@ -15,6 +15,9 @@ import { QuangDialogConfig } from '../quang-dialog.config'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * loader interceptor
+ */
 export class QuixLoaderInterceptor implements HttpInterceptor {
   /**
    * no loader url list
@@ -29,6 +32,11 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
    */
   _window = (): any => window
 
+  /**
+   * constructor
+   * @param store
+   * @param config
+   */
   constructor (
     private readonly store : Store<any>,
     @Optional() config?: QuangDialogConfig

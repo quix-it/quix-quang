@@ -25,6 +25,10 @@ export class QuixModalService {
    */
   modalRef: BsModalRef
 
+  /**
+   * constructor
+   * @param modalService
+   */
   constructor (
     private readonly modalService: BsModalService
   ) {

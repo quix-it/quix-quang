@@ -175,6 +175,13 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   onChanged: any = () => {
   }
 
+  /**
+   * constructor
+   * @param locale
+   * @param control
+   * @param renderer
+   * @param localeService
+   */
   constructor (
     @Inject(LOCALE_ID) public locale: string,
     @Self() @Optional() public control: NgControl,

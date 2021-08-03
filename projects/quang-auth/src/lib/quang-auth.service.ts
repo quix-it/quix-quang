@@ -30,6 +30,12 @@ export class QuangAuthService {
   public authConfig: any
   private _window = (): any => window
 
+  /**
+   * constructor
+   * @param config
+   * @param oauthService
+   * @param store
+   */
   constructor (
     @Optional() config: QuangAuthConfig,
     private readonly oauthService: OAuthService,

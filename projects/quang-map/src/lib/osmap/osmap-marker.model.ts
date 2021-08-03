@@ -1,4 +1,15 @@
+/**
+ * pen street map marker
+ */
 export class OsmapMarker {
+  /**
+   * open street map constructor
+   * @param long
+   * @param lat
+   * @param size
+   * @param src
+   * @param data
+   */
   constructor (
     /**
      * longitude

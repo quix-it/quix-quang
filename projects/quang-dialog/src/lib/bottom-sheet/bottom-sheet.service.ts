@@ -8,7 +8,10 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet'
  * utility for bottom sheet management
  */
 export class QuixBottomSheetService {
-
+  /**
+   * constructor
+   * @param bottomSheet
+   */
   constructor (
     private readonly bottomSheet: MatBottomSheet
   ) {

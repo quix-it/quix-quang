@@ -15,6 +15,11 @@ export class QuixAuthImageDirective implements OnChanges {
    */
   @Input() src: string
 
+  /**
+   * constructor
+   * @param el
+   * @param http
+   */
   constructor (
     private readonly el: ElementRef,
     private readonly http: HttpClient) {

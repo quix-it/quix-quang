@@ -79,6 +79,10 @@ export class PaginatorComponent implements OnChanges {
    */
   _pageSize: number
 
+  /**
+   * constructor
+   * @param renderer
+   */
   constructor (
     private readonly renderer: Renderer2,
   ) {}

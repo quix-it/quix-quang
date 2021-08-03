@@ -131,6 +131,11 @@ export class InputUrlComponent implements OnInit {
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
 
+  /**
+   * constructor
+   * @param renderer
+   * @param control
+   */
   constructor (
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl

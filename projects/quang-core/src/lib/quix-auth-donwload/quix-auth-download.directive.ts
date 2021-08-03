@@ -28,6 +28,10 @@ export class QuixAuthDownloadDirective {
     this.downloadFile()
   }
 
+  /**
+   * constructor
+   * @param http
+   */
   constructor (
     private readonly http: HttpClient,
   ) {

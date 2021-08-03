@@ -66,6 +66,12 @@ export class QuangAuthEffect {
     ), { dispatch: false }
   )
 
+  /**
+   * constructor
+   * @param actions$
+   * @param quangAuthService
+   * @param store
+   */
   constructor (
     private readonly actions$: Actions,
     private readonly quangAuthService: QuangAuthService,

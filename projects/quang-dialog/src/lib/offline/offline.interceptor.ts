@@ -11,8 +11,14 @@ import { selectLine } from './offline-store/offline.selector'
 import { delayWhen, map, retryWhen, switchMap } from 'rxjs/operators'
 
 @Injectable()
+/**
+ * offline interceptor
+ */
 export class OfflineInterceptor implements HttpInterceptor {
-
+  /**
+   * constructor
+   * @param store
+   */
   constructor (
     private readonly store : Store<any>
   ) {

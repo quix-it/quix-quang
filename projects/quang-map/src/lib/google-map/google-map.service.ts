@@ -17,6 +17,10 @@ export class QuixGoogleMapService {
    */
   _window = (): any => window
 
+  /**
+   * constructor
+   * @param config
+   */
   constructor (
     @Optional() config: QuangMapConfig
   ) {

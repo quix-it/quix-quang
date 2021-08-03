@@ -12,6 +12,9 @@ import {
 } from './quang-keycloak.action'
 
 @Injectable({ providedIn: 'root' })
+/**
+ * auth effect
+ */
 export class QuangKeycloakEffect {
   /**
    * When the store is started,
@@ -66,6 +69,11 @@ export class QuangKeycloakEffect {
     )
   )
 
+  /**
+   * constructor
+   * @param actions$
+   * @param quangKeycloakService
+   */
   constructor (
     private readonly actions$: Actions,
     private readonly quangKeycloakService: QuangKeycloakService

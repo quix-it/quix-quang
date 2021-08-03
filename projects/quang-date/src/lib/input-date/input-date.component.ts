@@ -175,6 +175,13 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   onChanged: any = () => {
   }
 
+  /**
+   * constructor
+   * @param renderer
+   * @param localeService
+   * @param locale
+   * @param control
+   */
   constructor (
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,

@@ -13,6 +13,10 @@ export class QuixSnackbarService {
    */
   snackBar: any
 
+  /**
+   * constructor
+   * @param snackBarService
+   */
   constructor (
     private readonly snackBarService: MatSnackBar
   ) {

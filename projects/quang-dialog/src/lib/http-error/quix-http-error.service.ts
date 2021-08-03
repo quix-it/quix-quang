@@ -19,6 +19,10 @@ export class QuixHttpErrorService {
    */
   isOpen: boolean = false
 
+  /**
+   * constructor
+   * @param quixModalService
+   */
   constructor (
     private readonly quixModalService: QuixModalService
   ) {

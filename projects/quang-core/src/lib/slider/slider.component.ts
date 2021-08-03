@@ -111,6 +111,10 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
   onChanged: any = () => {
   }
 
+  /**
+   * constructor
+   * @param control
+   */
   constructor (
     @Self() @Optional() public control: NgControl,
   ) {

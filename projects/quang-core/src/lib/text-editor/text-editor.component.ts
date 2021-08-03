@@ -170,6 +170,12 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   onChanged: any = () => {
   }
 
+  /**
+   * constructor
+   * @param renderer
+   * @param elementRef
+   * @param control
+   */
   constructor (
     private readonly renderer: Renderer2,
     private readonly elementRef: ElementRef,

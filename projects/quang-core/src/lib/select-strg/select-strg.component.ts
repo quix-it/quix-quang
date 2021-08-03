@@ -119,6 +119,11 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   onChanged: any = () => {
   }
 
+  /**
+   * constructor
+   * @param renderer
+   * @param control
+   */
   constructor (
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl,

@@ -19,6 +19,12 @@ export class QuixOfflineService {
    */
   offlineLabel: string
 
+  /**
+   * constructor
+   * @param quixSnackbar
+   * @param translate
+   * @param store
+   */
   constructor (
     private readonly quixSnackbar: QuixSnackbarService,
     private readonly translate: TranslocoService,

@@ -6,6 +6,9 @@ import { QuixHttpErrorService } from './quix-http-error.service'
 import { QuangDialogConfig } from '../quang-dialog.config'
 
 @Injectable()
+/**
+ * http erro interceptor
+ */
 export class QuixHttpErrorInterceptor implements HttpInterceptor {
   /**
    * no loader interceptor for this url or error
@@ -16,6 +19,11 @@ export class QuixHttpErrorInterceptor implements HttpInterceptor {
    */
   _window = (): any => window
 
+  /**
+   * constructor
+   * @param quixHttpErrorService
+   * @param config
+   */
   constructor (
     private readonly quixHttpErrorService: QuixHttpErrorService,
     @Optional() config?: QuangDialogConfig

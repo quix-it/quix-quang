@@ -161,6 +161,12 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   onChanged: any = () => {
   }
 
+  /**
+   * constructor
+   * @param renderer
+   * @param autocompleteService
+   * @param control
+   */
   constructor (
     private readonly renderer: Renderer2,
     private readonly autocompleteService: QuixAutocompleteAsyncService,

@@ -8,7 +8,10 @@ import { BreakpointObserver } from '@angular/cdk/layout'
  * utility for layout
  */
 export class QuixLayoutService {
-
+  /**
+   * constructor
+   * @param breakpointObserver
+   */
   constructor (
     private readonly breakpointObserver: BreakpointObserver
   ) {

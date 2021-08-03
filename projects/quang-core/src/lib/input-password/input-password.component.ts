@@ -145,6 +145,11 @@ export class InputPasswordComponent implements ControlValueAccessor, OnInit, OnC
    */
   onChanged: any = () => {}
 
+  /**
+   * constructor
+   * @param renderer
+   * @param control
+   */
   constructor (
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl,

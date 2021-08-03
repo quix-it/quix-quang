@@ -39,6 +39,11 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
   private subscription: Subscription = new Subscription()
   @ViewChild('toastDom', { static: false }) toastDom: ElementRef
 
+  /**
+   * constructor
+   * @param renderer
+   * @param store
+   */
   constructor (
     private readonly renderer: Renderer2,
     private readonly store : Store<any>

@@ -210,6 +210,13 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   onChanged: any = () => {
   }
 
+  /**
+   * constructor
+   * @param renderer
+   * @param localeService
+   * @param control
+   * @param locale
+   */
   constructor (
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,

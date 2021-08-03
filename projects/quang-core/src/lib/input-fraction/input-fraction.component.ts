@@ -141,6 +141,11 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   @ViewChild('inputInteger', { static: true }) inputInteger: ElementRef<HTMLInputElement>
   @ViewChild('inputFraction', { static: true }) inputFraction: ElementRef<HTMLInputElement>
 
+  /**
+   * constructor
+   * @param renderer
+   * @param control
+   */
   constructor (
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl,

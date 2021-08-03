@@ -27,6 +27,12 @@ export class QuangKeycloakService {
    */
   _window = (): any => window
 
+  /**
+   * constructor
+   * @param config
+   * @param keyCloak
+   * @param store
+   */
   constructor (
     @Optional() config: QuangKeycloakConfig,
     private readonly keyCloak: KeycloakService,

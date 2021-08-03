@@ -5,7 +5,14 @@ import { TranslocoService } from '@ngneat/transloco'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * paginator language management
+ */
 export class PaginatorLanguage extends MatPaginatorIntl {
+  /**
+   * constructor
+   * @param translate
+   */
   constructor (
     private readonly translate: TranslocoService
   ) {

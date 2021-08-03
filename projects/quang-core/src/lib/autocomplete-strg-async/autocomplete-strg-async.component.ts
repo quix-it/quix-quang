@@ -150,6 +150,12 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   onChanged: any = () => {
   }
 
+  /**
+   * constructor
+   * @param renderer
+   * @param autocompleteService
+   * @param control
+   */
   constructor (
     private readonly renderer: Renderer2,
     private readonly autocompleteService: QuixAutocompleteAsyncService,

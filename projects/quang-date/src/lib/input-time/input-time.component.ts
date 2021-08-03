@@ -148,6 +148,13 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
   onChanged: any = () => {
   }
 
+  /**
+   * constructor
+   * @param renderer
+   * @param localeService
+   * @param locale
+   * @param control
+   */
   constructor (
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
