@@ -12,7 +12,7 @@ import {openToast} from "./toast-store/toast.action";
 export class QuixToastService {
 
   constructor(
-    private store: Store<any>
+    private readonly store: Store<any>
   ) {
   }
 

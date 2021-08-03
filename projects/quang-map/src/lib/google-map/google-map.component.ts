@@ -86,7 +86,7 @@ export class GoogleMapComponent implements OnChanges {
   _markers: any[] = []
 
   constructor (
-    private googleMapService: QuixGoogleMapService) {
+    private readonly googleMapService: QuixGoogleMapService) {
     this.renderMap()
   }
 

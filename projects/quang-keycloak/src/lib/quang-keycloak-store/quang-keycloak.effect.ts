@@ -67,8 +67,8 @@ export class QuangKeycloakEffect {
   )
 
   constructor (
-    private actions$: Actions,
-    private quangKeycloakService: QuangKeycloakService
+    private readonly actions$: Actions,
+    private readonly quangKeycloakService: QuangKeycloakService
   ) {
   }
 }

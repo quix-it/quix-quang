@@ -4,11 +4,17 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for snackbar management
+ */
 export class QuixSnackbarService {
+  /**
+   * snackbar wrapper
+   */
   snackBar: any
 
   constructor (
-    private snackBarService: MatSnackBar
+    private readonly snackBarService: MatSnackBar
   ) {
   }
 

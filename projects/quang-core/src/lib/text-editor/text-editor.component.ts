@@ -167,8 +167,9 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   onChanged: any = () => {
   }
 
-  constructor (private renderer: Renderer2,
-    private elementRef: ElementRef,
+  constructor (
+    private readonly renderer: Renderer2,
+    private readonly elementRef: ElementRef,
     @Self() @Optional() public control: NgControl,
   ) {
     this.control && (this.control.valueAccessor = this)

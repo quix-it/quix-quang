@@ -15,9 +15,9 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
   private destroy$ = new Subject()
 
   constructor (
-    private authStore: Store<any>,
-    private view: ViewContainerRef,
-    private template: TemplateRef<any>
+    private readonly authStore: Store<any>,
+    private readonly view: ViewContainerRef,
+    private readonly template: TemplateRef<any>
   ) {
   }
 

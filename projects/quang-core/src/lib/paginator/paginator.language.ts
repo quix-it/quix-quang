@@ -7,7 +7,7 @@ import { TranslocoService } from '@ngneat/transloco'
 })
 export class PaginatorLanguage extends MatPaginatorIntl {
   constructor (
-    private translate: TranslocoService
+    private readonly translate: TranslocoService
   ) {
     super()
     this.translate.langChanges$.subscribe(() => {

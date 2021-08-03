@@ -14,7 +14,7 @@ import { delayWhen, map, retryWhen, switchMap } from 'rxjs/operators'
 export class OfflineInterceptor implements HttpInterceptor {
 
   constructor (
-    private store: Store<any>
+    private readonly store : Store<any>
   ) {
   }
 

@@ -26,8 +26,7 @@ export class QuixAuthDownloadDirective {
   }
 
   constructor (
-    private http: HttpClient,
-    private el: ElementRef
+    private readonly http: HttpClient,
   ) {
   }
 

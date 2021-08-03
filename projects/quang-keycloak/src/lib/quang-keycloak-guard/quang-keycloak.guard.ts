@@ -13,8 +13,8 @@ import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-ke
 export class QuangKeycloakGuard implements CanActivate {
 
   constructor (
-    private authStore: Store<any>,
-    private router: Router
+    private readonly authStore: Store<any>,
+    private readonly router: Router
   ) {
   }
 

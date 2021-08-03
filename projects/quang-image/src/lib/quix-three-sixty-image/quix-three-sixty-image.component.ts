@@ -60,7 +60,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
   play: boolean = true
 
   constructor (
-    private sanitizer: DomSanitizer,
+    private readonly sanitizer: DomSanitizer,
   ) {
   }
 

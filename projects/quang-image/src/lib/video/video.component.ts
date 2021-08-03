@@ -70,7 +70,7 @@ export class VideoComponent implements OnChanges {
   _currentTime: number = 0
 
   constructor (
-    private sanitizer: DomSanitizer
+    private readonly sanitizer: DomSanitizer
   ) {
   }
 

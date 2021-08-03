@@ -208,8 +208,8 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   }
 
   constructor (
-    private renderer: Renderer2,
-    private localeService: BsLocaleService,
+    private readonly renderer: Renderer2,
+    private readonly localeService: BsLocaleService,
     @Self() @Optional() public control: NgControl,
     @Inject(LOCALE_ID) public locale: string,
   ) {

@@ -67,9 +67,9 @@ export class QuangAuthEffect {
   )
 
   constructor (
-    private actions$: Actions,
-    private quangAuthService: QuangAuthService,
-    private store: Store<any>
+    private readonly actions$: Actions,
+    private readonly quangAuthService: QuangAuthService,
+    private readonly store : Store<any>
   ) {
   }
 

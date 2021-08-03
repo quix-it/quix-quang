@@ -130,7 +130,8 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, After
    */
   onChanged: any = () => {}
 
-  constructor (private renderer: Renderer2,
+  constructor (
+    private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl,
   ) {
     this.control && (this.control.valueAccessor = this)

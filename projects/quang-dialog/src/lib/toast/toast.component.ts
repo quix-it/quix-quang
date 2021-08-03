@@ -37,8 +37,8 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
   @ViewChild('toastDom', { static: false }) toastDom: ElementRef
 
   constructor (
-    private renderer: Renderer2,
-    private store: Store<any>
+    private readonly renderer: Renderer2,
+    private readonly store : Store<any>
   ) {
   }
 

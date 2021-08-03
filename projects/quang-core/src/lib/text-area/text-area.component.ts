@@ -135,8 +135,8 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   @ViewChild('autosize') autosize: CdkTextareaAutosize
 
   constructor (
-    private renderer: Renderer2,
-    private ngZone: NgZone,
+    private readonly renderer: Renderer2,
+    private readonly ngZone: NgZone,
     @Self() @Optional() public control: NgControl,
   ) {
     this.control && (this.control.valueAccessor = this)

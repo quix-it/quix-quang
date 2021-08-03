@@ -101,7 +101,8 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
   onChanged: any = () => {
   }
 
-  constructor (private renderer: Renderer2,
+  constructor (
+    private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
     this.control && (this.control.valueAccessor = this)

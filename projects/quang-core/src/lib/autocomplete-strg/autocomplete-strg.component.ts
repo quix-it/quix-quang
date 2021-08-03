@@ -129,7 +129,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   }
 
   constructor (
-    private renderer: Renderer2,
+    private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl,
   ) {
     this.control && (this.control.valueAccessor = this)

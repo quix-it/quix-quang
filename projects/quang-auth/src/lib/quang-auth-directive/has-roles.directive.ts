@@ -19,9 +19,9 @@ export class HasRolesDirective implements OnInit, OnDestroy {
   private destroy$ = new Subject()
 
   constructor (
-    private view: ViewContainerRef,
-    private template: TemplateRef<any>,
-    private authStore: Store<any>
+    private readonly view: ViewContainerRef,
+    private readonly template: TemplateRef<any>,
+    private readonly authStore: Store<any>
   ) {
   }
 

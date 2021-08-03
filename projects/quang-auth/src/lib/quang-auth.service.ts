@@ -32,8 +32,8 @@ export class QuangAuthService {
 
   constructor (
     @Optional() config: QuangAuthConfig,
-    private oauthService: OAuthService,
-    private store: Store<any>,
+    private readonly oauthService: OAuthService,
+    private readonly store : Store<any>,
   ) {
     if (config) {
       this.config = config

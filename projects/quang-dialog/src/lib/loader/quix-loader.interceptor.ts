@@ -30,7 +30,7 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
   _window = (): any => window
 
   constructor (
-    private store: Store<any>,
+    private readonly store : Store<any>,
     @Optional() config?: QuangDialogConfig
   ) {
     if (config.noLoaderUrls?.length) {

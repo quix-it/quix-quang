@@ -173,8 +173,8 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   }
 
   constructor (
-    private renderer: Renderer2,
-    private localeService: BsLocaleService,
+    private readonly renderer: Renderer2,
+    private readonly localeService: BsLocaleService,
     @Inject(LOCALE_ID) public locale: string,
     @Self() @Optional() public control: NgControl,
   ) {

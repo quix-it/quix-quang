@@ -32,7 +32,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
   configModule: QuangDialogConfig = null
 
   constructor (
-    private store: Store<any>,
+    private readonly store : Store<any>,
     @Optional() config?: QuangDialogConfig
   ) {
     this.configModule = config

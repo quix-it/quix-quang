@@ -17,7 +17,7 @@ export class QuixHttpErrorInterceptor implements HttpInterceptor {
   _window = (): any => window
 
   constructor (
-    private quixHttpErrorService: QuixHttpErrorService,
+    private readonly quixHttpErrorService: QuixHttpErrorService,
     @Optional() config?: QuangDialogConfig
   ) {
     if (config.noErrorUrls?.length) {

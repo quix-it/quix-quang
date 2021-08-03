@@ -148,8 +148,8 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   }
 
   constructor (
-    private renderer: Renderer2,
-    private autocompleteService: QuixAutocompleteAsyncService,
+    private readonly renderer: Renderer2,
+    private readonly autocompleteService: QuixAutocompleteAsyncService,
     @Self() @Optional() public control: NgControl,
   ) {
     this.control && (this.control.valueAccessor = this)

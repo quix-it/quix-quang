@@ -128,7 +128,8 @@ export class InputSearchComponent implements ControlValueAccessor, AfterViewInit
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
 
-  constructor (private renderer: Renderer2,
+  constructor (
+    private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl,
   ) {
     this.control && (this.control.valueAccessor = this)

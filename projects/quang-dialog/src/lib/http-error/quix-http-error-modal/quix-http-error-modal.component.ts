@@ -18,8 +18,8 @@ export class QuixHttpErrorModalComponent {
   @Input() title: string
 
   constructor (
-    public modalRef: BsModalRef,
-    private modalService: BsModalService
+    public readonly modalRef: BsModalRef,
+    private readonly modalService: BsModalService
   ) {
   }
 

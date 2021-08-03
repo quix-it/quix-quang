@@ -23,8 +23,8 @@ export class QuangKeycloakService {
 
   constructor (
     @Optional() config: QuangKeycloakConfig,
-    private keyCloak: KeycloakService,
-    private store: Store<any>,
+    private readonly keyCloak: KeycloakService,
+    private readonly store : Store<any>,
   ) {
     if (this._window().keycloakConfig) {
       this.authConfig = this._window().keycloakConfig

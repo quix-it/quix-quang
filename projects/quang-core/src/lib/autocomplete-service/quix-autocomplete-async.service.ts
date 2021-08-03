@@ -10,7 +10,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 export class QuixAutocompleteAsyncService {
 
   constructor (
-    private http: HttpClient
+    private readonly http: HttpClient
   ) {
   }
 

@@ -175,8 +175,8 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   constructor (
     @Inject(LOCALE_ID) public locale: string,
     @Self() @Optional() public control: NgControl,
-    private renderer: Renderer2,
-    private localeService: BsLocaleService
+    private readonly renderer: Renderer2,
+    private readonly localeService: BsLocaleService
   ) {
     this.control && (this.control.valueAccessor = this)
   }
