@@ -4,12 +4,11 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges
 } from '@angular/core'
 import { ChartCandlestick } from './chart-candlestick.model'
-import { EChartOption } from 'echarts'
+import { EChartsOption } from 'echarts'
 
 @Component({
   selector: 'quix-chart-candlestick',
@@ -55,7 +54,7 @@ export class ChartCandlestickComponent implements OnChanges {
   /**
    * basic configuration of the chart
    */
-  chartOption: EChartOption = {
+  chartOption: EChartsOption = {
     xAxis: {},
     yAxis: {},
     series: []
@@ -68,7 +67,7 @@ export class ChartCandlestickComponent implements OnChanges {
       }
       this.chartOption.series = [{
         data: changes.chartData.currentValue.series,
-        type: 'k'
+        type: 'candlestick'
       }]
     }
     if (changes.grid?.currentValue) {

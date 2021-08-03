@@ -4,12 +4,11 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges
 } from '@angular/core'
 import { ChartPie } from './chart-pie.model'
-import { EChartOption } from 'echarts'
+import { EChartsOption } from 'echarts'
 
 @Component({
   selector: 'quix-chart-pie',
@@ -59,7 +58,7 @@ export class ChartPieComponent implements  OnChanges {
   /**
    * basic configuration of the chart
    */
-  chartOption: EChartOption = {
+  chartOption: EChartsOption = {
     color: [],
     series: [
       {

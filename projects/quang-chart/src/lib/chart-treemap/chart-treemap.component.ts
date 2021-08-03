@@ -8,7 +8,7 @@ import {
   SimpleChanges
 } from '@angular/core'
 import { ChartTreemap } from './chart-treemap.model'
-import { EChartOption } from 'echarts'
+import { EChartsOption } from 'echarts'
 
 @Component({
   selector: 'quix-chart-treemap',
@@ -54,21 +54,21 @@ export class ChartTreemapComponent implements  OnChanges {
   /**
    * basic configuration of the chart
    */
-  chartOption: EChartOption = {
+  chartOption: EChartsOption = {
     series: []
   }
 
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.chartData?.currentValue?.length) {
-      this.chartOption.series.push({
+      this.chartOption.series = [{
         type: 'treemap',
         roam: false,
-        breadcrumb: { show: false },
-        nodeClick: false,
+        breadcrumb: { show: false, emptyItemWidth: 0},
+        nodeClick: 'zoomToNode',
         data: [{
           children: changes.chartData.currentValue
         }]
-      })
+      }]
     }
     if (changes.grid?.currentValue) {
       this.chartOption.grid = changes.grid.currentValue

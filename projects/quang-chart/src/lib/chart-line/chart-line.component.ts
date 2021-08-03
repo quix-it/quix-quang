@@ -4,12 +4,11 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges
 } from '@angular/core'
 import { ChartLine } from './chart-line.model'
-import { EChartOption } from 'echarts'
+import { EChartsOption } from 'echarts'
 
 @Component({
   selector: 'quix-chart-line',
@@ -59,7 +58,7 @@ export class ChartLineComponent implements OnChanges {
   /**
    * basic configuration of the chart
    */
-  chartOption: EChartOption = {
+  chartOption: EChartsOption = {
     color: [],
     xAxis: {},
     yAxis: {

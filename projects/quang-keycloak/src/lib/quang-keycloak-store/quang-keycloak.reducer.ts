@@ -8,18 +8,25 @@ import {
   userRolesLogout
 } from "./quang-keycloak.action";
 
-
+/**
+ * defines the state of the keycloak authentication store
+ */
 export interface QuangKeycloakUserState {
   isAuthenticated: boolean
   user: any
   roles: any[]
 }
-
+/**
+ * initial state of authentication store
+ */
 const initialValue: QuangKeycloakUserState = {
   isAuthenticated: false,
   user: null,
   roles: []
 }
+/**
+ * defines how the state changes when actions are triggered
+ */
 const reducer = createReducer(
   initialValue,
   on(userLogin, (state) => ({...state, isAuthenticated: true})),
@@ -31,7 +38,9 @@ const reducer = createReducer(
     ({...state, roles: action.roles})),
   on(userRolesLogout, (state) => ({...state, user: null})),
 )
-
+/**
+ * defines the name of the state reducer
+ */
 export function quangKeycloakUserReducer(state: QuangKeycloakUserState | undefined, action: Action) {
   return reducer(state, action)
 }

@@ -13,16 +13,19 @@ import {
 import { QuangAuthConfig } from './quang-auth.config'
 import { OAuthService } from 'angular-oauth2-oidc'
 
-function _window (): any {
-  return window
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class QuangAuthService {
+  /**
+   * module configurations
+   */
   public config: any
+  /**
+   * configurations for authentication
+   */
   public authConfig: any
+  private _window = (): any => window
 
   constructor (
     @Optional() config: QuangAuthConfig,
@@ -32,8 +35,8 @@ export class QuangAuthService {
     if (config) {
       this.config = config
     }
-    if (_window().oidcConfig) {
-      this.authConfig = _window().oidcConfig
+    if (this._window().oidcConfig) {
+      this.authConfig = this._window().oidcConfig
     } else if (this.config.oidcConfig) {
       this.authConfig = this.config.oidcConfig
     } else {
@@ -52,14 +55,14 @@ export class QuangAuthService {
   /**
    * call to retrieve login data and try login
    */
-  login () {
+  login () : Observable<any> {
     return from(this.oauthService.loadDiscoveryDocumentAndTryLogin())
   }
 
   /**
    * Start the login process, if the process is successful dispatch the successful login
    */
-  startAuthAndDispatch () {
+  startAuthAndDispatch (): void {
     from(this.oauthService.loadDiscoveryDocumentAndLogin()).subscribe(isAuthenticated => {
       if (isAuthenticated) {
         this.oauthService.setupAutomaticSilentRefresh()
@@ -71,14 +74,14 @@ export class QuangAuthService {
   /**
    * returns user data
    */
-  getUserInfo () {
+  getUserInfo (): Observable<any> {
     return from(this.oauthService.loadUserProfile())
   }
 
   /**
    * call to retrieve user data
    */
-  getUserInfoAndDispatch () {
+  getUserInfoAndDispatch (): void {
     from(this.oauthService.loadUserProfile()).subscribe((user: any) => {
       this.store.dispatch(userInfoLogin({ user: user }))
     })
@@ -87,28 +90,28 @@ export class QuangAuthService {
   /**
    * starts the token refresh
    */
-  startRefreshToken () {
+  startRefreshToken (): void {
     this.oauthService.setupAutomaticSilentRefresh()
   }
 
   /**
    * stop the token refresh
    */
-  stopRefreshToken () {
+  stopRefreshToken (): void {
     this.oauthService.stopAutomaticRefresh()
   }
 
   /**
    * log out
    */
-  logout () {
-    return this.oauthService.logOut()
+  logout () : void {
+     this.oauthService.logOut()
   }
 
   /**
    * log out and dispatch the actions to delete the user from the store
    */
-  logoutAndDispatch () {
+  logoutAndDispatch (): void {
     this.store.dispatch(userLogout())
     this.store.dispatch(userInfoLogout())
     this.store.dispatch(userRolesLogout())

@@ -10,7 +10,7 @@ import {
 } from '@angular/core'
 
 import { ChartDoughnut } from './chart-doughnut.model'
-import { EChartOption } from 'echarts'
+import { EChartsOption } from 'echarts'
 
 @Component({
   selector: 'quix-chart-doughnut',
@@ -60,7 +60,7 @@ export class ChartDoughnutComponent implements OnChanges {
   /**
    * basic configuration of the chart
    */
-  chartOption: EChartOption = {
+  chartOption: EChartsOption = {
     color: [],
     series: [
       {

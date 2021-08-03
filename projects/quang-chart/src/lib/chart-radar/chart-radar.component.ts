@@ -4,12 +4,11 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges
 } from '@angular/core'
 import { ChartRadar } from './chart-radar.model'
-import { EChartOption } from 'echarts'
+import { EChartsOption } from 'echarts'
 
 @Component({
   selector: 'quix-chart-radar',
@@ -59,7 +58,7 @@ export class ChartRadarComponent implements OnChanges {
   /**
    * basic configuration of the chart
    */
-  chartOption: EChartOption = {
+  chartOption: EChartsOption = {
     radar: {},
     series: []
   }

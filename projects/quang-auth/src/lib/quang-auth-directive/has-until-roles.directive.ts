@@ -13,6 +13,10 @@ export class HasUntilRolesDirective {
    * List of necessary roles
    */
   @Input() quangHasUntilRoles: string[]
+  /**
+   * subject of convenience to turn off the subscription to the observable
+   * @private
+   */
   private destroy$ = new Subject()
 
   constructor (

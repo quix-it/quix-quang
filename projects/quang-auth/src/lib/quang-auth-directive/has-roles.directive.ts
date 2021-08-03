@@ -12,6 +12,10 @@ export class HasRolesDirective implements OnInit, OnDestroy {
    * List of necessary roles
    */
   @Input() quangHasRoles: string[]
+  /**
+   * subject of convenience to turn off the subscription to the observable
+   * @private
+   */
   private destroy$ = new Subject()
 
   constructor (
@@ -36,7 +40,6 @@ export class HasRolesDirective implements OnInit, OnDestroy {
         this.view.clear()
       }
     })
-
   }
 
   ngOnDestroy (): void {

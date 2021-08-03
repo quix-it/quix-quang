@@ -11,28 +11,33 @@ import {
 } from './quang-keycloak-store/quang-keycloak.action'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
 
-function _window (): any {
-  return window
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class QuangKeycloakService {
-
+  /**
+   * keycloak wrapper configuration
+   */
   public authConfig: any
+  _window = (): any => window
 
   constructor (
     @Optional() config: QuangKeycloakConfig,
     private keyCloak: KeycloakService,
     private store: Store<any>,
   ) {
-    if (_window().keycloakConfig) {
-      this.authConfig = _window().keycloakConfig
+    if (this._window().keycloakConfig) {
+      this.authConfig = this._window().keycloakConfig
     } else if (config?.keycloakConfig) {
       this.authConfig = config.keycloakConfig
     } else {
       alert('[AUTH KEYCLOAK SERVICE] No auth config')
+    }
+    if (config.ionicApplication) {
+      this.authConfig.initOptions.silentCheckSsoRedirectUri = `${window.location.origin}/assets/static/silent-check-sso.html`
+      this.authConfig.initOptions.flow = 'standard'
+      this.authConfig.initOptions.responseMode = 'fragment'
+      this.authConfig.initOptions.checkLoginIframe = true
     }
   }
 

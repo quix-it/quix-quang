@@ -1,4 +1,4 @@
-import {Action, createReducer, on} from "@ngrx/store";
+import { Action, createReducer, on } from '@ngrx/store'
 import {
   userInfoLogin,
   userInfoLogout,
@@ -6,31 +6,45 @@ import {
   userLogout,
   userRolesLogin,
   userRolesLogout
-} from "./quang-auth.action";
+} from './quang-auth.action'
 
+/**
+ * store state
+ */
 export interface QuangAuthUserState {
   isAuthenticated: boolean
   user: any
   roles: any[]
 }
 
+/**
+ * store state initial value
+ */
 const initialValue: QuangAuthUserState = {
   isAuthenticated: false,
   user: null,
   roles: []
 }
+/**
+ * Defines how the state changes based on the actions called
+ */
 const reducer = createReducer(
   initialValue,
-  on(userLogin, (state) => ({...state, isAuthenticated: true})),
-  on(userLogout, (state) => ({...state, isAuthenticated: false})),
+  on(userLogin, (state) => ({ ...state, isAuthenticated: true })),
+  on(userLogout, (state) => ({ ...state, isAuthenticated: false })),
   on(userInfoLogin, (state, action) =>
-    ({...state, user: action.user})),
-  on(userInfoLogout, (state) => ({...state, user: null})),
+    ({ ...state, user: action.user })),
+  on(userInfoLogout, (state) => ({ ...state, user: null })),
   on(userRolesLogin, (state, action) =>
-    ({...state, roles: action.roles})),
-  on(userRolesLogout, (state) => ({...state, user: null})),
+    ({ ...state, roles: action.roles })),
+  on(userRolesLogout, (state) => ({ ...state, user: null })),
 )
 
-export function quangAuthUserReducer(state: QuangAuthUserState | undefined, action: Action) {
+/**
+ * Defines the name of the reducer
+ * @param state
+ * @param action
+ */
+export function quangAuthUserReducer (state: QuangAuthUserState | undefined, action: Action) {
   return reducer(state, action)
 }

@@ -1,8 +1,26 @@
 import { createAction, props } from '@ngrx/store'
 
-export const userLogin = createAction('[QUANG KEYCLOACK] user login')
-export const userLogout = createAction('[QUANG KEYCLOACK] user logout', props<{ redirectUri?: string }>())
-export const userInfoLogin = createAction('[QUANG KEYCLOACK] set user info', props<{ user: any }>())
-export const userInfoLogout = createAction('[QUANG KEYCLOACK] delete user info',)
-export const userRolesLogin = createAction('[QUANG KEYCLOACK] set user roles', props<{ roles: any[] }>())
-export const userRolesLogout = createAction('[QUANG KEYCLOACK] delete user roles',)
+/**
+ * Saves the user's successful login in the store
+ */
+export const userLogin = createAction('[QUANG KEYCLOAK] user login')
+/**
+ * Saves the user logout in the store
+ */
+export const userLogout = createAction('[QUANG KEYCLOAK] user logout', props<{ redirectUri?: string }>())
+/**
+ * Saves the user data in the store
+ */
+export const userInfoLogin = createAction('[QUANG KEYCLOAK] set user info', props<{ user: any }>())
+/**
+ * Delete the user data in the store
+ */
+export const userInfoLogout = createAction('[QUANG KEYCLOAK] delete user info')
+/**
+ * Saves the user roles in the store
+ */
+export const userRolesLogin = createAction('[QUANG KEYCLOAK] set user roles', props<{ roles: any[] }>())
+/**
+ * Delete the user roles in the store
+ */
+export const userRolesLogout = createAction('[QUANG KEYCLOAK] delete user roles')
