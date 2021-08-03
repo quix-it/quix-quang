@@ -20,8 +20,19 @@ import { delay, take } from 'rxjs/operators'
   styleUrls: ['./toast.component.scss']
 })
 export class QuixToastComponent implements AfterViewInit, OnDestroy {
+  /**
+   * toast wrapper
+   */
   data: QuixToast
+  /**
+   * observable for toast state
+   * @private
+   */
   private toastState$: Observable<any> = this.store.pipe(select(selectToast))
+  /**
+   * subscription to a toast state
+   * @private
+   */
   private subscription: Subscription = new Subscription()
   @ViewChild('toastDom', { static: false }) toastDom: ElementRef
 

@@ -1,4 +1,9 @@
 import { createFeatureSelector } from '@ngrx/store'
-import { QUNAGDIALOG_KEY } from './quang-dialog.reducers'
-
-export const selectQuangDialog = createFeatureSelector(QUNAGDIALOG_KEY)
+/**
+ * the key that identifies the module store
+ */
+export const QUANGDIALOG_KEY = 'quang-dialog-module'
+/**
+ * module selector
+ */
+export const selectQuangDialog = createFeatureSelector(QUANGDIALOG_KEY)

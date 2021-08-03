@@ -3,7 +3,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 import { QuixBottomSheetService } from './bottom-sheet/bottom-sheet.service'
 import { QuixModalService } from './modal/quix-modal.service'
 import { StoreModule } from '@ngrx/store'
-import { quangDialogReducers, QUNAGDIALOG_KEY } from './quang-dialog.reducers'
+import { quangDialogReducers } from './quang-dialog.reducers'
 import { QuixSnackbarService } from './snackbar/quix-snackbar.service'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { QuixToastComponent } from './toast/toast.component'
@@ -16,6 +16,7 @@ import { QuixHttpErrorModalComponent } from './http-error/quix-http-error-modal/
 import { QuixHttpErrorService } from './http-error/quix-http-error.service'
 import { QuangDialogConfig } from './quang-dialog.config'
 import { SentryDialogService } from './sentry/sentry-dialog.service'
+import { QUANGDIALOG_KEY } from './quang-dialog.selector'
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { SentryDialogService } from './sentry/sentry-dialog.service'
   ],
   imports: [
     MatBottomSheetModule,
-    StoreModule.forFeature(QUNAGDIALOG_KEY, quangDialogReducers),
+    StoreModule.forFeature(QUANGDIALOG_KEY, quangDialogReducers),
     MatSnackBarModule,
     CommonModule,
     TranslocoModule,

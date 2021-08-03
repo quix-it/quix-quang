@@ -1,5 +1,11 @@
-import {createAction, props} from '@ngrx/store';
-import {QuixToast} from "../toast.model";
+import { createAction, props } from '@ngrx/store'
+import { QuixToast } from '../toast.model'
 
-
-export const openToast = createAction('[TOASTS API] open toast', props<{toastData: QuixToast}>());
+/**
+ * open toast
+ */
+export const openToast = createAction('[TOASTS API] open toast', props<{ toastData: QuixToast }>())
+/**
+ * delete toast
+ */
+export const deleteToast = createAction('[TOASTS API] delete toast')
