@@ -19,6 +19,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-search.component.html',
   styles: ['']
 })
+/**
+ * input search component
+ */
 export class InputSearchComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnInit {
   /**
    * The label to display on the input field

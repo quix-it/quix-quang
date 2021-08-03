@@ -15,6 +15,9 @@ import { delay, tap } from 'rxjs/operators'
   templateUrl: './quix-three-sixty-image.component.html',
   styleUrls: ['./quix-three-sixty-image.component.scss']
 })
+/**
+ * three sixty component
+ */
 export class QuixThreeSixtyImageComponent implements OnChanges {
   /**
    * Html id of input

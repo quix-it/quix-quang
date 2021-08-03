@@ -18,6 +18,9 @@ import * as olProj from 'ol/proj'
   templateUrl: './osmap.component.html',
   styles: ['']
 })
+/**
+ * open street map component
+ */
 export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
   /**
    * the height of the map

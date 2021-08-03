@@ -22,6 +22,9 @@ import { QuixAutocompleteAsyncService } from '../autocomplete-service/quix-autoc
   templateUrl: './autocomplete-obj-async.component.html',
   styles: ['']
 })
+/**
+ * autocomplete object async component
+ */
 export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnChanges {
   /**
    * The label to display on the input field

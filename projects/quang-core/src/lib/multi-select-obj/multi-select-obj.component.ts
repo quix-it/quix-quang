@@ -19,6 +19,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './multi-select-obj.component.html',
   styleUrls: ['./multi-select-obj.component.scss']
 })
+/**
+ * multi elect object component
+ */
 export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
   /**
    * The label to display on the input field

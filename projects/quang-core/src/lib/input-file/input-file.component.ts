@@ -4,25 +4,25 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Optional,
   Output,
   Renderer2,
   Self,
-  SimpleChanges,
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx-file-drop'
+import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx-file-drop'
 
 @Component({
   selector: 'quix-input-file',
   templateUrl: './input-file.component.html',
   styles: ['']
 })
-
+/**
+ * input file component
+ */
 export class InputFileComponent implements OnInit, ControlValueAccessor, AfterViewInit {
   /**
    * Html id of input

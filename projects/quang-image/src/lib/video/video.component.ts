@@ -15,6 +15,9 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * video component
+ */
 export class VideoComponent implements OnChanges {
   /**
    * Html id of input

@@ -18,6 +18,9 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
   templateUrl: './autocomplete-strg.component.html',
   styles: ['']
 })
+/**
+ * autocomplete string component
+ */
 export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChanges {
   /**
    * The label to display on the input field

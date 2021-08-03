@@ -19,6 +19,9 @@ import { BsTimepickerViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs
   templateUrl: './input-time.component.html',
   styleUrls: ['./input-time.component.scss']
 })
+/**
+ * input time component
+ */
 export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, OnInit {
   /**
    * Html id of input

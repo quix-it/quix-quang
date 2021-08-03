@@ -21,6 +21,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-date-time.component.html',
   styleUrls: ['./input-date-time.component.scss'],
 })
+/**
+ * input date time component
+ */
 export class InputDateTimeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   /**
    * Html id of input

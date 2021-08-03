@@ -14,6 +14,9 @@ import { QuixCarousel } from './carousel.model'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * carousel component
+ */
 export class CarouselComponent {
   /**
    * Html id of input

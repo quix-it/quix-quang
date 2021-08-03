@@ -19,6 +19,9 @@ import { ContentChange, QuillEditorComponent } from 'ngx-quill'
   templateUrl: './text-editor.component.html',
   styles: ['']
 })
+/**
+ * text editor component
+ */
 export class TextEditorComponent implements ControlValueAccessor, AfterViewInit, OnInit {
   /**
    * The label to display on the input field

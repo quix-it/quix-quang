@@ -16,6 +16,9 @@ import { MatPaginator } from '@angular/material/paginator'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * paginator component
+ */
 export class PaginatorComponent implements OnChanges {
   /**
    * Html id of input

@@ -19,6 +19,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-text.component.html',
   styles: ['']
 })
+/**
+ * input text component
+ */
 export class InputTextComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnInit {
   /**
    * Html id of input

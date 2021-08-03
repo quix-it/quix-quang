@@ -16,6 +16,9 @@ import { EChartsOption } from 'echarts'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * chart candlestick component
+ */
 export class ChartCandlestickComponent implements OnChanges {
   /**
    * Html id of input

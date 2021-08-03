@@ -20,6 +20,9 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
   templateUrl: './autocomplete-obj.component.html',
   styles: ['']
 })
+/**
+ * autocomplete object component
+ */
 export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   /**
    * The label to display on the input field

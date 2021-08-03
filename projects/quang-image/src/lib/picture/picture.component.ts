@@ -7,6 +7,9 @@ import { QuixPicture } from './picture.model'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * picture component
+ */
 export class PictureComponent {
   /**
    * Html id of input

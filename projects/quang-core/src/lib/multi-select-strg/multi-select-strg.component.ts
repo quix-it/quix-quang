@@ -18,6 +18,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './multi-select-strg.component.html',
   styleUrls: ['./multi-select-strg.component.scss']
 })
+/**
+ * multi select string component
+ */
 export class MultiSelectStrgComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
   /**
    * The label to display on the input field

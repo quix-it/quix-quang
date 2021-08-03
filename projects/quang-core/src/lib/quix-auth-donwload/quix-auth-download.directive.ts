@@ -6,6 +6,9 @@ import { of } from 'rxjs'
 @Directive({
   selector: '[quangAuthDownload]'
 })
+/**
+ * download auth file directive
+ */
 export class QuixAuthDownloadDirective {
   /**
    * The url to find the file to download

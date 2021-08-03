@@ -18,6 +18,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-email.component.html',
   styles: [''],
 })
+/**
+ * input email component
+ */
 export class InputEmailComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   /**
    * The label to display on the input field

@@ -19,6 +19,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-password.component.html',
   styles: [''],
 })
+/**
+ * input password component
+ */
 export class InputPasswordComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit {
   /**
    * The label to display on the input field

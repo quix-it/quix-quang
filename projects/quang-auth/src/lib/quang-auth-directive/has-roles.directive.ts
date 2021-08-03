@@ -7,6 +7,9 @@ import { selectHasRoles } from '../quang-auth-store/quang-auth.selector'
 @Directive({
   selector: '[quangHasRoles]'
 })
+/**
+ *
+ */
 export class HasRolesDirective implements OnInit, OnDestroy {
   /**
    * List of necessary roles

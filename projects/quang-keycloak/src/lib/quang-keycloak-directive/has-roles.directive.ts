@@ -7,6 +7,9 @@ import { selectHasRoles } from '../quang-keycloak-store/quang-keycloak.selector'
 @Directive({
   selector: '[quangHasRoles]'
 })
+/**
+ * has roles directive
+ */
 export class HasRolesDirective implements OnInit, OnDestroy {
   /**
    * the list of role needed to view the item

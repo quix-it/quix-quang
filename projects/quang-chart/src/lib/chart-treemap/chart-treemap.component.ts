@@ -16,6 +16,9 @@ import { EChartsOption } from 'echarts'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * chart treemap component
+ */
 export class ChartTreemapComponent implements  OnChanges {
   /**
    * Html id of input

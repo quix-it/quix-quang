@@ -20,6 +20,9 @@ import { delay, take } from 'rxjs/operators'
   templateUrl: './text-area.component.html',
   styles: ['']
 })
+/**
+ * text area component
+ */
 export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
   /**
    * The label to display on the input field

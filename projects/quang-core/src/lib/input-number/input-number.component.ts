@@ -18,6 +18,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-number.component.html',
   styles: [''],
 })
+/**
+ * input number component
+ */
 export class InputNumberComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   /**
    * The label to display on the input field

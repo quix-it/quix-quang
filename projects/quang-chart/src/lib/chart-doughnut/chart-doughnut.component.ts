@@ -18,6 +18,9 @@ import { EChartsOption } from 'echarts'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * chart doughnut component
+ */
 export class ChartDoughnutComponent implements OnChanges {
   /**
    * Html id of input

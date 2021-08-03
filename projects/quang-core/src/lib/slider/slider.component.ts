@@ -17,6 +17,9 @@ import { MatSlider, MatSliderChange } from '@angular/material/slider'
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
+/**
+ * slider component
+ */
 export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   /**
    * The label to display on the input field

@@ -9,6 +9,9 @@ import { QuangDialogConfig } from '../../quang-dialog.config'
   templateUrl: './loader.component.html',
   styles: ['']
 })
+/**
+ * loader component
+ */
 export class LoaderComponent implements OnInit, OnDestroy {
   /**
    * loader html element

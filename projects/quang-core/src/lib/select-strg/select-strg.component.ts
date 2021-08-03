@@ -18,6 +18,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './select-strg.component.html',
   styleUrls: ['./select-strg.component.scss']
 })
+/**
+ * select string component
+ */
 export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnInit {
 
   /**

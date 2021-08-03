@@ -16,6 +16,9 @@ import { EChartsOption } from 'echarts'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * chart area component
+ */
 export class ChartAreaComponent implements OnChanges {
   /**
    * Html id of input

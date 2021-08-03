@@ -19,6 +19,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-checkbox.component.html',
   styleUrls: ['./input-checkbox.component.scss']
 })
+/**
+ * input checkbox component
+ */
 export class InputCheckboxComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {
   /**
    * Html id of input

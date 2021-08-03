@@ -19,6 +19,9 @@ import { delay, take } from 'rxjs/operators'
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss']
 })
+/**
+ * toast component
+ */
 export class QuixToastComponent implements AfterViewInit, OnDestroy {
   /**
    * toast wrapper

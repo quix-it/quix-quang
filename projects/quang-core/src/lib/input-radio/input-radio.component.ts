@@ -20,6 +20,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-radio.component.html',
   styleUrls: ['./input-radio.component.scss']
 })
+/**
+ * input radio component
+ */
 export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit {
   /**
    * the name of the radio button group

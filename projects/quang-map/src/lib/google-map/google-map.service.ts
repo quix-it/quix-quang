@@ -4,6 +4,9 @@ import { QuangMapConfig } from '../quang-map.config'
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * utility for google map management
+ */
 export class QuixGoogleMapService {
   /**
    * google map key

@@ -7,6 +7,9 @@ import { HttpErrorResponse } from '@angular/common/http'
   templateUrl: './quix-http-error-modal.component.html',
   styles: ['']
 })
+/**
+ * error modal component
+ */
 export class QuixHttpErrorModalComponent {
   /**
    * http error

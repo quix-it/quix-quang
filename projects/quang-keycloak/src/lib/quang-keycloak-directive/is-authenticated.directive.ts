@@ -7,6 +7,9 @@ import { selectIsAuthenticated } from '../quang-keycloak-store/quang-keycloak.se
 @Directive({
   selector: '[quangIsAuthenticated]'
 })
+/**
+ * is authenticated directive
+ */
 export class IsAuthenticatedDirective implements OnInit, OnDestroy {
   /**
    * subject of convenience to turn off the subscription to the observable

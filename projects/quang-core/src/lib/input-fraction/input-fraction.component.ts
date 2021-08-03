@@ -19,6 +19,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-fraction.component.html',
   styles: ['']
 })
+/**
+ * input fraction component
+ */
 export class InputFractionComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {
   /**
    * Html id of input

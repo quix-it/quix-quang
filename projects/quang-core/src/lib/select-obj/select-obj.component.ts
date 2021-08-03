@@ -17,6 +17,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './select-obj.component.html',
   styleUrls: ['./select-obj.component.scss']
 })
+/**
+ * select object component
+ */
 export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
   /**
    * The label to display on the input field

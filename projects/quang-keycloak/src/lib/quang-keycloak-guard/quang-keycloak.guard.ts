@@ -10,6 +10,9 @@ import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-ke
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * role guard
+ */
 export class QuangKeycloakGuard implements CanActivate {
 
   constructor (

@@ -18,6 +18,9 @@ import { MatSlideToggle } from '@angular/material/slide-toggle'
   templateUrl: './toggle.component.html',
   styleUrls: ['./toggle.component.scss']
 })
+/**
+ * toggle component
+ */
 export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   /**
    * Array of additional classes to the input field

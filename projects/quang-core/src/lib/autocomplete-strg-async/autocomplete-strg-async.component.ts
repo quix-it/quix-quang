@@ -23,6 +23,9 @@ import { QuixAutocompleteAsyncService } from '../autocomplete-service/quix-autoc
   templateUrl: './autocomplete-strg-async.component.html',
   styles: ['']
 })
+/**
+ * autocomplete string async component
+ */
 export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, OnChanges {
   /**
    * The label to display on the input field

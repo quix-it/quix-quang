@@ -19,6 +19,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-color.component.html',
   styles: [''],
 })
+/**
+ * input color component
+ */
 export class InputColorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {
   /**
    * Html id of input

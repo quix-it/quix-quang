@@ -6,6 +6,9 @@ import { of } from 'rxjs'
 @Directive({
   selector: '[quangAuthImage]',
 })
+/**
+ * view auth image directive
+ */
 export class QuixAuthImageDirective implements OnChanges {
   /**
    * The url of the image

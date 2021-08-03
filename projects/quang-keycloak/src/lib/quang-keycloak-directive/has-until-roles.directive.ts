@@ -8,6 +8,9 @@ import { selectHasUntilRoles } from '../quang-keycloak-store/quang-keycloak.sele
 @Directive({
   selector: '[quangHasUntilRoles]'
 })
+/**
+ * has until role directive
+ */
 export class HasUntilRolesDirective {
   /**
    * list that defines the possibility of displaying the element if you have at least one role among those in input

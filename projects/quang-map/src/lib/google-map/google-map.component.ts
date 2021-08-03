@@ -23,6 +23,9 @@ declare var google: any
   templateUrl: './google-map.component.html',
   styles: ['']
 })
+/**
+ * google map component
+ */
 export class GoogleMapComponent implements OnChanges {
   /**
    * Html id of input

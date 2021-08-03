@@ -14,11 +14,17 @@ import { QuangKeycloakConfig } from './quang-keycloak.config'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for keycloak management
+ */
 export class QuangKeycloakService {
   /**
    * keycloak wrapper configuration
    */
   public authConfig: any
+  /**
+   * window access
+   */
   _window = (): any => window
 
   constructor (

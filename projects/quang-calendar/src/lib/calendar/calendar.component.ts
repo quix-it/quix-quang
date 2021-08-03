@@ -15,6 +15,9 @@ import { CalendarOptions } from '@fullcalendar/angular'
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * calendar component
+ */
 export class CalendarComponent implements OnChanges {
   /**
    * Html id of input

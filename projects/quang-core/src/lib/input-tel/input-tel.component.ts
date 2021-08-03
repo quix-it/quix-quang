@@ -17,6 +17,9 @@ import { delay } from 'rxjs/operators'
   templateUrl: './input-tel.component.html',
   styles: ['']
 })
+/**
+ * input tel component
+ */
 export class InputTelComponent implements OnInit {
   /**
    * The label to display on the input field
