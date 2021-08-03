@@ -172,9 +172,9 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
 
   /**
    * constructor
-   * @param renderer
+   * @param renderer html access
    * @param elementRef
-   * @param control
+   * @param control cva access
    */
   constructor (
     private readonly renderer: Renderer2,

@@ -131,8 +131,8 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
 
   /**
    * constructor
-   * @param renderer
-   * @param control
+   * @param renderer html access
+   * @param control cva access
    */
   constructor (
     private readonly renderer: Renderer2,

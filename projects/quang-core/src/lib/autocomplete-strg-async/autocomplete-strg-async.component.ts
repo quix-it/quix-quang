@@ -152,9 +152,9 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
 
   /**
    * constructor
-   * @param renderer
+   * @param renderer html access
    * @param autocompleteService
-   * @param control
+   * @param control cva access
    */
   constructor (
     private readonly renderer: Renderer2,

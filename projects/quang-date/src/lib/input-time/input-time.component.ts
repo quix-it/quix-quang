@@ -150,10 +150,10 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
 
   /**
    * constructor
-   * @param renderer
+   * @param renderer html access
    * @param localeService
    * @param locale
-   * @param control
+   * @param control cva access
    */
   constructor (
     private readonly renderer: Renderer2,

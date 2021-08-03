@@ -177,10 +177,10 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
 
   /**
    * constructor
-   * @param renderer
+   * @param renderer html access
    * @param localeService
    * @param locale
-   * @param control
+   * @param control cva access
    */
   constructor (
     private readonly renderer: Renderer2,

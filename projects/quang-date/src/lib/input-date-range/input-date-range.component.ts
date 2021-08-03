@@ -178,8 +178,8 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * constructor
    * @param locale
-   * @param control
-   * @param renderer
+   * @param control cva access
+   * @param renderer html access
    * @param localeService
    */
   constructor (

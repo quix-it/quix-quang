@@ -143,8 +143,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
 
   /**
    * constructor
-   * @param renderer
-   * @param control
+   * @param renderer html access
+   * @param control cva access
    */
   constructor (
     private readonly renderer: Renderer2,

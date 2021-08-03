@@ -163,9 +163,9 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
 
   /**
    * constructor
-   * @param renderer
+   * @param renderer html access
    * @param autocompleteService
-   * @param control
+   * @param control cva access
    */
   constructor (
     private readonly renderer: Renderer2,

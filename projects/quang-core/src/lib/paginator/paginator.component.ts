@@ -81,7 +81,7 @@ export class PaginatorComponent implements OnChanges {
 
   /**
    * constructor
-   * @param renderer
+   * @param renderer html access
    */
   constructor (
     private readonly renderer: Renderer2,

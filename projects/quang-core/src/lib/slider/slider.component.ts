@@ -113,7 +113,7 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
 
   /**
    * constructor
-   * @param control
+   * @param control cva access
    */
   constructor (
     @Self() @Optional() public control: NgControl,

@@ -139,9 +139,9 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
 
   /**
    * constructor
-   * @param renderer
+   * @param renderer html access
    * @param ngZone
-   * @param control
+   * @param control cva access
    */
   constructor (
     private readonly renderer: Renderer2,

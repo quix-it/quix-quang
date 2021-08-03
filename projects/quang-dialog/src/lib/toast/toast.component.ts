@@ -41,7 +41,7 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
 
   /**
    * constructor
-   * @param renderer
+   * @param renderer html access
    * @param store
    */
   constructor (
