@@ -1,6 +1,9 @@
+/**
+ * chart bar
+ */
 export class ChartBar {
   /**
-   * chart bar
+   * chart bar constructor
    * @param category
    * @param series
    */

@@ -47,7 +47,9 @@ export class HasUntilRolesDirective {
     })
 
   }
-
+  /**
+   * unsubscribe the observable
+   */
   ngOnDestroy (): void {
     this.destroy$.next()
   }

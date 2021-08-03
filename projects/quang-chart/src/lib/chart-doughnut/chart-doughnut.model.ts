@@ -1,6 +1,9 @@
+/**
+ * chart doughnut
+ */
 export class ChartDoughnut {
   /**
-   * chart doughnut series item
+   * chart doughnut series item constructor
    * @param value
    * @param name
    */

@@ -89,7 +89,9 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
     this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '0')
     this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(0)')
   }
-
+  /**
+   * unsubscribe the observable
+   */
   ngOnDestroy (): void {
     if (this.subscription) {
       this.subscription.unsubscribe()

@@ -1,6 +1,9 @@
+/**
+ * module config
+ */
 export class QuangDialogConfig {
   /**
-   * module config
+   * module config constructor
    * @param production
    * @param noErrorUrls
    * @param noLoaderUrls

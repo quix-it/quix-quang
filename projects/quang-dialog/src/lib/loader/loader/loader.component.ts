@@ -55,7 +55,9 @@ export class LoaderComponent implements OnInit, OnDestroy {
       })
     }
   }
-
+  /**
+   * unsubscribe the observable
+   */
   ngOnDestroy (): void {
     if (this.loaderSubscription$) {
       this.loaderSubscription$.unsubscribe()

@@ -1,6 +1,9 @@
+/**
+ * chart candlestick
+ */
 export class ChartCandlestick {
   /**
-   * char candlestick
+   * char candlestick constructor
    * @param category
    * @param series
    */

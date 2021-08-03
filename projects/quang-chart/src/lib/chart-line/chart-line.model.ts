@@ -1,6 +1,9 @@
+/**
+ * chart line
+ */
 export class ChartLine {
   /**
-   * chart line
+   * chart line constructor
    * @param category
    * @param series
    */

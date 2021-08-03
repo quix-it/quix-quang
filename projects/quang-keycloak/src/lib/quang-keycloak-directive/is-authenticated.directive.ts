@@ -38,10 +38,11 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
     })
 
   }
-
+  /**
+   * unsubscribe the observable
+   */
   ngOnDestroy (): void {
     this.destroy$.next()
   }
-
 }
 

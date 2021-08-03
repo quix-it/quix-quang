@@ -1,6 +1,9 @@
+/**
+ * toast
+ */
 export class QuixToast {
   /**
-   * create a quix toast
+   * toast constructor
    * @param type
    * @param title
    * @param position

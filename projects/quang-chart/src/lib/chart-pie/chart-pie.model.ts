@@ -1,6 +1,9 @@
+/**
+ * chart pie
+ */
 export class ChartPie {
   /**
-   * chart pie series item
+   * chart pie series item constructor
    * @param value
    * @param name
    */

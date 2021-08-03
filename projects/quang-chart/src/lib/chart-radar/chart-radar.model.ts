@@ -1,6 +1,9 @@
+/**
+ * chart radar
+ */
 export class ChartRadar {
   /**
-   * chart radar series item
+   * chart radar series item constructor
    * @param name
    * @param max
    */

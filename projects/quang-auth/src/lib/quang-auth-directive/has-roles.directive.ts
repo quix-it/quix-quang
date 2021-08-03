@@ -8,7 +8,7 @@ import { selectHasRoles } from '../quang-auth-store/quang-auth.selector'
   selector: '[quangHasRoles]'
 })
 /**
- *
+ * has role directive
  */
 export class HasRolesDirective implements OnInit, OnDestroy {
   /**
@@ -44,9 +44,10 @@ export class HasRolesDirective implements OnInit, OnDestroy {
       }
     })
   }
-
+  /**
+   * unsubscribe the observable
+   */
   ngOnDestroy (): void {
     this.destroy$.next()
   }
-
 }

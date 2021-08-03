@@ -1,3 +1,6 @@
+/**
+ * chart treemap
+ */
 export class ChartTreemap {
   /**
    * chart name
@@ -13,7 +16,7 @@ export class ChartTreemap {
   public itemStyle?: { color: string }
 
   /**
-   * chart treemap series item
+   * chart treemap series item constructor
    * @param name
    * @param value
    * @param color

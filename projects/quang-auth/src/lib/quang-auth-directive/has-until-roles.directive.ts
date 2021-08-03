@@ -8,6 +8,9 @@ import { selectHasUntilRoles } from '../quang-auth-store/quang-auth.selector'
 @Directive({
   selector: '[quangHasUntilRoles]'
 })
+/**
+ * has until role directive
+ */
 export class HasUntilRolesDirective {
   /**
    * List of necessary roles
@@ -43,7 +46,9 @@ export class HasUntilRolesDirective {
     })
 
   }
-
+  /**
+   * unsubscribe the observable
+   */
   ngOnDestroy (): void {
     this.destroy$.next()
   }

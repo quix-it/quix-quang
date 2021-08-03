@@ -7,6 +7,9 @@ import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
 @Directive({
   selector: '[quangIsAuthenticated]'
 })
+/**
+ * is authenticated directive
+ */
 export class IsAuthenticatedDirective implements OnInit, OnDestroy {
   /**
    * subject of convenience to turn off the subscription to the observable
@@ -36,12 +39,13 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
         this.view.clear()
       }
     })
-
   }
 
+  /**
+   * unsubscribe the observable
+   */
   ngOnDestroy (): void {
     this.destroy$.next()
   }
-
 }
 
