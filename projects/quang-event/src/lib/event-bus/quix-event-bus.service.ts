@@ -1,13 +1,31 @@
 import { Injectable } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 
+/**
+ * general declaration for global library
+ */
 declare var EventBus: any
 
 export interface QuixBusEventOptions {
+  /**
+   * Max reconnect attempts
+   */
   vertxbus_reconnect_attempts_max: number,
+  /**
+   * Initial delay (in ms) before first reconnect attempt
+   */
   vertxbus_reconnect_delay_min: number,
+  /**
+   *  Max delay (in ms) between reconnect attempts
+   */
   vertxbus_reconnect_delay_max: number,
+  /**
+   * Exponential backoff factor
+   */
   vertxbus_reconnect_exponent: number,
+  /**
+   * Randomization factor between 0 and 1
+   */
   vertxbus_randomization_factor: number
 }
 
@@ -15,16 +33,31 @@ export interface QuixBusEventOptions {
   providedIn: 'root'
 })
 export class QuixEventBusService {
+  /**
+   * the subject that outputs the returned values
+   */
   bus: Subject<any> = new Subject<any>()
+  /**
+   * event bus wrapper
+   */
   eb: any
+  /**
+   * event buss server address
+   */
   address: string = ''
+  /**
+   * event bus headers
+   */
   headers: object
+  /**
+   * event bus configuration
+   */
   options: QuixBusEventOptions = {
-    vertxbus_reconnect_attempts_max: 5, // Max reconnect attempts
-    vertxbus_reconnect_delay_min: 1000, // Initial delay (in ms) before first reconnect attempt
-    vertxbus_reconnect_delay_max: 5000, // Max delay (in ms) between reconnect attempts
-    vertxbus_reconnect_exponent: 2, // Exponential backoff factor
-    vertxbus_randomization_factor: 0.5 // Randomization factor between 0 and 1
+    vertxbus_reconnect_attempts_max: 5,
+    vertxbus_reconnect_delay_min: 1000,
+    vertxbus_reconnect_delay_max: 5000,
+    vertxbus_reconnect_exponent: 2,
+    vertxbus_randomization_factor: 0.5
   }
 
   /**

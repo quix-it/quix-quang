@@ -6,7 +6,14 @@ import { EventSourcePolyfill } from 'event-source-polyfill'
   providedIn: 'root'
 })
 export class QuixEventSourceService {
+  /**
+   * event source wrapper
+   * @private
+   */
   private evs: EventSource
+  /**
+   * the subject that outputs the returned values
+   */
   events: Subject<any> = new Subject()
 
   /**
