@@ -8,7 +8,13 @@ import { HttpErrorResponse } from '@angular/common/http'
   styles: ['']
 })
 export class QuixHttpErrorModalComponent {
+  /**
+   * http error
+   */
   @Input() error: HttpErrorResponse
+  /**
+   * title of the error
+   */
   @Input() title: string
 
   constructor (
@@ -17,6 +23,9 @@ export class QuixHttpErrorModalComponent {
   ) {
   }
 
+  /**
+   * close modal error
+   */
   closeModal (): void {
     this.modalService.onHide.emit('close')
     this.modalRef.hide()

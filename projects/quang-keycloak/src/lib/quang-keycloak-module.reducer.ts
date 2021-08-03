@@ -6,6 +6,9 @@ import { quangKeycloakUserReducer, QuangKeycloakUserState } from './quang-keyclo
  * interface that defines the state of the module
  */
 export interface QuangKeycloakState {
+  /**
+   * auth state
+   */
   quangKeycloakUserState: QuangKeycloakUserState
 }
 
@@ -19,6 +22,6 @@ export interface QuangkeycloakModuleState {
 /**
  * definition of the reducer map
  */
-export const quangkeycloakReducer: ActionReducerMap<QuangKeycloakState> = {
+export const quangKeycloakReducer: ActionReducerMap<QuangKeycloakState> = {
   quangKeycloakUserState: quangKeycloakUserReducer
 }

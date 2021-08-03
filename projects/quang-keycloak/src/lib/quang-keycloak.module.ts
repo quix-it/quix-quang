@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common'
 import { HasUntilRolesDirective } from './quang-keycloak-directive/has-until-roles.directive'
 import { StoreModule } from '@ngrx/store'
 import { QUANGKEYCLOAK_KEY } from './quang-keycloak-module.selector'
-import { quangkeycloakReducer } from './quang-keycloak-module.reducer'
+import { quangKeycloakReducer } from './quang-keycloak-module.reducer'
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
 import { QuangKeycloakService } from './quang-keycloak.service'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
@@ -18,7 +18,7 @@ import { QuangKeycloakConfig } from './quang-keycloak.config'
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature(QUANGKEYCLOAK_KEY, quangkeycloakReducer),
+    StoreModule.forFeature(QUANGKEYCLOAK_KEY, quangKeycloakReducer),
     KeycloakAngularModule
   ],
   exports: [

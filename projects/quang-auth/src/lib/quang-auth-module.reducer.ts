@@ -6,6 +6,9 @@ import { quangAuthUserReducer, QuangAuthUserState } from './quang-auth-store/qua
  * interface that defines the state of the module
  */
 export interface QuangAuthState {
+  /**
+   * user state
+   */
   quangAuthUserState: QuangAuthUserState
 }
 

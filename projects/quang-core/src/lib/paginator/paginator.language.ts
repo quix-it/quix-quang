@@ -16,6 +16,9 @@ export class PaginatorLanguage extends MatPaginatorIntl {
     this.getAndInitTranslations()
   }
 
+  /**
+   * retrieves the translations from the label file
+   */
   getAndInitTranslations () {
     this.translate.selectTranslate([
       'quixPaginator.itemPerPage',
@@ -23,15 +26,13 @@ export class PaginatorLanguage extends MatPaginatorIntl {
       'quixPaginator.previousPage',
       'quixPaginator.firstPage',
       'quixPaginator.lastPage'
-    ]).subscribe(
-      translation => {
-        this.itemsPerPageLabel = translation['quixPaginator.itemPerPage']
-        this.nextPageLabel = translation['quixPaginator.nextPage']
-        this.previousPageLabel = translation['quixPaginator.previousPage']
-        this.firstPageLabel = translation['quixPaginator.firstPage']
-        this.lastPageLabel = translation['quixPaginator.lastPage']
-        this.changes.next()
-      }
-    )
+    ]).subscribe(t => {
+      this.itemsPerPageLabel = t['quixPaginator.itemPerPage']
+      this.nextPageLabel = t['quixPaginator.nextPage']
+      this.previousPageLabel = t['quixPaginator.previousPage']
+      this.firstPageLabel = t['quixPaginator.firstPage']
+      this.lastPageLabel = t['quixPaginator.lastPage']
+      this.changes.next()
+    })
   }
 }

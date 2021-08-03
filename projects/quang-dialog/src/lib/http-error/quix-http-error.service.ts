@@ -7,7 +7,13 @@ import { HttpErrorResponse } from '@angular/common/http'
   providedIn: 'root'
 })
 export class QuixHttpErrorService {
+  /**
+   * modal container
+   */
   modalError: any
+  /**
+   * define if modal is open
+   */
   isOpen: boolean = false
 
   constructor (

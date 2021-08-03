@@ -8,8 +8,17 @@ import { QUANGDIALOG_KEY } from './quang-dialog.selector'
  * interface that defines the state of the module
  */
 export interface QuangDialogState {
-  toastState: ToastsState;
+  /**
+   * toast state
+   */
+  toastState: ToastsState,
+  /**
+   * offline state
+   */
   offlineState: OfflineState,
+  /**
+   * loader state
+   */
   loaderState: LoaderState
 }
 

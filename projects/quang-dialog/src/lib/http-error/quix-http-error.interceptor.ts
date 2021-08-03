@@ -7,7 +7,13 @@ import { QuangDialogConfig } from '../quang-dialog.config'
 
 @Injectable()
 export class QuixHttpErrorInterceptor implements HttpInterceptor {
+  /**
+   * no loader interceptor for this url or error
+   */
   noErrorUrls: { url: string, error: number }[] = []
+  /**
+   * window access
+   */
   _window = (): any => window
 
   constructor (
@@ -23,6 +29,12 @@ export class QuixHttpErrorInterceptor implements HttpInterceptor {
     }
   }
 
+  /**
+   * intercepts the call, checks if the url should display the error modal,
+   * if it displays the error modal
+   * @param req
+   * @param next
+   */
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       map((resp: HttpEvent<any>) => {

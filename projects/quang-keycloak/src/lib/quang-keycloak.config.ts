@@ -1,6 +1,11 @@
 import {KeycloakOptions} from "keycloak-angular";
 
 export class QuangKeycloakConfig {
+  /**
+   * module config
+   * @param keycloakConfig
+   * @param ionicApplication
+   */
   constructor(
     /**
      * configurations for authentication with keycloak
