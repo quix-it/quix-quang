@@ -12,8 +12,17 @@ import {
  * defines the state of the keycloak authentication store
  */
 export interface QuangKeycloakUserState {
+  /**
+   * define is user is authenticated
+   */
   isAuthenticated: boolean
+  /**
+   * define user data
+   */
   user: any
+  /**
+   * define user roles
+   */
   roles: any[]
 }
 /**

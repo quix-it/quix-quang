@@ -12,8 +12,17 @@ import {
  * store state
  */
 export interface QuangAuthUserState {
+  /**
+   * define if user is authenticated
+   */
   isAuthenticated: boolean
+  /**
+   * user data
+   */
   user: any
+  /**
+   * user roles
+   */
   roles: any[]
 }
 

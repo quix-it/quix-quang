@@ -5,6 +5,9 @@ import { offline, online } from './offline.action'
  * define offline state
  */
 export interface OfflineState {
+  /**
+   * define line state
+   */
   line: boolean
 }
 

@@ -6,6 +6,9 @@ import { QuixToast } from '../toast.model'
  * define toast state in store
  */
 export interface ToastsState {
+  /**
+   * toast data
+   */
   toastData: QuixToast;
 }
 

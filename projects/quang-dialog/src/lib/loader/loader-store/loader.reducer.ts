@@ -5,6 +5,9 @@ import { addLoader, removeLoader } from './loader.action'
  * define loader state
  */
 export interface LoaderState {
+  /**
+   * loaders number
+   */
   loaders: number
 }
 
