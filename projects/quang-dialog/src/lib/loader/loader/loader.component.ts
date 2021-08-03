@@ -10,10 +10,25 @@ import { QuangDialogConfig } from '../../quang-dialog.config'
   styles: ['']
 })
 export class LoaderComponent implements OnInit, OnDestroy {
+  /**
+   * loader html element
+   */
   @ViewChild('loader') loader: ElementRef<HTMLDivElement> | null = null
+  /**
+   * loader subscription
+   */
   loaderSubscription$: Subscription = new Subscription()
+  /**
+   * observable for loader state
+   */
   loader$: Observable<any> = this.store.pipe(select(selectLoader))
+  /**
+   * counter for active call
+   */
   activeLoader: number = 0
+  /**
+   * wrapper for module configuration
+   */
   configModule: QuangDialogConfig = null
 
   constructor (

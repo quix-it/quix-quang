@@ -11,6 +11,9 @@ import { TranslocoService } from '@ngneat/transloco'
   providedIn: 'root'
 })
 export class QuixOfflineService {
+  /**
+   * message that notifies the user of the lack of connection
+   */
   offlineLabel: string
 
   constructor (

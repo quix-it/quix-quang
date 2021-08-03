@@ -16,8 +16,17 @@ import { QuangDialogConfig } from '../quang-dialog.config'
   providedIn: 'root'
 })
 export class QuixLoaderInterceptor implements HttpInterceptor {
+  /**
+   * no loader url list
+   */
   noLoaderUrls: string[] = []
+  /**
+   * no loader method list
+   */
   noLoaderMethods: string[] = []
+  /**
+   * window access
+   */
   _window = (): any => window
 
   constructor (
@@ -40,10 +49,19 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
     }
   }
 
+  /**
+   * check if the url of the call made and intercepted is present in one of the two lists
+   * @param request
+   */
   private checkUrl = (request: HttpRequest<any>): boolean => {
     return this.noLoaderUrls.some(url => request.url.includes(url)) || this.noLoaderMethods.some(method => request.method === method)
   }
 
+  /**
+   * intercept the call, check if the url should display the loader
+   * @param request
+   * @param next
+   */
   intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const noLoader = this.checkUrl(request)
     if (!noLoader) {
