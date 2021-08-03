@@ -9,7 +9,9 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing'
-
+/**
+ * Standard definition for require
+ */
 declare const require: {
   context (path: string, deep?: boolean, filter?: RegExp): {
     keys (): string[];
