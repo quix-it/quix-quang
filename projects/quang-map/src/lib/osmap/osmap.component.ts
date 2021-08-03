@@ -75,6 +75,9 @@ export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
     source: new OSM()
   })
 
+  /**
+   * Create the map
+   */
   ngAfterViewInit (): void {
     this.createMap()
   }

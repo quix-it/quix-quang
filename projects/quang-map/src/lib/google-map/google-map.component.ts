@@ -13,6 +13,9 @@ import { GoogleMarker } from './google-marker.model'
 import { of, timer } from 'rxjs'
 import { delay, delayWhen, map, retryWhen } from 'rxjs/operators'
 
+/**
+ * global declaration for google async library
+ */
 declare var google: any
 
 @Component({
