@@ -16,6 +16,9 @@ import { OAuthService } from 'angular-oauth2-oidc'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for auth management
+ */
 export class QuangAuthService {
   /**
    * module configurations

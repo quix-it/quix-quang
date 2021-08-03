@@ -5,7 +5,9 @@ import { Observable, Subject } from 'rxjs'
  * general declaration for global library
  */
 declare var EventBus: any
-
+/**
+ * utility for event bus management
+ */
 export interface QuixBusEventOptions {
   /**
    * Max reconnect attempts

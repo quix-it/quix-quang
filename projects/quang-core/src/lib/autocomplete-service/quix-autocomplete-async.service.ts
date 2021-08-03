@@ -4,6 +4,9 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for autocomplete management
+ */
 export class QuixAutocompleteAsyncService {
 
   constructor (

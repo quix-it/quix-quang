@@ -5,6 +5,9 @@ import { EventSourcePolyfill } from 'event-source-polyfill'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for event source management
+ */
 export class QuixEventSourceService {
   /**
    * event source wrapper

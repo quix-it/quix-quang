@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core'
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * utility for paginator management
+ */
 export class QuixPaginatorService {
-
-  constructor () {
-  }
 
   /**
    * Returns the portion of the list given the page and the number of items per page
