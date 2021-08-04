@@ -158,7 +158,7 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
 
   /**
    * Add focus to the input field if the need comes after component initialization
-   * @param changes
+   * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.autofocus && this.input) {

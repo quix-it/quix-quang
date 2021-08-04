@@ -183,7 +183,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
 
   /**
    * Add focus to the input field if the need comes after component initialization
-   * @param changes
+   * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.autofocus && this.input) {

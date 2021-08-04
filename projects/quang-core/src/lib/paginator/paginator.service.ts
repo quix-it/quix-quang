@@ -10,9 +10,9 @@ export class QuixPaginatorService {
 
   /**
    * Returns the portion of the list given the page and the number of items per page
-   * @param list
-   * @param pageNumber
-   * @param pageSize
+   * @param list list to be paged
+   * @param pageNumber page number
+   * @param pageSize page size
    */
   getPage (list: Array<any>, pageNumber: number, pageSize: number): Array<any> {
     const start = pageNumber * pageSize

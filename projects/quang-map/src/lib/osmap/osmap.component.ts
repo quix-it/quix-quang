@@ -106,7 +106,7 @@ export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
   /**
    * When the center of defualt changes it generates a new map
    * When the default zoom changes it generates a new map
-   * @param changes
+   * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges) {
     if (changes.defaultCenter?.currentValue) {

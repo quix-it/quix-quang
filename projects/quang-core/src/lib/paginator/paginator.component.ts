@@ -90,7 +90,7 @@ export class PaginatorComponent implements OnChanges {
 
   /**
    * When the inputs change, it constricts the internal states of the component and updates the properties of the pager if necessary
-   * @param changes
+   * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.totalItems?.currentValue) {

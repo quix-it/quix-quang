@@ -104,7 +104,7 @@ export class GoogleMapComponent implements OnChanges {
    * when the marker list is changed, it deletes the existing ones and creates the new ones
    * when the center changes it updates the center of the map,
    * when the map type changes it builds a new map
-   * @param changes
+   * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.markers?.currentValue) {

@@ -88,7 +88,7 @@ export class VideoComponent implements OnChanges {
    * When the source changes, sanitize the url and start the video,
    * When the poster changes sanitize the url and display the poster,
    * if the video at the change of url is not restarted, I force the restart
-   * @param changes
+   * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.src?.currentValue) {

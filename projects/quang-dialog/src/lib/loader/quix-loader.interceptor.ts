@@ -59,7 +59,7 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
 
   /**
    * check if the url of the call made and intercepted is present in one of the two lists
-   * @param request
+   * @param request http request
    */
   private checkUrl = (request: HttpRequest<any>): boolean => {
     return this.noLoaderUrls.some(url => request.url.includes(url)) || this.noLoaderMethods.some(method => request.method === method)
@@ -67,7 +67,7 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
 
   /**
    * intercept the call, check if the url should display the loader
-   * @param request
+   * @param request http request
    * @param next
    */
   intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

@@ -10,7 +10,7 @@ import * as Sentry from '@sentry/angular'
 export class SentryDialogService implements ErrorHandler {
   /**
    * Custom error handler for sentry
-   * @param error
+   * @param error http error
    */
   handleError (error: any) {
     console.error(error)

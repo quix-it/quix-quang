@@ -180,7 +180,7 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
 
   /**
    * Checks if focus is required when displaying the input field.
-   * @param changes
+   * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.autofocus && this.input) {

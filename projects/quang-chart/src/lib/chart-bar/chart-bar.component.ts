@@ -112,7 +112,7 @@ export class ChartBarComponent implements OnChanges {
 
   /**
    * function triggered by clicking on an element of the chart emits an event to the parent component
-   * @param e
+   * @param e event
    */
   onChartClick (e): void {
     this.chartClick.emit(e)

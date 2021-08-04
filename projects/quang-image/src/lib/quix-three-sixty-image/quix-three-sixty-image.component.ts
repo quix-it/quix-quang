@@ -76,7 +76,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
   /**
    * If the url list changes, it waits for the delay time entered and starts the rotation
    * If the starting image changes, it sanitizes the url and sets it as the current image
-   * @param changes
+   * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (this.intervalId) {

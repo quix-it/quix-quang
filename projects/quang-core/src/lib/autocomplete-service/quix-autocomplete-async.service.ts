@@ -10,7 +10,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 export class QuixAutocompleteAsyncService {
   /**
    * constructor
-   * @param http
+   * @param http http utility
    */
   constructor (
     private readonly http: HttpClient
@@ -19,9 +19,9 @@ export class QuixAutocompleteAsyncService {
 
   /**
    * Build the url based on the configurations and make an http call passing the search parameter in the url
-   * @param baseUrl
-   * @param url
-   * @param param
+   * @param baseUrl prject base url
+   * @param url api url
+   * @param param api params
    */
   getRestList (baseUrl: string, url: string, param: string) {
     if (param) {
@@ -33,10 +33,10 @@ export class QuixAutocompleteAsyncService {
 
   /**
    * Build the url based on the configurations and make an http call passing the parameter as url parameters
-   * @param baseUrl
-   * @param url
-   * @param param
-   * @param paramId
+   * @param baseUrl project base url
+   * @param url api url
+   * @param param api param value
+   * @param paramId api param name
    */
   getList (baseUrl: string, url: string, param: string, paramId: string) {
     const urlParam = { params: new HttpParams().set(paramId, param) }
