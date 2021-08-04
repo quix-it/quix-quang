@@ -13,6 +13,7 @@ import { ToastsState } from './toast-store/toast.reducer'
 import { select, Store } from '@ngrx/store'
 import { selectToast } from './toast-store/toast.selector'
 import { delay, take } from 'rxjs/operators'
+
 /**
  * toast component decorator
  */
@@ -39,6 +40,9 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
    * @private
    */
   private subscription: Subscription = new Subscription()
+  /**
+   * html element
+   */
   @ViewChild('toastDom', { static: false }) toastDom: ElementRef
 
   /**
@@ -48,10 +52,13 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
    */
   constructor (
     private readonly renderer: Renderer2,
-    private readonly store : Store<any>
+    private readonly store: Store<any>
   ) {
   }
 
+  /**
+   * init observer
+   */
   ngAfterViewInit () {
     this.observeToasts()
   }
@@ -96,6 +103,7 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
     this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '0')
     this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(0)')
   }
+
   /**
    * unsubscribe the observable
    */

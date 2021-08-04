@@ -79,7 +79,10 @@ export class ChartAreaComponent implements OnChanges {
       return idx * 5
     }
   }
-
+  /**
+   * change input management
+   * @param changes component changes
+   */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.color?.currentValue) {
       this.chartOption.color = changes.color.currentValue

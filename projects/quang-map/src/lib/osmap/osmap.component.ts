@@ -12,6 +12,7 @@ import View from 'ol/View'
 import { Tile } from 'ol/layer'
 import { OSM } from 'ol/source'
 import * as olProj from 'ol/proj'
+
 /**
  * open street map component decorator
  */
@@ -108,7 +109,7 @@ export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
    * When the default zoom changes it generates a new map
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges) {
+  ngOnChanges (changes: SimpleChanges): void {
     if (changes.defaultCenter?.currentValue) {
       this.createMap()
     }

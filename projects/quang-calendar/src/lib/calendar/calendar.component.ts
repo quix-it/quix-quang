@@ -84,6 +84,9 @@ export class CalendarComponent implements OnChanges {
    * Event triggered when the calendar view of the calendar changes
    */
   @Output() onViewChange = new EventEmitter<any>()
+  /**
+   * calendar config
+   */
   calendarOptions: CalendarOptions = {
     initialView: this.view,
     themeSystem: 'bootstrap',
@@ -97,6 +100,10 @@ export class CalendarComponent implements OnChanges {
     locale: '',
   }
 
+  /**
+   * change input management
+   * @param changes component changes
+   */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.height?.currentValue) {
       this.calendarOptions.height = changes.height.currentValue
@@ -142,5 +149,4 @@ export class CalendarComponent implements OnChanges {
     this.onViewChange.emit(event)
     this.callBack(event, successCallback, failureCallback)
   }
-
 }

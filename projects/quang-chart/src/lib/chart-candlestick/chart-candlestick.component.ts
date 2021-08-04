@@ -64,7 +64,10 @@ export class ChartCandlestickComponent implements OnChanges {
     yAxis: {},
     series: []
   }
-
+  /**
+   * change input management
+   * @param changes component changes
+   */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.chartData?.currentValue) {
       this.chartOption.xAxis = {

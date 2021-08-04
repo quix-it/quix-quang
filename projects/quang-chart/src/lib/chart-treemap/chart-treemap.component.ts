@@ -63,6 +63,10 @@ export class ChartTreemapComponent implements  OnChanges {
     series: []
   }
 
+  /**
+   * change input management
+   * @param changes component changes
+   */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.chartData?.currentValue?.length) {
       this.chartOption.series = [{

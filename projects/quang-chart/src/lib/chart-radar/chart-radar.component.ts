@@ -67,8 +67,11 @@ export class ChartRadarComponent implements OnChanges {
     radar: {},
     series: []
   }
-
-  ngOnChanges (changes: SimpleChanges) {
+  /**
+   * change input management
+   * @param changes component changes
+   */
+  ngOnChanges (changes: SimpleChanges): void {
     if (changes.chartData?.currentValue) {
       this.chartOption.series = changes.chartData.currentValue?.map(s => ({ type: 'radar', data: [{ value: s }] }))
     }

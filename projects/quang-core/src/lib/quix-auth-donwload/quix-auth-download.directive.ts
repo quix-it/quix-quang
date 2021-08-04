@@ -25,6 +25,10 @@ export class QuixAuthDownloadDirective {
    */
   @Input() contentType: string
 
+  /**
+   * click listener
+   * @param e event
+   */
   @HostListener('click', ['$event']) onClick (e) {
     e.preventDefault()
     this.downloadFile()

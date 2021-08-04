@@ -78,7 +78,10 @@ export class ChartPieComponent implements  OnChanges {
       return Math.random() * 200
     }
   }
-
+  /**
+   * change input management
+   * @param changes component changes
+   */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.color?.currentValue) {
       this.chartOption.color = changes.color.currentValue
