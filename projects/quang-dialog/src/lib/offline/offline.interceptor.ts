@@ -10,6 +10,9 @@ import { select, Store } from '@ngrx/store'
 import { selectLine } from './offline-store/offline.selector'
 import { delayWhen, map, retryWhen, switchMap } from 'rxjs/operators'
 
+/**
+ * Interceptor decorator
+ */
 @Injectable()
 /**
  * offline interceptor

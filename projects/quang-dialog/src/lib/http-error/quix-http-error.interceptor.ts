@@ -4,7 +4,9 @@ import { catchError, map } from 'rxjs/operators'
 import { Observable, throwError } from 'rxjs'
 import { QuixHttpErrorService } from './quix-http-error.service'
 import { QuangDialogConfig } from '../quang-dialog.config'
-
+/**
+ * Interceptor decorator
+ */
 @Injectable()
 /**
  * http erro interceptor
