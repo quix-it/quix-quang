@@ -9,7 +9,9 @@ import {
 } from '@angular/core'
 import { ChartTreemap } from './chart-treemap.model'
 import { EChartsOption } from 'echarts'
-
+/**
+ * chart treemap component decorator
+ */
 @Component({
   selector: 'quix-chart-treemap',
   templateUrl: './chart-treemap.component.html',

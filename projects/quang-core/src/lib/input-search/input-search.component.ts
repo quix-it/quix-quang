@@ -13,7 +13,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * input search component decorator
+ */
 @Component({
   selector: 'quix-input-search',
   templateUrl: './input-search.component.html',

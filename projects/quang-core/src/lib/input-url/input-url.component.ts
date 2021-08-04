@@ -11,7 +11,9 @@ import {
 } from '@angular/core'
 import { NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * input url component decorator
+ */
 @Component({
   selector: 'quix-input-url',
   templateUrl: './input-url.component.html',

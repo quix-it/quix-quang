@@ -3,11 +3,12 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   Output,
 } from '@angular/core'
 import { QuixCarousel } from './carousel.model'
-
+/**
+ * carousel component decorator
+ */
 @Component({
   selector: 'quix-carousel',
   templateUrl: './carousel.component.html',

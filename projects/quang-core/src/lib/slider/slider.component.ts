@@ -11,7 +11,9 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
 import { MatSlider, MatSliderChange } from '@angular/material/slider'
-
+/**
+ * slider component decorator
+ */
 @Component({
   selector: 'quix-slider',
   templateUrl: './slider.component.html',

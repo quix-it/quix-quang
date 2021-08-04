@@ -16,6 +16,9 @@ import * as moment from 'moment'
 import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay } from 'rxjs/operators'
 
+/**
+ * input date component decorator
+ */
 @Component({
   selector: 'quix-input-date',
   templateUrl: './input-date.component.html',

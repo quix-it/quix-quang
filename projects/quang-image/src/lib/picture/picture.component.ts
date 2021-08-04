@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { QuixPicture } from './picture.model'
-
+/**
+ * picture component decorator
+ */
 @Component({
   selector: 'quix-picture',
   templateUrl: './picture.component.html',

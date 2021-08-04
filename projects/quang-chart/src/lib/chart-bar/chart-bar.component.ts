@@ -9,7 +9,9 @@ import {
 } from '@angular/core'
 import { ChartLine } from '../chart-line/chart-line.model'
 import { EChartsOption } from 'echarts'
-
+/**
+ * chart bar component decorator
+ */
 @Component({
   selector: 'quix-chart-bar',
   templateUrl: './chart-bar.component.html',

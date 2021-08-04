@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
-
+/**
+ * card simple component decorator
+ */
 @Component({
   selector: 'quix-card-simple',
   templateUrl: './quix-card-simple.component.html',

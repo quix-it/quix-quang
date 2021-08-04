@@ -13,7 +13,9 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
 import 'quill-emoji/dist/quill-emoji.js'
 import { ContentChange, QuillEditorComponent } from 'ngx-quill'
-
+/**
+ * text editor component decorator
+ */
 @Component({
   selector: 'quix-text-editor',
   templateUrl: './text-editor.component.html',

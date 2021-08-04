@@ -18,6 +18,9 @@ import { delay, delayWhen, map, retryWhen } from 'rxjs/operators'
  */
 declare var google: any
 
+/**
+ * google map component decorator
+ */
 @Component({
   selector: 'quix-google-map',
   templateUrl: './google-map.component.html',

@@ -13,7 +13,9 @@ import { ToastsState } from './toast-store/toast.reducer'
 import { select, Store } from '@ngrx/store'
 import { selectToast } from './toast-store/toast.selector'
 import { delay, take } from 'rxjs/operators'
-
+/**
+ * toast component decorator
+ */
 @Component({
   selector: 'quix-toast',
   templateUrl: './toast.component.html',

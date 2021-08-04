@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal'
 import { HttpErrorResponse } from '@angular/common/http'
 
+/**
+ * error modal component decorator
+ */
 @Component({
   selector: 'app-quix-http-error-modal',
   templateUrl: './quix-http-error-modal.component.html',

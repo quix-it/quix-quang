@@ -14,7 +14,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * input radio component decorator
+ */
 @Component({
   selector: 'quix-input-radio',
   templateUrl: './input-radio.component.html',

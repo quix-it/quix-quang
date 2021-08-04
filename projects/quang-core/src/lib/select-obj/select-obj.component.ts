@@ -11,7 +11,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * select object component decorator
+ */
 @Component({
   selector: 'quix-select-obj',
   templateUrl: './select-obj.component.html',

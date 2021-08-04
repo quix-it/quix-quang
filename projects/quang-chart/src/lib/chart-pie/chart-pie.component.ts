@@ -9,7 +9,9 @@ import {
 } from '@angular/core'
 import { ChartPie } from './chart-pie.model'
 import { EChartsOption } from 'echarts'
-
+/**
+ * chart pie component decorator
+ */
 @Component({
   selector: 'quix-chart-pie',
   templateUrl: './chart-pie.component.html',

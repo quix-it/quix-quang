@@ -15,7 +15,9 @@ import * as moment from 'moment'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay } from 'rxjs/operators'
-
+/**
+ * input date range component decorator
+ */
 @Component({
   selector: 'quix-input-date-range',
   templateUrl: './input-date-range.component.html',

@@ -14,10 +14,11 @@ import {
 import { NgControl } from '@angular/forms'
 import { Observable, Observer, of } from 'rxjs'
 import { debounceTime, delay, distinctUntilChanged, map, switchMap } from 'rxjs/operators'
-
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
 import { QuixAutocompleteAsyncService } from '../autocomplete-service/quix-autocomplete-async.service'
-
+/**
+ * autocomplete string async component decorator
+ */
 @Component({
   selector: 'quix-autocomplete-strg-async',
   templateUrl: './autocomplete-strg-async.component.html',

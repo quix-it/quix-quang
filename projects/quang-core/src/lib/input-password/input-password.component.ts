@@ -13,7 +13,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * input password component decorator
+ */
 @Component({
   selector: 'quix-input-password',
   templateUrl: './input-password.component.html',

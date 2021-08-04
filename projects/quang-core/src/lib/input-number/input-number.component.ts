@@ -12,7 +12,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * input number component decorator
+ */
 @Component({
   selector: 'quix-input-number',
   templateUrl: './input-number.component.html',

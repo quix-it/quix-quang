@@ -4,12 +4,13 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output, Renderer2,
   SimpleChanges, ViewChild
 } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
-
+/**
+ * paginator component decorator
+ */
 @Component({
   selector: 'quix-paginator',
   templateUrl: './paginator.component.html',

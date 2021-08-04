@@ -8,10 +8,12 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
-
 import { ChartDoughnut } from './chart-doughnut.model'
 import { EChartsOption } from 'echarts'
 
+/**
+ * chart doughnut component decorator
+ */
 @Component({
   selector: 'quix-chart-doughnut',
   templateUrl: './chart-doughnut.component.html',

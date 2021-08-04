@@ -9,7 +9,9 @@ import {
 } from '@angular/core'
 import { ChartRadar } from './chart-radar.model'
 import { EChartsOption } from 'echarts'
-
+/**
+ * chart radar component decorator
+ */
 @Component({
   selector: 'quix-chart-radar',
   templateUrl: './chart-radar.component.html',

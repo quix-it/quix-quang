@@ -12,7 +12,9 @@ import {
 import { NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
-
+/**
+ * autocomplete string component decorator
+ */
 @Component({
   selector: 'quix-autocomplete-strg',
   templateUrl: './autocomplete-strg.component.html',

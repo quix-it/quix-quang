@@ -12,7 +12,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * input email component decorator
+ */
 @Component({
   selector: 'quix-input-email',
   templateUrl: './input-email.component.html',

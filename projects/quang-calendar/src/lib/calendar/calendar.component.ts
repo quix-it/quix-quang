@@ -9,6 +9,9 @@ import {
 } from '@angular/core'
 import { CalendarOptions } from '@fullcalendar/angular'
 
+/**
+ * calendar component decorator
+ */
 @Component({
   selector: 'quix-calendar',
   templateUrl: './calendar.component.html',

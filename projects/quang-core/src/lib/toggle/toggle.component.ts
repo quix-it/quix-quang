@@ -12,7 +12,9 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
 import { MatSlideToggle } from '@angular/material/slide-toggle'
-
+/**
+ * toggle component decorator
+ */
 @Component({
   selector: 'quix-toggle',
   templateUrl: './toggle.component.html',

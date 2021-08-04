@@ -10,6 +10,9 @@ import {
 import { ChartLine } from '../chart-line/chart-line.model'
 import { EChartsOption } from 'echarts'
 
+/**
+ * chart area component decorator
+ */
 @Component({
   selector: 'quix-chart-area',
   templateUrl: './chart-area.component.html',

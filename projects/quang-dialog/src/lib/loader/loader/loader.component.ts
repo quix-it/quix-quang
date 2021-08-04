@@ -3,7 +3,9 @@ import { Observable, Subscription } from 'rxjs'
 import { select, Store } from '@ngrx/store'
 import { selectLoader } from '../loader-store/loader.selector'
 import { QuangDialogConfig } from '../../quang-dialog.config'
-
+/**
+ * loader component decorator
+ */
 @Component({
   selector: 'quix-loader',
   templateUrl: './loader.component.html',

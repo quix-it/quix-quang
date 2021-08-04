@@ -14,7 +14,9 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { CdkTextareaAutosize } from '@angular/cdk/text-field'
 import { delay, take } from 'rxjs/operators'
-
+/**
+ * text area component decorator
+ */
 @Component({
   selector: 'quix-text-area',
   templateUrl: './text-area.component.html',

@@ -13,7 +13,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * input color component decorator
+ */
 @Component({
   selector: 'quix-input-color',
   templateUrl: './input-color.component.html',

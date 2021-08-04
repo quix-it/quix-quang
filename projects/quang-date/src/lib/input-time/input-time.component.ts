@@ -13,7 +13,9 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay } from 'rxjs/operators'
 import { BsTimepickerViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-timepicker-view.component'
-
+/**
+ * input time component decorator
+ */
 @Component({
   selector: 'quix-input-time',
   templateUrl: './input-time.component.html',

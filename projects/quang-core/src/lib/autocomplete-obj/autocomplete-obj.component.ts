@@ -14,7 +14,9 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
-
+/**
+ * autocomplete object component decorator
+ */
 @Component({
   selector: 'quix-autocomplete-obj',
   templateUrl: './autocomplete-obj.component.html',

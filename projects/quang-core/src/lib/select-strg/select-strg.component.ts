@@ -12,7 +12,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * select string component decorator
+ */
 @Component({
   selector: 'quix-select-strg',
   templateUrl: './select-strg.component.html',

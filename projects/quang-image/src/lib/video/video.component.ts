@@ -9,6 +9,9 @@ import {
 } from '@angular/core'
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser'
 
+/**
+ * video component decorator
+ */
 @Component({
   selector: 'quix-video',
   templateUrl: './video.component.html',

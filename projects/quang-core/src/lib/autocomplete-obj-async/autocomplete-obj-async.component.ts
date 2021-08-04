@@ -16,7 +16,9 @@ import { Observable, Observer, of } from 'rxjs'
 import { debounceTime, delay, distinctUntilChanged, map, switchMap } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
 import { QuixAutocompleteAsyncService } from '../autocomplete-service/quix-autocomplete-async.service'
-
+/**
+ * autocomplete object async component decorator
+ */
 @Component({
   selector: 'quix-autocomplete-obj-async',
   templateUrl: './autocomplete-obj-async.component.html',

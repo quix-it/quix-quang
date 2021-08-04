@@ -12,7 +12,9 @@ import View from 'ol/View'
 import { Tile } from 'ol/layer'
 import { OSM } from 'ol/source'
 import * as olProj from 'ol/proj'
-
+/**
+ * open street map component decorator
+ */
 @Component({
   selector: 'quix-osmap',
   templateUrl: './osmap.component.html',

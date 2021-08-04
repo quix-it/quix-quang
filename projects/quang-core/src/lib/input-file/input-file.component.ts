@@ -14,7 +14,9 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
 import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx-file-drop'
-
+/**
+ * input file component decorator
+ */
 @Component({
   selector: 'quix-input-file',
   templateUrl: './input-file.component.html',

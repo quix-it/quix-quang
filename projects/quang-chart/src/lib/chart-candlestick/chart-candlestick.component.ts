@@ -9,7 +9,9 @@ import {
 } from '@angular/core'
 import { ChartCandlestick } from './chart-candlestick.model'
 import { EChartsOption } from 'echarts'
-
+/**
+ * chart candlestick component decorator
+ */
 @Component({
   selector: 'quix-chart-candlestick',
   templateUrl: './chart-candlestick.component.html',

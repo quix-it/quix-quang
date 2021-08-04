@@ -13,7 +13,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * input fraction component decorator
+ */
 @Component({
   selector: 'quix-input-fraction',
   templateUrl: './input-fraction.component.html',

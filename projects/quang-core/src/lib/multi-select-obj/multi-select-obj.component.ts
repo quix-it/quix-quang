@@ -13,7 +13,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * multi elect object component decorator
+ */
 @Component({
   selector: 'quix-multi-select-obj',
   templateUrl: './multi-select-obj.component.html',

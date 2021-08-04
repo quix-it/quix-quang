@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   Input, OnChanges,
-
   SimpleChanges,
   ViewChild
 } from '@angular/core'
@@ -10,6 +9,9 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser'
 import { of } from 'rxjs'
 import { delay, tap } from 'rxjs/operators'
 
+/**
+ * three sixty component decorator
+ */
 @Component({
   selector: 'quix-three-sixty-image',
   templateUrl: './quix-three-sixty-image.component.html',

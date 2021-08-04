@@ -12,7 +12,9 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-
+/**
+ * multi select string component decorator
+ */
 @Component({
   selector: 'quix-multi-select-strg',
   templateUrl: './multi-select-strg.component.html',
