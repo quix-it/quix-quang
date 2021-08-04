@@ -11,7 +11,9 @@ import { catchError, finalize, map } from 'rxjs/operators'
 import { Store } from '@ngrx/store'
 import { addLoader, removeLoader } from './loader-store/loader.action'
 import { QuangDialogConfig } from '../quang-dialog.config'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

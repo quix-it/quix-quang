@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {QuixToast} from "./toast.model";
 import {openToast} from "./toast-store/toast.action";
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

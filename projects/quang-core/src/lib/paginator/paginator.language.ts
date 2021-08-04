@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core'
 import { MatPaginatorIntl } from '@angular/material/paginator'
 import { TranslocoService } from '@ngneat/transloco'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

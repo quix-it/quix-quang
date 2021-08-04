@@ -12,6 +12,9 @@ import {
 } from './quang-auth.action'
 import { Store } from '@ngrx/store'
 
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

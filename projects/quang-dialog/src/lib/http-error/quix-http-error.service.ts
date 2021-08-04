@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core'
 import { QuixModalService } from '../modal/quix-modal.service'
 import { QuixHttpErrorModalComponent } from './quix-http-error-modal/quix-http-error-modal.component'
 import { HttpErrorResponse } from '@angular/common/http'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

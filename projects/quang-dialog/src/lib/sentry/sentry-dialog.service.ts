@@ -1,6 +1,8 @@
 import { ErrorHandler, Injectable } from '@angular/core'
 import * as Sentry from '@sentry/angular'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core'
 import { MatBottomSheet } from '@angular/material/bottom-sheet'
 
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpParams } from '@angular/common/http'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

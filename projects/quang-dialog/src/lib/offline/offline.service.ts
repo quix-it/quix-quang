@@ -6,7 +6,9 @@ import { select, Store } from '@ngrx/store'
 import { offline, online } from './offline-store/offline.action'
 import { selectLine } from './offline-store/offline.selector'
 import { TranslocoService } from '@ngneat/transloco'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

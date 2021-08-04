@@ -1,8 +1,10 @@
-import { Component, Injectable } from '@angular/core'
-import { Observable, Subject, Subscription } from 'rxjs'
+import {  Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal'
 import { take } from 'rxjs/operators'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

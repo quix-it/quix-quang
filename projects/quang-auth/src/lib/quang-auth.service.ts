@@ -1,18 +1,18 @@
 import { Injectable, Optional } from '@angular/core'
-
 import { Store } from '@ngrx/store'
 import { from, Observable, of } from 'rxjs'
 import {
   userInfoLogin, userInfoLogout,
   userLogin,
   userLogout,
-  userRolesLogin,
   userRolesLogout
 } from './quang-auth-store/quang-auth.action'
-
 import { QuangAuthConfig } from './quang-auth.config'
 import { OAuthService } from 'angular-oauth2-oidc'
 
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -39,7 +39,7 @@ export class QuangAuthService {
   constructor (
     @Optional() config: QuangAuthConfig,
     private readonly oauthService: OAuthService,
-    private readonly store : Store<any>,
+    private readonly store: Store<any>,
   ) {
     if (config) {
       this.config = config
@@ -64,7 +64,7 @@ export class QuangAuthService {
   /**
    * call to retrieve login data and try login
    */
-  login () : Observable<any> {
+  login (): Observable<any> {
     return from(this.oauthService.loadDiscoveryDocumentAndTryLogin())
   }
 
@@ -113,8 +113,8 @@ export class QuangAuthService {
   /**
    * log out
    */
-  logout () : void {
-     this.oauthService.logOut()
+  logout (): void {
+    this.oauthService.logOut()
   }
 
   /**

@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router'
 import { Observable, of, throwError } from 'rxjs'
 import {
-  catchError, filter, map, switchMap, take,
+  catchError, filter, switchMap, take,
 } from 'rxjs/operators'
 import { select, Store } from '@ngrx/store'
 import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-auth-store/quang-auth.selector'
 
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root',
 })

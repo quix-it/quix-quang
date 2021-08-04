@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })
