@@ -69,8 +69,8 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
 
   /**
    * intercept the call, check if the url should display the loader
-   * @param request http request
-   * @param next
+   * @param request http request http request
+   * @param next http observable
    */
   intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const noLoader = this.checkUrl(request)

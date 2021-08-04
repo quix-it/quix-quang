@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core'
 import { AbstractControl, ValidatorFn } from '@angular/forms'
 import * as moment from 'moment'
 
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

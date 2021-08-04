@@ -4,7 +4,9 @@ import { select, Store } from '@ngrx/store'
 
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
 import { selectHasUntilRoles } from '../quang-keycloak-store/quang-keycloak.selector'
-
+/**
+ * directive decorator
+ */
 @Directive({
   selector: '[quangHasUntilRoles]'
 })

@@ -10,7 +10,9 @@ import {
   userRolesLogin, userRolesLogout
 } from './quang-keycloak-store/quang-keycloak.action'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

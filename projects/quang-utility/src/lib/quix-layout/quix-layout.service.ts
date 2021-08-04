@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core'
 import { BreakpointObserver } from '@angular/cdk/layout'
 
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

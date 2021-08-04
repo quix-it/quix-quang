@@ -27,7 +27,7 @@ export class OfflineInterceptor implements HttpInterceptor {
   /**
    * intercepts the call and if the system is offline it tries again every 30 seconds
    * @param request http request http request
-   * @param next
+   * @param next http observable
    */
   intercept (request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return this.store.pipe(

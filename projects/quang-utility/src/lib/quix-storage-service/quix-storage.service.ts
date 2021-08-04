@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core'
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage'
 
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

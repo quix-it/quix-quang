@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
 import { EventSourcePolyfill } from 'event-source-polyfill'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root'
 })

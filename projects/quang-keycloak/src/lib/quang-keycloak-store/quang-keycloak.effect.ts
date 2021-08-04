@@ -11,7 +11,9 @@ import {
   userRolesLogout
 } from './quang-keycloak.action'
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 /**
  * auth effect
  */

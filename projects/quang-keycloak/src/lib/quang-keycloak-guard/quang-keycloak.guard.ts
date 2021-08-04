@@ -6,7 +6,9 @@ import {
 } from 'rxjs/operators'
 import { select, Store } from '@ngrx/store'
 import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-keycloak-store/quang-keycloak.selector'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -16,8 +18,8 @@ import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-ke
 export class QuangKeycloakGuard implements CanActivate {
   /**
    * constructor
-   * @param authStore
-   * @param router
+   * @param authStore auth store access
+   * @param router router utility
    */
   constructor (
     private readonly authStore: Store<any>,
@@ -27,7 +29,7 @@ export class QuangKeycloakGuard implements CanActivate {
 
   /**
    * check if the user has all the required roles saved in the store
-   * @param allowedRoles
+   * @param allowedRoles role list
    */
   checkAllRole (allowedRoles: string[]) {
     return this.authStore.pipe(
@@ -38,7 +40,7 @@ export class QuangKeycloakGuard implements CanActivate {
 
   /**
    * check if the user has at least one required role saved in the store
-   * @param allowedRoles
+   * @param allowedRoles role list
    */
   checkUntilRole (allowedRoles: string[]) {
     return this.authStore.pipe(
@@ -46,8 +48,13 @@ export class QuangKeycloakGuard implements CanActivate {
       take(1)
     )
   }
-
-  canActivate (route: ActivatedRouteSnapshot,
+  /**
+   * Retrieve user info if it exists, check if it has the necessary roles to view the page
+   * @param route active route
+   * @param state router state
+   */
+  canActivate (
+    route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authStore.pipe(
       select(selectUserInfo),

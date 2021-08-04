@@ -3,7 +3,9 @@ import { Subject } from 'rxjs'
 import { select, Store } from '@ngrx/store'
 import { selectIsAuthenticated } from '../quang-auth-store/quang-auth.selector'
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
-
+/**
+ * directive decorator
+ */
 @Directive({
   selector: '[quangIsAuthenticated]'
 })

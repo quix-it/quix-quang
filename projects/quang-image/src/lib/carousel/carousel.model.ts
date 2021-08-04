@@ -1,6 +1,17 @@
 import {QuixPicture} from "../picture/picture.model";
 
+/**
+ * carousel item
+ */
 export class QuixCarousel {
+  /**
+   *  constructor
+   * @param src define slide url image
+   * @param responsiveList define slide responsive list image
+   * @param alt define slide alt image
+   * @param title define slide title
+   * @param subTitle define slide subtitle
+   */
   constructor(
     /**
      * image url

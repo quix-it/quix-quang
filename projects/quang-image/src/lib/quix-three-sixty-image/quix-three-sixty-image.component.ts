@@ -55,13 +55,33 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
   @Input() delayTime: number
 
   @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement>
+  /**
+   * rotation step
+   */
   step: number = 30
-  context: any
+  /**
+   * current x vlaue
+   */
   currentX: any
+  /**
+   * current eframe
+   */
   currentFrame: number = 0
+  /**
+   * intervall timing wrapper
+   */
   intervalId: any
+  /**
+   * mouse state
+   */
   mouseStateDown = false
+  /**
+   * current image url
+   */
   imageUrl: SafeStyle = ''
+  /**
+   * play status
+   */
   play: boolean = true
 
   /**

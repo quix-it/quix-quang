@@ -40,8 +40,8 @@ export class QuixHttpErrorInterceptor implements HttpInterceptor {
   /**
    * intercepts the call, checks if the url should display the error modal,
    * if it displays the error modal
-   * @param req
-   * @param next
+   * @param request http request http request
+   * @param next http observable
    */
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(

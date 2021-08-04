@@ -3,7 +3,9 @@ import { Subject } from 'rxjs'
 import { select, Store } from '@ngrx/store'
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
 import { selectIsAuthenticated } from '../quang-keycloak-store/quang-keycloak.selector'
-
+/**
+ * directive decorator
+ */
 @Directive({
   selector: '[quangIsAuthenticated]'
 })

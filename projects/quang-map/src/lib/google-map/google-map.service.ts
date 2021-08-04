@@ -1,6 +1,8 @@
 import { Injectable, Optional } from '@angular/core'
 import { QuangMapConfig } from '../quang-map.config'
-
+/**
+ * service decorator
+ */
 @Injectable({
   providedIn: 'root',
 })

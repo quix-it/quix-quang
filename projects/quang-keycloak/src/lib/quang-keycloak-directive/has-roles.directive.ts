@@ -3,7 +3,9 @@ import { Subject } from 'rxjs'
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
 import { select, Store } from '@ngrx/store'
 import { selectHasRoles } from '../quang-keycloak-store/quang-keycloak.selector'
-
+/**
+ * directive decorator
+ */
 @Directive({
   selector: '[quangHasRoles]'
 })

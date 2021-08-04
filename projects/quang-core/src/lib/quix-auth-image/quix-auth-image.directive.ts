@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { switchMap } from 'rxjs/operators'
 import { of } from 'rxjs'
 
+/**
+ * directive decorator
+ */
 @Directive({
   selector: '[quangAuthImage]',
 })

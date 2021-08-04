@@ -4,7 +4,9 @@ import { select, Store } from '@ngrx/store'
 
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
 import { selectHasUntilRoles } from '../quang-auth-store/quang-auth.selector'
-
+/**
+ * directive decorator
+ */
 @Directive({
   selector: '[quangHasUntilRoles]'
 })
