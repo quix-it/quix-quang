@@ -146,7 +146,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   /**
    * Create the key for the help and drop message
    */
-  ngOnInit () {
+  ngOnInit (): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }

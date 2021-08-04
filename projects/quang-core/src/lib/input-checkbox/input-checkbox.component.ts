@@ -124,8 +124,10 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   ) {
     this.control && (this.control.valueAccessor = this)
   }
-
-  ngOnInit () {
+  /**
+   * Check if the help message is required and create the key
+   */
+  ngOnInit (): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }

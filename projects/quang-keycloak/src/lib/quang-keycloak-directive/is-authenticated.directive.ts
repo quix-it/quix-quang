@@ -30,6 +30,9 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
   ) {
   }
 
+  /**
+   * Check if the user in the store is authenticated and define whether to render or not
+   */
   ngOnInit (): void {
     this.authStore.pipe(
       select(selectIsAuthenticated),

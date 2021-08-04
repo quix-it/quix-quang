@@ -194,15 +194,16 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
     this.control && (this.control.valueAccessor = this)
   }
 
+  /**
+   * init locale
+   * chek help message and init the key
+   */
   ngOnInit (): void {
     if (this.locale) {
       this.localeService.use(this.locale)
     }
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
-    }
-    if (!this.ariaLabel) {
-      this.ariaLabel = `Input ${this.label}`
     }
   }
 

@@ -190,7 +190,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    * Check if the help message is required and create the key
    * Check the selected toolbars and add them to the configuration object
    */
-  ngOnInit () {
+  ngOnInit (): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }

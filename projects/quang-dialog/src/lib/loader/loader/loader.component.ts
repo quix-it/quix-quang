@@ -48,6 +48,9 @@ export class LoaderComponent implements OnInit, OnDestroy {
     this.configModule = config
   }
 
+  /**
+   * init observer
+   */
   ngOnInit (): void {
     this.observeLoader()
   }

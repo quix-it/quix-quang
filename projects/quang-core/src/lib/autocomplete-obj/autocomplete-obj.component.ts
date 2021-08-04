@@ -162,7 +162,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   /**
    * Check if the help message is required and create the key
    */
-  ngOnInit () {
+  ngOnInit (): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }

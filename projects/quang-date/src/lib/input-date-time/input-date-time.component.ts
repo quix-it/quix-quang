@@ -228,6 +228,11 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     this.control && (this.control.valueAccessor = this)
   }
 
+  /**
+   * chek style
+   * init locale
+   * check help message and init key
+   */
   ngOnInit (): void {
     if (this.label) {
       if (this.showSelector) {
@@ -243,9 +248,6 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     }
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
-    }
-    if (!this.ariaLabel) {
-      this.ariaLabel = `Input ${this.label}`
     }
   }
 

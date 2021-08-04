@@ -121,7 +121,7 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
   /**
    * create the key for the help message
    */
-  ngOnInit () {
+  ngOnInit (): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
