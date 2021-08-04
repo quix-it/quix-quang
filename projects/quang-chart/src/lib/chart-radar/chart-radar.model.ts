@@ -4,8 +4,8 @@
 export class ChartRadar {
   /**
    * chart radar series item constructor
-   * @param name
-   * @param max
+   * @param name chart name
+   * @param max chart max
    */
   constructor(
     /**

@@ -17,9 +17,9 @@ export class ChartTreemap {
 
   /**
    * chart treemap series item constructor
-   * @param name
-   * @param value
-   * @param color
+   * @param name chart name
+   * @param value chart value
+   * @param color chart color
    */
   constructor (name: string, value: number, color?: string) {
     this.name = name

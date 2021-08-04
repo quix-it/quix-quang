@@ -27,7 +27,7 @@ export class QuixModalService {
 
   /**
    * constructor
-   * @param modalService
+   * @param modalService modal utility
    */
   constructor (
     private readonly modalService: BsModalService

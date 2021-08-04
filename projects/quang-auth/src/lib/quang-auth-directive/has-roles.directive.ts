@@ -23,9 +23,9 @@ export class HasRolesDirective implements OnInit, OnDestroy {
 
   /**
    * constructor
-   * @param view
-   * @param template
-   * @param authStore
+   * @param view view access
+   * @param template template access
+   * @param authStore store access
    */
   constructor (
     private readonly view: ViewContainerRef,

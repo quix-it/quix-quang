@@ -21,7 +21,7 @@ export class QuixHttpErrorService {
 
   /**
    * constructor
-   * @param quixModalService
+   * @param quixModalService modal utility
    */
   constructor (
     private readonly quixModalService: QuixModalService

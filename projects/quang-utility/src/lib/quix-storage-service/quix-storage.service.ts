@@ -10,8 +10,8 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage'
 export class QuixStorageService {
   /**
    * constructor
-   * @param sessionStorage
-   * @param localStorage
+   * @param sessionStorage session storage access
+   * @param localStorage local storage access
    */
   constructor (
     private readonly sessionStorage: SessionStorageService,

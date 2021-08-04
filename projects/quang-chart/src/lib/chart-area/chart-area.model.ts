@@ -4,8 +4,8 @@
 export class ChartArea {
   /**
    * chart area constructor
-   * @param category
-   * @param series
+   * @param category chart category
+   * @param series chart series
    */
   constructor(
     /**

@@ -22,8 +22,8 @@ export class QuixHttpErrorModalComponent {
 
   /**
    * constructor
-   * @param modalRef
-   * @param modalService
+   * @param modalRef modal item
+   * @param modalService modal utility
    */
   constructor (
     public readonly modalRef: BsModalRef,

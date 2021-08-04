@@ -4,14 +4,14 @@
 export class QuixToast {
   /**
    * toast constructor
-   * @param type
-   * @param title
-   * @param position
-   * @param timing
-   * @param text
-   * @param textValue
-   * @param date
-   * @param dateFormat
+   * @param type define toast tipe
+   * @param title define toast title
+   * @param position define toast position
+   * @param timing define toast timing
+   * @param text define toast text
+   * @param textValue define toast dynamic value
+   * @param date define toast date
+   * @param dateFormat define toast date format
    */
   constructor (
     /**

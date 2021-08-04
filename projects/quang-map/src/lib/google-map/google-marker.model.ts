@@ -4,10 +4,10 @@
 export class GoogleMarker {
   /**
    * google marker constructor
-   * @param lat
-   * @param long
-   * @param data
-   * @param customIcon
+   * @param lat define marker latitude
+   * @param long define marker longitude
+   * @param data define marker data
+   * @param customIcon define marker icon
    */
   constructor (
     /**

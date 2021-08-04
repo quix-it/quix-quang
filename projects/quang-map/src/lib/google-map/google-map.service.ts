@@ -19,7 +19,7 @@ export class QuixGoogleMapService {
 
   /**
    * constructor
-   * @param config
+   * @param config module config
    */
   constructor (
     @Optional() config: QuangMapConfig

@@ -34,8 +34,8 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
 
   /**
    * constructor
-   * @param store
-   * @param config
+   * @param store store access
+   * @param config module config
    */
   constructor (
     private readonly store : Store<any>,

@@ -10,7 +10,7 @@ import { BreakpointObserver } from '@angular/cdk/layout'
 export class QuixLayoutService {
   /**
    * constructor
-   * @param breakpointObserver
+   * @param breakpointObserver material breakpoint utility
    */
   constructor (
     private readonly breakpointObserver: BreakpointObserver

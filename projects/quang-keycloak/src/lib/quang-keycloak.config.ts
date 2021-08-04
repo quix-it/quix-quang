@@ -6,8 +6,8 @@ import { KeycloakOptions } from 'keycloak-angular'
 export class QuangKeycloakConfig {
   /**
    * module config constructor
-   * @param keycloakConfig
-   * @param ionicApplication
+   * @param keycloakConfig keycloak configuration
+   * @param ionicApplication define ionic framework
    */
   constructor (
     /**

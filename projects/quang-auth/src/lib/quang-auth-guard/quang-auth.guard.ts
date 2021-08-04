@@ -16,8 +16,8 @@ import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-au
 export class QuangAuthGuard implements CanActivate {
   /**
    * constructor
-   * @param authStore
-   * @param router
+   * @param authStore store access
+   * @param router router access
    */
   constructor (
     private readonly authStore: Store<any>,

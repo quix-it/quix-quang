@@ -6,7 +6,7 @@ import { AuthConfig } from 'angular-oauth2-oidc'
 export class QuangAuthConfig {
   /**
    * module config constructor
-   * @param oidcConfig
+   * @param oidcConfig configurations for authentication
    */
   constructor (
     /**

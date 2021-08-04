@@ -4,8 +4,8 @@
 export class ChartBar {
   /**
    * chart bar constructor
-   * @param category
-   * @param series
+   * @param category chart category
+   * @param series chart series
    */
   constructor(
     /**

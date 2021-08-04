@@ -68,9 +68,9 @@ export class QuangAuthEffect {
 
   /**
    * constructor
-   * @param actions$
-   * @param quangAuthService
-   * @param store
+   * @param actions$ actions access
+   * @param quangAuthService auth utility
+   * @param store store access
    */
   constructor (
     private readonly actions$: Actions,

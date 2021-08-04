@@ -4,8 +4,8 @@
 export class ChartPie {
   /**
    * chart pie series item constructor
-   * @param value
-   * @param name
+   * @param value chart value
+   * @param name chart name
    */
   constructor(
     /**

@@ -213,9 +213,9 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * constructor
    * @param renderer html access
-   * @param localeService
+   * @param localeService locale utility
    * @param control cva access
-   * @param locale
+   * @param locale actual locale
    */
   constructor (
     private readonly renderer: Renderer2,

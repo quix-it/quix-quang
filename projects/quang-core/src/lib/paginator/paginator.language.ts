@@ -11,7 +11,7 @@ import { TranslocoService } from '@ngneat/transloco'
 export class PaginatorLanguage extends MatPaginatorIntl {
   /**
    * constructor
-   * @param translate
+   * @param translate translation utility
    */
   constructor (
     private readonly translate: TranslocoService

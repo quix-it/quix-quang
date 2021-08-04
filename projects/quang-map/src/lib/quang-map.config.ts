@@ -4,7 +4,7 @@
 export class QuangMapConfig {
   /**
    * module config constructor
-   * @param googleKey
+   * @param googleKey define google map key
    */
   constructor(
     /**

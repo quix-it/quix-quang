@@ -10,7 +10,10 @@ import {openToast} from "./toast-store/toast.action";
  * utility for toast management
  */
 export class QuixToastService {
-
+  /**
+   * constructor
+   * @param store store access
+   */
   constructor(
     private readonly store: Store<any>
   ) {

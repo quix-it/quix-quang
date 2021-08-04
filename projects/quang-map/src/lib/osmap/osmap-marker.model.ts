@@ -4,11 +4,11 @@
 export class OsmapMarker {
   /**
    * open street map constructor
-   * @param long
-   * @param lat
-   * @param size
-   * @param src
-   * @param data
+   * @param long define marker longitude
+   * @param lat define marker latitude
+   * @param size define marker size
+   * @param src define marker image source
+   * @param data define marker data
    */
   constructor (
     /**

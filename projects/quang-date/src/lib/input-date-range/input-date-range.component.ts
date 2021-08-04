@@ -180,7 +180,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * @param locale
    * @param control cva access
    * @param renderer html access
-   * @param localeService
+   * @param localeService locale utility
    */
   constructor (
     @Inject(LOCALE_ID) public locale: string,

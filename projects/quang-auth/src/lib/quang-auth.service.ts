@@ -32,9 +32,9 @@ export class QuangAuthService {
 
   /**
    * constructor
-   * @param config
-   * @param oauthService
-   * @param store
+   * @param config module config
+   * @param oauthService auth utility
+   * @param store store access
    */
   constructor (
     @Optional() config: QuangAuthConfig,

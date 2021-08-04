@@ -4,10 +4,10 @@
 export class QuangDialogConfig {
   /**
    * module config constructor
-   * @param production
-   * @param noErrorUrls
-   * @param noLoaderUrls
-   * @param noLoaderMethods
+   * @param production define production environment
+   * @param noErrorUrls define no error url list
+   * @param noLoaderUrls define no loader url list
+   * @param noLoaderMethods define no loader url method
    */
   constructor (
     /**
