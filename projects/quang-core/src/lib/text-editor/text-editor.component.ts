@@ -13,6 +13,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
 import 'quill-emoji/dist/quill-emoji.js'
 import { ContentChange, QuillEditorComponent } from 'ngx-quill'
+
 /**
  * text editor component decorator
  */
@@ -108,6 +109,9 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    * Toolbar for inserting media
    */
   @Input() mediaBar: boolean
+  /**
+   * headers bar
+   */
   @Input() headerBar: boolean
   /**
    * Text size toolbar
@@ -121,17 +125,18 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    * Toolbar for selecting indentation
    */
   @Input() indentBar: boolean
+  /**
+   * preserve white space
+   */
   @Input() preserveWhitespace: boolean
   /**
    * Array of additional classes to the input field
    */
   @Input() customClass: string[] = []
-
   /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: QuillEditorComponent
-
   /**
    * The value of the input
    */

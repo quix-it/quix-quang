@@ -62,6 +62,9 @@ export class PaginatorComponent implements OnChanges {
    * Raises an event when the page size changes
    */
   @Output() onSizeChange: EventEmitter<number> = new EventEmitter<number>()
+  /**
+   * mat paginator html element
+   */
   @ViewChild('quixPaginator', { static: true }) paginator: MatPaginator
   /**
    * The html input element

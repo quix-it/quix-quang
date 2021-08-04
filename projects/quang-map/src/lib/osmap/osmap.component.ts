@@ -77,6 +77,9 @@ export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
    * the map variable
    */
   _map: Map
+  /**
+   * map tile
+   */
   _tile: Tile<any> = new Tile({
     source: new OSM()
   })

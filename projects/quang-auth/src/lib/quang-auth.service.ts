@@ -28,6 +28,9 @@ export class QuangAuthService {
    * configurations for authentication
    */
   public authConfig: any
+  /**
+   * window access
+   */
   private _window = (): any => window
 
   /**
