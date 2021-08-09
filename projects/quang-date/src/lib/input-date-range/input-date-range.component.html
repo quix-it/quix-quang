@@ -24,7 +24,7 @@
            [maxDate]="maxDate"
            [datesDisabled]="disabledDates"
            [attr.aria-label]="ariaLabel | transloco"
-           [ngModel]="_value"
+           [bsValue]="_value"
            (bsValueChange)="onChangedHandler($event)"
            (blur)="onTouched()"
            [placement]="placement"
@@ -46,7 +46,7 @@
     </div>
     <div class="invalid-feedback"
          [attr.aria-errormessage]="_errorMessage | transloco">
-      {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+      {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
     </div>
   </div>
   <small [id]="id + 'Help'"

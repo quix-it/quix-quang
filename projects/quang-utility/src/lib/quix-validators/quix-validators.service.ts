@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { AbstractControl, ValidatorFn } from '@angular/forms'
-import * as moment from 'moment'
+import { isAfter, isBefore, isWithinInterval } from 'date-fns'
 
 /**
  * service decorator
@@ -19,7 +19,7 @@ export class QuixValidatorsService {
    */
   fileMaxSize (maxSize: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value instanceof File && control.value?.size > maxSize) {
+      if (control.value && control.value instanceof File && control.value?.size > maxSize) {
         return { maxSize: { requiredValue: maxSize } }
       }
       return null
@@ -32,7 +32,7 @@ export class QuixValidatorsService {
    */
   fileMinSize (minSize: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value instanceof File && control.value?.size < minSize) {
+      if (control.value && control.value instanceof File && control.value?.size < minSize) {
         return { minSize: { requiredValue: minSize } }
       }
       return null
@@ -44,7 +44,7 @@ export class QuixValidatorsService {
    */
   isFile (): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value instanceof File) {
+      if (control.value && control.value instanceof File) {
         return null
       }
       return { 'isFile': {} }
@@ -57,7 +57,7 @@ export class QuixValidatorsService {
    */
   fileType (fileTypes: string[]) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!fileTypes.includes(control.value?.type)) {
+      if (control.value && !fileTypes.includes(control.value?.type)) {
         return { fileType: { requiredValue: fileTypes.toString() } }
       }
       return null
@@ -70,7 +70,7 @@ export class QuixValidatorsService {
    */
   fileExtensions (fileExtensions: string[]) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!fileExtensions.includes(control.value?.name?.match(/(?:\.([^.]+))?$/g)[0])) {
+      if (control.value && !fileExtensions.includes(control.value?.name?.match(/(?:\.([^.]+))?$/g)[0])) {
         return { fileExtension: { requiredValue: fileExtensions.toString() } }
       }
       return null
@@ -95,8 +95,8 @@ export class QuixValidatorsService {
    */
   minDate (minDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (moment(control.value).isBefore(moment(minDate))) {
-        return { 'minDate': { requiredValue: minDate } }
+      if (isBefore(control.value, minDate)) {
+        return { minDate: { requiredValue: minDate } }
       }
       return null
     }
@@ -108,8 +108,8 @@ export class QuixValidatorsService {
    */
   maxDate (maxDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (moment(control.value).isAfter(moment(maxDate))) {
-        return { 'maxDate': { requiredValue: maxDate } }
+      if (isAfter(control.value, maxDate)) {
+        return { maxDate: { requiredValue: maxDate } }
       }
       return null
     }
@@ -119,11 +119,12 @@ export class QuixValidatorsService {
    * Check if the past date is between the past two
    * @param startDate
    * @param endDate
+   * @param unit
    */
   dateBetween (startDate: Date, endDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!moment(control.value).isBetween(moment(startDate), moment(endDate))) {
-        return { 'dateBetween': { requiredValue: [startDate, endDate] } }
+      if (isWithinInterval(control.value, { start: startDate, end: endDate })) {
+        return { dateBetween: { requiredValue: [startDate, endDate] } }
       }
       return null
     }

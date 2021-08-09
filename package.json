@@ -1,6 +1,6 @@
 {
   "name": "quix-core-workspace",
-  "version": "11.0.0",
+    "version": "11.0.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,6 +14,7 @@
     "build:quang-map": "ng-packagr -p projects/quang-map",
     "build:quang-dialog": "ng-packagr -p projects/quang-dialog",
     "build:quang-chart": "ng-packagr -p projects/quang-chart",
+    "build:quang-utility": "ng-packagr -p projects/quang-utility",
     "compodoc": "npx compodoc -p tsconfig.json projects -s",
     "build:compodoc": "npx compodoc -p tsconfig.json projects"
   },
@@ -69,7 +70,8 @@
     "@sentry/tracing": "^6.2.3",
     "@sentry/integrations": "^5.30.0",
     "@compodoc/compodoc": "^1.1.11",
-    "@juggle/resize-observer": "^3.3.1"
+    "@juggle/resize-observer": "^3.3.1",
+    "date-fns": "^2.23.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1102.14",

@@ -20,7 +20,7 @@
       <div *ngIf="multiple; else single">
         <p *ngFor="let f of _values;  let i = index">
           <button class="btn btn-link btn-sm"
-                  *ngIf="_values.length"
+                  [hidden]="!_values.length"
                   (click)="deleteFiles(i)">
             <ng-content select="[deleteIcon]"></ng-content>
           </button>
@@ -28,7 +28,7 @@
         </p>
       </div>
       <ng-template #single>
-        <p *ngIf="_value">
+        <p [hidden]="!_value">
           <button class="btn btn-link btn-sm"
                   (click)="deleteFile()">
             <ng-content select="[deleteIcon]"></ng-content>

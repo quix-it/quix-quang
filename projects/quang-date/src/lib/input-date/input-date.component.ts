@@ -12,7 +12,7 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import * as moment from 'moment'
+import { format } from 'date-fns'
 import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay } from 'rxjs/operators'
 
@@ -90,10 +90,6 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    */
   @Input() minView: 'year' | 'month' | 'day'
   /**
-   * Defines whether the return date should be a moment
-   */
-  @Input() useMoment: boolean
-  /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
@@ -136,12 +132,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> = {
-    containerClass: 'theme-default',
-    isAnimated: true,
-    adaptivePosition: true,
-    dateInputFormat: this.dateFormat
-  }
+  config: Partial<BsDatepickerConfig> = null
   /**
    * the status of the success message
    */
@@ -199,6 +190,14 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * chek help message and init the key
    */
   ngOnInit (): void {
+    this.config = {
+      containerClass: 'theme-default',
+      isAnimated: true,
+      adaptivePosition: true,
+      dateInputFormat: this.dateFormat,
+      rangeInputFormat: this.dateFormat,
+      showWeekNumbers: this.showWeekNumbers
+    }
     if (this.locale) {
       this.localeService.use(this.locale)
     }
@@ -250,12 +249,10 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    */
   onChangedHandler (date: Date) {
     this.onTouched()
-    if (this.useMoment) {
-      this.onChanged(moment(date))
-    } else if (this.returnISODate) {
+    if (this.returnISODate) {
       this.onChanged(date)
     } else {
-      this.onChanged(moment(date).format('YYYY-MM-DD'))
+      this.onChanged(format(date, 'yyyy-MM-dd'))
     }
   }
 
@@ -265,7 +262,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    */
   writeValue (value) {
     if (this.returnISODate && value) {
-      this._value = moment(value).toDate()
+      this._value = new Date(value)
     } else {
       this._value = value
     }
@@ -299,9 +296,9 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               if (error === 'dateBetween') {
                 if (this.dateFormat) {
-                  this._requiredValue = moment(this.control.errors['dateBetween']['requiredValue'][0]).format(this.dateFormat)
+                  this._requiredValue = format(new Date(this.control.errors['dateBetween']['requiredValue'][0]), this.dateFormat)
                   this._requiredValue += ' - '
-                  this._requiredValue += moment(this.control.errors['dateBetween']['requiredValue'][1]).format(this.dateFormat)
+                  this._requiredValue += format(new Date(this.control.errors['dateBetween']['requiredValue'][1]), this.dateFormat)
                 } else {
                   this._requiredValue = this.control.errors['dateBetween']['requiredValue'][0]
                   this._requiredValue += ' - '
@@ -309,7 +306,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
                 }
               } else {
                 if (this.dateFormat) {
-                  this._requiredValue = moment(this.control.errors[error]['requiredValue']).format(this.dateFormat)
+                  this._requiredValue = format(new Date(this.control.errors[error]['requiredValue']), this.dateFormat)
                 } else {
                   this._requiredValue = this.control.errors[error]['requiredValue']
                 }

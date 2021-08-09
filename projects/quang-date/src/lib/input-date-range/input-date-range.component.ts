@@ -11,10 +11,11 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core'
-import * as moment from 'moment'
+import { format } from 'date-fns'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay } from 'rxjs/operators'
+
 /**
  * input date range component decorator
  */
@@ -88,10 +89,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * defines the starting view
    */
   @Input() minView: 'year' | 'month' | 'day'
-  /**
-   * Defines whether the return date should be a moment
-   */
-  @Input() useMoment: boolean = false
+
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
@@ -130,14 +128,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> = {
-    containerClass: 'theme-default',
-    isAnimated: true,
-    adaptivePosition: true,
-    dateInputFormat: this.dateFormat,
-    rangeInputFormat: this.dateFormat,
-    showWeekNumbers: this.showWeekNumbers
-  }
+  config: Partial<BsDatepickerConfig> = null
   /**
    * The value of the input
    */
@@ -198,6 +189,14 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    *  chek hel message and create key
    */
   ngOnInit (): void {
+    this.config = {
+      containerClass: 'theme-default',
+      isAnimated: true,
+      adaptivePosition: true,
+      dateInputFormat: this.dateFormat,
+      rangeInputFormat: this.dateFormat,
+      showWeekNumbers: this.showWeekNumbers
+    }
     if (this.locale) {
       this.localeService.use(this.locale)
     }
@@ -249,12 +248,10 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    */
   onChangedHandler (dates: Date[]) {
     this.onTouched()
-    if (this.useMoment) {
-      this.onChanged(dates?.map(d => moment(d)))
-    } else if (this.returnISODate) {
-      this.onChanged(dates)
+    if (this.returnISODate) {
+      this.onChanged([...dates])
     } else {
-      this.onChanged(dates?.map(d => moment(d).format('YYYY-MM-DD')))
+      this.onChanged([...dates.map(d => format(d, 'yyyy-MM-dd'))])
     }
   }
 

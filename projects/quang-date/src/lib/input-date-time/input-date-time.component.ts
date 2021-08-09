@@ -11,10 +11,11 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core'
-import * as moment from 'moment'
+
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay } from 'rxjs/operators'
+
 /**
  * input date time component decorator
  */
@@ -113,10 +114,6 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    */
   @Input() secondStep: number | null = null
   /**
-   * Defines whether the return date should be a moment
-   */
-  @Input() useMoment: number | null = null
-  /**
    * defines which days of the week to disable from the selection
    */
   @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = []
@@ -166,12 +163,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> = {
-    containerClass: 'theme-default',
-    isAnimated: true,
-    adaptivePosition: true,
-    dateInputFormat: this.dateFormat
-  }
+  config: Partial<BsDatepickerConfig> = null
   /**
    * the top margin of the component
    */
@@ -200,6 +192,9 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  /**
+   * Dropdown selector html element ref
+   */
   @ViewChild('drp', { static: true }) datePicker: BsDatepickerInlineDirective
   /**
    * Standard definition to create a control value accessor
@@ -234,6 +229,14 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * check help message and init key
    */
   ngOnInit (): void {
+    this.config = {
+      containerClass: 'theme-default',
+      isAnimated: true,
+      adaptivePosition: true,
+      dateInputFormat: this.dateFormat,
+      rangeInputFormat: this.dateFormat,
+      showWeekNumbers: this.showWeekNumbers
+    }
     if (this.label) {
       if (this.showSelector) {
         this._margin = '.3rem'
@@ -313,11 +316,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   onChangedDate (date: Date) {
     this._valueTime = date
     this.onTouched()
-    if (this.useMoment) {
-      this.onChanged(moment(date))
-    } else {
-      this.onChanged(date)
-    }
+    this.onChanged(date)
   }
 
   /**
@@ -327,11 +326,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   onChangedTime (date: Date) {
     this.onTouched()
     this._valueDate = date
-    if (this.useMoment) {
-      this.onChanged(moment(date))
-    } else {
       this.onChanged(date)
-    }
   }
 
   /**

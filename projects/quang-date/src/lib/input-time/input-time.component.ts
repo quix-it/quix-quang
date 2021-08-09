@@ -82,10 +82,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
    * the second advance interval
    */
   @Input() secondStep: number | null = null
-  /**
-   * Defines whether the return date should be a moment
-   */
-  @Input() useMoment: number | null = null
+
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default

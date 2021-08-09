@@ -47,7 +47,7 @@ export class QuangKeycloakService {
     } else {
       alert('[AUTH KEYCLOAK SERVICE] No auth config')
     }
-    if (config.ionicApplication) {
+    if (config?.ionicApplication) {
       this.authConfig.initOptions.silentCheckSsoRedirectUri = `${window.location.origin}/assets/static/silent-check-sso.html`
       this.authConfig.initOptions.flow = 'standard'
       this.authConfig.initOptions.responseMode = 'fragment'
