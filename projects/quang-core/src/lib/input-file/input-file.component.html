@@ -17,25 +17,16 @@
     <ng-template ngx-file-drop-content-tmp
                  let-openFileSelector="openFileSelector">
       <ng-content select="[uploadIcon]"></ng-content>
-      <div *ngIf="multiple; else single">
-        <p *ngFor="let f of _values;  let i = index">
-          <button class="btn btn-link btn-sm"
-                  [hidden]="!_values.length"
-                  (click)="deleteFiles(i)">
-            <ng-content select="[deleteIcon]"></ng-content>
-          </button>
-          {{f.name}}
-        </p>
-      </div>
-      <ng-template #single>
-        <p [hidden]="!_value">
-          <button class="btn btn-link btn-sm"
-                  (click)="deleteFile()">
-            <ng-content select="[deleteIcon]"></ng-content>
-          </button>
-          {{_value?.name}}
-        </p>
-      </ng-template>
+      <p *ngFor="let f of _values;  let i = index">
+        <button class="btn btn-link btn-sm"
+                (click)="deleteFiles(i)">&times;</button>
+        {{f.name}}
+      </p>
+      <p  [hidden]="!_value">
+        <button class="btn btn-link btn-sm"
+                (click)="deleteFile()">&times;</button>
+        {{_value?.name}}
+      </p>
       <button type="button"
               [ngClass]="buttonClass"
               (click)="openFileSelector()"

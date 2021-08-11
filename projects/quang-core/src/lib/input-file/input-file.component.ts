@@ -205,7 +205,11 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    */
   writeValue (value: File | File []) {
     if (this.multiple) {
-      this._values = value as File[]
+      if (value) {
+        this._values = value as File[]
+      } else {
+        this._values = []
+      }
     } else {
       this._value = value as File
     }
@@ -283,5 +287,4 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   fileLeave (e: any) {
     this.onDragLeave.emit(e)
   }
-
 }

@@ -13,6 +13,7 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
+
 /**
  * input text component decorator
  */
@@ -120,6 +121,10 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
    */
   _requiredValue: any = ''
   /**
+   * Define disabled state
+   */
+  _disabled: boolean = false
+  /**
    * Standard definition to create a control value accessor
    */
   onTouched: any = () => {
@@ -218,6 +223,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
    */
   setDisabledState (isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this._disabled = isDisabled
   }
 
   /**

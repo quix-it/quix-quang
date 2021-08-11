@@ -1,9 +1,14 @@
 <div class="custom-control custom-checkbox"
+     role="checkbox"
      [class.custom-control-inline]="inline">
-  <input type="checkbox" class="custom-control-input"
+  <input type="checkbox"
+         class="custom-control-input"
          [name]="id"
          [id]="id"
+         [attr.aria-checked]="_value"
          [attr.aria-label]="ariaLabel"
+         [attr.aria-labelledby]="label | transloco"
+         [attr.aria-autocomplete]="autocomplete"
          [tabIndex]="tabIndex"
          [ngClass]="customClass"
          [class.is-valid]="control?.valid && control?.dirty && successMessage"
@@ -11,8 +16,7 @@
          (input)="onChangedHandler($event)"
          (blur)="onTouched()"
          [autocomplete]="autocomplete"
-         #input
-  >
+         #input>
   <label class="custom-control-label"
          [htmlFor]="id"
          [attr.aria-label]="ariaLabel"
@@ -20,13 +24,17 @@
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <div class="valid-feedback">
+  <div class="valid-feedback"
+       [attr.aria-describedby]="id">
     {{_successMessage | transloco}}
   </div>
-  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+  <div class="invalid-feedback"
+       [attr.aria-describedby]="id"
+       [attr.aria-errormessage]="_errorMessage">
     {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small [id]="id + 'Help'"
+         [attr.aria-describedby]="id"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">

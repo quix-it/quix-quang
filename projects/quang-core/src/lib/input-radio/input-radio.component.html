@@ -9,6 +9,9 @@
        [class.custom-control-inline]="inline"
        *ngFor="let radio of radioList; let index = index;">
     <input type="radio"
+           role="radio"
+           [attr.aria-labelledby]="label | transloco"
+           [attr.aria-checked]="_value === radio[returnValue]"
            class="custom-control-input"
            [name]="groupName"
            [id]="id + radio[labelValue]"
@@ -29,15 +32,18 @@
     </label>
   </div>
   <div class="valid-feedback"
+       [attr.aria-describedby]="id"
        [ngStyle]="{display: control?.valid && control?.dirty && successMessage ? 'block' : 'none'}">
     {{_successMessage | transloco}}
   </div>
   <div class="invalid-feedback"
+       [attr.aria-describedby]="id"
        [attr.aria-errormessage]="_errorMessage | transloco"
        [ngStyle]="{display: control?.invalid && control?.dirty && errorMessage ? 'block': 'none'}">
     {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small [id]="id + 'Help'"
+         [attr.aria-describedby]="id"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control.valid && successMessage || control.invalid && errorMessage)"
          *ngIf="helpMessage">
