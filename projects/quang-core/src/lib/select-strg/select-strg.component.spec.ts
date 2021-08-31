@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { SelectStrgComponent } from './select-strg.component';
+import { SelectStrgComponent } from './select-strg.component'
 
 describe('SelectStrgComponent', () => {
-  let component: SelectStrgComponent;
-  let fixture: ComponentFixture<SelectStrgComponent>;
+  let component: SelectStrgComponent
+  let fixture: ComponentFixture<SelectStrgComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectStrgComponent ]
+      declarations: [SelectStrgComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectStrgComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(SelectStrgComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

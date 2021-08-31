@@ -10,8 +10,9 @@ import {
   ViewChild
 } from '@angular/core'
 import { NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
+
 /**
  * autocomplete string component decorator
  */
@@ -69,7 +70,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   /**
    * The list of options where to search for the selected one
    */
-  @Input() dataList: Array<string> = []
+  @Input() dataList: string[] = []
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -127,6 +128,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -140,10 +142,11 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
    */
   constructor (
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
+
   /**
    * Check if the help message is required and create the key
    */
@@ -152,6 +155,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
   }
+
   /**
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
@@ -164,6 +168,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
     }, 0)
     this.observeValidate()
   }
+
   /**
    * Add focus to the input field if the need comes after component initialization
    * @param changes component changes
@@ -177,14 +182,14 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -192,7 +197,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
    * When the input field changes its value, it saves the state of the field and activates the CVA flow
    * @param e
    */
-  onChangedHandler (e: TypeaheadMatch) {
+  onChangedHandler (e: TypeaheadMatch): void {
     this._value = e.value
     this.onTouched()
     this.onChanged(this._value)
@@ -202,7 +207,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
    * When the CVA is initialized as control it initializes the internal states
    * @param value
    */
-  writeValue (value) {
+  writeValue (value): void {
     this._value = value
   }
 
@@ -220,26 +225,24 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
+  observeValidate (): void {
     this.control?.statusChanges.pipe(
-      delay(0)
+      delay(0),
+      filter(() => this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        }
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors.hasOwnProperty(error)) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
             }
           }
         }
       }
     })
   }
-
 }

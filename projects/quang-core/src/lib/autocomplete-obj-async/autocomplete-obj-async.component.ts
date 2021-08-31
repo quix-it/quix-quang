@@ -13,9 +13,10 @@ import {
 } from '@angular/core'
 import { NgControl } from '@angular/forms'
 import { Observable, Observer, of } from 'rxjs'
-import { debounceTime, delay, distinctUntilChanged, map, switchMap } from 'rxjs/operators'
+import { debounceTime, delay, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
 import { QuixAutocompleteAsyncService } from '../autocomplete-service/quix-autocomplete-async.service'
+
 /**
  * autocomplete object async component decorator
  */
@@ -157,6 +158,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -172,9 +174,9 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   constructor (
     private readonly renderer: Renderer2,
     private readonly autocompleteService: QuixAutocompleteAsyncService,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -192,11 +194,11 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
         if (this._searchValue) {
           if (this.restApi) {
             return this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, this._searchValue).pipe(
-              map((data: any) => data || []),
+              map((data: any) => data || [])
             )
           }
           return this.autocompleteService.getList(this.baseUrl, this.apiUrl, this._searchValue, this.apiParamName).pipe(
-            map((data: any) => data || []),
+            map((data: any) => data || [])
           )
         }
         return of([])
@@ -224,14 +226,14 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -249,7 +251,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * When the input value changes, the search status is saved and the cva flow is activated
    * @param e
    */
-  onChangedHandler (e: Event) {
+  onChangedHandler (e: Event): void {
     this._searchValue = (e.target as HTMLInputElement).value
     this.onTouched()
     if (!this._searchValue) {
@@ -261,7 +263,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * When the user selects an option, it saves the selection status and starts the cva flow
    * @param e
    */
-  onSelectHandler (e: TypeaheadMatch) {
+  onSelectHandler (e: TypeaheadMatch): void {
     this._value = e.item[this.returnValue]
     this.onTouched()
     this.onChanged(this._value)
@@ -272,15 +274,15 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * to its corresponding object in the options list
    * @param value
    */
-  writeValue (value) {
+  writeValue (value): void {
     this._value = value
     if (this.restApi) {
       this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, '').subscribe(
-        (l: Array<any>) => this.findObj(l)
+        (l: any[]) => this.findObj(l)
       )
     } else {
       this.autocompleteService.getList(this.baseUrl, this.apiUrl, '', this.apiParamName).subscribe(
-        (l: Array<any>) => this.findObj(l)
+        (l: any[]) => this.findObj(l)
       )
     }
   }
@@ -289,7 +291,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * Based on the configuration it retrieves the values from the passed option object
    * @param l
    */
-  findObj (l: any[]) {
+  findObj (l: any[]): void {
     const o = l.find(
       e => e[this.returnValue] === this._value)
     if (o) {
@@ -311,21 +313,20 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
+  observeValidate (): void {
     this.control?.statusChanges.pipe(
-      delay(0)
+      delay(0),
+      filter(() => this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        }
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors.hasOwnProperty(error)) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
             }
           }
         }

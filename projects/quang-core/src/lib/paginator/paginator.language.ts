@@ -28,7 +28,7 @@ export class PaginatorLanguage extends MatPaginatorIntl {
   /**
    * retrieves the translations from the label file
    */
-  getAndInitTranslations () {
+  getAndInitTranslations (): void {
     this.translate.selectTranslate([
       'quixPaginator.itemPerPage',
       'quixPaginator.nextPage',

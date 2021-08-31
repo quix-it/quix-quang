@@ -14,7 +14,7 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { format } from 'date-fns'
 import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
 
 /**
  * input date component decorator
@@ -182,7 +182,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
     @Inject(LOCALE_ID) public locale: string,
     @Self() @Optional() public control: NgControl,
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -232,14 +232,14 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -260,7 +260,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value) {
+  writeValue (value): void {
     if (this.returnISODate && value) {
       this._value = new Date(value)
     } else {
@@ -283,33 +283,32 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
+  observeValidate (): void {
     this.control?.statusChanges.pipe(
-      delay(0)
+      delay(0),
+      filter(() => this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        } else if (this.control.invalid && this.errorMessage) {
-          for (let error in this.control.errors) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              if (error === 'dateBetween') {
-                if (this.dateFormat) {
-                  this._requiredValue = format(new Date(this.control.errors['dateBetween']['requiredValue'][0]), this.dateFormat)
-                  this._requiredValue += ' - '
-                  this._requiredValue += format(new Date(this.control.errors['dateBetween']['requiredValue'][1]), this.dateFormat)
-                } else {
-                  this._requiredValue = this.control.errors['dateBetween']['requiredValue'][0]
-                  this._requiredValue += ' - '
-                  this._requiredValue += this.control.errors['dateBetween']['requiredValue'][1]
-                }
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      } else if (this.control.invalid && this.errorMessage) {
+        for (let error in this.control.errors) {
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            if (error === 'dateBetween') {
+              if (this.dateFormat) {
+                this._requiredValue = format(new Date(this.control.errors['dateBetween']['requiredValue'][0]), this.dateFormat)
+                this._requiredValue += ' - '
+                this._requiredValue += format(new Date(this.control.errors['dateBetween']['requiredValue'][1]), this.dateFormat)
               } else {
-                if (this.dateFormat) {
-                  this._requiredValue = format(new Date(this.control.errors[error]['requiredValue']), this.dateFormat)
-                } else {
-                  this._requiredValue = this.control.errors[error]['requiredValue']
-                }
+                this._requiredValue = this.control.errors['dateBetween']['requiredValue'][0]
+                this._requiredValue += ' - '
+                this._requiredValue += this.control.errors['dateBetween']['requiredValue'][1]
+              }
+            } else {
+              if (this.dateFormat) {
+                this._requiredValue = format(new Date(this.control.errors[error]['requiredValue']), this.dateFormat)
+              } else {
+                this._requiredValue = this.control.errors[error]['requiredValue']
               }
             }
           }

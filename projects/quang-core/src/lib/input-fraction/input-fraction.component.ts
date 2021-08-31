@@ -12,7 +12,8 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
+
 /**
  * input fraction component decorator
  */
@@ -135,11 +136,13 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
   onChanged: any = () => {
   }
+
   @ViewChild('inputInteger', { static: true }) inputInteger: ElementRef<HTMLInputElement>
   @ViewChild('inputFraction', { static: true }) inputFraction: ElementRef<HTMLInputElement>
 
@@ -150,9 +153,9 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    */
   constructor (
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -190,14 +193,14 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -205,7 +208,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * When the CVA is initialized as control it initializes the internal states
    * @param value
    */
-  writeValue (value: number) {
+  writeValue (value: number): void {
     if (!value) {
       this._value = 0
     } else {
@@ -217,7 +220,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * Set the input values to display the fraction
    */
-  setInput () {
+  setInput (): void {
     this.renderer.setProperty(this.inputInteger.nativeElement, 'value', Math.floor(this._value).toString())
     this.renderer.setProperty(this.inputFraction.nativeElement, 'value', (this._value - Math.floor(this._value)).toFixed(3).replace('0.', ''))
   }
@@ -226,7 +229,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * Calculate the integer part of the fraction
    * @param e
    */
-  writeValueInteger (e: Event) {
+  writeValueInteger (e: Event): void {
     this._value -= Math.floor(this._value)
     this._value += Math.floor(parseInt((e.target as HTMLInputElement).value))
     this.onTouched()
@@ -237,7 +240,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * Calculate the decimal part of the fraction
    * @param e
    */
-  writeValueFraction (e: Event) {
+  writeValueFraction (e: Event): void {
     this._value -= parseInt((e.target as HTMLInputElement).value) % 1
     this._value += parseFloat('0.' + (e.target as HTMLInputElement).value)
     this.onTouched()
@@ -248,7 +251,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * Event triggered by the add integer button,
    * validates the status and starts the flow of the cva
    */
-  addInteger () {
+  addInteger (): void {
     if (this._value < this.max && this._value >= this.min) {
       if (this._value % this.stepInteger) {
         this._value += (this.stepInteger - (this._value % this.stepInteger))
@@ -265,7 +268,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * Event triggered by the add decimal button,
    * validates the status and starts the flow of the cva
    */
-  addFraction () {
+  addFraction (): void {
     if (this._value < this.max && this._value >= this.min) {
       if (this._value % this.stepFraction) {
         this._value += (this.stepFraction - (this._value % this.stepFraction))
@@ -282,7 +285,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * Event triggered by the remove integer button,
    * validates the status and starts the flow of the cva
    */
-  removeInteger () {
+  removeInteger (): void {
     if (this._value <= this.max && this._value > this.min) {
       if (this._value % this.stepInteger) {
         this._value -= (this.stepInteger - (this._value % this.stepInteger))
@@ -299,7 +302,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * Event triggered by the add integer button,
    * validates the status and starts the flow of the cva
    */
-  removeFraction () {
+  removeFraction (): void {
     if (this._value <= this.max && this._value > this.min) {
       if (this._value % this.stepFraction) {
         this._value -= (this.stepFraction - (this._value % this.stepFraction))
@@ -328,21 +331,20 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
+  observeValidate (): void {
     this.control?.statusChanges.pipe(
-      delay(0)
+      delay(0),
+      filter(() => this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid'`
-        }
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid'`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors.hasOwnProperty(error)) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
             }
           }
         }

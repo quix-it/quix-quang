@@ -1,7 +1,8 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
-  Input,
+  Input, OnChanges,
   OnInit,
   Optional,
   Renderer2,
@@ -10,7 +11,8 @@ import {
   ViewChild
 } from '@angular/core'
 import { NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
+
 /**
  * input tel component decorator
  */
@@ -22,7 +24,7 @@ import { delay } from 'rxjs/operators'
 /**
  * input tel component
  */
-export class InputTelComponent implements OnInit {
+export class InputTelComponent implements OnInit, OnChanges, AfterViewInit {
   /**
    * The label to display on the input field
    */
@@ -135,6 +137,7 @@ export class InputTelComponent implements OnInit {
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -148,9 +151,9 @@ export class InputTelComponent implements OnInit {
    */
   constructor (
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -188,14 +191,14 @@ export class InputTelComponent implements OnInit {
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -203,7 +206,7 @@ export class InputTelComponent implements OnInit {
    * When the input field changes its value, it saves the state of the field and activates the CVA flow
    * @param e
    */
-  onChangedHandler (e: Event) {
+  onChangedHandler (e: Event): void {
     this._value = (e.target as HTMLInputElement).value
     this.onTouched()
     this.onChanged(this._value)
@@ -213,7 +216,7 @@ export class InputTelComponent implements OnInit {
    * When the CVA is initialized as control it initializes the internal states
    * @param value
    */
-  writeValue (value) {
+  writeValue (value): void {
     this._value = value
     this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
@@ -232,24 +235,23 @@ export class InputTelComponent implements OnInit {
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
+  observeValidate (): void {
     this.control?.statusChanges.pipe(
-      delay(0)
+      delay(0),
+      filter(() => this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        }
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                if (error === 'minlength' || error === 'maxlength') {
-                  this._requiredValue = this.control.errors[error].requiredLength
-                } else {
-                  this._requiredValue = this.control.errors[error].requiredValue
-                }
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors.hasOwnProperty(error)) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              if (error === 'minlength' || error === 'maxlength') {
+                this._requiredValue = this.control.errors[error].requiredLength
+              } else {
+                this._requiredValue = this.control.errors[error].requiredValue
               }
             }
           }
@@ -257,5 +259,4 @@ export class InputTelComponent implements OnInit {
       }
     })
   }
-
 }

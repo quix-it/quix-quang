@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
+  Input, OnChanges,
   OnInit,
   Optional,
   Renderer2,
@@ -11,19 +11,20 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
+
 /**
  * input number component decorator
  */
 @Component({
   selector: 'quix-input-number',
   templateUrl: './input-number.component.html',
-  styles: [''],
+  styles: ['']
 })
 /**
  * input number component
  */
-export class InputNumberComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+export class InputNumberComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit {
   /**
    * The label to display on the input field
    */
@@ -142,9 +143,9 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, After
    */
   constructor (
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -182,14 +183,14 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, After
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -229,21 +230,20 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, After
    */
   observeValidate (): void {
     this.control?.statusChanges.pipe(
-      delay(0)
+      delay(0),
+      filter(() => this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        } else if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                if (error === 'min' || error === 'max') {
-                  this._requiredValue = this.control.errors[error][error]
-                } else {
-                  this._requiredValue = this.control.errors[error].requiredValue
-                }
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      } else if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors.hasOwnProperty(error)) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              if (error === 'min' || error === 'max') {
+                this._requiredValue = this.control.errors[error][error]
+              } else {
+                this._requiredValue = this.control.errors[error].requiredValue
               }
             }
           }

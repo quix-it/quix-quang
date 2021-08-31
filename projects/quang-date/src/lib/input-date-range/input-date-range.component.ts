@@ -14,7 +14,7 @@ import {
 import { format } from 'date-fns'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
 
 /**
  * input date range component decorator
@@ -181,7 +181,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -231,14 +231,14 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -259,7 +259,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value) {
+  writeValue (value): void {
     if (value) {
       if (!this.returnISODate && value?.length) {
         this._value = value.map(d => new Date(d))
@@ -286,20 +286,19 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
+  observeValidate (): void {
     this.control?.statusChanges.pipe(
-      delay(0)
+      delay(0),
+      filter(() => this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this._value.length && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        } else if (!this._value.length && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
+      if (this._value.length && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      } else if (!this._value.length && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors.hasOwnProperty(error)) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
             }
           }
         }

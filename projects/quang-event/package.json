@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-event",
-    "version": "11.0.4",
+    "version": "12.0.0",
   "peerDependencies": {
     "event-source-polyfill": "^1.0.21",
     "@vertx/eventbus-bridge-client.js": "^1.0.0"

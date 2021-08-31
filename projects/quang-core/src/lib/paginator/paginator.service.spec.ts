@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { QuixPaginatorService } from './paginator.service';
+import { QuixPaginatorService } from './paginator.service'
 
 describe('PaginatorService', () => {
-  let service: QuixPaginatorService;
+  let service: QuixPaginatorService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(QuixPaginatorService);
-  });
+    TestBed.configureTestingModule({})
+    service = TestBed.inject(QuixPaginatorService)
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    expect(service).toBeTruthy()
+  })
+})

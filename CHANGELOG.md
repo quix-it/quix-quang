@@ -6,3 +6,6 @@
 
 * fixed problem with echarts dependencies
 * added possibility to specify in the configuration of quang-keycloak if you are in an Ionic environment
+
+## 12.0.0
+*  update to eslint

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core'
+import { Directive, HostListener, Input } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { switchMap } from 'rxjs/operators'
 import { of } from 'rxjs'
@@ -29,7 +29,7 @@ export class QuixAuthDownloadDirective {
    * click listener
    * @param e event
    */
-  @HostListener('click', ['$event']) onClick (e) {
+  @HostListener('click', ['$event']) onClick (e): void {
     e.preventDefault()
     this.downloadFile()
   }
@@ -39,7 +39,7 @@ export class QuixAuthDownloadDirective {
    * @param http
    */
   constructor (
-    private readonly http: HttpClient,
+    private readonly http: HttpClient
   ) {
   }
 
@@ -48,17 +48,17 @@ export class QuixAuthDownloadDirective {
    * create a temporary tag a download the blob with an ajax call,
    * start the download and remove the temporary tag
    */
-  downloadFile () {
-    let anchor = document.createElement('a')
+  downloadFile (): void {
+    const anchor = document.createElement('a')
     document.body.appendChild(anchor)
     const headers = new HttpHeaders({
       'Content-Type': this.contentType,
-      'Accept': this.contentType
+      Accept: this.contentType
     })
     this.http.get(this.url, { headers: headers, responseType: 'blob' as 'json' }).pipe(
-      switchMap((resp: any) => of(new Blob([resp], { type: resp.type }))),
+      switchMap((resp: any) => of(new Blob([resp], { type: resp.type })))
     ).subscribe(blob => {
-      let objectUrl = window.URL.createObjectURL(blob)
+      const objectUrl = window.URL.createObjectURL(blob)
       anchor.href = objectUrl
       anchor.download = this.fileName
       anchor.click()

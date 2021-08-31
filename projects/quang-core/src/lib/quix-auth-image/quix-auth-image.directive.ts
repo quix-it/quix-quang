@@ -7,7 +7,7 @@ import { of } from 'rxjs'
  * directive decorator
  */
 @Directive({
-  selector: '[quangAuthImage]',
+  selector: '[quangAuthImage]'
 })
 /**
  * view auth image directive
@@ -32,18 +32,18 @@ export class QuixAuthImageDirective implements OnChanges {
    * Download the image,
    * With an ajax call it downloads the image blob and adds the src attribute with the file just downloaded
    */
-  ngOnChanges (changes: SimpleChanges):void {
+  ngOnChanges (changes: SimpleChanges): void {
     if (changes.src.currentValue) {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        Accept: 'application/json'
       })
       this.http.get(this.src, { headers: headers, responseType: 'blob' as 'json' }).pipe(
-        switchMap((resp: any) => of(new Blob([resp], { type: resp.type }))),
+        switchMap((resp: any) => of(new Blob([resp], { type: resp.type })))
       ).subscribe(blob => {
-        let reader = new FileReader()
+        const reader = new FileReader()
         reader.readAsDataURL(blob)
-        reader.onload = () => this.el.nativeElement.src = reader.result
+        reader.onload = () => { this.el.nativeElement.src = reader.result }
       })
     }
   }

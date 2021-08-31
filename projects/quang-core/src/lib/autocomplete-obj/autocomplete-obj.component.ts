@@ -12,8 +12,9 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
+
 /**
  * autocomplete object component decorator
  */
@@ -83,7 +84,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   /**
    * The list of options where to search for the selected one
    */
-  @Input() dataList: Array<any> = []
+  @Input() dataList: any[] = []
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -141,6 +142,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -154,9 +156,9 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
    */
   constructor (
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -194,14 +196,14 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -209,7 +211,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
    * When the input field changes its value, it saves the state of the field and activates the CVA flow
    * @param e
    */
-  onChangedHandler (e: TypeaheadMatch) {
+  onChangedHandler (e: TypeaheadMatch): void {
     this._value = e.item[this.returnValue]
     this.onTouched()
     this.onChanged(this._value)
@@ -220,7 +222,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
    * looking in the list for the data with the past value
    * @param value
    */
-  writeValue (value) {
+  writeValue (value): void {
     if (this.dataList.find(item => item[this.returnValue] === value)) {
       this._searchValue = this.dataList.find(item => item[this.returnValue] === value)[this.searchBy]
     }
@@ -240,21 +242,20 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
+  observeValidate (): void {
     this.control?.statusChanges.pipe(
-      delay(0)
+      delay(0),
+      filter(() => this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        }
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors.hasOwnProperty(error)) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
             }
           }
         }
