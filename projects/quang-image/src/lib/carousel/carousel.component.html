@@ -10,11 +10,11 @@
     (activeSlideChange)="onSlideEvent($event)">
     <slide *ngFor="let slide of slides; let i = index"
            [style.height]="height">
-      <quix-picture
+      <quang-picture
         [id]="'slide' + i"
         [responsiveList]="slide.responsiveList"
         [alt]="slide.alt"
-      ></quix-picture>
+      ></quang-picture>
       <div class="carousel-caption d-none d-md-block">
         <h3 *ngIf="title">
           {{slide.title}}
