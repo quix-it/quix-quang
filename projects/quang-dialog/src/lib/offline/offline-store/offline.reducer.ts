@@ -23,7 +23,7 @@ const initialState: OfflineState = {
 const reducer = createReducer(
   initialState,
   on(online, state => ({ ...state, line: true })),
-  on(offline, state => ({ ...state, line: false })),
+  on(offline, state => ({ ...state, line: false }))
 )
 
 /**
@@ -31,6 +31,6 @@ const reducer = createReducer(
  * @param state
  * @param action
  */
-export function offlineReducer (state: OfflineState | undefined, action: Action) {
+export function offlineReducer (state: OfflineState | undefined, action: Action): any {
   return reducer(state, action)
 }

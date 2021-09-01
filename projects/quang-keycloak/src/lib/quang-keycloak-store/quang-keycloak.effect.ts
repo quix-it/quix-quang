@@ -34,6 +34,7 @@ export class QuangKeycloakEffect {
       ))
     )
   )
+
   /**
    * When the login procedure is completed and the successful login is sent,
    * it recovers the user data and saves them in the store
@@ -48,6 +49,7 @@ export class QuangKeycloakEffect {
       ))
     )
   )
+
   /**
    * When the login procedure is completed and the successful login is sent,
    * it recovers the user role and saves them in the store
@@ -60,6 +62,7 @@ export class QuangKeycloakEffect {
       ))
     )
   )
+
   /**
    * When the logout action is triggered,
    * it performs the logout procedure and cleans the store of user data

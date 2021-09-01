@@ -14,7 +14,7 @@ import { EChartsOption } from 'echarts'
  * chart area component decorator
  */
 @Component({
-  selector: 'quix-chart-area',
+  selector: 'quang-chart-area',
   templateUrl: './chart-area.component.html',
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -31,7 +31,7 @@ export class ChartAreaComponent implements OnChanges {
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
-  @Input() ariaLabel: string = `Chart`
+  @Input() ariaLabel: string = 'Chart'
   /**
    * the list of colors of the chart
    */
@@ -55,11 +55,12 @@ export class ChartAreaComponent implements OnChanges {
    * the grid that contains the graph defines the padding in the four directions
    */
   @Input() grid: {
-    top: number,
-    bottom: number,
-    left: number,
+    top: number
+    bottom: number
+    left: number
     right: number
   } = { top: 0, left: 0, right: 0, bottom: 0 }
+
   /**
    * click event on the graph
    */
@@ -79,6 +80,7 @@ export class ChartAreaComponent implements OnChanges {
       return idx * 5
     }
   }
+
   /**
    * change input management
    * @param changes component changes
@@ -97,7 +99,7 @@ export class ChartAreaComponent implements OnChanges {
       this.chartOption.series = changes.chartData.currentValue.series.map(s => ({
         data: s,
         type: 'line',
-        areaStyle: {},
+        areaStyle: {}
       }))
     }
     if (changes.grid?.currentValue) {
@@ -112,5 +114,4 @@ export class ChartAreaComponent implements OnChanges {
   onChartClick (e): void {
     this.chartClick.emit(e)
   }
-
 }

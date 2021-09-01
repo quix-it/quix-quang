@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {QuixToast} from "./toast.model";
-import {openToast} from "./toast-store/toast.action";
+import { Injectable } from '@angular/core'
+import { Store } from '@ngrx/store'
+import { QuixToast } from './toast.model'
+import { openToast } from './toast-store/toast.action'
 /**
  * service decorator
  */
@@ -16,7 +16,7 @@ export class QuixToastService {
    * constructor
    * @param store store access
    */
-  constructor(
+  constructor (
     private readonly store: Store<any>
   ) {
   }
@@ -25,7 +25,7 @@ export class QuixToastService {
    * opens the toast
    * @param toast
    */
-  openToast(toast: QuixToast) {
-    this.store.dispatch(openToast({toastData: toast}))
+  openToast (toast: QuixToast): void {
+    this.store.dispatch(openToast({ toastData: toast }))
   }
 }

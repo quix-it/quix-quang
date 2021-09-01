@@ -18,7 +18,7 @@ import { BsTimepickerViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs
  * input time component decorator
  */
 @Component({
-  selector: 'quix-input-time',
+  selector: 'quang-input-time',
   templateUrl: './input-time.component.html',
   styleUrls: ['./input-time.component.scss']
 })
@@ -142,6 +142,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -159,7 +160,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
     @Inject(LOCALE_ID) public locale: string,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
     this.control.valueAccessor = this
   }
@@ -203,7 +204,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
    * event triggered when the time changes
    * @param date
    */
-  onChangedHandler (date: Date) {
+  onChangedHandler (date: Date): void {
     this.onTouched()
     this.onChanged(date)
   }
@@ -239,7 +240,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (this.control.errors.hasOwnProperty(error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue

@@ -19,7 +19,7 @@ import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx
  * input file component decorator
  */
 @Component({
-  selector: 'quix-input-file',
+  selector: 'quang-input-file',
   templateUrl: './input-file.component.html',
   styles: ['']
 })
@@ -80,11 +80,11 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   /**
    * Event that emits when the file being dragged is above the input field
    */
-  @Output() onDragOver: EventEmitter<any> = new EventEmitter<any>()
+  @Output() whenDragOver: EventEmitter<any> = new EventEmitter<any>()
   /**
    * Event that emits when the file in drag state is dropped on the input field
    */
-  @Output() onDragLeave: EventEmitter<any> = new EventEmitter<any>()
+  @Output() whenDragLeave: EventEmitter<any> = new EventEmitter<any>()
   /**
    * The html input element
    */
@@ -261,7 +261,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
           this._successMessage = `${this.formName}.${this.control?.name}.valid`
         } else if (this.control.invalid && this.errorMessage) {
           for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
+            if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
               if (this.control.errors[error]) {
                 this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
                 this._requiredValue = this.control.errors[error].requiredValue
@@ -277,7 +277,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * @param e
    */
   fileOver (e: any): void {
-    this.onDragOver.emit(e)
+    this.whenDragOver.emit(e)
   }
 
   /**
@@ -285,6 +285,6 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * @param e
    */
   fileLeave (e: any): void {
-    this.onDragLeave.emit(e)
+    this.whenDragLeave.emit(e)
   }
 }

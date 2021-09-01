@@ -18,7 +18,7 @@ import { delay, filter } from 'rxjs/operators'
  * input checkbox component decorator
  */
 @Component({
-  selector: 'quix-input-checkbox',
+  selector: 'quang-input-checkbox',
   templateUrl: './input-checkbox.component.html',
   styleUrls: ['./input-checkbox.component.scss']
 })
@@ -216,7 +216,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (this.control.errors.hasOwnProperty(error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue

@@ -9,7 +9,7 @@ export interface ToastsState {
   /**
    * toast data
    */
-  toastData: QuixToast;
+  toastData: QuixToast
 }
 
 /**
@@ -34,6 +34,6 @@ const reducer = createReducer(
  * @param state
  * @param action
  */
-export function toastReducer (state: ToastsState | undefined, action: Action) {
+export function toastReducer (state: ToastsState | undefined, action: Action): any {
   return reducer(state, action)
 }

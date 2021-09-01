@@ -16,13 +16,13 @@ import { delay, delayWhen, map, retryWhen } from 'rxjs/operators'
 /**
  * global declaration for google async library
  */
-declare var google: any
+declare let google: any
 
 /**
  * google map component decorator
  */
 @Component({
-  selector: 'quix-google-map',
+  selector: 'quang-google-map',
   templateUrl: './google-map.component.html',
   styles: ['']
 })
@@ -57,7 +57,7 @@ export class GoogleMapComponent implements OnChanges {
   /**
    * the default center of the map
    */
-  @Input() defaultCenter: Array<number> = [0, 0]
+  @Input() defaultCenter: number[] = [0, 0]
   /**
    * enable the click on the markers
    */
@@ -69,7 +69,7 @@ export class GoogleMapComponent implements OnChanges {
   /**
    * the list of markers to be drawn on the map
    */
-  @Input() markers: Array<GoogleMarker> = []
+  @Input() markers: GoogleMarker[] = []
   /**
    * event triggered by clicking on a marker
    */
@@ -111,7 +111,7 @@ export class GoogleMapComponent implements OnChanges {
       of('').pipe(
         map(() => {
           if (!this._window().google) {
-            throw ''
+            throw new Error()
           }
           return ''
         }),

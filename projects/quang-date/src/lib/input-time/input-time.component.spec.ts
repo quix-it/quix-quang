@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { InputTimeComponent } from './input-time.component';
+import { InputTimeComponent } from './input-time.component'
 
 describe('InputTimeComponent', () => {
-  let component: InputTimeComponent;
-  let fixture: ComponentFixture<InputTimeComponent>;
+  let component: InputTimeComponent
+  let fixture: ComponentFixture<InputTimeComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputTimeComponent ]
+      declarations: [InputTimeComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InputTimeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(InputTimeComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

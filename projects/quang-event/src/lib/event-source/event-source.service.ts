@@ -36,12 +36,12 @@ export class QuixEventSourceService {
         headers: {
           Authorization: 'Bearer ' + window.localStorage.getItem('access_token')
         },
-        heartbeatTimeout: heartbeatTimeout ? heartbeatTimeout : 45 * 1000
+        heartbeatTimeout: heartbeatTimeout || 45 * 1000
       })
     } else {
       this.evs = new EventSourcePolyfill(`${baseUrl}${url}/${param}`,
         {
-          heartbeatTimeout: heartbeatTimeout ? heartbeatTimeout : 45 * 1000
+          heartbeatTimeout: heartbeatTimeout || 45 * 1000
         })
     }
     this.onOpen()

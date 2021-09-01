@@ -14,7 +14,7 @@ export class SentryDialogService implements ErrorHandler {
    * Custom error handler for sentry
    * @param error http error
    */
-  handleError (error: any) {
+  handleError (error: any): void {
     console.error(error)
     if (error?.name === 'HttpErrorResponse') {
       if (error?.status === 400 || error?.status === 404 || error?.status === 415) {

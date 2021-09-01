@@ -17,7 +17,7 @@ import * as olProj from 'ol/proj'
  * open street map component decorator
  */
 @Component({
-  selector: 'quix-osmap',
+  selector: 'quang-osmap',
   templateUrl: './osmap.component.html',
   styles: ['']
 })

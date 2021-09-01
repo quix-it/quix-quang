@@ -12,7 +12,6 @@ import { isAfter, isBefore, isWithinInterval } from 'date-fns'
  * custom validators
  */
 export class QuixValidatorsService {
-
   /**
    * Check if the file size is smaller than required
    * @param maxSize
@@ -47,7 +46,7 @@ export class QuixValidatorsService {
       if (control.value && control.value instanceof File) {
         return null
       }
-      return { 'isFile': {} }
+      return { isFile: {} }
     }
   }
 

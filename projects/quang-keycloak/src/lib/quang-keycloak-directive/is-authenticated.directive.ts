@@ -17,7 +17,7 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
    * subject of convenience to turn off the subscription to the observable
    * @private
    */
-  private destroy$ = new Subject()
+  private readonly destroy$ = new Subject()
 
   /**
    * constructor
@@ -47,8 +47,8 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
         this.view.clear()
       }
     })
-
   }
+
   /**
    * unsubscribe the observable
    */
@@ -56,4 +56,3 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
     this.destroy$.next()
   }
 }
-

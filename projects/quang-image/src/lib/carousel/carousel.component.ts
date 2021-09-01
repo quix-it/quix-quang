@@ -3,14 +3,14 @@ import {
   Component,
   EventEmitter,
   Input,
-  Output,
+  Output
 } from '@angular/core'
 import { QuixCarousel } from './carousel.model'
 /**
  * carousel component decorator
  */
 @Component({
-  selector: 'quix-carousel',
+  selector: 'quang-carousel',
   templateUrl: './carousel.component.html',
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -59,9 +59,9 @@ export class CarouselComponent {
   /**
    * event triggered when a slide changes
    */
-  @Output() onSlideChange: EventEmitter<number> = new EventEmitter<number>()
+  @Output() whenSlideChange: EventEmitter<number> = new EventEmitter<number>()
 
   onSlideEvent (e: number): void {
-    this.onSlideChange.emit(e)
+    this.whenSlideChange.emit(e)
   }
 }

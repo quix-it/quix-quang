@@ -11,11 +11,11 @@ export interface QuangDialogState {
   /**
    * toast state
    */
-  toastState: ToastsState,
+  toastState: ToastsState
   /**
    * offline state
    */
-  offlineState: OfflineState,
+  offlineState: OfflineState
   /**
    * loader state
    */
@@ -29,7 +29,7 @@ export interface QuangDialogStateModule {
   /**
    * link key to state definition
    */
-  [QUANGDIALOG_KEY]: QuangDialogState;
+  [QUANGDIALOG_KEY]: QuangDialogState
 }
 
 /**

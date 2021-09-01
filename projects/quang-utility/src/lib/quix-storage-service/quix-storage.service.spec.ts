@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { QuixStorageService } from './quix-storage.service';
+import { QuixStorageService } from './quix-storage.service'
 
 describe('QuixStorageService', () => {
-  let service: QuixStorageService;
+  let service: QuixStorageService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(QuixStorageService);
-  });
+    TestBed.configureTestingModule({})
+    service = TestBed.inject(QuixStorageService)
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    expect(service).toBeTruthy()
+  })
+})

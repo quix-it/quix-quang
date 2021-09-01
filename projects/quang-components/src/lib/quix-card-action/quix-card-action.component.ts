@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 /**
  * card component decorator
  */
 @Component({
-  selector: 'quix-card-action',
+  selector: 'quang-card-action',
   templateUrl: './quix-card-action.component.html',
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush

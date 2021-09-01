@@ -4,7 +4,7 @@ import { QuixPicture } from './picture.model'
  * picture component decorator
  */
 @Component({
-  selector: 'quix-picture',
+  selector: 'quang-picture',
   templateUrl: './picture.component.html',
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -25,7 +25,7 @@ export class PictureComponent {
    * The list of images for the responsive view of the source,
    * always insert the sorted list from the smallest to the largest view
    */
-  @Input() responsiveList: Array<QuixPicture> = []
+  @Input() responsiveList: QuixPicture[] = []
   /**
    * The default image source
    */

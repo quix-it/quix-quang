@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs'
 /**
  * general declaration for global library
  */
-declare var EventBus: any
+declare let EventBus: any
 
 /**
  * utility for event bus management
@@ -13,19 +13,19 @@ export interface QuixBusEventOptions {
   /**
    * Max reconnect attempts
    */
-  vertxbus_reconnect_attempts_max: number,
+  vertxbus_reconnect_attempts_max: number
   /**
    * Initial delay (in ms) before first reconnect attempt
    */
-  vertxbus_reconnect_delay_min: number,
+  vertxbus_reconnect_delay_min: number
   /**
    *  Max delay (in ms) between reconnect attempts
    */
-  vertxbus_reconnect_delay_max: number,
+  vertxbus_reconnect_delay_max: number
   /**
    * Exponential backoff factor
    */
-  vertxbus_reconnect_exponent: number,
+  vertxbus_reconnect_exponent: number
   /**
    * Randomization factor between 0 and 1
    */
@@ -76,7 +76,7 @@ export class QuixEventBusService {
   openSocket (url: string, address: string, headers?: object, options?: QuixBusEventOptions): Observable<any> {
     this.headers = headers
     this.address = address
-    this.eb = new EventBus(url, options ? options : this.options)
+    this.eb = new EventBus(url, options || this.options)
     this.eb.enableReconnect(true)
     this.onOpen()
     this.onReconnect()

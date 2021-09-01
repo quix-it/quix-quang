@@ -1,4 +1,4 @@
-import {createAction} from "@ngrx/store";
+import { createAction } from '@ngrx/store'
 
 /**
  * add loader call to counter

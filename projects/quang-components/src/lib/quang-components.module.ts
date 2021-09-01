@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common'
 import { QuixCardHeaderComponent } from './quix-card-header/quix-card-header.component'
 import { QuixCardActionHeaderComponent } from './quix-card-action-header/quix-card-action-header.component'
 
-
 @NgModule({
   declarations: [
     QuixCardComponent,

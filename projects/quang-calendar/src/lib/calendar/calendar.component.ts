@@ -13,7 +13,7 @@ import { CalendarOptions } from '@fullcalendar/angular'
  * calendar component decorator
  */
 @Component({
-  selector: 'quix-calendar',
+  selector: 'quang-calendar',
   templateUrl: './calendar.component.html',
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -72,18 +72,19 @@ export class CalendarComponent implements OnChanges {
     prevYear: 'fas fa-angle-double-left',
     nextYear: 'fas fa-angle-double-right'
   }
+
   /**
    * Event triggered when a calendar event is clicked
    */
-  @Output() onEventClick = new EventEmitter<any>()
+  @Output() whenEventClick = new EventEmitter<any>()
   /**
    * Event triggered when a date on the calendar is clicked
    */
-  @Output() onDateClick = new EventEmitter<any>()
+  @Output() whenDateClick = new EventEmitter<any>()
   /**
    * Event triggered when the calendar view of the calendar changes
    */
-  @Output() onViewChange = new EventEmitter<any>()
+  @Output() whenViewChange = new EventEmitter<any>()
   /**
    * calendar config
    */
@@ -97,7 +98,7 @@ export class CalendarComponent implements OnChanges {
     headerToolbar: this.header,
     footerToolbar: this.footer,
     buttonIcons: this.buttonsIcons,
-    locale: '',
+    locale: ''
   }
 
   /**
@@ -127,7 +128,7 @@ export class CalendarComponent implements OnChanges {
    * @param event
    */
   eventClick (event: any): void {
-    this.onEventClick.emit(event)
+    this.whenEventClick.emit(event)
   }
 
   /**
@@ -135,7 +136,7 @@ export class CalendarComponent implements OnChanges {
    * @param event
    */
   dateClick (event: any): void {
-    this.onDateClick.emit(event)
+    this.whenDateClick.emit(event)
   }
 
   /**
@@ -146,7 +147,7 @@ export class CalendarComponent implements OnChanges {
    * @param failureCallback
    */
   viewChange (event: any, successCallback, failureCallback): void {
-    this.onViewChange.emit(event)
+    this.whenViewChange.emit(event)
     this.callBack(event, successCallback, failureCallback)
   }
 }

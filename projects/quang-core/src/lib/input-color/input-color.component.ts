@@ -18,7 +18,7 @@ import { delay, filter } from 'rxjs/operators'
  * input color component decorator
  */
 @Component({
-  selector: 'quix-input-color',
+  selector: 'quang-input-color',
   templateUrl: './input-color.component.html',
   styles: ['']
 })
@@ -226,7 +226,7 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (this.control.errors.hasOwnProperty(error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               if (error === 'minlength' || error === 'maxlength') {

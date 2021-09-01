@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  OnInit,
   Renderer2,
   ViewChild
 } from '@angular/core'
@@ -18,7 +17,7 @@ import { delay, take } from 'rxjs/operators'
  * toast component decorator
  */
 @Component({
-  selector: 'quix-toast',
+  selector: 'quang-toast',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss']
 })
@@ -34,7 +33,7 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
    * observable for toast state
    * @private
    */
-  private toastState$: Observable<any> = this.store.pipe(select(selectToast))
+  private readonly toastState$: Observable<any> = this.store.pipe(select(selectToast))
   /**
    * subscription to a toast state
    * @private
@@ -59,30 +58,30 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
   /**
    * init observer
    */
-  ngAfterViewInit () {
+  ngAfterViewInit (): void {
     this.observeToasts()
   }
 
   /**
    * observe the change of state of the toast saved in the store
    */
-  observeToasts () {
+  observeToasts (): void {
     this.subscription = this.toastState$.subscribe((data: ToastsState) => {
-        if (data.toastData) {
-          this.data = data.toastData
-          this.open()
-        }
-      },
-      (error) => {
-        alert('Error on toast lifecycle')
-      })
+      if (data.toastData) {
+        this.data = data.toastData
+        this.open()
+      }
+    },
+    () => {
+      alert('Error on toast lifecycle')
+    })
   }
 
   /**
    * view the toast by changing the style of the component
    * if a timing is configured it waits for the time to expire and closes the toast
    */
-  open () {
+  open (): void {
     this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '1')
     this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(1)')
     if (this.data.timing) {
@@ -99,7 +98,7 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
   /**
    * closes the toast by modifying the css rules
    */
-  close () {
+  close (): void {
     this.renderer.setStyle(this.toastDom.nativeElement, 'opacity', '0')
     this.renderer.setStyle(this.toastDom.nativeElement, 'transform', 'scale(0)')
   }

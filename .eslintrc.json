@@ -34,7 +34,7 @@
         "@angular-eslint/component-selector": [
           "error",
           {
-            "prefix": "quix",
+            "prefix": "quang",
             "style": "kebab-case",
             "type": "element"
           }
@@ -42,7 +42,7 @@
         "@angular-eslint/directive-selector": [
           "error",
           {
-            "prefix": "quix",
+            "prefix": "quang",
             "style": "camelCase",
             "type": "attribute"
           }

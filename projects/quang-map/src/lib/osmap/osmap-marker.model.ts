@@ -22,7 +22,7 @@ export class OsmapMarker {
     /**
      * size
      */
-    public size: Array<number> = [0.5, 25],
+    public size: number[] = [0.5, 25],
     /**
      * image source
      */
@@ -30,6 +30,6 @@ export class OsmapMarker {
     /**
      * marker data
      */
-    public data?: {},
+    public data?: {}
   ) {}
 }

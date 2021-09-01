@@ -29,7 +29,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "quix",
+            "prefix": "quang",
             "style": "camelCase"
           }
         ],
@@ -37,7 +37,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "quix",
+            "prefix": "quang",
             "style": "kebab-case"
           }
         ]

@@ -7,7 +7,7 @@ import { QuangDialogConfig } from '../../quang-dialog.config'
  * loader component decorator
  */
 @Component({
-  selector: 'quix-loader',
+  selector: 'quang-loader',
   templateUrl: './loader.component.html',
   styles: ['']
 })
@@ -42,7 +42,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
    * @param config module config
    */
   constructor (
-    private readonly store : Store<any>,
+    private readonly store: Store<any>,
     @Optional() config?: QuangDialogConfig
   ) {
     this.configModule = config
@@ -65,6 +65,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
       })
     }
   }
+
   /**
    * unsubscribe the observable
    */

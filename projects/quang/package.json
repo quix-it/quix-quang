@@ -2,8 +2,8 @@
   "name": "@quix/quang",
     "version": "12.0.0",
   "peerDependencies": {
-    "@angular/cdk": "^11.2.1",
-    "@angular/material": "^11.2.1",
+    "@angular/cdk": "^12.2.3",
+    "@angular/material": "^12.2.3",
     "bootstrap": "^4.6.0",
     "ngx-bootstrap": "^6.2.0",
     "@fortawesome/fontawesome-free": "^5.14.0",

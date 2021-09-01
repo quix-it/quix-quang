@@ -20,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
  * input date range component decorator
  */
 @Component({
-  selector: 'quix-input-date-range',
+  selector: 'quang-input-date-range',
   templateUrl: './input-date-range.component.html',
   styles: ['']
 })
@@ -84,7 +84,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * the list of dates that cannot be selected in the calendar
    */
-  @Input() disabledDates: Array<Date> = []
+  @Input() disabledDates: Date[] = []
   /**
    * defines the starting view
    */
@@ -162,6 +162,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -246,7 +247,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * method triggered when the date selection changes, it triggers the native events of the cva
    * @param dates
    */
-  onChangedHandler (dates: Date[]) {
+  onChangedHandler (dates: Date[]): void {
     this.onTouched()
     if (this.returnISODate) {
       this.onChanged([...dates])
@@ -295,7 +296,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       } else if (!this._value.length && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (this.control.errors.hasOwnProperty(error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue

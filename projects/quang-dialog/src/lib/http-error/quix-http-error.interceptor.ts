@@ -15,7 +15,7 @@ export class QuixHttpErrorInterceptor implements HttpInterceptor {
   /**
    * no loader interceptor for this url or error
    */
-  noErrorUrls: { url: string, error: number }[] = []
+  noErrorUrls: Array<{ url: string, error: number }> = []
   /**
    * window access
    */

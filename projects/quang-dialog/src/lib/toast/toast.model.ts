@@ -45,7 +45,7 @@ export class QuixToast {
     /**
      * toast date format
      */
-    public dateFormat?: string,
+    public dateFormat?: string
   ) {
   }
 }

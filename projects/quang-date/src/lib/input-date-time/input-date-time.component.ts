@@ -9,7 +9,7 @@ import {
   Renderer2,
   Self,
   SimpleChanges,
-  ViewChild,
+  ViewChild
 } from '@angular/core'
 
 import { ControlValueAccessor, NgControl } from '@angular/forms'
@@ -20,9 +20,9 @@ import { delay, filter } from 'rxjs/operators'
  * input date time component decorator
  */
 @Component({
-  selector: 'quix-input-date-time',
+  selector: 'quang-input-date-time',
   templateUrl: './input-date-time.component.html',
-  styleUrls: ['./input-date-time.component.scss'],
+  styleUrls: ['./input-date-time.component.scss']
 })
 /**
  * input date time component
@@ -100,7 +100,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * the list of dates that cannot be selected in the calendar
    */
-  @Input() disabledDates: Array<Date> = []
+  @Input() disabledDates: Date[] = []
   /**
    * the hour advance interval
    */
@@ -201,6 +201,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -218,7 +219,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
     @Self() @Optional() public control: NgControl,
-    @Inject(LOCALE_ID) public locale: string,
+    @Inject(LOCALE_ID) public locale: string
   ) {
     this.control.valueAccessor = this
   }
@@ -313,7 +314,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * event triggered when the date changes
    * @param date
    */
-  onChangedDate (date: Date) {
+  onChangedDate (date: Date): void {
     this._valueTime = date
     this.onTouched()
     this.onChanged(date)
@@ -323,7 +324,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * event triggered at the change of time
    * @param date
    */
-  onChangedTime (date: Date) {
+  onChangedTime (date: Date): void {
     this.onTouched()
     this._valueDate = date
     this.onChanged(date)
@@ -344,7 +345,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (this.control.errors.hasOwnProperty(error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue

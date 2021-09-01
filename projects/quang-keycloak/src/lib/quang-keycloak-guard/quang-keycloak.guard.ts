@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router'
 import { Observable, of, throwError } from 'rxjs'
 import {
-  catchError, filter, map, switchMap, take,
+  catchError, filter, switchMap, take
 } from 'rxjs/operators'
 import { select, Store } from '@ngrx/store'
 import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-keycloak-store/quang-keycloak.selector'
@@ -10,7 +10,7 @@ import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-ke
  * service decorator
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 /**
  * role guard
@@ -31,7 +31,7 @@ export class QuangKeycloakGuard implements CanActivate {
    * check if the user has all the required roles saved in the store
    * @param allowedRoles role list
    */
-  checkAllRole (allowedRoles: string[]) {
+  checkAllRole (allowedRoles: string[]): Observable<boolean> {
     return this.authStore.pipe(
       select(selectHasRoles, { rolesId: allowedRoles }),
       take(1)
@@ -42,12 +42,13 @@ export class QuangKeycloakGuard implements CanActivate {
    * check if the user has at least one required role saved in the store
    * @param allowedRoles role list
    */
-  checkUntilRole (allowedRoles: string[]) {
+  checkUntilRole (allowedRoles: string[]): Observable<boolean> {
     return this.authStore.pipe(
       select(selectHasUntilRoles, { rolesId: allowedRoles }),
       take(1)
     )
   }
+
   /**
    * Retrieve user info if it exists, check if it has the necessary roles to view the page
    * @param route active route

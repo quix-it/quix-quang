@@ -33,12 +33,12 @@ export class QuixSnackbarService {
    * @param action
    * @param actionFunction
    */
-  openSnackbar (message: string, time?: number, action?: string, actionFunction?: any,) {
+  openSnackbar (message: string, time?: number, action?: string, actionFunction?: any): void {
     this.snackBar = this.snackBarService.open(
       message,
       action,
       {
-        duration: time ? time : null
+        duration: time || null
       }
     )
     if (actionFunction) {
@@ -49,7 +49,7 @@ export class QuixSnackbarService {
   /**
    * closes the snackbar
    */
-  closeSnackbar () {
+  closeSnackbar (): void {
     this.snackBar.dismiss()
   }
 }

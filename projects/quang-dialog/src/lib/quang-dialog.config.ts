@@ -17,7 +17,7 @@ export class QuangDialogConfig {
     /**
      * defines the list of errors not to be caught
      */
-    public noErrorUrls?: { url: string, error: number }[],
+    public noErrorUrls?: Array<{ url: string, error: number }>,
     /**
      * defines the list of url not to be caught from loader
      */

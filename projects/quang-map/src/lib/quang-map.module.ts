@@ -11,13 +11,13 @@ import { QuixGoogleMapService } from './google-map/google-map.service'
     OpenStreetMapComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule
   ],
   providers: [QuixGoogleMapService],
   exports: [
     GoogleMapComponent,
     OpenStreetMapComponent
-  ],
+  ]
 })
 export class QuangMapModule {
   static forRoot (config?: QuangMapConfig): ModuleWithProviders<any> {

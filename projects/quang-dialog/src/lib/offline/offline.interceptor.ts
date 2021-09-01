@@ -23,7 +23,7 @@ export class OfflineInterceptor implements HttpInterceptor {
    * @param store store access
    */
   constructor (
-    private readonly store : Store<any>
+    private readonly store: Store<any>
   ) {
   }
 
@@ -37,7 +37,7 @@ export class OfflineInterceptor implements HttpInterceptor {
       select(selectLine),
       map(line => {
         if (!line) {
-          throw of(false)
+          throw new Error()
         }
         return of(true)
       }),

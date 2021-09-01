@@ -7,7 +7,7 @@ export class ChartCandlestick {
    * @param category chart category
    * @param series chart series
    */
-  constructor(
+  constructor (
     /**
      * chart categoru
      */
@@ -15,7 +15,7 @@ export class ChartCandlestick {
     /**
      * chart series
      */
-    public series: [number, number,number,number][]
+    public series: Array<[number, number, number, number]>
   ) {
   }
 }

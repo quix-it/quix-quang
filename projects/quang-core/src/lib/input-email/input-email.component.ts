@@ -17,7 +17,7 @@ import { delay, filter } from 'rxjs/operators'
  * input email component decorator
  */
 @Component({
-  selector: 'quix-input-email',
+  selector: 'quang-input-email',
   templateUrl: './input-email.component.html',
   styles: ['']
 })
@@ -242,7 +242,7 @@ export class InputEmailComponent implements ControlValueAccessor, OnInit, OnChan
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (this.control.errors.hasOwnProperty(error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               if (error === 'minlength' || error === 'maxlength') {

@@ -21,7 +21,7 @@ export class HasRolesDirective implements OnInit, OnDestroy {
    * subject of convenience to turn off the subscription to the observable
    * @private
    */
-  private destroy$ = new Subject()
+  private readonly destroy$ = new Subject()
 
   /**
    * constructor
@@ -53,6 +53,7 @@ export class HasRolesDirective implements OnInit, OnDestroy {
       }
     })
   }
+
   /**
    * unsubscribe the observable
    */

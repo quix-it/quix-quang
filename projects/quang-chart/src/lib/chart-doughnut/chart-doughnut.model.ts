@@ -7,7 +7,7 @@ export class ChartDoughnut {
    * @param value chart value
    * @param name chart name
    */
-  constructor(
+  constructor (
     /**
      * chart value
      */
@@ -15,7 +15,7 @@ export class ChartDoughnut {
     /**
      * chart name
      */
-    public name: string,
+    public name: string
   ) {
   }
 }

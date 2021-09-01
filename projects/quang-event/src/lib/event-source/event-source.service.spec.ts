@@ -1,15 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-import {QuixEventSourceService} from './event-source.service';
+import { TestBed } from '@angular/core/testing'
+import { QuixEventSourceService } from './event-source.service'
 
 describe('QuixEventSourceService', () => {
-  let service: QuixEventSourceService;
+  let service: QuixEventSourceService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(QuixEventSourceService);
-  });
+    TestBed.configureTestingModule({})
+    service = TestBed.inject(QuixEventSourceService)
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    expect(service).toBeTruthy()
+  })
+})

@@ -35,7 +35,7 @@ export class QuixHttpErrorService {
    * opens only one error modal at a time and ignores the others
    * @param error
    */
-  openErrorModal (error: HttpErrorResponse) {
+  openErrorModal (error: HttpErrorResponse): void {
     this.quixModalService.onHideEvent().subscribe(e => {
       switch (e) {
         case 'backdrop-click':

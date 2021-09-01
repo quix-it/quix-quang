@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core'
 
 import { CommonModule } from '@angular/common'
 import { CalendarComponent } from './calendar/calendar.component'
@@ -14,7 +14,7 @@ FullCalendarModule.registerPlugins([
   bootstrapPlugin,
   interactionPlugin,
   timeGridPlugin
-]);
+])
 
 @NgModule({
   declarations: [

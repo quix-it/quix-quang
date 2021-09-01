@@ -13,7 +13,7 @@ import { InputTimeComponent } from './input-time/input-time.component'
   declarations: [
     InputDateRangeComponent,
     InputDateComponent,
-  InputDateTimeComponent,
+    InputDateTimeComponent,
     InputTimeComponent
   ],
   imports: [

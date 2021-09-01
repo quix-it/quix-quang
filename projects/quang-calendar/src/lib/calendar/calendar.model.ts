@@ -8,7 +8,7 @@ export class QuixCalendarEvent {
    * @param date define event date
    * @param allDay define event allday
    */
-  constructor(
+  constructor (
     /**
      * event title
      */

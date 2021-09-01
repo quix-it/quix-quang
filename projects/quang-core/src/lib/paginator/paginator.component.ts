@@ -12,7 +12,7 @@ import { MatPaginator } from '@angular/material/paginator'
  * paginator component decorator
  */
 @Component({
-  selector: 'quix-paginator',
+  selector: 'quang-paginator',
   templateUrl: './paginator.component.html',
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -57,11 +57,11 @@ export class PaginatorComponent implements OnChanges {
   /**
    * Raises an event when the page index changes
    */
-  @Output() onPageChange: EventEmitter<number> = new EventEmitter<number>()
+  @Output() whenPageChange: EventEmitter<number> = new EventEmitter<number>()
   /**
    * Raises an event when the page size changes
    */
-  @Output() onSizeChange: EventEmitter<number> = new EventEmitter<number>()
+  @Output() whenSizeChange: EventEmitter<number> = new EventEmitter<number>()
   /**
    * mat paginator html element
    */
@@ -121,7 +121,7 @@ export class PaginatorComponent implements OnChanges {
   onChangePage (event): void {
     if (event.pageIndex !== this._pageIndex) {
       this._pageIndex = event.pageIndex
-      this.onPageChange.emit(this._pageIndex)
+      this.whenPageChange.emit(this._pageIndex)
     }
   }
 
@@ -132,7 +132,7 @@ export class PaginatorComponent implements OnChanges {
   onChangeSize (event): void {
     this.paginator.pageSize = parseInt((event.target as HTMLInputElement).value)
     this._pageSize = parseInt((event.target as HTMLInputElement).value)
-    this.onSizeChange.emit(this._pageSize)
+    this.whenSizeChange.emit(this._pageSize)
   }
 
   /**

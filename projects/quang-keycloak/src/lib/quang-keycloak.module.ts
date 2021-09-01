@@ -28,7 +28,7 @@ import { QuangKeycloakConfig } from './quang-keycloak.config'
   ],
   providers: [
     KeycloakService,
-    QuangKeycloakService,
+    QuangKeycloakService
   ]
 })
 export class QuangKeycloakModule {

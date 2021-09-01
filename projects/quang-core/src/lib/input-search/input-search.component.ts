@@ -18,7 +18,7 @@ import { delay, filter } from 'rxjs/operators'
  * input search component decorator
  */
 @Component({
-  selector: 'quix-input-search',
+  selector: 'quang-input-search',
   templateUrl: './input-search.component.html',
   styles: ['']
 })
@@ -238,7 +238,7 @@ export class InputSearchComponent implements ControlValueAccessor, AfterViewInit
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (this.control.errors.hasOwnProperty(error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               if (error === 'minlength' || error === 'maxlength') {

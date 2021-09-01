@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { QuixCardActionHeaderComponent } from './quix-card-action-header.component';
+import { QuixCardActionHeaderComponent } from './quix-card-action-header.component'
 
 describe('QuixCardActionHeaderComponent', () => {
-  let component: QuixCardActionHeaderComponent;
-  let fixture: ComponentFixture<QuixCardActionHeaderComponent>;
+  let component: QuixCardActionHeaderComponent
+  let fixture: ComponentFixture<QuixCardActionHeaderComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuixCardActionHeaderComponent ]
+      declarations: [QuixCardActionHeaderComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QuixCardActionHeaderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(QuixCardActionHeaderComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

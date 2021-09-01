@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ChartAreaComponent } from './chart-area.component';
+import { ChartAreaComponent } from './chart-area.component'
 
 describe('ChartAreaComponent', () => {
-  let component: ChartAreaComponent;
-  let fixture: ComponentFixture<ChartAreaComponent>;
+  let component: ChartAreaComponent
+  let fixture: ComponentFixture<ChartAreaComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartAreaComponent ]
+      declarations: [ChartAreaComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChartAreaComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ChartAreaComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

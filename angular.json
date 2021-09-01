@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/quang",
       "sourceRoot": "projects/quang/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -44,7 +44,7 @@
       "projectType": "library",
       "root": "projects/quang-auth",
       "sourceRoot": "projects/quang-auth/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -81,7 +81,7 @@
       "projectType": "library",
       "root": "projects/quang-keycloak",
       "sourceRoot": "projects/quang-keycloak/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -118,7 +118,7 @@
       "projectType": "library",
       "root": "projects/quang-core",
       "sourceRoot": "projects/quang-core/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -155,7 +155,7 @@
       "projectType": "library",
       "root": "projects/quang-calendar",
       "sourceRoot": "projects/quang-calendar/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -192,7 +192,7 @@
       "projectType": "library",
       "root": "projects/quang-date",
       "sourceRoot": "projects/quang-date/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -229,7 +229,7 @@
       "projectType": "library",
       "root": "projects/quang-chart",
       "sourceRoot": "projects/quang-chart/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -266,7 +266,7 @@
       "projectType": "library",
       "root": "projects/quang-event",
       "sourceRoot": "projects/quang-event/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -303,7 +303,7 @@
       "projectType": "library",
       "root": "projects/quang-image",
       "sourceRoot": "projects/quang-image/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -340,7 +340,7 @@
       "projectType": "library",
       "root": "projects/quang-map",
       "sourceRoot": "projects/quang-map/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -377,7 +377,7 @@
       "projectType": "library",
       "root": "projects/quang-components",
       "sourceRoot": "projects/quang-components/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -414,7 +414,7 @@
       "projectType": "library",
       "root": "projects/quang-dialog",
       "sourceRoot": "projects/quang-dialog/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -451,7 +451,7 @@
       "projectType": "library",
       "root": "projects/quang-utility",
       "sourceRoot": "projects/quang-utility/src",
-      "prefix": "quix",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

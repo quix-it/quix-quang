@@ -18,7 +18,7 @@ import { delay, filter } from 'rxjs/operators'
  * input text component decorator
  */
 @Component({
-  selector: 'quix-input-text',
+  selector: 'quang-input-text',
   templateUrl: './input-text.component.html',
   styles: ['']
 })
@@ -244,7 +244,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (this.control.errors.hasOwnProperty(error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               if (error === 'minlength' || error === 'maxlength') {

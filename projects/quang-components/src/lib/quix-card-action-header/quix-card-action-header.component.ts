@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
  * card action component decorator
  */
 @Component({
-  selector: 'quix-card-action-header',
+  selector: 'quang-card-action-header',
   templateUrl: './quix-card-action-header.component.html',
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush

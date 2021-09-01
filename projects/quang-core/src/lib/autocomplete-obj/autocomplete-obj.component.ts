@@ -19,7 +19,7 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
  * autocomplete object component decorator
  */
 @Component({
-  selector: 'quix-autocomplete-obj',
+  selector: 'quang-autocomplete-obj',
   templateUrl: './autocomplete-obj.component.html',
   styles: ['']
 })
@@ -252,7 +252,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (this.control.errors.hasOwnProperty(error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue

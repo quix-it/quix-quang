@@ -4,7 +4,7 @@ import { QuangMapConfig } from '../quang-map.config'
  * service decorator
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 /**
  * utility for google map management
@@ -24,7 +24,7 @@ export class QuixGoogleMapService {
    * @param config module config
    */
   constructor (
-    @Optional() config: QuangMapConfig
+  @Optional() config: QuangMapConfig
   ) {
     if (config.googleKey) {
       this.key = config.googleKey
@@ -38,7 +38,7 @@ export class QuixGoogleMapService {
   /**
    * adds the script to load the Google map library
    */
-  addMapScript () {
+  addMapScript (): void {
     const s = window.document.createElement('script')
     s.id = 'google-map-script'
     s.type = 'text/javascript'

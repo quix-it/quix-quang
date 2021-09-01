@@ -13,7 +13,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser'
  * video component decorator
  */
 @Component({
-  selector: 'quix-video',
+  selector: 'quang-video',
   templateUrl: './video.component.html',
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -108,8 +108,8 @@ export class VideoComponent implements OnChanges {
    * Method to view the video in full screen
    */
   public toFullScreen (): void {
-    if ((this.video.nativeElement as HTMLVideoElement).requestFullscreen) {
-      (this.video.nativeElement as HTMLVideoElement).requestFullscreen()
+    if ((this.video.nativeElement).requestFullscreen) {
+      (this.video.nativeElement).requestFullscreen()
     }
   }
 }

@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges
 } from '@angular/core'
@@ -15,7 +14,7 @@ import { EChartsOption } from 'echarts'
  * chart doughnut component decorator
  */
 @Component({
-  selector: 'quix-chart-doughnut',
+  selector: 'quang-chart-doughnut',
   templateUrl: './chart-doughnut.component.html',
   styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -44,7 +43,7 @@ export class ChartDoughnutComponent implements OnChanges {
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
-  @Input() ariaLabel: string = `Chart`
+  @Input() ariaLabel: string = 'Chart'
   /**
    * Indicate the position in the page navigation flow with the tab key
    */
@@ -53,11 +52,12 @@ export class ChartDoughnutComponent implements OnChanges {
    * the grid that contains the graph defines the padding in the four directions
    */
   @Input() grid: {
-    top: number,
-    bottom: number,
-    left: number,
+    top: number
+    bottom: number
+    left: number
     right: number
   } = { top: 0, left: 0, right: 0, bottom: 0 }
+
   /**
    * click event on the graph
    */
@@ -80,6 +80,7 @@ export class ChartDoughnutComponent implements OnChanges {
       return Math.random() * 200
     }
   }
+
   /**
    * change input management
    * @param changes component changes
@@ -103,5 +104,4 @@ export class ChartDoughnutComponent implements OnChanges {
   onChartClick (e): void {
     this.chartClick.emit(e)
   }
-
 }
