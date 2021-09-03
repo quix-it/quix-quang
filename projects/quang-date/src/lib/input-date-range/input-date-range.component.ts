@@ -251,7 +251,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
     if (this.returnISODate) {
       this.onChanged([...dates])
     } else {
-      this.onChanged([...dates.map(d => format(d, 'yyyy-MM-dd'))])
+      this.onChanged([...dates?.map(d => format(d, 'yyyy-MM-dd'))])
     }
   }
 
