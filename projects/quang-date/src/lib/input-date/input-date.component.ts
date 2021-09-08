@@ -68,7 +68,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   /**
    * defines the format of the return date
    */
-  @Input() dateFormat: string = ''
+  @Input() dateFormat: string | null = null
   /**
    * defines the minimum selectable date
    */
@@ -196,7 +196,6 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
       isAnimated: true,
       adaptivePosition: true,
       dateInputFormat: this.dateFormat,
-      rangeInputFormat: this.dateFormat,
       showWeekNumbers: this.showWeekNumbers
     }
     if (this.locale) {
@@ -252,7 +251,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
     this.onTouched()
     if (this.returnISODate) {
       this.onChanged(date)
-    } else {
+    } else if (date) {
       this.onChanged(format(date, 'yyyy-MM-dd'))
     }
   }
@@ -261,11 +260,9 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value): void {
-    if (this.returnISODate && value) {
+  writeValue (value) {
+    if (value) {
       this._value = new Date(value)
-    } else {
-      this._value = value
     }
   }
 

@@ -235,7 +235,6 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
       isAnimated: true,
       adaptivePosition: true,
       dateInputFormat: this.dateFormat,
-      rangeInputFormat: this.dateFormat,
       showWeekNumbers: this.showWeekNumbers
     }
     if (this.label) {
@@ -296,9 +295,10 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value): void {
-    this._valueTime = value
-    this._valueDate = value
+  writeValue (value) {
+    if (value) {
+      this._valueTime = this._valueDate = new Date(value)
+    }
   }
 
   /**
@@ -317,6 +317,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   onChangedDate (date: Date): void {
     this._valueTime = date
     this.onTouched()
+    this._valueTime = date
     this.onChanged(date)
   }
 
