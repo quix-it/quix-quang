@@ -46,10 +46,11 @@ export class QuixStorageService {
    * @param defaultValue
    */
   getSessionDefault (key: string, defaultValue: string): string {
-    if (JSON.parse(this.sessionStorage.retrieve(key))) {
-      return JSON.parse(this.sessionStorage.retrieve(key))
+    try {
+      return JSON.parse(this.sessionStorage.retrieve(key)) ?? defaultValue
+    } catch (e) {
+      return defaultValue
     }
-    return defaultValue
   }
 
   /**
@@ -92,10 +93,11 @@ export class QuixStorageService {
    * @param defaultValue
    */
   getLocalDefault (key: string, defaultValue: string): string {
-    if (JSON.parse(this.localStorage.retrieve(key))) {
-      return JSON.parse(this.localStorage.retrieve(key))
+    try {
+      return JSON.parse(this.localStorage.retrieve(key)) ?? defaultValue
+    } catch (e) {
+      return defaultValue
     }
-    return defaultValue
   }
 
   /**
