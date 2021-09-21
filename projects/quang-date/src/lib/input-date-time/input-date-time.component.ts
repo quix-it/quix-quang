@@ -295,7 +295,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value) {
+  writeValue (value): void {
     if (value) {
       this._valueTime = this._valueDate = new Date(value)
     }

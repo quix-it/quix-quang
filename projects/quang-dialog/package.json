@@ -1,12 +1,17 @@
 {
   "name": "@quix/quang-dialog",
-    "version": "12.0.0",
+    "version": "12.0.0-beta.2",
   "peerDependencies": {
+    "@angular/core": "^12.0.0",
+    "@angular/material": "^12.2.3",
+    "ngx-bootstrap": "^7.0.0",
+    "bootstrap": "^4.6.0",
     "@sentry/angular": "^6.2.3",
     "@sentry/tracing": "^6.2.3",
-    "@sentry/integrations": "^5.30.0"
-  },
-  "dependencies": {
-    "tslib": "^1.10.0"
+    "@sentry/integrations": "^5.30.0",
+    "@ngrx/effects": "^12.4.0",
+    "@ngrx/schematics": "^12.4.0",
+    "@ngrx/store": "^12.4.0",
+    "@ngrx/store-devtools": "^12.4.0"
   }
 }

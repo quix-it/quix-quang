@@ -39,8 +39,6 @@
       "quang": [
         "dist/quang/quang",
         "dist/quang",
-        "dist/quang/quang",
-        "dist/quang"
       ],
       "quang-auth": [
         "dist/quang-auth/quang-auth",
@@ -103,5 +101,6 @@
     "strictInjectionParameters": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "importHelpers": true
   }
 }

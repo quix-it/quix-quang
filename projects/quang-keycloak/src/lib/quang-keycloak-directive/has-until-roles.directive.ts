@@ -59,6 +59,6 @@ export class HasUntilRolesDirective implements OnInit, OnDestroy {
    * unsubscribe the observable
    */
   ngOnDestroy (): void {
-    this.destroy$.next()
+    this.destroy$.next('')
   }
 }

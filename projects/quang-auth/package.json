@@ -1,7 +1,12 @@
 {
   "name": "@quix/quang-auth",
-    "version": "12.0.0",
+    "version": "12.0.0-beta.2",
   "peerDependencies": {
-    "angular-oauth2-oidc": "^10.0.3"
+    "@angular/core": "^12.0.0",
+    "angular-oauth2-oidc": "^12.1.0",
+    "@ngrx/effects": "^12.4.0",
+    "@ngrx/schematics": "^12.4.0",
+    "@ngrx/store": "^12.4.0",
+    "@ngrx/store-devtools": "^12.4.0"
   }
 }

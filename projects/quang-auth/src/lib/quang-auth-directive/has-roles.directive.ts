@@ -57,6 +57,6 @@ export class HasRolesDirective implements OnInit, OnDestroy {
    * unsubscribe the observable
    */
   ngOnDestroy (): void {
-    this.destroy$.next()
+    this.destroy$.next('')
   }
 }

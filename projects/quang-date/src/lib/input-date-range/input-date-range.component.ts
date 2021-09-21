@@ -162,6 +162,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */

@@ -260,7 +260,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value) {
+  writeValue (value): void {
     if (value) {
       this._value = new Date(value)
     }
