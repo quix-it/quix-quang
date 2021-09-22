@@ -412,6 +412,12 @@
     },
     "quang-dialog": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "inlineStyle": true
+        }
+      },
       "root": "projects/quang-dialog",
       "sourceRoot": "projects/quang-dialog/src",
       "prefix": "quang",
@@ -485,7 +491,7 @@
       }
     }
   },
-  "defaultProject": "quix-core-components",
+  "defaultProject": "quang",
   "cli": {
     "analytics": "4c69ff4f-b242-4742-a667-c15cf0e09a78",
     "defaultCollection": "@angular-eslint/schematics"
