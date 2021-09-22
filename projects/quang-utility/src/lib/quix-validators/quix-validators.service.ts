@@ -118,7 +118,6 @@ export class QuixValidatorsService {
    * Check if the past date is between the past two
    * @param startDate
    * @param endDate
-   * @param unit
    */
   dateBetween (startDate: Date, endDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {

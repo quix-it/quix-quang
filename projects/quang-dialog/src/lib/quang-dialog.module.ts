@@ -17,12 +17,15 @@ import { QuixHttpErrorService } from './http-error/quix-http-error.service'
 import { QuangDialogConfig } from './quang-dialog.config'
 import { SentryDialogService } from './sentry/sentry-dialog.service'
 import { QUANGDIALOG_KEY } from './quang-dialog.selector'
+import { SkeletonComponent } from './skeleton/skeleton.component'
+
 
 @NgModule({
   declarations: [
     QuixToastComponent,
     LoaderComponent,
-    QuixHttpErrorModalComponent
+    QuixHttpErrorModalComponent,
+    SkeletonComponent
   ],
   imports: [
     MatBottomSheetModule,
@@ -43,7 +46,8 @@ import { QUANGDIALOG_KEY } from './quang-dialog.selector'
   exports: [
     QuixToastComponent,
     LoaderComponent,
-    QuixHttpErrorModalComponent
+    QuixHttpErrorModalComponent,
+    SkeletonComponent
   ]
 })
 export class QuangDialogModule {
