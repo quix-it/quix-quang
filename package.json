@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "release:install":"npm ci --ignore-script",
+    "release:install": "npm ci --ignore-script",
     "build:quang": "ng-packagr -p projects/quang && ng-packagr -p projects/quang-auth && ng-packagr -p projects/quang-calendar && ng-packagr -p projects/quang-chart && ng-packagr -p projects/quang-components && ng-packagr -p projects/quang-core && ng-packagr -p projects/quang-date && ng-packagr -p projects/quang-dialog && ng-packagr -p projects/quang-event && ng-packagr -p projects/quang-image && ng-packagr -p projects/quang-keycloak && ng-packagr -p projects/quang-map && ng-packagr -p projects/quang-utility",
     "build:quang-map": "ng-packagr -p projects/quang-map",
     "build:quang-date": "ng-packagr -p projects/quang-date",
