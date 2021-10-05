@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input, SimpleChanges } from '@angular/core'
 import { QuixPicture } from './picture.model'
 /**
  * picture component decorator
@@ -29,7 +29,7 @@ export class PictureComponent {
   /**
    * The default image source
    */
-  @Input() src: string = this.responsiveList[0]?.src
+  @Input() src: string = ''
   /**
    * the image displayed by default while the browser is loading the real image
    */
@@ -38,4 +38,14 @@ export class PictureComponent {
    * arialael for the image
    */
   @Input() ariaLabel: string = ''
+
+  /**
+   * observe list changes and initialize src
+   * @param changes
+   */
+  ngOnChanges (changes: SimpleChanges): void {
+    if (changes.responsiveList?.currentValue) {
+      this.src = changes.responsiveList?.currentValue[0].src
+    }
+  }
 }
