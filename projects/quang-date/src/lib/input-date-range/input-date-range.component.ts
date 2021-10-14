@@ -14,7 +14,7 @@ import {
 import { format } from 'date-fns'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
 
 /**
  * input date range component decorator
@@ -84,11 +84,11 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * the list of dates that cannot be selected in the calendar
    */
-  @Input() disabledDates: Array<Date> = []
+  @Input() disabledDates: Date[] = []
   /**
    * defines the starting view
    */
-  @Input() minView: 'year' | 'month' | 'day'
+  @Input() minView: 'year' | 'month' | 'day' = 'year'
 
   /**
    * Determine the arialabel tag for accessibility,
@@ -119,7 +119,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * Define the size of the input field following the bootstrap css rules
    */
-  @Input() size: 'sm' | 'lg' = null
+  @Input() size: 'sm' | 'lg' | null = null
   /**
    * Defines the autocomplete tag to indicate to the browser what type of field it is
    * and how to help the user fill it in
@@ -128,7 +128,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> = null
+  config: Partial<BsDatepickerConfig> | null = null
   /**
    * The value of the input
    */
@@ -156,12 +156,13 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
   /**
    * Standard definition to create a control value accessor
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -181,7 +182,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -212,7 +213,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -231,14 +232,14 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -246,12 +247,13 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * method triggered when the date selection changes, it triggers the native events of the cva
    * @param dates
    */
-  onChangedHandler (dates: Date[]) {
+  onChangedHandler (dates: Date[]): void {
     this.onTouched()
     if (this.returnISODate) {
-      this.onChanged([...dates])
+      this.onChanged(dates)
     } else {
-      this.onChanged([...dates?.map(d => format(d, 'yyyy-MM-dd'))])
+      const tmp = dates.map(d => format(d, 'yyyy-MM-dd'))
+      this.onChanged(tmp)
     }
   }
 
@@ -259,10 +261,10 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value) {
+  writeValue (value: any): void {
     if (value) {
       if (!this.returnISODate && value?.length) {
-        this._value = value.map(d => new Date(d))
+        this._value = value.map((d: any) => new Date(d))
       } else {
         this._value = value
       }
@@ -286,21 +288,19 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
-    this.control?.statusChanges.pipe(
-      delay(0)
+  observeValidate (): void {
+    this.control?.statusChanges?.pipe(
+      delay(0),
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this._value.length && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        } else if (!this._value.length && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
-            }
+      if (this._value.length && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (!this._value.length && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
           }
         }
       }
