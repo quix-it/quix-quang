@@ -24,6 +24,8 @@ export class ChartTreemap {
   constructor (name: string, value: number, color?: string) {
     this.name = name
     this.value = value
-    this.itemStyle = { color: color }
+    if (color) {
+      this.itemStyle = { color: color }
+    }
   }
 }

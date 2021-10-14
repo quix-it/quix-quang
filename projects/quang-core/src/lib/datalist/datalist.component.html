@@ -5,37 +5,39 @@
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <input type="tel"
-         class="form-control"
+  <input class="form-control"
          [id]="id"
          [name]="id"
-         [placeholder]="placeholder | transloco"
-         [readOnly]="readonly"
-         [multiple]="multiple"
-         [pattern]="pattern"
          [ngClass]="customClass"
          [class.is-valid]="control?.valid && control?.dirty && successMessage"
          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [attr.aria-label]="ariaLabel"
-         [tabIndex]="tabIndex"
+         [attr.aria-label]="ariaLabel | transloco"
          (input)="onChangedHandler($event)"
          (blur)="onTouched()"
-         [maxLength]="max"
-         [minLength]="min"
-         [autocomplete]="autocomplete"
          [class.form-control-lg]="size === 'lg'"
          [class.form-control-sm]="size === 'sm'"
+         [tabIndex]="tabIndex"
+         [attr.list]="id + 'list'"
          #input
   >
+  <datalist
+    [id]="id + 'list'">
+    <option *ngFor="let item of list"
+            [value]="item"
+            [selected]="item === _value">
+      {{translateValue ? (item | transloco) : item }}
+    </option>
+  </datalist>
   <div class="valid-feedback">
     {{_successMessage | transloco}}
   </div>
-  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage | transloco">
+  <div class="invalid-feedback"
+       [attr.aria-errormessage]="_errorMessage | transloco">
     {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="control?.dirty && (control.valid && successMessage || control.invalid && errorMessage)"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">
     {{_helpMessage | transloco}}
   </small>

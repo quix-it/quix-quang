@@ -9,6 +9,7 @@
          class="form-control"
          #input
          [id]="id"
+         [name]="id"
          [placeholder]="placeholder | transloco "
          [maxLength]="max"
          [minLength]="min"
@@ -29,6 +30,7 @@
          [attr.aria-placeholder]="placeholder | transloco"
          [attr.aria-readonly]="readonly"
          [attr.aria-describedby]="id + 'Help'"
+         [attr.aria-invalid]="control?.invalid"
   >
   <div class="valid-feedback">
     {{_successMessage | transloco }}

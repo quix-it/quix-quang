@@ -42,8 +42,10 @@ export class QuangKeycloakService {
   ) {
     if (this._window().keycloakConfig) {
       this.authConfig = this._window().keycloakConfig
+      this.authConfig.enableLogging = !config?.production
     } else if (config?.keycloakConfig) {
       this.authConfig = config.keycloakConfig
+      this.authConfig.enableLogging = !config?.production
     } else {
       alert('[AUTH KEYCLOAK SERVICE] No auth config')
     }

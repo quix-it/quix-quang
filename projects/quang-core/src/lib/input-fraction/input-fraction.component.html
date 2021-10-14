@@ -11,7 +11,7 @@
               [ngClass]="addButtonClass"
               (click)="addInteger()"
               [disabled]="_disabled || readonly">
-        <ng-content select="[addButtonIcon]"></ng-content>
+        <ng-content select="[addIntegerIcon]"></ng-content>
       </button>
     </div>
     <input type="text"
@@ -32,9 +32,8 @@
       <button type="button"
               [ngClass]="removeButtonClass"
               (click)="removeInteger()"
-              [disabled]="_disabled || readonly"
-      >
-        <ng-content select="[removeButtonIcon]"></ng-content>
+              [disabled]="_disabled || readonly">
+        <ng-content select="[removeIntegerIcon]"></ng-content>
       </button>
     </div>
     <div class="input-group-append">
@@ -44,9 +43,8 @@
       <button type="button"
               [ngClass]="addButtonClass"
               (click)="addFraction()"
-              [disabled]="_disabled || readonly"
-      >
-        <ng-content select="[addButtonIcon]"></ng-content>
+              [disabled]="_disabled || readonly">
+        <ng-content select="[addFractionIcon]"></ng-content>
       </button>
     </div>
     <input type="text"
@@ -67,9 +65,8 @@
       <button type="button"
               [ngClass]="removeButtonClass"
               (click)="removeFraction()"
-              [disabled]="_disabled || readonly"
-      >
-        <ng-content select="[removeButtonIcon]"></ng-content>
+              [disabled]="_disabled || readonly">
+        <ng-content select="[removeFractionIcon]"></ng-content>
       </button>
     </div>
     <div class="valid-feedback">

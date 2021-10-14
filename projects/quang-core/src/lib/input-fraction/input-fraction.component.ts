@@ -130,7 +130,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * the status of the disabled
    */
-  _disabled: boolean
+  _disabled: boolean = false
   /**
    * Standard definition to create a control value accessor
    */
@@ -143,8 +143,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   onChanged: any = () => {
   }
 
-  @ViewChild('inputInteger', { static: true }) inputInteger: ElementRef<HTMLInputElement>
-  @ViewChild('inputFraction', { static: true }) inputFraction: ElementRef<HTMLInputElement>
+  @ViewChild('inputInteger', { static: true }) inputInteger: ElementRef<HTMLInputElement> | undefined
+  @ViewChild('inputFraction', { static: true }) inputFraction: ElementRef<HTMLInputElement> | undefined
 
   /**
    * constructor
@@ -165,7 +165,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.inputInteger.nativeElement.focus()
+        this.inputInteger?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -221,8 +221,22 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * Set the input values to display the fraction
    */
   setInput (): void {
-    this.renderer.setProperty(this.inputInteger.nativeElement, 'value', Math.floor(this._value).toString())
-    this.renderer.setProperty(this.inputFraction.nativeElement, 'value', (this._value - Math.floor(this._value)).toFixed(3).replace('0.', ''))
+    this.renderer.setProperty(this.inputInteger?.nativeElement,
+      'value',
+      Math
+        .floor((this._value as number))
+        .toString())
+    this.renderer.setProperty(this.inputFraction?.nativeElement,
+      'value',
+      ((this._value as number) - Math
+        .floor((this._value as number)))
+        .toFixed(3)
+        .replace('0.', ''))
+
+  }
+
+  checkMaxMin (): void {
+    this.setDisabledState((this._value as number) > this.max && (this._value as number) >= this.min)
   }
 
   /**
@@ -230,8 +244,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * @param e
    */
   writeValueInteger (e: Event): void {
-    this._value -= Math.floor(this._value)
-    this._value += Math.floor(parseInt((e.target as HTMLInputElement).value))
+    (this._value as number) -= Math.floor(this._value as number);
+    (this._value as number) += Math.floor(parseInt((e.target as HTMLInputElement).value))
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -241,8 +255,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * @param e
    */
   writeValueFraction (e: Event): void {
-    this._value -= parseInt((e.target as HTMLInputElement).value) % 1
-    this._value += parseFloat('0.' + (e.target as HTMLInputElement).value)
+    (this._value as number) -= Math.floor(this._value as number % 1);
+    (this._value as number) += parseFloat(`0.${(e.target as HTMLInputElement).value}`)
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -252,12 +266,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * validates the status and starts the flow of the cva
    */
   addInteger (): void {
-    if (this._value < this.max && this._value >= this.min) {
-      if (this._value % this.stepInteger) {
-        this._value += (this.stepInteger - (this._value % this.stepInteger))
-      } else {
-        this._value += this.stepInteger
-      }
+    if ((this._value as number) < this.max && (this._value as number) >= this.min) {
+      (this._value as number) += this.stepInteger
     }
     this.setInput()
     this.onTouched()
@@ -269,12 +279,9 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * validates the status and starts the flow of the cva
    */
   addFraction (): void {
-    if (this._value < this.max && this._value >= this.min) {
-      if (this._value % this.stepFraction) {
-        this._value += (this.stepFraction - (this._value % this.stepFraction))
-      } else {
-        this._value += this.stepFraction
-      }
+    if ((this._value as number) < this.max && (this._value as number) >= this.min) {
+      const tmp = (this._value as number) += this.stepFraction
+      this._value = parseFloat((tmp.toFixed(3)))
     }
     this.setInput()
     this.onTouched()
@@ -286,12 +293,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * validates the status and starts the flow of the cva
    */
   removeInteger (): void {
-    if (this._value <= this.max && this._value > this.min) {
-      if (this._value % this.stepInteger) {
-        this._value -= (this.stepInteger - (this._value % this.stepInteger))
-      } else {
-        this._value -= this.stepInteger
-      }
+    if ((this._value as number) <= this.max && (this._value as number) > this.min) {
+      (this._value as number) -= this.stepInteger
     }
     this.setInput()
     this.onTouched()
@@ -303,12 +306,9 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * validates the status and starts the flow of the cva
    */
   removeFraction (): void {
-    if (this._value <= this.max && this._value > this.min) {
-      if (this._value % this.stepFraction) {
-        this._value -= (this.stepFraction - (this._value % this.stepFraction))
-      } else {
-        this._value -= this.stepFraction
-      }
+    if ((this._value as number) <= this.max && (this._value as number) > this.min) {
+      const tmp = (this._value as number) -= this.stepFraction
+      this._value = parseFloat((tmp.toFixed(3)))
     }
     this.setInput()
     this.onTouched()
@@ -320,8 +320,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
-    this.renderer.setProperty(this.inputInteger.nativeElement, 'disabled', isDisabled)
-    this.renderer.setProperty(this.inputFraction.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.inputInteger?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.inputFraction?.nativeElement, 'disabled', isDisabled)
     this._disabled = isDisabled
   }
 
@@ -332,16 +332,16 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid'`
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue

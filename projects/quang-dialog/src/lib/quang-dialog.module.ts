@@ -18,6 +18,9 @@ import { QuangDialogConfig } from './quang-dialog.config'
 import { SentryDialogService } from './sentry/sentry-dialog.service'
 import { QUANGDIALOG_KEY } from './quang-dialog.selector';
 import { SkeletonComponent } from './skeleton/skeleton.component'
+import { EffectsModule } from '@ngrx/effects'
+import { NotificationEffect } from './notification/notification-store/notification.effect'
+import { QuixNotificationService } from './notification/notification.service'
 
 
 
@@ -34,6 +37,7 @@ import { SkeletonComponent } from './skeleton/skeleton.component'
   imports: [
     MatBottomSheetModule,
     StoreModule.forFeature(QUANGDIALOG_KEY, quangDialogReducers),
+    EffectsModule.forFeature([NotificationEffect]),
     MatSnackBarModule,
     CommonModule,
     TranslocoModule,
@@ -45,7 +49,8 @@ import { SkeletonComponent } from './skeleton/skeleton.component'
     QuixSnackbarService,
     QuixToastService,
     QuixHttpErrorService,
-    SentryDialogService
+    SentryDialogService,
+    QuixNotificationService
   ],
   exports: [
     QuixToastComponent,

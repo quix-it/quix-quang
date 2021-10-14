@@ -40,6 +40,7 @@ import { NgxFileDropModule } from 'ngx-file-drop'
 import { InputUrlComponent } from './input-url/input-url.component'
 import { InputTelComponent } from './input-tel/input-tel.component'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { DatalistComponent } from './datalist/datalist.component'
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     InputFractionComponent,
     InputFileComponent,
     InputUrlComponent,
-    InputTelComponent
+    InputTelComponent,
+    DatalistComponent
   ],
   imports: [
     CommonModule,
@@ -117,7 +119,8 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     InputFractionComponent,
     InputFileComponent,
     InputUrlComponent,
-    InputTelComponent
+    InputTelComponent,
+    DatalistComponent
   ]
 })
 export class QuangCoreModule {}

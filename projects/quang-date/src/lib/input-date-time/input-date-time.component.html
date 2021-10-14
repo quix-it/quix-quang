@@ -10,7 +10,9 @@
       <div class="input-group"
            [class.input-group-sm]="size === 'sm'"
            [class.input-group-lg]="size === 'lg'">
-        <input type="text" [id]="id"
+        <input type="text"
+               [id]="id"
+               [name]="id"
                class="form-control"
                bsDatepicker
                [placeholder]="placeholder | transloco"
@@ -56,6 +58,7 @@
          [ngStyle]="{'margin-top': _margin}">
       <timepicker
         [id]="id"
+        [name]="id"
         [ngClass]="customClass"
         [class.is-valid]="control?.valid && control?.dirty && successMessage"
         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"

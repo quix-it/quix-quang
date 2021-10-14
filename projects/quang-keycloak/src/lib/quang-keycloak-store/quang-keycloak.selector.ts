@@ -7,21 +7,21 @@ import { QuangKeycloakState } from '../quang-keycloak-module.reducer'
  */
 export const selectIsAuthenticated = createSelector(
   selectQuangKeycloak,
-  (state: QuangKeycloakState) => state.quangKeycloakUserState.isAuthenticated
+  (state: QuangKeycloakState) => state?.quangKeycloakUserState?.isAuthenticated
 )
 /**
  * Selector to retrieve the status of the user data
  */
 export const selectUserInfo = createSelector(
   selectQuangKeycloak,
-  (state: QuangKeycloakState) => state.quangKeycloakUserState.user
+  (state: QuangKeycloakState) => state?.quangKeycloakUserState?.user
 )
 /**
  * Selector to retrieve the status of the role list
  */
 export const selectUserRoles = createSelector(
   selectQuangKeycloak,
-  (state: QuangKeycloakState) => state.quangKeycloakUserState.roles
+  (state: QuangKeycloakState) => state?.quangKeycloakUserState?.roles
 )
 /**
  * Selector to check if the user has all the required roles
@@ -31,7 +31,7 @@ export const selectHasRoles = createSelector(
   (state: QuangKeycloakState, props: { rolesId: string[] }) => {
     let find = true
     props.rolesId.forEach(role => {
-      find = find && !!state.quangKeycloakUserState.roles.find(ur => ur === role)
+      find = find && !!state?.quangKeycloakUserState?.roles.includes(role)
     })
     return find
   }
@@ -44,7 +44,7 @@ export const selectHasUntilRoles = createSelector(
   (state: QuangKeycloakState, props: { rolesId: string[] }) => {
     let find = false
     props.rolesId.forEach(role => {
-      find = find || !!state.quangKeycloakUserState.roles.find(ur => ur === role)
+      find = find || !!state?.quangKeycloakUserState?.roles.includes(role)
     })
     return find
   }

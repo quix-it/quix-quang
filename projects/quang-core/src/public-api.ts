@@ -29,5 +29,6 @@ export * from './lib/autocomplete-service/quix-autocomplete-async.service'
 export * from './lib/slider/slider.component'
 export * from './lib/paginator/paginator.component'
 export * from './lib/paginator/paginator.service'
+export * from './lib/datalist/datalist.component'
 
 export * from './lib/quang-core.module'
