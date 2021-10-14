@@ -9,7 +9,7 @@ export interface ToastsState {
   /**
    * toast data
    */
-  toastData: QuixToast
+  toastData: QuixToast | null
 }
 
 /**

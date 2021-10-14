@@ -65,11 +65,11 @@ export class VideoComponent implements OnChanges {
   /**
    * Defines the type of video played
    */
-  @Input() type: 'video/mp4' | 'video/webm' | 'video/OGG'
+  @Input() type: 'video/mp4' | 'video/webm' | 'video/OGG' = 'video/mp4'
   /**
    * The html video element
    */
-  @ViewChild('video', { static: true }) video: ElementRef<HTMLVideoElement>
+  @ViewChild('video', { static: true }) video: ElementRef<HTMLVideoElement> | null = null
   /**
    * The current time of the video
    */
@@ -108,8 +108,8 @@ export class VideoComponent implements OnChanges {
    * Method to view the video in full screen
    */
   public toFullScreen (): void {
-    if ((this.video.nativeElement).requestFullscreen) {
-      (this.video.nativeElement).requestFullscreen()
+    if ((this.video?.nativeElement)?.requestFullscreen) {
+      (this.video?.nativeElement)?.requestFullscreen()
     }
   }
 }

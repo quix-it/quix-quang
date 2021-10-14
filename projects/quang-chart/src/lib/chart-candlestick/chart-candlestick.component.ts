@@ -9,6 +9,7 @@ import {
 } from '@angular/core'
 import { ChartCandlestick } from './chart-candlestick.model'
 import { EChartsOption } from 'echarts'
+
 /**
  * chart candlestick component decorator
  */
@@ -33,7 +34,7 @@ export class ChartCandlestickComponent implements OnChanges {
   /**
    * the object that contains the data to make the graph
    */
-  @Input() chartData: ChartCandlestick
+  @Input() chartData: ChartCandlestick | null = null
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
@@ -44,6 +45,10 @@ export class ChartCandlestickComponent implements OnChanges {
    */
   @Input() tabIndex: number = 0
   /**
+   * the color of the graph
+   */
+  @Input() colors: [color: string, color0: string] = ['red', 'green']
+  /**
    * the grid that contains the graph defines the padding in the four directions
    */
   @Input() grid: {
@@ -52,7 +57,6 @@ export class ChartCandlestickComponent implements OnChanges {
     left: number
     right: number
   } = { top: 0, left: 0, right: 0, bottom: 0 }
-
   /**
    * click event on the graph
    */
@@ -76,8 +80,14 @@ export class ChartCandlestickComponent implements OnChanges {
         data: changes.chartData.currentValue.category
       }
       this.chartOption.series = [{
-        data: changes.chartData.currentValue.series,
-        type: 'candlestick'
+        type: 'candlestick',
+        itemStyle: {
+          color: this.colors[0],
+          borderColor: this.colors[0],
+          color0: this.colors[1],
+          borderColor0: this.colors[1]
+        },
+        data: changes.chartData.currentValue.series
       }]
     }
     if (changes.grid?.currentValue) {
@@ -89,7 +99,7 @@ export class ChartCandlestickComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e
    */
-  onChartClick (e): void {
+  onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
 }

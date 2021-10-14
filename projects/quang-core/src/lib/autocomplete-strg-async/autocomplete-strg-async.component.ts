@@ -136,11 +136,11 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
-  suggestions$: Observable<any>
+  suggestions$: Observable<any> = new Observable<any>()
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
   /**
    * Standard definition to create a control value accessor
    */
@@ -173,15 +173,14 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
    * Check if the help message is required and create the key
    */
   ngOnInit (): void {
-    if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
-    }
+    let prev:string = ''
     this.suggestions$ = new Observable((observer: Observer<string>) => {
       observer.next(this._value)
     }).pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
+      debounceTime(300),
+      filter(s => s !== prev),
       switchMap((query: string) => {
+        prev = query
         if (query) {
           if (this.restApi) {
             return this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, query).pipe(
@@ -194,8 +193,11 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
         }
         return of([])
       }),
-      map(r => r.filter(s => s.toLowerCase().includes(this._value.toLowerCase())))
+      map(r => r.filter((s: string) => s.toLowerCase().includes(this._value.toLowerCase())))
     )
+    if (this.helpMessage) {
+      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+    }
   }
 
   /**
@@ -205,7 +207,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -259,7 +261,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
    * When the CVA is initialized as control it initializes the internal states
    * @param value
    */
-  writeValue (value): void {
+  writeValue (value: any): void {
     this._value = value
   }
 
@@ -278,20 +280,18 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
           }
         }
       }

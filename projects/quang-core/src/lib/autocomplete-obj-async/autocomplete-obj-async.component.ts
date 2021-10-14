@@ -127,11 +127,11 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   /**
    * The value of the input
    */
-  _value: string | number
+  _value: string | number = ''
   /**
    * the status of the success message
    */
-  _searchValue: string
+  _searchValue: string = ''
   /**
    * the status of the success message
    */
@@ -148,11 +148,11 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
-  suggestions$: Observable<any>
+  suggestions$: Observable<any> | null = null
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
   /**
    * Standard definition to create a control value accessor
    */
@@ -185,25 +185,27 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * Check if the help message is required and create the key
    */
   ngOnInit (): void {
+    let prev:string = ''
     this.suggestions$ = new Observable((observer: Observer<string>) => {
       observer.next(this._searchValue)
     }).pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
+      debounceTime(300),
+      filter(s => s !== prev),
       switchMap((query: string) => {
-        if (this._searchValue) {
+        prev = query
+        if (query) {
           if (this.restApi) {
-            return this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, this._searchValue).pipe(
+            return this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, query).pipe(
               map((data: any) => data || [])
             )
           }
-          return this.autocompleteService.getList(this.baseUrl, this.apiUrl, this._searchValue, this.apiParamName).pipe(
+          return this.autocompleteService.getList(this.baseUrl, this.apiUrl, query, this.apiParamName).pipe(
             map((data: any) => data || [])
           )
         }
         return of([])
       }),
-      map(r => r.filter(s => s[this.searchBy].toLowerCase().includes(this._searchValue.toLowerCase())))
+      map(r => r.filter((s: any) => s[this.searchBy].toLowerCase().includes(this._searchValue.toLowerCase())))
     )
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
@@ -217,7 +219,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -274,7 +276,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * to its corresponding object in the options list
    * @param value
    */
-  writeValue (value): void {
+  writeValue (value: any): void {
     this._value = value
     if (this.restApi) {
       this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, '').subscribe(
@@ -314,20 +316,18 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
           }
         }
       }

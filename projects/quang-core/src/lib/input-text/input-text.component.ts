@@ -20,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-text',
   templateUrl: './input-text.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input text component
@@ -139,7 +139,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
 
   /**
    * constructor
@@ -169,7 +169,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -214,7 +214,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value): void {
+  writeValue (value: string): void {
     this._value = value
     this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
@@ -235,24 +235,22 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe((v) => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       }
       if (this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              if (error === 'minlength' || error === 'maxlength') {
-                this._requiredValue = this.control.errors[error].requiredLength
-              } else {
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
+        if (this.control.errors) {
+          for (const error in this.control.errors) {
+            if (error === 'minlength' || error === 'maxlength') {
+              this._requiredValue = this.control.errors[error].requiredLength
+            } else {
+              this._requiredValue = this.control.errors[error].requiredValue
             }
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
           }
         }
       }

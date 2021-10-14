@@ -1,0 +1,33 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang loader'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <button type="button"
+                  (click)="call()"
+                  class="btn btn-outline-success">
+            Apri loader
+          </button>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{'dialog.loader.html' | transloco}}</pre>
+          <pre class="ts">{{'dialog.loader.code' | transloco}}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

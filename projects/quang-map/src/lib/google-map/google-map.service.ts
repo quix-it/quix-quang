@@ -13,12 +13,11 @@ export class QuixGoogleMapService {
   /**
    * google map key
    */
-  public key: string
+  public key: string = ''
   /**
    * window access
    */
   _window = (): any => window
-
   /**
    * constructor
    * @param config module config
@@ -26,9 +25,9 @@ export class QuixGoogleMapService {
   constructor (
   @Optional() config: QuangMapConfig
   ) {
-    if (config.googleKey) {
+    if (config?.googleKey) {
       this.key = config.googleKey
-    } else if (this._window().quixConfig.googleKey) {
+    } else if (this._window().quixConfig?.googleKey) {
       this.key = this._window().quixConfig.googleKey
     } else {
       alert('[QUANG MAP CONFIG] You need a googleKey for the map')

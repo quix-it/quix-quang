@@ -38,7 +38,7 @@ export class QuixSnackbarService {
       message,
       action,
       {
-        duration: time || null
+        duration: time || undefined
       }
     )
     if (actionFunction) {

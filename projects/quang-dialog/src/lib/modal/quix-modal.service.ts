@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal'
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal'
 import { take } from 'rxjs/operators'
 /**
  * service decorator
@@ -15,18 +15,18 @@ export class QuixModalService {
   /**
    * modal configuration
    */
-  config = {
-    keyboard: null,
-    ignoreBackdropClick: null,
-    class: null,
-    initialState: null,
+  config: ModalOptions = {
+    keyboard: undefined,
+    ignoreBackdropClick: undefined,
+    class: undefined,
+    initialState: undefined,
     animated: true
   }
 
   /**
    * modal wrapper
    */
-  modalRef: BsModalRef
+  modalRef: BsModalRef | null = null
 
   /**
    * constructor
@@ -102,7 +102,7 @@ export class QuixModalService {
    * @param size
    * @private
    */
-  private setSize (size): void {
+  private setSize (size: string): void {
     switch (size) {
       case 'xl':
         this.config.class = 'modal-xl'

@@ -37,7 +37,7 @@ export class ChartPieComponent implements OnChanges {
   /**
    * the object that contains the data to make the graph
    */
-  @Input() chartData: ChartPie[]
+  @Input() chartData: ChartPie[] = []
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
@@ -75,7 +75,7 @@ export class ChartPieComponent implements OnChanges {
       }
     ],
     animationEasing: 'elasticOut',
-    animationDelay: function (idx) {
+    animationDelay: function (idx: any) {
       return Math.random() * 200
     }
   }
@@ -88,8 +88,8 @@ export class ChartPieComponent implements OnChanges {
     if (changes.color?.currentValue) {
       this.chartOption.color = changes.color.currentValue
     }
-    if (changes.chartData?.currentValue) {
-      this.chartOption.series[0].data = changes.chartData.currentValue
+    if (changes.chartData?.currentValue && (this.chartOption?.series as any[])[0]) {
+      (this.chartOption.series as any)[0].data = changes.chartData.currentValue
     }
     if (changes.grid?.currentValue) {
       this.chartOption.grid = changes.grid.currentValue
@@ -100,7 +100,7 @@ export class ChartPieComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e): void {
+  onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
 }

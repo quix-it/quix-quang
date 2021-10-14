@@ -53,7 +53,7 @@ export class GoogleMapComponent implements OnChanges {
   /**
    * The type of map to display
    */
-  @Input() mapType: 'roadmap' | 'satellite' | 'hybrid' | 'terrain'
+  @Input() mapType: 'roadmap' | 'satellite' | 'hybrid' | 'terrain' = 'roadmap'
   /**
    * the default center of the map
    */
@@ -129,7 +129,7 @@ export class GoogleMapComponent implements OnChanges {
       }
     }
     if (changes.defaultCenter?.currentValue) {
-      if (this._window().google) {
+      if (this._window().google && this._map) {
         this._map.setCenter({ lat: this.defaultCenter[0], lng: this.defaultCenter[1] })
       }
     }
@@ -158,7 +158,7 @@ export class GoogleMapComponent implements OnChanges {
    * Create the map
    */
   loadMap (): void {
-    this._map = new google.maps.Map(this.mapDiv.nativeElement, {
+    this._map = new google.maps.Map(this.mapDiv?.nativeElement, {
       center: { lat: this.defaultCenter[0], lng: this.defaultCenter[1] },
       zoom: this.defaultZoom,
       mapTypeId: this.mapType

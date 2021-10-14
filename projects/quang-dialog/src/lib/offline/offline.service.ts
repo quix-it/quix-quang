@@ -20,7 +20,7 @@ export class QuixOfflineService {
   /**
    * message that notifies the user of the lack of connection
    */
-  offlineLabel: string
+  offlineLabel: string = ''
 
   /**
    * constructor

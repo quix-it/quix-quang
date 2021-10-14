@@ -48,13 +48,13 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
   /**
    * time between one image and another
    */
-  @Input() timeRotation: number
+  @Input() timeRotation: number = 0
   /**
    * delay time before the start of the rotation
    */
-  @Input() delayTime: number
+  @Input() delayTime: number = 0
 
-  @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement>
+  @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement> | null = null
   /**
    * rotation step
    */
@@ -121,7 +121,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * controls the status of the rotation and the movement of the mouse to set the rotation to the right or left
    * @param event
    */
-  mouseMove (event): void {
+  mouseMove (event: any): void {
     if (this.mouseStateDown) {
       const screenX = (event.screenX) ? event.screenX : event.touches[0].screenX
       if (this.currentX - screenX >= this.step) {
@@ -138,7 +138,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * Event triggered when the mouse button is pressed, saves the state of the mouse rotation
    * @param event
    */
-  mouseDown (event): void {
+  mouseDown (event: any): void {
     event.preventDefault()
     this.currentX = event.screenX
     if (this.play) {
@@ -152,7 +152,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * Event triggered when the mouse button is release, saves the state of the mouse rotation
    * @param event
    */
-  mouseUp (event): void {
+  mouseUp (event: any): void {
     event.preventDefault()
     this.currentX = event.screenX
     if (this.play) {
@@ -165,7 +165,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * Check if the rotation is right or left and calculate which image should be displayed
    * @param act
    */
-  rotator (act): void {
+  rotator (act: string): void {
     if (this.clockwise) {
       if (act === '+') {
         this.currentFrame++
@@ -212,7 +212,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * sanitize the url of the image
    * @param img
    */
-  getUrl (img): SafeUrl {
+  getUrl (img: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustStyle(`url("${img}")`)
   }
 }

@@ -7,8 +7,9 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
-import { ChartRadar } from './chart-radar.model'
+import { ChartRadar, ChartRadarIndicator } from './chart-radar.model'
 import { EChartsOption } from 'echarts'
+
 /**
  * chart radar component decorator
  */
@@ -33,11 +34,11 @@ export class ChartRadarComponent implements OnChanges {
   /**
    * radar type section indicators
    */
-  @Input() radarIndicators: ChartRadar[] = []
+  @Input() radarIndicators: ChartRadarIndicator[] = []
   /**
    * the object that contains the data to make the graph
    */
-  @Input() chartData: number[][]
+  @Input() chartData: ChartRadar[] = []
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
@@ -66,7 +67,7 @@ export class ChartRadarComponent implements OnChanges {
    */
   chartOption: EChartsOption = {
     radar: {},
-    series: []
+    series: [{type: 'radar', data:[]}]
   }
 
   /**
@@ -75,7 +76,7 @@ export class ChartRadarComponent implements OnChanges {
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.chartData?.currentValue) {
-      this.chartOption.series = changes.chartData.currentValue?.map(s => ({ type: 'radar', data: [{ value: s }] }))
+      (this.chartOption.series as any)[0].data = changes.chartData.currentValue
     }
     if (changes.radarIndicators?.currentValue) {
       this.chartOption.radar = { indicator: changes.radarIndicators?.currentValue }
@@ -89,7 +90,7 @@ export class ChartRadarComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e
    */
-  onChartClick (e): void {
+  onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
 }

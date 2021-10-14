@@ -1,4 +1,5 @@
 import {
+  AfterContentInit, AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -52,7 +53,7 @@ export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
   /**
    * Maximum zoom level
    */
-  @Input() maxZoom: number = 0
+  @Input() maxZoom: number = 20
   /**
    * Center of the starting map
    */
@@ -62,25 +63,17 @@ export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
    */
   @Input() enableClick: boolean = false
   /**
-   * the list of markers to be drawn on the map
-   */
-  // @Input() markers: Array<OsmapMarker> = []
-  /**
-   * Click event on the marker
-   */
-  // @Output() markerClick: EventEmitter<any> = new EventEmitter<any>()
-  /**
    * The html element in which the map will be created
    */
   @ViewChild('map', { static: false }) mapDiv: ElementRef<HTMLDivElement> | null = null
   /**
    * the map variable
    */
-  _map: Map
+  _map: Map | null = null
   /**
    * map tile
    */
-  _tile: Tile<any> = new Tile({
+  _tile = new Tile({
     source: new OSM()
   })
 

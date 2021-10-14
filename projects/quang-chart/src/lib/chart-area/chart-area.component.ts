@@ -7,8 +7,8 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
-import { ChartLine } from '../chart-line/chart-line.model'
 import { EChartsOption } from 'echarts'
+import { ChartArea } from './chart-area.model'
 
 /**
  * chart area component decorator
@@ -29,7 +29,6 @@ export class ChartAreaComponent implements OnChanges {
   @Input() id: string = ''
   /**
    * Determine the arialabel tag for accessibility,
-   * If not specified, it takes 'input' concatenated to the label by default
    */
   @Input() ariaLabel: string = 'Chart'
   /**
@@ -47,10 +46,7 @@ export class ChartAreaComponent implements OnChanges {
   /**
    * the object that contains the data to make the graph
    */
-  @Input() chartData: ChartLine
-  /**
-   * the grid that contains the graph defines the padding in the four directions
-   */
+  @Input() chartData: ChartArea | null = null
   /**
    * the grid that contains the graph defines the padding in the four directions
    */
@@ -76,7 +72,7 @@ export class ChartAreaComponent implements OnChanges {
     },
     series: [],
     animationEasing: 'elasticOut',
-    animationDelayUpdate: (idx) => {
+    animationDelayUpdate: (idx: any) => {
       return idx * 5
     }
   }
@@ -96,7 +92,7 @@ export class ChartAreaComponent implements OnChanges {
       }
     }
     if (changes.chartData?.currentValue?.series.length) {
-      this.chartOption.series = changes.chartData.currentValue.series.map(s => ({
+      this.chartOption.series = changes.chartData.currentValue.series.map((s: any) => ({
         data: s,
         type: 'line',
         areaStyle: {}
@@ -111,7 +107,7 @@ export class ChartAreaComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e): void {
+  onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
 }

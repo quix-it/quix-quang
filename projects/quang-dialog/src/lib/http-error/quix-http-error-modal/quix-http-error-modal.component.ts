@@ -17,11 +17,11 @@ export class QuixHttpErrorModalComponent {
   /**
    * http error
    */
-  @Input() error: HttpErrorResponse
+  @Input() error: HttpErrorResponse | null = null
   /**
    * title of the error
    */
-  @Input() title: string
+  @Input() title: string = ''
 
   /**
    * constructor

@@ -94,7 +94,7 @@ export class QuixValidatorsService {
    */
   minDate (minDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (isBefore(control.value, minDate)) {
+      if (isBefore(new Date(control.value), minDate)) {
         return { minDate: { requiredValue: minDate } }
       }
       return null
@@ -107,7 +107,7 @@ export class QuixValidatorsService {
    */
   maxDate (maxDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (isAfter(control.value, maxDate)) {
+      if (isAfter(new Date(control.value), maxDate)) {
         return { maxDate: { requiredValue: maxDate } }
       }
       return null
@@ -121,7 +121,7 @@ export class QuixValidatorsService {
    */
   dateBetween (startDate: Date, endDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (isWithinInterval(control.value, { start: startDate, end: endDate })) {
+      if (!isWithinInterval(new Date(control.value), { start: startDate, end: endDate })) {
         return { dateBetween: { requiredValue: [startDate, endDate] } }
       }
       return null

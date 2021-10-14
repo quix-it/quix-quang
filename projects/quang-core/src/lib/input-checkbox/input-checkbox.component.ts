@@ -37,7 +37,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * Defines whether the checkbox should align with the other checkboxes next to it
    */
-  @Input() inline: boolean
+  @Input() inline: boolean = false
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
@@ -102,7 +102,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
   /**
    * Standard definition to create a control value accessor
    */
@@ -143,7 +143,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -188,7 +188,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
    * When the CVA is initialized as control it initializes the internal states
    * @param value
    */
-  writeValue (value): void {
+  writeValue (value: boolean): void {
     this._value = value
     this.renderer.setProperty(this.input?.nativeElement, 'checked', value)
   }
@@ -208,20 +208,17 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      } else if (this.control.invalid && this.errorMessage) {
+      }
+      if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
-          }
+          this._requiredValue = this.control.errors[error].requiredValue
+          this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
         }
       }
     })

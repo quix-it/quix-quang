@@ -1,9 +1,9 @@
 <picture [id]="id"
          [attr.aria-describedby]="ariaLabel">
   <source
-    *ngFor="let img of responsiveList"
-    [media]="img.minWidth"
-    [attr.lazyLoad]="img.src"
+    *ngFor="let i of responsiveList"
+    [media]="i.minWidth"
+    [attr.lazyLoad]="i.src"
     [attr.defaultImage]="loadingSrc">
   <img
     [attr.defaultImage]="loadingSrc"

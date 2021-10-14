@@ -101,7 +101,7 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: MatSlider
+  @ViewChild('input', { static: true }) input: MatSlider|undefined
   /**
    * Standard definition to create a control value accessor
    */
@@ -161,7 +161,7 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * @param e
    */
   onChangedHandler (e: MatSliderChange): void {
-    this._value = e.value
+    if (e?.value !== null) this._value = e.value
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -170,8 +170,8 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value): void {
-    this.input.value = value
+  writeValue (value: any): void {
+    if (this.input) this.input.value = value
   }
 
   /**
@@ -179,7 +179,7 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
-    this.input.setDisabledState(isDisabled)
+    this.input?.setDisabledState(isDisabled)
   }
 
   /**
@@ -189,15 +189,15 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid'`
       } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue

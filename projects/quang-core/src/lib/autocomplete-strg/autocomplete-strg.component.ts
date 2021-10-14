@@ -102,7 +102,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   /**
    * The value of the input
    */
-  _value: string
+  _value: string = ''
   /**
    * the status of the success message
    */
@@ -122,7 +122,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
   /**
    * Standard definition to create a control value accessor
    */
@@ -163,7 +163,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -207,7 +207,7 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
    * When the CVA is initialized as control it initializes the internal states
    * @param value
    */
-  writeValue (value): void {
+  writeValue (value: any): void {
     this._value = value
   }
 
@@ -226,20 +226,18 @@ export class AutocompleteStrgComponent implements OnInit, AfterViewInit, OnChang
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
           }
         }
       }

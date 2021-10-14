@@ -1,0 +1,40 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quix modal service'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <button type="button"
+                  (click)="openModal()"
+                  class="btn btn-outline-success mb-3">
+            Apri modale
+          </button>
+          <dl>
+            <dt>Eventi</dt>
+            <dd *ngFor="let e of event">
+              {{e | json}}
+            </dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="ts">{{'dialog.modal.code' | transloco}}</pre>
+          <pre class="html">{{'dialog.modal.html' | transloco}}</pre>
+          <pre class="ts">{{'dialog.modal.modalCode' | transloco}}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

@@ -99,7 +99,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   /**
    * The value of the input
    */
-  _value: string | number = null
+  _value: string | number = ''
   /**
    * the status of the success message
    */
@@ -116,7 +116,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
-  @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>>
+  @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>> | null = null
   /**
    * Standard definition to create a control value accessor
    */
@@ -157,7 +157,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.forEach((item) => {
+        this.input?.forEach((item) => {
           item.nativeElement.focus()
         })
       }
@@ -171,7 +171,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.autofocus && this.input) {
-      this.input[0].nativeElement.focus()
+      this.input.get(0)?.nativeElement.focus()
     }
   }
 
@@ -204,7 +204,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value): void {
+  writeValue (value: string | number): void {
     this._value = value
   }
 
@@ -225,23 +225,19 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges
-      .pipe(
-        delay(0),
-        filter(() => this.control.dirty)
-      ).subscribe(() => {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        } else if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
-            }
-          }
+    this.control?.statusChanges?.pipe(
+      delay(0),
+      filter(() => !!this.control.dirty)
+    ).subscribe(() => {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          this._requiredValue = this.control.errors[error].requiredValue
+          this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
         }
-      })
+      }
+    })
   }
 }

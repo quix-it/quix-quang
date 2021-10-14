@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, SimpleChanges } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { QuixPicture } from './picture.model'
+
 /**
  * picture component decorator
  */
@@ -12,7 +13,7 @@ import { QuixPicture } from './picture.model'
 /**
  * picture component
  */
-export class PictureComponent {
+export class PictureComponent implements OnChanges {
   /**
    * Html id of input
    */

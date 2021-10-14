@@ -7,8 +7,9 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
-import { ChartLine } from '../chart-line/chart-line.model'
+
 import { EChartsOption } from 'echarts'
+import { ChartBar } from './chart-bar.model'
 /**
  * chart bar component decorator
  */
@@ -28,7 +29,6 @@ export class ChartBarComponent implements OnChanges {
   @Input() id: string = ''
   /**
    * Determine the arialabel tag for accessibility,
-   * If not specified, it takes 'input' concatenated to the label by default
    */
   @Input() ariaLabel: string = 'Chart'
   /**
@@ -50,7 +50,7 @@ export class ChartBarComponent implements OnChanges {
   /**
    * the object that contains the data to make the graph
    */
-  @Input() chartData: ChartLine
+  @Input() chartData: ChartBar | null = null
   /**
    * the grid that contains the graph defines the padding in the four directions
    */
@@ -74,7 +74,7 @@ export class ChartBarComponent implements OnChanges {
     yAxis: {},
     series: [],
     animationEasing: 'elasticOut',
-    animationDelayUpdate: (idx) => {
+    animationDelayUpdate: (idx: any) => {
       return idx * 5
     }
   }
@@ -88,7 +88,7 @@ export class ChartBarComponent implements OnChanges {
       this.chartOption.color = changes.color?.currentValue
     }
     if (changes.chartData?.currentValue?.series.length) {
-      this.chartOption.series = changes.chartData.currentValue.series.map(s => ({
+      this.chartOption.series = changes.chartData.currentValue.series.map((s: any) => ({
         data: s,
         type: 'bar'
       }))
@@ -119,7 +119,7 @@ export class ChartBarComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e): void {
+  onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
 }

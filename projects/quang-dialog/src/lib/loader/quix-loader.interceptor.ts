@@ -43,14 +43,14 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
     private readonly store: Store<any>,
     @Optional() config?: QuangDialogConfig
   ) {
-    if (config.noLoaderUrls?.length) {
+    if (config?.noLoaderUrls?.length) {
       this.noLoaderUrls = config.noLoaderUrls
     } else if (this._window().quixConfig?.noLoaderUrls) {
       this.noLoaderUrls = this._window().quixConfig?.noLoaderUrls
     } else {
       this.noLoaderUrls = []
     }
-    if (config.noLoaderMethods?.length) {
+    if (config?.noLoaderMethods?.length) {
       this.noLoaderMethods = config.noLoaderMethods
     } else if (this._window().quixConfig?.noLoaderMethods) {
       this.noLoaderMethods = this._window().quixConfig?.noLoaderMethods

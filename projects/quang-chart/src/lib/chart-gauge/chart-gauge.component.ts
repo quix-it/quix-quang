@@ -43,15 +43,15 @@ export class ChartGaugeComponent implements OnChanges {
    */
   @Input() height: string = ' 50vh'
   /**
-   * pointer color
+   *
    */
   @Input() pointerColor: string = 'auto'
   /**
-   * gauge color
+   *
    */
   @Input() gaugeColor: string = '#000'
   /**
-   * background color
+   *
    */
   @Input() color: string = '#000'
   /**

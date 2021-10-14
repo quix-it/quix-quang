@@ -39,11 +39,6 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
    */
   @Input() ariaLabel: string = `Input ${this.label}`
   /**
-   * Indicates whether, when the page is opened,
-   * this input field should be displayed in a focused state or not
-   */
-  @Input() autofocus: boolean = false
-  /**
    * Html id of input
    */
   @Input() id: string = ''
@@ -62,7 +57,7 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
   /**
    * Defines whether the label is displayed on the same line as the input field
    */
-  @Input() labelInline: boolean
+  @Input() labelInline: boolean = false
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -75,11 +70,11 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: MatSlideToggle
+  @ViewChild('input', { static: true }) input: MatSlideToggle | undefined
   /**
    * The value of the input
    */
-  _value: boolean
+  _value: boolean = false
   /**
    * the status of the success message
    */
@@ -134,11 +129,6 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
    * Start the check on the validation of the field
    */
   ngAfterViewInit (): void {
-    setTimeout(() => {
-      if (this.autofocus) {
-        this.input.focus()
-      }
-    }, 0)
     this.observeValidate()
   }
 
@@ -183,7 +173,7 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
    */
   writeValue (value: any): void {
     this._value = !!value
-    this.input.checked = !!value
+    if (this.input) this.input.checked = !!value
   }
 
   /**
@@ -191,7 +181,7 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
-    this.input.setDisabledState(isDisabled)
+    this.input?.setDisabledState(isDisabled)
   }
 
   /**
@@ -201,15 +191,15 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control.name}.valid`
       } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue

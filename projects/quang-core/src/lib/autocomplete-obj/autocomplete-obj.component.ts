@@ -112,7 +112,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   /**
    * The value of the input
    */
-  _value: string | number
+  _value: string | number | null = ''
   /**
    * the status of the success message
    */
@@ -132,11 +132,11 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   /**
    * The state of the lookup value
    */
-  _searchValue: string
+  _searchValue: string = ''
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
   /**
    * Standard definition to create a control value accessor
    */
@@ -177,7 +177,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -222,7 +222,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
    * looking in the list for the data with the past value
    * @param value
    */
-  writeValue (value): void {
+  writeValue (value: any): void {
     if (this.dataList.find(item => item[this.returnValue] === value)) {
       this._searchValue = this.dataList.find(item => item[this.returnValue] === value)[this.searchBy]
     }
@@ -243,20 +243,18 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
           }
         }
       }

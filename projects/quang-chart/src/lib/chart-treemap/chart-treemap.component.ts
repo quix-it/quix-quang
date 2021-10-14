@@ -33,7 +33,7 @@ export class ChartTreemapComponent implements OnChanges {
   /**
    * the object that contains the data to make the graph
    */
-  @Input() chartData: ChartTreemap[]
+  @Input() chartData: ChartTreemap[] = []
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
@@ -89,7 +89,7 @@ export class ChartTreemapComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e
    */
-  onChartClick (e): void {
+  onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
 }

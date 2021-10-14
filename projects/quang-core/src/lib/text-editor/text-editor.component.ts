@@ -84,51 +84,51 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   /**
    * Defines whether the return value of the field must be in text or html format
    */
-  @Input() returnHtml: boolean
+  @Input() returnHtml: boolean = false
   /**
    * Lists toolbar
    */
-  @Input() listBar: boolean
+  @Input() listBar: boolean = false
   /**
    * Text type toolbar
    */
-  @Input() textTypeBar: boolean
+  @Input() textTypeBar: boolean = false
   /**
    * Text style toolbar
    */
-  @Input() textStyleBar: boolean
+  @Input() textStyleBar: boolean = false
   /**
    * Toolbar for text alignment
    */
-  @Input() alignBar: boolean
+  @Input() alignBar: boolean = false
   /**
    * Font selection toolbar
    */
-  @Input() fontBar: boolean
+  @Input() fontBar: boolean = false
   /**
    * Toolbar for inserting media
    */
-  @Input() mediaBar: boolean
+  @Input() mediaBar: boolean = false
   /**
    * headers bar
    */
-  @Input() headerBar: boolean
+  @Input() headerBar: boolean = false
   /**
    * Text size toolbar
    */
-  @Input() sizeBar: boolean
+  @Input() sizeBar: boolean = false
   /**
    * Toolbar for selecting emojis
    */
-  @Input() emojiBar: boolean
+  @Input() emojiBar: boolean = false
   /**
    * Toolbar for selecting indentation
    */
-  @Input() indentBar: boolean
+  @Input() indentBar: boolean = false
   /**
    * preserve white space
    */
-  @Input() preserveWhitespace: boolean
+  @Input() preserveWhitespace: boolean = false
   /**
    * Array of additional classes to the input field
    */
@@ -136,11 +136,11 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: QuillEditorComponent
+  @ViewChild('input', { static: true }) input: QuillEditorComponent | undefined
   /**
    * The value of the input
    */
-  _value: string
+  _value: string = ''
   /**
    * the status of the success message
    */
@@ -164,7 +164,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   /**
    * The status of the modules
    */
-  modules: { [key: string]: string }
+  modules: { [key: string]: string } = {}
 
   /**
    * Standard definition to create a control value accessor
@@ -242,7 +242,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.editorElem.focus()
+        this.input?.editorElem.focus()
       }
     }, 0)
     this.observeValidate()
@@ -252,7 +252,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    * check if the input field should have focus when the page is rendered
    * @param editor
    */
-  checkFocus (editor): void {
+  checkFocus (editor: any): void {
     if (this.autofocus) {
       editor.focus()
     }
@@ -286,7 +286,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value): void {
+  writeValue (value: any): void {
     this._value = value
   }
 
@@ -295,7 +295,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
-    this.input.setDisabledState(isDisabled)
+    this.input?.setDisabledState(isDisabled)
   }
 
   /**
@@ -305,15 +305,15 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue
