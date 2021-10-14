@@ -43,7 +43,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   /**
    * The label to display in the button for file selection
    */
-  @Input() buttonLabel: string
+  @Input() buttonLabel: string = ''
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -88,15 +88,15 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   /**
    * The html input element
    */
-  @ViewChild('input', { static: false }) input: NgxFileDropComponent
+  @ViewChild('input', { static: false }) input: NgxFileDropComponent | undefined
   /**
    * The html button of selection
    */
-  @ViewChild('inputBtn', { static: false }) inputBtn: ElementRef<HTMLButtonElement>
+  @ViewChild('inputBtn', { static: false }) inputBtn: ElementRef<HTMLButtonElement> | undefined
   /**
    * The value of the input
    */
-  _value: File
+  _value: File | null = null
   /**
    * The value of the input with multiple selection
    */
@@ -183,19 +183,25 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * @param files
    */
   onChangedHandler (files: NgxFileDropEntry[]): void {
+    if (this.multiple) {
+      this._values = []
+    } else {
+      this._value = null
+    }
     files.forEach(f => {
       if (f.fileEntry.isFile) {
         const fileEntry = f.fileEntry as FileSystemFileEntry
         fileEntry.file((file: File) => {
           if (this.multiple) {
-            (this._values).push(file)
+            this._values = [...this._values, file]
+            this.onTouched()
+            this.onChanged(this._values)
           } else {
             this._value = file
+            this.onTouched()
+            this.onChanged(this._value)
           }
-          this.onTouched()
-          this.onChanged(this._value)
-        }
-        )
+        })
       }
     })
   }
@@ -222,8 +228,8 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
-    this.input.disabled = isDisabled
-    this.renderer.setProperty(this.inputBtn.nativeElement, 'disabled', isDisabled)
+    if (this.input) this.input.disabled = isDisabled
+    this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
   }
 
   /**
@@ -242,7 +248,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   deleteFiles (index: number): void {
     this._values = this._values.splice(index, 1)
     this.onTouched()
-    this.onChanged(this._value)
+    this.onChanged(this._values)
   }
 
   /**
@@ -252,24 +258,22 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges
-      .pipe(
-        delay(0),
-        filter(() => this.control.dirty)
-      ).subscribe(() => {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        } else if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
-            }
+    this.control?.statusChanges?.pipe(
+      delay(0),
+      filter(() => !!this.control.dirty)
+    ).subscribe(() => {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
           }
         }
-      })
+      }
+    })
   }
 
   /**

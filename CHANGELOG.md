@@ -17,4 +17,9 @@
 * update storage service for boolean management
 * change all selector from quix- to quang-
 
-## 12.
+## 12.5.0
+* Card image
+* Datalist
+* Notification service
+* Chart tree
+* Chart gauge
