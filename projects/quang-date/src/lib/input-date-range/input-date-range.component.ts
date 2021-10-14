@@ -88,7 +88,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * defines the starting view
    */
-  @Input() minView: 'year' | 'month' | 'day'
+  @Input() minView: 'year' | 'month' | 'day' = 'year'
 
   /**
    * Determine the arialabel tag for accessibility,
@@ -119,7 +119,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * Define the size of the input field following the bootstrap css rules
    */
-  @Input() size: 'sm' | 'lg' = null
+  @Input() size: 'sm' | 'lg' | null = null
   /**
    * Defines the autocomplete tag to indicate to the browser what type of field it is
    * and how to help the user fill it in
@@ -128,7 +128,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> = null
+  config: Partial<BsDatepickerConfig> | null = null
   /**
    * The value of the input
    */
@@ -156,7 +156,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
   /**
    * Standard definition to create a control value accessor
    */
@@ -213,7 +213,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -250,9 +250,10 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
   onChangedHandler (dates: Date[]): void {
     this.onTouched()
     if (this.returnISODate) {
-      this.onChanged([...dates])
+      this.onChanged(dates)
     } else {
-      this.onChanged([...dates?.map(d => format(d, 'yyyy-MM-dd'))])
+      const tmp = dates.map(d => format(d, 'yyyy-MM-dd'))
+      this.onChanged(tmp)
     }
   }
 
@@ -260,10 +261,10 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value): void {
+  writeValue (value: any): void {
     if (value) {
       if (!this.returnISODate && value?.length) {
-        this._value = value.map(d => new Date(d))
+        this._value = value.map((d: any) => new Date(d))
       } else {
         this._value = value
       }
@@ -288,19 +289,17 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this._value.length && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       } else if (!this._value.length && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
           }
         }
       }

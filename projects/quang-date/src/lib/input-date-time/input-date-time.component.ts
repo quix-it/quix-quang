@@ -71,7 +71,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * defines whether to display the seconds input
    */
-  @Input() showSecond: boolean = true
+  @Input() showSecond: boolean = false
   /**
    * defines whether to display the week number
    */
@@ -146,7 +146,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * Define the size of the input field following the bootstrap css rules
    */
-  @Input() size: 'sm' | 'lg' = null
+  @Input() size: 'sm' | 'lg' | null = null
   /**
    * Defines the autocomplete tag to indicate to the browser what type of field it is
    * and how to help the user fill it in
@@ -163,11 +163,11 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> = null
+  config: Partial<BsDatepickerConfig> | null = null
   /**
    * the top margin of the component
    */
-  _margin: string
+  _margin: string = ''
   /**
    * the status of the success message
    */
@@ -191,11 +191,11 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
   /**
    * Dropdown selector html element ref
    */
-  @ViewChild('drp', { static: true }) datePicker: BsDatepickerInlineDirective
+  @ViewChild('drp', { static: true }) datePicker: BsDatepickerInlineDirective | undefined
   /**
    * Standard definition to create a control value accessor
    */
@@ -235,6 +235,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
       isAnimated: true,
       adaptivePosition: true,
       dateInputFormat: this.dateFormat,
+      rangeInputFormat: this.dateFormat,
       showWeekNumbers: this.showWeekNumbers
     }
     if (this.label) {
@@ -261,7 +262,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -295,10 +296,9 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value): void {
-    if (value) {
-      this._valueTime = this._valueDate = new Date(value)
-    }
+  writeValue (value: any): void {
+    this._valueTime = value
+    this._valueDate = value
   }
 
   /**
@@ -317,7 +317,6 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   onChangedDate (date: Date): void {
     this._valueTime = date
     this.onTouched()
-    this._valueTime = date
     this.onChanged(date)
   }
 
@@ -325,7 +324,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * event triggered at the change of time
    * @param date
    */
-  onChangedTime (date: Date): void {
+  onChangedTime (date: Event): void {
     this.onTouched()
     this._valueDate = date
     this.onChanged(date)
@@ -338,19 +337,17 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
           }
         }
       }

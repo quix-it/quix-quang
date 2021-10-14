@@ -70,7 +70,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * defines whether to display the seconds input
    */
-  @Input() showSecond: boolean = true
+  @Input() showSecond: boolean = false
   /**
    * the hour advance interval
    */
@@ -136,7 +136,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: BsTimepickerViewComponent
+  @ViewChild('input', { static: true }) input: BsTimepickerViewComponent | undefined
   /**
    * Standard definition to create a control value accessor
    */
@@ -204,7 +204,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
    * event triggered when the time changes
    * @param date
    */
-  onChangedHandler (date: Date): void {
+  onChangedHandler (date: any): void {
     this.onTouched()
     this.onChanged(date)
   }
@@ -213,7 +213,7 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value): void {
+  writeValue (value: any): void {
     this._value = value
   }
 
@@ -232,20 +232,17 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges.pipe(
+    this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => this.control.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
       if (this.control.valid && this.successMessage) {
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      } else if (this.control.invalid && this.errorMessage) {
+      }
+      if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error)) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
-          }
+          this._requiredValue = this.control.errors[error].requiredValue
+          this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
         }
       }
     })
