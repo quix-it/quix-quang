@@ -12,7 +12,7 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
 import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx-file-drop'
 /**
  * input file component decorator
@@ -42,7 +42,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   /**
    * The label to display in the button for file selection
    */
-  @Input() buttonLabel: string
+  @Input() buttonLabel: string = ''
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -79,23 +79,23 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   /**
    * Event that emits when the file being dragged is above the input field
    */
-  @Output() onDragOver: EventEmitter<any> = new EventEmitter<any>()
+  @Output() whenDragOver: EventEmitter<any> = new EventEmitter<any>()
   /**
    * Event that emits when the file in drag state is dropped on the input field
    */
-  @Output() onDragLeave: EventEmitter<any> = new EventEmitter<any>()
+  @Output() whenDragLeave: EventEmitter<any> = new EventEmitter<any>()
   /**
    * The html input element
    */
-  @ViewChild('input', { static: false }) input: NgxFileDropComponent
+  @ViewChild('input', { static: false }) input: NgxFileDropComponent | undefined
   /**
    * The html button of selection
    */
-  @ViewChild('inputBtn', { static: false }) inputBtn: ElementRef<HTMLButtonElement>
+  @ViewChild('inputBtn', { static: false }) inputBtn: ElementRef<HTMLButtonElement> | undefined
   /**
    * The value of the input
    */
-  _value: File
+  _value: File | null = null
   /**
    * The value of the input with multiple selection
    */
@@ -125,6 +125,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -138,9 +139,9 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    */
   constructor (
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -164,14 +165,14 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -180,20 +181,26 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * it extracts the data of the selected file and starts the flow of the cva
    * @param files
    */
-  onChangedHandler (files: NgxFileDropEntry[]) {
+  onChangedHandler (files: NgxFileDropEntry[]): void {
+    if (this.multiple) {
+      this._values = []
+    } else {
+      this._value = null
+    }
     files.forEach(f => {
       if (f.fileEntry.isFile) {
         const fileEntry = f.fileEntry as FileSystemFileEntry
         fileEntry.file((file: File) => {
-            if (this.multiple) {
-              (this._values as File[]).push(file)
-            } else {
-              this._value = file
-            }
+          if (this.multiple) {
+            this._values = [...this._values, file]
+            this.onTouched()
+            this.onChanged(this._values)
+          } else {
+            this._value = file
             this.onTouched()
             this.onChanged(this._value)
           }
-        )
+        })
       }
     })
   }
@@ -203,7 +210,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * check if the value is a list or not and decide which state to initialize
    * @param value
    */
-  writeValue (value: File | File []) {
+  writeValue (value: File | File []): void {
     if (this.multiple) {
       if (value) {
         this._values = value as File[]
@@ -220,14 +227,14 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
-    this.input.disabled = isDisabled
-    this.renderer.setProperty(this.inputBtn.nativeElement, 'disabled', isDisabled)
+    if (this.input) this.input.disabled = isDisabled
+    this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
   }
 
   /**
    * Delete the file, change the input status and start the cva flow
    */
-  deleteFile () {
+  deleteFile (): void {
     this._value = null
     this.onTouched()
     this.onChanged(this._value)
@@ -237,10 +244,10 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * Delete the file list, change the input status and start the cva flow
    * @param index
    */
-  deleteFiles (index: number) {
+  deleteFiles (index: number): void {
     this._values = this._values.splice(index, 1)
     this.onTouched()
-    this.onChanged(this._value)
+    this.onChanged(this._values)
   }
 
   /**
@@ -249,42 +256,38 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
-    this.control?.statusChanges
-      .pipe(
-        delay(0)
-      )
-      .subscribe(() => {
-        if (this.control.dirty) {
-          if (this.control.valid && this.successMessage) {
-            this._successMessage = `${this.formName}.${this.control?.name}.valid`
-          } else if (this.control.invalid && this.errorMessage) {
-            for (const error in this.control.errors) {
-              if (this.control.errors.hasOwnProperty(error)) {
-                if (this.control.errors[error]) {
-                  this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                  this._requiredValue = this.control.errors[error].requiredValue
-                }
-              }
-            }
+  observeValidate (): void {
+    this.control?.statusChanges?.pipe(
+      delay(0),
+      filter(() => !!this.control.dirty)
+    ).subscribe(() => {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (this.control.errors[error]) {
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
           }
         }
-      })
+      }
+    })
   }
 
   /**
    * When the file during a drag action and above the input field emits an event
    * @param e
    */
-  fileOver (e: any) {
-    this.onDragOver.emit(e)
+  fileOver (e: any): void {
+    this.whenDragOver.emit(e)
   }
 
   /**
    * When the file is dropped into the input field during a drag action, it emits an event
    * @param e
    */
-  fileLeave (e: any) {
-    this.onDragLeave.emit(e)
+  fileLeave (e: any): void {
+    this.whenDragLeave.emit(e)
   }
 }
