@@ -12,7 +12,8 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
+
 /**
  * input checkbox component decorator
  */
@@ -36,7 +37,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * Defines whether the checkbox should align with the other checkboxes next to it
    */
-  @Input() inline: boolean
+  @Input() inline: boolean = false
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
@@ -101,12 +102,13 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
   /**
    * Standard definition to create a control value accessor
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -120,10 +122,11 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
    */
   constructor (
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
+
   /**
    * Check if the help message is required and create the key
    */
@@ -140,7 +143,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -159,14 +162,14 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -175,7 +178,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: Event) {
+  onChangedHandler (e: Event): void {
     this._value = (e.target as HTMLInputElement).checked
     this.onTouched()
     this.onChanged(this._value)
@@ -185,7 +188,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
    * When the CVA is initialized as control it initializes the internal states
    * @param value
    */
-  writeValue (value) {
+  writeValue (value: boolean): void {
     this._value = value
     this.renderer.setProperty(this.input?.nativeElement, 'checked', value)
   }
@@ -204,22 +207,18 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
-    this.control?.statusChanges.pipe(
-      delay(0)
+  observeValidate (): void {
+    this.control?.statusChanges?.pipe(
+      delay(0),
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        } else if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
-            }
-          }
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          this._requiredValue = this.control.errors[error].requiredValue
+          this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
         }
       }
     })

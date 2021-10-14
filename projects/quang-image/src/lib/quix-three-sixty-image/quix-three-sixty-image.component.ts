@@ -5,7 +5,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core'
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser'
+import { DomSanitizer, SafeStyle, SafeUrl } from '@angular/platform-browser'
 import { of } from 'rxjs'
 import { delay, tap } from 'rxjs/operators'
 
@@ -48,13 +48,13 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
   /**
    * time between one image and another
    */
-  @Input() timeRotation: number
+  @Input() timeRotation: number = 0
   /**
    * delay time before the start of the rotation
    */
-  @Input() delayTime: number
+  @Input() delayTime: number = 0
 
-  @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement>
+  @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement> | null = null
   /**
    * rotation step
    */
@@ -89,7 +89,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * @param sanitizer
    */
   constructor (
-    private readonly sanitizer: DomSanitizer,
+    private readonly sanitizer: DomSanitizer
   ) {
   }
 
@@ -104,7 +104,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
     }
     if (changes.images?.currentValue) {
       of(changes.images?.currentValue).pipe(
-        tap(list => this.images = list),
+        tap((list) => { this.images = list }),
         delay(this.delayTime)
       ).subscribe(list => {
         this.imageUrl = this.sanitizer.bypassSecurityTrustStyle(`url("${this.images[0]}")`)
@@ -121,9 +121,9 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * controls the status of the rotation and the movement of the mouse to set the rotation to the right or left
    * @param event
    */
-  mouseMove (event): void {
+  mouseMove (event: any): void {
     if (this.mouseStateDown) {
-      let screenX = (event.screenX) ? event.screenX : event.touches[0].screenX
+      const screenX = (event.screenX) ? event.screenX : event.touches[0].screenX
       if (this.currentX - screenX >= this.step) {
         this.rotator('-')
         this.currentX = screenX
@@ -138,7 +138,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * Event triggered when the mouse button is pressed, saves the state of the mouse rotation
    * @param event
    */
-  mouseDown (event): void {
+  mouseDown (event: any): void {
     event.preventDefault()
     this.currentX = event.screenX
     if (this.play) {
@@ -152,7 +152,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * Event triggered when the mouse button is release, saves the state of the mouse rotation
    * @param event
    */
-  mouseUp (event): void {
+  mouseUp (event: any): void {
     event.preventDefault()
     this.currentX = event.screenX
     if (this.play) {
@@ -165,7 +165,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * Check if the rotation is right or left and calculate which image should be displayed
    * @param act
    */
-  rotator (act): void {
+  rotator (act: string): void {
     if (this.clockwise) {
       if (act === '+') {
         this.currentFrame++
@@ -199,7 +199,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
   /**
    * change the state of the play button
    */
-  togglePlay () {
+  togglePlay (): void {
     this.play = !this.play
     if (this.play) {
       this.autoRotator()
@@ -212,7 +212,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * sanitize the url of the image
    * @param img
    */
-  getUrl (img) {
+  getUrl (img: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustStyle(`url("${img}")`)
   }
 }

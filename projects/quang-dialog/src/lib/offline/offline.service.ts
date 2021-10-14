@@ -6,6 +6,7 @@ import { select, Store } from '@ngrx/store'
 import { offline, online } from './offline-store/offline.action'
 import { selectLine } from './offline-store/offline.selector'
 import { TranslocoService } from '@ngneat/transloco'
+
 /**
  * service decorator
  */
@@ -19,7 +20,7 @@ export class QuixOfflineService {
   /**
    * message that notifies the user of the lack of connection
    */
-  offlineLabel: string
+  offlineLabel: string = ''
 
   /**
    * constructor
@@ -41,7 +42,7 @@ export class QuixOfflineService {
     return merge(
       of(navigator.onLine),
       fromEvent(window, 'online').pipe(mapTo(true)),
-      fromEvent(window, 'offline').pipe(mapTo(false)),
+      fromEvent(window, 'offline').pipe(mapTo(false))
     )
   }
 
@@ -70,7 +71,9 @@ export class QuixOfflineService {
    * in the general translations file the key is always "offline.msg"
    */
   getLabel (): void {
-    this.translate.selectTranslate('offline.msg').subscribe(l => this.offlineLabel = l)
+    this.translate.selectTranslate('offline.msg').subscribe((l) => {
+      this.offlineLabel = l
+    })
   }
 
   /**

@@ -12,7 +12,7 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
 
 /**
  * input text component decorator
@@ -20,7 +20,7 @@ import { delay } from 'rxjs/operators'
 @Component({
   selector: 'quix-input-text',
   templateUrl: './input-text.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input text component
@@ -129,15 +129,17 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
   onChanged: any = () => {
   }
+
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
 
   /**
    * constructor
@@ -148,7 +150,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -167,7 +169,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.observeValidate()
@@ -186,14 +188,14 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -202,7 +204,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: Event) {
+  onChangedHandler (e: Event): void {
     this._value = (e.target as HTMLInputElement).value
     this.onTouched()
     this.onChanged(this._value)
@@ -212,7 +214,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value) {
+  writeValue (value: string): void {
     this._value = value
     this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
@@ -232,30 +234,26 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
-    this.control?.statusChanges.pipe(
-      delay(0)
+  observeValidate (): void {
+    this.control?.statusChanges?.pipe(
+      delay(0),
+      filter(() => !!this.control.dirty)
     ).subscribe((v) => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        }
-        if (this.control.invalid && this.errorMessage) {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        if (this.control.errors) {
           for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                if (error === 'minlength' || error === 'maxlength') {
-                  this._requiredValue = this.control.errors[error].requiredLength
-                } else {
-                  this._requiredValue = this.control.errors[error].requiredValue
-                }
-              }
+            if (error === 'minlength' || error === 'maxlength') {
+              this._requiredValue = this.control.errors[error].requiredLength
+            } else {
+              this._requiredValue = this.control.errors[error].requiredValue
             }
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
           }
         }
       }
     })
   }
 }
-

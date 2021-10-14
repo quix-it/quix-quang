@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { QuixCardComponent } from './quix-card.component';
+import { QuixCardComponent } from './quix-card.component'
 
 describe('QuixCardComponent', () => {
-  let component: QuixCardComponent;
-  let fixture: ComponentFixture<QuixCardComponent>;
+  let component: QuixCardComponent
+  let fixture: ComponentFixture<QuixCardComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuixCardComponent ]
+      declarations: [QuixCardComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QuixCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(QuixCardComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

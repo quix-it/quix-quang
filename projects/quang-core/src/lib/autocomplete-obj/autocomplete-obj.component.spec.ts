@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { AutocompleteObjComponent } from './autocomplete-obj.component';
+import { AutocompleteObjComponent } from './autocomplete-obj.component'
 
 describe('AutocompleteObjComponent', () => {
-  let component: AutocompleteObjComponent;
-  let fixture: ComponentFixture<AutocompleteObjComponent>;
+  let component: AutocompleteObjComponent
+  let fixture: ComponentFixture<AutocompleteObjComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AutocompleteObjComponent ]
+      declarations: [AutocompleteObjComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AutocompleteObjComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(AutocompleteObjComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

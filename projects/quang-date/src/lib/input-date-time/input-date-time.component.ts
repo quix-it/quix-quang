@@ -9,7 +9,7 @@ import {
   Renderer2,
   Self,
   SimpleChanges,
-  ViewChild,
+  ViewChild
 } from '@angular/core'
 
 import { ControlValueAccessor, NgControl } from '@angular/forms'
@@ -22,7 +22,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quix-input-date-time',
   templateUrl: './input-date-time.component.html',
-  styleUrls: ['./input-date-time.component.scss'],
+  styleUrls: ['./input-date-time.component.scss']
 })
 /**
  * input date time component

@@ -13,7 +13,8 @@ import {
   ViewChildren
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
+
 /**
  * input radio component decorator
  */
@@ -45,7 +46,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   /**
    * The list of objects representing the radio fields
    */
-  @Input() radioList: Array<any> = []
+  @Input() radioList: any[] = []
   /**
    * Indicates whether, when the page is opened,
    * this input field should be displayed in a focused state or not
@@ -98,7 +99,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   /**
    * The value of the input
    */
-  _value: string | number = null
+  _value: string | number = ''
   /**
    * the status of the success message
    */
@@ -115,12 +116,13 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
-  @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>>
+  @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>> | null = null
   /**
    * Standard definition to create a control value accessor
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -134,10 +136,11 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    */
   constructor (
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
+
   /**
    * Check if the help message is required and create the key
    */
@@ -154,7 +157,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.forEach((item) => {
+        this.input?.forEach((item) => {
           item.nativeElement.focus()
         })
       }
@@ -168,21 +171,21 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.autofocus && this.input) {
-      this.input[0].nativeElement.focus()
+      this.input.get(0)?.nativeElement.focus()
     }
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -191,7 +194,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: Event) {
+  onChangedHandler (e: Event): void {
     this._value = (e.target as HTMLInputElement).value
     this.onTouched()
     this.onChanged(this._value)
@@ -201,7 +204,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value) {
+  writeValue (value: string | number): void {
     this._value = value
   }
 
@@ -221,26 +224,20 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
-    this.control?.statusChanges
-      .pipe(
-        delay(0)
-      )
-      .subscribe(() => {
-        if (this.control.dirty) {
-          if (this.control.valid && this.successMessage) {
-            this._successMessage = `${this.formName}.${this.control?.name}.valid`
-          } else if (this.control.invalid && this.errorMessage) {
-            for (const error in this.control.errors) {
-              if (this.control.errors.hasOwnProperty(error)) {
-                if (this.control.errors[error]) {
-                  this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                  this._requiredValue = this.control.errors[error].requiredValue
-                }
-              }
-            }
-          }
+  observeValidate (): void {
+    this.control?.statusChanges?.pipe(
+      delay(0),
+      filter(() => !!this.control.dirty)
+    ).subscribe(() => {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          this._requiredValue = this.control.errors[error].requiredValue
+          this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
         }
-      })
+      }
+    })
   }
 }

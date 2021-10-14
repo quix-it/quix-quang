@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage'
+import { Observable } from 'rxjs'
 
 /**
  * service decorator
@@ -45,10 +46,11 @@ export class QuixStorageService {
    * @param defaultValue
    */
   getSessionDefault (key: string, defaultValue: string): string {
-    if (JSON.parse(this.sessionStorage.retrieve(key))) {
-      return JSON.parse(this.sessionStorage.retrieve(key))
+    try {
+      return JSON.parse(this.sessionStorage.retrieve(key)) ?? defaultValue
+    } catch (e) {
+      return defaultValue
     }
-    return defaultValue
   }
 
   /**
@@ -63,7 +65,7 @@ export class QuixStorageService {
    * returns an observable that it issues whenever the value of the passed key changes within the sessionStoare
    * @param key
    */
-  observeSession (key: string) {
+  observeSession (key: string): Observable<any> {
     return this.sessionStorage.observe(key)
   }
 
@@ -91,10 +93,11 @@ export class QuixStorageService {
    * @param defaultValue
    */
   getLocalDefault (key: string, defaultValue: string): string {
-    if (JSON.parse(this.localStorage.retrieve(key))) {
-      return JSON.parse(this.localStorage.retrieve(key))
+    try {
+      return JSON.parse(this.localStorage.retrieve(key)) ?? defaultValue
+    } catch (e) {
+      return defaultValue
     }
-    return defaultValue
   }
 
   /**
@@ -109,7 +112,7 @@ export class QuixStorageService {
    * returns an observable that emits whenever the value of the passed key changes within the localStoare
    * @param key
    */
-  observeLocal (key: string) {
+  observeLocal (key: string): Observable<any> {
     return this.localStorage.observe(key)
   }
 }

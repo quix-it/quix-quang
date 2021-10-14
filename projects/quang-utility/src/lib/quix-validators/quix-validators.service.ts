@@ -12,7 +12,6 @@ import { isAfter, isBefore, isWithinInterval } from 'date-fns'
  * custom validators
  */
 export class QuixValidatorsService {
-
   /**
    * Check if the file size is smaller than required
    * @param maxSize
@@ -47,7 +46,7 @@ export class QuixValidatorsService {
       if (control.value && control.value instanceof File) {
         return null
       }
-      return { 'isFile': {} }
+      return { isFile: {} }
     }
   }
 
@@ -95,7 +94,7 @@ export class QuixValidatorsService {
    */
   minDate (minDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (isBefore(control.value, minDate)) {
+      if (isBefore(new Date(control.value), minDate)) {
         return { minDate: { requiredValue: minDate } }
       }
       return null
@@ -108,7 +107,7 @@ export class QuixValidatorsService {
    */
   maxDate (maxDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (isAfter(control.value, maxDate)) {
+      if (isAfter(new Date(control.value), maxDate)) {
         return { maxDate: { requiredValue: maxDate } }
       }
       return null
@@ -119,11 +118,10 @@ export class QuixValidatorsService {
    * Check if the past date is between the past two
    * @param startDate
    * @param endDate
-   * @param unit
    */
   dateBetween (startDate: Date, endDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (isWithinInterval(control.value, { start: startDate, end: endDate })) {
+      if (!isWithinInterval(new Date(control.value), { start: startDate, end: endDate })) {
         return { dateBetween: { requiredValue: [startDate, endDate] } }
       }
       return null

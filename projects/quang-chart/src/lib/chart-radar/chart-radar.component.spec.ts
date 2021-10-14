@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ChartRadarComponent } from './chart-radar.component';
+import { ChartRadarComponent } from './chart-radar.component'
 
 describe('ChartRadarComponent', () => {
-  let component: ChartRadarComponent;
-  let fixture: ComponentFixture<ChartRadarComponent>;
+  let component: ChartRadarComponent
+  let fixture: ComponentFixture<ChartRadarComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartRadarComponent ]
+      declarations: [ChartRadarComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChartRadarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ChartRadarComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

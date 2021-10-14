@@ -4,7 +4,7 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
+  HttpRequest
 } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs'
 import { catchError, finalize, map } from 'rxjs/operators'
@@ -40,17 +40,17 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
    * @param config module config
    */
   constructor (
-    private readonly store : Store<any>,
+    private readonly store: Store<any>,
     @Optional() config?: QuangDialogConfig
   ) {
-    if (config.noLoaderUrls?.length) {
+    if (config?.noLoaderUrls?.length) {
       this.noLoaderUrls = config.noLoaderUrls
     } else if (this._window().quixConfig?.noLoaderUrls) {
       this.noLoaderUrls = this._window().quixConfig?.noLoaderUrls
     } else {
       this.noLoaderUrls = []
     }
-    if (config.noLoaderMethods?.length) {
+    if (config?.noLoaderMethods?.length) {
       this.noLoaderMethods = config.noLoaderMethods
     } else if (this._window().quixConfig?.noLoaderMethods) {
       this.noLoaderMethods = this._window().quixConfig?.noLoaderMethods
@@ -63,7 +63,7 @@ export class QuixLoaderInterceptor implements HttpInterceptor {
    * check if the url of the call made and intercepted is present in one of the two lists
    * @param request http request
    */
-  private checkUrl = (request: HttpRequest<any>): boolean => {
+  private readonly checkUrl = (request: HttpRequest<any>): boolean => {
     return this.noLoaderUrls.some(url => request.url.includes(url)) || this.noLoaderMethods.some(method => request.method === method)
   }
 

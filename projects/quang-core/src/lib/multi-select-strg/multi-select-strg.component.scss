@@ -1,6 +1,6 @@
-
-.is-valid,
-.is-invalid {
-  background-position: center right calc(0.375em + 1rem);
+.form-control {
+  &.is-valid,
+  &.is-invalid {
+    background-position: center right calc(0.375em + 1rem);
+  }
 }
-

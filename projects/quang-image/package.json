@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-image",
-    "version": "11.0.7",
+    "version": "11.0.8",
   "peerDependencies": {
     "ng-lazyload-image": "^9.1.0"
   }

@@ -13,7 +13,8 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { CdkTextareaAutosize } from '@angular/cdk/text-field'
-import { delay, take } from 'rxjs/operators'
+import { delay, filter, take } from 'rxjs/operators'
+
 /**
  * text area component decorator
  */
@@ -127,6 +128,7 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -136,8 +138,8 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLTextAreaElement>
-  @ViewChild('autosize') autosize: CdkTextareaAutosize
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLTextAreaElement> | null = null
+  @ViewChild('autosize') autosize: CdkTextareaAutosize | null = null
 
   /**
    * constructor
@@ -148,10 +150,11 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   constructor (
     private readonly renderer: Renderer2,
     private readonly ngZone: NgZone,
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
+
   /**
    * Checks if focus is required when displaying the input field.
    * Start the check on the validation of the field
@@ -160,12 +163,12 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   ngAfterViewInit (): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input.nativeElement.focus()
+        this.input?.nativeElement.focus()
       }
     }, 0)
     this.ngZone.onStable.pipe(
       take(1)
-    ).subscribe(() => this.autosize.resizeToFitContent(this.autoResize))
+    ).subscribe(() => this.autosize?.resizeToFitContent(this.autoResize))
     this.observeValidate()
   }
 
@@ -191,14 +194,14 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -207,7 +210,7 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: Event) {
+  onChangedHandler (e: Event): void {
     this._value = (e.target as HTMLInputElement).value
     this.onTouched()
     this.onChanged(this._value)
@@ -217,7 +220,7 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value) {
+  writeValue (value: string): void {
     this._value = value
     this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
@@ -236,25 +239,23 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
-    this.control?.statusChanges.pipe(
-      delay(0)
+  observeValidate (): void {
+    this.control?.statusChanges?.pipe(
+      delay(0),
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        } else if (this.control.invalid && this.errorMessage) {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
+      if (this.control.invalid && this.errorMessage) {
+        if (this.control.errors) {
           for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                if (error === 'minlength' || error === 'maxlength') {
-                  this._requiredValue = this.control.errors[error].requiredLength
-                } else {
-                  this._requiredValue = this.control.errors[error].requiredValue
-                }
-              }
+            if (error === 'minlength' || error === 'maxlength') {
+              this._requiredValue = this.control.errors[error].requiredLength
+            } else {
+              this._requiredValue = this.control.errors[error].requiredValue
             }
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
           }
         }
       }

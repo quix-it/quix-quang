@@ -16,7 +16,7 @@ import { delay, delayWhen, map, retryWhen } from 'rxjs/operators'
 /**
  * global declaration for google async library
  */
-declare var google: any
+declare let google: any
 
 /**
  * google map component decorator
@@ -53,11 +53,11 @@ export class GoogleMapComponent implements OnChanges {
   /**
    * The type of map to display
    */
-  @Input() mapType: 'roadmap' | 'satellite' | 'hybrid' | 'terrain'
+  @Input() mapType: 'roadmap' | 'satellite' | 'hybrid' | 'terrain' = 'roadmap'
   /**
    * the default center of the map
    */
-  @Input() defaultCenter: Array<number> = [0, 0]
+  @Input() defaultCenter: number[] = [0, 0]
   /**
    * enable the click on the markers
    */
@@ -69,7 +69,7 @@ export class GoogleMapComponent implements OnChanges {
   /**
    * the list of markers to be drawn on the map
    */
-  @Input() markers: Array<GoogleMarker> = []
+  @Input() markers: GoogleMarker[] = []
   /**
    * event triggered by clicking on a marker
    */
@@ -111,7 +111,7 @@ export class GoogleMapComponent implements OnChanges {
       of('').pipe(
         map(() => {
           if (!this._window().google) {
-            throw ''
+            throw new Error()
           }
           return ''
         }),
@@ -129,7 +129,7 @@ export class GoogleMapComponent implements OnChanges {
       }
     }
     if (changes.defaultCenter?.currentValue) {
-      if (this._window().google) {
+      if (this._window().google && this._map) {
         this._map.setCenter({ lat: this.defaultCenter[0], lng: this.defaultCenter[1] })
       }
     }
@@ -158,7 +158,7 @@ export class GoogleMapComponent implements OnChanges {
    * Create the map
    */
   loadMap (): void {
-    this._map = new google.maps.Map(this.mapDiv.nativeElement, {
+    this._map = new google.maps.Map(this.mapDiv?.nativeElement, {
       center: { lat: this.defaultCenter[0], lng: this.defaultCenter[1] },
       zoom: this.defaultZoom,
       mapTypeId: this.mapType

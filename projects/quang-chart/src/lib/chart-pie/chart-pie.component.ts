@@ -21,7 +21,7 @@ import { EChartsOption } from 'echarts'
 /**
  * chart pie component
  */
-export class ChartPieComponent implements  OnChanges {
+export class ChartPieComponent implements OnChanges {
   /**
    * Html id of input
    */
@@ -37,12 +37,12 @@ export class ChartPieComponent implements  OnChanges {
   /**
    * the object that contains the data to make the graph
    */
-  @Input() chartData: ChartPie[]
+  @Input() chartData: ChartPie[] = []
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
-  @Input() ariaLabel: string = `Chart`
+  @Input() ariaLabel: string = 'Chart'
   /**
    * Indicate the position in the page navigation flow with the tab key
    */
@@ -51,11 +51,12 @@ export class ChartPieComponent implements  OnChanges {
    * the grid that contains the graph defines the padding in the four directions
    */
   @Input() grid: {
-    top: number,
-    bottom: number,
-    left: number,
+    top: number
+    bottom: number
+    left: number
     right: number
   } = { top: 0, left: 0, right: 0, bottom: 0 }
+
   /**
    * click event on the graph
    */
@@ -74,10 +75,11 @@ export class ChartPieComponent implements  OnChanges {
       }
     ],
     animationEasing: 'elasticOut',
-    animationDelay: function (idx) {
+    animationDelay: function (idx: any) {
       return Math.random() * 200
     }
   }
+
   /**
    * change input management
    * @param changes component changes
@@ -86,8 +88,8 @@ export class ChartPieComponent implements  OnChanges {
     if (changes.color?.currentValue) {
       this.chartOption.color = changes.color.currentValue
     }
-    if (changes.chartData?.currentValue) {
-      this.chartOption.series[0].data = changes.chartData.currentValue
+    if (changes.chartData?.currentValue && (this.chartOption?.series as any[])[0]) {
+      (this.chartOption.series as any)[0].data = changes.chartData.currentValue
     }
     if (changes.grid?.currentValue) {
       this.chartOption.grid = changes.grid.currentValue
@@ -98,7 +100,7 @@ export class ChartPieComponent implements  OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e): void {
+  onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
 }

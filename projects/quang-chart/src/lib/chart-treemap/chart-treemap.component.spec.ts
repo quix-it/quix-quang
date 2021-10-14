@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ChartTreemapComponent } from './chart-treemap.component';
+import { ChartTreemapComponent } from './chart-treemap.component'
 
 describe('ChartTreemapComponent', () => {
-  let component: ChartTreemapComponent;
-  let fixture: ComponentFixture<ChartTreemapComponent>;
+  let component: ChartTreemapComponent
+  let fixture: ComponentFixture<ChartTreemapComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartTreemapComponent ]
+      declarations: [ChartTreemapComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChartTreemapComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ChartTreemapComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

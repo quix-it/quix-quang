@@ -15,7 +15,7 @@ export class QuixHttpErrorInterceptor implements HttpInterceptor {
   /**
    * no loader interceptor for this url or error
    */
-  noErrorUrls: { url: string, error: number }[] = []
+  noErrorUrls: Array<{ url: string, error: number }> = []
   /**
    * window access
    */
@@ -30,7 +30,7 @@ export class QuixHttpErrorInterceptor implements HttpInterceptor {
     private readonly quixHttpErrorService: QuixHttpErrorService,
     @Optional() config?: QuangDialogConfig
   ) {
-    if (config.noErrorUrls?.length) {
+    if (config?.noErrorUrls?.length) {
       this.noErrorUrls = config.noErrorUrls
     } else if (this._window().quixConfig?.noErrorUrls) {
       this.noErrorUrls = this._window().quixConfig?.noErrorUrls
@@ -52,7 +52,7 @@ export class QuixHttpErrorInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         if (this.noErrorUrls?.length) {
-          if (!this.noErrorUrls.find(rule => rule.error === error.status && error.url.includes(rule.url))) {
+          if (!this.noErrorUrls.find(rule => rule.error === error.status && error.url?.includes(rule.url))) {
             this.quixHttpErrorService.openErrorModal(error)
           }
         } else {

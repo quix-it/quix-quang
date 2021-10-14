@@ -31,7 +31,7 @@ export class ChartLineComponent implements OnChanges {
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
-  @Input() ariaLabel: string = `Chart`
+  @Input() ariaLabel: string = 'Chart'
   /**
    * the list of colors of the chart
    */
@@ -47,16 +47,17 @@ export class ChartLineComponent implements OnChanges {
   /**
    * the object that contains the data to make the graph
    */
-  @Input() chartData: ChartLine
+  @Input() chartData: ChartLine | null = null
   /**
    * the grid that contains the graph defines the padding in the four directions
    */
   @Input() grid: {
-    top: number,
-    bottom: number,
-    left: number,
+    top: number
+    bottom: number
+    left: number
     right: number
   } = { top: 0, left: 0, right: 0, bottom: 0 }
+
   /**
    * click event on the graph
    */
@@ -72,10 +73,11 @@ export class ChartLineComponent implements OnChanges {
     },
     series: [],
     animationEasing: 'elasticOut',
-    animationDelayUpdate: (idx) => {
+    animationDelayUpdate: (idx: any) => {
       return idx * 5
     }
   }
+
   /**
    * change input management
    * @param changes component changes
@@ -89,8 +91,7 @@ export class ChartLineComponent implements OnChanges {
         type: 'category',
         data: changes.chartData?.currentValue.category
       }
-      this.chartOption.series = changes.chartData?.currentValue.series.map(
-        s => ({
+      this.chartOption.series = changes.chartData?.currentValue.series.map((s: any) => ({
           data: s,
           type: 'line'
         })
@@ -105,7 +106,7 @@ export class ChartLineComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e): void {
+  onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
 }

@@ -21,7 +21,7 @@ import { EChartsOption } from 'echarts'
 /**
  * chart treemap component
  */
-export class ChartTreemapComponent implements  OnChanges {
+export class ChartTreemapComponent implements OnChanges {
   /**
    * Html id of input
    */
@@ -33,12 +33,12 @@ export class ChartTreemapComponent implements  OnChanges {
   /**
    * the object that contains the data to make the graph
    */
-  @Input() chartData: ChartTreemap[]
+  @Input() chartData: ChartTreemap[] = []
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
-  @Input() ariaLabel: string = `Chart`
+  @Input() ariaLabel: string = 'Chart'
   /**
    * Indicate the position in the page navigation flow with the tab key
    */
@@ -47,11 +47,12 @@ export class ChartTreemapComponent implements  OnChanges {
    * the grid that contains the graph defines the padding in the four directions
    */
   @Input() grid: {
-    top: number,
-    bottom: number,
-    left: number,
+    top: number
+    bottom: number
+    left: number
     right: number
   } = { top: 0, left: 0, right: 0, bottom: 0 }
+
   /**
    * click event on the graph
    */
@@ -72,7 +73,7 @@ export class ChartTreemapComponent implements  OnChanges {
       this.chartOption.series = [{
         type: 'treemap',
         roam: false,
-        breadcrumb: { show: false, emptyItemWidth: 0},
+        breadcrumb: { show: false, emptyItemWidth: 0 },
         nodeClick: 'zoomToNode',
         data: [{
           children: changes.chartData.currentValue
@@ -88,7 +89,7 @@ export class ChartTreemapComponent implements  OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e
    */
-  onChartClick (e): void {
+  onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
 }

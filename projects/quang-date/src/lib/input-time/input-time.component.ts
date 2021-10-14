@@ -13,6 +13,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay, filter } from 'rxjs/operators'
 import { BsTimepickerViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-timepicker-view.component'
+
 /**
  * input time component decorator
  */

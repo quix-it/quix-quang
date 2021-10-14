@@ -6,6 +6,8 @@
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <timepicker
+    [accessKey]="true"
+    [mousewheel]="true"
     [id]="id"
     [ngModel]="_value"
     [min]="minTime"
@@ -14,7 +16,6 @@
     [hourStep]="hourStep"
     [minuteStep]="minuteStep"
     [secondsStep]="secondStep"
-    [mousewheel]="true"
     [showSpinners]="showSelector"
     [showMeridian]="showMeridianButton"
     [ngClass]="customClass"
@@ -22,7 +23,6 @@
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [attr.aria-label]="ariaLabel | transloco"
     [tabIndex]="tabIndex"
-    [accessKey]="true"
     [hoursPlaceholder]="hoursPlaceholder | transloco"
     [minutesPlaceholder]="minutesPlaceholder | transloco"
     [secondsPlaceholder]="secondsPlaceholder | transloco"

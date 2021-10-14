@@ -9,7 +9,7 @@ import { QuangDialogConfig } from '../../quang-dialog.config'
 @Component({
   selector: 'quix-loader',
   templateUrl: './loader.component.html',
-  styles: ['']
+  styles: [''],
 })
 /**
  * loader component
@@ -34,7 +34,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
   /**
    * wrapper for module configuration
    */
-  configModule: QuangDialogConfig = null
+  configModule: QuangDialogConfig  = new QuangDialogConfig(false)
 
   /**
    * constructor
@@ -42,10 +42,10 @@ export class LoaderComponent implements OnInit, OnDestroy {
    * @param config module config
    */
   constructor (
-    private readonly store : Store<any>,
+    private readonly store: Store<any>,
     @Optional() config?: QuangDialogConfig
   ) {
-    this.configModule = config
+    this.configModule = config as QuangDialogConfig
   }
 
   /**
@@ -59,12 +59,13 @@ export class LoaderComponent implements OnInit, OnDestroy {
    * if we are in a development environment it traces the changes in the loader state
    */
   observeLoader (): void {
-    if (!this.configModule.production) {
+    if (!this.configModule?.production) {
       this.loaderSubscription$ = this.loader$.subscribe((loaderNumber) => {
         this.activeLoader = loaderNumber
       })
     }
   }
+
   /**
    * unsubscribe the observable
    */

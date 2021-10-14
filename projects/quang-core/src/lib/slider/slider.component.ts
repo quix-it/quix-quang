@@ -4,13 +4,13 @@ import {
   Input,
   OnInit,
   Optional,
-  Renderer2,
   Self,
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import { delay } from 'rxjs/operators'
+import { delay, filter } from 'rxjs/operators'
 import { MatSlider, MatSliderChange } from '@angular/material/slider'
+
 /**
  * slider component decorator
  */
@@ -101,12 +101,13 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: MatSlider
+  @ViewChild('input', { static: true }) input: MatSlider|undefined
   /**
    * Standard definition to create a control value accessor
    */
   onTouched: any = () => {
   }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -118,9 +119,9 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * @param control cva access
    */
   constructor (
-    @Self() @Optional() public control: NgControl,
+    @Self() @Optional() public control: NgControl
   ) {
-    this.control && (this.control.valueAccessor = this)
+    this.control.valueAccessor = this
   }
 
   /**
@@ -143,14 +144,14 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any) {
+  registerOnTouched (fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any) {
+  registerOnChange (fn: any): void {
     this.onChanged = fn
   }
 
@@ -159,8 +160,8 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: MatSliderChange) {
-    this._value = e.value
+  onChangedHandler (e: MatSliderChange): void {
+    if (e?.value !== null) this._value = e.value
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -169,8 +170,8 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value) {
-    this.input.value = value
+  writeValue (value: any): void {
+    if (this.input) this.input.value = value
   }
 
   /**
@@ -178,7 +179,7 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
-    this.input.setDisabledState(isDisabled)
+    this.input?.setDisabledState(isDisabled)
   }
 
   /**
@@ -187,20 +188,19 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate () {
-    this.control?.statusChanges.pipe(
-      delay(0)
+  observeValidate (): void {
+    this.control?.statusChanges?.pipe(
+      delay(0),
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.dirty) {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid'`
-        } else if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(error)) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid'`
+      } else if (this.control.invalid && this.errorMessage) {
+        for (const error in this.control.errors) {
+          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
             }
           }
         }

@@ -34,11 +34,11 @@ export class CalendarComponent implements OnChanges {
   /**
    * the height of the calendar
    */
-  @Input() height: string
+  @Input() height: string = ''
   /**
    * the locale of the calendar
    */
-  @Input() locale: string
+  @Input() locale: string = ''
   /**
    * Indicate the position in the page navigation flow with the tab key
    */
@@ -49,7 +49,7 @@ export class CalendarComponent implements OnChanges {
    * @param s
    * @param f
    */
-  @Input() callBack: (e, s, f) => {} = (e, s, f) => []
+  @Input() callBack: (e: any, s: any, f: any) => {} = (e, s, f) => []
   /**
    * Defines the type of calendar view
    */
@@ -72,18 +72,19 @@ export class CalendarComponent implements OnChanges {
     prevYear: 'fas fa-angle-double-left',
     nextYear: 'fas fa-angle-double-right'
   }
+
   /**
    * Event triggered when a calendar event is clicked
    */
-  @Output() onEventClick = new EventEmitter<any>()
+  @Output() whenEventClick: EventEmitter<any> = new EventEmitter<any>()
   /**
    * Event triggered when a date on the calendar is clicked
    */
-  @Output() onDateClick = new EventEmitter<any>()
+  @Output() whenDateClick: EventEmitter<any> = new EventEmitter<any>()
   /**
    * Event triggered when the calendar view of the calendar changes
    */
-  @Output() onViewChange = new EventEmitter<any>()
+  @Output() whenViewChange: EventEmitter<any> = new EventEmitter<any>()
   /**
    * calendar config
    */
@@ -93,11 +94,11 @@ export class CalendarComponent implements OnChanges {
     events: this.viewChange.bind(this),
     height: '',
     eventClick: this.eventClick.bind(this),
-    dateClick: this.dateClick.bind(this),
     headerToolbar: this.header,
     footerToolbar: this.footer,
     buttonIcons: this.buttonsIcons,
     locale: '',
+    dateClick: this.dateClick.bind(this)
   }
 
   /**
@@ -127,7 +128,7 @@ export class CalendarComponent implements OnChanges {
    * @param event
    */
   eventClick (event: any): void {
-    this.onEventClick.emit(event)
+    this.whenEventClick.emit(event)
   }
 
   /**
@@ -135,7 +136,7 @@ export class CalendarComponent implements OnChanges {
    * @param event
    */
   dateClick (event: any): void {
-    this.onDateClick.emit(event)
+    this.whenDateClick.emit(event)
   }
 
   /**
@@ -145,8 +146,8 @@ export class CalendarComponent implements OnChanges {
    * @param successCallback
    * @param failureCallback
    */
-  viewChange (event: any, successCallback, failureCallback): void {
-    this.onViewChange.emit(event)
+  viewChange (event: any, successCallback: any, failureCallback: any): void {
+    this.whenViewChange.emit(event)
     this.callBack(event, successCallback, failureCallback)
   }
 }

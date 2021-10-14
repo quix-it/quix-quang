@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpParams } from '@angular/common/http'
+import { Observable } from 'rxjs'
 /**
  * service decorator
  */
@@ -25,12 +26,11 @@ export class QuixAutocompleteAsyncService {
    * @param url api url
    * @param param api params
    */
-  getRestList (baseUrl: string, url: string, param: string) {
+  getRestList (baseUrl: string, url: string, param: string): Observable<any> {
     if (param) {
       return this.http.get(`${baseUrl}${url}/${param}`)
     }
     return this.http.get(baseUrl + url)
-
   }
 
   /**
@@ -40,7 +40,7 @@ export class QuixAutocompleteAsyncService {
    * @param param api param value
    * @param paramId api param name
    */
-  getList (baseUrl: string, url: string, param: string, paramId: string) {
+  getList (baseUrl: string, url: string, param: string, paramId: string): Observable<any> {
     const urlParam = { params: new HttpParams().set(paramId, param) }
     return this.http.get(`${baseUrl}${url}`, urlParam)
   }

@@ -31,6 +31,6 @@ const reducer = createReducer(
  * @param state
  * @param action
  */
-export function loaderReducer (state: LoaderState | undefined, action: Action) {
+export function loaderReducer (state: LoaderState | undefined, action: Action): any {
   return reducer(state, action)
 }

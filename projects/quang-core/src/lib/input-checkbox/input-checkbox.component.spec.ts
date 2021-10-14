@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { InputCheckboxComponent } from './input-checkbox.component';
+import { InputCheckboxComponent } from './input-checkbox.component'
 
 describe('InputCheckboxComponent', () => {
-  let component: InputCheckboxComponent;
-  let fixture: ComponentFixture<InputCheckboxComponent>;
+  let component: InputCheckboxComponent
+  let fixture: ComponentFixture<InputCheckboxComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputCheckboxComponent ]
+      declarations: [InputCheckboxComponent]
     })
-    .compileComponents();
-  }));
+      .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InputCheckboxComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(InputCheckboxComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

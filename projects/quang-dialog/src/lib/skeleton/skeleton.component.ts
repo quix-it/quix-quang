@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
  * component decorator
  */
 @Component({
-  selector: 'quang-skeleton',
+  selector: 'quix-skeleton',
   templateUrl: './skeleton.component.html',
   styleUrls: ['./skeleton.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 /**
  * quang skeleton
  */
-export class SkeletonComponent  {
+export class SkeletonComponent {
   /**
    * Custom id for skeleton div
    */

@@ -26,7 +26,7 @@
                [attr.aria-label]="ariaLabel + ' date'"
                [tabIndex]="tabIndex"
                [autocomplete]="autocomplete"
-               [(ngModel)]="_valueDate"
+               [bsValue]="_valueDate"
                [disabled]="_disabled"
                [placement]="placement"
                (bsValueChange)="onChangedDate($event)"
@@ -39,7 +39,8 @@
             class="btn"
             type="button"
             [ngClass]="buttonClass"
-            (click)="_disabled ? null : drp.toggle()">
+            (click)="_disabled ? null : drp.toggle()"
+          >
             <ng-content select="[calendarIcon]"></ng-content>
           </button>
         </div>
@@ -73,7 +74,7 @@
         [hoursPlaceholder]="hoursPlaceholder | transloco"
         [minutesPlaceholder]="minutesPlaceholder | transloco"
         [secondsPlaceholder]="secondsPlaceholder | transloco"
-        [(ngModel)]="_valueTime"
+        [ngModel]="_valueTime"
         [attr.aria-label]="ariaLabel + ' time' | transloco"
         [tabIndex]="tabIndex + 1"
         (ngModelChange)="onChangedTime($event)"

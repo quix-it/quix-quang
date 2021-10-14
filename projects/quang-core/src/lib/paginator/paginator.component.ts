@@ -57,38 +57,38 @@ export class PaginatorComponent implements OnChanges {
   /**
    * Raises an event when the page index changes
    */
-  @Output() onPageChange: EventEmitter<number> = new EventEmitter<number>()
+  @Output() whenPageChange: EventEmitter<number> = new EventEmitter<number>()
   /**
    * Raises an event when the page size changes
    */
-  @Output() onSizeChange: EventEmitter<number> = new EventEmitter<number>()
+  @Output() whenSizeChange: EventEmitter<number> = new EventEmitter<number>()
   /**
    * mat paginator html element
    */
-  @ViewChild('quixPaginator', { static: true }) paginator: MatPaginator
+  @ViewChild('quixPaginator', { static: true }) paginator: MatPaginator|undefined
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement>
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement>|undefined
   /**
    * Size of the list
    */
-  _length: number
+  _length: number = 0
   /**
    * Page index state
    */
-  _pageIndex: number
+  _pageIndex: number = 0
   /**
    * page size state
    */
-  _pageSize: number
+  _pageSize: number = 0
 
   /**
    * constructor
    * @param renderer html access
    */
   constructor (
-    private readonly renderer: Renderer2,
+    private readonly renderer: Renderer2
   ) {}
 
   /**
@@ -96,17 +96,17 @@ export class PaginatorComponent implements OnChanges {
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.totalItems?.currentValue) {
+    if (changes.totalItems?.currentValue && this.paginator) {
       this._length = changes.totalItems?.currentValue
       this.paginator.length = changes.totalItems?.currentValue
     }
-    if (changes.pageIndex) {
+    if (changes.pageIndex && this.paginator) {
       if (changes.pageIndex.currentValue >= 0 && changes.pageIndex.currentValue !== this._pageIndex) {
         this._pageIndex = changes.pageIndex.currentValue
         this.paginator.pageIndex = changes.pageIndex.currentValue
       }
     }
-    if (changes.pageSize) {
+    if (changes.pageSize && this.paginator) {
       if (changes.pageSize.currentValue >= 0 && changes.pageSize.currentValue !== this._pageSize) {
         this.paginator.pageSize = changes.pageSize.currentValue
         this.renderer.setProperty(this.input?.nativeElement, 'value', changes.pageSize.currentValue)
@@ -118,10 +118,10 @@ export class PaginatorComponent implements OnChanges {
    * When the page index changes, it saves the state and issues the event
    * @param event
    */
-  onChangePage (event): void {
+  onChangePage (event: any): void {
     if (event.pageIndex !== this._pageIndex) {
       this._pageIndex = event.pageIndex
-      this.onPageChange.emit(this._pageIndex)
+      this.whenPageChange.emit(this._pageIndex)
     }
   }
 
@@ -129,16 +129,16 @@ export class PaginatorComponent implements OnChanges {
    * When the page size changes, it saves the state and issues the event
    * @param event
    */
-  onChangeSize (event): void {
-    this.paginator.pageSize = parseInt((event.target as HTMLInputElement).value)
+  onChangeSize (event: any): void {
+    if (this.paginator) this.paginator.pageSize = parseInt((event.target as HTMLInputElement).value)
     this._pageSize = parseInt((event.target as HTMLInputElement).value)
-    this.onSizeChange.emit(this._pageSize)
+    this.whenSizeChange.emit(this._pageSize)
   }
 
   /**
    * Go to the first page of the pager
    */
   goToFirstPage (): void {
-    this.paginator.firstPage()
+    this.paginator?.firstPage()
   }
 }

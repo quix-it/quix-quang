@@ -1,4 +1,5 @@
 import {
+  AfterContentInit, AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -52,7 +53,7 @@ export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
   /**
    * Maximum zoom level
    */
-  @Input() maxZoom: number = 0
+  @Input() maxZoom: number = 20
   /**
    * Center of the starting map
    */
@@ -76,11 +77,11 @@ export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
   /**
    * the map variable
    */
-  _map: Map
+  _map: Map | null = null
   /**
    * map tile
    */
-  _tile: Tile<any> = new Tile({
+  _tile = new Tile({
     source: new OSM()
   })
 
