@@ -28,7 +28,7 @@ export class QuangAuthEffect {
     () => this.actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
       exhaustMap(action =>
-        this.quangAuthService.startAuth().pipe(
+        this.quangAuthService.login().pipe(
           map(is => {
             this.quangAuthService.startRefreshToken()
             return userLogin()
