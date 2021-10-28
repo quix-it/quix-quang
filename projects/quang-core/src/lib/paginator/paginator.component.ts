@@ -101,7 +101,7 @@ export class PaginatorComponent implements OnChanges {
       this.paginator.length = changes.totalItems?.currentValue
     }
     if (changes.pageIndex && this.paginator) {
-      if (changes.pageIndex.currentValue >= 0 && changes.pageIndex.currentValue !== this._pageIndex) {
+      if (changes.pageIndex?.currentValue >= 0 && changes.pageIndex?.currentValue !== this._pageIndex) {
         this._pageIndex = changes.pageIndex.currentValue
         this.paginator.pageIndex = changes.pageIndex.currentValue
       }

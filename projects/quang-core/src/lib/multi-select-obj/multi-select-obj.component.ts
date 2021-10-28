@@ -175,7 +175,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
+    if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
   }

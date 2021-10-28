@@ -168,10 +168,10 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
+    if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
-    if (changes.list.currentValue) {
+    if (changes.list?.currentValue) {
       if (!this.nullOption && !this._value) {
         if (this.returnValue) this._value = this._value = (changes.list.currentValue as any[])[0][this.returnValue]
         this.onTouched()

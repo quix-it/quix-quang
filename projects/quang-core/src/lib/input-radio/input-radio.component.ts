@@ -170,7 +170,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
+    if (changes.autofocus?.currentValue && this.input) {
       this.input.get(0)?.nativeElement.focus()
     }
   }

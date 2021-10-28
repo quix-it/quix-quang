@@ -188,7 +188,7 @@ export class AutocompleteObjComponent implements ControlValueAccessor, OnInit, A
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
+    if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
   }
