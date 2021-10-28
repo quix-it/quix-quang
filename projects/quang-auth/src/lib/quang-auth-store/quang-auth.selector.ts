@@ -31,7 +31,7 @@ export const selectHasRoles = createSelector(
   (state: QuangAuthState, props: { rolesId: string[] }) => {
     let find = true
     props.rolesId.forEach(role => {
-      find = find && !!state.quangAuthUserState.roles.find(ur => ur === role)
+      find = find && !!state.quangAuthUserState.roles.includes(role)
     })
     return find
   }
@@ -44,7 +44,7 @@ export const selectHasUntilRoles = createSelector(
   (state: QuangAuthState, props: { rolesId: string[] }) => {
     let find = false
     props.rolesId.forEach(role => {
-      find = find || !!state.quangAuthUserState.roles.find(ur => ur === role)
+      find = find || !!state.quangAuthUserState.roles.includes(role)
     })
     return find
   }

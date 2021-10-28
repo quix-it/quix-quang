@@ -107,7 +107,7 @@ export class PaginatorComponent implements OnChanges {
       }
     }
     if (changes.pageSize && this.paginator) {
-      if (changes.pageSize.currentValue >= 0 && changes.pageSize.currentValue !== this._pageSize) {
+      if (changes.pageSize?.currentValue >= 0 && changes.pageSize?.currentValue !== this._pageSize) {
         this.paginator.pageSize = changes.pageSize.currentValue
         this.renderer.setProperty(this.input?.nativeElement, 'value', changes.pageSize.currentValue)
       }

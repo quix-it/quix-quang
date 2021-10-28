@@ -154,7 +154,7 @@ export class InputCheckboxComponent implements OnInit, ControlValueAccessor, Aft
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
+    if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
   }

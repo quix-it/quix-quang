@@ -58,24 +58,38 @@ export class QuangAuthService {
   }
 
   /**
-   * call to Start the login process
+   * Start the login process, if the user is not logged in, redirect to the identity provider
    */
-  startAuth (): Observable<any> {
-    return of(this.oauthService.loadDiscoveryDocumentAndLogin())
+  login (): Observable<any> {
+    return from(this.oauthService.loadDiscoveryDocumentAndLogin())
   }
 
   /**
-   * call to retrieve login data and try login
+   * Starts the login process, if the user is not logged in it does not redirect to the identity provider
    */
-  login (): Observable<any> {
+  tryLogin (): Observable<any> {
     return from(this.oauthService.loadDiscoveryDocumentAndTryLogin())
   }
 
   /**
-   * Start the login process, if the process is successful dispatch the successful login
+   * Start the login process, if the user is not logged in, redirect to the identity provider
+   * if the process is successful dispatch the successful login
    */
-  startAuthAndDispatch (): void {
+  loginAndDispatch (): void {
     from(this.oauthService.loadDiscoveryDocumentAndLogin()).subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.oauthService.setupAutomaticSilentRefresh()
+        this.store.dispatch(userLogin())
+      }
+    })
+  }
+
+  /**
+   * Starts the login process, if the user is not logged in it does not redirect to the identity provider
+   * if the process is successful dispatch the successful login
+   */
+  tryLoginAndDispatch (): void {
+    from(this.oauthService.loadDiscoveryDocumentAndTryLogin()).subscribe(isAuthenticated => {
       if (isAuthenticated) {
         this.oauthService.setupAutomaticSilentRefresh()
         this.store.dispatch(userLogin())
@@ -129,5 +143,13 @@ export class QuangAuthService {
     this.store.dispatch(userRolesLogout())
     this.oauthService.stopAutomaticRefresh()
     this.oauthService.logOut()
+  }
+
+  getIdToken (): string {
+    return this.oauthService.getIdToken()
+  }
+
+  getAccessToken (): string {
+    return this.oauthService.getAccessToken()
   }
 }

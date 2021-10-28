@@ -95,7 +95,7 @@ export class QuangKeycloakService {
    * get the user's roles
    */
   getUserRoles (): Observable<any> {
-    return of(this.keyCloak.getUserRoles(true))
+    return from(this.keyCloak.getUserRoles(true))
   }
 
   /**

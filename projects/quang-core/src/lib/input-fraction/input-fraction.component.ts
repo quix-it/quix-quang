@@ -185,7 +185,7 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus && this.inputInteger) {
+    if (changes.autofocus?.currentValue && this.inputInteger) {
       this.inputInteger.nativeElement.focus()
     }
   }

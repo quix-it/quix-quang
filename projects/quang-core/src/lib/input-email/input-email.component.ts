@@ -179,7 +179,7 @@ export class InputEmailComponent implements ControlValueAccessor, OnInit, OnChan
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
+    if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
   }

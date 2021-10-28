@@ -33,7 +33,7 @@ export class QuixAuthImageDirective implements OnChanges {
    * With an ajax call it downloads the image blob and adds the src attribute with the file just downloaded
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.src.currentValue) {
+    if (changes.src?.currentValue) {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: 'application/json'

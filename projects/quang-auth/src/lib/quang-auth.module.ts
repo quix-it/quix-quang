@@ -10,6 +10,10 @@ import { QuangAuthService } from './quang-auth.service'
 import { OAuthModule } from 'angular-oauth2-oidc'
 import { QuangAuthConfig } from './quang-auth.config'
 
+function _window (): any {
+  return window
+}
+
 @NgModule({
   declarations: [
     HasRolesDirective,
@@ -20,7 +24,7 @@ import { QuangAuthConfig } from './quang-auth.config'
     CommonModule,
     StoreModule.forFeature(QUANGAUTH_KEY, quangAuthReducer),
     OAuthModule.forRoot({
-      resourceServer: window['oidcApiConfig']
+      resourceServer: _window().oidcApiConfig
     })
   ],
   providers: [

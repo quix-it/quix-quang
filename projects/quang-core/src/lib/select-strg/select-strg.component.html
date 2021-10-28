@@ -10,12 +10,12 @@
           [ngClass]="customClass"
           [class.is-valid]="control?.valid && control?.dirty && successMessage"
           [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-          [attr.aria-label]="ariaLabel | transloco"
-          (input)="onChangedHandler($event)"
-          (blur)="onTouched()"
           [class.form-control-lg]="size === 'lg'"
           [class.form-control-sm]="size === 'sm'"
+          (input)="onChangedHandler($event)"
+          (blur)="onTouched()"
           [tabIndex]="tabIndex"
+          [attr.aria-label]="ariaLabel | transloco"
           #input
   >
     <option [ngValue]="null"

@@ -183,7 +183,7 @@ export class InputTelComponent implements OnInit, OnChanges, AfterViewInit {
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
+    if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
   }
