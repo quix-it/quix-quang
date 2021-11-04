@@ -16,6 +16,9 @@ export class SentryDialogService implements ErrorHandler {
    */
   handleError (error: any): void {
     console.error(error)
+    if (/Loading chunk [\d]+ failed/.test(error.message)) {
+      window.location.reload();
+    }
     if (error?.name === 'HttpErrorResponse') {
       if (error?.status === 400 || error?.status === 404 || error?.status === 415) {
         Sentry.showReportDialog({})
