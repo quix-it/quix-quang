@@ -8,6 +8,7 @@ import {
   SimpleChanges, ViewChild
 } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
+
 /**
  * paginator component decorator
  */
@@ -65,11 +66,11 @@ export class PaginatorComponent implements OnChanges {
   /**
    * mat paginator html element
    */
-  @ViewChild('quixPaginator', { static: true }) paginator: MatPaginator|undefined
+  @ViewChild('quixPaginator', { static: true }) paginator: MatPaginator | undefined
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement>|undefined
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
   /**
    * Size of the list
    */
@@ -130,9 +131,11 @@ export class PaginatorComponent implements OnChanges {
    * @param event
    */
   onChangeSize (event: any): void {
-    if (this.paginator) this.paginator.pageSize = parseInt((event.target as HTMLInputElement).value)
-    this._pageSize = parseInt((event.target as HTMLInputElement).value)
-    this.whenSizeChange.emit(this._pageSize)
+    if (this.paginator) {
+      this.paginator.pageSize = parseInt((event.target as HTMLInputElement).value)
+      this._pageSize = parseInt((event.target as HTMLInputElement).value)
+      this.whenSizeChange.emit(this._pageSize)
+    }
   }
 
   /**
