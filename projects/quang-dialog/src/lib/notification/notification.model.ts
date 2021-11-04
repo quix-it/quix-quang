@@ -25,6 +25,6 @@ export class QuixNotification {
     /**
      *
      */
-    public iconUrl?: string,
+    public iconUrl?: string
   ) {}
 }

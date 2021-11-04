@@ -1,6 +1,6 @@
 import { Injectable, Optional } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { from, Observable, of } from 'rxjs'
+import { from, Observable } from 'rxjs'
 import {
   userInfoLogin, userInfoLogout,
   userLogin,
@@ -31,7 +31,7 @@ export class QuangAuthService {
   /**
    * window access
    */
-  private _window = (): any => window
+  private readonly _window = (): any => window
 
   /**
    * constructor
@@ -42,7 +42,7 @@ export class QuangAuthService {
   constructor (
     @Optional() config: QuangAuthConfig,
     private readonly oauthService: OAuthService,
-    private readonly store: Store<any>,
+    private readonly store: Store<any>
   ) {
     if (config) {
       this.config = config
@@ -95,6 +95,10 @@ export class QuangAuthService {
         this.store.dispatch(userLogin())
       }
     })
+  }
+
+  isAuthenticated (): boolean {
+    return !!this.oauthService.getIdentityClaims()
   }
 
   /**

@@ -57,6 +57,7 @@ export class ChartCandlestickComponent implements OnChanges {
     left: number
     right: number
   } = { top: 0, left: 0, right: 0, bottom: 0 }
+
   /**
    * click event on the graph
    */

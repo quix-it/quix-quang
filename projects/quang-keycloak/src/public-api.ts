@@ -5,6 +5,7 @@
 export * from './lib/quang-keycloak-directive/has-roles.directive'
 export * from './lib/quang-keycloak-directive/has-until-roles.directive'
 export * from './lib/quang-keycloak-directive/is-authenticated.directive'
+export * from './lib/quang-keycloak-directive/is-not-authenticated.directive'
 
 export * from './lib/quang-keycloak-guard/quang-keycloak.guard'
 

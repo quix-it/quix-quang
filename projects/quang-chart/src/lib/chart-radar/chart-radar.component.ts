@@ -67,7 +67,7 @@ export class ChartRadarComponent implements OnChanges {
    */
   chartOption: EChartsOption = {
     radar: {},
-    series: [{type: 'radar', data:[]}]
+    series: [{ type: 'radar', data: [] }]
   }
 
   /**

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet'
+import { MatBottomSheet } from '@angular/material/bottom-sheet'
 import { Observable } from 'rxjs'
 
 /**

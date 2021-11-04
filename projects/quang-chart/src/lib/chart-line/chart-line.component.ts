@@ -92,9 +92,9 @@ export class ChartLineComponent implements OnChanges {
         data: changes.chartData?.currentValue.category
       }
       this.chartOption.series = changes.chartData?.currentValue.series.map((s: any) => ({
-          data: s,
-          type: 'line'
-        })
+        data: s,
+        type: 'line'
+      })
       )
     }
     if (changes.grid?.currentValue) {

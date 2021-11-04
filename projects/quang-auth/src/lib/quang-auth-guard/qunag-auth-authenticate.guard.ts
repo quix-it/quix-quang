@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router'
-import { iif, Observable, of, pipe, throwError } from 'rxjs'
+import { iif, Observable, of, throwError } from 'rxjs'
 import { select, Store } from '@ngrx/store'
 import { selectIsAuthenticated } from '../quang-auth-store/quang-auth.selector'
-import { catchError, concatMap, delay, map, retryWhen, switchMap } from 'rxjs/operators'
+import { catchError, concatMap, delay, retryWhen, switchMap } from 'rxjs/operators'
 
 /**
  *
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 /**
  *

@@ -1,6 +1,6 @@
 import { Injectable, Optional } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { from, Observable, of } from 'rxjs'
+import { from, Observable } from 'rxjs'
 import { KeycloakService } from 'keycloak-angular'
 import {
   userInfoLogin,

@@ -61,7 +61,7 @@ export class DatalistComponent implements ControlValueAccessor, AfterViewInit, O
   /**
    * The list of options
    */
-  @Input() list: Array<string> = []
+  @Input() list: string[] = []
   /**
    * Array of additional classes to the input field
    */

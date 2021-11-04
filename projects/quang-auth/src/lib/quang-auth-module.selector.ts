@@ -1,4 +1,4 @@
-import {createFeatureSelector} from "@ngrx/store";
+import { createFeatureSelector } from '@ngrx/store'
 
 /**
  * the key that identifies the module store

@@ -1,12 +1,12 @@
 {
   "name": "quix-core-workspace",
-  "version": "12.5.0",
+  "version": "12.6.0-beta.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint --fix",
     "e2e": "ng e2e",
     "release:install": "npm ci --ignore-script",
     "build:quang": "ng-packagr -p projects/quang && ng-packagr -p projects/quang-auth && ng-packagr -p projects/quang-calendar && ng-packagr -p projects/quang-chart && ng-packagr -p projects/quang-components && ng-packagr -p projects/quang-core && ng-packagr -p projects/quang-date && ng-packagr -p projects/quang-dialog && ng-packagr -p projects/quang-event && ng-packagr -p projects/quang-image && ng-packagr -p projects/quang-keycloak && ng-packagr -p projects/quang-map && ng-packagr -p projects/quang-utility",
@@ -16,6 +16,7 @@
     "build:quang-chart": "ng-packagr -p projects/quang-chart",
     "build:quang-image": "ng-packagr -p projects/quang-image",
     "build:quang-utility": "ng-packagr -p projects/quang-utility",
+    "build:quang-auth": "ng-packagr -p projects/quang-auth",
     "lint:quang-core": "ng lint --fix quang-core",
     "lint:quang-auth": "ng lint --fix quang-auth",
     "lint:quang-calendar": "ng lint --fix quang-calendar",

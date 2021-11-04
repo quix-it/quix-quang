@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuixCardImageComponent  {
+export class QuixCardImageComponent {
   @Input() src: string = ''
   @Input() alt: string = ''
 }

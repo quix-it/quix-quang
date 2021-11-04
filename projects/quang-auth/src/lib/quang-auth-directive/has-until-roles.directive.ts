@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core'
+import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
 import { Subject } from 'rxjs'
 import { select, Store } from '@ngrx/store'
 
@@ -13,7 +13,7 @@ import { selectHasUntilRoles } from '../quang-auth-store/quang-auth.selector'
 /**
  * has until role directive
  */
-export class HasUntilRolesDirective {
+export class HasUntilRolesDirective implements OnInit, OnDestroy {
   /**
    * List of necessary roles
    */
@@ -22,7 +22,7 @@ export class HasUntilRolesDirective {
    * subject of convenience to turn off the subscription to the observable
    * @private
    */
-  private destroy$ = new Subject()
+  private readonly destroy$ = new Subject()
 
   /**
    * constructor
@@ -52,12 +52,13 @@ export class HasUntilRolesDirective {
         this.view.clear()
       }
     })
-
   }
+
   /**
    * unsubscribe the observable
    */
   ngOnDestroy (): void {
     this.destroy$.next('')
+    this.destroy$.complete()
   }
 }

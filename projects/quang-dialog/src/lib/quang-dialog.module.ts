@@ -16,16 +16,11 @@ import { QuixHttpErrorModalComponent } from './http-error/quix-http-error-modal/
 import { QuixHttpErrorService } from './http-error/quix-http-error.service'
 import { QuangDialogConfig } from './quang-dialog.config'
 import { SentryDialogService } from './sentry/sentry-dialog.service'
-import { QUANGDIALOG_KEY } from './quang-dialog.selector';
+import { QUANGDIALOG_KEY } from './quang-dialog.selector'
 import { SkeletonComponent } from './skeleton/skeleton.component'
 import { EffectsModule } from '@ngrx/effects'
 import { NotificationEffect } from './notification/notification-store/notification.effect'
 import { QuixNotificationService } from './notification/notification.service'
-
-
-
-
-
 
 @NgModule({
   declarations: [

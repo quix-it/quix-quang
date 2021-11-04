@@ -46,7 +46,7 @@ const reducer = createReducer(
   on(userInfoLogout, (state) => ({ ...state, user: null })),
   on(userRolesLogin, (state, action) =>
     ({ ...state, roles: action.roles })),
-  on(userRolesLogout, (state) => ({ ...state, user: null })),
+  on(userRolesLogout, (state) => ({ ...state, user: null }))
 )
 
 /**
@@ -54,6 +54,6 @@ const reducer = createReducer(
  * @param state module state
  * @param action section action
  */
-export function quangAuthUserReducer (state: QuangAuthUserState | undefined, action: Action) {
+export function quangAuthUserReducer (state: QuangAuthUserState | undefined, action: Action): any {
   return reducer(state, action)
 }

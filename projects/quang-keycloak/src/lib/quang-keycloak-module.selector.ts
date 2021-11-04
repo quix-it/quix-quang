@@ -8,4 +8,4 @@ export const QUANGKEYCLOAK_KEY = 'quang-keycloak-module'
 /**
  * module selector
  */
-export const selectQuangKeycloak = createFeatureSelector<QuangkeycloakModuleState,QuangKeycloakState>(QUANGKEYCLOAK_KEY)
+export const selectQuangKeycloak = createFeatureSelector<QuangkeycloakModuleState, QuangKeycloakState>(QUANGKEYCLOAK_KEY)

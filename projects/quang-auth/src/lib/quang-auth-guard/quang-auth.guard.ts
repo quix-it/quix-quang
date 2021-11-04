@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router'
 import { Observable, of, throwError } from 'rxjs'
 import {
-  catchError, filter, switchMap, take,
+  catchError, filter, switchMap, take
 } from 'rxjs/operators'
 import { select, Store } from '@ngrx/store'
 import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-auth-store/quang-auth.selector'
@@ -11,7 +11,7 @@ import { selectHasRoles, selectHasUntilRoles, selectUserInfo } from '../quang-au
  * service decorator
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 /**
  * role guard
@@ -32,7 +32,7 @@ export class QuangAuthGuard implements CanActivate {
    * Observable that checks if the user has all the required roles
    * @param allowedRoles roles list
    */
-  checkAllRole (allowedRoles: string[]) {
+  checkAllRole (allowedRoles: string[]): Observable<boolean> {
     return this.authStore.pipe(
       select(selectHasRoles, { rolesId: allowedRoles }),
       take(1)
@@ -43,7 +43,7 @@ export class QuangAuthGuard implements CanActivate {
    * Observable that checks if the user has until one of the required roles
    * @param allowedRoles role list
    */
-  checkUntilRole (allowedRoles: string[]) {
+  checkUntilRole (allowedRoles: string[]): Observable<boolean> {
     return this.authStore.pipe(
       select(selectHasUntilRoles, { rolesId: allowedRoles }),
       take(1)

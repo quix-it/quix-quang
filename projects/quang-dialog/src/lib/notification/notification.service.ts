@@ -10,7 +10,6 @@ import { switchMap } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class QuixNotificationService {
-
   constructor (
     private readonly store: Store<QuangDialogState>
   ) { }
@@ -18,7 +17,7 @@ export class QuixNotificationService {
   requestPermission (): Observable<boolean> {
     if (this.checkNotification()) {
       return from(Notification.requestPermission()).pipe(
-        switchMap(p => of(p === "granted"))
+        switchMap(p => of(p === 'granted'))
       )
     }
     return of(false)

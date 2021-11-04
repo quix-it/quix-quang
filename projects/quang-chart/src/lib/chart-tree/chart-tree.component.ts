@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core'
 import { EChartsOption } from 'echarts'
 import { ChartTree } from './chart-tree.model'
 
@@ -7,7 +7,7 @@ import { ChartTree } from './chart-tree.model'
   templateUrl: './chart-tree.component.html',
   styles: []
 })
-export class ChartTreeComponent {
+export class ChartTreeComponent implements OnChanges {
   /**
    * Html id of input
    */
@@ -72,7 +72,7 @@ export class ChartTreeComponent {
           }
         },
         itemStyle: {
-          color: this.nodeColor,
+          color: this.nodeColor
         },
         lineStyle: {
           color: this.color
@@ -110,5 +110,4 @@ export class ChartTreeComponent {
   onChartClick (e: any): void {
     this.chartClick.emit(e)
   }
-
 }

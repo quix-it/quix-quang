@@ -24,4 +24,3 @@ export const userRolesLogin = createAction('[QUANG AUTH] set user roles', props<
  * delete user role in the store
  */
 export const userRolesLogout = createAction('[QUANG AUTH] delete user roles')
-

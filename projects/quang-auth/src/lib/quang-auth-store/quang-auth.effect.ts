@@ -18,24 +18,7 @@ import { Store } from '@ngrx/store'
   providedIn: 'root'
 })
 export class QuangAuthEffect {
-  /**
-   * Effect that is triggered when the store is initialized,
-   * starts the login procedure,
-   * if the user authenticates he dispatches the login action
-   */
-  startAuthEffect$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(ROOT_EFFECTS_INIT),
-      exhaustMap(action =>
-        this.quangAuthService.login().pipe(
-          map(is => {
-            this.quangAuthService.startRefreshToken()
-            return userLogin()
-          })
-        )
-      )
-    )
-  )
+
   /**
    * Effect that is triggered when the effective login is dispatched, it recovers user data
    */
@@ -51,6 +34,7 @@ export class QuangAuthEffect {
       )
     )
   )
+
   /**
    * Effect that is triggered when the actual logout is dispatched,
    * deletes user data and starts the logout procedure
@@ -59,11 +43,11 @@ export class QuangAuthEffect {
     () => this.actions$.pipe(
       ofType(userLogout),
       map(action => {
-          this.store.dispatch(userRolesLogout())
-          this.store.dispatch(userInfoLogout())
-          this.quangAuthService.stopRefreshToken()
-          this.quangAuthService.logout()
-        }
+        this.store.dispatch(userRolesLogout())
+        this.store.dispatch(userInfoLogout())
+        this.quangAuthService.stopRefreshToken()
+        this.quangAuthService.logout()
+      }
       )
     ), { dispatch: false }
   )
@@ -77,8 +61,7 @@ export class QuangAuthEffect {
   constructor (
     private readonly actions$: Actions,
     private readonly quangAuthService: QuangAuthService,
-    private readonly store : Store<any>
+    private readonly store: Store<any>
   ) {
   }
-
 }

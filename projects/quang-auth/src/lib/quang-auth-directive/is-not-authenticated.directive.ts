@@ -1,23 +1,19 @@
-import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
+import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
 import { Subject } from 'rxjs'
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
 import { select, Store } from '@ngrx/store'
-import { selectHasRoles } from '../quang-auth-store/quang-auth.selector'
+import { selectIsAuthenticated } from '../quang-auth-store/quang-auth.selector'
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
 
 /**
  * directive decorator
  */
 @Directive({
-  selector: '[quangHasRoles]'
+  selector: '[quangIsNotAuthenticated]'
 })
 /**
- * has role directive
+ * is not authenticated directive
  */
-export class HasRolesDirective implements OnInit, OnDestroy {
-  /**
-   * List of necessary roles
-   */
-  @Input() quangHasRoles: string[]
+export class IsNotAuthenticatedDirective implements OnInit, OnDestroy {
   /**
    * subject of convenience to turn off the subscription to the observable
    * @private
@@ -26,27 +22,27 @@ export class HasRolesDirective implements OnInit, OnDestroy {
 
   /**
    * constructor
+   * @param authStore store access
    * @param view view access
    * @param template template access
-   * @param authStore store access
    */
   constructor (
+    private readonly authStore: Store<any>,
     private readonly view: ViewContainerRef,
-    private readonly template: TemplateRef<any>,
-    private readonly authStore: Store<any>
+    private readonly template: TemplateRef<any>
   ) {
   }
 
   /**
-   * Check if the user in the store has the required roles and define whether to render or not
+   * Check if the user in the store is logged and define whether to render or not
    */
   ngOnInit (): void {
     this.authStore.pipe(
-      select(selectHasRoles, { rolesId: this.quangHasRoles }),
+      select(selectIsAuthenticated),
       distinctUntilChanged(),
       takeUntil(this.destroy$)
-    ).subscribe(hasRole => {
-      if (hasRole) {
+    ).subscribe(is => {
+      if (!is) {
         this.view.createEmbeddedView(this.template)
       } else {
         this.view.clear()

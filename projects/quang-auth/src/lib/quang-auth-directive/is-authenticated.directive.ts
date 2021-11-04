@@ -17,7 +17,7 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
    * subject of convenience to turn off the subscription to the observable
    * @private
    */
-  private destroy$ = new Subject()
+  private readonly destroy$ = new Subject()
 
   /**
    * constructor
@@ -40,8 +40,8 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
       select(selectIsAuthenticated),
       distinctUntilChanged(),
       takeUntil(this.destroy$)
-    ).subscribe(user => {
-      if (user) {
+    ).subscribe(is => {
+      if (is) {
         this.view.createEmbeddedView(this.template)
       } else {
         this.view.clear()
@@ -54,6 +54,6 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
    */
   ngOnDestroy (): void {
     this.destroy$.next('')
+    this.destroy$.complete()
   }
 }
-

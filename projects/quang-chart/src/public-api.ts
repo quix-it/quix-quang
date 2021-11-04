@@ -23,5 +23,4 @@ export * from './lib/chart-gauge/chart-gauge.model'
 export * from './lib/chart-tree/chart-tree.component'
 export * from './lib/chart-tree/chart-tree.model'
 
-
 export * from './lib/quang-chart.module'

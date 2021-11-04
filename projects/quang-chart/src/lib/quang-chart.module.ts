@@ -11,7 +11,6 @@ import { ChartPieComponent } from './chart-pie/chart-pie.component'
 import { ChartRadarComponent } from './chart-radar/chart-radar.component'
 import { ChartTreemapComponent } from './chart-treemap/chart-treemap.component'
 import { TranslocoModule } from '@ngneat/transloco'
-import { ChartGauge } from './chart-gauge/chart-gauge.model'
 import { ChartGaugeComponent } from './chart-gauge/chart-gauge.component'
 import { ChartTreeComponent } from './chart-tree/chart-tree.component'
 

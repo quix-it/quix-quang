@@ -16,6 +16,7 @@ export class ChartRadar {
   public lineStyle?: {
     color: string
   }
+
   /**
    *
    */

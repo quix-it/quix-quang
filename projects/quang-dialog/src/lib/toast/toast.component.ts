@@ -28,7 +28,7 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
   /**
    * toast wrapper
    */
-  data: QuixToast | null =  null
+  data: QuixToast | null = null
   /**
    * observable for toast state
    * @private

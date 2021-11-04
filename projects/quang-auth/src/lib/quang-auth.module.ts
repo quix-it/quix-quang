@@ -7,25 +7,19 @@ import { StoreModule } from '@ngrx/store'
 import { QUANGAUTH_KEY } from './quang-auth-module.selector'
 import { quangAuthReducer } from './quang-auth-module.reducer'
 import { QuangAuthService } from './quang-auth.service'
-import { OAuthModule } from 'angular-oauth2-oidc'
 import { QuangAuthConfig } from './quang-auth.config'
-
-function _window (): any {
-  return window
-}
+import { IsNotAuthenticatedDirective } from './quang-auth-directive/is-not-authenticated.directive'
 
 @NgModule({
   declarations: [
     HasRolesDirective,
     HasUntilRolesDirective,
     IsAuthenticatedDirective,
+    IsNotAuthenticatedDirective
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature(QUANGAUTH_KEY, quangAuthReducer),
-    OAuthModule.forRoot({
-      resourceServer: _window().oidcApiConfig
-    })
+    StoreModule.forFeature(QUANGAUTH_KEY, quangAuthReducer)
   ],
   providers: [
     QuangAuthService
@@ -33,7 +27,8 @@ function _window (): any {
   exports: [
     HasRolesDirective,
     HasUntilRolesDirective,
-    IsAuthenticatedDirective
+    IsAuthenticatedDirective,
+    IsNotAuthenticatedDirective
   ]
 })
 export class QuangAuthModule {

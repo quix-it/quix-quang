@@ -224,19 +224,18 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
     this.renderer.setProperty(this.inputInteger?.nativeElement,
       'value',
       Math
-        .floor((this._value as number))
+        .floor((this._value))
         .toString())
     this.renderer.setProperty(this.inputFraction?.nativeElement,
       'value',
-      ((this._value as number) - Math
-        .floor((this._value as number)))
+      ((this._value) - Math
+        .floor((this._value)))
         .toFixed(3)
         .replace('0.', ''))
-
   }
 
   checkMaxMin (): void {
-    this.setDisabledState((this._value as number) > this.max && (this._value as number) >= this.min)
+    this.setDisabledState((this._value) > this.max && (this._value) >= this.min)
   }
 
   /**
@@ -244,8 +243,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * @param e
    */
   writeValueInteger (e: Event): void {
-    (this._value as number) -= Math.floor(this._value as number);
-    (this._value as number) += Math.floor(parseInt((e.target as HTMLInputElement).value))
+    (this._value) -= Math.floor(this._value);
+    (this._value) += Math.floor(parseInt((e.target as HTMLInputElement).value))
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -255,8 +254,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * @param e
    */
   writeValueFraction (e: Event): void {
-    (this._value as number) -= Math.floor(this._value as number % 1);
-    (this._value as number) += parseFloat(`0.${(e.target as HTMLInputElement).value}`)
+    (this._value) -= Math.floor(this._value % 1);
+    (this._value) += parseFloat(`0.${(e.target as HTMLInputElement).value}`)
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -266,8 +265,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * validates the status and starts the flow of the cva
    */
   addInteger (): void {
-    if ((this._value as number) < this.max && (this._value as number) >= this.min) {
-      (this._value as number) += this.stepInteger
+    if ((this._value) < this.max && (this._value) >= this.min) {
+      (this._value) += this.stepInteger
     }
     this.setInput()
     this.onTouched()
@@ -279,8 +278,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * validates the status and starts the flow of the cva
    */
   addFraction (): void {
-    if ((this._value as number) < this.max && (this._value as number) >= this.min) {
-      const tmp = (this._value as number) += this.stepFraction
+    if ((this._value) < this.max && (this._value) >= this.min) {
+      const tmp = (this._value) += this.stepFraction
       this._value = parseFloat((tmp.toFixed(3)))
     }
     this.setInput()
@@ -293,8 +292,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * validates the status and starts the flow of the cva
    */
   removeInteger (): void {
-    if ((this._value as number) <= this.max && (this._value as number) > this.min) {
-      (this._value as number) -= this.stepInteger
+    if ((this._value) <= this.max && (this._value) > this.min) {
+      (this._value) -= this.stepInteger
     }
     this.setInput()
     this.onTouched()
@@ -306,8 +305,8 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    * validates the status and starts the flow of the cva
    */
   removeFraction (): void {
-    if ((this._value as number) <= this.max && (this._value as number) > this.min) {
-      const tmp = (this._value as number) -= this.stepFraction
+    if ((this._value) <= this.max && (this._value) > this.min) {
+      const tmp = (this._value) -= this.stepFraction
       this._value = parseFloat((tmp.toFixed(3)))
     }
     this.setInput()
