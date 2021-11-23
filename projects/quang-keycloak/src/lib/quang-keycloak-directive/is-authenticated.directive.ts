@@ -40,8 +40,8 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
       select(selectIsAuthenticated),
       distinctUntilChanged(),
       takeUntil(this.destroy$)
-    ).subscribe(user => {
-      if (user) {
+    ).subscribe(is => {
+      if (is) {
         this.view.createEmbeddedView(this.template)
       } else {
         this.view.clear()

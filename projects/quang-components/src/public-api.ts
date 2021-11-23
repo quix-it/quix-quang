@@ -8,5 +8,6 @@ export * from './lib/quix-card-action-header/quix-card-action-header.component'
 export * from './lib/quix-card-header/quix-card-header.component'
 export * from './lib/quix-card-image/quix-card-image.component'
 export * from './lib/quix-card-simple/quix-card-simple.component'
+export * from './lib/quix-card-footer/quix-card-footer.component'
 
 export * from './lib/quang-components.module'

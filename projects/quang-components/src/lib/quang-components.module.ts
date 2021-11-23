@@ -7,6 +7,7 @@ import { QuixCardHeaderComponent } from './quix-card-header/quix-card-header.com
 import { QuixCardActionHeaderComponent } from './quix-card-action-header/quix-card-action-header.component'
 import { QuixCardImageComponent } from './quix-card-image/quix-card-image.component'
 import { TranslocoModule } from '@ngneat/transloco'
+import { QuixCardFooterComponent } from './quix-card-footer/quix-card-footer.component'
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TranslocoModule } from '@ngneat/transloco'
     QuixCardActionHeaderComponent,
     QuixCardSimpleComponent,
     QuixCardHeaderComponent,
-    QuixCardImageComponent
+    QuixCardImageComponent,
+    QuixCardFooterComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { TranslocoModule } from '@ngneat/transloco'
     QuixCardActionHeaderComponent,
     QuixCardSimpleComponent,
     QuixCardHeaderComponent,
-    QuixCardImageComponent
+    QuixCardImageComponent,
+    QuixCardFooterComponent
   ]
 })
 export class QuangComponentsModule {}

@@ -8,7 +8,7 @@
       {{'quixPaginator.size' | transloco}}
     </label>
     <select
-      [tabIndex]=""
+      [tabIndex]="tabIndex"
       name="pageSize"
       id="pageSize"
       class="form-control"
@@ -24,6 +24,7 @@
   </div>
   <mat-paginator
     id="page index"
+    [tabIndex]="tabIndex + 1"
     [pageSizeOptions]="sizeList"
     (page)="onChangePage($event)"
     [hidePageSize]="true"
