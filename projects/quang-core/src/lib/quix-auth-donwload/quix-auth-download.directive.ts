@@ -57,8 +57,8 @@ export class QuixAuthDownloadDirective {
     const anchor = document.createElement('a')
     document.body.appendChild(anchor)
     const headers = new HttpHeaders({
-      'Content-Type': this.contentType ?? 'application/octet-stream',
-      Accept: this.accept ?? 'application/json'
+      'Content-Type': this.contentType ? this.contentType : 'application/octet-stream',
+      Accept: this.accept ? this.accept : 'application/json'
     })
     this.http.get(this.url, { headers: headers, responseType: 'blob' as 'json', observe: 'response' }).pipe(
       switchMap((r: any) => {

@@ -43,8 +43,8 @@ export class QuixAuthImageDirective implements OnChanges {
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.src?.currentValue) {
       const headers = new HttpHeaders({
-        'Content-Type': this.contentType ?? 'application/json',
-        Accept: this.accept ?? 'application/json'
+        'Content-Type': this.contentType ? this.contentType : 'application/json',
+        Accept: this.accept ? this.accept : 'application/json'
       })
       this.http.get(this.src, { headers: headers, responseType: 'blob' as 'json' }).pipe(
         switchMap((resp: any) => of(new Blob([resp], { type: resp.type })))
