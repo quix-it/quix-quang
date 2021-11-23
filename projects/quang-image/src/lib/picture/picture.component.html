@@ -1,5 +1,5 @@
 <picture [id]="id"
-         [attr.aria-describedby]="ariaLabel">
+         [attr.aria-label]="ariaLabel | transloco">
   <source
     *ngFor="let i of responsiveList"
     [media]="i.minWidth"

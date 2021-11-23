@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang",
-    "version": "12.7.1",
+    "version": "12.7.2-beta.0",
   "peerDependencies": {
     "@angular/cdk": "^12.2.3",
     "@angular/material": "^12.2.3",

@@ -116,6 +116,10 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
+  /**
+   * Define disabled state
+   */
+  _disabled: boolean = false
   @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>> | null = null
   /**
    * Standard definition to create a control value accessor
@@ -213,6 +217,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
+    this._disabled = isDisabled
     this.input?.forEach((item) => {
       this.renderer.setProperty(item.nativeElement, 'disabled', isDisabled)
     })

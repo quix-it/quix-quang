@@ -24,11 +24,17 @@
            [minDate]="minDate"
            [maxDate]="maxDate"
            [datesDisabled]="disabledDates"
-           [attr.aria-label]="ariaLabel | transloco"
            [bsValue]="_value"
            (bsValueChange)="onChangedHandler($event)"
            (blur)="onTouched()"
            [placement]="placement"
+           [attr.aria-label]="ariaLabel | transloco"
+           [attr.aria-disabled]="_disabled"
+           [attr.aria-autocomplete]="autocomplete"
+           [attr.aria-placeholder]="placeholder | transloco"
+           [attr.aria-describedby]="id + '-help'"
+           [attr.aria-errormessage]="id + '-error'"
+           [attr.aria-invalid]="control.invalid"
            #drp="bsDaterangepicker"
            #input
     >
@@ -42,7 +48,8 @@
         <ng-content select="[calendarIcon]"></ng-content>
       </button>
     </div>
-    <div class="valid-feedback">
+    <div class="valid-feedback"
+       aria-live="assertive">
       {{_successMessage | transloco}}
     </div>
     <div class="invalid-feedback"
@@ -50,7 +57,8 @@
       {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
     </div>
   </div>
-  <small [id]="id + 'Help'"
+  <small [id]="id + '-help'"
+         aria-live="assertive"
          class="form-text text-muted"
          [hidden]="control?.dirty && (_value?.length && successMessage || !_value?.length && errorMessage)"
          *ngIf="helpMessage">

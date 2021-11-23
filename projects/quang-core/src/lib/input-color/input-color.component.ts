@@ -109,6 +109,10 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
    */
   _requiredValue: any = ''
   /**
+   * Define disabled state
+   */
+  _disabled: boolean = false
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
@@ -207,6 +211,7 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
+    this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

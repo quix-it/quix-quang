@@ -124,6 +124,10 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
    */
   _requiredValue: any = ''
   /**
+   * Define disabled state
+   */
+  _disabled: boolean = false
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
@@ -219,6 +223,7 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
+    this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

@@ -127,6 +127,10 @@ export class InputTelComponent implements OnInit, OnChanges, AfterViewInit {
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
+  /**
+   * Define disabled state
+   */
+  _disabled: boolean = false
 
   /**
    * The html input element
@@ -226,6 +230,7 @@ export class InputTelComponent implements OnInit, OnChanges, AfterViewInit {
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
+    this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

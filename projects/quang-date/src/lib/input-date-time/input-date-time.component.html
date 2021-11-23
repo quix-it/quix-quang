@@ -2,7 +2,7 @@
   <div class="dateTimeWrapper">
     <div class="form-group">
       <label [htmlFor]="id"
-             [attr.aria-label]="ariaLabel"
+             [attr.aria-label]="ariaLabel | transloco"
              *ngIf="label">
         {{label | transloco}}
         <span [hidden]="!control?.errors?.required">*</span>
@@ -25,7 +25,6 @@
                [maxDate]="maxDate"
                [daysDisabled]="disabledDaysOfTheWeek"
                [datesDisabled]="disabledDates"
-               [attr.aria-label]="ariaLabel + ' date'"
                [tabIndex]="tabIndex"
                [autocomplete]="autocomplete"
                [(ngModel)]="_valueDate"
@@ -33,6 +32,13 @@
                [placement]="placement"
                (bsValueChange)="onChangedDate($event)"
                (blur)="onTouched()"
+               [attr.aria-label]="ariaLabel | transloco"
+               [attr.aria-disabled]="_disabled"
+               [attr.aria-autocomplete]="autocomplete"
+               [attr.aria-placeholder]="placeholder | transloco"
+               [attr.aria-describedby]="id + '-help'"
+               [attr.aria-errormessage]="id + '-error'"
+               [attr.aria-invalid]="control.invalid"
                #drp="bsDatepicker"
                #input
         >
@@ -45,11 +51,14 @@
             <ng-content select="[calendarIcon]"></ng-content>
           </button>
         </div>
-        <div class="valid-feedback">
+        <div class="valid-feedback"
+       aria-live="assertive">
           {{_successMessage | transloco}}
         </div>
 
-        <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+        <div class="invalid-feedback"
+       aria-live="polite"
+       [id]="id + '-error'">
           {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
         </div>
       </div>
@@ -84,7 +93,8 @@
       ></timepicker>
     </div>
   </div>
-  <small [id]="id + 'Help'"
+  <small [id]="id + '-help'"
+         aria-live="assertive"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">

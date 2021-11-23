@@ -120,6 +120,10 @@ export class InputUrlComponent implements OnInit, OnChanges, AfterViewInit {
    */
   _requiredValue: any = ''
   /**
+   * Define disabled state
+   */
+  _disabled: boolean = false
+  /**
    * Standard definition to create a control value accessor
    */
   onTouched: any = () => {
@@ -218,6 +222,7 @@ export class InputUrlComponent implements OnInit, OnChanges, AfterViewInit {
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
+    this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

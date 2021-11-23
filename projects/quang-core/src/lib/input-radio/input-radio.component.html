@@ -1,6 +1,6 @@
 <div class="form-group">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel"
+         [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
@@ -24,9 +24,14 @@
            (input)="onChangedHandler($event)"
            (blur)="onTouched()"
            [autocomplete]="autocomplete"
+           [attr.aria-disabled]="_disabled"
+           [attr.aria-autocomplete]="autocomplete"
+           [attr.aria-describedby]="id + '-help'"
+           [attr.aria-errormessage]="id + '-error'"
+           [attr.aria-invalid]="control.invalid"
            #input>
     <label class="custom-control-label"
-           [attr.aria-label]="ariaLabel"
+           [attr.aria-label]="ariaLabel | transloco"
            [htmlFor]="id + radio[labelValue]">
       {{radio[labelValue] |transloco}}
     </label>
@@ -42,7 +47,8 @@
        [ngStyle]="{display: control?.invalid && control?.dirty && errorMessage ? 'block': 'none'}">
     {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
-  <small [id]="id + 'Help'"
+  <small [id]="id + '-help'"
+         aria-live="assertive"
          [attr.aria-describedby]="id"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control.valid && successMessage || control.invalid && errorMessage)"

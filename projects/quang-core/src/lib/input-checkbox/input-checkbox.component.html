@@ -6,7 +6,7 @@
          [name]="id"
          [id]="id"
          [attr.aria-checked]="_value"
-         [attr.aria-label]="ariaLabel"
+         [attr.aria-label]="ariaLabel | transloco"
          [attr.aria-labelledby]="label | transloco"
          [attr.aria-autocomplete]="autocomplete"
          [tabIndex]="tabIndex"
@@ -15,11 +15,14 @@
          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
          (input)="onChangedHandler($event)"
          (blur)="onTouched()"
-         [autocomplete]="autocomplete"
+         [attr.aria-disabled]="_disabled"
+         [attr.aria-describedby]="id + '-help'"
+         [attr.aria-errormessage]="id + '-error'"
+         [attr.aria-invalid]="control.invalid"
          #input>
   <label class="custom-control-label"
          [htmlFor]="id"
-         [attr.aria-label]="ariaLabel"
+         [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
@@ -33,7 +36,8 @@
        [attr.aria-errormessage]="_errorMessage">
     {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
-  <small [id]="id + 'Help'"
+  <small [id]="id + '-help'"
+         aria-live="assertive"
          [attr.aria-describedby]="id"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"

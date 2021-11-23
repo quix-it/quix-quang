@@ -62,11 +62,11 @@ export class QuixAuthDownloadDirective {
     })
     this.http.get(this.url, { headers: headers, responseType: 'blob' as 'json', observe: 'response' }).pipe(
       switchMap((r: any) => {
-          return of([
-            new Blob([r.body], { type: r.body?.type }),
-            this.getFilename(r.headers.get('content-disposition'))
-          ])
-        }
+        return of([
+          new Blob([r.body], { type: r.body?.type }),
+          this.getFilename(r.headers.get('content-disposition'))
+        ])
+      }
       )
     ).subscribe(([blob, fileName]) => {
       const objectUrl = window.URL.createObjectURL(blob)

@@ -1,6 +1,6 @@
 <div class="form-group">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel"
+         [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
@@ -23,21 +23,26 @@
          [class.form-control-lg]="size === 'lg'"
          [class.form-control-sm]="size === 'sm'"
          [tabIndex]="tabIndex"
-         [attr.aria-label]="ariaLabel"
+         [attr.aria-label]="ariaLabel | transloco"
          [attr.aria-disabled]="_disabled"
          [attr.aria-autocomplete]="autocomplete"
          [attr.aria-placeholder]="placeholder | transloco"
          [attr.aria-readonly]="readonly"
-         [attr.aria-describedby]="id + 'Help'"
+         [attr.aria-describedby]="id + '-help'"
+         [attr.aria-errormessage]="id + '-error'"
+         [attr.aria-invalid]="control.invalid"
   >
-  <div class="valid-feedback">
+  <div class="valid-feedback"
+       aria-live="assertive">
     {{_successMessage | transloco }}
   </div>
   <div class="invalid-feedback"
-       [attr.aria-errormessage]="_errorMessage">
+       aria-live="polite"
+       [id]="id + '-error'">
     {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
-  <small [id]="id + 'Help'"
+  <small [id]="id + '-help'"
+         aria-live="assertive"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          [attr.aria-hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
