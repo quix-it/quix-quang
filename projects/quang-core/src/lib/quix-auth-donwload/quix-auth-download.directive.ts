@@ -1,7 +1,8 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core'
+import { Directive, HostListener, Input } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { switchMap } from 'rxjs/operators'
 import { of } from 'rxjs'
+
 /**
  * directive decorator
  */
@@ -15,21 +16,25 @@ export class QuixAuthDownloadDirective {
   /**
    * The url to find the file to download
    */
-  @Input() url: string
+  @Input() url: string = ''
   /**
    * The name of the file I will download
    */
-  @Input() fileName: string
+  @Input() fileName: string = ''
   /**
    * The content type of the file I will download
    */
-  @Input() contentType: string
+  @Input() contentType: string = ''
+  /**
+   * The accept type of the file I will download
+   */
+  @Input() accept: string = ''
 
   /**
    * click listener
    * @param e event
    */
-  @HostListener('click', ['$event']) onClick (e) {
+  @HostListener('click', ['$event']) onClick (e: Event): void {
     e.preventDefault()
     this.downloadFile()
   }
@@ -39,7 +44,7 @@ export class QuixAuthDownloadDirective {
    * @param http
    */
   constructor (
-    private readonly http: HttpClient,
+    private readonly http: HttpClient
   ) {
   }
 
@@ -48,22 +53,35 @@ export class QuixAuthDownloadDirective {
    * create a temporary tag a download the blob with an ajax call,
    * start the download and remove the temporary tag
    */
-  downloadFile () {
-    let anchor = document.createElement('a')
+  downloadFile (): void {
+    const anchor = document.createElement('a')
     document.body.appendChild(anchor)
     const headers = new HttpHeaders({
-      'Content-Type': this.contentType,
-      'Accept': this.contentType
+      'Content-Type': this.contentType ?? 'application/octet-stream',
+      Accept: this.accept ? this.accept : 'application/json'
     })
-    this.http.get(this.url, { headers: headers, responseType: 'blob' as 'json' }).pipe(
-      switchMap((resp: any) => of(new Blob([resp], { type: resp.type }))),
-    ).subscribe(blob => {
-      let objectUrl = window.URL.createObjectURL(blob)
+    this.http.get(this.url, { headers: headers, responseType: 'blob' as 'json', observe: 'response' }).pipe(
+      switchMap((r: any) => {
+          return of([
+            new Blob([r.body], { type: r.body?.type }),
+            this.getFilename(r.headers.get('content-disposition'))
+          ])
+        }
+      )
+    ).subscribe(([blob, fileName]) => {
+      const objectUrl = window.URL.createObjectURL(blob)
       anchor.href = objectUrl
-      anchor.download = this.fileName
+      anchor.download = this.fileName ? this.fileName : fileName as string
       anchor.click()
       window.URL.revokeObjectURL(objectUrl)
       document.body.removeChild(anchor)
     })
+  }
+
+  getFilename (cd: string): string {
+    return cd
+      .slice(cd.indexOf('filename='))
+      .replace('filename=', '')
+      .trim()
   }
 }
