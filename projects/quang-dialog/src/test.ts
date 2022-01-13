@@ -24,7 +24,9 @@ declare const require: {
 
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
+  platformBrowserDynamicTesting(), {
+    teardown: { destroyAfterEach: false }
+}
 )
 /**
  * Then we find all the tests.
