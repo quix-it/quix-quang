@@ -1,8 +1,9 @@
 import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
 import { Subject } from 'rxjs'
-import { select, Store } from '@ngrx/store'
+import { Store } from '@ngrx/store'
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
-import { selectIsAuthenticated } from '../quang-keycloak-store/quang-keycloak.selector'
+import { QuangKeycloakSelectors } from '../quang-keycloak-store/selectors'
+
 /**
  * directive decorator
  */
@@ -36,17 +37,19 @@ export class IsNotAuthenticatedDirective implements OnInit, OnDestroy {
    * Check if the user in the store is logged and define whether to render or not
    */
   ngOnInit (): void {
-    this.authStore.pipe(
-      select(selectIsAuthenticated),
-      distinctUntilChanged(),
-      takeUntil(this.destroy$)
-    ).subscribe(is => {
-      if (!is) {
-        this.view.createEmbeddedView(this.template)
-      } else {
-        this.view.clear()
-      }
-    })
+    this.authStore
+      .select(QuangKeycloakSelectors.selectIsAuthenticated)
+      .pipe(
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(is => {
+        if (!is) {
+          this.view.createEmbeddedView(this.template)
+        } else {
+          this.view.clear()
+        }
+      })
   }
 
   /**

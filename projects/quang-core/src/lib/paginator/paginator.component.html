@@ -1,11 +1,11 @@
 <div class="paginatorContainer"
      [id]="id"
      [ngClass]="customClass">
-  <div class="form-group">
-    <label
-      for="pageSize"
+  <div class="mb-3">
+    <label for="pageSize"
+           class="form-label"
       [attr.aria-label]="ariaLabel | transloco">
-      {{'quixPaginator.size' | transloco}}
+      {{'quangPaginator.size' | transloco}}
     </label>
     <select
       [tabIndex]="tabIndex"
@@ -30,6 +30,6 @@
     [hidePageSize]="true"
     [showFirstLastButtons]="true"
     [attr.aria-label]="'page index'"
-    #quixPaginator
+    #quangPaginator
   ></mat-paginator>
 </div>

@@ -2,14 +2,10 @@ import { Injectable, Optional } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { from, Observable } from 'rxjs'
 import { KeycloakService } from 'keycloak-angular'
-import {
-  userInfoLogin,
-  userInfoLogout,
-  userLogin,
-  userLogout,
-  userRolesLogin, userRolesLogout
-} from './quang-keycloak-store/quang-keycloak.action'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
+import { QuangKeycloakActions } from './quang-keycloak-store/actions'
+import { map } from 'rxjs/operators'
+import { QuangKeycloakSelectors } from './quang-keycloak-store/selectors'
 /**
  * service decorator
  */
@@ -70,7 +66,7 @@ export class QuangKeycloakService {
   startAuthAndDispatch (): void {
     from(this.keyCloak.init(this.authConfig)).subscribe(isAuthenticated => {
       if (isAuthenticated) {
-        this.store.dispatch(userLogin())
+        this.store.dispatch(QuangKeycloakActions.userLogin())
       }
     })
   }
@@ -87,7 +83,7 @@ export class QuangKeycloakService {
    */
   getUserInfoAndDispatch (): void {
     from(this.keyCloak.loadUserProfile()).subscribe((user: any) => {
-      this.store.dispatch(userInfoLogin({ user: user }))
+      this.store.dispatch(QuangKeycloakActions.userInfoLogin({ user: user }))
     })
   }
 
@@ -103,7 +99,7 @@ export class QuangKeycloakService {
    */
   getUserRolesAndDispatch (): void {
     from(this.keyCloak.getUserRoles(true)).subscribe((roles: any) => {
-      this.store.dispatch(userRolesLogin({ roles: roles }))
+      this.store.dispatch(QuangKeycloakActions.userRolesLogin({ roles: roles }))
     })
   }
 
@@ -133,12 +129,44 @@ export class QuangKeycloakService {
   logoutAndDispatch (redirectUri?: string): void {
     if (redirectUri) {
       from(this.keyCloak.logout(redirectUri)).subscribe(() => {
-        this.store.dispatch(userLogout({ redirectUri: redirectUri }))
-        this.store.dispatch(userInfoLogout())
-        this.store.dispatch(userRolesLogout())
+        this.store.dispatch(QuangKeycloakActions.userLogout({ redirectUri: redirectUri }))
+        this.store.dispatch(QuangKeycloakActions.userInfoLogout())
+        this.store.dispatch(QuangKeycloakActions.userRolesLogout())
       })
     } else {
       alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')
     }
+  }
+
+  /**
+   * Check if the user has at least one of the required roles
+   * @param roles
+   */
+  hasUntilRoles (roles: string[]): Observable<boolean> {
+    return this.store
+      .select(QuangKeycloakSelectors.selectUserRoles)
+      .pipe(
+        map(roles =>
+          roles
+            .map(r => roles.includes(r))
+            .reduce((find, resp) => find || resp, false)
+        )
+      )
+  }
+
+  /**
+   * Check if the user has all the required roles
+   * @param roles
+   */
+  hasRoles (roles: string[]): Observable<boolean> {
+    return this.store
+      .select(QuangKeycloakSelectors.selectUserRoles)
+      .pipe(
+        map(roles =>
+          roles
+            .map(r => roles.includes(r))
+            .reduce((find, resp) => find && resp, true)
+        )
+      )
   }
 }

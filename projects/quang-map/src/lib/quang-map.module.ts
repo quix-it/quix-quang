@@ -3,7 +3,7 @@ import { GoogleMapComponent } from './google-map/google-map.component'
 import { CommonModule } from '@angular/common'
 import { QuangMapConfig } from './quang-map.config'
 import { OpenStreetMapComponent } from './osmap/osmap.component'
-import { QuixGoogleMapService } from './google-map/google-map.service'
+import { QuangGoogleMapService } from './google-map/google-map.service'
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { QuixGoogleMapService } from './google-map/google-map.service'
   imports: [
     CommonModule
   ],
-  providers: [QuixGoogleMapService],
+  providers: [QuangGoogleMapService],
   exports: [
     GoogleMapComponent,
     OpenStreetMapComponent

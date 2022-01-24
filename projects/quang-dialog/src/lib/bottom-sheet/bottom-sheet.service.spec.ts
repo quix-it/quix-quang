@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing'
-import { QuixBottomSheetService } from './bottom-sheet.service'
+import { QuangBottomSheetService } from './bottom-sheet.service'
 
 describe('BottomSheetService', () => {
-  let service: QuixBottomSheetService
+  let service: QuangBottomSheetService
 
   beforeEach(() => {
     TestBed.configureTestingModule({})
-    service = TestBed.inject(QuixBottomSheetService)
+    service = TestBed.inject(QuangBottomSheetService)
   })
 
   it('should be created', () => {

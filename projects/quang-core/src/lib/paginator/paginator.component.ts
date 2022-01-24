@@ -65,7 +65,7 @@ export class PaginatorComponent implements OnChanges {
   /**
    * mat paginator html element
    */
-  @ViewChild('quixPaginator', { static: true }) paginator: MatPaginator|undefined
+  @ViewChild('quangPaginator', { static: true }) paginator: MatPaginator|undefined
   /**
    * The html input element
    */

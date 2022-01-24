@@ -1,8 +1,8 @@
-<div class="custom-control custom-checkbox"
+<div class="form-check"
      role="checkbox"
-     [class.custom-control-inline]="inline">
+     [class.form-check-inline]="inline">
   <input type="checkbox"
-         class="custom-control-input"
+         class="form-check-input"
          [name]="id"
          [id]="id"
          [attr.aria-checked]="_value"
@@ -20,7 +20,7 @@
          [attr.aria-errormessage]="id + '-error'"
          [attr.aria-invalid]="control.invalid"
          #input>
-  <label class="custom-control-label"
+  <label class="form-check-label"
          [htmlFor]="id"
          [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
@@ -28,12 +28,12 @@
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <div class="valid-feedback"
-       [attr.aria-describedby]="id">
+       aria-live="assertive">
     {{_successMessage | transloco}}
   </div>
   <div class="invalid-feedback"
-       [attr.aria-describedby]="id"
-       [attr.aria-errormessage]="_errorMessage">
+       aria-live="polite"
+       [id]="id + '-error'">
     {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small [id]="id + '-help'"

@@ -26,7 +26,7 @@ import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx
 /**
  * input file component
  */
-export class InputFileComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+export class InputFileComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   /**
    * Html id of input
    */

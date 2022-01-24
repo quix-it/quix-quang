@@ -15,7 +15,7 @@ import { NgControl } from '@angular/forms'
 import { Observable, Observer, of } from 'rxjs'
 import { debounceTime, delay, filter, map, switchMap } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
-import { QuixAutocompleteAsyncService } from '../autocomplete-service/quix-autocomplete-async.service'
+import { QuangAutocompleteAsyncService } from '../autocomplete-service/quang-autocomplete-async.service'
 
 /**
  * autocomplete object async component decorator
@@ -173,7 +173,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    */
   constructor (
     private readonly renderer: Renderer2,
-    private readonly autocompleteService: QuixAutocompleteAsyncService,
+    private readonly autocompleteService: QuangAutocompleteAsyncService,
     @Self() @Optional() public control: NgControl
   ) {
     this.control.valueAccessor = this
@@ -195,13 +195,17 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
         prev = query
         if (query) {
           if (this.restApi) {
-            return this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, query).pipe(
+            return this.autocompleteService
+              .getRestList(this.baseUrl, this.apiUrl, query)
+              .pipe(
+                map((data: any) => data || [])
+              )
+          }
+          return this.autocompleteService
+            .getList(this.baseUrl, this.apiUrl, query, this.apiParamName)
+            .pipe(
               map((data: any) => data || [])
             )
-          }
-          return this.autocompleteService.getList(this.baseUrl, this.apiUrl, query, this.apiParamName).pipe(
-            map((data: any) => data || [])
-          )
         }
         return of([])
       }),

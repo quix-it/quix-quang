@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { QuangDialogState } from '../quang-dialog.reducers'
-import { QuixNotification } from './notification.model'
-import { sendNotification } from './notification-store/notification.action'
+import { QuangNotification } from './notification.model'
 import { from, Observable, of } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
+import { NotificationActions } from './notification-store/actions'
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuixNotificationService {
+export class QuangNotificationService {
   constructor (
     private readonly store: Store<QuangDialogState>
   ) { }
@@ -23,8 +23,8 @@ export class QuixNotificationService {
     return of(false)
   }
 
-  sendNotification (n: QuixNotification): void {
-    this.store.dispatch(sendNotification({ notificationData: n }))
+  sendNotification (n: QuangNotification): void {
+    this.store.dispatch(NotificationActions.sendNotification({ notificationData: n }))
   }
 
   private checkNotification (): boolean {

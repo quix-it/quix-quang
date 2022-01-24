@@ -1,8 +1,9 @@
 import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
 import { Subject } from 'rxjs'
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
-import { select, Store } from '@ngrx/store'
-import { selectHasRoles } from '../quang-keycloak-store/quang-keycloak.selector'
+import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators'
+import { Store } from '@ngrx/store'
+import { QuangKeycloakSelectors } from '../quang-keycloak-store/selectors'
+
 /**
  * directive decorator
  */
@@ -41,17 +42,24 @@ export class HasRolesDirective implements OnInit, OnDestroy {
    * if he has them he displays the element otherwise he does not render them
    */
   ngOnInit (): void {
-    this.authStore.pipe(
-      select(selectHasRoles, { rolesId: this.quangHasRoles }),
-      distinctUntilChanged(),
-      takeUntil(this.destroy$)
-    ).subscribe(hasRole => {
-      if (hasRole) {
-        this.view.createEmbeddedView(this.template)
-      } else {
-        this.view.clear()
-      }
-    })
+    this.authStore
+      .select(QuangKeycloakSelectors.selectUserRoles)
+      .pipe(
+        map(roles =>
+          this.quangHasRoles
+            .map(r => roles.includes(r))
+            .reduce((find, resp) => find && resp, true)
+        ),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(hasRole => {
+        if (hasRole) {
+          this.view.createEmbeddedView(this.template)
+        } else {
+          this.view.clear()
+        }
+      })
   }
 
   /**

@@ -9,9 +9,9 @@ export * from './lib/quang-keycloak-directive/is-not-authenticated.directive'
 
 export * from './lib/quang-keycloak-guard/quang-keycloak.guard'
 
-export * from './lib/quang-keycloak-store/quang-keycloak.action'
-export * from './lib/quang-keycloak-store/quang-keycloak.selector'
-export * from './lib/quang-keycloak-store/quang-keycloak.effect'
+export * from './lib/quang-keycloak-store/actions/quang-keycloak.actions'
+export * from './lib/quang-keycloak-store/selectors/quang-keycloak.selectors'
+export * from './lib/quang-keycloak-store/effects/quang-keycloak.effects'
 
 export * from './lib/quang-keycloak-module.reducer'
 export * from './lib/quang-keycloak-module.selector'

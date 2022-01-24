@@ -9,7 +9,7 @@ import { QuangMapConfig } from '../quang-map.config'
 /**
  * utility for google map management
  */
-export class QuixGoogleMapService {
+export class QuangGoogleMapService {
   /**
    * google map key
    */
@@ -27,8 +27,8 @@ export class QuixGoogleMapService {
   ) {
     if (config?.googleKey) {
       this.key = config.googleKey
-    } else if (this._window().quixConfig?.googleKey) {
-      this.key = this._window().quixConfig.googleKey
+    } else if (this._window().quangConfig?.googleKey) {
+      this.key = this._window().quangConfig.googleKey
     } else {
       alert('[QUANG MAP CONFIG] You need a googleKey for the map')
     }

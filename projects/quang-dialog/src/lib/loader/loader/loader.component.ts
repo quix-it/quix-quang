@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core'
 import { Observable, Subscription } from 'rxjs'
-import { select, Store } from '@ngrx/store'
-import { selectLoader } from '../loader-store/loader.selector'
+import { Store } from '@ngrx/store'
 import { QuangDialogConfig } from '../../quang-dialog.config'
+import { QuangDialogStateModule } from '../../quang-dialog.reducers'
+import { LoaderSelectors } from '../loader-store/selectors'
 /**
  * loader component decorator
  */
@@ -26,7 +27,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
   /**
    * observable for loader state
    */
-  loader$: Observable<any> = this.store.pipe(select(selectLoader))
+  loader$: Observable<any> = this.store.select(LoaderSelectors.selectLoader)
   /**
    * counter for active call
    */
@@ -42,7 +43,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
    * @param config module config
    */
   constructor (
-    private readonly store: Store<any>,
+    private readonly store: Store<QuangDialogStateModule>,
     @Optional() config?: QuangDialogConfig
   ) {
     this.configModule = config

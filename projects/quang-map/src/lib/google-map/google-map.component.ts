@@ -8,7 +8,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core'
-import { QuixGoogleMapService } from './google-map.service'
+import { QuangGoogleMapService } from './google-map.service'
 import { GoogleMarker } from './google-marker.model'
 import { of, timer } from 'rxjs'
 import { delay, delayWhen, map, retryWhen } from 'rxjs/operators'
@@ -96,7 +96,7 @@ export class GoogleMapComponent implements OnChanges {
    * @param googleMapService
    */
   constructor (
-    private readonly googleMapService: QuixGoogleMapService) {
+    private readonly googleMapService: QuangGoogleMapService) {
     this.renderMap()
   }
 
@@ -108,20 +108,22 @@ export class GoogleMapComponent implements OnChanges {
    */
   ngOnChanges (changes: SimpleChanges): void {
     if (changes.markers?.currentValue) {
-      of('').pipe(
-        map(() => {
-          if (!this._window().google) {
-            throw new Error()
-          }
-          return ''
-        }),
-        retryWhen(errors => errors.pipe(
-          delayWhen(val => timer(100))
-        ))
-      ).subscribe(() => {
-        this.removeMarkers()
-        this.createMarkers()
-      })
+      of('')
+        .pipe(
+          map(() => {
+            if (!this._window().google) {
+              throw new Error()
+            }
+            return ''
+          }),
+          retryWhen(errors => errors.pipe(
+            delayWhen(val => timer(100))
+          ))
+        )
+        .subscribe(() => {
+          this.removeMarkers()
+          this.createMarkers()
+        })
     }
     if (changes.mapType?.currentValue) {
       if (this._window().google) {
@@ -147,9 +149,11 @@ export class GoogleMapComponent implements OnChanges {
       try {
         this.loadMap()
       } catch (e) {
-        of('').pipe(
-          delay(100)
-        ).subscribe(() => this.renderMap())
+        of('')
+          .pipe(
+            delay(100)
+          )
+          .subscribe(() => this.renderMap())
       }
     }
   }

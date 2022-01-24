@@ -5,8 +5,8 @@ import { InputNumberComponent } from './input-number/input-number.component'
 import { InputTextComponent } from './input-text/input-text.component'
 import { InputEmailComponent } from './input-email/input-email.component'
 import { InputSearchComponent } from './input-search/input-search.component'
-import { QuixAuthDownloadDirective } from './quix-auth-donwload/quix-auth-download.directive'
-import { QuixAuthImageDirective } from './quix-auth-image/quix-auth-image.directive'
+import { QuangAuthDownloadDirective } from './quang-auth-donwload/quang-auth-download.directive'
+import { QuangAuthImageDirective } from './quang-auth-image/quang-auth-image.directive'
 import { SelectObjComponent } from './select-obj/select-obj.component'
 import { SelectStrgComponent } from './select-strg/select-strg.component'
 import { TextAreaComponent } from './text-area/text-area.component'
@@ -27,12 +27,12 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead'
 import { AutocompleteStrgAsyncComponent } from './autocomplete-strg-async/autocomplete-strg-async.component'
 import { AutocompleteObjComponent } from './autocomplete-obj/autocomplete-obj.component'
 import { AutocompleteObjAsyncComponent } from './autocomplete-obj-async/autocomplete-obj-async.component'
-import { QuixAutocompleteAsyncService } from './autocomplete-service/quix-autocomplete-async.service'
+import { QuangAutocompleteAsyncService } from './autocomplete-service/quang-autocomplete-async.service'
 import { MatSliderModule } from '@angular/material/slider'
 import { SliderComponent } from './slider/slider.component'
 import { PaginatorComponent } from './paginator/paginator.component'
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator'
-import { QuixPaginatorService } from './paginator/paginator.service'
+import { QuangPaginatorService } from './paginator/paginator.service'
 import { InputFractionComponent } from './input-fraction/input-fraction.component'
 import { PaginatorLanguage } from './paginator/paginator.language'
 import { InputFileComponent } from './input-file/input-file.component'
@@ -48,8 +48,8 @@ import { DatalistComponent } from './datalist/datalist.component'
     InputNumberComponent,
     InputEmailComponent,
     InputSearchComponent,
-    QuixAuthDownloadDirective,
-    QuixAuthImageDirective,
+    QuangAuthDownloadDirective,
+    QuangAuthImageDirective,
     SelectObjComponent,
     SelectStrgComponent,
     TextAreaComponent,
@@ -87,8 +87,8 @@ import { DatalistComponent } from './datalist/datalist.component'
     MatTooltipModule
   ],
   providers: [
-    QuixAutocompleteAsyncService,
-    QuixPaginatorService,
+    QuangAutocompleteAsyncService,
+    QuangPaginatorService,
     PaginatorLanguage,
     { provide: MatPaginatorIntl, useClass: PaginatorLanguage }
   ],
@@ -97,8 +97,8 @@ import { DatalistComponent } from './datalist/datalist.component'
     InputNumberComponent,
     InputEmailComponent,
     InputSearchComponent,
-    QuixAuthDownloadDirective,
-    QuixAuthImageDirective,
+    QuangAuthDownloadDirective,
+    QuangAuthImageDirective,
     SelectObjComponent,
     SelectStrgComponent,
     TextAreaComponent,

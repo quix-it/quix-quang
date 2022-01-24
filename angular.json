@@ -299,38 +299,38 @@
         }
       }
     },
-    "quang-image": {
+    "quang-media": {
       "projectType": "library",
-      "root": "projects/quang-image",
-      "sourceRoot": "projects/quang-image/src",
+      "root": "projects/quang-media",
+      "sourceRoot": "projects/quang-media/src",
       "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/quang-image/tsconfig.lib.json",
-            "project": "projects/quang-image/ng-package.json"
+            "tsConfig": "projects/quang-media/tsconfig.lib.json",
+            "project": "projects/quang-media/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/quang-image/tsconfig.lib.prod.json"
+              "tsConfig": "projects/quang-media/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/quang-image/src/test.ts",
-            "tsConfig": "projects/quang-image/tsconfig.spec.json",
-            "karmaConfig": "projects/quang-image/karma.conf.js"
+            "main": "projects/quang-media/src/test.ts",
+            "tsConfig": "projects/quang-media/tsconfig.spec.json",
+            "karmaConfig": "projects/quang-media/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/quang-image/**/*.ts",
-              "projects/quang-image/**/*.html"
+              "projects/quang-media/**/*.ts",
+              "projects/quang-media/**/*.html"
             ]
           }
         }

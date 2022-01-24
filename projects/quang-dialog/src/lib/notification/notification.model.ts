@@ -1,7 +1,7 @@
 /**
  *
  */
-export class QuixNotification {
+export class QuangNotification {
   /**
    *
    * @param title

@@ -6,12 +6,13 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core'
-import { QuixToast } from './toast.model'
+import { QuangToast } from './toast.model'
 import { Observable, of, Subscription } from 'rxjs'
-import { ToastsState } from './toast-store/toast.reducer'
-import { select, Store } from '@ngrx/store'
-import { selectToast } from './toast-store/toast.selector'
+import { ToastsState } from './toast-store/reducers/toast.reducers'
+import { Store } from '@ngrx/store'
 import { delay, take } from 'rxjs/operators'
+import { ToastSelectors } from './toast-store/selectors'
+import { QuangDialogStateModule } from '../quang-dialog.reducers'
 
 /**
  * toast component decorator
@@ -24,16 +25,16 @@ import { delay, take } from 'rxjs/operators'
 /**
  * toast component
  */
-export class QuixToastComponent implements AfterViewInit, OnDestroy {
+export class QuangToastComponent implements AfterViewInit, OnDestroy {
   /**
    * toast wrapper
    */
-  data: QuixToast | null = null
+  data: QuangToast | null = null
   /**
    * observable for toast state
    * @private
    */
-  private readonly toastState$: Observable<any> = this.store.pipe(select(selectToast))
+  private readonly toastState$: Observable<any> = this.store.select(ToastSelectors.selectToast)
   /**
    * subscription to a toast state
    * @private
@@ -51,7 +52,7 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
    */
   constructor (
     private readonly renderer: Renderer2,
-    private readonly store: Store<any>
+    private readonly store: Store<QuangDialogStateModule>
   ) {
   }
 

@@ -1,6 +1,7 @@
 import { QUANGAUTH_KEY } from './quang-auth-module.selector'
 import { ActionReducerMap } from '@ngrx/store'
-import { quangAuthUserReducer, QuangAuthUserState } from './quang-auth-store/quang-auth.reducer'
+import { QuangAuthUserState } from './quang-auth-store/reducers/quang-auth.reducers'
+import { QuangAuthReducers } from './quang-auth-store/reducers'
 
 /**
  * interface that defines the state of the module
@@ -26,5 +27,5 @@ export interface QuangAuthModuleState {
  * definition of the reducer map
  */
 export const quangAuthReducer: ActionReducerMap<QuangAuthState> = {
-  quangAuthUserState: quangAuthUserReducer
+  quangAuthUserState: QuangAuthReducers.quangAuthUserReducer
 }

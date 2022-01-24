@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing'
-import { QuixToastService } from './toast.service'
+import { QuangToastService } from './toast.service'
 
 describe('ToastService', () => {
-  let service: QuixToastService
+  let service: QuangToastService
 
   beforeEach(() => {
     TestBed.configureTestingModule({})
-    service = TestBed.inject(QuixToastService)
+    service = TestBed.inject(QuangToastService)
   })
 
   it('should be created', () => {

@@ -71,7 +71,7 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   /**
    * The list of options
    */
-  @Input() list: Array<string | number> = []
+  @Input() list: Array<string> = []
   /**
    * Array of additional classes to the input field
    */

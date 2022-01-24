@@ -61,7 +61,7 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
   /**
    * the list of selectable options
    */
-  @Input() list: Array<string | number> = []
+  @Input() list: Array<string> = []
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated

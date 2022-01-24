@@ -1,18 +1,19 @@
-<div class="form-group">
+<div class="mb-3">
   <label [htmlFor]="id"
+         class="form-label"
          [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <div class="custom-control custom-radio"
-       [class.custom-control-inline]="inline"
+  <div class="form-check"
+       [class.form-check-inline]="inline"
        *ngFor="let radio of radioList; let index = index;">
     <input type="radio"
            role="radio"
            [attr.aria-labelledby]="label | transloco"
            [attr.aria-checked]="_value === radio[returnValue]"
-           class="custom-control-input"
+           class="form-check-input"
            [name]="groupName"
            [id]="id + radio[labelValue]"
            [tabIndex]="tabIndex + index"
@@ -30,20 +31,20 @@
            [attr.aria-errormessage]="id + '-error'"
            [attr.aria-invalid]="control.invalid"
            #input>
-    <label class="custom-control-label"
+    <label class="form-check-label"
            [attr.aria-label]="ariaLabel | transloco"
            [htmlFor]="id + radio[labelValue]">
       {{radio[labelValue] |transloco}}
     </label>
   </div>
   <div class="valid-feedback"
-       [attr.aria-describedby]="id"
+       aria-live="assertive"
        [ngStyle]="{display: control?.valid && control?.dirty && successMessage ? 'block' : 'none'}">
     {{_successMessage | transloco}}
   </div>
   <div class="invalid-feedback"
-       [attr.aria-describedby]="id"
-       [attr.aria-errormessage]="_errorMessage | transloco"
+       aria-live="polite"
+       [id]="id + '-error'"
        [ngStyle]="{display: control?.invalid && control?.dirty && errorMessage ? 'block': 'none'}">
     {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>

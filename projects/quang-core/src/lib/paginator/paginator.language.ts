@@ -30,17 +30,17 @@ export class PaginatorLanguage extends MatPaginatorIntl {
    */
   getAndInitTranslations (): void {
     this.translate.selectTranslate([
-      'quixPaginator.itemPerPage',
-      'quixPaginator.nextPage',
-      'quixPaginator.previousPage',
-      'quixPaginator.firstPage',
-      'quixPaginator.lastPage'
+      'quangPaginator.itemPerPage',
+      'quangPaginator.nextPage',
+      'quangPaginator.previousPage',
+      'quangPaginator.firstPage',
+      'quangPaginator.lastPage'
     ]).subscribe(t => {
-      this.itemsPerPageLabel = t['quixPaginator.itemPerPage']
-      this.nextPageLabel = t['quixPaginator.nextPage']
-      this.previousPageLabel = t['quixPaginator.previousPage']
-      this.firstPageLabel = t['quixPaginator.firstPage']
-      this.lastPageLabel = t['quixPaginator.lastPage']
+      this.itemsPerPageLabel = t['quangPaginator.itemPerPage']
+      this.nextPageLabel = t['quangPaginator.nextPage']
+      this.previousPageLabel = t['quangPaginator.previousPage']
+      this.firstPageLabel = t['quangPaginator.firstPage']
+      this.lastPageLabel = t['quangPaginator.lastPage']
       this.changes.next()
     })
   }

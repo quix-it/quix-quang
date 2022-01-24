@@ -1,7 +1,7 @@
 /**
  * toast
  */
-export class QuixToast {
+export class QuangToast {
   /**
    * toast constructor
    * @param type define toast tipe

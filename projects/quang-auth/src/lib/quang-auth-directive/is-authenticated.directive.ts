@@ -1,8 +1,9 @@
 import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
 import { Subject } from 'rxjs'
-import { select, Store } from '@ngrx/store'
-import { selectIsAuthenticated } from '../quang-auth-store/quang-auth.selector'
+import { Store } from '@ngrx/store'
+import { selectIsAuthenticated } from '../quang-auth-store/selectors/quang-auth.selectors'
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
+
 /**
  * directive decorator
  */
@@ -36,17 +37,19 @@ export class IsAuthenticatedDirective implements OnInit, OnDestroy {
    * Check if the user in the store is logged and define whether to render or not
    */
   ngOnInit (): void {
-    this.authStore.pipe(
-      select(selectIsAuthenticated),
-      distinctUntilChanged(),
-      takeUntil(this.destroy$)
-    ).subscribe(is => {
-      if (is) {
-        this.view.createEmbeddedView(this.template)
-      } else {
-        this.view.clear()
-      }
-    })
+    this.authStore
+      .select(selectIsAuthenticated)
+      .pipe(
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(is => {
+        if (is) {
+          this.view.createEmbeddedView(this.template)
+        } else {
+          this.view.clear()
+        }
+      })
   }
 
   /**

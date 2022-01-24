@@ -24,18 +24,6 @@
       "dom"
     ],
     "paths": {
-      "quix-core-components": [
-        "dist/quix-core-components"
-      ],
-      "quix-core-components/*": [
-        "dist/quix-core-components/*"
-      ],
-      "quix-core-authentication": [
-        "dist/quix-core-authentication"
-      ],
-      "quix-core-authentication/*": [
-        "dist/quix-core-authentication/*"
-      ],
       "quang": [
         "dist/quang/quang",
         "dist/quang",
@@ -68,9 +56,9 @@
         "dist/quang-event/quang-event",
         "dist/quang-event"
       ],
-      "quang-image": [
-        "dist/quang-image/quang-image",
-        "dist/quang-image"
+      "quang-media": [
+        "dist/quang-media/quang-media",
+        "dist/quang-media"
       ],
       "quang-map": [
         "dist/quang-map/quang-map",

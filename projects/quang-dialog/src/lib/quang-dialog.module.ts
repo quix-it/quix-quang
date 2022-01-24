@@ -1,56 +1,56 @@
 import { ModuleWithProviders, NgModule } from '@angular/core'
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
-import { QuixBottomSheetService } from './bottom-sheet/bottom-sheet.service'
-import { QuixModalService } from './modal/quix-modal.service'
+import { QuangBottomSheetService } from './bottom-sheet/bottom-sheet.service'
+import { QuangModalService } from './modal/quang-modal.service'
 import { StoreModule } from '@ngrx/store'
 import { quangDialogReducers } from './quang-dialog.reducers'
-import { QuixSnackbarService } from './snackbar/quix-snackbar.service'
+import { QuangSnackbarService } from './snackbar/quang-snackbar.service'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { QuixToastComponent } from './toast/toast.component'
-import { QuixToastService } from './toast/toast.service'
+import { QuangToastComponent } from './toast/toast.component'
+import { QuangToastService } from './toast/toast.service'
 import { CommonModule } from '@angular/common'
 import { TranslocoModule } from '@ngneat/transloco'
 import { ModalModule } from 'ngx-bootstrap/modal'
 import { LoaderComponent } from './loader/loader/loader.component'
-import { QuixHttpErrorModalComponent } from './http-error/quix-http-error-modal/quix-http-error-modal.component'
-import { QuixHttpErrorService } from './http-error/quix-http-error.service'
+import { QuangHttpErrorModalComponent } from './http-error/quang-http-error-modal/quang-http-error-modal.component'
+import { QuangHttpErrorService } from './http-error/quang-http-error.service'
 import { QuangDialogConfig } from './quang-dialog.config'
 import { SentryDialogService } from './sentry/sentry-dialog.service'
 import { QUANGDIALOG_KEY } from './quang-dialog.selector'
 import { SkeletonComponent } from './skeleton/skeleton.component'
 import { EffectsModule } from '@ngrx/effects'
-import { NotificationEffect } from './notification/notification-store/notification.effect'
-import { QuixNotificationService } from './notification/notification.service'
+import { NotificationEffects } from './notification/notification-store/effects/notification.effects'
+import { QuangNotificationService } from './notification/notification.service'
 
 @NgModule({
   declarations: [
-    QuixToastComponent,
+    QuangToastComponent,
     LoaderComponent,
-    QuixHttpErrorModalComponent,
+    QuangHttpErrorModalComponent,
     SkeletonComponent
   ],
   imports: [
     MatBottomSheetModule,
     StoreModule.forFeature(QUANGDIALOG_KEY, quangDialogReducers),
-    EffectsModule.forFeature([NotificationEffect]),
+    EffectsModule.forFeature([NotificationEffects]),
     MatSnackBarModule,
     CommonModule,
     TranslocoModule,
     ModalModule.forRoot()
   ],
   providers: [
-    QuixBottomSheetService,
-    QuixModalService,
-    QuixSnackbarService,
-    QuixToastService,
-    QuixHttpErrorService,
+    QuangBottomSheetService,
+    QuangModalService,
+    QuangSnackbarService,
+    QuangToastService,
+    QuangHttpErrorService,
     SentryDialogService,
-    QuixNotificationService
+    QuangNotificationService
   ],
   exports: [
-    QuixToastComponent,
+    QuangToastComponent,
     LoaderComponent,
-    QuixHttpErrorModalComponent,
+    QuangHttpErrorModalComponent,
     SkeletonComponent
   ]
 })

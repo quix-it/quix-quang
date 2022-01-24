@@ -1,5 +1,6 @@
-<div class="form-group" [ngClass]="customClass">
+<div class="mb-3" [ngClass]="customClass">
   <label [htmlFor]="id"
+         class="form-label"
          [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
@@ -40,7 +41,8 @@
     {{_successMessage | transloco}}
   </div>
   <div class="invalid-feedback"
-       [attr.aria-errormessage]="_errorMessage">
+       aria-live="polite"
+       [id]="id + '-error'">
     {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small [id]="id + '-help'"

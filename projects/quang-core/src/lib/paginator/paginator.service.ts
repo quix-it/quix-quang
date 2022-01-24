@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core'
 /**
  * utility for paginator management
  */
-export class QuixPaginatorService {
+export class QuangPaginatorService {
   /**
    * Returns the portion of the list given the page and the number of items per page
    * @param list list to be paged

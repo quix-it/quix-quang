@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common'
 import { HasUntilRolesDirective } from './quang-auth-directive/has-until-roles.directive'
 import { StoreModule } from '@ngrx/store'
 import { QUANGAUTH_KEY } from './quang-auth-module.selector'
-import { quangAuthReducer } from './quang-auth-module.reducer'
+
 import { QuangAuthService } from './quang-auth.service'
 import { QuangAuthConfig } from './quang-auth.config'
 import { IsNotAuthenticatedDirective } from './quang-auth-directive/is-not-authenticated.directive'
+import { quangAuthReducer } from './quang-auth-module.reducer'
 
 @NgModule({
   declarations: [

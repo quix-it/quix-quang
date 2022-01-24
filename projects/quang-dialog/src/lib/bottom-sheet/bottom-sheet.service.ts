@@ -11,7 +11,7 @@ import { Observable } from 'rxjs'
 /**
  * utility for bottom sheet management
  */
-export class QuixBottomSheetService {
+export class QuangBottomSheetService {
   /**
    * bottom sheet reference
    */

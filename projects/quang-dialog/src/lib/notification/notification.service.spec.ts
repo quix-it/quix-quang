@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing'
 
-import { QuixNotificationService } from './notification.service'
+import { QuangNotificationService } from './notification.service'
 
 describe('NotificationService', () => {
-  let service: QuixNotificationService
+  let service: QuangNotificationService
 
   beforeEach(() => {
     TestBed.configureTestingModule({})
-    service = TestBed.inject(QuixNotificationService)
+    service = TestBed.inject(QuangNotificationService)
   })
 
   it('should be created', () => {
