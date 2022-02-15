@@ -6,7 +6,7 @@
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <select class="custom-select"
+  <select class="form-select"
           multiple
           [size]="rowVisible"
           [id]="id"
@@ -17,8 +17,8 @@
           [attr.aria-label]="ariaLabel | transloco"
           (input)="onChangedHandler($event)"
           (blur)="onTouched()"
-          [class.form-control-lg]="size === 'lg'"
-          [class.form-control-sm]="size === 'sm'"
+          [class.form-select-lg]="size === 'lg'"
+          [class.form-select-sm]="size === 'sm'"
           [tabIndex]="tabIndex"
           #input
   >

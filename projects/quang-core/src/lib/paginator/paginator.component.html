@@ -1,7 +1,7 @@
 <div class="paginatorContainer"
      [id]="id"
      [ngClass]="customClass">
-  <div class="mb-3">
+  <div>
     <label for="pageSize"
            class="form-label"
       [attr.aria-label]="ariaLabel | transloco">
@@ -11,7 +11,7 @@
       [tabIndex]="tabIndex"
       name="pageSize"
       id="pageSize"
-      class="form-control"
+      class="form-select"
       [attr.aria-label]="'page size'"
       (change)="onChangeSize($event)"
       #input>
