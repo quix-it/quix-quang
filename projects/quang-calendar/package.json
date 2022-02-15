@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-calendar",
-    "version": "11.0.10",
+    "version": "11.0.11",
   "peerDependencies": {
     "fullcalendar": "^5.5.1",
     "fullcalendar-scheduler": "^5.5.1",
