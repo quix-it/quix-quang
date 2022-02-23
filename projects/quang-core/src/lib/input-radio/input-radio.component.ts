@@ -213,9 +213,11 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
-    this.input?.forEach((item) => {
-      this.renderer.setProperty(item.nativeElement, 'disabled', isDisabled)
-    })
+    setTimeout(() => {
+      this.input?.forEach((item) => {
+        this.renderer.setProperty(item.nativeElement, 'disabled', isDisabled)
+      })
+    }, 0)
   }
 
   /**
