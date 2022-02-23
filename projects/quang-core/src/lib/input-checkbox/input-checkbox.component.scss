@@ -1,5 +1,10 @@
-.custom-checkbox {
-  .custom-control-label::after{
-    cursor: pointer;
+.form-check {
+  .form-check-label {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  small {
+    display: block;
   }
 }

@@ -137,7 +137,7 @@ export class ToggleComponent implements ControlValueAccessor, OnInit, AfterViewI
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus.currentValue && this.input) {
+    if (changes.autofocus?.currentValue && this.input) {
       this.input.focus()
     }
   }

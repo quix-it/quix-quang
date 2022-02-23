@@ -218,9 +218,11 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    */
   setDisabledState (isDisabled: boolean): void {
     this._disabled = isDisabled
-    this.input?.forEach((item) => {
-      this.renderer.setProperty(item.nativeElement, 'disabled', isDisabled)
-    })
+    setTimeout(() => {
+      this.input?.forEach((item) => {
+        this.renderer.setProperty(item.nativeElement, 'disabled', isDisabled)
+      })
+    }, 0)
   }
 
   /**

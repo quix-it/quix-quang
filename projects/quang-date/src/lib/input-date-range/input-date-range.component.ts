@@ -251,9 +251,11 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
     this.onTouched()
     if (this.returnISODate) {
       this.onChanged(dates)
-    } else {
+    } else if (dates) {
       const tmp = dates.map(d => format(d, 'yyyy-MM-dd'))
       this.onChanged(tmp)
+    } else {
+      this.onChanged([])
     }
   }
 

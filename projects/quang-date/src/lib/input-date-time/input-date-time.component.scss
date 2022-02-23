@@ -8,16 +8,15 @@
     justify-content: flex-start;
     flex-basis: 100%;
 
-    .form-group {
+    .date-time-date {
       margin-bottom: 0;
+      flex-basis: 100%;
+    }
 
-      &:nth-child(1) {
-        flex-basis: 100%;
-      }
-
-      &:nth-child(2) {
-        margin-left: 1rem;
-      }
+    .date-time-time {
+      margin-bottom: 0;
+      margin-left: 1rem;
     }
   }
 }
+

@@ -11,6 +11,10 @@
 
 * fix error on data and date-time component
 
+# 11.0.11
+
+* Fix error on date input range
+
 ## 12.0.0
 
 * update to eslint
@@ -18,8 +22,19 @@
 * change all selector from quix- to quang-
 
 ## 12.5.0
+
 * Card image
 * Datalist
 * Notification service
 * Chart tree
 * Chart gauge
+
+# 12.7.1
+
+* Fix error on date input range
+* Fix error on date input range
+
+## 13.0.0
+
+* add qrcode componente
+* new validation function
