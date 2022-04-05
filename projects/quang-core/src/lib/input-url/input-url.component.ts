@@ -159,6 +159,9 @@ export class InputUrlComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
+    if (this.successMessage) {
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+    }
   }
 
   /**
@@ -237,9 +240,6 @@ export class InputUrlComponent implements OnInit, OnChanges, AfterViewInit {
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe((v) => {
-      if (this.control.valid && this.successMessage) {
-        this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           if (error === 'minlength' || error === 'maxlength') {
