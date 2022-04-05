@@ -83,15 +83,12 @@ export class QuangToastComponent implements AfterViewInit, OnDestroy {
    * if a timing is configured it waits for the time to expire and closes the toast
    */
   open (): void {
-    this.renderer.setStyle(this.toastDom?.nativeElement, 'opacity', '1')
-    this.renderer.setStyle(this.toastDom?.nativeElement, 'transform', 'scale(1)')
     if (this.data?.timing) {
       of('').pipe(
         delay(this.data.timing),
         take(1)
       ).subscribe(() => {
-        this.renderer.setStyle(this.toastDom?.nativeElement, 'opacity', '0')
-        this.renderer.setStyle(this.toastDom?.nativeElement, 'transform', 'scale(0)')
+        this.close()
       })
     }
   }
@@ -100,8 +97,7 @@ export class QuangToastComponent implements AfterViewInit, OnDestroy {
    * closes the toast by modifying the css rules
    */
   close (): void {
-    this.renderer.setStyle(this.toastDom?.nativeElement, 'opacity', '0')
-    this.renderer.setStyle(this.toastDom?.nativeElement, 'transform', 'scale(0)')
+    this.data = null
   }
 
   /**
