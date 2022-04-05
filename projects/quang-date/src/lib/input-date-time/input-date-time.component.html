@@ -1,9 +1,9 @@
 <div class="inputWrapper">
   <div class="dateTimeWrapper">
-    <div class="mb-3 date-time-date">
-      <label [htmlFor]="id"
-             class="form-label"
-             [attr.aria-label]="ariaLabel | transloco"
+    <div class="mb-3">
+      <label class="form-label"
+             [htmlFor]="id"
+             [attr.aria-label]="ariaLabel"
              *ngIf="label">
         {{label | transloco}}
         <span [hidden]="!control?.errors?.required">*</span>
@@ -11,9 +11,7 @@
       <div class="input-group"
            [class.input-group-sm]="size === 'sm'"
            [class.input-group-lg]="size === 'lg'">
-        <input type="text"
-               [id]="id"
-               [name]="id"
+        <input type="text" [id]="id"
                class="form-control"
                bsDatepicker
                [placeholder]="placeholder | transloco"
@@ -26,20 +24,14 @@
                [maxDate]="maxDate"
                [daysDisabled]="disabledDaysOfTheWeek"
                [datesDisabled]="disabledDates"
+               [attr.aria-label]="ariaLabel + ' date'"
                [tabIndex]="tabIndex"
                [autocomplete]="autocomplete"
-               [(ngModel)]="_valueDate"
+               [bsValue]="_valueDate"
                [disabled]="_disabled"
                [placement]="placement"
                (bsValueChange)="onChangedDate($event)"
                (blur)="onTouched()"
-               [attr.aria-label]="ariaLabel | transloco"
-               [attr.aria-disabled]="_disabled"
-               [attr.aria-autocomplete]="autocomplete"
-               [attr.aria-placeholder]="placeholder | transloco"
-               [attr.aria-describedby]="id + '-help'"
-               [attr.aria-errormessage]="id + '-error'"
-               [attr.aria-invalid]="control.invalid"
                #drp="bsDatepicker"
                #input
         >
@@ -48,18 +40,17 @@
             class="btn"
             type="button"
             [ngClass]="buttonClass"
-            (click)="_disabled ? null : drp.toggle()">
+            (click)="_disabled ? null : drp.toggle()"
+          >
             <ng-content select="[calendarIcon]"></ng-content>
           </button>
         </div>
-        <div class="valid-feedback"
-             aria-live="assertive">
+        <div class="valid-feedback">
           {{_successMessage | transloco}}
         </div>
-        <div class="invalid-feedback"
-             aria-live="polite"
-             [id]="id + '-error'">
-          {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
+
+        <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+          {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
         </div>
       </div>
     </div>
@@ -67,7 +58,6 @@
          [ngStyle]="{'margin-top': _margin}">
       <timepicker
         [id]="id"
-        [name]="id"
         [ngClass]="customClass"
         [class.is-valid]="control?.valid && control?.dirty && successMessage"
         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
@@ -85,7 +75,7 @@
         [hoursPlaceholder]="hoursPlaceholder | transloco"
         [minutesPlaceholder]="minutesPlaceholder | transloco"
         [secondsPlaceholder]="secondsPlaceholder | transloco"
-        [(ngModel)]="_valueTime"
+        [ngModel]="_valueTime"
         [attr.aria-label]="ariaLabel + ' time' | transloco"
         [tabIndex]="tabIndex + 1"
         (ngModelChange)="onChangedTime($event)"
@@ -93,8 +83,8 @@
       ></timepicker>
     </div>
   </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
+
+  <small [id]="id + 'Help'"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">
