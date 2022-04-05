@@ -1,6 +1,6 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
+  <label class="form-label"
+         [htmlFor]="id"
          [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
@@ -10,34 +10,27 @@
        [class.input-group-sm]="size === 'sm'"
        [class.input-group-lg]="size === 'lg'">
     <input type="text"
-           [id]="id"
-           [name]="id"
-           bsDaterangepicker
            class="form-control"
-           [autocomplete]="autocomplete"
+           bsDaterangepicker
+           #input
+           [id]="id"
            [placeholder]="placeholder | transloco"
-           [ngClass]="customClass"
-           [class.is-valid]="_value?.length && control?.dirty && successMessage"
-           [class.is-invalid]="!_value?.length && control?.dirty && errorMessage"
-           [bsConfig]="config"
-           [isDisabled]="_disabled"
-           [autofocus]="autofocus"
            [minDate]="minDate"
            [maxDate]="maxDate"
+           [ngClass]="customClass"
+           [class.is-valid]="control.valid && successMessage"
+           [class.is-invalid]="!_value?.length && control.invalid && control?.dirty && errorMessage"
+           [bsConfig]="config"
+           [isDisabled]="_disabled"
            [datesDisabled]="disabledDates"
+           [autocomplete]="autocomplete"
+           [attr.aria-label]="ariaLabel | transloco"
+           [autofocus]="autofocus"
            [bsValue]="_value"
+           [placement]="placement"
            (bsValueChange)="onChangedHandler($event)"
            (blur)="onTouched()"
-           [placement]="placement"
-           [attr.aria-label]="ariaLabel | transloco"
-           [attr.aria-disabled]="_disabled"
-           [attr.aria-autocomplete]="autocomplete"
-           [attr.aria-placeholder]="placeholder | transloco"
-           [attr.aria-describedby]="id + '-help'"
-           [attr.aria-errormessage]="id + '-error'"
-           [attr.aria-invalid]="control.invalid"
            #drp="bsDaterangepicker"
-           #input
     >
     <div class="input-group-append">
       <button class="btn"
@@ -49,24 +42,19 @@
         <ng-content select="[calendarIcon]"></ng-content>
       </button>
     </div>
-    <div class="valid-feedback"
-       aria-live="assertive">
+
+    <div class="valid-feedback">
       {{_successMessage | transloco}}
     </div>
     <div class="invalid-feedback"
-         aria-live="polite"
-         [id]="id + '-error'">
-      {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
+         [attr.aria-errormessage]="_errorMessage | transloco">
+      {{_errorMessage | transloco}}
     </div>
   </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
+  <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="control?.dirty && (_value?.length && successMessage || !_value?.length && errorMessage)"
+         [hidden]="control?.dirty && (_value?.length && control.valid && successMessage || !_value?.length && control.invalid && errorMessage)"
          *ngIf="helpMessage">
     {{_helpMessage | transloco}}
   </small>
 </div>
-
-
-

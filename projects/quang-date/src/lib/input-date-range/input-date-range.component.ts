@@ -204,6 +204,9 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
+    if (this.successMessage) {
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+    }
   }
 
   /**
@@ -217,6 +220,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
       }
     }, 0)
     this.observeValidate()
+    this.control.control?.markAsPristine()
   }
 
   /**
@@ -247,7 +251,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * method triggered when the date selection changes, it triggers the native events of the cva
    * @param dates
    */
-  onChangedHandler (dates: Date[]): void {
+  onChangedHandler (dates: Date[] | null): void {
     this.onTouched()
     if (this.returnISODate) {
       this.onChanged(dates)
@@ -295,9 +299,7 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this._value.length && this.successMessage) {
-        this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      } else if (!this._value.length && this.errorMessage) {
+      if (!this._value.length && this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           if (this.control.errors[error]) {
             this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
