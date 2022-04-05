@@ -1,6 +1,6 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
+  <label class="form-label"
+         [htmlFor]="id"
          [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
@@ -12,32 +12,26 @@
     <input type="text"
            class="form-control"
            bsDatepicker
+           #input
            [id]="id"
-           [name]="id"
            [placeholder]="placeholder | transloco"
+           [maxDate]="maxDate"
+           [minDate]="minDate"
            [ngClass]="customClass"
            [class.is-valid]="control?.valid && control?.dirty && successMessage"
            [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
            [bsConfig]="config"
-           [minDate]="minDate"
-           [maxDate]="maxDate"
            [daysDisabled]="disabledDaysOfTheWeek"
            [datesDisabled]="disabledDates"
            [autocomplete]="autocomplete"
-           [tabIndex]="tabIndex"
-           [placement]="placement"
-           [(ngModel)]="_value"
-           (bsValueChange)="onChangedHandler($event)"
-           (blur)="onTouched()"
            [attr.aria-label]="ariaLabel | transloco"
            [attr.aria-disabled]="_disabled"
-           [attr.aria-autocomplete]="autocomplete"
-           [attr.aria-placeholder]="placeholder | transloco"
-           [attr.aria-describedby]="id + '-help'"
-           [attr.aria-errormessage]="id + '-error'"
-           [attr.aria-invalid]="control.invalid"
+           [tabIndex]="tabIndex"
+           [bsValue]="_value"
+           [placement]="placement"
+           (bsValueChange)="onChangedHandler($event)"
+           (blur)="onTouched()"
            #drp="bsDatepicker"
-           #input
     >
     <div class="input-group-append">
       <button
@@ -49,22 +43,19 @@
         <ng-content select="[calendarIcon]"></ng-content>
       </button>
     </div>
-    <div class="valid-feedback"
-       aria-live="assertive">
+
+    <div class="valid-feedback">
       {{_successMessage | transloco}}
     </div>
     <div class="invalid-feedback"
-         aria-live="polite"
-         [id]="id + '-error'">
-      {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+         [attr.aria-errormessage]="_errorMessage">
+      {{_errorMessage | transloco }}
     </div>
   </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
+  <small [id]="id + 'Help'"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">
     {{_helpMessage | transloco}}
   </small>
 </div>
-
