@@ -20,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
  * input date component decorator
  */
 @Component({
-  selector: 'quix-input-date',
+  selector: 'quang-input-date',
   templateUrl: './input-date.component.html',
   styles: ['']
 })
@@ -137,6 +137,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * the status of the success message
    */
   _successMessage: string = ''
+
   /**
    * the status of the error message
    */
@@ -188,7 +189,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
 
   /**
    * init locale
-   * chek help message and init the key
+   * check help message and init the key
    */
   ngOnInit (): void {
     this.config = {
@@ -205,6 +206,9 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
+    if (this.successMessage) {
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+    }
   }
 
   /**
@@ -218,6 +222,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
       }
     }, 0)
     this.observeValidate()
+    this.control.control?.markAsPristine()
   }
 
   /**
@@ -249,14 +254,15 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * @param date
    */
   onChangedHandler (date: Date): void {
-    if (date) {
-      if (this.returnISODate) {
-        this.onChanged(date)
-      } else {
-        this.onChanged(format(date, 'yyyy-MM-dd'))
-      }
-    } else {
+    if (!date) {
       this.onChanged(null)
+    } else if (date.toString() === 'Invalid Date') {
+      this.control.control?.setErrors({ invalidDate: true })
+      this.control.control?.markAsDirty()
+    } else if (this.returnISODate) {
+      this.onChanged(date)
+    } else {
+      this.onChanged(format(date, 'yyyy-MM-dd'))
     }
     this.onTouched()
   }
@@ -266,7 +272,8 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * @param value
    */
   writeValue (value: any): void {
-    if (this.returnISODate && value) {
+    if (this.returnISODate && value
+    ) {
       this._value = new Date(value)
     } else {
       this._value = value
@@ -291,15 +298,13 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   observeValidate (): void {
     this.control?.statusChanges?.pipe(
       delay(0),
-      filter(() => !!this.control?.dirty)
+      filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.valid && this.successMessage) {
-        this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           if (this.control.errors[error]) {
             this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            this._requiredValue = this.control.errors[error].requiredValue
             if (error === 'dateBetween') {
               if (this.dateFormat) {
                 this._requiredValue = format(new Date(this.control.errors.dateBetween.requiredValue[0]), this.dateFormat)
@@ -309,12 +314,6 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
                 this._requiredValue = this.control.errors.dateBetween.requiredValue[0]
                 this._requiredValue += ' - '
                 this._requiredValue += this.control.errors.dateBetween.requiredValue[1]
-              }
-            } else {
-              if (this.dateFormat) {
-                this._requiredValue = format(new Date(this.control.errors[error].requiredValue), this.dateFormat)
-              } else {
-                this._requiredValue = this.control.errors[error].requiredValue
               }
             }
           }
