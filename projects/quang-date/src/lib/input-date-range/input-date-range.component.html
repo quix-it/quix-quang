@@ -1,5 +1,6 @@
-<div class="form-group">
-  <label [htmlFor]="id"
+<div class="mb-3">
+  <label class="form-label"
+         [htmlFor]="id"
          [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
@@ -9,27 +10,27 @@
        [class.input-group-sm]="size === 'sm'"
        [class.input-group-lg]="size === 'lg'">
     <input type="text"
-           [id]="id"
-           bsDaterangepicker
            class="form-control"
-           [autocomplete]="autocomplete"
+           bsDaterangepicker
+           #input
+           [id]="id"
            [placeholder]="placeholder | transloco"
-           [ngClass]="customClass"
-           [class.is-valid]="_value?.length && control?.dirty && successMessage"
-           [class.is-invalid]="!_value?.length && control?.dirty && errorMessage"
-           [bsConfig]="config"
-           [isDisabled]="_disabled"
-           [autofocus]="autofocus"
            [minDate]="minDate"
            [maxDate]="maxDate"
+           [ngClass]="customClass"
+           [class.is-valid]="control.valid && successMessage"
+           [class.is-invalid]="!_value?.length && control.invalid && control?.dirty && errorMessage"
+           [bsConfig]="config"
+           [isDisabled]="_disabled"
            [datesDisabled]="disabledDates"
+           [autocomplete]="autocomplete"
            [attr.aria-label]="ariaLabel | transloco"
+           [autofocus]="autofocus"
            [bsValue]="_value"
+           [placement]="placement"
            (bsValueChange)="onChangedHandler($event)"
            (blur)="onTouched()"
-           [placement]="placement"
            #drp="bsDaterangepicker"
-           #input
     >
     <div class="input-group-append">
       <button class="btn"
@@ -41,17 +42,18 @@
         <ng-content select="[calendarIcon]"></ng-content>
       </button>
     </div>
+
     <div class="valid-feedback">
       {{_successMessage | transloco}}
     </div>
     <div class="invalid-feedback"
          [attr.aria-errormessage]="_errorMessage | transloco">
-      {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
+      {{_errorMessage | transloco}}
     </div>
   </div>
   <small [id]="id + 'Help'"
          class="form-text text-muted"
-         [hidden]="control?.dirty && (_value?.length && successMessage || !_value?.length && errorMessage)"
+         [hidden]="control?.dirty && (_value?.length && control.valid && successMessage || !_value?.length && control.invalid && errorMessage)"
          *ngIf="helpMessage">
     {{_helpMessage | transloco}}
   </small>
