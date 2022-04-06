@@ -152,6 +152,9 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
+    if (this.successMessage) {
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+    }
     this._dropMessage = `${this.formName}.${this.control?.name}.drop`
   }
 
@@ -262,9 +265,6 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.valid && this.successMessage) {
-        this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           if (this.control.errors[error]) {

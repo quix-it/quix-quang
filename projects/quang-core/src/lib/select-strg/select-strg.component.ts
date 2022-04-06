@@ -109,7 +109,7 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement>|undefined
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
   /**
    * Standard definition to create a control value accessor
    */
@@ -140,6 +140,9 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   ngOnInit (): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
+    }
+    if (this.successMessage) {
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
   }
 
@@ -228,9 +231,7 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.valid && this.successMessage) {
-        this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      } else if (this.control.invalid && this.errorMessage) {
+      if (this.control.invalid && this.errorMessage) {
         if (this.control.errors) {
           for (const error in this.control.errors) {
             this._requiredValue = this.control.errors[error].requiredValue
