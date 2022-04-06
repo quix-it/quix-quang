@@ -152,10 +152,10 @@ export class InputFileComponent implements ControlValueAccessor, OnInit, AfterVi
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
-    this._dropMessage = `${this.formName}.${this.control?.name}.drop`
     if (this.successMessage) {
       this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
+    this._dropMessage = `${this.formName}.${this.control?.name}.drop`
   }
 
   /**
