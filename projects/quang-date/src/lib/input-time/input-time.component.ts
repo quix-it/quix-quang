@@ -18,7 +18,7 @@ import { BsTimepickerViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs
  * input time component decorator
  */
 @Component({
-  selector: 'quix-input-time',
+  selector: 'quang-input-time',
   templateUrl: './input-time.component.html',
   styleUrls: ['./input-time.component.scss']
 })
@@ -176,6 +176,9 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
+    if (this.successMessage) {
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+    }
   }
 
   /**
@@ -236,9 +239,6 @@ export class InputTimeComponent implements ControlValueAccessor, AfterViewInit, 
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.valid && this.successMessage) {
-        this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           this._requiredValue = this.control.errors[error].requiredValue
