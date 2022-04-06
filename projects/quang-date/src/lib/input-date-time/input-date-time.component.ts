@@ -20,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
  * input date time component decorator
  */
 @Component({
-  selector: 'quix-input-date-time',
+  selector: 'quang-input-date-time',
   templateUrl: './input-date-time.component.html',
   styleUrls: ['./input-date-time.component.scss']
 })
@@ -253,6 +253,9 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
+    if (this.successMessage) {
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+    }
   }
 
   /**
@@ -266,6 +269,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
       }
     }, 0)
     this.observeValidate()
+    this.control.control?.markAsPristine()
   }
 
   /**
@@ -273,7 +277,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus?.currentValue && this.input) {
+    if (changes.autofocus && this.input) {
       this.input.nativeElement.focus()
     }
   }
@@ -315,9 +319,16 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * @param date
    */
   onChangedDate (date: Date): void {
-    this._valueTime = date
+    if (!date) {
+      this.onChanged(null)
+    } else if (date.toString() === 'Invalid Date') {
+      this.control.control?.setErrors({ invalidDate: true })
+      this.control.control?.markAsDirty()
+    } else {
+      this.onChanged(date)
+      this._valueTime = date
+    }
     this.onTouched()
-    this.onChanged(date)
   }
 
   /**
@@ -341,9 +352,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.valid && this.successMessage) {
-        this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      } else if (this.control.invalid && this.errorMessage) {
+      if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           if (this.control.errors[error]) {
             this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
