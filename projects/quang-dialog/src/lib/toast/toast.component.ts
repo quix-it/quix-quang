@@ -1,10 +1,7 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
-  OnDestroy,
-  Renderer2,
-  ViewChild
+  OnDestroy
 } from '@angular/core'
 import { QuixToast } from './toast.model'
 import { Observable, of, Subscription } from 'rxjs'
@@ -17,7 +14,7 @@ import { delay, take } from 'rxjs/operators'
  * toast component decorator
  */
 @Component({
-  selector: 'quix-toast',
+  selector: 'quang-toast',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss']
 })
@@ -28,7 +25,7 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
   /**
    * toast wrapper
    */
-  data: QuixToast | null =  null
+  data: QuixToast | null = null
   /**
    * observable for toast state
    * @private
@@ -39,18 +36,12 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
    * @private
    */
   private subscription: Subscription = new Subscription()
-  /**
-   * html element
-   */
-  @ViewChild('toastDom', { static: false }) toastDom: ElementRef | null = null
 
   /**
    * constructor
-   * @param renderer html access
    * @param store store access
    */
   constructor (
-    private readonly renderer: Renderer2,
     private readonly store: Store<any>
   ) {
   }
@@ -67,14 +58,14 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
    */
   observeToasts (): void {
     this.subscription = this.toastState$.subscribe((data: ToastsState) => {
-      if (data.toastData) {
-        this.data = data.toastData
-        this.open()
-      }
-    },
-    () => {
-      alert('Error on toast lifecycle')
-    })
+        if (data.toastData) {
+          this.data = data.toastData
+          this.open()
+        }
+      },
+      () => {
+        alert('Error on toast lifecycle')
+      })
   }
 
   /**
@@ -82,15 +73,12 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
    * if a timing is configured it waits for the time to expire and closes the toast
    */
   open (): void {
-    this.renderer.setStyle(this.toastDom?.nativeElement, 'opacity', '1')
-    this.renderer.setStyle(this.toastDom?.nativeElement, 'transform', 'scale(1)')
     if (this.data?.timing) {
       of('').pipe(
         delay(this.data.timing),
         take(1)
       ).subscribe(() => {
-        this.renderer.setStyle(this.toastDom?.nativeElement, 'opacity', '0')
-        this.renderer.setStyle(this.toastDom?.nativeElement, 'transform', 'scale(0)')
+        this.close()
       })
     }
   }
@@ -99,8 +87,7 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
    * closes the toast by modifying the css rules
    */
   close (): void {
-    this.renderer.setStyle(this.toastDom?.nativeElement, 'opacity', '0')
-    this.renderer.setStyle(this.toastDom?.nativeElement, 'transform', 'scale(0)')
+    this.data = null
   }
 
   /**
