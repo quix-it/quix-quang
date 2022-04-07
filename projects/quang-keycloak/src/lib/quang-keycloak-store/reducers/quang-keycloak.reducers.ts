@@ -45,7 +45,7 @@ const reducer = createReducer(
   on(userInfoLogout, (state) => ({ ...state, user: null })),
   on(userRolesLogin, (state, action) =>
     ({ ...state, roles: action.roles })),
-  on(userRolesLogout, (state) => ({ ...state, user: null }))
+  on(userRolesLogout, (state) => ({ ...state, roles: [] }))
 )
 /**
  * defines the name of the state reducer
