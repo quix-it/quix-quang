@@ -18,11 +18,11 @@ export class ChartRadar {
   }
 
   /**
-   *
+   * chart symbol aspect
    */
   public symbolKeepAspect = true
   /**
-   *
+   * chart symbol
    */
   public symbol: string = 'none'
 
