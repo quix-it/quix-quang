@@ -53,7 +53,9 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * delay time before the start of the rotation
    */
   @Input() delayTime: number = 0
-
+  /**
+   * ViewChild wrapper
+   */
   @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement> | null = null
   /**
    * rotation step

@@ -142,8 +142,13 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
    */
   onChanged: any = () => {
   }
-
+  /**
+   * input integer value
+   */
   @ViewChild('inputInteger', { static: true }) inputInteger: ElementRef<HTMLInputElement> | undefined
+  /**
+   * input fraction value
+   */
   @ViewChild('inputFraction', { static: true }) inputFraction: ElementRef<HTMLInputElement> | undefined
 
   /**
@@ -238,6 +243,9 @@ export class InputFractionComponent implements OnInit, ControlValueAccessor, Aft
 
   }
 
+  /**
+   * check if value is bigger than max and smaller than min
+   */
   checkMaxMin (): void {
     this.setDisabledState((this._value as number) > this.max && (this._value as number) >= this.min)
   }

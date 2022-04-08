@@ -158,6 +158,9 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
+  /**
+   * The datePicker element
+   */
   @ViewChild('drp', { static: true }) datePicker: BsDatepickerInlineDirective | undefined
   /**
    * Standard definition to create a control value accessor
