@@ -16,18 +16,19 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay, filter } from 'rxjs/operators'
 
-/**
- * input date range component decorator
- */
-@Component({
-  selector: 'quang-input-date-range',
-  templateUrl: './input-date-range.component.html',
-  styles: ['']
+  /**
+  * input date range component decorator
+  */
+  @Component({
+    selector: 'quang-input-date-range',
+    templateUrl: './input-date-range.component.html',
+    styles: ['']
 })
-/**
- * input date range component
- */
-export class InputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
+
+  /**
+  * input date range component
+  */
+  export class InputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   /**
    * Html id of input
    */
@@ -89,7 +90,6 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
    * defines the starting view
    */
   @Input() minView: 'year' | 'month' | 'day' = 'year'
-
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
