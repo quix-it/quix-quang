@@ -15,7 +15,6 @@ import { format } from 'date-fns'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay, filter } from 'rxjs/operators'
-
   /**
   * input date range component decorator
   */
@@ -23,7 +22,7 @@ import { delay, filter } from 'rxjs/operators'
     selector: 'quang-input-date-range',
     templateUrl: './input-date-range.component.html',
     styles: ['']
-})
+  })
 
   /**
   * input date range component

@@ -28,8 +28,8 @@ export const selectUserRoles = createSelector(
  */
 export const selectHasRoles = createSelector(
   selectQuangKeycloak,
-  (state: QuangKeycloakState, props: { rolesId: string[] }) => {
-    let find = true
+  (state: QuangKeycloakState, props: { rolesId: string[] }): boolean => {
+    let find: boolean = true
     props.rolesId.forEach(role => {
       find = find && !!state.quangKeycloakUserState.roles.find(ur => ur === role)
     })
