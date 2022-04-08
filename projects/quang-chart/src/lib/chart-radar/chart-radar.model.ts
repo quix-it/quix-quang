@@ -25,6 +25,12 @@ export class ChartRadar {
    */
   public symbol: string = 'none'
 
+  /**
+   *
+   * @param value
+   * @param name
+   * @param color
+   */
   constructor (value: number[], name?: string, color?: string) {
     this.value = value
     this.name = name
