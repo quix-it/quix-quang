@@ -139,6 +139,9 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLTextAreaElement> | null = null
+  /**
+   * input element autosize
+   */
   @ViewChild('autosize') autosize: CdkTextareaAutosize | null = null
 
   /**
@@ -174,6 +177,7 @@ export class TextAreaComponent implements ControlValueAccessor, AfterViewInit, O
 
   /**
    * create the key for the help message
+   * check if is valid
    */
   ngOnInit (): void {
     if (this.helpMessage) {

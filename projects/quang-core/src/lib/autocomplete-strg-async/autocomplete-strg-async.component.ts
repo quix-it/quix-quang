@@ -13,7 +13,7 @@ import {
 } from '@angular/core'
 import { NgControl } from '@angular/forms'
 import { Observable, Observer, of } from 'rxjs'
-import { debounceTime, delay, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators'
+import { debounceTime, delay, filter, map, switchMap } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
 import { QuixAutocompleteAsyncService } from '../autocomplete-service/quix-autocomplete-async.service'
 
@@ -136,6 +136,9 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
+  /**
+   * suggestions for user
+   */
   suggestions$: Observable<any> = new Observable<any>()
   /**
    * The html input element

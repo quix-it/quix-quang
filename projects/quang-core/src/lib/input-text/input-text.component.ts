@@ -56,7 +56,6 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
    * Defines if you want to display the help message for the user
    */
   @Input() helpMessage: boolean = false
-
   /**
    * Defines if you want to display the error message for the user
    */
@@ -241,7 +240,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
     this.control?.statusChanges?.pipe(
       delay(0),
       filter(() => !!this.control.dirty)
-    ).subscribe((v) => {
+    ).subscribe(() => {
       if (this.control.invalid && this.errorMessage) {
         if (this.control.errors) {
           for (const error in this.control.errors) {

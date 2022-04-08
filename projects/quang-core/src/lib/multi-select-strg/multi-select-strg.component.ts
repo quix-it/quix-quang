@@ -112,6 +112,9 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement>|undefined
+  /**
+   * QueryList options
+   */
   @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>>|undefined
   /**
    * Standard definition to create a control value accessor

@@ -116,6 +116,9 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
+  /**
+   * input element
+   */
   @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>> | null = null
   /**
    * Standard definition to create a control value accessor

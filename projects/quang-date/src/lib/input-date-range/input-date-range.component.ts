@@ -187,7 +187,8 @@ export class InputDateRangeComponent implements ControlValueAccessor, OnInit, Af
 
   /**
    *  init locale
-   *  chek hel message and create key
+   *  check help message and create key
+   *  check if is valid
    */
   ngOnInit (): void {
     this.config = {

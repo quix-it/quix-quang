@@ -123,6 +123,9 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement>|undefined
+  /**
+   * QueryList options
+   */
   @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>>|undefined
   /**
    * Standard definition to create a control value accessor
@@ -150,6 +153,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
 
   /**
    * Check if the help message is required and create the key
+   * check if is valid
    */
   ngOnInit (): void {
     if (this.helpMessage) {
