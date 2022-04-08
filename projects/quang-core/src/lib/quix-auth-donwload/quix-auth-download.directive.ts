@@ -78,6 +78,10 @@ export class QuixAuthDownloadDirective {
     })
   }
 
+  /**
+   * set name to downloaded file
+   * @param cd
+   */
   getFilename (cd: string): string {
     return cd
       .slice(cd.indexOf('filename='))

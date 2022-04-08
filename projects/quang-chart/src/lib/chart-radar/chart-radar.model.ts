@@ -26,7 +26,7 @@ export class ChartRadar {
   public symbol: string = 'none'
 
   /**
-   *
+   * constructor
    * @param value
    * @param name
    * @param color

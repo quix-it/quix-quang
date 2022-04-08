@@ -61,6 +61,10 @@ export class CarouselComponent {
    */
   @Output() onSlideChange: EventEmitter<number> = new EventEmitter<number>()
 
+  /**
+   * slide event emitter
+   * @param e
+   */
   onSlideEvent (e: number): void {
     this.onSlideChange.emit(e)
   }

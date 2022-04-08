@@ -145,10 +145,16 @@ export class QuangAuthService {
     this.oauthService.logOut()
   }
 
+  /**
+   * get the id token
+   */
   getIdToken (): string {
     return this.oauthService.getIdToken()
   }
 
+  /**
+   * get the id token
+   */
   getAccessToken (): string {
     return this.oauthService.getAccessToken()
   }
