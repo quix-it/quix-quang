@@ -2,7 +2,7 @@ import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } fr
 import { Subject } from 'rxjs'
 import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators'
 import { Store } from '@ngrx/store'
-import { selectUserRoles } from '../quang-auth-store/selectors/quang-auth.selectors'
+import { selectHasRoles, selectUserRoles } from '../quang-auth-store/selectors/quang-auth.selectors'
 
 /**
  * directive decorator
@@ -42,13 +42,8 @@ export class HasRolesDirective implements OnInit, OnDestroy {
    */
   ngOnInit (): void {
     this.authStore
-      .select(selectUserRoles)
+      .select(selectHasRoles(this.quangHasRoles))
       .pipe(
-        map(roles =>
-          this.quangHasRoles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find && resp, true)
-        ),
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )

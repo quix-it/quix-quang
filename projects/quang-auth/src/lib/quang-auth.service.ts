@@ -160,36 +160,4 @@ export class QuangAuthService {
   getAccessToken (): string {
     return this.oauthService.getAccessToken()
   }
-
-  /**
-   * Check if the user has at least one of the required roles
-   * @param roles
-   */
-  hasUntilRoles (roles: string[]): Observable<boolean> {
-    return this.store
-      .select(QuangAuthSelectors.selectUserRoles)
-      .pipe(
-        map(roles =>
-          roles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find || resp, false)
-        )
-      )
-  }
-
-  /**
-   * Check if the user has all the required roles
-   * @param roles
-   */
-  hasRoles (roles: string[]): Observable<boolean> {
-    return this.store
-      .select(QuangAuthSelectors.selectUserRoles)
-      .pipe(
-        map(roles =>
-          roles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find && resp, true)
-        )
-      )
-  }
 }

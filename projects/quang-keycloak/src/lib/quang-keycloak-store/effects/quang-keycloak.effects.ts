@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects'
 import { QuangKeycloakService } from '../../quang-keycloak.service'
-import { exhaustMap, map } from 'rxjs/operators'
+import { map, mergeMap } from 'rxjs/operators'
 import {
   userInfoLogin,
   userInfoLogout,
@@ -29,7 +29,7 @@ export class QuangKeycloakEffect {
   startAuthEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
-      exhaustMap(action => this.quangKeycloakService.startAuth().pipe(
+      mergeMap(action => this.quangKeycloakService.startAuth().pipe(
         map(is => userLogin())
       ))
     )
@@ -42,7 +42,7 @@ export class QuangKeycloakEffect {
   getInfoUserEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(userLogin),
-      exhaustMap(action => this.quangKeycloakService.getUserInfo().pipe(
+      mergeMap(action => this.quangKeycloakService.getUserInfo().pipe(
         map((user: any) => {
           return userInfoLogin({ user: user })
         })
@@ -57,7 +57,7 @@ export class QuangKeycloakEffect {
   getRolesUserEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(userLogin),
-      exhaustMap(action => this.quangKeycloakService.getUserRoles().pipe(
+      mergeMap(action => this.quangKeycloakService.getUserRoles().pipe(
         map((roles: any) => userRolesLogin({ roles: roles }))
       ))
     )
@@ -70,7 +70,7 @@ export class QuangKeycloakEffect {
   deleteUserEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(userLogout),
-      exhaustMap(action => this.quangKeycloakService.logout(action.redirectUri).pipe(
+      mergeMap(action => this.quangKeycloakService.logout(action.redirectUri).pipe(
         map(() => userRolesLogout()),
         map(() => userInfoLogout())
       ))

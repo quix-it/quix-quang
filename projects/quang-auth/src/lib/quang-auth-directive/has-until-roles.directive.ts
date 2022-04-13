@@ -3,7 +3,7 @@ import { Subject } from 'rxjs'
 import { Store } from '@ngrx/store'
 
 import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators'
-import { selectUserRoles } from '../quang-auth-store/selectors/quang-auth.selectors'
+import { selectHasUntilRoles, selectUserRoles } from '../quang-auth-store/selectors/quang-auth.selectors'
 
 /**
  * directive decorator
@@ -43,13 +43,8 @@ export class HasUntilRolesDirective implements OnInit, OnDestroy {
    */
   ngOnInit (): void {
     this.authStore
-      .select(selectUserRoles)
+      .select(selectHasUntilRoles(this.quangHasUntilRoles))
       .pipe(
-        map(roles =>
-          this.quangHasUntilRoles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find || resp, false)
-        ),
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )

@@ -44,13 +44,8 @@ export class HasUntilRolesDirective implements OnInit, OnDestroy {
    */
   ngOnInit (): void {
     this.authStore
-      .select(QuangKeycloakSelectors.selectUserRoles)
-      .pipe(
-        map(roles =>
-          this.quangHasUntilRoles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find || resp, false)
-        ),
+      .select(QuangKeycloakSelectors.selectHasUntilRoles(this.quangHasUntilRoles))
+    .pipe(
         distinctUntilChanged(),
         takeUntil(this.destroy$)
       )

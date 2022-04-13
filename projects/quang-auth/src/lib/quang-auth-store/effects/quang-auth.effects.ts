@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { QuangAuthService } from '../../quang-auth.service'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { exhaustMap, map } from 'rxjs/operators'
+import { map, mergeMap } from 'rxjs/operators'
 import { Store } from '@ngrx/store'
 import { QuangAuthActions } from '../actions'
 
@@ -18,7 +18,7 @@ export class QuangAuthEffects {
   getInfoUserEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(QuangAuthActions.userLogin),
-      exhaustMap(action =>
+      mergeMap(action =>
         this.quangAuthService.getUserInfo().pipe(
           map((user: any) => {
             return QuangAuthActions.userInfoLogin({ user: user })

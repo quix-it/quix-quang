@@ -5,7 +5,12 @@ import {
   catchError, filter, map, switchMap, take
 } from 'rxjs/operators'
 import { Store } from '@ngrx/store'
-import { selectUserInfo, selectUserRoles } from '../quang-auth-store/selectors/quang-auth.selectors'
+import {
+  selectHasRoles,
+  selectHasUntilRoles,
+  selectUserInfo,
+  selectUserRoles
+} from '../quang-auth-store/selectors/quang-auth.selectors'
 
 /**
  * service decorator
@@ -34,15 +39,8 @@ export class QuangAuthGuard implements CanActivate {
    */
   checkAllRole (allowedRoles: string[]): Observable<boolean> {
     return this.authStore
-      .select(selectUserRoles)
-      .pipe(
-        map(roles =>
-          allowedRoles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find && resp, true)
-        ),
-        take(1)
-      )
+      .select(selectHasRoles(allowedRoles))
+      .pipe(take(1))
   }
 
   /**
@@ -51,15 +49,8 @@ export class QuangAuthGuard implements CanActivate {
    */
   checkUntilRole (allowedRoles: string[]): Observable<boolean> {
     return this.authStore
-      .select(selectUserRoles)
-      .pipe(
-        map(roles =>
-          allowedRoles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find || resp, false)
-        ),
-        take(1)
-      )
+      .select(selectHasUntilRoles(allowedRoles))
+      .pipe(take(1))
   }
 
   /**

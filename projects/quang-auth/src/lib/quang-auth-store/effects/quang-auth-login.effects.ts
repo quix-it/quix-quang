@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects'
 import { QuangAuthService } from '../../quang-auth.service'
 import { Store } from '@ngrx/store'
-import { exhaustMap, map } from 'rxjs/operators'
+import { map, mergeMap } from 'rxjs/operators'
 import { userLogin } from '../actions/quang-auth.actions'
 
 @Injectable({
@@ -20,7 +20,7 @@ export class QuangAuthLoginEffects {
   startAuthEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
-      exhaustMap(action =>
+      mergeMap(action =>
         this.quangAuthService.login().pipe(
           map(is => {
             this.quangAuthService.startRefreshToken()

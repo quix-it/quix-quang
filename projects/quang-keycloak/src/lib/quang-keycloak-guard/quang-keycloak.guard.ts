@@ -34,15 +34,8 @@ export class QuangKeycloakGuard implements CanActivate {
    */
   checkAllRole (allowedRoles: string[]): Observable<boolean> {
     return this.authStore
-      .select(QuangKeycloakSelectors.selectUserRoles)
-      .pipe(
-        map(roles =>
-          allowedRoles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find && resp, true)
-        ),
-        take(1)
-      )
+      .select(QuangKeycloakSelectors.selectHasRoles(allowedRoles))
+      .pipe(take(1))
   }
 
   /**
@@ -51,15 +44,8 @@ export class QuangKeycloakGuard implements CanActivate {
    */
   checkUntilRole (allowedRoles: string[]): Observable<boolean> {
     return this.authStore
-      .select(QuangKeycloakSelectors.selectUserRoles)
-      .pipe(
-        map(roles =>
-          allowedRoles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find || resp, false)
-        ),
-        take(1)
-      )
+      .select(QuangKeycloakSelectors.selectHasUntilRoles(allowedRoles))
+      .pipe(take(1))
   }
 
   /**

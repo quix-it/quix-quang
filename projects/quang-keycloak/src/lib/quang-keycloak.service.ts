@@ -32,7 +32,7 @@ export class QuangKeycloakService {
    * @param store
    */
   constructor (
-  @Optional() config: QuangKeycloakConfig,
+    @Optional() config: QuangKeycloakConfig,
     private readonly keyCloak: KeycloakService,
     private readonly store: Store<any>
   ) {
@@ -136,37 +136,5 @@ export class QuangKeycloakService {
     } else {
       alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')
     }
-  }
-
-  /**
-   * Check if the user has at least one of the required roles
-   * @param roles
-   */
-  hasUntilRoles (roles: string[]): Observable<boolean> {
-    return this.store
-      .select(QuangKeycloakSelectors.selectUserRoles)
-      .pipe(
-        map(roles =>
-          roles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find || resp, false)
-        )
-      )
-  }
-
-  /**
-   * Check if the user has all the required roles
-   * @param roles
-   */
-  hasRoles (roles: string[]): Observable<boolean> {
-    return this.store
-      .select(QuangKeycloakSelectors.selectUserRoles)
-      .pipe(
-        map(roles =>
-          roles
-            .map(r => roles.includes(r))
-            .reduce((find, resp) => find && resp, true)
-        )
-      )
   }
 }
