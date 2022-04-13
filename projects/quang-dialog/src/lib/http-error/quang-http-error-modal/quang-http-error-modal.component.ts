@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal'
 import { HttpErrorResponse } from '@angular/common/http'
+import { QuangModalService } from '../../modal/quang-modal.service'
 
 /**
  * error modal component decorator
@@ -25,12 +25,10 @@ export class QuangHttpErrorModalComponent {
 
   /**
    * constructor
-   * @param modalRef modal item
    * @param modalService modal utility
    */
   constructor (
-    public readonly modalRef: BsModalRef,
-    private readonly modalService: BsModalService
+    private readonly modalService: QuangModalService
   ) {
   }
 
@@ -38,7 +36,6 @@ export class QuangHttpErrorModalComponent {
    * close modal error
    */
   closeModal (): void {
-    this.modalService.onHide.emit('close')
-    this.modalRef.hide()
+    this.modalService.closeModal('close')
   }
 }

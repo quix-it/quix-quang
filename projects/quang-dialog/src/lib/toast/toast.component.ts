@@ -3,16 +3,14 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  Renderer2,
   ViewChild
 } from '@angular/core'
 import { QuangToast } from './toast.model'
-import { Observable, of, Subscription } from 'rxjs'
-import { ToastsState } from './toast-store/reducers/toast.reducers'
+import { delay, Observable, of, Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { delay, take } from 'rxjs/operators'
 import { ToastSelectors } from './toast-store/selectors'
 import { QuangDialogStateModule } from '../quang-dialog.reducers'
+import { take } from 'rxjs/operators'
 
 /**
  * toast component decorator
@@ -34,7 +32,7 @@ export class QuangToastComponent implements AfterViewInit, OnDestroy {
    * observable for toast state
    * @private
    */
-  private readonly toastState$: Observable<any> = this.store.select(ToastSelectors.selectToast)
+  private readonly toastState$: Observable<QuangToast> = this.store.select(ToastSelectors.selectToast)
   /**
    * subscription to a toast state
    * @private
@@ -47,11 +45,9 @@ export class QuangToastComponent implements AfterViewInit, OnDestroy {
 
   /**
    * constructor
-   * @param renderer html access
    * @param store store access
    */
   constructor (
-    private readonly renderer: Renderer2,
     private readonly store: Store<QuangDialogStateModule>
   ) {
   }
@@ -67,10 +63,14 @@ export class QuangToastComponent implements AfterViewInit, OnDestroy {
    * observe the change of state of the toast saved in the store
    */
   observeToasts (): void {
-    this.subscription = this.toastState$.subscribe((data: ToastsState) => {
-      if (data.toastData) {
-        this.data = data.toastData
-        this.open()
+    this.subscription = this.toastState$.subscribe((t: QuangToast) => {
+      if (t) {
+        this.data = t
+        if (this.data.timing) {
+          setTimeout(() => {
+            this.close()
+          }, this.data.timing)
+        }
       }
     },
     () => {

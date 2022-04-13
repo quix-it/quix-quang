@@ -7,5 +7,5 @@ import { QuangDialogState } from '../../../quang-dialog.reducers'
  */
 export const selectLoader = createSelector(
   selectQuangDialog,
-  (state: QuangDialogState) => state.loaderState?.loaders
+  (state: QuangDialogState): number => state.loaderState?.loaders
 )

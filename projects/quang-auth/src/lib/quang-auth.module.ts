@@ -33,7 +33,7 @@ import { quangAuthReducer } from './quang-auth-module.reducer'
   ]
 })
 export class QuangAuthModule {
-  static forRoot (config?: QuangAuthConfig): ModuleWithProviders<any> {
+  static forRoot (config?: QuangAuthConfig): ModuleWithProviders<QuangAuthModule> {
     return {
       ngModule: QuangAuthModule,
       providers: [

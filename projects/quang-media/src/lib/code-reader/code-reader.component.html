@@ -22,7 +22,7 @@
               [attr.aria-autocomplete]="autocomplete"
               [attr.aria-errormessage]="id + '-error'"
               [attr.aria-describedby]="id + '-help'"
-              class="form-control">
+              class="form-select">
         <option *ngFor="let d of _devices"
                 [ngValue]="d.id">
           {{d.label}}

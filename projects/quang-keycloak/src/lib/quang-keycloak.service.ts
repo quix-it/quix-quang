@@ -4,8 +4,6 @@ import { from, Observable } from 'rxjs'
 import { KeycloakService } from 'keycloak-angular'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
 import { QuangKeycloakActions } from './quang-keycloak-store/actions'
-import { map } from 'rxjs/operators'
-import { QuangKeycloakSelectors } from './quang-keycloak-store/selectors'
 /**
  * service decorator
  */

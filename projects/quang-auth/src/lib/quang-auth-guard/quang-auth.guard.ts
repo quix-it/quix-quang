@@ -11,6 +11,7 @@ import {
   selectUserInfo,
   selectUserRoles
 } from '../quang-auth-store/selectors/quang-auth.selectors'
+import { QuangAuthSelectors } from '../quang-auth-store/selectors'
 
 /**
  * service decorator
@@ -49,7 +50,7 @@ export class QuangAuthGuard implements CanActivate {
    */
   checkUntilRole (allowedRoles: string[]): Observable<boolean> {
     return this.authStore
-      .select(selectHasUntilRoles(allowedRoles))
+      .select(QuangAuthSelectors.selectHasUntilRoles(allowedRoles))
       .pipe(take(1))
   }
 

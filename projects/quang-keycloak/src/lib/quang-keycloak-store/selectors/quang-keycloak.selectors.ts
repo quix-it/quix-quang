@@ -1,4 +1,4 @@
-import { createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store'
+import { createSelector, DefaultProjectorFn, MemoizedSelector, MemoizedSelectorWithProps } from '@ngrx/store'
 import { selectQuangKeycloak } from '../../quang-keycloak-module.selector'
 import { QuangKeycloakModuleState, QuangKeycloakState } from '../../quang-keycloak-module.reducer'
 
@@ -7,26 +7,26 @@ import { QuangKeycloakModuleState, QuangKeycloakState } from '../../quang-keyclo
  */
 export const selectIsAuthenticated = createSelector(
   selectQuangKeycloak,
-  (state: QuangKeycloakState) => state?.quangKeycloakUserState?.isAuthenticated
+  (state: QuangKeycloakState): boolean => state?.quangKeycloakUserState?.isAuthenticated
 )
 /**
  * Selector to retrieve the status of the user data
  */
 export const selectUserInfo = createSelector(
   selectQuangKeycloak,
-  (state: QuangKeycloakState) => state?.quangKeycloakUserState?.user
+  (state: QuangKeycloakState): any => state?.quangKeycloakUserState?.user
 )
 /**
  * Selector to retrieve the status of the role list
  */
 export const selectUserRoles = createSelector(
   selectQuangKeycloak,
-  (state: QuangKeycloakState) => state?.quangKeycloakUserState?.roles
+  (state: QuangKeycloakState): any[] => state?.quangKeycloakUserState?.roles
 )
 /**
  * Selector to check if the user has all the required roles
  */
-export const selectHasRoles = (rolesId: string[]): MemoizedSelector<QuangKeycloakModuleState, boolean, DefaultProjectorFn<boolean>> =>
+export const selectHasRoles = (rolesId: string[]): any =>
   createSelector(
     selectUserRoles,
     (userRoles: string[]) =>
@@ -37,7 +37,7 @@ export const selectHasRoles = (rolesId: string[]): MemoizedSelector<QuangKeycloa
 /**
  * Selector to check if the user has at least one required role
  */
-export const selectHasUntilRoles = (rolesId: string[]): MemoizedSelector<QuangKeycloakModuleState, boolean, DefaultProjectorFn<boolean>> =>
+export const selectHasUntilRoles = (rolesId: string[]): any =>
   createSelector(
     selectUserRoles,
     (userRoles: string[]) =>

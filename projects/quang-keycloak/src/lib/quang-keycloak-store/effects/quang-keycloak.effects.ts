@@ -20,7 +20,7 @@ import {
 /**
  * auth effect
  */
-export class QuangKeycloakEffect {
+export class QuangKeycloakEffects {
   /**
    * When the store is started,
    * Start the login procedure,
@@ -29,9 +29,11 @@ export class QuangKeycloakEffect {
   startAuthEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
-      mergeMap(action => this.quangKeycloakService.startAuth().pipe(
-        map(is => userLogin())
-      ))
+      mergeMap(action => this.quangKeycloakService.startAuth()
+        .pipe(
+          map(is => userLogin())
+        )
+      )
     )
   )
 
@@ -42,11 +44,13 @@ export class QuangKeycloakEffect {
   getInfoUserEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(userLogin),
-      mergeMap(action => this.quangKeycloakService.getUserInfo().pipe(
-        map((user: any) => {
-          return userInfoLogin({ user: user })
-        })
-      ))
+      mergeMap(action => this.quangKeycloakService.getUserInfo()
+        .pipe(
+          map((user: any) => {
+            return userInfoLogin({ user: user })
+          })
+        )
+      )
     )
   )
 
@@ -57,9 +61,11 @@ export class QuangKeycloakEffect {
   getRolesUserEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(userLogin),
-      mergeMap(action => this.quangKeycloakService.getUserRoles().pipe(
-        map((roles: any) => userRolesLogin({ roles: roles }))
-      ))
+      mergeMap(action => this.quangKeycloakService.getUserRoles()
+        .pipe(
+          map((roles: string[]) => userRolesLogin({ roles: roles }))
+        )
+      )
     )
   )
 
@@ -70,10 +76,12 @@ export class QuangKeycloakEffect {
   deleteUserEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(userLogout),
-      mergeMap(action => this.quangKeycloakService.logout(action.redirectUri).pipe(
-        map(() => userRolesLogout()),
-        map(() => userInfoLogout())
-      ))
+      mergeMap(action => this.quangKeycloakService.logout(action.redirectUri)
+        .pipe(
+          map(() => userRolesLogout()),
+          map(() => userInfoLogout())
+        )
+      )
     )
   )
 

@@ -29,4 +29,11 @@ export class QuangToastService {
   openToast (toast: QuangToast): void {
     this.store.dispatch(ToastActions.openToast({ toastData: toast }))
   }
+
+  /**
+   * lose the toast
+   */
+  closeToast (): void {
+    this.store.dispatch(ToastActions.deleteToast())
+  }
 }
