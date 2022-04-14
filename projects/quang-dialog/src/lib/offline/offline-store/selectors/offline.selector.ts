@@ -7,5 +7,5 @@ import { QuangDialogState } from '../../../quang-dialog.reducers'
  */
 export const selectLine = createSelector(
   selectQuangDialog,
-  (state: QuangDialogState) => state.offlineState?.line
+  (state: QuangDialogState): boolean => state.offlineState?.line
 )

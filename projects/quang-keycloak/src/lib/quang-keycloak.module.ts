@@ -35,7 +35,7 @@ import { IsNotAuthenticatedDirective } from './quang-keycloak-directive/is-not-a
   ]
 })
 export class QuangKeycloakModule {
-  static forRoot (config?: QuangKeycloakConfig): ModuleWithProviders<any> {
+  static forRoot (config?: QuangKeycloakConfig): ModuleWithProviders<QuangKeycloakModule> {
     return {
       ngModule: QuangKeycloakModule,
       providers: [

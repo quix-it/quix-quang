@@ -1,4 +1,4 @@
-import { createSelector, DefaultProjectorFn, MemoizedSelector } from '@ngrx/store'
+import { createSelector, DefaultProjectorFn, MemoizedSelector, MemoizedSelectorWithProps } from '@ngrx/store'
 import { selectQuangAuth } from '../../quang-auth-module.selector'
 import { QuangAuthModuleState, QuangAuthState } from '../../quang-auth-module.reducer'
 
@@ -14,35 +14,34 @@ export const selectIsAuthenticated = createSelector(
  */
 export const selectUserInfo = createSelector(
   selectQuangAuth,
-  (state: QuangAuthState) => state.quangAuthUserState.user
+  (state: QuangAuthState): any => state.quangAuthUserState.user
 )
 /**
  * User role status selector
  */
 export const selectUserRoles = createSelector(
   selectQuangAuth,
-  (state: QuangAuthState) => state.quangAuthUserState.roles
+  (state: QuangAuthState): any[] => state.quangAuthUserState.roles
 )
 
 /**
  * Selector to check if the user has all the required roles
  */
-export const selectHasRoles = (rolesId: string[]): MemoizedSelector<QuangAuthModuleState, boolean, DefaultProjectorFn<boolean>> =>
+export const selectHasRoles = (rolesId: string[]): any =>
   createSelector(
     selectUserRoles,
-    (userRoles: string[]) =>
+    (userRoles: string[]): boolean =>
       rolesId
         .map(r => userRoles.includes(r))
-        .reduce((f, r) => f && r, true)
+        .reduce((f: boolean, r: boolean) => f && r, true)
   )
 /**
  * Selector to check if the user has at least one required role
  */
-export const selectHasUntilRoles = (rolesId: string[]): MemoizedSelector<QuangAuthModuleState, boolean, DefaultProjectorFn<boolean>> =>
-  createSelector(
-    selectUserRoles,
-    (userRoles: string[]) =>
-      rolesId
-        .map(r => userRoles.includes(r))
-        .reduce((f, r) => f || r, false)
-  )
+export const selectHasUntilRoles = (rolesId: string[]): any => createSelector(
+  selectUserRoles,
+  (userRoles: string[]): boolean =>
+    rolesId
+      .map(r => userRoles.includes(r))
+      .reduce((f, r) => f || r, false)
+)

@@ -38,3 +38,8 @@
 
 * add qrcode componente
 * new validation function
+
+## 13.0.1
+
+* fix selector of quang-keycloak and quang-auth
+* fix validation flow in quang-date components

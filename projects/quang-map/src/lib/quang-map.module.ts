@@ -20,7 +20,7 @@ import { QuangGoogleMapService } from './google-map/google-map.service'
   ]
 })
 export class QuangMapModule {
-  static forRoot (config?: QuangMapConfig): ModuleWithProviders<any> {
+  static forRoot (config?: QuangMapConfig): ModuleWithProviders<QuangMapModule> {
     return {
       ngModule: QuangMapModule,
       providers: [

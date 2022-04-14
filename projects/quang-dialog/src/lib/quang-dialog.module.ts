@@ -55,7 +55,7 @@ import { QuangNotificationService } from './notification/notification.service'
   ]
 })
 export class QuangDialogModule {
-  static forRoot (config?: QuangDialogConfig): ModuleWithProviders<any> {
+  static forRoot (config?: QuangDialogConfig): ModuleWithProviders<QuangDialogModule> {
     return {
       ngModule: QuangDialogModule,
       providers: [

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal'
 import { take } from 'rxjs/operators'
+
 /**
  * service decorator
  */
@@ -117,5 +118,15 @@ export class QuangModalService {
         this.config.class = 'modal-md'
         break
     }
+  }
+
+  /**
+   * method to close the modal, you can pass values to this method,
+   * they will be emitted by the observable onHide of this service
+   * @param hideData
+   */
+  closeModal (hideData: string | number): void {
+    this.modalService.onHide.emit(hideData)
+    this.modalRef?.hide()
   }
 }
