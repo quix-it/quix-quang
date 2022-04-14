@@ -88,11 +88,7 @@ export class QuixEventBusService {
    * @param message
    */
   sendMessage (message: string): void {
-    this.eb.send(this.address, message, (e, m) => {
-      if (e) {
-        console.error(e)
-      }
-    })
+    this.eb.send(this.address, message)
   }
 
   /**
@@ -118,7 +114,6 @@ export class QuixEventBusService {
    */
   private onOpen (): void {
     this.eb.onopen = () => {
-      console.log('Socket opened')
       this.bus.next('socketInit')
       this.onMessage()
     }
@@ -127,7 +122,7 @@ export class QuixEventBusService {
   /**
    * when a reception event is issued, the message checks if it is an error,
    * if it is not, it tries to transform the json of the response and does the next of the connected observable,
-   * if it is not a json it does the next of the response as it is
+   * if it is not a json it does the next of the response as it is˙
    * @private
    */
   private onMessage (): void {
@@ -151,7 +146,6 @@ export class QuixEventBusService {
    */
   private onError (error: Error): void {
     this.bus.error(error)
-    console.error(error)
   }
 
   /**

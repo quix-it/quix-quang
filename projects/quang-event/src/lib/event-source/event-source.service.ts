@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
 import { EventSourcePolyfill } from 'event-source-polyfill'
+
 /**
  * service decorator
  */
@@ -58,7 +59,6 @@ export class QuixEventSourceService {
   private onOpen (): void {
     this.evs.onopen = () => {
       this.events.next('eventSourceInit')
-      console.log('EventSource link opened')
     }
   }
 
@@ -85,7 +85,6 @@ export class QuixEventSourceService {
   private onError (): void {
     this.evs.onerror = (e) => {
       this.events.error(e)
-      console.error(e)
     }
   }
 
