@@ -1,5 +1,5 @@
 {
-  "name": "quix-core-workspace",
+  "name": "@quix/quang",
   "version": "11.0.13",
   "scripts": {
     "ng": "ng",
