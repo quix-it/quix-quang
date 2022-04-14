@@ -1,11 +1,10 @@
 import { Injectable, Optional } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { from, Observable } from 'rxjs'
+import { from, Observable, of } from 'rxjs'
 import { KeycloakService } from 'keycloak-angular'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
 import { QuangKeycloakActions } from './quang-keycloak-store/actions'
-import { map } from 'rxjs/operators'
-import { QuangKeycloakSelectors } from './quang-keycloak-store/selectors'
+
 /**
  * service decorator
  */
@@ -90,17 +89,15 @@ export class QuangKeycloakService {
   /**
    * get the user's roles
    */
-  getUserRoles (): Observable<any> {
-    return from(this.keyCloak.getUserRoles(true))
+  getUserRoles (): Observable<string[]> {
+    return of(this.keyCloak.getUserRoles(true))
   }
 
   /**
    * retrieves the user's roles and saves them in the store
    */
   getUserRolesAndDispatch (): void {
-    from(this.keyCloak.getUserRoles(true)).subscribe((roles: any) => {
-      this.store.dispatch(QuangKeycloakActions.userRolesLogin({ roles: roles }))
-    })
+      this.store.dispatch(QuangKeycloakActions.userRolesLogin({ roles: this.keyCloak.getUserRoles(true) }))
   }
 
   /**
