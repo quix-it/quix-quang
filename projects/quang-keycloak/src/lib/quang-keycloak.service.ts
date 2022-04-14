@@ -92,7 +92,7 @@ export class QuangKeycloakService {
   /**
    * get the user's roles
    */
-  getUserRoles (): Observable<any> {
+  getUserRoles (): Observable<string[]> {
     return of(this.keyCloak.getUserRoles(true))
   }
 
@@ -100,9 +100,7 @@ export class QuangKeycloakService {
    * retrieves the user's roles and saves them in the store
    */
   getUserRolesAndDispatch (): void {
-    from(this.keyCloak.getUserRoles(true)).subscribe((roles: any) => {
-      this.store.dispatch(userRolesLogin({ roles: roles }))
-    })
+      this.store.dispatch(userRolesLogin({ roles: this.keyCloak.getUserRoles(true) }))
   }
 
   /**
