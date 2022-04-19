@@ -66,6 +66,7 @@
     "date-fns": "^2.28.0",
     "echarts": "^5.2.2",
     "event-source-polyfill": "^1.0.21",
+    "html5-qrcode": "^2.1.6",
     "keycloak-angular": "^9.0.0",
     "keycloak-js": "^15.1.1",
     "ng-lazyload-image": "^9.1.1",
@@ -82,13 +83,12 @@
     "resize-observer-polyfill": "^1.5.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.1",
-    "zone.js": "~0.11.3",
-    "html5-qrcode": "^2.1.6"
+    "zone.js": "~0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.2.3",
     "@angular-devkit/build-ng-packagr": "^0.1002.0",
-    "@angular-eslint/builder": "^13.1.0",
+    "@angular-eslint/builder": "^12.2.1",
     "@angular-eslint/eslint-plugin": "^13.1.0",
     "@angular-eslint/eslint-plugin-template": "^13.1.0",
     "@angular-eslint/schematics": "^13.1.0",
@@ -115,7 +115,6 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-storybook": "^0.5.7",
     "jasmine-core": "~4.0.0",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "^6.3.16",
