@@ -47,7 +47,7 @@
         "build": {
           "options": {
             "tsConfig": "tsconfig.json",
-            "styles": ["./.storybook/styles.css"],
+            "styles": ["quix-design-system/styles.scss"],
             "scripts": []
           }
         }

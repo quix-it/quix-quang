@@ -1,0 +1,20 @@
+.paginatorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  @include media-breakpoint-up(sm) {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    order: 2;
+  }
+
+  #pageSize {
+    display: inline-block;
+    margin-bottom: .5rem;
+    order: 2;
+    @include media-breakpoint-up(sm) {
+      order: 1;
+    }
+  }
+}

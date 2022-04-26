@@ -1,0 +1,188 @@
+@use 'node_modules/@angular/material/core/core-theme';
+@use 'node_modules/@angular/material/autocomplete/autocomplete-theme';
+@use 'node_modules/@angular/material/badge/badge-theme';
+@use 'node_modules/@angular/material/bottom-sheet/bottom-sheet-theme';
+@use 'node_modules/@angular/material/button/button-theme';
+@use 'node_modules/@angular/material/button-toggle/button-toggle-theme';
+@use 'node_modules/@angular/material/card/card-theme';
+@use 'node_modules/@angular/material/checkbox/checkbox-theme';
+@use 'node_modules/@angular/material/chips/chips-theme';
+@use 'node_modules/@angular/material/table/table-theme';
+@use 'node_modules/@angular/material/datepicker/datepicker-theme';
+@use 'node_modules/@angular/material/dialog/dialog-theme';
+@use 'node_modules/@angular/material/divider/divider-theme';
+@use 'node_modules/@angular/material/expansion/expansion-theme';
+@use 'node_modules/@angular/material/grid-list/grid-list-theme';
+@use 'node_modules/@angular/material/icon/icon-theme';
+@use 'node_modules/@angular/material/input/input-theme';
+@use 'node_modules/@angular/material/list/list-theme';
+@use 'node_modules/@angular/material/menu/menu-theme';
+@use 'node_modules/@angular/material/paginator/paginator-theme';
+@use 'node_modules/@angular/material/progress-bar/progress-bar-theme';
+@use 'node_modules/@angular/material/progress-spinner/progress-spinner-theme';
+@use 'node_modules/@angular/material/radio/radio-theme';
+@use 'node_modules/@angular/material/select/select-theme';
+@use 'node_modules/@angular/material/sidenav/sidenav-theme';
+@use 'node_modules/@angular/material/slide-toggle/slide-toggle-theme';
+@use 'node_modules/@angular/material/slider/slider-theme';
+@use 'node_modules/@angular/material/stepper/stepper-theme';
+@use 'node_modules/@angular/material/sort/sort-theme';
+@use 'node_modules/@angular/material/tabs/tabs-theme';
+@use 'node_modules/@angular/material/toolbar/toolbar-theme';
+@use 'node_modules/@angular/material/tooltip/tooltip-theme';
+@use 'node_modules/@angular/material/tree/tree-theme';
+@use 'node_modules/@angular/material/snack-bar/snack-bar-theme';
+@use 'node_modules/@angular/material/form-field/form-field-theme';
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+// abstracts
+@import "abstracts/quix_mixin";
+
+// base
+@import "base/palette";
+@import "base/typhography";
+@import "base/variables";
+
+
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$blank-light-primary: mat.define-palette($bootstrap-light-primary);
+$blank-light-accent: mat.define-palette($bootstrap-light-primary, A200, A100, A400);
+$blank-light-warn: mat.define-palette($bootstrap-light-danger);
+$blank-light-theme: mat.define-light-theme((
+  color: (
+    primary: $blank-light-primary,
+    accent: $blank-light-accent,
+    warn: $blank-light-warn,
+  )
+));
+
+@include core-theme.theme($blank-light-theme);
+@include autocomplete-theme.theme($blank-light-theme);
+@include badge-theme.theme($blank-light-theme);
+@include bottom-sheet-theme.theme($blank-light-theme);
+@include button-theme.theme($blank-light-theme);
+@include button-toggle-theme.theme($blank-light-theme);
+@include card-theme.theme($blank-light-theme);
+@include checkbox-theme.theme($blank-light-theme);
+@include chips-theme.theme($blank-light-theme);
+@include table-theme.theme($blank-light-theme);
+@include datepicker-theme.theme($blank-light-theme);
+@include dialog-theme.theme($blank-light-theme);
+@include divider-theme.theme($blank-light-theme);
+@include expansion-theme.theme($blank-light-theme);
+@include form-field-theme.theme($blank-light-theme);
+@include grid-list-theme.theme($blank-light-theme);
+@include icon-theme.theme($blank-light-theme);
+@include input-theme.theme($blank-light-theme);
+@include list-theme.theme($blank-light-theme);
+@include menu-theme.theme($blank-light-theme);
+@include paginator-theme.theme($blank-light-theme);
+@include progress-bar-theme.theme($blank-light-theme);
+@include progress-spinner-theme.theme($blank-light-theme);
+@include radio-theme.theme($blank-light-theme);
+@include select-theme.theme($blank-light-theme);
+@include sidenav-theme.theme($blank-light-theme);
+@include slide-toggle-theme.theme($blank-light-theme);
+@include slider-theme.theme($blank-light-theme);
+@include stepper-theme.theme($blank-light-theme);
+@include sort-theme.theme($blank-light-theme);
+@include tabs-theme.theme($blank-light-theme);
+@include toolbar-theme.theme($blank-light-theme);
+@include tooltip-theme.theme($blank-light-theme);
+@include tree-theme.theme($blank-light-theme);
+@include snack-bar-theme.theme($blank-light-theme);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$blank-dark-primary: mat.define-palette($bootstrap-dark-primary);
+$blank-dark-accent: mat.define-palette($bootstrap-dark-primary, A200, A100, A400);
+$blank-dark-warn: mat.define-palette($bootstrap-dark-danger);
+$blank-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $blank-dark-primary,
+    accent: $blank-dark-accent,
+    warn: $blank-dark-warn,
+  )
+));
+//@include darkTheme() {
+//  @include mat.all-component-colors($blank-dark-theme)
+//}
+
+// vendors
+@import "node_modules/bootstrap/scss/functions";
+@import "vendors/variables";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/utilities";
+@import "node_modules/bootstrap/scss/helpers";
+@import "node_modules/bootstrap/scss/root";
+@import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/type";
+@import "node_modules/bootstrap/scss/images";
+@import "node_modules/bootstrap/scss/grid";
+@import "node_modules/bootstrap/scss/tables";
+@import "node_modules/bootstrap/scss/forms";
+@import "node_modules/bootstrap/scss/buttons";
+@import "node_modules/bootstrap/scss/transitions";
+@import "node_modules/bootstrap/scss/dropdown";
+@import "node_modules/bootstrap/scss/button-group";
+@import "node_modules/bootstrap/scss/nav";
+@import "node_modules/bootstrap/scss/navbar";
+@import "node_modules/bootstrap/scss/card";
+@import "node_modules/bootstrap/scss/breadcrumb";
+@import "node_modules/bootstrap/scss/pagination";
+@import "node_modules/bootstrap/scss/badge";
+@import "node_modules/bootstrap/scss/alert";
+@import "node_modules/bootstrap/scss/progress";
+@import "node_modules/bootstrap/scss/list-group";
+@import "node_modules/bootstrap/scss/close";
+@import "node_modules/bootstrap/scss/toasts";
+@import "node_modules/bootstrap/scss/modal";
+@import "node_modules/bootstrap/scss/tooltip";
+@import "node_modules/bootstrap/scss/popover";
+@import "node_modules/bootstrap/scss/carousel";
+@import "node_modules/bootstrap/scss/spinners";
+@import "node_modules/bootstrap/scss/utilities/api";
+@import "node_modules/bootstrap/scss/accordion";
+@import "node_modules/bootstrap/scss/containers";
+@import "vendors/datePickerVariables";
+@import "node_modules/ngx-bootstrap/datepicker/utils/scss/variables";
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+//@import "../../node_modules/quill/dist/quill.core.css";
+//@import "../../node_modules/quill/dist/quill.snow.css";
+//@import "../../node_modules/quill-emoji/dist/quill-emoji.css";
+@import "vendors/toast";
+@import "vendors/textEditor";
+@import "vendors/paginator";
+@import "vendors/matTooltip";
+@import "vendors/accordion";
+@import "vendors/nav";
+@import "vendors/tab";
+
+// components
+
+
+// layout
+@import "layout/header";
+@import "layout/aside";
+@import "layout/footer";
+
+// pages
+@import "pages/quix-design-system"; // only for demo
+@import "pages/notFound"; // error 404 page
+@import "pages/notPermission"; // error 403 page
+
+// themes
+
+@import "shame";
+
