@@ -150,7 +150,9 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.control) {
+      this.control.valueAccessor = this
+    }
   }
 
   /**

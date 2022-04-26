@@ -40,6 +40,19 @@
         }
       }
     },
+    "storybook": {
+      "projectType": "application",
+      "root": "stories",
+      "architect": {
+        "build": {
+          "options": {
+            "tsConfig": "tsconfig.json",
+            "styles": ["./.storybook/styles.css"],
+            "scripts": []
+          }
+        }
+      }
+    },
     "quang-auth": {
       "projectType": "library",
       "root": "projects/quang-auth",

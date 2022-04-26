@@ -31,7 +31,7 @@
          [attr.aria-readonly]="readonly"
          [attr.aria-describedby]="id + '-help'"
          [attr.aria-errormessage]="id + '-error'"
-         [attr.aria-invalid]="control.invalid"
+         [attr.aria-invalid]="control?.invalid"
   >
   <div class="valid-feedback"
        aria-live="assertive">
