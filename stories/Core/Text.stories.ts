@@ -5,12 +5,14 @@ import { moduleMetadata } from '@storybook/angular'
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { CUSTOM_ELEMENTS_SCHEMA, forwardRef } from '@angular/core'
+import { HttpClientModule } from '@angular/common/http'
 
 export default {
   title: 'Core/Input Text',
   component: InputTextComponent,
   decorators: [
     moduleMetadata({
+      declarations: [ InputTextComponent ],
       imports: [
         TranslocoModule,
         CommonModule,
@@ -30,10 +32,10 @@ export default {
 } as Meta
 
 export const InputText: Story = (args) => {
-  const formGroup = new FormGroup({
+  const group: FormGroup = new FormGroup({
     text: new FormControl(
       '',
-      [Validators.required]
+      [Validators.required, Validators.minLength(0), Validators.maxLength(50)]
     )
   })
 
@@ -57,12 +59,13 @@ export const InputText: Story = (args) => {
             formControlName="text"
             ></quang-input-text>
       </form>
-      <div>{{_value}}</div>
+      <dt>
+        <dl>{{form.controls.text.value}}</dl>
+      </dt>
     `,
     props: {
       ...args,
-      form: formGroup,
-      value: ''
+      form: group,
     }
   }
 }

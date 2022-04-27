@@ -20,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-text',
   templateUrl: './input-text.component.html',
-  styles: []
+  styles: [],
 })
 /**
  * input text component
@@ -127,14 +127,11 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
-
+  onTouched(){}
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged(value: string){}
 
   /**
    * The html input element
@@ -150,7 +147,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
-      this.control.valueAccessor = this
+    this.control.valueAccessor = this
   }
 
   /**
