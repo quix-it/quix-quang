@@ -33,6 +33,7 @@
          [attr.aria-errormessage]="id + '-error'"
          [attr.aria-invalid]="control?.invalid"
   >
+  {{onTouched}}
   <div class="valid-feedback"
        aria-live="assertive">
     {{_successMessage | transloco }}

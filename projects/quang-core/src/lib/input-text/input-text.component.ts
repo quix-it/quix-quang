@@ -150,9 +150,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
-    if (this.control) {
       this.control.valueAccessor = this
-    }
   }
 
   /**
@@ -243,7 +241,7 @@ export class InputTextComponent implements ControlValueAccessor, AfterViewInit, 
     this.control?.statusChanges?.pipe(
       delay(0),
       filter(() => !!this.control.dirty)
-    ).subscribe((v) => {
+    ).subscribe(() => {
       if (this.control.invalid && this.errorMessage) {
         if (this.control.errors) {
           for (const error in this.control.errors) {
