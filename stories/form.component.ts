@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 
 @Component({
-  selector: 'form-component',
-  template:'',
+  selector: '',
+  template: '',
   styles: []
 })
-
-export default class FormComponent {}
+export class FormComponent {
+}

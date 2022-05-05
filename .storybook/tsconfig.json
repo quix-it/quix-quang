@@ -1,0 +1,22 @@
+{
+  "extends": "../projects/quang/tsconfig.lib.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "../src/test.ts",
+    "../src/**/*.spec.ts",
+    "../projects/**/*.spec.ts"
+  ],
+  "include": [
+    "../stories/**/*",
+    "../src/**/*",
+    "../projects/**/*"
+  ],
+  "files": [
+    "./typings.d.ts"
+  ]
+}
