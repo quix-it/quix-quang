@@ -158,9 +158,9 @@ $blank-dark-theme: mat.define-dark-theme((
 @import "vendors/datePickerVariables";
 @import "node_modules/ngx-bootstrap/datepicker/utils/scss/variables";
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
-//@import "../../node_modules/quill/dist/quill.core.css";
-//@import "../../node_modules/quill/dist/quill.snow.css";
-//@import "../../node_modules/quill-emoji/dist/quill-emoji.css";
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
+@import "../node_modules/quill-emoji/dist/quill-emoji.css";
 @import "vendors/toast";
 @import "vendors/textEditor";
 @import "vendors/paginator";

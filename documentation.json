@@ -40178,22 +40178,20 @@
                 "description": "<p>add loader call to counter</p>\n"
             },
             {
-                "name": "context",
+                "name": "Checkbox",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang/src/test.ts",
+                "file": "stories/Input/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    checkbox: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input Checkbox</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a href=\"https://rd.quix.it/quang/components/InputCheckboxComponent.html\" target=\"_blank\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                <form [formGroup]=\"group\">\n                  <quang-input-checkbox\n                    [label]=\"label\"\n                    [errorMessage]=\"errorMessage\"\n                    [successMessage]=\"successMessage\"\n                    [helpMessage]=\"helpMessage\"\n                    [autocomplete]=\"'off'\"\n                    [tabIndex]=\"1\"\n                    [id]=\"'checkbox id'\"\n                    [autofocus]=\"true\"\n                    [formName]=\"'form'\"\n                    formControlName=\"checkbox\">\n                  </quang-input-checkbox>\n                </form>\n                <dl>\n                  <dt>Value:</dt>\n                  <dd>{{group.controls.checkbox.value}}</dd>\n                </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'checkbox label'),\n    }\n  }\n}"
             },
             {
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-chart/src/test.ts",
+                "file": "projects/quang/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40218,6 +40216,18 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-auth/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-chart/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40265,18 +40275,6 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-event/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-dialog/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40289,7 +40287,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
+                "file": "projects/quang-event/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40301,7 +40299,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-map/src/test.ts",
+                "file": "projects/quang-keycloak/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40334,6 +40332,18 @@
                 "description": "<p>Then we find all the tests.</p>\n"
             },
             {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-map/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
                 "name": "deleteToast",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -40344,6 +40354,16 @@
                 "defaultValue": "createAction('[TOASTS API] delete toast')",
                 "rawdescription": "delete toast",
                 "description": "<p>delete toast</p>\n"
+            },
+            {
+                "name": "Email",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    email: new FormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(50)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input email</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputEmailComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-email\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'email id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [min]=\"min\"\n              [max]=\"max\"\n              formControlName=\"email\"\n            ></quang-input-email>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.email.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'email label'),\n      placeholder: text('placeholder', 'email placeholder'),\n      min: number('min', 0),\n      max: number('max', 50)\n    }\n  }\n}"
             },
             {
                 "name": "europeanVatNumber",
@@ -40438,6 +40458,26 @@
                 "description": "<p>initial state of authentication store</p>\n"
             },
             {
+                "name": "InputCheckbox",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Checkbox.bind({})"
+            },
+            {
+                "name": "InputEmail",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Email.bind({})"
+            },
+            {
                 "name": "InputPassword",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -40448,6 +40488,16 @@
                 "defaultValue": "Password.bind({})"
             },
             {
+                "name": "InputTel",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Tel.bind({})"
+            },
+            {
                 "name": "InputText",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -40456,6 +40506,16 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Text.bind({})"
+            },
+            {
+                "name": "Number",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    number: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input Number</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputNumberComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-number\n            [label]=\"label\"\n            [placeholder]=\"placeholder\"\n            [errorMessage]=\"errorMessage\"\n            [successMessage]=\"successMessage\"\n            [helpMessage]=\"helpMessage\"\n            [autocomplete]=\"'off'\"\n            [tabIndex]=\"1\"\n            [id]=\"'text id'\"\n            [autofocus]=\"true\"\n            [formName]=\"'form'\"\n            [step]=\"step\"\n            [min]=\"min\"\n            [max]=\"max\"\n            formControlName=\"number\"\n            ></quang-input-number>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.number.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50),\n      step:  number('step', 1)\n    }\n  }\n}"
             },
             {
                 "name": "offline",
@@ -40501,7 +40561,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    password: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input password</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputPasswordComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-password\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'password id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [buttonClass]=\"['btn','btn-outline-secondary']\"\n              [viewPassword]=\"viewPassword\"\n              [max]=\"max\"\n              formControlName=\"password\"\n            >\n              <i iconHide class=\"fas fa-eye-slash\"></i>\n              <i iconView class=\"fas fa-eye\"></i>\n            </quang-input-password>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.password.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      viewPassword: boolean('viewPassword', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50)\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    password: new FormControl('', [Validators.required, Validators.minLength(3)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input password</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputPasswordComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-password\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'password id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [buttonClass]=\"['btn','btn-outline-secondary']\"\n              [viewPassword]=\"viewPassword\"\n              [min]=\"min\"\n              [max]=\"max\"\n              formControlName=\"password\"\n            >\n              <i iconHide class=\"fas fa-eye-slash\"></i>\n              <i iconView class=\"fas fa-eye\"></i>\n            </quang-input-password>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.password.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      viewPassword: boolean('viewPassword', true),\n      label: text('label', 'password label'),\n      placeholder: text('placeholder', 'password placeholder'),\n      min: number('min', 3),\n      max: number('max', 50)\n    }\n  }\n}"
             },
             {
                 "name": "QUANGAUTH_KEY",
@@ -40662,17 +40722,6 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-chart/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-calendar/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40685,6 +40734,17 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-auth/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-chart/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -40728,17 +40788,6 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-event/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-dialog/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40750,7 +40799,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
+                "file": "projects/quang-event/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -40761,7 +40810,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-map/src/test.ts",
+                "file": "projects/quang-keycloak/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -40784,6 +40833,17 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-utility/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-map/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41007,6 +41067,16 @@
                 "description": "<p>open toast</p>\n"
             },
             {
+                "name": "Tel",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    tel: new FormControl('', [Validators.required, Validators.minLength(9)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input tel</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputTelComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-tel\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"min\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'tel id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"tel\"\n            ></quang-input-tel>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.tel.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'tel label'),\n      placeholder: text('placeholder', 'tel placeholder'),\n      min: number('min', 9),\n      max: number('max', 10)\n    }\n  }\n}"
+            },
+            {
                 "name": "Text",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -41024,7 +41094,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    textArea: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input text</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputTextComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n         <form [formGroup]=\"group\" >\n            <quang-text-area\n              [label]=\"'form.text.label'\"\n              [placeholder]=\"'form.text.ph'\"\n              [min]=\"0\"\n              [max]=\"50\"\n              [cols]=\"10\"\n              [rows]=\"10\"\n              [errorMessage]=\"true\"\n              [successMessage]=\"true\"\n              [helpMessage]=\"true\"\n              [tabIndex]=\"1\"\n              [id]=\"'text-resize id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [autoResize]=\"true\"\n              [resizeMode]=\"'none'\"\n              formControlName=\"textArea\"\n            ></quang-text-area>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.textArea.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50),\n      cols: number('columns', 10),\n      rows: number('rows', 10)\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    textArea: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input area</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputTextComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n         <form [formGroup]=\"group\">\n            <quang-text-area\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [cols]=\"cols\"\n              [rows]=\"rows\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'text id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textArea\"\n            ></quang-text-area>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.textArea.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'textArea label'),\n      placeholder: text('placeholder', 'textArea placeholder'),\n      max: number('max', 50),\n      cols: number('columns', 10),\n      rows: number('rows', 10)\n    }\n  }\n}"
             },
             {
                 "name": "TextArea",
@@ -41044,7 +41114,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n\n  const groupBars = new FormGroup({\n    textEditor: new FormControl('', [Validators.required])\n  })\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang text editor</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/TextEditorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"groupBars\">\n            <quang-text-editor\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'textEditor-bars id'\"\n              [listBar]=\"true\"\n              [textTypeBar]=\"true\"\n              [textStyleBar]=\"true\"\n              [alignBar]=\"true\"\n              [fontBar]=\"true\"\n              [mediaBar]=\"true\"\n              [headerBar]=\"true\"\n              [sizeBar]=\"true\"\n              [emojiBar]=\"true\"\n              [indentBar]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textEditor\"\n            ></quang-text-editor>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{groupBars.controls.textEditor.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      groupBars: groupBars,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 500)\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n\n  const groupBars = new FormGroup({\n    textEditor: new FormControl('', [Validators.required])\n  })\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang text editor</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/TextEditorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"groupBars\">\n            <quang-text-editor\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'textEditor-bars id'\"\n              [listBar]=\"true\"\n              [textTypeBar]=\"true\"\n              [textStyleBar]=\"true\"\n              [alignBar]=\"true\"\n              [fontBar]=\"true\"\n              [mediaBar]=\"true\"\n              [headerBar]=\"true\"\n              [sizeBar]=\"true\"\n              [emojiBar]=\"true\"\n              [indentBar]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textEditor\"\n            ></quang-text-editor>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{groupBars.controls.textEditor.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      groupBars: groupBars,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text editor label'),\n      placeholder: text('placeholder', 'text editor placeholder'),\n      max: number('max', 500)\n    }\n  }\n}"
             },
             {
                 "name": "TextEditor",
@@ -41562,6 +41632,158 @@
                     "description": "<p>remove loader call to counter</p>\n"
                 }
             ],
+            "stories/Input/Input.stories.ts": [
+                {
+                    "name": "Checkbox",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    checkbox: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input Checkbox</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a href=\"https://rd.quix.it/quang/components/InputCheckboxComponent.html\" target=\"_blank\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                <form [formGroup]=\"group\">\n                  <quang-input-checkbox\n                    [label]=\"label\"\n                    [errorMessage]=\"errorMessage\"\n                    [successMessage]=\"successMessage\"\n                    [helpMessage]=\"helpMessage\"\n                    [autocomplete]=\"'off'\"\n                    [tabIndex]=\"1\"\n                    [id]=\"'checkbox id'\"\n                    [autofocus]=\"true\"\n                    [formName]=\"'form'\"\n                    formControlName=\"checkbox\">\n                  </quang-input-checkbox>\n                </form>\n                <dl>\n                  <dt>Value:</dt>\n                  <dd>{{group.controls.checkbox.value}}</dd>\n                </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'checkbox label'),\n    }\n  }\n}"
+                },
+                {
+                    "name": "Email",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    email: new FormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(50)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input email</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputEmailComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-email\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'email id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [min]=\"min\"\n              [max]=\"max\"\n              formControlName=\"email\"\n            ></quang-input-email>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.email.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'email label'),\n      placeholder: text('placeholder', 'email placeholder'),\n      min: number('min', 0),\n      max: number('max', 50)\n    }\n  }\n}"
+                },
+                {
+                    "name": "InputCheckbox",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Checkbox.bind({})"
+                },
+                {
+                    "name": "InputEmail",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Email.bind({})"
+                },
+                {
+                    "name": "InputPassword",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Password.bind({})"
+                },
+                {
+                    "name": "InputTel",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Tel.bind({})"
+                },
+                {
+                    "name": "InputText",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Text.bind({})"
+                },
+                {
+                    "name": "Number",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    number: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input Number</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputNumberComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-number\n            [label]=\"label\"\n            [placeholder]=\"placeholder\"\n            [errorMessage]=\"errorMessage\"\n            [successMessage]=\"successMessage\"\n            [helpMessage]=\"helpMessage\"\n            [autocomplete]=\"'off'\"\n            [tabIndex]=\"1\"\n            [id]=\"'text id'\"\n            [autofocus]=\"true\"\n            [formName]=\"'form'\"\n            [step]=\"step\"\n            [min]=\"min\"\n            [max]=\"max\"\n            formControlName=\"number\"\n            ></quang-input-number>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.number.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50),\n      step:  number('step', 1)\n    }\n  }\n}"
+                },
+                {
+                    "name": "Password",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    password: new FormControl('', [Validators.required, Validators.minLength(3)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input password</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputPasswordComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-password\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'password id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [buttonClass]=\"['btn','btn-outline-secondary']\"\n              [viewPassword]=\"viewPassword\"\n              [min]=\"min\"\n              [max]=\"max\"\n              formControlName=\"password\"\n            >\n              <i iconHide class=\"fas fa-eye-slash\"></i>\n              <i iconView class=\"fas fa-eye\"></i>\n            </quang-input-password>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.password.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      viewPassword: boolean('viewPassword', true),\n      label: text('label', 'password label'),\n      placeholder: text('placeholder', 'password placeholder'),\n      min: number('min', 3),\n      max: number('max', 50)\n    }\n  }\n}"
+                },
+                {
+                    "name": "Tel",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    tel: new FormControl('', [Validators.required, Validators.minLength(9)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input tel</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputTelComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-tel\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"min\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'tel id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"tel\"\n            ></quang-input-tel>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.tel.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'tel label'),\n      placeholder: text('placeholder', 'tel placeholder'),\n      min: number('min', 9),\n      max: number('max', 10)\n    }\n  }\n}"
+                },
+                {
+                    "name": "Text",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    text: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input text</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputTextComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-text\n            [label]=\"label\"\n            [placeholder]=\"placeholder\"\n            [errorMessage]=\"errorMessage\"\n            [successMessage]=\"successMessage\"\n            [helpMessage]=\"helpMessage\"\n            [autocomplete]=\"'off'\"\n            [tabIndex]=\"1\"\n            [id]=\"'text id'\"\n            [autofocus]=\"true\"\n            [formName]=\"'form'\"\n            [min]=\"min\"\n            [max]=\"max\"\n            formControlName=\"text\"\n            ></quang-input-text>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.text.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50)\n    }\n  }\n}"
+                },
+                {
+                    "name": "TextA",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    textArea: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input area</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputTextComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n         <form [formGroup]=\"group\">\n            <quang-text-area\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [cols]=\"cols\"\n              [rows]=\"rows\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'text id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textArea\"\n            ></quang-text-area>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.textArea.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'textArea label'),\n      placeholder: text('placeholder', 'textArea placeholder'),\n      max: number('max', 50),\n      cols: number('columns', 10),\n      rows: number('rows', 10)\n    }\n  }\n}"
+                },
+                {
+                    "name": "TextArea",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "TextA.bind({})"
+                },
+                {
+                    "name": "TextEdit",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n\n  const groupBars = new FormGroup({\n    textEditor: new FormControl('', [Validators.required])\n  })\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang text editor</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/TextEditorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"groupBars\">\n            <quang-text-editor\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'textEditor-bars id'\"\n              [listBar]=\"true\"\n              [textTypeBar]=\"true\"\n              [textStyleBar]=\"true\"\n              [alignBar]=\"true\"\n              [fontBar]=\"true\"\n              [mediaBar]=\"true\"\n              [headerBar]=\"true\"\n              [sizeBar]=\"true\"\n              [emojiBar]=\"true\"\n              [indentBar]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textEditor\"\n            ></quang-text-editor>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{groupBars.controls.textEditor.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      groupBars: groupBars,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text editor label'),\n      placeholder: text('placeholder', 'text editor placeholder'),\n      max: number('max', 500)\n    }\n  }\n}"
+                },
+                {
+                    "name": "TextEditor",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "TextEdit.bind({})"
+                }
+            ],
             "projects/quang/src/test.ts": [
                 {
                     "name": "context",
@@ -41580,31 +41802,6 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-chart/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-chart/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-chart/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -41655,6 +41852,31 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-auth/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-chart/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-chart/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-chart/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -41737,31 +41959,6 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-event/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-event/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-event/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-dialog/src/test.ts": [
                 {
                     "name": "context",
@@ -41787,6 +41984,31 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
+            "projects/quang-event/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-event/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-event/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
             "projects/quang-keycloak/src/test.ts": [
                 {
                     "name": "context",
@@ -41805,31 +42027,6 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-keycloak/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-map/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-map/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-map/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -41880,6 +42077,31 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-utility/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-map/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-map/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-map/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42079,88 +42301,6 @@
                     "defaultValue": "createReducer(\n  initialValue,\n  on(userLogin, (state) => ({ ...state, isAuthenticated: true })),\n  on(userLogout, (state) => ({ ...state, isAuthenticated: false })),\n  on(userInfoLogin, (state, action) =>\n    ({ ...state, user: action.user })),\n  on(userInfoLogout, (state) => ({ ...state, user: null })),\n  on(userRolesLogin, (state, action) =>\n    ({ ...state, roles: action.roles })),\n  on(userRolesLogout, (state) => ({ ...state, roles: [] }))\n)",
                     "rawdescription": "defines how the state changes when actions are triggered",
                     "description": "<p>defines how the state changes when actions are triggered</p>\n"
-                }
-            ],
-            "stories/Input/Input.stories.ts": [
-                {
-                    "name": "InputPassword",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Password.bind({})"
-                },
-                {
-                    "name": "InputText",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Text.bind({})"
-                },
-                {
-                    "name": "Password",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    password: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input password</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputPasswordComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-password\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'password id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [buttonClass]=\"['btn','btn-outline-secondary']\"\n              [viewPassword]=\"viewPassword\"\n              [max]=\"max\"\n              formControlName=\"password\"\n            >\n              <i iconHide class=\"fas fa-eye-slash\"></i>\n              <i iconView class=\"fas fa-eye\"></i>\n            </quang-input-password>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.password.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      viewPassword: boolean('viewPassword', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50)\n    }\n  }\n}"
-                },
-                {
-                    "name": "Text",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    text: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input text</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputTextComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-text\n            [label]=\"label\"\n            [placeholder]=\"placeholder\"\n            [errorMessage]=\"errorMessage\"\n            [successMessage]=\"successMessage\"\n            [helpMessage]=\"helpMessage\"\n            [autocomplete]=\"'off'\"\n            [tabIndex]=\"1\"\n            [id]=\"'text id'\"\n            [autofocus]=\"true\"\n            [formName]=\"'form'\"\n            [min]=\"min\"\n            [max]=\"max\"\n            formControlName=\"text\"\n            ></quang-input-text>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.text.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50)\n    }\n  }\n}"
-                },
-                {
-                    "name": "TextA",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    textArea: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input text</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputTextComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n         <form [formGroup]=\"group\" >\n            <quang-text-area\n              [label]=\"'form.text.label'\"\n              [placeholder]=\"'form.text.ph'\"\n              [min]=\"0\"\n              [max]=\"50\"\n              [cols]=\"10\"\n              [rows]=\"10\"\n              [errorMessage]=\"true\"\n              [successMessage]=\"true\"\n              [helpMessage]=\"true\"\n              [tabIndex]=\"1\"\n              [id]=\"'text-resize id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [autoResize]=\"true\"\n              [resizeMode]=\"'none'\"\n              formControlName=\"textArea\"\n            ></quang-text-area>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.textArea.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50),\n      cols: number('columns', 10),\n      rows: number('rows', 10)\n    }\n  }\n}"
-                },
-                {
-                    "name": "TextArea",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "TextA.bind({})"
-                },
-                {
-                    "name": "TextEdit",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n\n  const groupBars = new FormGroup({\n    textEditor: new FormControl('', [Validators.required])\n  })\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang text editor</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/TextEditorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"groupBars\">\n            <quang-text-editor\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'textEditor-bars id'\"\n              [listBar]=\"true\"\n              [textTypeBar]=\"true\"\n              [textStyleBar]=\"true\"\n              [alignBar]=\"true\"\n              [fontBar]=\"true\"\n              [mediaBar]=\"true\"\n              [headerBar]=\"true\"\n              [sizeBar]=\"true\"\n              [emojiBar]=\"true\"\n              [indentBar]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textEditor\"\n            ></quang-text-editor>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{groupBars.controls.textEditor.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      groupBars: groupBars,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 500)\n    }\n  }\n}"
-                },
-                {
-                    "name": "TextEditor",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "TextEdit.bind({})"
                 }
             ],
             "projects/quang-dialog/src/lib/offline/offline-store/actions/offline.action.ts": [
@@ -42997,7 +43137,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 92,
+        "count": 89,
         "status": "very-good",
         "files": [
             {
@@ -45053,7 +45193,57 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Checkbox",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Email",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputCheckbox",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputEmail",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "InputPassword",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputTel",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -45073,7 +45263,27 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Number",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "Password",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Tel",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
