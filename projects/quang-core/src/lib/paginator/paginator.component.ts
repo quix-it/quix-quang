@@ -14,7 +14,7 @@ import { MatPaginator } from '@angular/material/paginator'
 @Component({
   selector: 'quang-paginator',
   templateUrl: './paginator.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

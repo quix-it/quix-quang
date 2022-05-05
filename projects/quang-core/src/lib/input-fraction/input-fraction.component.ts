@@ -20,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-fraction',
   templateUrl: './input-fraction.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input fraction component

@@ -20,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-password',
   templateUrl: './input-password.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input password component

@@ -19,7 +19,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-email',
   templateUrl: './input-email.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input email component

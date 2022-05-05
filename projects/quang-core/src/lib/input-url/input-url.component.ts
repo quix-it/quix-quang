@@ -19,7 +19,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-url',
   templateUrl: './input-url.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input url component
