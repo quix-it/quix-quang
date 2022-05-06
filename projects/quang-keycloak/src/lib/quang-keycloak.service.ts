@@ -97,7 +97,7 @@ export class QuangKeycloakService {
    * retrieves the user's roles and saves them in the store
    */
   getUserRolesAndDispatch (): void {
-    this.store.dispatch(
+      this.store.dispatch(
       QuangKeycloakActions.userRolesLogin(
         { roles: this.keyCloak.getUserRoles(true) }
       )

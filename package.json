@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang",
-  "version": "13.0.1-beta.10",
+  "version": "13.0.1-beta.11",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -32,9 +32,7 @@
     "lint:quang-utility": "ng lint --fix quang-utility",
     "compodoc": "npx compodoc -p tsconfig.json projects -s",
     "build:compodoc": "npx compodoc -p tsconfig.json projects",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "storybook": "npm run docs:json && start-storybook -p 6006",
-    "build-storybook": "npm run docs:json && build-storybook"
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d ."
   },
   "license": "UNLICENSED",
   "dependencies": {
@@ -68,6 +66,7 @@
     "date-fns": "^2.28.0",
     "echarts": "^5.2.2",
     "event-source-polyfill": "^1.0.21",
+    "html5-qrcode": "^2.1.6",
     "keycloak-angular": "^9.0.0",
     "keycloak-js": "^15.1.1",
     "ng-lazyload-image": "^9.1.1",
@@ -84,13 +83,12 @@
     "resize-observer-polyfill": "^1.5.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.1",
-    "zone.js": "~0.11.3",
-    "html5-qrcode": "^2.1.6"
+    "zone.js": "~0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.2.3",
     "@angular-devkit/build-ng-packagr": "^0.1002.0",
-    "@angular-eslint/builder": "^13.1.0",
+    "@angular-eslint/builder": "^12.2.1",
     "@angular-eslint/eslint-plugin": "^13.1.0",
     "@angular-eslint/eslint-plugin-template": "^13.1.0",
     "@angular-eslint/schematics": "^13.1.0",
@@ -99,14 +97,6 @@
     "@angular/compiler-cli": "~13.1.2",
     "@angular/language-service": "~13.1.2",
     "@babel/core": "^7.17.8",
-    "@storybook/addon-actions": "^6.4.19",
-    "@storybook/addon-essentials": "^6.4.19",
-    "@storybook/addon-interactions": "^6.4.19",
-    "@storybook/addon-links": "^6.4.19",
-    "@storybook/angular": "^6.4.19",
-    "@storybook/builder-webpack5": "^6.4.19",
-    "@storybook/manager-webpack5": "^6.4.19",
-    "@storybook/testing-library": "0.0.9",
     "@types/google.maps": "^3.47.2",
     "@types/googlemaps": "^3.43.3",
     "@types/jasmine": "~3.10.3",
@@ -125,7 +115,6 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-storybook": "^0.5.7",
     "jasmine-core": "~4.0.0",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "^6.3.16",
