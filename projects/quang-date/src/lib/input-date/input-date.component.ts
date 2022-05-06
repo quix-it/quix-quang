@@ -22,7 +22,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-date',
   templateUrl: './input-date.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input date component

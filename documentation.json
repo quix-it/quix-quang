@@ -20232,7 +20232,7 @@
         },
         {
             "name": "InputColorComponent",
-            "id": "component-InputColorComponent-35437e2dde995019f415870ccac4a296c3291561bf3f4b6c2ad5e888e9bfb70c8f96c95980545a12171fc6489a78f10f8068799ad31c6f4e0140c589e7beabaf",
+            "id": "component-InputColorComponent-9a008e037d7c46b7c4b75840aaa9f36ba21f71f820057431c8829611731e553259757cb35d3ec45e4783bdc07245adbdec0183f2701ef92940e374d769321682",
             "file": "projects/quang-core/src/lib/input-color/input-color.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -20241,9 +20241,7 @@
             "providers": [],
             "selector": "quang-input-color",
             "styleUrls": [],
-            "styles": [
-                ""
-            ],
+            "styles": [],
             "templateUrl": [
                 "./input-color.component.html"
             ],
@@ -20567,8 +20565,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 4241,
-                                "end": 4248,
+                                "pos": 4239,
+                                "end": 4246,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -20579,8 +20577,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 4235,
-                                "end": 4240,
+                                "pos": 4233,
+                                "end": 4238,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -20636,8 +20634,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 4847,
-                                "end": 4848,
+                                "pos": 4845,
+                                "end": 4846,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -20648,8 +20646,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 4841,
-                                "end": 4846,
+                                "pos": 4839,
+                                "end": 4844,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -20771,8 +20769,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 5103,
-                                "end": 5108,
+                                "pos": 5101,
+                                "end": 5106,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -20783,8 +20781,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 5097,
-                                "end": 5102,
+                                "pos": 5095,
+                                "end": 5100,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -20803,10 +20801,10 @@
             "description": "<p>input color component decorator</p>\n",
             "rawdescription": "\n\ninput color component decorator\n",
             "type": "component",
-            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  ElementRef,\n  Input,\n  OnChanges,\n  OnInit,\n  Optional,\n  Renderer2,\n  Self,\n  SimpleChanges,\n  ViewChild\n} from '@angular/core'\nimport { ControlValueAccessor, NgControl } from '@angular/forms'\nimport { delay, filter } from 'rxjs/operators'\n\n/**\n * input color component decorator\n */\n@Component({\n  selector: 'quang-input-color',\n  templateUrl: './input-color.component.html',\n  styles: ['']\n})\n/**\n * input color component\n */\nexport class InputColorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * The label to display on the input field\n   */\n  @Input() label: string = ''\n  /**\n   * Defines if you want to display the success message for the user\n   */\n  @Input() successMessage: boolean = false\n  /**\n   * Defines if you want to display the error message for the user\n   */\n  @Input() errorMessage: boolean = false\n  /**\n   * Defines if you want to display the help message for the user\n   */\n  @Input() helpMessage: boolean = false\n  /**\n   * Indicates whether, when the page is opened,\n   * this input field should be displayed in a focused state or not\n   */\n  @Input() autofocus: boolean = false\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Input ${this.label}`\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * The name of the form, this input is used to create keys for error, validation or help messages.\n   * It will be the first key element generated\n   */\n  @Input() formName: string = ''\n  /**\n   * Defines whether the input field is in a read-only state\n   */\n  @Input() readonly: boolean = false\n  /**\n   * Array of additional classes to the input field\n   */\n  @Input() customClass: string[] = []\n  /**\n   * The placeholder of the input field\n   */\n  @Input() placeholder: string = ''\n  /**\n   * Adds bootstrap classes to the input that define the size of the field,\n   * if not specified the field is displayed with standard size\n   */\n  @Input() size: 'lg' | 'sm' | null = null\n  /**\n   * Defines the autocomplete tag to indicate to the browser what type of field it is\n   * and how to help the user fill it in\n   */\n  @Input() autocomplete: string = 'off'\n\n  /**\n   * The value of the input\n   */\n  _value: string = ''\n  /**\n   * the status of the success message\n   */\n  _successMessage: string = ''\n  /**\n   * the status of the error message\n   */\n  _errorMessage: string = ''\n  /**\n   * the status of the help message\n   */\n  _helpMessage: string = ''\n  /**\n   * Contains the value required by a validation when it fails\n   */\n  _requiredValue: any = ''\n  /**\n   * Define disabled state\n   */\n  _disabled: boolean = false\n  /**\n   * The html input element\n   */\n  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onTouched: any = () => {\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onChanged: any = () => {\n  }\n\n  /**\n   * constructor\n   * @param renderer html access\n   * @param control cva access\n   */\n  constructor (\n    private readonly renderer: Renderer2,\n    @Self() @Optional() public control: NgControl\n  ) {\n    this.control.valueAccessor = this\n  }\n\n  /**\n   * Check if the help message is required and create the key\n   */\n  ngOnInit (): void {\n    if (this.helpMessage) {\n      this._helpMessage = `${this.formName}.${this.control?.name}.help`\n    }\n    if (this.successMessage) {\n      this._successMessage = `${this.formName}.${this.control?.name}.valid`\n    }\n  }\n\n  /**\n   * After rendering the component, it checks if the input field must have focus\n   * and activates the monitoring of the validation of the entered values\n   */\n  ngAfterViewInit (): void {\n    setTimeout(() => {\n      if (this.autofocus) {\n        this.input?.nativeElement.focus()\n      }\n    }, 0)\n    this.observeValidate()\n  }\n\n  /**\n   * Add focus to the input field if the need comes after component initialization\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.autofocus?.currentValue && this.input) {\n      this.input.nativeElement.focus()\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnTouched (fn: any): void {\n    this.onTouched = fn\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnChange (fn: any): void {\n    this.onChanged = fn\n  }\n\n  /**\n   * When the input changes,\n   * its value is retrieved from the html element and the status change is signaled to the form\n   * @param e\n   */\n  onChangedHandler (e: Event): void {\n    this._value = (e.target as HTMLInputElement).value\n    this.onTouched()\n    this.onChanged(this._value)\n  }\n\n  /**\n   * When the CVA is initialized as control it initializes the internal states\n   * @param value\n   */\n  writeValue (value: any): void {\n    this._value = value\n    this.renderer.setProperty(this.input?.nativeElement, 'value', value)\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   * When the input field from the form is disabled, the html input tag is defined as disabled\n   */\n  setDisabledState (isDisabled: boolean): void {\n    this._disabled = isDisabled\n    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)\n  }\n\n  /**\n   * When the input field changes,\n   * the validation status is retrieved and the success message or error messages displayed.\n   * If there is an error with a specific required value it is passed to the translation pipe\n   * to allow for the creation of custom messages\n   */\n  observeValidate (): void {\n    this.control?.statusChanges?.pipe(\n      delay(0),\n      filter(() => !!this.control.dirty)\n    ).subscribe(() => {\n      if (this.control.invalid && this.errorMessage) {\n        for (const error in this.control.errors) {\n          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {\n            if (this.control.errors[error]) {\n              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`\n              if (error === 'minlength' || error === 'maxlength') {\n                this._requiredValue = this.control.errors[error].requiredLength\n              } else {\n                this._requiredValue = this.control.errors[error].requiredValue\n              }\n            }\n          }\n        }\n      }\n    })\n  }\n}\n",
+            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  ElementRef,\n  Input,\n  OnChanges,\n  OnInit,\n  Optional,\n  Renderer2,\n  Self,\n  SimpleChanges,\n  ViewChild\n} from '@angular/core'\nimport { ControlValueAccessor, NgControl } from '@angular/forms'\nimport { delay, filter } from 'rxjs/operators'\n\n/**\n * input color component decorator\n */\n@Component({\n  selector: 'quang-input-color',\n  templateUrl: './input-color.component.html',\n  styles: []\n})\n/**\n * input color component\n */\nexport class InputColorComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * The label to display on the input field\n   */\n  @Input() label: string = ''\n  /**\n   * Defines if you want to display the success message for the user\n   */\n  @Input() successMessage: boolean = false\n  /**\n   * Defines if you want to display the error message for the user\n   */\n  @Input() errorMessage: boolean = false\n  /**\n   * Defines if you want to display the help message for the user\n   */\n  @Input() helpMessage: boolean = false\n  /**\n   * Indicates whether, when the page is opened,\n   * this input field should be displayed in a focused state or not\n   */\n  @Input() autofocus: boolean = false\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Input ${this.label}`\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * The name of the form, this input is used to create keys for error, validation or help messages.\n   * It will be the first key element generated\n   */\n  @Input() formName: string = ''\n  /**\n   * Defines whether the input field is in a read-only state\n   */\n  @Input() readonly: boolean = false\n  /**\n   * Array of additional classes to the input field\n   */\n  @Input() customClass: string[] = []\n  /**\n   * The placeholder of the input field\n   */\n  @Input() placeholder: string = ''\n  /**\n   * Adds bootstrap classes to the input that define the size of the field,\n   * if not specified the field is displayed with standard size\n   */\n  @Input() size: 'lg' | 'sm' | null = null\n  /**\n   * Defines the autocomplete tag to indicate to the browser what type of field it is\n   * and how to help the user fill it in\n   */\n  @Input() autocomplete: string = 'off'\n\n  /**\n   * The value of the input\n   */\n  _value: string = ''\n  /**\n   * the status of the success message\n   */\n  _successMessage: string = ''\n  /**\n   * the status of the error message\n   */\n  _errorMessage: string = ''\n  /**\n   * the status of the help message\n   */\n  _helpMessage: string = ''\n  /**\n   * Contains the value required by a validation when it fails\n   */\n  _requiredValue: any = ''\n  /**\n   * Define disabled state\n   */\n  _disabled: boolean = false\n  /**\n   * The html input element\n   */\n  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onTouched: any = () => {\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onChanged: any = () => {\n  }\n\n  /**\n   * constructor\n   * @param renderer html access\n   * @param control cva access\n   */\n  constructor (\n    private readonly renderer: Renderer2,\n    @Self() @Optional() public control: NgControl\n  ) {\n    this.control.valueAccessor = this\n  }\n\n  /**\n   * Check if the help message is required and create the key\n   */\n  ngOnInit (): void {\n    if (this.helpMessage) {\n      this._helpMessage = `${this.formName}.${this.control?.name}.help`\n    }\n    if (this.successMessage) {\n      this._successMessage = `${this.formName}.${this.control?.name}.valid`\n    }\n  }\n\n  /**\n   * After rendering the component, it checks if the input field must have focus\n   * and activates the monitoring of the validation of the entered values\n   */\n  ngAfterViewInit (): void {\n    setTimeout(() => {\n      if (this.autofocus) {\n        this.input?.nativeElement.focus()\n      }\n    }, 0)\n    this.observeValidate()\n  }\n\n  /**\n   * Add focus to the input field if the need comes after component initialization\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.autofocus?.currentValue && this.input) {\n      this.input.nativeElement.focus()\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnTouched (fn: any): void {\n    this.onTouched = fn\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnChange (fn: any): void {\n    this.onChanged = fn\n  }\n\n  /**\n   * When the input changes,\n   * its value is retrieved from the html element and the status change is signaled to the form\n   * @param e\n   */\n  onChangedHandler (e: Event): void {\n    this._value = (e.target as HTMLInputElement).value\n    this.onTouched()\n    this.onChanged(this._value)\n  }\n\n  /**\n   * When the CVA is initialized as control it initializes the internal states\n   * @param value\n   */\n  writeValue (value: any): void {\n    this._value = value\n    this.renderer.setProperty(this.input?.nativeElement, 'value', value)\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   * When the input field from the form is disabled, the html input tag is defined as disabled\n   */\n  setDisabledState (isDisabled: boolean): void {\n    this._disabled = isDisabled\n    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)\n  }\n\n  /**\n   * When the input field changes,\n   * the validation status is retrieved and the success message or error messages displayed.\n   * If there is an error with a specific required value it is passed to the translation pipe\n   * to allow for the creation of custom messages\n   */\n  observeValidate (): void {\n    this.control?.statusChanges?.pipe(\n      delay(0),\n      filter(() => !!this.control.dirty)\n    ).subscribe(() => {\n      if (this.control.invalid && this.errorMessage) {\n        for (const error in this.control.errors) {\n          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {\n            if (this.control.errors[error]) {\n              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`\n              if (error === 'minlength' || error === 'maxlength') {\n                this._requiredValue = this.control.errors[error].requiredLength\n              } else {\n                this._requiredValue = this.control.errors[error].requiredValue\n              }\n            }\n          }\n        }\n      }\n    })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n",
+            "stylesData": "",
             "constructorObj": {
                 "name": "constructor",
                 "description": "<p>constructor</p>\n",
@@ -20831,8 +20829,8 @@
                 "jsdoctags": [
                     {
                         "name": {
-                            "pos": 3266,
-                            "end": 3274,
+                            "pos": 3264,
+                            "end": 3272,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -20843,8 +20841,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 3260,
-                            "end": 3265,
+                            "pos": 3258,
+                            "end": 3263,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -20855,8 +20853,8 @@
                     },
                     {
                         "name": {
-                            "pos": 3299,
-                            "end": 3306,
+                            "pos": 3297,
+                            "end": 3304,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -20867,8 +20865,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 3293,
-                            "end": 3298,
+                            "pos": 3291,
+                            "end": 3296,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -20889,7 +20887,7 @@
         },
         {
             "name": "InputDateComponent",
-            "id": "component-InputDateComponent-acaf9bedc1139e0a63f98d89db1579df413e69d30bac7b36609ed231ed5e44bbb7a4e894523026e8ac739d22023a487be339ee5641fc2a393230987d24334e02",
+            "id": "component-InputDateComponent-b4194cd3a971c38cb7ba7cbda1506b63474d9955e8d540b8aaab8eb73bad17b3956e0b10c3b1850b4a67fd7e5f5ed060d6e020db9aa08f35fbeceb09bd3c886e",
             "file": "projects/quang-date/src/lib/input-date/input-date.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -20898,9 +20896,7 @@
             "providers": [],
             "selector": "quang-input-date",
             "styleUrls": [],
-            "styles": [
-                ""
-            ],
+            "styles": [],
             "templateUrl": [
                 "./input-date.component.html"
             ],
@@ -21366,8 +21362,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 6062,
-                                "end": 6069,
+                                "pos": 6060,
+                                "end": 6067,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -21378,8 +21374,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 6056,
-                                "end": 6061,
+                                "pos": 6054,
+                                "end": 6059,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -21435,8 +21431,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 6639,
-                                "end": 6643,
+                                "pos": 6637,
+                                "end": 6641,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -21447,8 +21443,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 6633,
-                                "end": 6638,
+                                "pos": 6631,
+                                "end": 6636,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -21570,8 +21566,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 7141,
-                                "end": 7146,
+                                "pos": 7139,
+                                "end": 7144,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -21582,8 +21578,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 7135,
-                                "end": 7140,
+                                "pos": 7133,
+                                "end": 7138,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -21602,10 +21598,10 @@
             "description": "<p>input date component decorator</p>\n",
             "rawdescription": "\n\ninput date component decorator\n",
             "type": "component",
-            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  ElementRef, Inject,\n  Input, LOCALE_ID,\n  OnChanges,\n  OnInit,\n  Optional,\n  Renderer2,\n  Self,\n  SimpleChanges,\n  ViewChild\n} from '@angular/core'\nimport { ControlValueAccessor, NgControl } from '@angular/forms'\nimport { format } from 'date-fns'\nimport { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'\nimport { delay, filter } from 'rxjs/operators'\n\n/**\n * input date component decorator\n */\n@Component({\n  selector: 'quang-input-date',\n  templateUrl: './input-date.component.html',\n  styles: ['']\n})\n/**\n * input date component\n */\nexport class InputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * The label to display on the input field\n   */\n  @Input() label: string = ''\n  /**\n   * The placeholder of the input field\n   */\n  @Input() placeholder: string = ''\n  /**\n   * Defines if you want to display the help message for the user\n   */\n  @Input() helpMessage: boolean = false\n  /**\n   * Defines if you want to display the error message for the user\n   */\n  @Input() errorMessage: boolean = false\n  /**\n   * Defines if you want to display the success message for the user\n   */\n  @Input() successMessage: boolean = false\n  /**\n   * Indicates whether, when the page is opened,\n   * this input field should be displayed in a focused state or not\n   */\n  @Input() autofocus: boolean = false\n  /**\n   * defines if the selected date must return in ISO ISO 8601 format\n   */\n  @Input() returnISODate: boolean = false\n  /**\n   * defines you want to see the week numbers in the selector\n   */\n  @Input() showWeekNumbers: boolean = false\n  /**\n   * defines the format of the return date\n   */\n  @Input() dateFormat: string = ''\n  /**\n   * defines the minimum selectable date\n   */\n  @Input() minDate: Date | null = null\n  /**\n   * defines the maximum selectable date\n   */\n  @Input() maxDate: Date | null = null\n  /**\n   * defines which days of the week to disable from the selection\n   */\n  @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = []\n  /**\n   * the list of dates that cannot be selected in the calendar\n   */\n  @Input() disabledDates: Date[] = []\n  /**\n   * defines the starting view\n   */\n  @Input() minView: 'year' | 'month' | 'day' = 'year'\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Input ${this.label}`\n  /**\n   * Defines the class of the selector open button\n   */\n  @Input() buttonClass: string[] = []\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * The name of the form, this input is used to create keys for error, validation or help messages.\n   * It will be the first key element generated\n   */\n  @Input() formName: string = ''\n  /**\n   * Adds css classes to the component\n   */\n  @Input() customClass: string[] = []\n  /**\n   * Defines where to place the date selector in response to the input field\n   */\n  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'\n  /**\n   * Define the size of the input field following the bootstrap css rules\n   */\n  @Input() size: 'sm' | 'lg' | null = null\n  /**\n   * Defines the autocomplete tag to indicate to the browser what type of field it is\n   * and how to help the user fill it in\n   */\n  @Input() autocomplete: string = 'off'\n\n  /**\n   * The value of the input\n   */\n  _value: any\n  /**\n   * Contains the component configurations\n   */\n  config: Partial<BsDatepickerConfig> | null = null\n  /**\n   * the status of the success message\n   */\n  _successMessage: string = ''\n\n  /**\n   * the status of the error message\n   */\n  _errorMessage: string = ''\n  /**\n   * the status of the help message\n   */\n  _helpMessage: string = ''\n  /**\n   * Contains the value required by a validation when it fails\n   */\n  _requiredValue: any = ''\n  /**\n   * internal status disabled\n   */\n  _disabled: boolean = false\n  /**\n   * The html input element\n   */\n  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined\n  @ViewChild('drp', { static: true }) datePicker: BsDatepickerInlineDirective | undefined\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onTouched: any = () => {\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onChanged: any = () => {\n  }\n\n  /**\n   * constructor\n   * @param renderer html access\n   * @param localeService locale utility\n   * @param locale actual locale\n   * @param control cva access\n   */\n  constructor (\n    private readonly renderer: Renderer2,\n    private readonly localeService: BsLocaleService,\n    @Inject(LOCALE_ID) public locale: string,\n    @Self() @Optional() public control: NgControl\n  ) {\n    this.control.valueAccessor = this\n  }\n\n  /**\n   * init locale\n   * check help message and init the key\n   */\n  ngOnInit (): void {\n    this.config = {\n      containerClass: 'theme-default',\n      isAnimated: true,\n      adaptivePosition: true,\n      dateInputFormat: this.dateFormat,\n      rangeInputFormat: this.dateFormat,\n      showWeekNumbers: this.showWeekNumbers\n    }\n    if (this.locale) {\n      this.localeService.use(this.locale)\n    }\n    if (this.helpMessage) {\n      this._helpMessage = `${this.formName}.${this.control?.name}.help`\n    }\n    if (this.successMessage) {\n      this._successMessage = `${this.formName}.${this.control?.name}.valid`\n    }\n  }\n\n  /**\n   * After rendering the component, it checks if the input field must have focus\n   * and activates the monitoring of the validation of the entered values\n   */\n  ngAfterViewInit (): void {\n    setTimeout(() => {\n      if (this.autofocus) {\n        this.input?.nativeElement.focus()\n      }\n    }, 0)\n    this.observeValidate()\n    this.control.control?.markAsPristine()\n  }\n\n  /**\n   * Add focus to the input field if the need comes after component initialization\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.autofocus?.currentValue && this.input) {\n      this.input.nativeElement.focus()\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnTouched (fn: any): void {\n    this.onTouched = fn\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnChange (fn: any): void {\n    this.onChanged = fn\n  }\n\n  /**\n   * method triggered when the date selection changes, it triggers the native events of the cva\n   * @param date\n   */\n  onChangedHandler (date: Date): void {\n    if (!date) {\n      this.onChanged(null)\n    } else if (date.toString() === 'Invalid Date') {\n      this.control.control?.setErrors({ invalidDate: true })\n      this.control.control?.markAsDirty()\n    } else if (this.returnISODate) {\n      this.onChanged(date)\n    } else {\n      this.onChanged(format(date, 'yyyy-MM-dd'))\n    }\n    this.onTouched()\n  }\n\n  /**\n   * When the form is initialized it saves the data in the component state\n   * @param value\n   */\n  writeValue (value: any): void {\n    if (this.returnISODate && value\n    ) {\n      this._value = new Date(value)\n    } else {\n      this._value = value\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   * When the input field from the form is disabled, the html input tag is defined as disabled\n   */\n  setDisabledState (isDisabled: boolean): void {\n    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)\n    this._disabled = isDisabled\n  }\n\n  /**\n   * When the input field changes,\n   * the validation status is retrieved and the success message or error messages displayed.\n   * If there is an error with a specific required value it is passed to the translation pipe\n   * to allow for the creation of custom messages\n   */\n  observeValidate (): void {\n    this.control?.statusChanges?.pipe(\n      delay(0),\n      filter(() => !!this.control.dirty)\n    ).subscribe(() => {\n      if (this.control.invalid && this.errorMessage) {\n        for (const error in this.control.errors) {\n          if (this.control.errors[error]) {\n            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`\n            this._requiredValue = this.control.errors[error].requiredValue\n            if (error === 'dateBetween') {\n              if (this.dateFormat) {\n                this._requiredValue = format(new Date(this.control.errors.dateBetween.requiredValue[0]), this.dateFormat)\n                this._requiredValue += ' - '\n                this._requiredValue += format(new Date(this.control.errors.dateBetween.requiredValue[1]), this.dateFormat)\n              } else {\n                this._requiredValue = this.control.errors.dateBetween.requiredValue[0]\n                this._requiredValue += ' - '\n                this._requiredValue += this.control.errors.dateBetween.requiredValue[1]\n              }\n            }\n          }\n        }\n      }\n    })\n  }\n}\n",
+            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  ElementRef, Inject,\n  Input, LOCALE_ID,\n  OnChanges,\n  OnInit,\n  Optional,\n  Renderer2,\n  Self,\n  SimpleChanges,\n  ViewChild\n} from '@angular/core'\nimport { ControlValueAccessor, NgControl } from '@angular/forms'\nimport { format } from 'date-fns'\nimport { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'\nimport { delay, filter } from 'rxjs/operators'\n\n/**\n * input date component decorator\n */\n@Component({\n  selector: 'quang-input-date',\n  templateUrl: './input-date.component.html',\n  styles: []\n})\n/**\n * input date component\n */\nexport class InputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * The label to display on the input field\n   */\n  @Input() label: string = ''\n  /**\n   * The placeholder of the input field\n   */\n  @Input() placeholder: string = ''\n  /**\n   * Defines if you want to display the help message for the user\n   */\n  @Input() helpMessage: boolean = false\n  /**\n   * Defines if you want to display the error message for the user\n   */\n  @Input() errorMessage: boolean = false\n  /**\n   * Defines if you want to display the success message for the user\n   */\n  @Input() successMessage: boolean = false\n  /**\n   * Indicates whether, when the page is opened,\n   * this input field should be displayed in a focused state or not\n   */\n  @Input() autofocus: boolean = false\n  /**\n   * defines if the selected date must return in ISO ISO 8601 format\n   */\n  @Input() returnISODate: boolean = false\n  /**\n   * defines you want to see the week numbers in the selector\n   */\n  @Input() showWeekNumbers: boolean = false\n  /**\n   * defines the format of the return date\n   */\n  @Input() dateFormat: string = ''\n  /**\n   * defines the minimum selectable date\n   */\n  @Input() minDate: Date | null = null\n  /**\n   * defines the maximum selectable date\n   */\n  @Input() maxDate: Date | null = null\n  /**\n   * defines which days of the week to disable from the selection\n   */\n  @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = []\n  /**\n   * the list of dates that cannot be selected in the calendar\n   */\n  @Input() disabledDates: Date[] = []\n  /**\n   * defines the starting view\n   */\n  @Input() minView: 'year' | 'month' | 'day' = 'year'\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Input ${this.label}`\n  /**\n   * Defines the class of the selector open button\n   */\n  @Input() buttonClass: string[] = []\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * The name of the form, this input is used to create keys for error, validation or help messages.\n   * It will be the first key element generated\n   */\n  @Input() formName: string = ''\n  /**\n   * Adds css classes to the component\n   */\n  @Input() customClass: string[] = []\n  /**\n   * Defines where to place the date selector in response to the input field\n   */\n  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'\n  /**\n   * Define the size of the input field following the bootstrap css rules\n   */\n  @Input() size: 'sm' | 'lg' | null = null\n  /**\n   * Defines the autocomplete tag to indicate to the browser what type of field it is\n   * and how to help the user fill it in\n   */\n  @Input() autocomplete: string = 'off'\n\n  /**\n   * The value of the input\n   */\n  _value: any\n  /**\n   * Contains the component configurations\n   */\n  config: Partial<BsDatepickerConfig> | null = null\n  /**\n   * the status of the success message\n   */\n  _successMessage: string = ''\n\n  /**\n   * the status of the error message\n   */\n  _errorMessage: string = ''\n  /**\n   * the status of the help message\n   */\n  _helpMessage: string = ''\n  /**\n   * Contains the value required by a validation when it fails\n   */\n  _requiredValue: any = ''\n  /**\n   * internal status disabled\n   */\n  _disabled: boolean = false\n  /**\n   * The html input element\n   */\n  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined\n  @ViewChild('drp', { static: true }) datePicker: BsDatepickerInlineDirective | undefined\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onTouched: any = () => {\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onChanged: any = () => {\n  }\n\n  /**\n   * constructor\n   * @param renderer html access\n   * @param localeService locale utility\n   * @param locale actual locale\n   * @param control cva access\n   */\n  constructor (\n    private readonly renderer: Renderer2,\n    private readonly localeService: BsLocaleService,\n    @Inject(LOCALE_ID) public locale: string,\n    @Self() @Optional() public control: NgControl\n  ) {\n    this.control.valueAccessor = this\n  }\n\n  /**\n   * init locale\n   * check help message and init the key\n   */\n  ngOnInit (): void {\n    this.config = {\n      containerClass: 'theme-default',\n      isAnimated: true,\n      adaptivePosition: true,\n      dateInputFormat: this.dateFormat,\n      rangeInputFormat: this.dateFormat,\n      showWeekNumbers: this.showWeekNumbers\n    }\n    if (this.locale) {\n      this.localeService.use(this.locale)\n    }\n    if (this.helpMessage) {\n      this._helpMessage = `${this.formName}.${this.control?.name}.help`\n    }\n    if (this.successMessage) {\n      this._successMessage = `${this.formName}.${this.control?.name}.valid`\n    }\n  }\n\n  /**\n   * After rendering the component, it checks if the input field must have focus\n   * and activates the monitoring of the validation of the entered values\n   */\n  ngAfterViewInit (): void {\n    setTimeout(() => {\n      if (this.autofocus) {\n        this.input?.nativeElement.focus()\n      }\n    }, 0)\n    this.observeValidate()\n    this.control.control?.markAsPristine()\n  }\n\n  /**\n   * Add focus to the input field if the need comes after component initialization\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.autofocus?.currentValue && this.input) {\n      this.input.nativeElement.focus()\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnTouched (fn: any): void {\n    this.onTouched = fn\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnChange (fn: any): void {\n    this.onChanged = fn\n  }\n\n  /**\n   * method triggered when the date selection changes, it triggers the native events of the cva\n   * @param date\n   */\n  onChangedHandler (date: Date): void {\n    if (!date) {\n      this.onChanged(null)\n    } else if (date.toString() === 'Invalid Date') {\n      this.control.control?.setErrors({ invalidDate: true })\n      this.control.control?.markAsDirty()\n    } else if (this.returnISODate) {\n      this.onChanged(date)\n    } else {\n      this.onChanged(format(date, 'yyyy-MM-dd'))\n    }\n    this.onTouched()\n  }\n\n  /**\n   * When the form is initialized it saves the data in the component state\n   * @param value\n   */\n  writeValue (value: any): void {\n    if (this.returnISODate && value\n    ) {\n      this._value = new Date(value)\n    } else {\n      this._value = value\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   * When the input field from the form is disabled, the html input tag is defined as disabled\n   */\n  setDisabledState (isDisabled: boolean): void {\n    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)\n    this._disabled = isDisabled\n  }\n\n  /**\n   * When the input field changes,\n   * the validation status is retrieved and the success message or error messages displayed.\n   * If there is an error with a specific required value it is passed to the translation pipe\n   * to allow for the creation of custom messages\n   */\n  observeValidate (): void {\n    this.control?.statusChanges?.pipe(\n      delay(0),\n      filter(() => !!this.control.dirty)\n    ).subscribe(() => {\n      if (this.control.invalid && this.errorMessage) {\n        for (const error in this.control.errors) {\n          if (this.control.errors[error]) {\n            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`\n            this._requiredValue = this.control.errors[error].requiredValue\n            if (error === 'dateBetween') {\n              if (this.dateFormat) {\n                this._requiredValue = format(new Date(this.control.errors.dateBetween.requiredValue[0]), this.dateFormat)\n                this._requiredValue += ' - '\n                this._requiredValue += format(new Date(this.control.errors.dateBetween.requiredValue[1]), this.dateFormat)\n              } else {\n                this._requiredValue = this.control.errors.dateBetween.requiredValue[0]\n                this._requiredValue += ' - '\n                this._requiredValue += this.control.errors.dateBetween.requiredValue[1]\n              }\n            }\n          }\n        }\n      }\n    })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n",
+            "stylesData": "",
             "constructorObj": {
                 "name": "constructor",
                 "description": "<p>constructor</p>\n",
@@ -21642,8 +21638,8 @@
                 "jsdoctags": [
                     {
                         "name": {
-                            "pos": 4560,
-                            "end": 4568,
+                            "pos": 4558,
+                            "end": 4566,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -21654,8 +21650,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 4554,
-                            "end": 4559,
+                            "pos": 4552,
+                            "end": 4557,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -21666,8 +21662,8 @@
                     },
                     {
                         "name": {
-                            "pos": 4593,
-                            "end": 4606,
+                            "pos": 4591,
+                            "end": 4604,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -21678,8 +21674,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 4587,
-                            "end": 4592,
+                            "pos": 4585,
+                            "end": 4590,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -21690,8 +21686,8 @@
                     },
                     {
                         "name": {
-                            "pos": 4634,
-                            "end": 4640,
+                            "pos": 4632,
+                            "end": 4638,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -21702,8 +21698,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 4628,
-                            "end": 4633,
+                            "pos": 4626,
+                            "end": 4631,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -21714,8 +21710,8 @@
                     },
                     {
                         "name": {
-                            "pos": 4667,
-                            "end": 4674,
+                            "pos": 4665,
+                            "end": 4672,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -21726,8 +21722,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 4661,
-                            "end": 4666,
+                            "pos": 4659,
+                            "end": 4664,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -21748,7 +21744,7 @@
         },
         {
             "name": "InputDateRangeComponent",
-            "id": "component-InputDateRangeComponent-29e2f1eabcb696b0e26330207de86e52b9a2e8a4c577132ded07f81df5aadd558d44ea2a5c016197f4a2b531c6292a63c7caf13220b8cbf5842fe5fe337ed9b5",
+            "id": "component-InputDateRangeComponent-7d5e139ea4c70433ebfb34e20c210f9773e98550cccedda524df064a33ade4680001c38ad0bb9f95a0f89162d412e2fcc5b201af46269b02274dc2f21a01f2aa",
             "file": "projects/quang-date/src/lib/input-date-range/input-date-range.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -21757,9 +21753,7 @@
             "providers": [],
             "selector": "quang-input-date-range",
             "styleUrls": [],
-            "styles": [
-                ""
-            ],
+            "styles": [],
             "templateUrl": [
                 "./input-date-range.component.html"
             ],
@@ -22210,8 +22204,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 5962,
-                                "end": 5969,
+                                "pos": 5960,
+                                "end": 5967,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -22222,8 +22216,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 5956,
-                                "end": 5961,
+                                "pos": 5954,
+                                "end": 5959,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -22279,8 +22273,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 6539,
-                                "end": 6544,
+                                "pos": 6537,
+                                "end": 6542,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -22291,8 +22285,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 6533,
-                                "end": 6538,
+                                "pos": 6531,
+                                "end": 6536,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -22414,8 +22408,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 6930,
-                                "end": 6935,
+                                "pos": 6928,
+                                "end": 6933,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -22426,8 +22420,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 6924,
-                                "end": 6929,
+                                "pos": 6922,
+                                "end": 6927,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -22446,10 +22440,10 @@
             "description": "<p>input date range component decorator</p>\n",
             "rawdescription": "\n\ninput date range component decorator\n",
             "type": "component",
-            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  ElementRef, Inject,\n  Input, LOCALE_ID,\n  OnChanges,\n  OnInit,\n  Optional,\n  Renderer2,\n  Self,\n  SimpleChanges,\n  ViewChild\n} from '@angular/core'\nimport { format } from 'date-fns'\nimport { ControlValueAccessor, NgControl } from '@angular/forms'\nimport { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'\nimport { delay, filter } from 'rxjs/operators'\n\n/**\n * input date range component decorator\n */\n@Component({\n  selector: 'quang-input-date-range',\n  templateUrl: './input-date-range.component.html',\n  styles: ['']\n})\n/**\n * input date range component\n */\nexport class InputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * The label to display on the input field\n   */\n  @Input() label: string = ''\n  /**\n   * The placeholder of the input field\n   */\n  @Input() placeholder: string = ''\n  /**\n   * Defines if you want to display the help message for the user\n   */\n  @Input() helpMessage: boolean = false\n  /**\n   * Indicates whether, when the page is opened,\n   * this input field should be displayed in a focused state or not\n   */\n  @Input() autofocus: boolean = false\n  /**\n   * Defines if you want to display the error message for the user\n   */\n  @Input() errorMessage: boolean = false\n  /**\n   * Defines if you want to display the success message for the user\n   */\n  @Input() successMessage: boolean = false\n  /**\n   * defines if the selected date must return in ISO ISO 8601 format\n   */\n  @Input() returnISODate: boolean = false\n  /**\n   * defines you want to see the week numbers in the selector\n   */\n  @Input() showWeekNumbers: boolean = false\n  /**\n   * defines the format of the return date\n   */\n  @Input() dateFormat: string = ''\n  /**\n   * defines the minimum selectable date\n   */\n  @Input() minDate: Date | null = null\n  /**\n   * defines the maximum selectable date\n   */\n  @Input() maxDate: Date | null = null\n  /**\n   * defines which days of the week to disable from the selection\n   */\n  @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = []\n  /**\n   * the list of dates that cannot be selected in the calendar\n   */\n  @Input() disabledDates: Date[] = []\n  /**\n   * defines the starting view\n   */\n  @Input() minView: 'year' | 'month' | 'day' = 'year'\n\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Input ${this.label}`\n  /**\n   * Defines the class of the selector open button\n   */\n  @Input() buttonClass: string[] = []\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * The name of the form, this input is used to create keys for error, validation or help messages.\n   * It will be the first key element generated\n   */\n  @Input() formName: string = ''\n  /**\n   * Adds css classes to the component\n   */\n  @Input() customClass: string[] = []\n  /**\n   * Defines where to place the date selector in response to the input field\n   */\n  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'\n  /**\n   * Define the size of the input field following the bootstrap css rules\n   */\n  @Input() size: 'sm' | 'lg' | null = null\n  /**\n   * Defines the autocomplete tag to indicate to the browser what type of field it is\n   * and how to help the user fill it in\n   */\n  @Input() autocomplete: string = 'off'\n  /**\n   * Contains the component configurations\n   */\n  config: Partial<BsDatepickerConfig> | null = null\n  /**\n   * The value of the input\n   */\n  _value: any[] = []\n  /**\n   * the status of the success message\n   */\n  _successMessage: string = ''\n  /**\n   * the status of the error message\n   */\n  _errorMessage: string = ''\n  /**\n   * the status of the help message\n   */\n  _helpMessage: string = ''\n  /**\n   * Contains the value required by a validation when it fails\n   */\n  _requiredValue: any = ''\n  /**\n   * internal status disabled\n   */\n  _disabled: boolean = false\n  /**\n   * The html input element\n   */\n  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onTouched: any = () => {\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onChanged: any = () => {\n  }\n\n  /**\n   * constructor\n   * @param locale\n   * @param control cva access\n   * @param renderer html access\n   * @param localeService locale utility\n   */\n  constructor (\n    @Inject(LOCALE_ID) public locale: string,\n    @Self() @Optional() public control: NgControl,\n    private readonly renderer: Renderer2,\n    private readonly localeService: BsLocaleService\n  ) {\n    this.control.valueAccessor = this\n  }\n\n  /**\n   *  init locale\n   *  chek hel message and create key\n   */\n  ngOnInit (): void {\n    this.config = {\n      containerClass: 'theme-default',\n      isAnimated: true,\n      adaptivePosition: true,\n      dateInputFormat: this.dateFormat,\n      rangeInputFormat: this.dateFormat,\n      showWeekNumbers: this.showWeekNumbers\n    }\n    if (this.locale) {\n      this.localeService.use(this.locale)\n    }\n    if (this.helpMessage) {\n      this._helpMessage = `${this.formName}.${this.control?.name}.help`\n    }\n    if (this.successMessage) {\n      this._successMessage = `${this.formName}.${this.control?.name}.valid`\n    }\n  }\n\n  /**\n   * After rendering the component, it checks if the input field must have focus\n   * and activates the monitoring of the validation of the entered values\n   */\n  ngAfterViewInit (): void {\n    setTimeout(() => {\n      if (this.autofocus) {\n        this.input?.nativeElement.focus()\n      }\n    }, 0)\n    this.observeValidate()\n    this.control.control?.markAsPristine()\n  }\n\n  /**\n   * Add focus to the input field if the need comes after component initialization\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.autofocus?.currentValue && this.input) {\n      this.input.nativeElement.focus()\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnTouched (fn: any): void {\n    this.onTouched = fn\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnChange (fn: any): void {\n    this.onChanged = fn\n  }\n\n  /**\n   * method triggered when the date selection changes, it triggers the native events of the cva\n   * @param dates\n   */\n  onChangedHandler (dates: Date[] | null): void {\n    this.onTouched()\n    if (this.returnISODate) {\n      this.onChanged(dates)\n    } else if (dates) {\n      const tmp = dates.map(d => format(d, 'yyyy-MM-dd'))\n      this.onChanged(tmp)\n    } else {\n      this.onChanged([])\n    }\n  }\n\n  /**\n   * When the form is initialized it saves the data in the component state\n   * @param value\n   */\n  writeValue (value: any): void {\n    if (value) {\n      if (!this.returnISODate && value?.length) {\n        this._value = value.map((d: any) => new Date(d))\n      } else {\n        this._value = value\n      }\n    } else {\n      this._value = []\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   * When the input field from the form is disabled, the html input tag is defined as disabled\n   */\n  setDisabledState (isDisabled: boolean): void {\n    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)\n    this._disabled = isDisabled\n  }\n\n  /**\n   * When the input field changes,\n   * the validation status is retrieved and the success message or error messages displayed.\n   * If there is an error with a specific required value it is passed to the translation pipe\n   * to allow for the creation of custom messages\n   */\n  observeValidate (): void {\n    this.control?.statusChanges?.pipe(\n      delay(0),\n      filter(() => !!this.control.dirty)\n    ).subscribe(() => {\n      if (!this._value.length && this.control.invalid && this.errorMessage) {\n        for (const error in this.control.errors) {\n          if (this.control.errors[error]) {\n            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`\n            this._requiredValue = this.control.errors[error].requiredValue\n          }\n        }\n      }\n    })\n  }\n}\n",
+            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  ElementRef, Inject,\n  Input, LOCALE_ID,\n  OnChanges,\n  OnInit,\n  Optional,\n  Renderer2,\n  Self,\n  SimpleChanges,\n  ViewChild\n} from '@angular/core'\nimport { format } from 'date-fns'\nimport { ControlValueAccessor, NgControl } from '@angular/forms'\nimport { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'\nimport { delay, filter } from 'rxjs/operators'\n\n/**\n * input date range component decorator\n */\n@Component({\n  selector: 'quang-input-date-range',\n  templateUrl: './input-date-range.component.html',\n  styles: []\n})\n/**\n * input date range component\n */\nexport class InputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * The label to display on the input field\n   */\n  @Input() label: string = ''\n  /**\n   * The placeholder of the input field\n   */\n  @Input() placeholder: string = ''\n  /**\n   * Defines if you want to display the help message for the user\n   */\n  @Input() helpMessage: boolean = false\n  /**\n   * Indicates whether, when the page is opened,\n   * this input field should be displayed in a focused state or not\n   */\n  @Input() autofocus: boolean = false\n  /**\n   * Defines if you want to display the error message for the user\n   */\n  @Input() errorMessage: boolean = false\n  /**\n   * Defines if you want to display the success message for the user\n   */\n  @Input() successMessage: boolean = false\n  /**\n   * defines if the selected date must return in ISO ISO 8601 format\n   */\n  @Input() returnISODate: boolean = false\n  /**\n   * defines you want to see the week numbers in the selector\n   */\n  @Input() showWeekNumbers: boolean = false\n  /**\n   * defines the format of the return date\n   */\n  @Input() dateFormat: string = ''\n  /**\n   * defines the minimum selectable date\n   */\n  @Input() minDate: Date | null = null\n  /**\n   * defines the maximum selectable date\n   */\n  @Input() maxDate: Date | null = null\n  /**\n   * defines which days of the week to disable from the selection\n   */\n  @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = []\n  /**\n   * the list of dates that cannot be selected in the calendar\n   */\n  @Input() disabledDates: Date[] = []\n  /**\n   * defines the starting view\n   */\n  @Input() minView: 'year' | 'month' | 'day' = 'year'\n\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Input ${this.label}`\n  /**\n   * Defines the class of the selector open button\n   */\n  @Input() buttonClass: string[] = []\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * The name of the form, this input is used to create keys for error, validation or help messages.\n   * It will be the first key element generated\n   */\n  @Input() formName: string = ''\n  /**\n   * Adds css classes to the component\n   */\n  @Input() customClass: string[] = []\n  /**\n   * Defines where to place the date selector in response to the input field\n   */\n  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'\n  /**\n   * Define the size of the input field following the bootstrap css rules\n   */\n  @Input() size: 'sm' | 'lg' | null = null\n  /**\n   * Defines the autocomplete tag to indicate to the browser what type of field it is\n   * and how to help the user fill it in\n   */\n  @Input() autocomplete: string = 'off'\n  /**\n   * Contains the component configurations\n   */\n  config: Partial<BsDatepickerConfig> | null = null\n  /**\n   * The value of the input\n   */\n  _value: any[] = []\n  /**\n   * the status of the success message\n   */\n  _successMessage: string = ''\n  /**\n   * the status of the error message\n   */\n  _errorMessage: string = ''\n  /**\n   * the status of the help message\n   */\n  _helpMessage: string = ''\n  /**\n   * Contains the value required by a validation when it fails\n   */\n  _requiredValue: any = ''\n  /**\n   * internal status disabled\n   */\n  _disabled: boolean = false\n  /**\n   * The html input element\n   */\n  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onTouched: any = () => {\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  onChanged: any = () => {\n  }\n\n  /**\n   * constructor\n   * @param locale\n   * @param control cva access\n   * @param renderer html access\n   * @param localeService locale utility\n   */\n  constructor (\n    @Inject(LOCALE_ID) public locale: string,\n    @Self() @Optional() public control: NgControl,\n    private readonly renderer: Renderer2,\n    private readonly localeService: BsLocaleService\n  ) {\n    this.control.valueAccessor = this\n  }\n\n  /**\n   *  init locale\n   *  chek hel message and create key\n   */\n  ngOnInit (): void {\n    this.config = {\n      containerClass: 'theme-default',\n      isAnimated: true,\n      adaptivePosition: true,\n      dateInputFormat: this.dateFormat,\n      rangeInputFormat: this.dateFormat,\n      showWeekNumbers: this.showWeekNumbers\n    }\n    if (this.locale) {\n      this.localeService.use(this.locale)\n    }\n    if (this.helpMessage) {\n      this._helpMessage = `${this.formName}.${this.control?.name}.help`\n    }\n    if (this.successMessage) {\n      this._successMessage = `${this.formName}.${this.control?.name}.valid`\n    }\n  }\n\n  /**\n   * After rendering the component, it checks if the input field must have focus\n   * and activates the monitoring of the validation of the entered values\n   */\n  ngAfterViewInit (): void {\n    setTimeout(() => {\n      if (this.autofocus) {\n        this.input?.nativeElement.focus()\n      }\n    }, 0)\n    this.observeValidate()\n    this.control.control?.markAsPristine()\n  }\n\n  /**\n   * Add focus to the input field if the need comes after component initialization\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.autofocus?.currentValue && this.input) {\n      this.input.nativeElement.focus()\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnTouched (fn: any): void {\n    this.onTouched = fn\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   */\n  registerOnChange (fn: any): void {\n    this.onChanged = fn\n  }\n\n  /**\n   * method triggered when the date selection changes, it triggers the native events of the cva\n   * @param dates\n   */\n  onChangedHandler (dates: Date[] | null): void {\n    this.onTouched()\n    if (this.returnISODate) {\n      this.onChanged(dates)\n    } else if (dates) {\n      const tmp = dates.map(d => format(d, 'yyyy-MM-dd'))\n      this.onChanged(tmp)\n    } else {\n      this.onChanged([])\n    }\n  }\n\n  /**\n   * When the form is initialized it saves the data in the component state\n   * @param value\n   */\n  writeValue (value: any): void {\n    if (value) {\n      if (!this.returnISODate && value?.length) {\n        this._value = value.map((d: any) => new Date(d))\n      } else {\n        this._value = value\n      }\n    } else {\n      this._value = []\n    }\n  }\n\n  /**\n   * Standard definition to create a control value accessor\n   * When the input field from the form is disabled, the html input tag is defined as disabled\n   */\n  setDisabledState (isDisabled: boolean): void {\n    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)\n    this._disabled = isDisabled\n  }\n\n  /**\n   * When the input field changes,\n   * the validation status is retrieved and the success message or error messages displayed.\n   * If there is an error with a specific required value it is passed to the translation pipe\n   * to allow for the creation of custom messages\n   */\n  observeValidate (): void {\n    this.control?.statusChanges?.pipe(\n      delay(0),\n      filter(() => !!this.control.dirty)\n    ).subscribe(() => {\n      if (!this._value.length && this.control.invalid && this.errorMessage) {\n        for (const error in this.control.errors) {\n          if (this.control.errors[error]) {\n            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`\n            this._requiredValue = this.control.errors[error].requiredValue\n          }\n        }\n      }\n    })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n",
+            "stylesData": "",
             "constructorObj": {
                 "name": "constructor",
                 "description": "<p>constructor</p>\n",
@@ -22486,8 +22480,8 @@
                 "jsdoctags": [
                     {
                         "name": {
-                            "pos": 4476,
-                            "end": 4482,
+                            "pos": 4474,
+                            "end": 4480,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -22498,8 +22492,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 4470,
-                            "end": 4475,
+                            "pos": 4468,
+                            "end": 4473,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -22510,8 +22504,8 @@
                     },
                     {
                         "name": {
-                            "pos": 4495,
-                            "end": 4502,
+                            "pos": 4493,
+                            "end": 4500,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -22522,8 +22516,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 4489,
-                            "end": 4494,
+                            "pos": 4487,
+                            "end": 4492,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -22534,8 +22528,8 @@
                     },
                     {
                         "name": {
-                            "pos": 4526,
-                            "end": 4534,
+                            "pos": 4524,
+                            "end": 4532,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -22546,8 +22540,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 4520,
-                            "end": 4525,
+                            "pos": 4518,
+                            "end": 4523,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -22558,8 +22552,8 @@
                     },
                     {
                         "name": {
-                            "pos": 4559,
-                            "end": 4572,
+                            "pos": 4557,
+                            "end": 4570,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -22570,8 +22564,8 @@
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
-                            "pos": 4553,
-                            "end": 4558,
+                            "pos": 4551,
+                            "end": 4556,
                             "flags": 4227072,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
@@ -40181,11 +40175,21 @@
                 "name": "Checkbox",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
                 "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    checkbox: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input Checkbox</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a href=\"https://rd.quix.it/quang/components/InputCheckboxComponent.html\" target=\"_blank\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                <form [formGroup]=\"group\">\n                  <quang-input-checkbox\n                    [label]=\"label\"\n                    [errorMessage]=\"errorMessage\"\n                    [successMessage]=\"successMessage\"\n                    [helpMessage]=\"helpMessage\"\n                    [autocomplete]=\"'off'\"\n                    [tabIndex]=\"1\"\n                    [id]=\"'checkbox id'\"\n                    [autofocus]=\"true\"\n                    [formName]=\"'form'\"\n                    formControlName=\"checkbox\">\n                  </quang-input-checkbox>\n                </form>\n                <dl>\n                  <dt>Value:</dt>\n                  <dd>{{group.controls.checkbox.value}}</dd>\n                </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'checkbox label'),\n    }\n  }\n}"
+            },
+            {
+                "name": "Color",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    color: new FormControl(null, [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input color</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputColorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n           <form [formGroup]=\"group\">\n            <quang-input-color\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'color id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"color\">\n            </quang-input-color>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.color.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n    }\n  }\n}"
             },
             {
                 "name": "context",
@@ -40203,7 +40207,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-calendar/src/test.ts",
+                "file": "projects/quang-auth/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40215,7 +40219,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-auth/src/test.ts",
+                "file": "projects/quang-calendar/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40287,6 +40291,18 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-keycloak/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-event/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40299,7 +40315,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
+                "file": "projects/quang-map/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40332,16 +40348,24 @@
                 "description": "<p>Then we find all the tests.</p>\n"
             },
             {
-                "name": "context",
+                "name": "Datalist",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-map/src/test.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group: FormGroup = new FormGroup({\n    select: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input datalist</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/DatalistComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-datalist\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'test'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [list]=\"list\"\n              formControlName=\"select\"\n            ></quang-datalist>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.select.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'datalist label'),\n      list: array('list',['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'])\n    }\n  }\n}"
+            },
+            {
+                "name": "Date",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Date.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    date: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"date\"\n                    >\n                      <i calendarIcon class=\"fas fa-calendar-alt\"></i>\n                    </quang-input-date>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.date.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'checkbox label'),\n      placeholder: text('placeholder', 'date placeholder')\n    }\n  }\n}"
             },
             {
                 "name": "deleteToast",
@@ -40359,7 +40383,7 @@
                 "name": "Email",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
@@ -40385,6 +40409,26 @@
                 "type": "any",
                 "rawdescription": "general declaration for global library",
                 "description": "<p>general declaration for global library</p>\n"
+            },
+            {
+                "name": "File",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    file: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input files (*only drop)</h3>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-file\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'file-min-max id'\"\n              [multiple]=\"true\"\n              [formName]=\"'form'\"\n              [buttonLabel]=\"'form.file.button.label'\"\n              [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n              formControlName=\"file\">\n              <i uploadIcon class=\"fas fa-upload\"></i>\n            </quang-input-file>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.file.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'files label'),\n    }\n  }\n}"
+            },
+            {
+                "name": "Fraction",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    fraction: new FormControl(0, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input fraction</h3>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-fraction\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'test'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [addButtonClass]=\"['btn','btn-outline-success']\"\n              [removeButtonClass]=\"['btn','btn-outline-danger']\"\n              [stepInteger]=\"1\"\n              [stepFraction]=\"0.1\"\n              [min]=\"min\"\n              [max]=\"max\"\n              formControlName=\"fraction\">\n              <i addIntegerIcon class=\"fas fa-plus\"></i>\n              <i removeIntegerIcon class=\"fas fa-minus\"></i>\n              <i addFractionIcon class=\"fas fa-plus\"></i>\n              <i removeFractionIcon class=\"fas fa-minus\"></i>\n            </quang-input-fraction>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.fraction.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'fraction label'),\n      min: number('min', 0),\n      max: number('max', 255),\n    }\n  }\n}"
             },
             {
                 "name": "google",
@@ -40461,37 +40505,117 @@
                 "name": "InputCheckbox",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Checkbox.bind({})"
             },
             {
+                "name": "InputColor",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Color.bind({})"
+            },
+            {
+                "name": "InputDatalist",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Datalist.bind({})"
+            },
+            {
+                "name": "InputDate",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Date.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Date.bind({})"
+            },
+            {
                 "name": "InputEmail",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Email.bind({})"
             },
             {
+                "name": "InputFile",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "File.bind({})"
+            },
+            {
+                "name": "InputFraction",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Fraction.bind({})"
+            },
+            {
+                "name": "InputNumber",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Number.bind({})"
+            },
+            {
                 "name": "InputPassword",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Password.bind({})"
             },
             {
+                "name": "InputRadio",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Radio.bind({})"
+            },
+            {
+                "name": "InputSearch",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Search.bind({})"
+            },
+            {
                 "name": "InputTel",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40501,21 +40625,31 @@
                 "name": "InputText",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Text.bind({})"
             },
             {
+                "name": "InputUrl",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Url.bind({})"
+            },
+            {
                 "name": "Number",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    number: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input Number</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputNumberComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-number\n            [label]=\"label\"\n            [placeholder]=\"placeholder\"\n            [errorMessage]=\"errorMessage\"\n            [successMessage]=\"successMessage\"\n            [helpMessage]=\"helpMessage\"\n            [autocomplete]=\"'off'\"\n            [tabIndex]=\"1\"\n            [id]=\"'text id'\"\n            [autofocus]=\"true\"\n            [formName]=\"'form'\"\n            [step]=\"step\"\n            [min]=\"min\"\n            [max]=\"max\"\n            formControlName=\"number\"\n            ></quang-input-number>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.number.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50),\n      step:  number('step', 1)\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    number: new FormControl(0, [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input Number</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputNumberComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-number\n            [label]=\"label\"\n            [placeholder]=\"placeholder\"\n            [errorMessage]=\"errorMessage\"\n            [successMessage]=\"successMessage\"\n            [helpMessage]=\"helpMessage\"\n            [autocomplete]=\"'off'\"\n            [tabIndex]=\"1\"\n            [id]=\"'text id'\"\n            [autofocus]=\"true\"\n            [formName]=\"'form'\"\n            [step]=\"step\"\n            [min]=\"min\"\n            [max]=\"max\"\n            formControlName=\"number\"\n            ></quang-input-number>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.number.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      min: number('min', 0),\n      max: number('max', 50),\n      step:  number('step', 1)\n    }\n  }\n}"
             },
             {
                 "name": "offline",
@@ -40557,7 +40691,7 @@
                 "name": "Password",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
@@ -40634,6 +40768,16 @@
                 "defaultValue": "{\n  quangKeycloakUserState: QuangKeycloakReducers.quangKeycloakUserReducer\n}",
                 "rawdescription": "definition of the reducer map",
                 "description": "<p>definition of the reducer map</p>\n"
+            },
+            {
+                "name": "Radio",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    radio: new FormControl({ value: null, disabled: true }, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input radio</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputRadioComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                <form [formGroup]=\"group\">\n                  <quang-input-radio\n                    [label]=\"label\"\n                    [errorMessage]=\"errorMessage\"\n                    [successMessage]=\"successMessage\"\n                    [helpMessage]=\"helpMessage\"\n                    [autocomplete]=\"'off'\"\n                    [tabIndex]=\"1\"\n                    [id]=\"'radio id'\"\n                    [autofocus]=\"true\"\n                    [radioList]=\"list\"\n                    [labelValue]=\"'text'\"\n                    [returnValue]=\"'value'\"\n                    [formName]=\"'form'\"\n                    [groupName]=\"'radio-group'\"\n                    formControlName=\"radio\">\n                  </quang-input-radio>\n                </form>\n                <dl>\n                  <dt>Value:</dt>\n                  <dd>{{group.controls.radio.value}}</dd>\n                </dl>\n                <button class=\"btn btn-outline-danger\"\n                  (click)=\"disable()\">Disable</button>\n                <button class=\"btn btn-outline-success ms-3\"\n                  (click)=\"enable()\">Enable</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'radio label'),\n      list: object('list',[\n        { value: 1, text: 'Item 1' },\n        { value: 2, text: 'Item 2' },\n        { value: 3, text: 'Item 3' },\n        { value: 4, text: 'Item 4' },\n        { value: 5, text: 'Item 5' }\n      ]),\n      disable (): void {\n        this.group.get('radio')?.disable()\n      },\n      enable (): void {\n        this.group.get('radio')?.enable()\n      }\n    }\n  }\n}"
             },
             {
                 "name": "reducer",
@@ -40722,7 +40866,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-calendar/src/test.ts",
+                "file": "projects/quang-auth/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -40733,7 +40877,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-auth/src/test.ts",
+                "file": "projects/quang-calendar/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -40799,6 +40943,17 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-keycloak/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-event/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40810,7 +40965,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
+                "file": "projects/quang-map/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -40840,15 +40995,14 @@
                 "description": "<p>Standard definition for require</p>\n"
             },
             {
-                "name": "require",
+                "name": "Search",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-map/src/test.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    search: new FormControl(null, [Validators.required, Validators.minLength(0), Validators.maxLength(50)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input search</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputSearchComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-search\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'search id'\"\n              [autofocus]=\"true\"\n              [min]=\"min\"\n              [max]=\"max\"\n              [formName]=\"'form'\"\n              formControlName=\"search\">\n            </quang-input-search>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.search.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'search label'),\n      min: number('min', 0),\n      max: number('max', 50)\n    }\n  }\n}"
             },
             {
                 "name": "selectHasRoles",
@@ -41070,7 +41224,7 @@
                 "name": "Tel",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
@@ -41080,7 +41234,7 @@
                 "name": "Text",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
@@ -41090,7 +41244,7 @@
                 "name": "TextA",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
@@ -41100,7 +41254,7 @@
                 "name": "TextArea",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -41110,21 +41264,31 @@
                 "name": "TextEdit",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n\n  const groupBars = new FormGroup({\n    textEditor: new FormControl('', [Validators.required])\n  })\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang text editor</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/TextEditorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"groupBars\">\n            <quang-text-editor\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'textEditor-bars id'\"\n              [listBar]=\"true\"\n              [textTypeBar]=\"true\"\n              [textStyleBar]=\"true\"\n              [alignBar]=\"true\"\n              [fontBar]=\"true\"\n              [mediaBar]=\"true\"\n              [headerBar]=\"true\"\n              [sizeBar]=\"true\"\n              [emojiBar]=\"true\"\n              [indentBar]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textEditor\"\n            ></quang-text-editor>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{groupBars.controls.textEditor.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      groupBars: groupBars,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text editor label'),\n      placeholder: text('placeholder', 'text editor placeholder'),\n      max: number('max', 500)\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const groupBars = new FormGroup({\n    textEditor: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang text editor</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/TextEditorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"groupBars\">\n            <quang-text-editor\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'textEditor-bars id'\"\n              [listBar]=\"true\"\n              [textTypeBar]=\"true\"\n              [textStyleBar]=\"true\"\n              [alignBar]=\"true\"\n              [fontBar]=\"true\"\n              [mediaBar]=\"true\"\n              [headerBar]=\"true\"\n              [sizeBar]=\"true\"\n              [emojiBar]=\"true\"\n              [indentBar]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textEditor\"\n            ></quang-text-editor>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{groupBars.controls.textEditor.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      groupBars: groupBars,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text editor label'),\n      placeholder: text('placeholder', 'text editor placeholder'),\n      max: number('max', 500)\n    }\n  }\n}"
             },
             {
                 "name": "TextEditor",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Input/Input.stories.ts",
+                "file": "stories/Input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "TextEdit.bind({})"
+            },
+            {
+                "name": "Url",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    url: new FormControl(\n      '',\n      [Validators.required, Validators.minLength(0), Validators.maxLength(50)]\n    )\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input url</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputUrlComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-url\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"min\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'url id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"url\"\n            ></quang-input-url>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.url.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'url label'),\n      placeholder: text('placeholder', 'url placeholder'),\n      min: number('min', 0),\n      max: number('max', 50)\n    }\n  }\n}"
             },
             {
                 "name": "userInfoLogin",
@@ -41632,62 +41796,172 @@
                     "description": "<p>remove loader call to counter</p>\n"
                 }
             ],
-            "stories/Input/Input.stories.ts": [
+            "stories/Input.stories.ts": [
                 {
                     "name": "Checkbox",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
                     "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    checkbox: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input Checkbox</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a href=\"https://rd.quix.it/quang/components/InputCheckboxComponent.html\" target=\"_blank\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                <form [formGroup]=\"group\">\n                  <quang-input-checkbox\n                    [label]=\"label\"\n                    [errorMessage]=\"errorMessage\"\n                    [successMessage]=\"successMessage\"\n                    [helpMessage]=\"helpMessage\"\n                    [autocomplete]=\"'off'\"\n                    [tabIndex]=\"1\"\n                    [id]=\"'checkbox id'\"\n                    [autofocus]=\"true\"\n                    [formName]=\"'form'\"\n                    formControlName=\"checkbox\">\n                  </quang-input-checkbox>\n                </form>\n                <dl>\n                  <dt>Value:</dt>\n                  <dd>{{group.controls.checkbox.value}}</dd>\n                </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'checkbox label'),\n    }\n  }\n}"
                 },
                 {
+                    "name": "Color",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    color: new FormControl(null, [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input color</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputColorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n           <form [formGroup]=\"group\">\n            <quang-input-color\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'color id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"color\">\n            </quang-input-color>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.color.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n    }\n  }\n}"
+                },
+                {
+                    "name": "Datalist",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group: FormGroup = new FormGroup({\n    select: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input datalist</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/DatalistComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-datalist\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'test'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [list]=\"list\"\n              formControlName=\"select\"\n            ></quang-datalist>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.select.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'datalist label'),\n      list: array('list',['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'])\n    }\n  }\n}"
+                },
+                {
                     "name": "Email",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
                     "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    email: new FormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(50)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input email</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputEmailComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-email\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'email id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [min]=\"min\"\n              [max]=\"max\"\n              formControlName=\"email\"\n            ></quang-input-email>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.email.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'email label'),\n      placeholder: text('placeholder', 'email placeholder'),\n      min: number('min', 0),\n      max: number('max', 50)\n    }\n  }\n}"
                 },
                 {
+                    "name": "File",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    file: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input files (*only drop)</h3>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-file\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'file-min-max id'\"\n              [multiple]=\"true\"\n              [formName]=\"'form'\"\n              [buttonLabel]=\"'form.file.button.label'\"\n              [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n              formControlName=\"file\">\n              <i uploadIcon class=\"fas fa-upload\"></i>\n            </quang-input-file>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.file.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'files label'),\n    }\n  }\n}"
+                },
+                {
+                    "name": "Fraction",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    fraction: new FormControl(0, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input fraction</h3>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-fraction\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'test'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [addButtonClass]=\"['btn','btn-outline-success']\"\n              [removeButtonClass]=\"['btn','btn-outline-danger']\"\n              [stepInteger]=\"1\"\n              [stepFraction]=\"0.1\"\n              [min]=\"min\"\n              [max]=\"max\"\n              formControlName=\"fraction\">\n              <i addIntegerIcon class=\"fas fa-plus\"></i>\n              <i removeIntegerIcon class=\"fas fa-minus\"></i>\n              <i addFractionIcon class=\"fas fa-plus\"></i>\n              <i removeFractionIcon class=\"fas fa-minus\"></i>\n            </quang-input-fraction>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.fraction.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'fraction label'),\n      min: number('min', 0),\n      max: number('max', 255),\n    }\n  }\n}"
+                },
+                {
                     "name": "InputCheckbox",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Checkbox.bind({})"
                 },
                 {
+                    "name": "InputColor",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Color.bind({})"
+                },
+                {
+                    "name": "InputDatalist",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Datalist.bind({})"
+                },
+                {
                     "name": "InputEmail",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Email.bind({})"
                 },
                 {
+                    "name": "InputFile",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "File.bind({})"
+                },
+                {
+                    "name": "InputFraction",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Fraction.bind({})"
+                },
+                {
+                    "name": "InputNumber",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Number.bind({})"
+                },
+                {
                     "name": "InputPassword",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Password.bind({})"
                 },
                 {
+                    "name": "InputRadio",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Radio.bind({})"
+                },
+                {
+                    "name": "InputSearch",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Search.bind({})"
+                },
+                {
                     "name": "InputTel",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -41697,37 +41971,67 @@
                     "name": "InputText",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Text.bind({})"
                 },
                 {
+                    "name": "InputUrl",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Url.bind({})"
+                },
+                {
                     "name": "Number",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    number: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input Number</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputNumberComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-number\n            [label]=\"label\"\n            [placeholder]=\"placeholder\"\n            [errorMessage]=\"errorMessage\"\n            [successMessage]=\"successMessage\"\n            [helpMessage]=\"helpMessage\"\n            [autocomplete]=\"'off'\"\n            [tabIndex]=\"1\"\n            [id]=\"'text id'\"\n            [autofocus]=\"true\"\n            [formName]=\"'form'\"\n            [step]=\"step\"\n            [min]=\"min\"\n            [max]=\"max\"\n            formControlName=\"number\"\n            ></quang-input-number>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.number.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      max: number('max', 50),\n      step:  number('step', 1)\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    number: new FormControl(0, [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input Number</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputNumberComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-number\n            [label]=\"label\"\n            [placeholder]=\"placeholder\"\n            [errorMessage]=\"errorMessage\"\n            [successMessage]=\"successMessage\"\n            [helpMessage]=\"helpMessage\"\n            [autocomplete]=\"'off'\"\n            [tabIndex]=\"1\"\n            [id]=\"'text id'\"\n            [autofocus]=\"true\"\n            [formName]=\"'form'\"\n            [step]=\"step\"\n            [min]=\"min\"\n            [max]=\"max\"\n            formControlName=\"number\"\n            ></quang-input-number>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.number.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text label'),\n      placeholder: text('placeholder', 'text placeholder'),\n      min: number('min', 0),\n      max: number('max', 50),\n      step:  number('step', 1)\n    }\n  }\n}"
                 },
                 {
                     "name": "Password",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
                     "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    password: new FormControl('', [Validators.required, Validators.minLength(3)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input password</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/InputPasswordComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-password\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'password id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [buttonClass]=\"['btn','btn-outline-secondary']\"\n              [viewPassword]=\"viewPassword\"\n              [min]=\"min\"\n              [max]=\"max\"\n              formControlName=\"password\"\n            >\n              <i iconHide class=\"fas fa-eye-slash\"></i>\n              <i iconView class=\"fas fa-eye\"></i>\n            </quang-input-password>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.password.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      viewPassword: boolean('viewPassword', true),\n      label: text('label', 'password label'),\n      placeholder: text('placeholder', 'password placeholder'),\n      min: number('min', 3),\n      max: number('max', 50)\n    }\n  }\n}"
                 },
                 {
+                    "name": "Radio",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    radio: new FormControl({ value: null, disabled: true }, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input radio</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputRadioComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                <form [formGroup]=\"group\">\n                  <quang-input-radio\n                    [label]=\"label\"\n                    [errorMessage]=\"errorMessage\"\n                    [successMessage]=\"successMessage\"\n                    [helpMessage]=\"helpMessage\"\n                    [autocomplete]=\"'off'\"\n                    [tabIndex]=\"1\"\n                    [id]=\"'radio id'\"\n                    [autofocus]=\"true\"\n                    [radioList]=\"list\"\n                    [labelValue]=\"'text'\"\n                    [returnValue]=\"'value'\"\n                    [formName]=\"'form'\"\n                    [groupName]=\"'radio-group'\"\n                    formControlName=\"radio\">\n                  </quang-input-radio>\n                </form>\n                <dl>\n                  <dt>Value:</dt>\n                  <dd>{{group.controls.radio.value}}</dd>\n                </dl>\n                <button class=\"btn btn-outline-danger\"\n                  (click)=\"disable()\">Disable</button>\n                <button class=\"btn btn-outline-success ms-3\"\n                  (click)=\"enable()\">Enable</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'radio label'),\n      list: object('list',[\n        { value: 1, text: 'Item 1' },\n        { value: 2, text: 'Item 2' },\n        { value: 3, text: 'Item 3' },\n        { value: 4, text: 'Item 4' },\n        { value: 5, text: 'Item 5' }\n      ]),\n      disable (): void {\n        this.group.get('radio')?.disable()\n      },\n      enable (): void {\n        this.group.get('radio')?.enable()\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "Search",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    search: new FormControl(null, [Validators.required, Validators.minLength(0), Validators.maxLength(50)])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input search</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputSearchComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-search\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'search id'\"\n              [autofocus]=\"true\"\n              [min]=\"min\"\n              [max]=\"max\"\n              [formName]=\"'form'\"\n              formControlName=\"search\">\n            </quang-input-search>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.search.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'search label'),\n      min: number('min', 0),\n      max: number('max', 50)\n    }\n  }\n}"
+                },
+                {
                     "name": "Tel",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
@@ -41737,7 +42041,7 @@
                     "name": "Text",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
@@ -41747,7 +42051,7 @@
                     "name": "TextA",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
@@ -41757,7 +42061,7 @@
                     "name": "TextArea",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -41767,21 +42071,31 @@
                     "name": "TextEdit",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n\n  const groupBars = new FormGroup({\n    textEditor: new FormControl('', [Validators.required])\n  })\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang text editor</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/TextEditorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"groupBars\">\n            <quang-text-editor\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'textEditor-bars id'\"\n              [listBar]=\"true\"\n              [textTypeBar]=\"true\"\n              [textStyleBar]=\"true\"\n              [alignBar]=\"true\"\n              [fontBar]=\"true\"\n              [mediaBar]=\"true\"\n              [headerBar]=\"true\"\n              [sizeBar]=\"true\"\n              [emojiBar]=\"true\"\n              [indentBar]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textEditor\"\n            ></quang-text-editor>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{groupBars.controls.textEditor.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      groupBars: groupBars,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text editor label'),\n      placeholder: text('placeholder', 'text editor placeholder'),\n      max: number('max', 500)\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  const groupBars = new FormGroup({\n    textEditor: new FormControl('', [Validators.required])\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang text editor</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a href=\"https://rd.quix.it/quang/components/TextEditorComponent.html\" target=\"_blank\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"groupBars\">\n            <quang-text-editor\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"0\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [tabIndex]=\"1\"\n              [id]=\"'textEditor-bars id'\"\n              [listBar]=\"true\"\n              [textTypeBar]=\"true\"\n              [textStyleBar]=\"true\"\n              [alignBar]=\"true\"\n              [fontBar]=\"true\"\n              [mediaBar]=\"true\"\n              [headerBar]=\"true\"\n              [sizeBar]=\"true\"\n              [emojiBar]=\"true\"\n              [indentBar]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"textEditor\"\n            ></quang-text-editor>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{groupBars.controls.textEditor.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      groupBars: groupBars,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'text editor label'),\n      placeholder: text('placeholder', 'text editor placeholder'),\n      max: number('max', 500)\n    }\n  }\n}"
                 },
                 {
                     "name": "TextEditor",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Input/Input.stories.ts",
+                    "file": "stories/Input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "TextEdit.bind({})"
+                },
+                {
+                    "name": "Url",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    url: new FormControl(\n      '',\n      [Validators.required, Validators.minLength(0), Validators.maxLength(50)]\n    )\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input url</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputUrlComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-url\n              [label]=\"label\"\n              [placeholder]=\"placeholder\"\n              [min]=\"min\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'url id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"url\"\n            ></quang-input-url>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.url.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'url label'),\n      placeholder: text('placeholder', 'url placeholder'),\n      min: number('min', 0),\n      max: number('max', 50)\n    }\n  }\n}"
                 }
             ],
             "projects/quang/src/test.ts": [
@@ -41809,31 +42123,6 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-calendar/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-calendar/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-calendar/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-auth/src/test.ts": [
                 {
                     "name": "context",
@@ -41852,6 +42141,31 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-auth/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-calendar/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-calendar/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-calendar/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -41984,6 +42298,31 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
+            "projects/quang-keycloak/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-keycloak/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-keycloak/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
             "projects/quang-event/src/test.ts": [
                 {
                     "name": "context",
@@ -42009,12 +42348,12 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-keycloak/src/test.ts": [
+            "projects/quang-map/src/test.ts": [
                 {
                     "name": "context",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-keycloak/src/test.ts",
+                    "file": "projects/quang-map/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -42026,7 +42365,7 @@
                     "name": "require",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-keycloak/src/test.ts",
+                    "file": "projects/quang-map/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42084,29 +42423,26 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-map/src/test.ts": [
+            "stories/Date.stories.ts": [
                 {
-                    "name": "context",
+                    "name": "Date",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-map/src/test.ts",
+                    "file": "stories/Date.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    date: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"date\"\n                    >\n                      <i calendarIcon class=\"fas fa-calendar-alt\"></i>\n                    </quang-input-date>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.date.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'checkbox label'),\n      placeholder: text('placeholder', 'date placeholder')\n    }\n  }\n}"
+                },
+                {
+                    "name": "InputDate",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Date.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-map/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
+                    "defaultValue": "Date.bind({})"
                 }
             ],
             "projects/quang-dialog/src/lib/toast/toast-store/actions/toast.actions.ts": [
@@ -43137,7 +43473,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 89,
+        "count": 83,
         "status": "very-good",
         "files": [
             {
@@ -45189,7 +45525,27 @@
                 "status": "very-good"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Date.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Date",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Date.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputDate",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45199,7 +45555,27 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Color",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Datalist",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45209,7 +45585,27 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "File",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Fraction",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45219,7 +45615,27 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputColor",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputDatalist",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45229,7 +45645,37 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputFile",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputFraction",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputNumber",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45239,7 +45685,27 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputRadio",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputSearch",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45249,7 +45715,7 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45259,7 +45725,17 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InputUrl",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45269,7 +45745,7 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45279,7 +45755,27 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Radio",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Search",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45289,7 +45785,7 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45299,7 +45795,7 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45309,7 +45805,7 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45319,7 +45815,7 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -45329,11 +45825,21 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Input/Input.stories.ts",
+                "filePath": "stories/Input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "TextEditor",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Url",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
