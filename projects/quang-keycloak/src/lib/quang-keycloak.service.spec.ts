@@ -3,7 +3,7 @@ import {QuangKeycloakService} from "./quang-keycloak.service";
 
 
 
-describe('QunagKeycloakService', () => {
+describe('QuangKeycloakService', () => {
   let service: QuangKeycloakService;
 
   beforeEach(() => {

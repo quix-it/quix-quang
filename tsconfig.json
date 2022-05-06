@@ -24,21 +24,7 @@
       "dom"
     ],
     "paths": {
-      "quix-core-components": [
-        "dist/quix-core-components"
-      ],
-      "quix-core-components/*": [
-        "dist/quix-core-components/*"
-      ],
-      "quix-core-authentication": [
-        "dist/quix-core-authentication"
-      ],
-      "quix-core-authentication/*": [
-        "dist/quix-core-authentication/*"
-      ],
       "quang": [
-        "dist/quang/quang",
-        "dist/quang",
         "dist/quang/quang",
         "dist/quang"
       ],
@@ -82,10 +68,6 @@
         "dist/quang-components/quang-components",
         "dist/quang-components"
       ],
-      "qunag-dialog": [
-        "dist/qunag-dialog/qunag-dialog",
-        "dist/qunag-dialog"
-      ],
       "quang-dialog": [
         "dist/quang-dialog/quang-dialog",
         "dist/quang-dialog"
@@ -103,5 +85,6 @@
     "strictInjectionParameters": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "importHelpers": true
   }
 }

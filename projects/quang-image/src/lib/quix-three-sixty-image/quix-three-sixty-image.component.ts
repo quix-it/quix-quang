@@ -88,9 +88,9 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
 
   /**
    * constructor
-   * @param sanitizer
+   * @param sanitizer service
    */
-  constructor (
+  constructor(
     private readonly sanitizer: DomSanitizer
   ) {
   }
@@ -100,7 +100,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * If the starting image changes, it sanitizes the url and sets it as the current image
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.intervalId) {
       clearInterval(this.intervalId)
     }
@@ -123,7 +123,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * controls the status of the rotation and the movement of the mouse to set the rotation to the right or left
    * @param event
    */
-  mouseMove (event: any): void {
+  mouseMove(event: any): void {
     if (this.mouseStateDown) {
       const screenX = (event.screenX) ? event.screenX : event.touches[0].screenX
       if (this.currentX - screenX >= this.step) {
@@ -140,7 +140,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * Event triggered when the mouse button is pressed, saves the state of the mouse rotation
    * @param event
    */
-  mouseDown (event: any): void {
+  mouseDown(event: any): void {
     event.preventDefault()
     this.currentX = event.screenX
     if (this.play) {
@@ -154,7 +154,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * Event triggered when the mouse button is release, saves the state of the mouse rotation
    * @param event
    */
-  mouseUp (event: any): void {
+  mouseUp(event: any): void {
     event.preventDefault()
     this.currentX = event.screenX
     if (this.play) {
@@ -167,7 +167,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * Check if the rotation is right or left and calculate which image should be displayed
    * @param act
    */
-  rotator (act: string): void {
+  rotator(act: string): void {
     if (this.clockwise) {
       if (act === '+') {
         this.currentFrame++
@@ -191,7 +191,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
   /**
    * Unleash automatic image rotation
    */
-  autoRotator (): void {
+  autoRotator(): void {
     this.intervalId = setInterval(
       () => {
         this.rotator('+')
@@ -201,7 +201,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
   /**
    * change the state of the play button
    */
-  togglePlay (): void {
+  togglePlay(): void {
     this.play = !this.play
     if (this.play) {
       this.autoRotator()
@@ -214,7 +214,7 @@ export class QuixThreeSixtyImageComponent implements OnChanges {
    * sanitize the url of the image
    * @param img
    */
-  getUrl (img: string): SafeUrl {
+  getUrl(img: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustStyle(`url("${img}")`)
   }
 }

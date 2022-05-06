@@ -6,6 +6,7 @@ import {
   Output,
 } from '@angular/core'
 import { QuixCarousel } from './carousel.model'
+
 /**
  * carousel component decorator
  */
@@ -60,12 +61,11 @@ export class CarouselComponent {
    * event triggered when a slide changes
    */
   @Output() onSlideChange: EventEmitter<number> = new EventEmitter<number>()
-
   /**
    * slide event emitter
-   * @param e
+   * @param e number
    */
-  onSlideEvent (e: number): void {
+  onSlideEvent(e: number): void {
     this.onSlideChange.emit(e)
   }
 }

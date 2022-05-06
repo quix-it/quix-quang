@@ -1,4 +1,4 @@
-import {QuixPicture} from "../picture/picture.model";
+import { QuixPicture } from '../picture/picture.model'
 
 /**
  * carousel item
@@ -12,7 +12,7 @@ export class QuixCarousel {
    * @param title define slide title
    * @param subTitle define slide subtitle
    */
-  constructor(
+  constructor (
     /**
      * image url
      */
