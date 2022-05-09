@@ -51,6 +51,7 @@ export default {
       BlankComponent,
       CdkTextareaAutosize,
       NgxFileDropComponent,
+      MultiSelectStrgComponent,
       InputTextComponent,
       InputPasswordComponent,
       TextEditorComponent,
@@ -65,8 +66,7 @@ export default {
       InputRadioComponent,
       InputFileComponent,
       InputUrlComponent,
-      InputSearchComponent,
-      MultiSelectStrgComponent
+      InputSearchComponent
     ],
     imports: [TranslocoModule, ReactiveFormsModule, CommonModule, FormsModule, QuillModule]
   })]
@@ -855,7 +855,7 @@ const Url: Story<BlankComponent> = (args: BlankComponent) => {
         <div class="card-body">
           <form [formGroup]="group">
             <quang-input-url
-              [label]="label"
+              [label]="'form.url.label'"
               [placeholder]="placeholder"
               [min]="min"
               [max]="max"

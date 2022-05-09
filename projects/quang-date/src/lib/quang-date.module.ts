@@ -21,7 +21,7 @@ import { InputTimeComponent } from './input-time/input-time.component'
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     TranslocoModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     InputDateRangeComponent,
