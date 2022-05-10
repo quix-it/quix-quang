@@ -16,7 +16,7 @@ import { ChartArea } from './chart-area.model'
 @Component({
   selector: 'quang-chart-area',
   templateUrl: './chart-area.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

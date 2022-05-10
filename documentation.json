@@ -16046,7 +16046,7 @@
         },
         {
             "name": "ChartAreaComponent",
-            "id": "component-ChartAreaComponent-b75d95bccec6c633707497a9b4e8e511bd457d0d89f66b098820c3d7010b3be2a350cf8163bd088d26adfb31779b19db864594e404d83a87e9b3f6aa9abb88fe",
+            "id": "component-ChartAreaComponent-757fbcec235cbb830c95234644070484b4c8e6f2f4889f7774202403d1a4de57df620a5c76eca3adcc91eeec27aa810424fc66e42a78bc2cfac3e4a7d6ebf186",
             "file": "projects/quang-chart/src/lib/chart-area/chart-area.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -16056,9 +16056,7 @@
             "providers": [],
             "selector": "quang-chart-area",
             "styleUrls": [],
-            "styles": [
-                ""
-            ],
+            "styles": [],
             "templateUrl": [
                 "./chart-area.component.html"
             ],
@@ -16189,8 +16187,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 1736,
-                                "end": 1743,
+                                "pos": 1734,
+                                "end": 1741,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16201,8 +16199,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 1730,
-                                "end": 1735,
+                                "pos": 1728,
+                                "end": 1733,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16234,8 +16232,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 2537,
-                                "end": 2538,
+                                "pos": 2535,
+                                "end": 2536,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16246,8 +16244,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 2531,
-                                "end": 2536,
+                                "pos": 2529,
+                                "end": 2534,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16266,10 +16264,10 @@
             "description": "<p>chart area component decorator</p>\n",
             "rawdescription": "\n\nchart area component decorator\n",
             "type": "component",
-            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { EChartsOption } from 'echarts'\nimport { ChartArea } from './chart-area.model'\n\n/**\n * chart area component decorator\n */\n@Component({\n  selector: 'quang-chart-area',\n  templateUrl: './chart-area.component.html',\n  styles: [''],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * chart area component\n */\nexport class ChartAreaComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * Determine the arialabel tag for accessibility,\n   */\n  @Input() ariaLabel: string = 'Chart'\n  /**\n   * the list of colors of the chart\n   */\n  @Input() color: string[] = []\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * the height of the chart container\n   */\n  @Input() height: string = ' 50vh'\n  /**\n   * the object that contains the data to make the graph\n   */\n  @Input() chartData: ChartArea | null = null\n  /**\n   * the grid that contains the graph defines the padding in the four directions\n   */\n  @Input() grid: {\n    top: number\n    bottom: number\n    left: number\n    right: number\n  } = { top: 0, left: 0, right: 0, bottom: 0 }\n\n  /**\n   * click event on the graph\n   */\n  @Output() chartClick: EventEmitter<any> = new EventEmitter()\n  /**\n   * basic configuration of the chart\n   */\n  chartOption: EChartsOption = {\n    color: [],\n    xAxis: {},\n    yAxis: {\n      type: 'value'\n    },\n    series: [],\n    animationEasing: 'elasticOut',\n    animationDelayUpdate: (idx: any) => {\n      return idx * 5\n    }\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.color?.currentValue) {\n      this.chartOption.color = changes.color.currentValue\n    }\n    if (changes.chartData?.currentValue) {\n      this.chartOption.xAxis = {\n        type: 'category',\n        data: changes.chartData.currentValue.category\n      }\n    }\n    if (changes.chartData?.currentValue?.series.length) {\n      this.chartOption.series = changes.chartData.currentValue.series.map((s: any) => ({\n        data: s,\n        type: 'line',\n        areaStyle: {}\n      }))\n    }\n    if (changes.grid?.currentValue) {\n      this.chartOption.grid = changes.grid.currentValue\n    }\n  }\n\n  /**\n   * function triggered by clicking on an element of the chart emits an event to the parent component\n   * @param e event\n   */\n  onChartClick (e: any): void {\n    this.chartClick.emit(e)\n  }\n}\n",
+            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { EChartsOption } from 'echarts'\nimport { ChartArea } from './chart-area.model'\n\n/**\n * chart area component decorator\n */\n@Component({\n  selector: 'quang-chart-area',\n  templateUrl: './chart-area.component.html',\n  styles: [],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * chart area component\n */\nexport class ChartAreaComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * Determine the arialabel tag for accessibility,\n   */\n  @Input() ariaLabel: string = 'Chart'\n  /**\n   * the list of colors of the chart\n   */\n  @Input() color: string[] = []\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * the height of the chart container\n   */\n  @Input() height: string = ' 50vh'\n  /**\n   * the object that contains the data to make the graph\n   */\n  @Input() chartData: ChartArea | null = null\n  /**\n   * the grid that contains the graph defines the padding in the four directions\n   */\n  @Input() grid: {\n    top: number\n    bottom: number\n    left: number\n    right: number\n  } = { top: 0, left: 0, right: 0, bottom: 0 }\n\n  /**\n   * click event on the graph\n   */\n  @Output() chartClick: EventEmitter<any> = new EventEmitter()\n  /**\n   * basic configuration of the chart\n   */\n  chartOption: EChartsOption = {\n    color: [],\n    xAxis: {},\n    yAxis: {\n      type: 'value'\n    },\n    series: [],\n    animationEasing: 'elasticOut',\n    animationDelayUpdate: (idx: any) => {\n      return idx * 5\n    }\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.color?.currentValue) {\n      this.chartOption.color = changes.color.currentValue\n    }\n    if (changes.chartData?.currentValue) {\n      this.chartOption.xAxis = {\n        type: 'category',\n        data: changes.chartData.currentValue.category\n      }\n    }\n    if (changes.chartData?.currentValue?.series.length) {\n      this.chartOption.series = changes.chartData.currentValue.series.map((s: any) => ({\n        data: s,\n        type: 'line',\n        areaStyle: {}\n      }))\n    }\n    if (changes.grid?.currentValue) {\n      this.chartOption.grid = changes.grid.currentValue\n    }\n  }\n\n  /**\n   * function triggered by clicking on an element of the chart emits an event to the parent component\n   * @param e event\n   */\n  onChartClick (e: any): void {\n    this.chartClick.emit(e)\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n",
+            "stylesData": "",
             "implements": [
                 "OnChanges"
             ],
@@ -40172,6 +40170,26 @@
                 "description": "<p>add loader call to counter</p>\n"
             },
             {
+                "name": "Area",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const data = new ChartArea(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [\n      [820, 932, 901, 934, 1290, 1330, 1320],\n      [82, 93, 90, 93, 129, 133, 132]\n    ])\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart area</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartAreaComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-area\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"['#3e885b', '#debac0']\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-area>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+            },
+            {
+                "name": "Calendar",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Calendar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang calendar</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputDateTimeComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <quang-calendar\n            [height]=\"'600px'\"\n          ></quang-calendar>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
+            },
+            {
                 "name": "Checkbox",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -40243,18 +40261,6 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-components/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-core/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40267,7 +40273,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-dialog/src/test.ts",
+                "file": "projects/quang-components/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40280,6 +40286,18 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-date/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-dialog/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40772,6 +40790,26 @@
                 "description": "<p>definition of the reducer map</p>\n"
             },
             {
+                "name": "QuangCalendar",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Calendar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Calendar.bind({})"
+            },
+            {
+                "name": "QuangChartArea",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Area.bind({})"
+            },
+            {
                 "name": "QUANGDIALOG_KEY",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -40949,17 +40987,6 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-components/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-core/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40971,7 +40998,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-dialog/src/test.ts",
+                "file": "projects/quang-components/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -40983,6 +41010,17 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-date/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-dialog/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41497,6 +41535,16 @@
         ],
         "functions": [
             {
+                "name": "BsTimepickerModule",
+                "file": "stories/Date.stories.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": []
+            },
+            {
                 "name": "loaderReducers",
                 "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
                 "ctype": "miscellaneous",
@@ -41854,6 +41902,50 @@
                     "defaultValue": "createAction('[LOADER] response return')",
                     "rawdescription": "remove loader call to counter",
                     "description": "<p>remove loader call to counter</p>\n"
+                }
+            ],
+            "stories/Chart.stories.ts": [
+                {
+                    "name": "Area",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const data = new ChartArea(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [\n      [820, 932, 901, 934, 1290, 1330, 1320],\n      [82, 93, 90, 93, 129, 133, 132]\n    ])\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart area</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartAreaComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-area\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"['#3e885b', '#debac0']\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-area>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+                },
+                {
+                    "name": "QuangChartArea",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Area.bind({})"
+                }
+            ],
+            "stories/Calendar.stories.ts": [
+                {
+                    "name": "Calendar",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Calendar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang calendar</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputDateTimeComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <quang-calendar\n            [height]=\"'600px'\"\n          ></quang-calendar>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
+                },
+                {
+                    "name": "QuangCalendar",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Calendar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Calendar.bind({})"
                 }
             ],
             "stories/Input.stories.ts": [
@@ -42258,31 +42350,6 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-components/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-components/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-components/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-core/src/test.ts": [
                 {
                     "name": "context",
@@ -42308,12 +42375,12 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-dialog/src/test.ts": [
+            "projects/quang-components/src/test.ts": [
                 {
                     "name": "context",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-dialog/src/test.ts",
+                    "file": "projects/quang-components/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -42325,7 +42392,7 @@
                     "name": "require",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-dialog/src/test.ts",
+                    "file": "projects/quang-components/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42351,6 +42418,31 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-date/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-dialog/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-dialog/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-dialog/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -43247,6 +43339,18 @@
             ]
         },
         "groupedFunctions": {
+            "stories/Date.stories.ts": [
+                {
+                    "name": "BsTimepickerModule",
+                    "file": "stories/Date.stories.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": []
+                }
+            ],
             "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts": [
                 {
                     "name": "loaderReducers",
@@ -43593,7 +43697,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 81,
+        "count": 79,
         "status": "very-good",
         "files": [
             {
@@ -45643,6 +45747,56 @@
                 "coveragePercent": 100,
                 "coverageCount": "1/1",
                 "status": "very-good"
+            },
+            {
+                "filePath": "stories/Calendar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Calendar",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Calendar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "QuangCalendar",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Area",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "QuangChartArea",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Date.stories.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "BsTimepickerModule",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
             },
             {
                 "filePath": "stories/Date.stories.ts",
