@@ -16275,7 +16275,7 @@
         },
         {
             "name": "ChartBarComponent",
-            "id": "component-ChartBarComponent-7961384471270f29170d653a1019694fd15f6198976d7fb33a21469925c5b9c990acdcca77ecb93445a03e89970e77e837ba9b51a99e38318bdc818d801f438e",
+            "id": "component-ChartBarComponent-02ba024351746be7c01fe86020087a6d0be8fe1750d603e0e1f3d8268755105a2de3e004b82645df6d856320f6387891ff62046fd63edd11f36aba2b629c0c83",
             "file": "projects/quang-chart/src/lib/chart-bar/chart-bar.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -16285,9 +16285,7 @@
             "providers": [],
             "selector": "quang-chart-bar",
             "styleUrls": [],
-            "styles": [
-                ""
-            ],
+            "styles": [],
             "templateUrl": [
                 "./chart-bar.component.html"
             ],
@@ -16429,8 +16427,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 1810,
-                                "end": 1817,
+                                "pos": 1808,
+                                "end": 1815,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16441,8 +16439,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 1804,
-                                "end": 1809,
+                                "pos": 1802,
+                                "end": 1807,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16474,8 +16472,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 2851,
-                                "end": 2852,
+                                "pos": 2849,
+                                "end": 2850,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16486,8 +16484,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 2845,
-                                "end": 2850,
+                                "pos": 2843,
+                                "end": 2848,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16506,10 +16504,10 @@
             "description": "<p>chart bar component decorator</p>\n",
             "rawdescription": "\n\nchart bar component decorator\n",
             "type": "component",
-            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\n\nimport { EChartsOption } from 'echarts'\nimport { ChartBar } from './chart-bar.model'\n/**\n * chart bar component decorator\n */\n@Component({\n  selector: 'quang-chart-bar',\n  templateUrl: './chart-bar.component.html',\n  styles: [''],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * chart bar component\n */\nexport class ChartBarComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * Determine the arialabel tag for accessibility,\n   */\n  @Input() ariaLabel: string = 'Chart'\n  /**\n   * the list of colors of the chart\n   */\n  @Input() color: string[] = []\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * the height of the chart container\n   */\n  @Input() height: string = '50vh'\n  /**\n   * defines whether the graph is displayed horizontally\n   */\n  @Input() horizontal: boolean = false\n  /**\n   * the object that contains the data to make the graph\n   */\n  @Input() chartData: ChartBar | null = null\n  /**\n   * the grid that contains the graph defines the padding in the four directions\n   */\n  @Input() grid: {\n    top: number\n    bottom: number\n    left: number\n    right: number\n  } = { top: 0, left: 0, right: 0, bottom: 0 }\n\n  /**\n   * click event on the graph\n   */\n  @Output() chartClick: EventEmitter<any> = new EventEmitter()\n  /**\n   * basic configuration of the chart\n   */\n  chartOption: EChartsOption = {\n    color: [],\n    xAxis: {},\n    yAxis: {},\n    series: [],\n    animationEasing: 'elasticOut',\n    animationDelayUpdate: (idx: any) => {\n      return idx * 5\n    }\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.color?.currentValue) {\n      this.chartOption.color = changes.color?.currentValue\n    }\n    if (changes.chartData?.currentValue?.series.length) {\n      this.chartOption.series = changes.chartData.currentValue.series.map((s: any) => ({\n        data: s,\n        type: 'bar'\n      }))\n    }\n    if (changes.grid?.currentValue) {\n      this.chartOption.grid = changes.grid.currentValue\n    }\n    if (changes.horizontal?.currentValue) {\n      this.chartOption.xAxis = {\n        type: 'value'\n      }\n      this.chartOption.yAxis = {\n        type: 'category',\n        data: changes.chartData?.currentValue.category\n      }\n    } else {\n      this.chartOption.yAxis = {\n        type: 'value'\n      }\n      this.chartOption.xAxis = {\n        type: 'category',\n        data: changes.chartData?.currentValue.category\n      }\n    }\n  }\n\n  /**\n   * function triggered by clicking on an element of the chart emits an event to the parent component\n   * @param e event\n   */\n  onChartClick (e: any): void {\n    this.chartClick.emit(e)\n  }\n}\n",
+            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\n\nimport { EChartsOption } from 'echarts'\nimport { ChartBar } from './chart-bar.model'\n/**\n * chart bar component decorator\n */\n@Component({\n  selector: 'quang-chart-bar',\n  templateUrl: './chart-bar.component.html',\n  styles: [],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * chart bar component\n */\nexport class ChartBarComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * Determine the arialabel tag for accessibility,\n   */\n  @Input() ariaLabel: string = 'Chart'\n  /**\n   * the list of colors of the chart\n   */\n  @Input() color: string[] = []\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * the height of the chart container\n   */\n  @Input() height: string = '50vh'\n  /**\n   * defines whether the graph is displayed horizontally\n   */\n  @Input() horizontal: boolean = false\n  /**\n   * the object that contains the data to make the graph\n   */\n  @Input() chartData: ChartBar | null = null\n  /**\n   * the grid that contains the graph defines the padding in the four directions\n   */\n  @Input() grid: {\n    top: number\n    bottom: number\n    left: number\n    right: number\n  } = { top: 0, left: 0, right: 0, bottom: 0 }\n\n  /**\n   * click event on the graph\n   */\n  @Output() chartClick: EventEmitter<any> = new EventEmitter()\n  /**\n   * basic configuration of the chart\n   */\n  chartOption: EChartsOption = {\n    color: [],\n    xAxis: {},\n    yAxis: {},\n    series: [],\n    animationEasing: 'elasticOut',\n    animationDelayUpdate: (idx: any) => {\n      return idx * 5\n    }\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.color?.currentValue) {\n      this.chartOption.color = changes.color?.currentValue\n    }\n    if (changes.chartData?.currentValue?.series.length) {\n      this.chartOption.series = changes.chartData.currentValue.series.map((s: any) => ({\n        data: s,\n        type: 'bar'\n      }))\n    }\n    if (changes.grid?.currentValue) {\n      this.chartOption.grid = changes.grid.currentValue\n    }\n    if (changes.horizontal?.currentValue) {\n      this.chartOption.xAxis = {\n        type: 'value'\n      }\n      this.chartOption.yAxis = {\n        type: 'category',\n        data: changes.chartData?.currentValue.category\n      }\n    } else {\n      this.chartOption.yAxis = {\n        type: 'value'\n      }\n      this.chartOption.xAxis = {\n        type: 'category',\n        data: changes.chartData?.currentValue.category\n      }\n    }\n  }\n\n  /**\n   * function triggered by clicking on an element of the chart emits an event to the parent component\n   * @param e event\n   */\n  onChartClick (e: any): void {\n    this.chartClick.emit(e)\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n",
+            "stylesData": "",
             "implements": [
                 "OnChanges"
             ],
@@ -16517,7 +16515,7 @@
         },
         {
             "name": "ChartCandlestickComponent",
-            "id": "component-ChartCandlestickComponent-572a2129b8cfb7bc9576f480dc1d255ab00a3ec606058581b528e4ba69375c3f90b32c44a7ac5059e0d4235dc57b82bf0e88f79db774f88e903375341df2c3c4",
+            "id": "component-ChartCandlestickComponent-790b9347671f5aa4ccd23a6028f8bdb0df4f16ba34825670474ef58a2714f6fcc2866f4daa55f9bc7421768a4b94bdde998184188809f18289a926098ffbc02d",
             "file": "projects/quang-chart/src/lib/chart-candlestick/chart-candlestick.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -16527,9 +16525,7 @@
             "providers": [],
             "selector": "quang-chart-candlestick",
             "styleUrls": [],
-            "styles": [
-                ""
-            ],
+            "styles": [],
             "templateUrl": [
                 "./chart-candlestick.component.html"
             ],
@@ -16660,8 +16656,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 1753,
-                                "end": 1760,
+                                "pos": 1751,
+                                "end": 1758,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16672,8 +16668,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 1747,
-                                "end": 1752,
+                                "pos": 1745,
+                                "end": 1750,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16705,8 +16701,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 2503,
-                                "end": 2504,
+                                "pos": 2501,
+                                "end": 2502,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16717,8 +16713,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 2497,
-                                "end": 2502,
+                                "pos": 2495,
+                                "end": 2500,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16737,10 +16733,10 @@
             "description": "<p>chart candlestick component decorator</p>\n",
             "rawdescription": "\n\nchart candlestick component decorator\n",
             "type": "component",
-            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { ChartCandlestick } from './chart-candlestick.model'\nimport { EChartsOption } from 'echarts'\n\n/**\n * chart candlestick component decorator\n */\n@Component({\n  selector: 'quang-chart-candlestick',\n  templateUrl: './chart-candlestick.component.html',\n  styles: [''],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * chart candlestick component\n */\nexport class ChartCandlestickComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * the height of the chart container\n   */\n  @Input() height: string = ' 50vh'\n  /**\n   * the object that contains the data to make the graph\n   */\n  @Input() chartData: ChartCandlestick | null = null\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = 'Chart'\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * the color of the graph\n   */\n  @Input() colors: [color: string, color0: string] = ['red', 'green']\n  /**\n   * the grid that contains the graph defines the padding in the four directions\n   */\n  @Input() grid: {\n    top: number\n    bottom: number\n    left: number\n    right: number\n  } = { top: 0, left: 0, right: 0, bottom: 0 }\n\n  /**\n   * click event on the graph\n   */\n  @Output() chartClick: EventEmitter<any> = new EventEmitter()\n  /**\n   * basic configuration of the chart\n   */\n  chartOption: EChartsOption = {\n    xAxis: {},\n    yAxis: {},\n    series: []\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.chartData?.currentValue) {\n      this.chartOption.xAxis = {\n        data: changes.chartData.currentValue.category\n      }\n      this.chartOption.series = [{\n        type: 'candlestick',\n        itemStyle: {\n          color: this.colors[0],\n          borderColor: this.colors[0],\n          color0: this.colors[1],\n          borderColor0: this.colors[1]\n        },\n        data: changes.chartData.currentValue.series\n      }]\n    }\n    if (changes.grid?.currentValue) {\n      this.chartOption.grid = changes.grid.currentValue\n    }\n  }\n\n  /**\n   * function triggered by clicking on an element of the chart emits an event to the parent component\n   * @param e\n   */\n  onChartClick (e: any): void {\n    this.chartClick.emit(e)\n  }\n}\n",
+            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { ChartCandlestick } from './chart-candlestick.model'\nimport { EChartsOption } from 'echarts'\n\n/**\n * chart candlestick component decorator\n */\n@Component({\n  selector: 'quang-chart-candlestick',\n  templateUrl: './chart-candlestick.component.html',\n  styles: [],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * chart candlestick component\n */\nexport class ChartCandlestickComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * the height of the chart container\n   */\n  @Input() height: string = ' 50vh'\n  /**\n   * the object that contains the data to make the graph\n   */\n  @Input() chartData: ChartCandlestick | null = null\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = 'Chart'\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * the color of the graph\n   */\n  @Input() colors: [color: string, color0: string] = ['red', 'green']\n  /**\n   * the grid that contains the graph defines the padding in the four directions\n   */\n  @Input() grid: {\n    top: number\n    bottom: number\n    left: number\n    right: number\n  } = { top: 0, left: 0, right: 0, bottom: 0 }\n\n  /**\n   * click event on the graph\n   */\n  @Output() chartClick: EventEmitter<any> = new EventEmitter()\n  /**\n   * basic configuration of the chart\n   */\n  chartOption: EChartsOption = {\n    xAxis: {},\n    yAxis: {},\n    series: []\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.chartData?.currentValue) {\n      this.chartOption.xAxis = {\n        data: changes.chartData.currentValue.category\n      }\n      this.chartOption.series = [{\n        type: 'candlestick',\n        itemStyle: {\n          color: this.colors[0],\n          borderColor: this.colors[0],\n          color0: this.colors[1],\n          borderColor0: this.colors[1]\n        },\n        data: changes.chartData.currentValue.series\n      }]\n    }\n    if (changes.grid?.currentValue) {\n      this.chartOption.grid = changes.grid.currentValue\n    }\n  }\n\n  /**\n   * function triggered by clicking on an element of the chart emits an event to the parent component\n   * @param e\n   */\n  onChartClick (e: any): void {\n    this.chartClick.emit(e)\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n",
+            "stylesData": "",
             "implements": [
                 "OnChanges"
             ],
@@ -40177,7 +40173,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const data = new ChartArea(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [\n      [820, 932, 901, 934, 1290, 1330, 1320],\n      [82, 93, 90, 93, 129, 133, 132]\n    ])\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart area</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartAreaComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-area\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"['#3e885b', '#debac0']\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-area>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const data = new ChartArea(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [\n      [820, 932, 901, 934, 1290, 1330, 1320],\n      [82, 93, 90, 93, 129, 133, 132]\n    ])\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart area</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartAreaComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-area\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"[firstColor, secondColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-area>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#3e885b'),\n      secondColor: color('secondColor', '#debac0'),\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+            },
+            {
+                "name": "Bar",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n\n  const data = new ChartBar(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [[820, 932, 901, 934, 1290, 1330, 1320], [82, 93, 90, 93, 129, 133, 132]])\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart bar</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartBarComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-bar\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"[firstColor, secondColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-bar>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#3e885b'),\n      secondColor: color('secondColor', '#debac0'),\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
             },
             {
                 "name": "Calendar",
@@ -40188,6 +40194,16 @@
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
                 "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang calendar</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputDateTimeComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <quang-calendar\n            [height]=\"'600px'\"\n          ></quang-calendar>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
+            },
+            {
+                "name": "Candle",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n\n  const data = new ChartCandlestick(\n    ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27'],\n    [\n      [20, 34, 10, 38],\n      [40, 35, 30, 50],\n      [1, 10, 30, 50],\n      [40, 35, 30, 50]\n    ]\n  )\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart candlestick</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartCandlestickComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-candlestick\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [colors]=\"[firstColor, secondColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-candlestick>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#debac0'),\n      secondColor: color('secondColor', '#3e885b'),\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
             },
             {
                 "name": "Checkbox",
@@ -40333,18 +40349,6 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-map/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-media/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40358,6 +40362,18 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-utility/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-map/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40810,6 +40826,26 @@
                 "defaultValue": "Area.bind({})"
             },
             {
+                "name": "QuangChartBar",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Bar.bind({})"
+            },
+            {
+                "name": "QuangChartCandleStick",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Bar.bind({})"
+            },
+            {
                 "name": "QUANGDIALOG_KEY",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -41053,17 +41089,6 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-map/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-media/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -41076,6 +41101,17 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-utility/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-map/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41535,16 +41571,6 @@
         ],
         "functions": [
             {
-                "name": "BsTimepickerModule",
-                "file": "stories/Date.stories.ts",
-                "ctype": "miscellaneous",
-                "subtype": "function",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "args": []
-            },
-            {
                 "name": "loaderReducers",
                 "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
                 "ctype": "miscellaneous",
@@ -41913,7 +41939,27 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const data = new ChartArea(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [\n      [820, 932, 901, 934, 1290, 1330, 1320],\n      [82, 93, 90, 93, 129, 133, 132]\n    ])\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart area</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartAreaComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-area\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"['#3e885b', '#debac0']\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-area>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  const data = new ChartArea(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [\n      [820, 932, 901, 934, 1290, 1330, 1320],\n      [82, 93, 90, 93, 129, 133, 132]\n    ])\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart area</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartAreaComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-area\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"[firstColor, secondColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-area>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#3e885b'),\n      secondColor: color('secondColor', '#debac0'),\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+                },
+                {
+                    "name": "Bar",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n\n  const data = new ChartBar(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [[820, 932, 901, 934, 1290, 1330, 1320], [82, 93, 90, 93, 129, 133, 132]])\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart bar</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartBarComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-bar\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"[firstColor, secondColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-bar>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#3e885b'),\n      secondColor: color('secondColor', '#debac0'),\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+                },
+                {
+                    "name": "Candle",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n\n  const data = new ChartCandlestick(\n    ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27'],\n    [\n      [20, 34, 10, 38],\n      [40, 35, 30, 50],\n      [1, 10, 30, 50],\n      [40, 35, 30, 50]\n    ]\n  )\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart candlestick</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartCandlestickComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-candlestick\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [colors]=\"[firstColor, secondColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-candlestick>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#debac0'),\n      secondColor: color('secondColor', '#3e885b'),\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
                 },
                 {
                     "name": "QuangChartArea",
@@ -41924,6 +41970,26 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Area.bind({})"
+                },
+                {
+                    "name": "QuangChartBar",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Bar.bind({})"
+                },
+                {
+                    "name": "QuangChartCandleStick",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Bar.bind({})"
                 }
             ],
             "stories/Calendar.stories.ts": [
@@ -42500,31 +42566,6 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-map/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-map/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-map/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-media/src/test.ts": [
                 {
                     "name": "context",
@@ -42568,6 +42609,31 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-utility/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-map/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-map/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-map/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -43339,18 +43405,6 @@
             ]
         },
         "groupedFunctions": {
-            "stories/Date.stories.ts": [
-                {
-                    "name": "BsTimepickerModule",
-                    "file": "stories/Date.stories.ts",
-                    "ctype": "miscellaneous",
-                    "subtype": "function",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "args": []
-                }
-            ],
             "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts": [
                 {
                     "name": "loaderReducers",
@@ -43697,7 +43751,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 79,
+        "count": 78,
         "status": "very-good",
         "files": [
             {
@@ -45783,17 +45837,47 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Bar",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Candle",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "QuangChartArea",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
             {
-                "filePath": "stories/Date.stories.ts",
-                "type": "function",
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
                 "linktype": "miscellaneous",
-                "linksubtype": "function",
-                "name": "BsTimepickerModule",
+                "linksubtype": "variable",
+                "name": "QuangChartBar",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "QuangChartCandleStick",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
