@@ -15,7 +15,7 @@ import { EChartsOption } from 'echarts'
 @Component({
   selector: 'quang-chart-pie',
   templateUrl: './chart-pie.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

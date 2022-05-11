@@ -15,7 +15,7 @@ import { EChartsOption } from 'echarts'
 @Component({
   selector: 'quang-chart-treemap',
   templateUrl: './chart-treemap.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

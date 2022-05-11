@@ -36,28 +36,28 @@ const Calendar: Story<BlankComponent> = (args: BlankComponent) => {
     template:
       `
       <section class="container-fluid">
-  <div class="row mb-3">
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-        <div class="row">
-            <div class="col-6">
-                <h3>Quang calendar</h3>
+        <div class="row mb-3">
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+              <div class="row">
+                  <div class="col-6">
+                      <h3>Quang calendar</h3>
+                  </div>
+                  <div class="col-6 text-end">
+                      <a cardAction href="https://rd.quix.it/quang/components/InputDateTimeComponent.html">Configurazioni</a>
+                  </div>
+              </div>
+              </div>
+              <div class="card-body">
+                <quang-calendar
+                  [height]="'600px'"
+                ></quang-calendar>
+              </div>
             </div>
-            <div class="col-6 text-end">
-                <a cardAction href="https://rd.quix.it/quang/components/InputDateTimeComponent.html">Configurazioni</a>
-            </div>
+          </div>
         </div>
-        </div>
-        <div class="card-body">
-          <quang-calendar
-            [height]="'600px'"
-          ></quang-calendar>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
       `,
     props: {
       ...args,

@@ -16744,7 +16744,7 @@
         },
         {
             "name": "ChartDoughnutComponent",
-            "id": "component-ChartDoughnutComponent-387d738c17c4cb7cae79b2f90305a8cfb46fadd946f17525203251981fec0f286b3275676273b94423ffcbf9b67acd60c4bb3f3f6b450f5469282f70315baa04",
+            "id": "component-ChartDoughnutComponent-2099f1e41bafa282a6659079cf046e2c80e366c124052007b5e77b65deca41e925feabf1c38a04d198268742772d71fc5de06bf094c3f95480e541d23967c5d5",
             "file": "projects/quang-chart/src/lib/chart-doughnut/chart-doughnut.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -16754,9 +16754,7 @@
             "providers": [],
             "selector": "quang-chart-doughnut",
             "styleUrls": [],
-            "styles": [
-                ""
-            ],
+            "styles": [],
             "templateUrl": [
                 "./chart-doughnut.component.html"
             ],
@@ -16887,8 +16885,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 1918,
-                                "end": 1925,
+                                "pos": 1916,
+                                "end": 1923,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16899,8 +16897,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 1912,
-                                "end": 1917,
+                                "pos": 1910,
+                                "end": 1915,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16932,8 +16930,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 2496,
-                                "end": 2497,
+                                "pos": 2494,
+                                "end": 2495,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16944,8 +16942,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 2490,
-                                "end": 2495,
+                                "pos": 2488,
+                                "end": 2493,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -16964,10 +16962,10 @@
             "description": "<p>chart doughnut component decorator</p>\n",
             "rawdescription": "\n\nchart doughnut component decorator\n",
             "type": "component",
-            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { ChartDoughnut } from './chart-doughnut.model'\nimport { EChartsOption } from 'echarts'\n\n/**\n * chart doughnut component decorator\n */\n@Component({\n  selector: 'quang-chart-doughnut',\n  templateUrl: './chart-doughnut.component.html',\n  styles: [''],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * chart doughnut component\n */\nexport class ChartDoughnutComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * the height of the chart container\n   */\n  @Input() height: string = ' 50vh'\n  /**\n   * the list of colors of the chart\n   */\n  @Input() color: string[] = []\n  /**\n   * the object that contains the data to make the graph\n   */\n  @Input() chartData: ChartDoughnut[] = []\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = 'Chart'\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * the grid that contains the graph defines the padding in the four directions\n   */\n  @Input() grid: {\n    top: number\n    bottom: number\n    left: number\n    right: number\n  } = { top: 0, left: 0, right: 0, bottom: 0 }\n\n  /**\n   * click event on the graph\n   */\n  @Output() chartClick: EventEmitter<any> = new EventEmitter()\n  /**\n   * basic configuration of the chart\n   */\n  chartOption: EChartsOption = {\n    color: [],\n    series: [\n      {\n        type: 'pie',\n        radius: ['30%', '50%'],\n        center: ['50%', '50%'],\n        data: []\n      }\n    ],\n    animationEasing: 'elasticOut',\n    animationDelay: function (idx: any) {\n      return Math.random() * 200\n    }\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.color?.currentValue) {\n      this.chartOption.color = changes.color.currentValue\n    }\n    if (changes.chartData?.currentValue && (this.chartOption?.series as any[])[0]) {\n      (this.chartOption.series as any)[0].data = changes.chartData.currentValue\n    }\n    if (changes.grid?.currentValue) {\n      this.chartOption.grid = changes.grid.currentValue\n    }\n  }\n\n  /**\n   * function triggered by clicking on an element of the chart emits an event to the parent component\n   * @param e\n   */\n  onChartClick (e: any): void {\n    this.chartClick.emit(e)\n  }\n}\n",
+            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { ChartDoughnut } from './chart-doughnut.model'\nimport { EChartsOption } from 'echarts'\n\n/**\n * chart doughnut component decorator\n */\n@Component({\n  selector: 'quang-chart-doughnut',\n  templateUrl: './chart-doughnut.component.html',\n  styles: [],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * chart doughnut component\n */\nexport class ChartDoughnutComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * the height of the chart container\n   */\n  @Input() height: string = ' 50vh'\n  /**\n   * the list of colors of the chart\n   */\n  @Input() color: string[] = []\n  /**\n   * the object that contains the data to make the graph\n   */\n  @Input() chartData: ChartDoughnut[] = []\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = 'Chart'\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * the grid that contains the graph defines the padding in the four directions\n   */\n  @Input() grid: {\n    top: number\n    bottom: number\n    left: number\n    right: number\n  } = { top: 0, left: 0, right: 0, bottom: 0 }\n\n  /**\n   * click event on the graph\n   */\n  @Output() chartClick: EventEmitter<any> = new EventEmitter()\n  /**\n   * basic configuration of the chart\n   */\n  chartOption: EChartsOption = {\n    color: [],\n    series: [\n      {\n        type: 'pie',\n        radius: ['30%', '50%'],\n        center: ['50%', '50%'],\n        data: []\n      }\n    ],\n    animationEasing: 'elasticOut',\n    animationDelay: function (idx: any) {\n      return Math.random() * 200\n    }\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.color?.currentValue) {\n      this.chartOption.color = changes.color.currentValue\n    }\n    if (changes.chartData?.currentValue && (this.chartOption?.series as any[])[0]) {\n      (this.chartOption.series as any)[0].data = changes.chartData.currentValue\n    }\n    if (changes.grid?.currentValue) {\n      this.chartOption.grid = changes.grid.currentValue\n    }\n  }\n\n  /**\n   * function triggered by clicking on an element of the chart emits an event to the parent component\n   * @param e\n   */\n  onChartClick (e: any): void {\n    this.chartClick.emit(e)\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "\n",
+            "stylesData": "",
             "implements": [
                 "OnChanges"
             ],
@@ -40193,7 +40191,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang calendar</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputDateTimeComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <quang-calendar\n            [height]=\"'600px'\"\n          ></quang-calendar>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/InputDateTimeComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
             },
             {
                 "name": "Candle",
@@ -40229,31 +40227,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-auth/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-chart/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40277,7 +40251,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-core/src/test.ts",
+                "file": "projects/quang-chart/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40301,7 +40275,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-date/src/test.ts",
+                "file": "projects/quang-core/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40325,31 +40299,31 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-date/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-event/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-media/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40373,7 +40347,31 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-keycloak/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-map/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-media/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40434,6 +40432,16 @@
                 "description": "<p>delete toast</p>\n"
             },
             {
+                "name": "Doughnut",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  const data = [\n    new ChartDoughnut(335, 'uno'),\n    new ChartDoughnut(310, 'due'),\n    new ChartDoughnut(234, 'tre'),\n    new ChartDoughnut(135, 'quattro'),\n    new ChartDoughnut(1548, 'cinque')\n  ]\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart doughnut</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartDoughnutComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-doughnut\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"[firstColor, secondColor, thirdColor,fourthColor, fifthColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-doughnut>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#3e885b'),\n      secondColor: color('secondColor', '#debac0'),\n      thirdColor: color('thirdColor', '#f3c677'),\n      fourthColor: color('fourthColor', '#66c3ff'),\n      fifthColor: color('fifthColor', '#dd7230'),\n\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+            },
+            {
                 "name": "Email",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -40485,6 +40493,16 @@
                 "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    fraction: new FormControl(0, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input fraction</h3>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-fraction\n              [label]=\"label\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'test'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              [addButtonClass]=\"['btn','btn-outline-success']\"\n              [removeButtonClass]=\"['btn','btn-outline-danger']\"\n              [stepInteger]=\"1\"\n              [stepFraction]=\"0.1\"\n              [min]=\"min\"\n              [max]=\"max\"\n              formControlName=\"fraction\">\n              <i addIntegerIcon class=\"fas fa-plus\"></i>\n              <i removeIntegerIcon class=\"fas fa-minus\"></i>\n              <i addFractionIcon class=\"fas fa-plus\"></i>\n              <i removeFractionIcon class=\"fas fa-minus\"></i>\n            </quang-input-fraction>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.fraction.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'fraction label'),\n      min: number('min', 0),\n      max: number('max', 255),\n    }\n  }\n}"
             },
             {
+                "name": "Gauge",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n  let speed = 200\n  const data: ChartGauge = new ChartGauge('velocità', speed)\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart gauge</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartGaugeComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <quang-chart-gauge\n                      [id]=\"'test'\"\n                      [height]=\"'50vh'\"\n                      [chartData]=\"data\"\n                      [min]=\"0\"\n                      [max]=\"270\"\n                      [pointerColor]=\"pointerColor\"\n                      [gaugeColor]=\"gaugeColor\"\n                      [color]=\"color\"\n                      (chartClick)=\"onCLick($event)\"\n                    ></quang-chart-gauge>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      pointerColor: color('pointerColor', '#3e885b'),\n      gaugeColor: color('gaugeColor', '#fff'),\n      color: color('color', '#debac0'),\n      speed: number('speed', 200),\n\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+            },
+            {
                 "name": "google",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -40499,18 +40517,6 @@
                 "name": "initialState",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "LoaderState",
-                "defaultValue": "{\n  loaders: 0\n}",
-                "rawdescription": "loader state initial value",
-                "description": "<p>loader state initial value</p>\n"
-            },
-            {
-                "name": "initialState",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-dialog/src/lib/offline/offline-store/reducers/offline.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40518,6 +40524,18 @@
                 "defaultValue": "{\n  line: true\n}",
                 "rawdescription": "initial offline state value",
                 "description": "<p>initial offline state value</p>\n"
+            },
+            {
+                "name": "initialState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "LoaderState",
+                "defaultValue": "{\n  loaders: 0\n}",
+                "rawdescription": "loader state initial value",
+                "description": "<p>loader state initial value</p>\n"
             },
             {
                 "name": "initialState",
@@ -40843,7 +40861,27 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "Bar.bind({})"
+                "defaultValue": "Candle.bind({})"
+            },
+            {
+                "name": "QuangChartDoughnut",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Doughnut.bind({})"
+            },
+            {
+                "name": "QuangChartGauge",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Chart.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Gauge.bind({})"
             },
             {
                 "name": "QUANGDIALOG_KEY",
@@ -40931,18 +40969,6 @@
                 "name": "reducer",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "createReducer(\n  initialState,\n  on(addLoader, (state) => ({ ...state, loaders: state.loaders + 1 })),\n  on(removeLoader, (state) => ({ ...state, loaders: state.loaders - 1 }))\n)",
-                "rawdescription": "define how loader state change",
-                "description": "<p>define how loader state change</p>\n"
-            },
-            {
-                "name": "reducer",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-dialog/src/lib/offline/offline-store/reducers/offline.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40950,6 +40976,18 @@
                 "defaultValue": "createReducer(\n  initialState,\n  on(online, state => ({ ...state, line: true })),\n  on(offline, state => ({ ...state, line: false }))\n)",
                 "rawdescription": "define how the state change",
                 "description": "<p>define how the state change</p>\n"
+            },
+            {
+                "name": "reducer",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createReducer(\n  initialState,\n  on(addLoader, (state) => ({ ...state, loaders: state.loaders + 1 })),\n  on(removeLoader, (state) => ({ ...state, loaders: state.loaders - 1 }))\n)",
+                "rawdescription": "define how loader state change",
+                "description": "<p>define how loader state change</p>\n"
             },
             {
                 "name": "reducer",
@@ -40979,29 +41017,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-auth/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-chart/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41023,7 +41039,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-core/src/test.ts",
+                "file": "projects/quang-chart/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41045,7 +41061,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-date/src/test.ts",
+                "file": "projects/quang-core/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41067,29 +41083,29 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-date/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-event/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-media/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41111,7 +41127,29 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-keycloak/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-map/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-media/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41962,6 +42000,26 @@
                     "defaultValue": "(args: BlankComponent) => {\n\n  const data = new ChartCandlestick(\n    ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27'],\n    [\n      [20, 34, 10, 38],\n      [40, 35, 30, 50],\n      [1, 10, 30, 50],\n      [40, 35, 30, 50]\n    ]\n  )\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart candlestick</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartCandlestickComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-candlestick\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [colors]=\"[firstColor, secondColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-candlestick>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#debac0'),\n      secondColor: color('secondColor', '#3e885b'),\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
                 },
                 {
+                    "name": "Doughnut",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  const data = [\n    new ChartDoughnut(335, 'uno'),\n    new ChartDoughnut(310, 'due'),\n    new ChartDoughnut(234, 'tre'),\n    new ChartDoughnut(135, 'quattro'),\n    new ChartDoughnut(1548, 'cinque')\n  ]\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart doughnut</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartDoughnutComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-doughnut\n                          [id]=\"'test'\"\n                          [height]=\"'50vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"[firstColor, secondColor, thirdColor,fourthColor, fifthColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-doughnut>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#3e885b'),\n      secondColor: color('secondColor', '#debac0'),\n      thirdColor: color('thirdColor', '#f3c677'),\n      fourthColor: color('fourthColor', '#66c3ff'),\n      fifthColor: color('fifthColor', '#dd7230'),\n\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+                },
+                {
+                    "name": "Gauge",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n  let speed = 200\n  const data: ChartGauge = new ChartGauge('velocità', speed)\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart gauge</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartGaugeComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <quang-chart-gauge\n                      [id]=\"'test'\"\n                      [height]=\"'50vh'\"\n                      [chartData]=\"data\"\n                      [min]=\"0\"\n                      [max]=\"270\"\n                      [pointerColor]=\"pointerColor\"\n                      [gaugeColor]=\"gaugeColor\"\n                      [color]=\"color\"\n                      (chartClick)=\"onCLick($event)\"\n                    ></quang-chart-gauge>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      pointerColor: color('pointerColor', '#3e885b'),\n      gaugeColor: color('gaugeColor', '#fff'),\n      color: color('color', '#debac0'),\n      speed: number('speed', 200),\n\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+                },
+                {
                     "name": "QuangChartArea",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -41989,7 +42047,27 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "Bar.bind({})"
+                    "defaultValue": "Candle.bind({})"
+                },
+                {
+                    "name": "QuangChartDoughnut",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Doughnut.bind({})"
+                },
+                {
+                    "name": "QuangChartGauge",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Chart.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Gauge.bind({})"
                 }
             ],
             "stories/Calendar.stories.ts": [
@@ -42001,7 +42079,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang calendar</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputDateTimeComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <quang-calendar\n            [height]=\"'600px'\"\n          ></quang-calendar>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/InputDateTimeComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
                 },
                 {
                     "name": "QuangCalendar",
@@ -42316,31 +42394,6 @@
                     "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    url: new FormControl(\n      '',\n      [Validators.required, Validators.minLength(0), Validators.maxLength(50)]\n    )\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n  <div class=\"row mb-3\">\n    <div class=\"col\">\n      <div class=\"card\">\n        <div class=\"card-header\">\n        <div class=\"row\">\n            <div class=\"col-6\">\n                <h3>Quang input url</h3>\n            </div>\n            <div class=\"col-6 text-end\">\n                <a cardAction href=\"https://rd.quix.it/quang/components/InputUrlComponent.html\">Configurazioni</a>\n            </div>\n        </div>\n        </div>\n        <div class=\"card-body\">\n          <form [formGroup]=\"group\">\n            <quang-input-url\n              [label]=\"'form.url.label'\"\n              [placeholder]=\"placeholder\"\n              [min]=\"min\"\n              [max]=\"max\"\n              [errorMessage]=\"errorMessage\"\n              [successMessage]=\"successMessage\"\n              [helpMessage]=\"helpMessage\"\n              [autocomplete]=\"'off'\"\n              [tabIndex]=\"1\"\n              [id]=\"'url id'\"\n              [autofocus]=\"true\"\n              [formName]=\"'form'\"\n              formControlName=\"url\"\n            ></quang-input-url>\n          </form>\n          <dl>\n            <dt>Value:</dt>\n            <dd>{{group.controls.url.value}}</dd>\n          </dl>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      successMessage: boolean('successMessage', true),\n      errorMessage: boolean('errorMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'url label'),\n      placeholder: text('placeholder', 'url placeholder'),\n      min: number('min', 0),\n      max: number('max', 50)\n    }\n  }\n}"
                 }
             ],
-            "projects/quang/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-auth/src/test.ts": [
                 {
                     "name": "context",
@@ -42359,31 +42412,6 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-auth/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-chart/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-chart/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-chart/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42416,12 +42444,12 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-core/src/test.ts": [
+            "projects/quang-chart/src/test.ts": [
                 {
                     "name": "context",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-core/src/test.ts",
+                    "file": "projects/quang-chart/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -42433,7 +42461,7 @@
                     "name": "require",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-core/src/test.ts",
+                    "file": "projects/quang-chart/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42466,12 +42494,12 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-date/src/test.ts": [
+            "projects/quang-core/src/test.ts": [
                 {
                     "name": "context",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-date/src/test.ts",
+                    "file": "projects/quang-core/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -42483,7 +42511,7 @@
                     "name": "require",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-date/src/test.ts",
+                    "file": "projects/quang-core/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42516,6 +42544,56 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
+            "projects/quang/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-date/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-date/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-date/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
             "projects/quang-event/src/test.ts": [
                 {
                     "name": "context",
@@ -42534,56 +42612,6 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-event/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-keycloak/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-keycloak/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-keycloak/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-media/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-media/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-media/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42616,6 +42644,31 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
+            "projects/quang-keycloak/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-keycloak/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-keycloak/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
             "projects/quang-map/src/test.ts": [
                 {
                     "name": "context",
@@ -42634,6 +42687,31 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-map/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-media/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-media/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-media/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42787,32 +42865,6 @@
                     "description": "<p>global declaration for google async library</p>\n"
                 }
             ],
-            "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts": [
-                {
-                    "name": "initialState",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "LoaderState",
-                    "defaultValue": "{\n  loaders: 0\n}",
-                    "rawdescription": "loader state initial value",
-                    "description": "<p>loader state initial value</p>\n"
-                },
-                {
-                    "name": "reducer",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createReducer(\n  initialState,\n  on(addLoader, (state) => ({ ...state, loaders: state.loaders + 1 })),\n  on(removeLoader, (state) => ({ ...state, loaders: state.loaders - 1 }))\n)",
-                    "rawdescription": "define how loader state change",
-                    "description": "<p>define how loader state change</p>\n"
-                }
-            ],
             "projects/quang-dialog/src/lib/offline/offline-store/reducers/offline.reducer.ts": [
                 {
                     "name": "initialState",
@@ -42837,6 +42889,32 @@
                     "defaultValue": "createReducer(\n  initialState,\n  on(online, state => ({ ...state, line: true })),\n  on(offline, state => ({ ...state, line: false }))\n)",
                     "rawdescription": "define how the state change",
                     "description": "<p>define how the state change</p>\n"
+                }
+            ],
+            "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts": [
+                {
+                    "name": "initialState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "LoaderState",
+                    "defaultValue": "{\n  loaders: 0\n}",
+                    "rawdescription": "loader state initial value",
+                    "description": "<p>loader state initial value</p>\n"
+                },
+                {
+                    "name": "reducer",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createReducer(\n  initialState,\n  on(addLoader, (state) => ({ ...state, loaders: state.loaders + 1 })),\n  on(removeLoader, (state) => ({ ...state, loaders: state.loaders - 1 }))\n)",
+                    "rawdescription": "define how loader state change",
+                    "description": "<p>define how loader state change</p>\n"
                 }
             ],
             "projects/quang-dialog/src/lib/toast/toast-store/reducers/toast.reducers.ts": [
@@ -43751,7 +43829,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 78,
+        "count": 77,
         "status": "very-good",
         "files": [
             {
@@ -45857,6 +45935,26 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Doughnut",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Gauge",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "QuangChartArea",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -45878,6 +45976,26 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "QuangChartCandleStick",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "QuangChartDoughnut",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Chart.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "QuangChartGauge",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
