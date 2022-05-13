@@ -444,7 +444,7 @@ const Number: Story<BlankComponent> = (args: BlankComponent) => {
         <div class="card-header">
         <div class="row">
             <div class="col-6">
-                <h3>Quang input Number</h3>
+                <h3>Quang input number</h3>
             </div>
             <div class="col-6 text-end">
                 <a href="https://rd.quix.it/quang/components/InputNumberComponent.html" target="_blank">Configurazioni</a>
@@ -908,7 +908,7 @@ const TextA: Story<BlankComponent> = (args: BlankComponent) => {
         <div class="card-header">
         <div class="row">
             <div class="col-6">
-                <h3>Quang input area</h3>
+                <h3>Quang input text area</h3>
             </div>
             <div class="col-6 text-end">
                 <a href="https://rd.quix.it/quang/components/InputTextComponent.html" target="_blank">Configurazioni</a>

@@ -10,9 +10,7 @@ import { ChartAreaComponent } from '../projects/quang-chart/src/lib/chart-area/c
 import { ChartArea } from '../projects/quang-chart/src/lib/chart-area/chart-area.model'
 import { ChartBarComponent } from '../projects/quang-chart/src/lib/chart-bar/chart-bar.component'
 import { ChartBar } from '../projects/quang-chart/src/lib/chart-bar/chart-bar.model'
-import {
-  ChartCandlestickComponent
-} from '../projects/quang-chart/src/lib/chart-candlestick/chart-candlestick.component'
+import { ChartCandlestickComponent } from '../projects/quang-chart/src/lib/chart-candlestick/chart-candlestick.component'
 import { ChartCandlestick } from '../projects/quang-chart/src/lib/chart-candlestick/chart-candlestick.model'
 import { ChartDoughnutComponent } from '../projects/quang-chart/src/lib/chart-doughnut/chart-doughnut.component'
 import { ChartDoughnut } from '../projects/quang-chart/src/lib/chart-doughnut/chart-doughnut.model'

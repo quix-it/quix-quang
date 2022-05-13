@@ -15,7 +15,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser'
 @Component({
   selector: 'quang-video',
   templateUrl: './video.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
