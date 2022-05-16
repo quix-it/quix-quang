@@ -39639,13 +39639,13 @@
         },
         {
             "name": "QuangDateModule",
-            "id": "module-QuangDateModule-15a77baa229534935ed8b11dc7924fcb50c4d2f41289806227f5b3503fcd47441476249eaa7702d19433fa85ee7d18f41465f4082133dd4065f11c14e808eab4",
+            "id": "module-QuangDateModule-060a264ecf036410e13bcfd9922cae8d0478fb72ebdbcaae6678e65972239fe650d11be954707359b2c73032272e764c4867bf257637d13f118d7390a5b047aa",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/quang-date/src/lib/quang-date.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core'\nimport { InputDateRangeComponent } from './input-date-range/input-date-range.component'\nimport { BsDatepickerModule } from 'ngx-bootstrap/datepicker'\nimport { TimepickerModule } from 'ngx-bootstrap/timepicker'\nimport { CommonModule } from '@angular/common'\nimport { TranslocoModule } from '@ngneat/transloco'\nimport { FormsModule } from '@angular/forms'\nimport { InputDateComponent } from './input-date/input-date.component'\nimport { InputDateTimeComponent } from './input-date-time/input-date-time.component'\nimport { InputTimeComponent } from './input-time/input-time.component'\n\n@NgModule({\n  declarations: [\n    InputDateRangeComponent,\n    InputDateComponent,\n    InputDateTimeComponent,\n    InputTimeComponent\n  ],\n  imports: [\n    CommonModule,\n    BsDatepickerModule.forRoot(),\n    TimepickerModule.forRoot(),\n    TranslocoModule,\n    FormsModule,\n  ],\n  exports: [\n    InputDateRangeComponent,\n    InputDateComponent,\n    InputDateTimeComponent,\n    InputTimeComponent\n  ]\n})\nexport class QuangDateModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core'\nimport { InputDateRangeComponent } from './input-date-range/input-date-range.component'\nimport { BsDatepickerModule } from 'ngx-bootstrap/datepicker'\nimport { TimepickerModule } from 'ngx-bootstrap/timepicker'\nimport { CommonModule } from '@angular/common'\nimport { TranslocoModule } from '@ngneat/transloco'\nimport { FormsModule } from '@angular/forms'\nimport { InputDateComponent } from './input-date/input-date.component'\nimport { InputDateTimeComponent } from './input-date-time/input-date-time.component'\nimport { InputTimeComponent } from './input-time/input-time.component'\nimport { BsTimepickerViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-timepicker-view.component'\n\n@NgModule({\n  declarations: [\n    InputDateRangeComponent,\n    InputDateComponent,\n    InputDateTimeComponent,\n    InputTimeComponent,\n    BsTimepickerViewComponent,\n  ],\n  imports: [\n    CommonModule,\n    BsDatepickerModule.forRoot(),\n    TimepickerModule.forRoot(),\n    TranslocoModule,\n    FormsModule\n  ],\n  exports: [\n    InputDateRangeComponent,\n    InputDateComponent,\n    InputDateTimeComponent,\n    InputTimeComponent\n  ]\n})\nexport class QuangDateModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -40182,6 +40182,26 @@
                 "defaultValue": "(args: BlankComponent) => {\n\n  const data = new ChartBar(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [[820, 932, 901, 934, 1290, 1330, 1320], [82, 93, 90, 93, 129, 133, 132]])\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart bar</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartBarComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-bar\n                          [id]=\"'test'\"\n                          [height]=\"'70vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"[firstColor, secondColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-bar>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#3e885b'),\n      secondColor: color('secondColor', '#debac0'),\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
             },
             {
+                "name": "BarCode",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Media.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n\n  let result = ''\n  const barCodeFormat = [\n    Html5QrcodeSupportedFormats.EAN_13,\n    Html5QrcodeSupportedFormats.EAN_8\n  ]\n\n  return {\n    component: BlankComponent,\n\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang QR code reader</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/CodeReaderComponents.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-code-reader\n                          [id]=\"'reader'\"\n                          [formats]=\"barCodeFormat\"\n                          [errorMessage]=\"'No webcam available'\"\n                          (whenFindCode)=\"logCode($event)\"\n                        ></quang-code-reader>\n                        {{result | json}}\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      result: result,\n      barCodeFormat: barCodeFormat,\n      logCode (code: Html5QrcodeResult): void {\n        this.result = code\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "BarCodeReader",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Media.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "BarCode.bind({})"
+            },
+            {
                 "name": "Calendar",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -40189,7 +40209,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/InputDateTimeComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
             },
             {
                 "name": "Candle",
@@ -40249,6 +40269,18 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-calendar/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-chart/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40285,18 +40317,6 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-dialog/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-date/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40309,19 +40329,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-calendar/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-event/src/test.ts",
+                "file": "projects/quang-dialog/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40334,6 +40342,18 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-keycloak/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-event/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40405,7 +40425,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    dateRange: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date range</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-range\n                      [label]=\"'form.date-range.label'\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-range id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"dateFormat\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"dateRange\"\n                    >\n                      <i calendarIcon class=\"fas fa-calendar-alt\"></i>\n                    </quang-input-date-range>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.dateRange.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-range label'),\n      placeholder: text('placeholder', 'date placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    dateRange: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date range</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-range\n                      [label]=\"'form.date-range.label'\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-range id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"dateFormat\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"dateRange\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date-range>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.dateRange.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-range label'),\n      placeholder: text('placeholder', 'date placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
             },
             {
                 "name": "DateTime",
@@ -40415,7 +40435,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    datetime: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-time\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-time id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"datetime\"\n                    >\n                      <i calendarIcon class=\"fas fa-calendar-alt\"></i>\n                    </quang-input-date-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.datetime.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-time label'),\n      placeholder: text('placeholder', 'date-time placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    datetime: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-time\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-time id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"datetime\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.datetime.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-time label'),\n      placeholder: text('placeholder', 'date-time placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
             },
             {
                 "name": "deleteToast",
@@ -40759,7 +40779,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/AudioComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-audio\n                          [id]=\"'test'\"\n                          [src]=\"'/quix-quang/stories/assets/audios/audio.mp3'\"\n                          [type]=\"'audio/mpeg'\"\n                        ></quang-audio>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args\n      }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/AudioComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-audio\n                          [id]=\"'test'\"\n                          [src]=\"src\"\n                          [type]=\"'audio/mpeg'\"\n                        ></quang-audio>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      src: audio\n    }\n  }\n}"
             },
             {
                 "name": "MediaVideo",
@@ -40769,7 +40789,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/AudioComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-video\n                          [id]=\"'test'\"\n                          [src]=\"'https://storage.coverr.co/videos/fbR00NW26LPtWnO01m9w8w2z9CUiFYe8li?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjM1MTc5MjAzfQ.XCeXZ15YrvGSA8NZOXqbg7JRSvJAEaPWGubIrU-JGMM'\"\n                          [type]=\"'video/mp4'\"\n                          [autoplay]=\"false\"\n                          [loop]=\"true\"\n                          [viewControl]=\"true\"\n                        ></quang-video>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/AudioComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"w-50 h-50\">\n                            <quang-video\n                            [id]=\"'test'\"\n                            [src]=\"'https://storage.coverr.co/videos/fbR00NW26LPtWnO01m9w8w2z9CUiFYe8li?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjM1MTc5MjAzfQ.XCeXZ15YrvGSA8NZOXqbg7JRSvJAEaPWGubIrU-JGMM'\"\n                            [type]=\"'video/mp4'\"\n                            [autoplay]=\"false\"\n                            [loop]=\"true\"\n                            [viewControl]=\"true\"\n                            ></quang-video>\n                        </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args\n    }\n  }\n}"
             },
             {
                 "name": "Number",
@@ -40836,6 +40856,26 @@
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
                 "defaultValue": "(args: BlankComponent) => {\n  const data = [\n    new ChartPie(335, 'uno'),\n    new ChartPie(310, 'due'),\n    new ChartPie(234, 'tre'),\n    new ChartPie(135, 'quattro'),\n    new ChartPie(1548, 'cinque')\n  ]\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart pie</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartPieComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-pie\n                          [id]=\"'test'\"\n                          [height]=\"'70vh'\"\n                          [chartData]=\"data\"\n                          [color]=\"[firstColor, secondColor, thirdColor, fourthColor, fifthColor]\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-pie>\n                    </div>\n                  </div>\n                </div>\n              </div>\n      </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n      firstColor: color('firstColor', '#3e885b'),\n      secondColor: color('secondColor', '#debac0'),\n      thirdColor: color('thirdColor', '#f3c677'),\n      fourthColor: color('fourthColor', '#66c3ff'),\n      fifthColor: color('fifthColor', '#dd7230'),\n\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+            },
+            {
+                "name": "QrCode",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Media.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n\n  let result = ''\n  const qrCodeFormat = [\n    Html5QrcodeSupportedFormats.QR_CODE\n  ]\n\n  return {\n    component: BlankComponent,\n\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang QR code reader</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/CodeReaderComponents.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-code-reader\n                          [id]=\"'reader'\"\n                          [formats]=\"qrCodeFormat\"\n                          [errorMessage]=\"'No webcam available'\"\n                          (whenFindCode)=\"logCode($event)\"\n                        ></quang-code-reader>\n                        {{result | json}}\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      result: result,\n      qrCodeFormat: qrCodeFormat,\n      logCode (code: Html5QrcodeResult): void {\n        this.result = code\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "QRCodeReader",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Media.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "QrCode.bind({})"
             },
             {
                 "name": "QUANGAUTH_KEY",
@@ -41137,6 +41177,17 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-calendar/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-chart/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -41170,17 +41221,6 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-dialog/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-date/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -41192,18 +41232,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-calendar/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-event/src/test.ts",
+                "file": "projects/quang-dialog/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41215,6 +41244,17 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-keycloak/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-event/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41569,6 +41609,26 @@
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
                 "defaultValue": "(args: BlankComponent) => {\n  const data = [\n    new ChartTreemap('spazio', 10, '#3e885b'),\n    new ChartTreemap('mente', 10, '#debac0'),\n    new ChartTreemap('realtà', 10, '#f3c677'),\n    new ChartTreemap('potere', 10, '#66c3ff'),\n    new ChartTreemap('tempo', 10, '#dd7230')\n  ]\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang chart treemap</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/ChartTreeMapComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-chart-treemap\n                          [id]=\"'test'\"\n                          [height]=\"'70vh'\"\n                          [chartData]=\"data\"\n                          (chartClick)=\"onCLick($event)\"\n                        ></quang-chart-treemap>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      data: data,\n\n      onCLick (e: any): void {\n        alert(`${e.type} ${e.data} ${e.seriesName}`)\n      },\n    }\n  }\n}"
+            },
+            {
+                "name": "TreeSixty",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Media.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Tsixty.bind({})"
+            },
+            {
+                "name": "Tsixty",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Media.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<BlankComponent>",
+                "defaultValue": "(args: BlankComponent) => {\n\n  const list = [\n    img1,\n    img2,\n    img3,\n    img4,\n    img5,\n    img6,\n    img7,\n    img8\n  ]\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/QuixThreeSixtyImageComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"w-50 h-50\">\n                            <quang-three-sixty-image\n                              [id]=\"'test'\"\n                              [height]=\"'50vh'\"\n                              [images]=\"list\"\n                              [timeRotation]=\"150\">\n                              <i nextIcon class=\"fas fa-forward\"></i>\n                              <i previousIcon class=\"fas fa-backward\"></i>\n                              <i stopIcon class=\"fas fa-stop\"></i>\n                              <i playIcon class=\"fas fa-play\"></i>\n                            </quang-three-sixty-image>\n                        </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      list: list\n    }\n  }\n}"
             },
             {
                 "name": "Url",
@@ -42310,6 +42370,26 @@
                     "defaultValue": "MediaAudio.bind({})"
                 },
                 {
+                    "name": "BarCode",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Media.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n\n  let result = ''\n  const barCodeFormat = [\n    Html5QrcodeSupportedFormats.EAN_13,\n    Html5QrcodeSupportedFormats.EAN_8\n  ]\n\n  return {\n    component: BlankComponent,\n\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang QR code reader</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/CodeReaderComponents.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-code-reader\n                          [id]=\"'reader'\"\n                          [formats]=\"barCodeFormat\"\n                          [errorMessage]=\"'No webcam available'\"\n                          (whenFindCode)=\"logCode($event)\"\n                        ></quang-code-reader>\n                        {{result | json}}\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      result: result,\n      barCodeFormat: barCodeFormat,\n      logCode (code: Html5QrcodeResult): void {\n        this.result = code\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "BarCodeReader",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Media.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "BarCode.bind({})"
+                },
+                {
                     "name": "MediaAudio",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -42317,7 +42397,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/AudioComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-audio\n                          [id]=\"'test'\"\n                          [src]=\"'/quix-quang/stories/assets/audios/audio.mp3'\"\n                          [type]=\"'audio/mpeg'\"\n                        ></quang-audio>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args\n      }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/AudioComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-audio\n                          [id]=\"'test'\"\n                          [src]=\"src\"\n                          [type]=\"'audio/mpeg'\"\n                        ></quang-audio>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      src: audio\n    }\n  }\n}"
                 },
                 {
                     "name": "MediaVideo",
@@ -42327,7 +42407,47 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/AudioComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-video\n                          [id]=\"'test'\"\n                          [src]=\"'https://storage.coverr.co/videos/fbR00NW26LPtWnO01m9w8w2z9CUiFYe8li?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjM1MTc5MjAzfQ.XCeXZ15YrvGSA8NZOXqbg7JRSvJAEaPWGubIrU-JGMM'\"\n                          [type]=\"'video/mp4'\"\n                          [autoplay]=\"false\"\n                          [loop]=\"true\"\n                          [viewControl]=\"true\"\n                        ></quang-video>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/AudioComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"w-50 h-50\">\n                            <quang-video\n                            [id]=\"'test'\"\n                            [src]=\"'https://storage.coverr.co/videos/fbR00NW26LPtWnO01m9w8w2z9CUiFYe8li?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjM1MTc5MjAzfQ.XCeXZ15YrvGSA8NZOXqbg7JRSvJAEaPWGubIrU-JGMM'\"\n                            [type]=\"'video/mp4'\"\n                            [autoplay]=\"false\"\n                            [loop]=\"true\"\n                            [viewControl]=\"true\"\n                            ></quang-video>\n                        </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args\n    }\n  }\n}"
+                },
+                {
+                    "name": "QrCode",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Media.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n\n  let result = ''\n  const qrCodeFormat = [\n    Html5QrcodeSupportedFormats.QR_CODE\n  ]\n\n  return {\n    component: BlankComponent,\n\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang QR code reader</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/CodeReaderComponents.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <quang-code-reader\n                          [id]=\"'reader'\"\n                          [formats]=\"qrCodeFormat\"\n                          [errorMessage]=\"'No webcam available'\"\n                          (whenFindCode)=\"logCode($event)\"\n                        ></quang-code-reader>\n                        {{result | json}}\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      result: result,\n      qrCodeFormat: qrCodeFormat,\n      logCode (code: Html5QrcodeResult): void {\n        this.result = code\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "QRCodeReader",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Media.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "QrCode.bind({})"
+                },
+                {
+                    "name": "TreeSixty",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Media.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Tsixty.bind({})"
+                },
+                {
+                    "name": "Tsixty",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Media.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<BlankComponent>",
+                    "defaultValue": "(args: BlankComponent) => {\n\n  const list = [\n    img1,\n    img2,\n    img3,\n    img4,\n    img5,\n    img6,\n    img7,\n    img8\n  ]\n  return {\n    component: BlankComponent,\n    template:\n      `\n            <section class=\"container-fluid\">\n              <div class=\"row mb-3\">\n                <div class=\"col\">\n                  <div class=\"card\">\n                    <div class=\"card-header\">\n                    <div class=\"row\">\n                        <div class=\"col-6\">\n                            <h3>Quang media audio</h3>\n                        </div>\n                        <div class=\"col-6 text-end\">\n                            <a cardAction href=\"https://rd.quix.it/quang/components/QuixThreeSixtyImageComponent.html\">Configurazioni</a>\n                        </div>\n                    </div>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"w-50 h-50\">\n                            <quang-three-sixty-image\n                              [id]=\"'test'\"\n                              [height]=\"'50vh'\"\n                              [images]=\"list\"\n                              [timeRotation]=\"150\">\n                              <i nextIcon class=\"fas fa-forward\"></i>\n                              <i previousIcon class=\"fas fa-backward\"></i>\n                              <i stopIcon class=\"fas fa-stop\"></i>\n                              <i playIcon class=\"fas fa-play\"></i>\n                            </quang-three-sixty-image>\n                        </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </section>\n    `,\n    props: {\n      ...args,\n      list: list\n    }\n  }\n}"
                 },
                 {
                     "name": "Video",
@@ -42349,7 +42469,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/InputDateTimeComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
                 },
                 {
                     "name": "QuangCalendar",
@@ -42714,6 +42834,31 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
+            "projects/quang-calendar/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-calendar/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-calendar/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
             "projects/quang-chart/src/test.ts": [
                 {
                     "name": "context",
@@ -42789,31 +42934,6 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-dialog/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-dialog/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-dialog/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-date/src/test.ts": [
                 {
                     "name": "context",
@@ -42839,12 +42959,12 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-calendar/src/test.ts": [
+            "projects/quang-dialog/src/test.ts": [
                 {
                     "name": "context",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-calendar/src/test.ts",
+                    "file": "projects/quang-dialog/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -42856,32 +42976,7 @@
                     "name": "require",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-calendar/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-event/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-event/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-event/src/test.ts",
+                    "file": "projects/quang-dialog/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42907,6 +43002,31 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-keycloak/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-event/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-event/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-event/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -43008,7 +43128,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    dateRange: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date range</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-range\n                      [label]=\"'form.date-range.label'\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-range id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"dateFormat\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"dateRange\"\n                    >\n                      <i calendarIcon class=\"fas fa-calendar-alt\"></i>\n                    </quang-input-date-range>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.dateRange.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-range label'),\n      placeholder: text('placeholder', 'date placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    dateRange: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date range</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-range\n                      [label]=\"'form.date-range.label'\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-range id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"dateFormat\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"dateRange\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date-range>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.dateRange.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-range label'),\n      placeholder: text('placeholder', 'date placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
                 },
                 {
                     "name": "DateTime",
@@ -43018,7 +43138,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    datetime: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-time\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-time id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"datetime\"\n                    >\n                      <i calendarIcon class=\"fas fa-calendar-alt\"></i>\n                    </quang-input-date-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.datetime.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-time label'),\n      placeholder: text('placeholder', 'date-time placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    datetime: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-time\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-time id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"datetime\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.datetime.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-time label'),\n      placeholder: text('placeholder', 'date-time placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
                 },
                 {
                     "name": "InputDate",
@@ -44099,7 +44219,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 73,
+        "count": 72,
         "status": "good",
         "files": [
             {
@@ -46765,6 +46885,26 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "BarCode",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Media.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "BarCodeReader",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Media.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "MediaAudio",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -46776,6 +46916,46 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "MediaVideo",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Media.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "QrCode",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Media.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "QRCodeReader",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Media.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TreeSixty",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Media.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Tsixty",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

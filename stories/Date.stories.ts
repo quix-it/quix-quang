@@ -11,6 +11,7 @@ import { InputDateRangeComponent } from '../projects/quang-date/src/lib/input-da
 import { InputDateTimeComponent } from '../projects/quang-date/src/lib/input-date-time/input-date-time.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { InputTimeComponent } from 'projects/quang-date/src/public-api'
+import { BsTimepickerViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-timepicker-view.component'
 
 export default {
   title: 'Date',
@@ -27,7 +28,8 @@ export default {
       InputDateComponent,
       InputDateRangeComponent,
       InputDateTimeComponent,
-      // InputTimeComponent
+      // InputTimeComponent,
+      // BsTimepickerViewComponent
     ],
     imports: [
       TranslocoModule,

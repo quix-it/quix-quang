@@ -8,20 +8,22 @@ import { FormsModule } from '@angular/forms'
 import { InputDateComponent } from './input-date/input-date.component'
 import { InputDateTimeComponent } from './input-date-time/input-date-time.component'
 import { InputTimeComponent } from './input-time/input-time.component'
+import { BsTimepickerViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-timepicker-view.component'
 
 @NgModule({
   declarations: [
     InputDateRangeComponent,
     InputDateComponent,
     InputDateTimeComponent,
-    InputTimeComponent
+    InputTimeComponent,
+    BsTimepickerViewComponent,
   ],
   imports: [
     CommonModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     TranslocoModule,
-    FormsModule,
+    FormsModule
   ],
   exports: [
     InputDateRangeComponent,

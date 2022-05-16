@@ -2,10 +2,9 @@ import { BlankComponent } from './blank.component'
 import { CalendarComponent } from '../projects/quang-calendar/src/lib/calendar/calendar.component'
 import { text, withKnobs } from '@storybook/addon-knobs'
 import { moduleMetadata } from '@storybook/angular'
-import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
+import { TranslocoModule } from '@ngneat/transloco'
 import { Meta, Story } from '@storybook/angular/types-6-0'
 import { CommonModule } from '@angular/common'
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 
 export default {
   title: 'Calendar',
@@ -20,12 +19,8 @@ export default {
     ],
     imports: [
       TranslocoModule,
-      CommonModule
-    ],
-    providers: [
-      { provide: TRANSLOCO_SCOPE, useValue: 'calendar' }
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      CommonModule,
+    ]
   })]
 } as Meta
 
@@ -45,7 +40,7 @@ const Calendar: Story<BlankComponent> = (args: BlankComponent) => {
                       <h3>Quang calendar</h3>
                   </div>
                   <div class="col-6 text-end">
-                      <a cardAction href="https://rd.quix.it/quang/components/InputDateTimeComponent.html">Configurazioni</a>
+                      <a cardAction href="https://rd.quix.it/quang/components/CalendarComponent.html">Configurazioni</a>
                   </div>
               </div>
               </div>

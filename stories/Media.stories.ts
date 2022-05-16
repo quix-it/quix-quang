@@ -8,14 +8,23 @@ import { AudioComponent } from '../projects/quang-media/src/lib/audio/audio.comp
 import { CodeReaderComponent, ThreeSixtyImageComponent, VideoComponent } from 'projects/quang-media/src/public-api'
 import { Html5QrcodeResult } from 'html5-qrcode/core'
 import { Html5QrcodeSupportedFormats } from 'html5-qrcode'
+// @ts-ignore
 import audio from './assets/audios/audio.mp3'
+// @ts-ignore
 import img1 from './assets/images/360/KOCCA_360_1.jpg'
+// @ts-ignore
 import img2 from './assets/images/360/KOCCA_360_2.jpg'
+// @ts-ignore
 import img3 from './assets/images/360/KOCCA_360_3.jpg'
+// @ts-ignore
 import img4 from './assets/images/360/KOCCA_360_4.jpg'
+// @ts-ignore
 import img5 from './assets/images/360/KOCCA_360_5.jpg'
+// @ts-ignore
 import img6 from './assets/images/360/KOCCA_360_6.jpg'
+// @ts-ignore
 import img7 from './assets/images/360/KOCCA_360_7.jpg'
+// @ts-ignore
 import img8 from './assets/images/360/KOCCA_360_8.jpg'
 
 export default {
