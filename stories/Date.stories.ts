@@ -11,7 +11,6 @@ import { InputDateRangeComponent } from '../projects/quang-date/src/lib/input-da
 import { InputDateTimeComponent } from '../projects/quang-date/src/lib/input-date-time/input-date-time.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { InputTimeComponent } from 'projects/quang-date/src/public-api'
-import { BsTimepickerViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-timepicker-view.component'
 
 export default {
   title: 'Date',
@@ -19,7 +18,7 @@ export default {
   subcomponents: {
     InputDateComponent,
     InputDateRangeComponent,
-    InputDateTimeComponent,
+    InputDateTimeComponent
     // InputTimeComponent
   },
   decorators: [withKnobs, moduleMetadata({
@@ -27,9 +26,8 @@ export default {
       BlankComponent,
       InputDateComponent,
       InputDateRangeComponent,
-      InputDateTimeComponent,
-      // InputTimeComponent,
-      // BsTimepickerViewComponent
+      InputDateTimeComponent
+      // InputTimeComponent
     ],
     imports: [
       TranslocoModule,
@@ -291,7 +289,7 @@ const Time: Story<BlankComponent> = (args: BlankComponent) => {
       errorMessage: boolean('errorMessage', true),
       successMessage: boolean('successMessage', true),
       helpMessage: boolean('helpMessage', true),
-      label: text('label', 'time label'),
+      label: text('label', 'time label')
     }
   }
 }
@@ -299,4 +297,4 @@ const Time: Story<BlankComponent> = (args: BlankComponent) => {
 export const InputDate = Date.bind({})
 export const InputDateRange = DateRange.bind({})
 export const InputDateTime = DateTime.bind({})
-export const InputTime = Time.bind({})
+// export const InputTime = Time.bind({})

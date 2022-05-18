@@ -56,8 +56,8 @@ const Calendar: Story<BlankComponent> = (args: BlankComponent) => {
       `,
     props: {
       ...args,
-      height: text('height', '600px'),
+      height: text('height', '600px')
     }
   }
 }
-export const QuangCalendar = Calendar.bind({})
+// export const QuangCalendar = Calendar.bind({})
