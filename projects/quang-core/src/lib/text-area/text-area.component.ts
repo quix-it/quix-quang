@@ -21,7 +21,7 @@ import { delay, filter, take } from 'rxjs/operators'
 @Component({
   selector: 'quang-text-area',
   templateUrl: './text-area.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * text area component

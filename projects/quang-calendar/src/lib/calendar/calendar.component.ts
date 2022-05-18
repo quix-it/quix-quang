@@ -15,7 +15,7 @@ import { CalendarOptions } from '@fullcalendar/angular'
 @Component({
   selector: 'quang-calendar',
   templateUrl: './calendar.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

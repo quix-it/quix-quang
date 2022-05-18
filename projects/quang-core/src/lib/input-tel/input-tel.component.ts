@@ -19,7 +19,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-tel',
   templateUrl: './input-tel.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input tel component

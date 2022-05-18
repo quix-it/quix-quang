@@ -2,7 +2,8 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input, OnChanges,
+  Input,
+  OnChanges,
   OnInit,
   Optional,
   Renderer2,
@@ -19,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-number',
   templateUrl: './input-number.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input number component

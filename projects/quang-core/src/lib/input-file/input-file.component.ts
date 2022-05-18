@@ -21,7 +21,7 @@ import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx
 @Component({
   selector: 'quang-input-file',
   templateUrl: './input-file.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input file component

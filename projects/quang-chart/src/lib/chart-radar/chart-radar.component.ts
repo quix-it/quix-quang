@@ -16,7 +16,7 @@ import { EChartsOption } from 'echarts'
 @Component({
   selector: 'quang-chart-radar',
   templateUrl: './chart-radar.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

@@ -20,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-search',
   templateUrl: './input-search.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input search component

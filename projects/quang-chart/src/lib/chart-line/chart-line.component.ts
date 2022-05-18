@@ -16,7 +16,7 @@ import { EChartsOption } from 'echarts'
 @Component({
   selector: 'quang-chart-line',
   templateUrl: './chart-line.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

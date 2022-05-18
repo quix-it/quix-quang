@@ -7,7 +7,7 @@ import { QuangPicture } from './picture.model'
 @Component({
   selector: 'quang-picture',
   templateUrl: './picture.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
