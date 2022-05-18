@@ -2860,7 +2860,7 @@
         },
         {
             "name": "QuangKeycloakService",
-            "id": "injectable-QuangKeycloakService-b177535a2c457ad82c2cbce42b9ffa3bc6aa37c49ae909afd4e33936a7ae3235d96835a51ebccba0cd9da2518919188e7ef9e4605dfa3462099dcbf415ab3f99",
+            "id": "injectable-QuangKeycloakService-fc6e4152d3fa5335a418dcc0f35648349737831df5fe17f41d3e52f480c545b5792c55fdf0b33c718d4462b8a80b1a6db65f791f872076834c8573cf003b26af",
             "file": "projects/quang-keycloak/src/lib/quang-keycloak.service.ts",
             "properties": [
                 {
@@ -2943,7 +2943,7 @@
                     "optional": false,
                     "returnType": "Observable<any>",
                     "typeParameters": [],
-                    "line": 106,
+                    "line": 110,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nLogin method, to be used if you are not using the authentication flow with effects\n",
@@ -2963,7 +2963,7 @@
                     "optional": false,
                     "returnType": "Observable<any>",
                     "typeParameters": [],
-                    "line": 114,
+                    "line": 118,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nmethod to log out, is triggered by the effects\n",
@@ -2971,8 +2971,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 3072,
-                                "end": 3083,
+                                "pos": 3100,
+                                "end": 3111,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -2984,8 +2984,8 @@
                             "deprecationMessage": "",
                             "optional": true,
                             "tagName": {
-                                "pos": 3066,
-                                "end": 3071,
+                                "pos": 3094,
+                                "end": 3099,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -3010,7 +3010,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 126,
+                    "line": 130,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nmethod to log out, it should only be used if you do not use the login effects\n",
@@ -3018,8 +3018,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 3410,
-                                "end": 3421,
+                                "pos": 3438,
+                                "end": 3449,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -3031,8 +3031,8 @@
                             "deprecationMessage": "",
                             "optional": true,
                             "tagName": {
-                                "pos": 3404,
-                                "end": 3409,
+                                "pos": 3432,
+                                "end": 3437,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -3072,7 +3072,7 @@
             "deprecationMessage": "",
             "description": "<p>service decorator</p>\n",
             "rawdescription": "\n\nservice decorator\n",
-            "sourceCode": "import { Injectable, Optional } from '@angular/core'\nimport { Store } from '@ngrx/store'\nimport { from, Observable, of } from 'rxjs'\nimport { KeycloakService } from 'keycloak-angular'\nimport { QuangKeycloakConfig } from './quang-keycloak.config'\nimport { QuangKeycloakActions } from './quang-keycloak-store/actions'\n\n/**\n * service decorator\n */\n@Injectable({\n  providedIn: 'root'\n})\n/**\n * utility for keycloak management\n */\nexport class QuangKeycloakService {\n  /**\n   * keycloak wrapper configuration\n   */\n  public authConfig: any\n  /**\n   * window access\n   */\n  _window = (): any => window\n\n  /**\n   * constructor\n   * @param config\n   * @param keyCloak\n   * @param store\n   */\n  constructor (\n    @Optional() config: QuangKeycloakConfig,\n    private readonly keyCloak: KeycloakService,\n    private readonly store: Store<any>\n  ) {\n    if (this._window().keycloakConfig) {\n      this.authConfig = this._window().keycloakConfig\n      this.authConfig.enableLogging = !config?.production\n    } else if (config?.keycloakConfig) {\n      this.authConfig = config.keycloakConfig\n      this.authConfig.enableLogging = !config?.production\n    } else {\n      alert('[AUTH KEYCLOAK SERVICE] No auth config')\n    }\n    if (config?.ionicApplication) {\n      this.authConfig.initOptions.silentCheckSsoRedirectUri = `${window.location.origin}/assets/static/silent-check-sso.html`\n      this.authConfig.initOptions.flow = 'standard'\n      this.authConfig.initOptions.responseMode = 'fragment'\n      this.authConfig.initOptions.checkLoginIframe = true\n    }\n  }\n\n  /**\n   * starts the authentication flow\n   */\n  startAuth (): Observable<any> {\n    return from(this.keyCloak.init(this.authConfig))\n  }\n\n  /**\n   * starts the authentication flow and saves the authentication status in the store\n   */\n  startAuthAndDispatch (): void {\n    from(this.keyCloak.init(this.authConfig)).subscribe(isAuthenticated => {\n      if (isAuthenticated) {\n        this.store.dispatch(QuangKeycloakActions.userLogin())\n      }\n    })\n  }\n\n  /**\n   * retrieves the information relating to the logged in user\n   */\n  getUserInfo (): Observable<any> {\n    return from(this.keyCloak.loadUserProfile())\n  }\n\n  /**\n   * retrieves the information relating to the logged in user and saves them in the store\n   */\n  getUserInfoAndDispatch (): void {\n    from(this.keyCloak.loadUserProfile()).subscribe((user: any) => {\n      this.store.dispatch(QuangKeycloakActions.userInfoLogin({ user: user }))\n    })\n  }\n\n  /**\n   * get the user's roles\n   */\n  getUserRoles (): Observable<string[]> {\n    return of(this.keyCloak.getUserRoles(true))\n  }\n\n  /**\n   * retrieves the user's roles and saves them in the store\n   */\n  getUserRolesAndDispatch (): void {\n      this.store.dispatch(QuangKeycloakActions.userRolesLogin({ roles: this.keyCloak.getUserRoles(true) }))\n  }\n\n  /**\n   * Login method, to be used if you are not using the authentication flow with effects\n   */\n  login (): Observable<any> {\n    return from(this.keyCloak.login())\n  }\n\n  /**\n   * method to log out, is triggered by the effects\n   * @param redirectUri\n   */\n  logout (redirectUri?: string): Observable<any> {\n    if (redirectUri) {\n      return from(this.keyCloak.logout(redirectUri))\n    } else {\n      alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')\n    }\n  }\n\n  /**\n   * method to log out, it should only be used if you do not use the login effects\n   * @param redirectUri\n   */\n  logoutAndDispatch (redirectUri?: string): void {\n    if (redirectUri) {\n      from(this.keyCloak.logout(redirectUri)).subscribe(() => {\n        this.store.dispatch(QuangKeycloakActions.userLogout({ redirectUri: redirectUri }))\n        this.store.dispatch(QuangKeycloakActions.userInfoLogout())\n        this.store.dispatch(QuangKeycloakActions.userRolesLogout())\n      })\n    } else {\n      alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')\n    }\n  }\n}\n",
+            "sourceCode": "import { Injectable, Optional } from '@angular/core'\nimport { Store } from '@ngrx/store'\nimport { from, Observable, of } from 'rxjs'\nimport { KeycloakService } from 'keycloak-angular'\nimport { QuangKeycloakConfig } from './quang-keycloak.config'\nimport { QuangKeycloakActions } from './quang-keycloak-store/actions'\n\n/**\n * service decorator\n */\n@Injectable({\n  providedIn: 'root'\n})\n/**\n * utility for keycloak management\n */\nexport class QuangKeycloakService {\n  /**\n   * keycloak wrapper configuration\n   */\n  public authConfig: any\n  /**\n   * window access\n   */\n  _window = (): any => window\n\n  /**\n   * constructor\n   * @param config\n   * @param keyCloak\n   * @param store\n   */\n  constructor (\n    @Optional() config: QuangKeycloakConfig,\n    private readonly keyCloak: KeycloakService,\n    private readonly store: Store<any>\n  ) {\n    if (this._window().keycloakConfig) {\n      this.authConfig = this._window().keycloakConfig\n      this.authConfig.enableLogging = !config?.production\n    } else if (config?.keycloakConfig) {\n      this.authConfig = config.keycloakConfig\n      this.authConfig.enableLogging = !config?.production\n    } else {\n      alert('[AUTH KEYCLOAK SERVICE] No auth config')\n    }\n    if (config?.ionicApplication) {\n      this.authConfig.initOptions.silentCheckSsoRedirectUri = `${window.location.origin}/assets/static/silent-check-sso.html`\n      this.authConfig.initOptions.flow = 'standard'\n      this.authConfig.initOptions.responseMode = 'fragment'\n      this.authConfig.initOptions.checkLoginIframe = true\n    }\n  }\n\n  /**\n   * starts the authentication flow\n   */\n  startAuth (): Observable<any> {\n    return from(this.keyCloak.init(this.authConfig))\n  }\n\n  /**\n   * starts the authentication flow and saves the authentication status in the store\n   */\n  startAuthAndDispatch (): void {\n    from(this.keyCloak.init(this.authConfig)).subscribe(isAuthenticated => {\n      if (isAuthenticated) {\n        this.store.dispatch(QuangKeycloakActions.userLogin())\n      }\n    })\n  }\n\n  /**\n   * retrieves the information relating to the logged in user\n   */\n  getUserInfo (): Observable<any> {\n    return from(this.keyCloak.loadUserProfile())\n  }\n\n  /**\n   * retrieves the information relating to the logged in user and saves them in the store\n   */\n  getUserInfoAndDispatch (): void {\n    from(this.keyCloak.loadUserProfile()).subscribe((user: any) => {\n      this.store.dispatch(QuangKeycloakActions.userInfoLogin({ user: user }))\n    })\n  }\n\n  /**\n   * get the user's roles\n   */\n  getUserRoles (): Observable<string[]> {\n    return of(this.keyCloak.getUserRoles(true))\n  }\n\n  /**\n   * retrieves the user's roles and saves them in the store\n   */\n  getUserRolesAndDispatch (): void {\n      this.store.dispatch(\n      QuangKeycloakActions.userRolesLogin(\n        { roles: this.keyCloak.getUserRoles(true) }\n      )\n    )\n  }\n\n  /**\n   * Login method, to be used if you are not using the authentication flow with effects\n   */\n  login (): Observable<any> {\n    return from(this.keyCloak.login())\n  }\n\n  /**\n   * method to log out, is triggered by the effects\n   * @param redirectUri\n   */\n  logout (redirectUri?: string): Observable<any> {\n    if (redirectUri) {\n      return from(this.keyCloak.logout(redirectUri))\n    } else {\n      alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')\n    }\n  }\n\n  /**\n   * method to log out, it should only be used if you do not use the login effects\n   * @param redirectUri\n   */\n  logoutAndDispatch (redirectUri?: string): void {\n    if (redirectUri) {\n      from(this.keyCloak.logout(redirectUri)).subscribe(() => {\n        this.store.dispatch(QuangKeycloakActions.userLogout({ redirectUri: redirectUri }))\n        this.store.dispatch(QuangKeycloakActions.userInfoLogout())\n        this.store.dispatch(QuangKeycloakActions.userRolesLogout())\n      })\n    } else {\n      alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')\n    }\n  }\n}\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "<p>constructor</p>\n",
@@ -40209,7 +40209,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px')\n    }\n  }\n}"
             },
             {
                 "name": "Candle",
@@ -40269,31 +40269,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-calendar/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-chart/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-components/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40317,7 +40293,43 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-calendar/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-dialog/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-components/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-keycloak/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40353,19 +40365,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-media/src/test.ts",
+                "file": "projects/quang-utility/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40389,7 +40389,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-utility/src/test.ts",
+                "file": "projects/quang-media/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40535,18 +40535,6 @@
                 "name": "initialState",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "LoaderState",
-                "defaultValue": "{\n  loaders: 0\n}",
-                "rawdescription": "loader state initial value",
-                "description": "<p>loader state initial value</p>\n"
-            },
-            {
-                "name": "initialState",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-dialog/src/lib/offline/offline-store/reducers/offline.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40554,6 +40542,18 @@
                 "defaultValue": "{\n  line: true\n}",
                 "rawdescription": "initial offline state value",
                 "description": "<p>initial offline state value</p>\n"
+            },
+            {
+                "name": "initialState",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "LoaderState",
+                "defaultValue": "{\n  loaders: 0\n}",
+                "rawdescription": "loader state initial value",
+                "description": "<p>loader state initial value</p>\n"
             },
             {
                 "name": "initialState",
@@ -40742,16 +40742,6 @@
                 "defaultValue": "Text.bind({})"
             },
             {
-                "name": "InputTime",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Date.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Time.bind({})"
-            },
-            {
                 "name": "InputUrl",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -40900,16 +40890,6 @@
                 "defaultValue": "{\n  quangAuthUserState: QuangAuthReducers.quangAuthUserReducer\n}",
                 "rawdescription": "definition of the reducer map",
                 "description": "<p>definition of the reducer map</p>\n"
-            },
-            {
-                "name": "QuangCalendar",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Calendar.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Calendar.bind({})"
             },
             {
                 "name": "QuangChartArea",
@@ -41107,18 +41087,6 @@
                 "name": "reducer",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "createReducer(\n  initialState,\n  on(addLoader, (state) => ({ ...state, loaders: state.loaders + 1 })),\n  on(removeLoader, (state) => ({ ...state, loaders: state.loaders - 1 }))\n)",
-                "rawdescription": "define how loader state change",
-                "description": "<p>define how loader state change</p>\n"
-            },
-            {
-                "name": "reducer",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-dialog/src/lib/offline/offline-store/reducers/offline.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -41126,6 +41094,18 @@
                 "defaultValue": "createReducer(\n  initialState,\n  on(online, state => ({ ...state, line: true })),\n  on(offline, state => ({ ...state, line: false }))\n)",
                 "rawdescription": "define how the state change",
                 "description": "<p>define how the state change</p>\n"
+            },
+            {
+                "name": "reducer",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createReducer(\n  initialState,\n  on(addLoader, (state) => ({ ...state, loaders: state.loaders + 1 })),\n  on(removeLoader, (state) => ({ ...state, loaders: state.loaders - 1 }))\n)",
+                "rawdescription": "define how loader state change",
+                "description": "<p>define how loader state change</p>\n"
             },
             {
                 "name": "reducer",
@@ -41177,29 +41157,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-calendar/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-chart/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-components/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41221,7 +41179,40 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-calendar/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-dialog/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-components/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-keycloak/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41254,18 +41245,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-media/src/test.ts",
+                "file": "projects/quang-utility/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41287,7 +41267,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-utility/src/test.ts",
+                "file": "projects/quang-media/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41588,7 +41568,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    time: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-time\n                      [label]=\"label\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [formName]=\"'form'\"\n                      formControlName=\"time\"\n                    ></quang-input-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.time.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'time label'),\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    time: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-time\n                      [label]=\"label\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [formName]=\"'form'\"\n                      formControlName=\"time\"\n                    ></quang-input-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.time.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'time label')\n    }\n  }\n}"
             },
             {
                 "name": "Tree",
@@ -42469,17 +42449,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n    }\n  }\n}"
-                },
-                {
-                    "name": "QuangCalendar",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Calendar.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Calendar.bind({})"
+                    "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px')\n    }\n  }\n}"
                 }
             ],
             "stories/Input.stories.ts": [
@@ -42834,31 +42804,6 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-calendar/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-calendar/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-calendar/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-chart/src/test.ts": [
                 {
                     "name": "context",
@@ -42877,31 +42822,6 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-chart/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-components/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-components/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-components/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42934,6 +42854,31 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
+            "projects/quang-calendar/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-calendar/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-calendar/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
             "projects/quang-dialog/src/test.ts": [
                 {
                     "name": "context",
@@ -42952,6 +42897,56 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-dialog/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-components/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-components/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-components/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-keycloak/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-keycloak/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-keycloak/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -43009,12 +43004,12 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-keycloak/src/test.ts": [
+            "projects/quang-utility/src/test.ts": [
                 {
                     "name": "context",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-keycloak/src/test.ts",
+                    "file": "projects/quang-utility/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -43026,32 +43021,7 @@
                     "name": "require",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-keycloak/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-media/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-media/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-media/src/test.ts",
+                    "file": "projects/quang-utility/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -43084,12 +43054,12 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-utility/src/test.ts": [
+            "projects/quang-media/src/test.ts": [
                 {
                     "name": "context",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-utility/src/test.ts",
+                    "file": "projects/quang-media/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -43101,7 +43071,7 @@
                     "name": "require",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/quang-utility/src/test.ts",
+                    "file": "projects/quang-media/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -43171,16 +43141,6 @@
                     "defaultValue": "DateTime.bind({})"
                 },
                 {
-                    "name": "InputTime",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Date.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Time.bind({})"
-                },
-                {
                     "name": "Time",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -43188,7 +43148,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    time: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-time\n                      [label]=\"label\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [formName]=\"'form'\"\n                      formControlName=\"time\"\n                    ></quang-input-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.time.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'time label'),\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    time: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-time\n                      [label]=\"label\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [formName]=\"'form'\"\n                      formControlName=\"time\"\n                    ></quang-input-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.time.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'time label')\n    }\n  }\n}"
                 }
             ],
             "projects/quang-dialog/src/lib/toast/toast-store/actions/toast.actions.ts": [
@@ -43255,32 +43215,6 @@
                     "description": "<p>global declaration for google async library</p>\n"
                 }
             ],
-            "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts": [
-                {
-                    "name": "initialState",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "LoaderState",
-                    "defaultValue": "{\n  loaders: 0\n}",
-                    "rawdescription": "loader state initial value",
-                    "description": "<p>loader state initial value</p>\n"
-                },
-                {
-                    "name": "reducer",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createReducer(\n  initialState,\n  on(addLoader, (state) => ({ ...state, loaders: state.loaders + 1 })),\n  on(removeLoader, (state) => ({ ...state, loaders: state.loaders - 1 }))\n)",
-                    "rawdescription": "define how loader state change",
-                    "description": "<p>define how loader state change</p>\n"
-                }
-            ],
             "projects/quang-dialog/src/lib/offline/offline-store/reducers/offline.reducer.ts": [
                 {
                     "name": "initialState",
@@ -43305,6 +43239,32 @@
                     "defaultValue": "createReducer(\n  initialState,\n  on(online, state => ({ ...state, line: true })),\n  on(offline, state => ({ ...state, line: false }))\n)",
                     "rawdescription": "define how the state change",
                     "description": "<p>define how the state change</p>\n"
+                }
+            ],
+            "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts": [
+                {
+                    "name": "initialState",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "LoaderState",
+                    "defaultValue": "{\n  loaders: 0\n}",
+                    "rawdescription": "loader state initial value",
+                    "description": "<p>loader state initial value</p>\n"
+                },
+                {
+                    "name": "reducer",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-dialog/src/lib/loader/loader-store/reducers/loader.reducers.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createReducer(\n  initialState,\n  on(addLoader, (state) => ({ ...state, loaders: state.loaders + 1 })),\n  on(removeLoader, (state) => ({ ...state, loaders: state.loaders - 1 }))\n)",
+                    "rawdescription": "define how loader state change",
+                    "description": "<p>define how loader state change</p>\n"
                 }
             ],
             "projects/quang-dialog/src/lib/toast/toast-store/reducers/toast.reducers.ts": [
@@ -46281,16 +46241,6 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Calendar.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "QuangCalendar",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
                 "filePath": "stories/Chart.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -46546,16 +46496,6 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "InputDateTime",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Date.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "InputTime",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
