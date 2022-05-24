@@ -45,3 +45,8 @@
 * fix validation flow in quang-date components
 * fix getRoles in quang-keycloak
 * feat add storybook
+
+## 13.1.0-beta.0
+
+* feat full-calendar add firstDay selectable and dayMaxEvents
+* fix full-calendar bootstrap 5
