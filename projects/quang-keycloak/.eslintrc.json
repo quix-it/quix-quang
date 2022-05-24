@@ -19,8 +19,8 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/quang-keycloak/tsconfig.lib.json",
-          "projects/quang-keycloak/tsconfig.spec.json"
+          "tsconfig.lib.json",
+          "tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },

@@ -15256,7 +15256,7 @@
         },
         {
             "name": "CalendarComponent",
-            "id": "component-CalendarComponent-9f9f75bd54f51ab3494e0cfa3f901706896e46eede7c06a1d93aae46c6af22ad9dee67e7888ac1f8866f1fd5217683e462fe66d862c054ed565a7e3b37bb9a28",
+            "id": "component-CalendarComponent-e0a99b721fcf1d9b8f056fcd158da81612bfb87cce92f4761b1a6d965ba3f0e969f00f0b61437e6aca47cf1e517180a1c7ded3adf183b012fecf7cb23579f856",
             "file": "projects/quang-calendar/src/lib/calendar/calendar.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -15285,7 +15285,7 @@
                 },
                 {
                     "name": "buttonsIcons",
-                    "defaultValue": "{\n    close: 'fas fa-times',\n    prev: 'fas fa-chevron-left',\n    next: 'fas fa-chevron-right',\n    prevYear: 'fas fa-angle-double-left',\n    nextYear: 'fas fa-angle-double-right'\n  }",
+                    "defaultValue": "{\n    close: ' fas fa-times',\n    prev: ' fas fa-chevron-left',\n    next: ' fas fa-chevron-right',\n    prevYear: ' fas fa-angle-double-left',\n    nextYear: ' fas fa-angle-double-right'\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nDefines the classes of the font-awesome icons that will be used in the buttons\n",
@@ -15395,6 +15395,42 @@
                     "decorators": []
                 },
                 {
+                    "name": "dayMaxEventRows",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 82,
+                    "type": "number | null",
+                    "decorators": []
+                },
+                {
+                    "name": "dayMaxEvents",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 90,
+                    "type": "number | boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "eventMaxStack",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 86,
+                    "type": "number | null",
+                    "decorators": []
+                },
+                {
+                    "name": "firstDay",
+                    "defaultValue": "'monday'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 78,
+                    "type": "\"monday\" | \"tuesday\" | \"wednesday\" | \"thursday\" | \"friday\" | \"saturday\" | \"sunday\"",
+                    "decorators": []
+                },
+                {
                     "name": "footer",
                     "defaultValue": "{}",
                     "deprecated": false,
@@ -15480,7 +15516,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nEvent triggered when a date on the calendar is clicked\n",
                     "description": "<p>Event triggered when a date on the calendar is clicked</p>\n",
-                    "line": 83,
+                    "line": 98,
                     "type": "EventEmitter<any>"
                 },
                 {
@@ -15490,7 +15526,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nEvent triggered when a calendar event is clicked\n",
                     "description": "<p>Event triggered when a calendar event is clicked</p>\n",
-                    "line": 79,
+                    "line": 94,
                     "type": "EventEmitter<any>"
                 },
                 {
@@ -15500,20 +15536,31 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n\nEvent triggered when the calendar view of the calendar changes\n",
                     "description": "<p>Event triggered when the calendar view of the calendar changes</p>\n",
-                    "line": 87,
+                    "line": 102,
                     "type": "EventEmitter<any>"
                 }
             ],
             "propertiesClass": [
                 {
+                    "name": "_daysMap",
+                    "defaultValue": "{\n    monday: 1,\n    tuesday: 2,\n    wednesday: 3,\n    thursday: 4,\n    friday: 5,\n    saturday: 6,\n    sunday: 0\n  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "optional": false,
+                    "description": "",
+                    "line": 106,
+                    "rawdescription": "\n\n\n"
+                },
+                {
                     "name": "calendarOptions",
-                    "defaultValue": "{\n    initialView: this.view,\n    themeSystem: 'bootstrap',\n    events: this.viewChange.bind(this),\n    height: '',\n    eventClick: this.eventClick.bind(this),\n    headerToolbar: this.header,\n    footerToolbar: this.footer,\n    buttonIcons: this.buttonsIcons,\n    locale: '',\n    dateClick: this.dateClick.bind(this)\n  }",
+                    "defaultValue": "{\n    initialView: this.view,\n    themeSystem: 'bootstrap5',\n    events: this.viewChange.bind(this),\n    height: '',\n    eventClick: this.eventClick.bind(this),\n    headerToolbar: this.header,\n    footerToolbar: this.footer,\n    buttonIcons: this.buttonsIcons,\n    locale: '',\n    dateClick: this.dateClick.bind(this),\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "CalendarOptions",
                     "optional": false,
                     "description": "<p>calendar config</p>\n",
-                    "line": 91,
+                    "line": 118,
                     "rawdescription": "\n\ncalendar config\n"
                 }
             ],
@@ -15531,7 +15578,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 138,
+                    "line": 168,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nemits when a date is clicked\n",
@@ -15539,8 +15586,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 3616,
-                                "end": 3621,
+                                "pos": 4254,
+                                "end": 4259,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15551,8 +15598,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 3610,
-                                "end": 3615,
+                                "pos": 4248,
+                                "end": 4253,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15576,7 +15623,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 130,
+                    "line": 160,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nemits when a event is clicked\n",
@@ -15584,8 +15631,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 3477,
-                                "end": 3482,
+                                "pos": 4115,
+                                "end": 4120,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15596,8 +15643,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 3471,
-                                "end": 3476,
+                                "pos": 4109,
+                                "end": 4114,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15621,7 +15668,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 108,
+                    "line": 135,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nchange input management\n",
@@ -15629,8 +15676,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 2771,
-                                "end": 2778,
+                                "pos": 3280,
+                                "end": 3287,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15641,8 +15688,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 2765,
-                                "end": 2770,
+                                "pos": 3274,
+                                "end": 3279,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15678,7 +15725,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 149,
+                    "line": 179,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nemits when the calendar view changes,\nif a callback function has been defined it executes the function passed in input\n",
@@ -15686,8 +15733,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 3848,
-                                "end": 3853,
+                                "pos": 4486,
+                                "end": 4491,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15698,8 +15745,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 3842,
-                                "end": 3847,
+                                "pos": 4480,
+                                "end": 4485,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15710,8 +15757,8 @@
                         },
                         {
                             "name": {
-                                "pos": 3866,
-                                "end": 3881,
+                                "pos": 4504,
+                                "end": 4519,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15722,8 +15769,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 3860,
-                                "end": 3865,
+                                "pos": 4498,
+                                "end": 4503,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15734,8 +15781,8 @@
                         },
                         {
                             "name": {
-                                "pos": 3894,
-                                "end": 3909,
+                                "pos": 4532,
+                                "end": 4547,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15746,8 +15793,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 3888,
-                                "end": 3893,
+                                "pos": 4526,
+                                "end": 4531,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15766,7 +15813,7 @@
             "description": "<p>calendar component decorator</p>\n",
             "rawdescription": "\n\ncalendar component decorator\n",
             "type": "component",
-            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { CalendarOptions } from '@fullcalendar/angular'\n\n/**\n * calendar component decorator\n */\n@Component({\n  selector: 'quang-calendar',\n  templateUrl: './calendar.component.html',\n  styles: [],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * calendar component\n */\nexport class CalendarComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Calendar ${this.id}`\n  /**\n   * the height of the calendar\n   */\n  @Input() height: string = ''\n  /**\n   * the locale of the calendar\n   */\n  @Input() locale: string = ''\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * Defines what to do when the calendar view changes and the events of the current view should be loaded\n   * @param e\n   * @param s\n   * @param f\n   */\n  @Input() callBack: (e: any, s: any, f: any) => {} = (e, s, f) => []\n  /**\n   * Defines the type of calendar view\n   */\n  @Input() view: 'timeGridWeek' | 'dayGridMonth' | 'dayGridWeek' = 'dayGridMonth'\n  /**\n   * Defines the format of the calendar header\n   */\n  @Input() header: { [key: string]: any } = {}\n  /**\n   * Defines the format of the calendar footer\n   */\n  @Input() footer: { [key: string]: any } = {}\n  /**\n   * Defines the classes of the font-awesome icons that will be used in the buttons\n   */\n  @Input() buttonsIcons: { [key: string]: any } = {\n    close: 'fas fa-times',\n    prev: 'fas fa-chevron-left',\n    next: 'fas fa-chevron-right',\n    prevYear: 'fas fa-angle-double-left',\n    nextYear: 'fas fa-angle-double-right'\n  }\n\n  /**\n   * Event triggered when a calendar event is clicked\n   */\n  @Output() whenEventClick: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   * Event triggered when a date on the calendar is clicked\n   */\n  @Output() whenDateClick: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   * Event triggered when the calendar view of the calendar changes\n   */\n  @Output() whenViewChange: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   * calendar config\n   */\n  calendarOptions: CalendarOptions = {\n    initialView: this.view,\n    themeSystem: 'bootstrap',\n    events: this.viewChange.bind(this),\n    height: '',\n    eventClick: this.eventClick.bind(this),\n    headerToolbar: this.header,\n    footerToolbar: this.footer,\n    buttonIcons: this.buttonsIcons,\n    locale: '',\n    dateClick: this.dateClick.bind(this)\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.height?.currentValue) {\n      this.calendarOptions.height = changes.height.currentValue\n    }\n    if (changes.view?.currentValue) {\n      this.calendarOptions.initialView = changes.view?.currentValue\n    }\n    if (changes.header?.currentValue) {\n      this.calendarOptions.headerToolbar = changes.header?.currentValue\n    }\n    if (changes.footer?.currentValue) {\n      this.calendarOptions.footerToolbar = changes.footer?.currentValue\n    }\n    if (changes.locale?.currentValue) {\n      this.calendarOptions.locale = changes.locale?.currentValue\n    }\n  }\n\n  /**\n   * emits when a event is clicked\n   * @param event\n   */\n  eventClick (event: any): void {\n    this.whenEventClick.emit(event)\n  }\n\n  /**\n   * emits when a date is clicked\n   * @param event\n   */\n  dateClick (event: any): void {\n    this.whenDateClick.emit(event)\n  }\n\n  /**\n   * emits when the calendar view changes,\n   * if a callback function has been defined it executes the function passed in input\n   * @param event\n   * @param successCallback\n   * @param failureCallback\n   */\n  viewChange (event: any, successCallback: any, failureCallback: any): void {\n    this.whenViewChange.emit(event)\n    this.callBack(event, successCallback, failureCallback)\n  }\n}\n",
+            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { CalendarOptions } from '@fullcalendar/angular'\n\n/**\n * calendar component decorator\n */\n@Component({\n  selector: 'quang-calendar',\n  templateUrl: './calendar.component.html',\n  styles: [],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * calendar component\n */\nexport class CalendarComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Calendar ${this.id}`\n  /**\n   * the height of the calendar\n   */\n  @Input() height: string = ''\n  /**\n   * the locale of the calendar\n   */\n  @Input() locale: string = ''\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * Defines what to do when the calendar view changes and the events of the current view should be loaded\n   * @param e\n   * @param s\n   * @param f\n   */\n  @Input() callBack: (e: any, s: any, f: any) => {} = (e, s, f) => []\n  /**\n   * Defines the type of calendar view\n   */\n  @Input() view: 'timeGridWeek' | 'dayGridMonth' | 'dayGridWeek' = 'dayGridMonth'\n  /**\n   * Defines the format of the calendar header\n   */\n  @Input() header: { [key: string]: any } = {}\n  /**\n   * Defines the format of the calendar footer\n   */\n  @Input() footer: { [key: string]: any } = {}\n  /**\n   * Defines the classes of the font-awesome icons that will be used in the buttons\n   */\n  @Input() buttonsIcons: { [key: string]: any } = {\n    close: ' fas fa-times',\n    prev: ' fas fa-chevron-left',\n    next: ' fas fa-chevron-right',\n    prevYear: ' fas fa-angle-double-left',\n    nextYear: ' fas fa-angle-double-right'\n  }\n  /**\n   *\n   */\n  @Input() firstDay: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday' = 'monday'\n  /**\n   *\n   */\n  @Input() dayMaxEventRows: number | null = null\n  /**\n   *\n   */\n  @Input() eventMaxStack: number | null = null\n  /**\n   *\n   */\n  @Input() dayMaxEvents: number | boolean = true\n  /**\n   * Event triggered when a calendar event is clicked\n   */\n  @Output() whenEventClick: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   * Event triggered when a date on the calendar is clicked\n   */\n  @Output() whenDateClick: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   * Event triggered when the calendar view of the calendar changes\n   */\n  @Output() whenViewChange: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   *\n   */\n  _daysMap: { [key: string]: number } = {\n    monday: 1,\n    tuesday: 2,\n    wednesday: 3,\n    thursday: 4,\n    friday: 5,\n    saturday: 6,\n    sunday: 0\n  }\n  /**\n   * calendar config\n   */\n  calendarOptions: CalendarOptions = {\n    initialView: this.view,\n    themeSystem: 'bootstrap5',\n    events: this.viewChange.bind(this),\n    height: '',\n    eventClick: this.eventClick.bind(this),\n    headerToolbar: this.header,\n    footerToolbar: this.footer,\n    buttonIcons: this.buttonsIcons,\n    locale: '',\n    dateClick: this.dateClick.bind(this),\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.height?.currentValue) {\n      this.calendarOptions.height = changes.height.currentValue\n    }\n    if (changes.view?.currentValue) {\n      this.calendarOptions.initialView = changes.view?.currentValue\n    }\n    if (changes.header?.currentValue) {\n      this.calendarOptions.headerToolbar = changes.header?.currentValue\n    }\n    if (changes.footer?.currentValue) {\n      this.calendarOptions.footerToolbar = changes.footer?.currentValue\n    }\n    if (changes.locale?.currentValue) {\n      this.calendarOptions.locale = changes.locale?.currentValue\n    }\n    if (changes.dayMaxEvents?.currentValue) {\n      this.calendarOptions.dayMaxEvents = changes.dayMaxEvents?.currentValue\n    }\n  }\n\n  /**\n   * emits when a event is clicked\n   * @param event\n   */\n  eventClick (event: any): void {\n    this.whenEventClick.emit(event)\n  }\n\n  /**\n   * emits when a date is clicked\n   * @param event\n   */\n  dateClick (event: any): void {\n    this.whenDateClick.emit(event)\n  }\n\n  /**\n   * emits when the calendar view changes,\n   * if a callback function has been defined it executes the function passed in input\n   * @param event\n   * @param successCallback\n   * @param failureCallback\n   */\n  viewChange (event: any, successCallback: any, failureCallback: any): void {\n    this.whenViewChange.emit(event)\n    this.callBack(event, successCallback, failureCallback)\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -39200,14 +39247,14 @@
             ]
         },
         {
-            "name": "QuangCalendarModule",
-            "id": "module-QuangCalendarModule-82c10298219a4d42566a4abbb023ac721b48d97ce7921865070b4e3a6f56032d17b52c4b92bed099b80aa79dd359b52847a5ac58f30c1e8329ba2c4a278c1eb9",
+            "name": "QuangCalendarCoreModule",
+            "id": "module-QuangCalendarCoreModule-9529cdab19aa1ca12bb1cad1e9c74eddd8cf8fb14890099e03fce3b2de9362b6de2eb28b70609cb9375768799ba97ecf69e65e7f0cfe05f73b93fb3097a80872",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/quang-calendar/src/lib/quang-calendar.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core'\n\nimport { CommonModule } from '@angular/common'\nimport { CalendarComponent } from './calendar/calendar.component'\nimport { FullCalendarModule } from '@fullcalendar/angular'\nimport dayGridPlugin from '@fullcalendar/daygrid'\nimport bootstrapPlugin from '@fullcalendar/bootstrap'\nimport interactionPlugin from '@fullcalendar/interaction'\nimport timeGridPlugin from '@fullcalendar/timegrid'\nimport { TranslocoModule } from '@ngneat/transloco'\n\nFullCalendarModule.registerPlugins([\n  dayGridPlugin,\n  bootstrapPlugin,\n  interactionPlugin,\n  timeGridPlugin\n])\n\n@NgModule({\n  declarations: [\n    CalendarComponent\n  ],\n  imports: [\n    CommonModule,\n    FullCalendarModule,\n    TranslocoModule\n  ],\n  exports: [\n    CalendarComponent\n  ]\n})\nexport class QuangCalendarModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core'\nimport { CommonModule } from '@angular/common'\nimport { CalendarComponent } from './calendar/calendar.component'\nimport { FullCalendarModule } from '@fullcalendar/angular'\nimport dayGridPlugin from '@fullcalendar/daygrid'\nimport interactionPlugin from '@fullcalendar/interaction'\nimport timeGridPlugin from '@fullcalendar/timegrid'\nimport { TranslocoModule } from '@ngneat/transloco'\nimport bootstrap5Plugin from '@fullcalendar/bootstrap5';\n\nFullCalendarModule.registerPlugins([\n  dayGridPlugin,\n  bootstrap5Plugin,\n  interactionPlugin,\n  timeGridPlugin\n])\n\n@NgModule({\n  declarations: [\n    CalendarComponent\n  ],\n  exports: [\n    CalendarComponent\n  ],\n  imports: [\n    CommonModule,\n    FullCalendarModule,\n    TranslocoModule\n  ]\n})\nexport class QuangCalendarCoreModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -40341,31 +40388,7 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-event/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-keycloak/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-map/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40390,6 +40413,30 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-utility/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-map/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-event/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -41223,29 +41270,7 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-event/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-keycloak/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-map/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41268,6 +41293,28 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-utility/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-map/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-event/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -42954,31 +43001,6 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-event/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-event/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-event/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-keycloak/src/test.ts": [
                 {
                     "name": "context",
@@ -42997,31 +43019,6 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-keycloak/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-map/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-map/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-map/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -43072,6 +43069,56 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-utility/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-map/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-map/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-map/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-event/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-event/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-event/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -44503,8 +44550,8 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "CalendarComponent",
-                "coveragePercent": 100,
-                "coverageCount": "19/19",
+                "coveragePercent": 79,
+                "coverageCount": "19/24",
                 "status": "very-good"
             },
             {
