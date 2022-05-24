@@ -20,7 +20,7 @@ import { ContentChange, QuillEditorComponent } from 'ngx-quill'
 @Component({
   selector: 'quang-text-editor',
   templateUrl: './text-editor.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * text editor component

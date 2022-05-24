@@ -20,7 +20,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-color',
   templateUrl: './input-color.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input color component

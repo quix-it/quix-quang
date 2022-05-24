@@ -19,8 +19,8 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/quang-chart/tsconfig.lib.json",
-          "projects/quang-chart/tsconfig.spec.json"
+          "tsconfig.lib.json",
+          "tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },

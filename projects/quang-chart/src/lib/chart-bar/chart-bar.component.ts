@@ -16,7 +16,7 @@ import { ChartBar } from './chart-bar.model'
 @Component({
   selector: 'quang-chart-bar',
   templateUrl: './chart-bar.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

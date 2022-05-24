@@ -1,0 +1,44 @@
+quix-text-editor {
+  .form-group {
+    quill-editor {
+      .ql-editor{
+        @include transition($input-transition);
+        &:focus {
+          color: $input-color;
+          background-color: $input-bg;
+          border: $input-border-width solid $input-border-color;
+          outline: 0;
+          box-shadow: 0 0 0 0.2rem $gray-500;
+        }
+      }
+
+      &.is-valid {
+        .ql-container {
+          border: 1px solid $success
+        }
+
+        .ql-toolbar {
+          border: 1px solid $success
+        }
+      }
+
+      &.is-invalid {
+        .ql-container {
+          border: 1px solid $danger
+        }
+
+        .ql-toolbar {
+          border: 1px solid $danger
+        }
+      }
+    }
+  }
+
+  .ql-container {
+    &.ql-disabled {
+      background-color: $input-disabled-bg;
+      opacity: 1;
+      color: $text-muted;
+    }
+  }
+}

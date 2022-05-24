@@ -40,6 +40,28 @@
         }
       }
     },
+    "storybook": {
+      "builder": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "angular-cli:build",
+        "port": 6006
+      },
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              "./quix-design-system/styles.scss"
+            ]
+          }
+        }
+      }
+    },
+    "build-storybook": {
+      "builder": "@storybook/angular:build-storybook",
+      "options": {
+        "browserTarget": "angular-cli:build"
+      }
+    },
     "quang-auth": {
       "projectType": "library",
       "root": "projects/quang-auth",

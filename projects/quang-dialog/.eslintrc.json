@@ -19,8 +19,8 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/quang-dialog/tsconfig.lib.json",
-          "projects/quang-dialog/tsconfig.spec.json"
+          "tsconfig.lib.json",
+          "tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },
