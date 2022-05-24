@@ -51,7 +51,7 @@
     "@compodoc/compodoc": "^1.1.18",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@fullcalendar/angular": "^5.10.1",
-    "@fullcalendar/bootstrap": "^5.10.1",
+    "@fullcalendar/bootstrap5": "^5.11.0",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/interaction": "^5.10.1",
     "@fullcalendar/timegrid": "^5.10.1",

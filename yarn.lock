@@ -1752,9 +1752,9 @@
     "fast-deep-equal" "^3.1.1"
     "tslib" "^2.0.0"
 
-"@fullcalendar/bootstrap@^5.10.1":
-  "integrity" "sha512-F7Ks7IHSPuPkfAse5c1/T8ToDoTAzhr0VIc+2RIiwjMuV+CcdtAgnpQGY9aHWvld1x25zLSTfqCYzxmI/8d80g=="
-  "resolved" "https://registry.npmjs.org/@fullcalendar/bootstrap/-/bootstrap-5.11.0.tgz"
+"@fullcalendar/bootstrap5@^5.11.0":
+  "integrity" "sha512-JWJS45xSuR5jE0qSZKAfsbdQKmL5oiQSqH23J0mf0dknEa+PxbvdxdtdBgLVq2daMPhSQEFGeiv5FO6PJVAQmQ=="
+  "resolved" "https://registry.npmjs.org/@fullcalendar/bootstrap5/-/bootstrap5-5.11.0.tgz"
   "version" "5.11.0"
   dependencies:
     "@fullcalendar/common" "~5.11.0"
