@@ -39247,14 +39247,14 @@
             ]
         },
         {
-            "name": "QuangCalendarCoreModule",
-            "id": "module-QuangCalendarCoreModule-9529cdab19aa1ca12bb1cad1e9c74eddd8cf8fb14890099e03fce3b2de9362b6de2eb28b70609cb9375768799ba97ecf69e65e7f0cfe05f73b93fb3097a80872",
+            "name": "QuangCalendarModule",
+            "id": "module-QuangCalendarModule-9529cdab19aa1ca12bb1cad1e9c74eddd8cf8fb14890099e03fce3b2de9362b6de2eb28b70609cb9375768799ba97ecf69e65e7f0cfe05f73b93fb3097a80872",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/quang-calendar/src/lib/quang-calendar.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core'\nimport { CommonModule } from '@angular/common'\nimport { CalendarComponent } from './calendar/calendar.component'\nimport { FullCalendarModule } from '@fullcalendar/angular'\nimport dayGridPlugin from '@fullcalendar/daygrid'\nimport interactionPlugin from '@fullcalendar/interaction'\nimport timeGridPlugin from '@fullcalendar/timegrid'\nimport { TranslocoModule } from '@ngneat/transloco'\nimport bootstrap5Plugin from '@fullcalendar/bootstrap5';\n\nFullCalendarModule.registerPlugins([\n  dayGridPlugin,\n  bootstrap5Plugin,\n  interactionPlugin,\n  timeGridPlugin\n])\n\n@NgModule({\n  declarations: [\n    CalendarComponent\n  ],\n  exports: [\n    CalendarComponent\n  ],\n  imports: [\n    CommonModule,\n    FullCalendarModule,\n    TranslocoModule\n  ]\n})\nexport class QuangCalendarCoreModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core'\nimport { CommonModule } from '@angular/common'\nimport { CalendarComponent } from './calendar/calendar.component'\nimport { FullCalendarModule } from '@fullcalendar/angular'\nimport dayGridPlugin from '@fullcalendar/daygrid'\nimport interactionPlugin from '@fullcalendar/interaction'\nimport timeGridPlugin from '@fullcalendar/timegrid'\nimport { TranslocoModule } from '@ngneat/transloco'\nimport bootstrap5Plugin from '@fullcalendar/bootstrap5';\n\nFullCalendarModule.registerPlugins([\n  dayGridPlugin,\n  bootstrap5Plugin,\n  interactionPlugin,\n  timeGridPlugin\n])\n\n@NgModule({\n  declarations: [\n    CalendarComponent\n  ],\n  exports: [\n    CalendarComponent\n  ],\n  imports: [\n    CommonModule,\n    FullCalendarModule,\n    TranslocoModule\n  ]\n})\nexport class QuangCalendarModule {}\n",
             "children": [
                 {
                     "type": "providers",

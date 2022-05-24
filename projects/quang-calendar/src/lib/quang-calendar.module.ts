@@ -28,4 +28,4 @@ FullCalendarModule.registerPlugins([
     TranslocoModule
   ]
 })
-export class QuangCalendarCoreModule {}
+export class QuangCalendarModule {}
