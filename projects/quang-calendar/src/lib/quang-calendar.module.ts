@@ -6,7 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import { TranslocoModule } from '@ngneat/transloco'
-import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import bootstrap5Plugin from '@fullcalendar/bootstrap5'
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
