@@ -148,6 +148,9 @@ export class CalendarComponent implements OnChanges {
     if (changes.locale?.currentValue) {
       this.calendarOptions.locale = changes.locale?.currentValue
     }
+    if (changes.firstDay?.currentValue) {
+      this.calendarOptions.firstDay = this._daysMap[changes.firstDay.currentValue]
+    }
     if (changes.dayMaxEvents?.currentValue) {
       this.calendarOptions.dayMaxEvents = changes.dayMaxEvents?.currentValue
     }
