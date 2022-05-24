@@ -15,7 +15,7 @@ import { CalendarOptions } from '@fullcalendar/angular'
 @Component({
   selector: 'quang-calendar',
   templateUrl: './calendar.component.html',
-  styles: [],
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
@@ -66,13 +66,28 @@ export class CalendarComponent implements OnChanges {
    * Defines the classes of the font-awesome icons that will be used in the buttons
    */
   @Input() buttonsIcons: { [key: string]: any } = {
-    close: 'fas fa-times',
-    prev: 'fas fa-chevron-left',
-    next: 'fas fa-chevron-right',
-    prevYear: 'fas fa-angle-double-left',
-    nextYear: 'fas fa-angle-double-right'
+    close: ' fas fa-times',
+    prev: ' fas fa-chevron-left',
+    next: ' fas fa-chevron-right',
+    prevYear: ' fas fa-angle-double-left',
+    nextYear: ' fas fa-angle-double-right'
   }
-
+  /**
+   *
+   */
+  @Input() firstDay: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday' = 'monday'
+  /**
+   *
+   */
+  @Input() dayMaxEventRows: number | null = null
+  /**
+   *
+   */
+  @Input() eventMaxStack: number | null = null
+  /**
+   *
+   */
+  @Input() dayMaxEvents: number | boolean = true
   /**
    * Event triggered when a calendar event is clicked
    */
@@ -86,11 +101,23 @@ export class CalendarComponent implements OnChanges {
    */
   @Output() whenViewChange: EventEmitter<any> = new EventEmitter<any>()
   /**
+   *
+   */
+  _daysMap: { [key: string]: number } = {
+    monday: 1,
+    tuesday: 2,
+    wednesday: 3,
+    thursday: 4,
+    friday: 5,
+    saturday: 6,
+    sunday: 0
+  }
+  /**
    * calendar config
    */
   calendarOptions: CalendarOptions = {
     initialView: this.view,
-    themeSystem: 'bootstrap',
+    themeSystem: 'bootstrap5',
     events: this.viewChange.bind(this),
     height: '',
     eventClick: this.eventClick.bind(this),
@@ -98,7 +125,7 @@ export class CalendarComponent implements OnChanges {
     footerToolbar: this.footer,
     buttonIcons: this.buttonsIcons,
     locale: '',
-    dateClick: this.dateClick.bind(this)
+    dateClick: this.dateClick.bind(this),
   }
 
   /**
@@ -120,6 +147,9 @@ export class CalendarComponent implements OnChanges {
     }
     if (changes.locale?.currentValue) {
       this.calendarOptions.locale = changes.locale?.currentValue
+    }
+    if (changes.dayMaxEvents?.currentValue) {
+      this.calendarOptions.dayMaxEvents = changes.dayMaxEvents?.currentValue
     }
   }
 
