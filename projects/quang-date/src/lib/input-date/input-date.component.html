@@ -37,6 +37,7 @@
       <button
         class="btn"
         [ngClass]="buttonClass"
+        [tabindex]="tabIndex"
         type="button"
         (click)="_disabled ? null : drp.toggle()"
       >

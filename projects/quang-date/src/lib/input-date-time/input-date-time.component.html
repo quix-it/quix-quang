@@ -40,6 +40,7 @@
             class="btn"
             type="button"
             [ngClass]="buttonClass"
+            [tabIndex]="tabIndex"
             (click)="_disabled ? null : drp.toggle()"
           >
             <ng-content select="[calendarIcon]"></ng-content>
@@ -77,7 +78,7 @@
         [secondsPlaceholder]="secondsPlaceholder | transloco"
         [ngModel]="_valueTime"
         [attr.aria-label]="ariaLabel + ' time' | transloco"
-        [tabIndex]="tabIndex + 1"
+        [tabIndex]="tabIndex"
         (ngModelChange)="onChangedTime($event)"
         (blur)="onTouched()"
       ></timepicker>

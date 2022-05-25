@@ -28,6 +28,7 @@
            [autofocus]="autofocus"
            [bsValue]="_value"
            [placement]="placement"
+           [tabIndex]="tabIndex"
            (bsValueChange)="onChangedHandler($event)"
            (blur)="onTouched()"
            #drp="bsDaterangepicker"
@@ -35,6 +36,7 @@
     <div class="input-group-append">
       <button class="btn"
               [ngClass]="buttonClass"
+              [tabIndex]="tabIndex"
               type="button"
               [ngStyle]="{'pointer-event': _disabled ? 'none' : null}"
               (click)="drp.toggle()"
