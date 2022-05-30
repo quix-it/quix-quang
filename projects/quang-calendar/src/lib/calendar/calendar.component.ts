@@ -157,7 +157,7 @@ export class CalendarComponent implements OnChanges {
   }
 
   /**
-   * emits when a event is clicked
+   * emits when an event is clicked
    * @param event
    */
   eventClick (event: any): void {

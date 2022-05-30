@@ -1,11 +1,12 @@
 import { BlankComponent } from './blank.component'
 import { CalendarComponent } from '../projects/quang-calendar/src/lib/calendar/calendar.component'
-import { text, withKnobs } from '@storybook/addon-knobs'
+import { number, text, withKnobs } from '@storybook/addon-knobs'
 import { moduleMetadata } from '@storybook/angular'
 import { TranslocoModule } from '@ngneat/transloco'
 import { Meta, Story } from '@storybook/angular/types-6-0'
 import { CommonModule } from '@angular/common'
-
+import { subtract } from 'ngx-bootstrap/chronos'
+import { QuixCalendarEvent } from './calendar.model'
 export default {
   title: 'Calendar',
   component: BlankComponent,
@@ -15,17 +16,16 @@ export default {
   decorators: [withKnobs, moduleMetadata({
     declarations: [
       BlankComponent,
-      CalendarComponent,
+      CalendarComponent
     ],
     imports: [
       TranslocoModule,
-      CommonModule,
+      CommonModule
     ]
   })]
 } as Meta
 
 const Calendar: Story<BlankComponent> = (args: BlankComponent) => {
-
   return {
     component: BlankComponent,
     template:
@@ -47,6 +47,10 @@ const Calendar: Story<BlankComponent> = (args: BlankComponent) => {
               <div class="card-body">
                 <quang-calendar
                   [height]="'600px'"
+                  (whenEventClick)="openAlert($event)"
+                  [callBack]="loadData"
+                  [firstDay]="firstDay"
+                  [dayMaxEvents]="dayMaxEvents"
                 ></quang-calendar>
               </div>
             </div>
@@ -56,8 +60,23 @@ const Calendar: Story<BlankComponent> = (args: BlankComponent) => {
       `,
     props: {
       ...args,
-      height: text('height', '600px')
+      height: text('height', '600px'),
+      firstDay: text('firstDay', 'monday'),
+      dayMaxEvents: number('dayMaxEvents', 2),
+      openAlert (event: any): void {
+        alert(event.date ?? event.event._def?.title)
+      },
+      loadData (e: any, success: any, error: any): any {
+        return success([
+          new QuixCalendarEvent('inizio', e.startStr),
+          new QuixCalendarEvent('fine', subtract(new Date(), 1, 'day')),
+          new QuixCalendarEvent('altro', subtract(new Date(), 1, 'day')),
+          new QuixCalendarEvent('fare', subtract(new Date(), 1, 'day')),
+          new QuixCalendarEvent('cose', subtract(new Date(), 1, 'day'))
+        ])
+      }
     }
   }
 }
-// export const QuangCalendar = Calendar.bind({})
+
+export const QuangCalendar = Calendar.bind({})

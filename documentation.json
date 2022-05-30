@@ -10028,6 +10028,168 @@
             "outputsClass": [],
             "hostBindings": [],
             "hostListeners": []
+        },
+        {
+            "name": "QuixCalendarEvent",
+            "id": "class-QuixCalendarEvent-6d2af891b6ba6dad32198ec1afe9783d46c926f1c5f35d0b75f9db3eb602344fc328ff935e317a4698f625aa6580d5b53ea18c87e5ee4102e77298bdfec0d272",
+            "file": "stories/calendar.model.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "class",
+            "sourceCode": "export class QuixCalendarEvent {\n  /**\n   * calendar event constructor\n   * @param title define event title\n   * @param date define event date\n   * @param allDay define event allday\n   */\n  constructor (\n    /**\n     * event title\n     */\n    public title: string,\n    /**\n     * event date\n     */\n    public date: Date,\n    /**\n     * event allDay\n     */\n    public allDay?: boolean\n  ) {\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "<p>calendar event constructor</p>\n",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "title",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "date",
+                        "type": "Date",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "allDay",
+                        "type": "boolean",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "optional": true
+                    }
+                ],
+                "line": 4,
+                "rawdescription": "\n\ncalendar event constructor\n",
+                "jsdoctags": [
+                    {
+                        "name": {
+                            "pos": 109,
+                            "end": 114,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 79,
+                            "escapedText": "title"
+                        },
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "pos": 103,
+                            "end": 108,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 79,
+                            "escapedText": "param"
+                        },
+                        "comment": "<p>define event title</p>\n"
+                    },
+                    {
+                        "name": {
+                            "pos": 146,
+                            "end": 150,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 79,
+                            "escapedText": "date"
+                        },
+                        "type": "Date",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "pos": 140,
+                            "end": 145,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 79,
+                            "escapedText": "param"
+                        },
+                        "comment": "<p>define event date</p>\n"
+                    },
+                    {
+                        "name": {
+                            "pos": 181,
+                            "end": 187,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 79,
+                            "escapedText": "allDay"
+                        },
+                        "type": "boolean",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "optional": true,
+                        "tagName": {
+                            "pos": 175,
+                            "end": 180,
+                            "flags": 4227072,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 79,
+                            "escapedText": "param"
+                        },
+                        "comment": "<p>define event allday</p>\n"
+                    }
+                ]
+            },
+            "properties": [
+                {
+                    "name": "allDay",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "define event allday",
+                    "line": 23,
+                    "rawdescription": "\n\nevent allDay\n",
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "date",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Date",
+                    "optional": false,
+                    "description": "define event date",
+                    "line": 19,
+                    "rawdescription": "\n\nevent date\n",
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "title",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "define event title",
+                    "line": 15,
+                    "rawdescription": "\n\nevent title\n",
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "description": "<p>calendar event</p>\n",
+            "rawdescription": "\n\ncalendar event\n",
+            "methods": [],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
         }
     ],
     "directives": [
@@ -15256,7 +15418,7 @@
         },
         {
             "name": "CalendarComponent",
-            "id": "component-CalendarComponent-d793105e01cef416110151a5c3beac5b77576435f4f9caf1e51d630f370278b64df58003bee2d46042ee73ab163c1d688e6a4843bc0d93e1095bbe21dc7f86e5",
+            "id": "component-CalendarComponent-595c7a9d02a440b63ad3d81acbe062b01011b3327b6b031b118b9054f5929ba0c60de531deb5f9807a2b49db3f32e378a9b9567a486746a0c142ab1db01714dc",
             "file": "projects/quang-calendar/src/lib/calendar/calendar.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -15586,8 +15748,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 4385,
-                                "end": 4390,
+                                "pos": 4386,
+                                "end": 4391,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15598,8 +15760,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 4379,
-                                "end": 4384,
+                                "pos": 4380,
+                                "end": 4385,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15626,13 +15788,13 @@
                     "line": 163,
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "rawdescription": "\n\nemits when a event is clicked\n",
-                    "description": "<p>emits when a event is clicked</p>\n",
+                    "rawdescription": "\n\nemits when an event is clicked\n",
+                    "description": "<p>emits when an event is clicked</p>\n",
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 4246,
-                                "end": 4251,
+                                "pos": 4247,
+                                "end": 4252,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15643,8 +15805,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 4240,
-                                "end": 4245,
+                                "pos": 4241,
+                                "end": 4246,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15733,8 +15895,8 @@
                     "jsdoctags": [
                         {
                             "name": {
-                                "pos": 4617,
-                                "end": 4622,
+                                "pos": 4618,
+                                "end": 4623,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15745,8 +15907,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 4611,
-                                "end": 4616,
+                                "pos": 4612,
+                                "end": 4617,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15757,8 +15919,8 @@
                         },
                         {
                             "name": {
-                                "pos": 4635,
-                                "end": 4650,
+                                "pos": 4636,
+                                "end": 4651,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15769,8 +15931,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 4629,
-                                "end": 4634,
+                                "pos": 4630,
+                                "end": 4635,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15781,8 +15943,8 @@
                         },
                         {
                             "name": {
-                                "pos": 4663,
-                                "end": 4678,
+                                "pos": 4664,
+                                "end": 4679,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15793,8 +15955,8 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
-                                "pos": 4657,
-                                "end": 4662,
+                                "pos": 4658,
+                                "end": 4663,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -15813,7 +15975,7 @@
             "description": "<p>calendar component decorator</p>\n",
             "rawdescription": "\n\ncalendar component decorator\n",
             "type": "component",
-            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { CalendarOptions } from '@fullcalendar/angular'\n\n/**\n * calendar component decorator\n */\n@Component({\n  selector: 'quang-calendar',\n  templateUrl: './calendar.component.html',\n  styles: [],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * calendar component\n */\nexport class CalendarComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Calendar ${this.id}`\n  /**\n   * the height of the calendar\n   */\n  @Input() height: string = ''\n  /**\n   * the locale of the calendar\n   */\n  @Input() locale: string = ''\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * Defines what to do when the calendar view changes and the events of the current view should be loaded\n   * @param e\n   * @param s\n   * @param f\n   */\n  @Input() callBack: (e: any, s: any, f: any) => {} = (e, s, f) => []\n  /**\n   * Defines the type of calendar view\n   */\n  @Input() view: 'timeGridWeek' | 'dayGridMonth' | 'dayGridWeek' = 'dayGridMonth'\n  /**\n   * Defines the format of the calendar header\n   */\n  @Input() header: { [key: string]: any } = {}\n  /**\n   * Defines the format of the calendar footer\n   */\n  @Input() footer: { [key: string]: any } = {}\n  /**\n   * Defines the classes of the font-awesome icons that will be used in the buttons\n   */\n  @Input() buttonsIcons: { [key: string]: any } = {\n    close: ' fas fa-times',\n    prev: ' fas fa-chevron-left',\n    next: ' fas fa-chevron-right',\n    prevYear: ' fas fa-angle-double-left',\n    nextYear: ' fas fa-angle-double-right'\n  }\n  /**\n   *\n   */\n  @Input() firstDay: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday' = 'monday'\n  /**\n   *\n   */\n  @Input() dayMaxEventRows: number | null = null\n  /**\n   *\n   */\n  @Input() eventMaxStack: number | null = null\n  /**\n   *\n   */\n  @Input() dayMaxEvents: number | boolean = true\n  /**\n   * Event triggered when a calendar event is clicked\n   */\n  @Output() whenEventClick: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   * Event triggered when a date on the calendar is clicked\n   */\n  @Output() whenDateClick: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   * Event triggered when the calendar view of the calendar changes\n   */\n  @Output() whenViewChange: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   *\n   */\n  _daysMap: { [key: string]: number } = {\n    monday: 1,\n    tuesday: 2,\n    wednesday: 3,\n    thursday: 4,\n    friday: 5,\n    saturday: 6,\n    sunday: 0\n  }\n  /**\n   * calendar config\n   */\n  calendarOptions: CalendarOptions = {\n    initialView: this.view,\n    themeSystem: 'bootstrap5',\n    events: this.viewChange.bind(this),\n    height: '',\n    eventClick: this.eventClick.bind(this),\n    headerToolbar: this.header,\n    footerToolbar: this.footer,\n    buttonIcons: this.buttonsIcons,\n    locale: '',\n    dateClick: this.dateClick.bind(this),\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.height?.currentValue) {\n      this.calendarOptions.height = changes.height.currentValue\n    }\n    if (changes.view?.currentValue) {\n      this.calendarOptions.initialView = changes.view?.currentValue\n    }\n    if (changes.header?.currentValue) {\n      this.calendarOptions.headerToolbar = changes.header?.currentValue\n    }\n    if (changes.footer?.currentValue) {\n      this.calendarOptions.footerToolbar = changes.footer?.currentValue\n    }\n    if (changes.locale?.currentValue) {\n      this.calendarOptions.locale = changes.locale?.currentValue\n    }\n    if (changes.firstDay?.currentValue) {\n      this.calendarOptions.firstDay = this._daysMap[changes.firstDay.currentValue]\n    }\n    if (changes.dayMaxEvents?.currentValue) {\n      this.calendarOptions.dayMaxEvents = changes.dayMaxEvents?.currentValue\n    }\n  }\n\n  /**\n   * emits when a event is clicked\n   * @param event\n   */\n  eventClick (event: any): void {\n    this.whenEventClick.emit(event)\n  }\n\n  /**\n   * emits when a date is clicked\n   * @param event\n   */\n  dateClick (event: any): void {\n    this.whenDateClick.emit(event)\n  }\n\n  /**\n   * emits when the calendar view changes,\n   * if a callback function has been defined it executes the function passed in input\n   * @param event\n   * @param successCallback\n   * @param failureCallback\n   */\n  viewChange (event: any, successCallback: any, failureCallback: any): void {\n    this.whenViewChange.emit(event)\n    this.callBack(event, successCallback, failureCallback)\n  }\n}\n",
+            "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  OnChanges,\n  Output,\n  SimpleChanges\n} from '@angular/core'\nimport { CalendarOptions } from '@fullcalendar/angular'\n\n/**\n * calendar component decorator\n */\n@Component({\n  selector: 'quang-calendar',\n  templateUrl: './calendar.component.html',\n  styles: [],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\n/**\n * calendar component\n */\nexport class CalendarComponent implements OnChanges {\n  /**\n   * Html id of input\n   */\n  @Input() id: string = ''\n  /**\n   * Determine the arialabel tag for accessibility,\n   * If not specified, it takes 'input' concatenated to the label by default\n   */\n  @Input() ariaLabel: string = `Calendar ${this.id}`\n  /**\n   * the height of the calendar\n   */\n  @Input() height: string = ''\n  /**\n   * the locale of the calendar\n   */\n  @Input() locale: string = ''\n  /**\n   * Indicate the position in the page navigation flow with the tab key\n   */\n  @Input() tabIndex: number = 0\n  /**\n   * Defines what to do when the calendar view changes and the events of the current view should be loaded\n   * @param e\n   * @param s\n   * @param f\n   */\n  @Input() callBack: (e: any, s: any, f: any) => {} = (e, s, f) => []\n  /**\n   * Defines the type of calendar view\n   */\n  @Input() view: 'timeGridWeek' | 'dayGridMonth' | 'dayGridWeek' = 'dayGridMonth'\n  /**\n   * Defines the format of the calendar header\n   */\n  @Input() header: { [key: string]: any } = {}\n  /**\n   * Defines the format of the calendar footer\n   */\n  @Input() footer: { [key: string]: any } = {}\n  /**\n   * Defines the classes of the font-awesome icons that will be used in the buttons\n   */\n  @Input() buttonsIcons: { [key: string]: any } = {\n    close: ' fas fa-times',\n    prev: ' fas fa-chevron-left',\n    next: ' fas fa-chevron-right',\n    prevYear: ' fas fa-angle-double-left',\n    nextYear: ' fas fa-angle-double-right'\n  }\n  /**\n   *\n   */\n  @Input() firstDay: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday' = 'monday'\n  /**\n   *\n   */\n  @Input() dayMaxEventRows: number | null = null\n  /**\n   *\n   */\n  @Input() eventMaxStack: number | null = null\n  /**\n   *\n   */\n  @Input() dayMaxEvents: number | boolean = true\n  /**\n   * Event triggered when a calendar event is clicked\n   */\n  @Output() whenEventClick: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   * Event triggered when a date on the calendar is clicked\n   */\n  @Output() whenDateClick: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   * Event triggered when the calendar view of the calendar changes\n   */\n  @Output() whenViewChange: EventEmitter<any> = new EventEmitter<any>()\n  /**\n   *\n   */\n  _daysMap: { [key: string]: number } = {\n    monday: 1,\n    tuesday: 2,\n    wednesday: 3,\n    thursday: 4,\n    friday: 5,\n    saturday: 6,\n    sunday: 0\n  }\n  /**\n   * calendar config\n   */\n  calendarOptions: CalendarOptions = {\n    initialView: this.view,\n    themeSystem: 'bootstrap5',\n    events: this.viewChange.bind(this),\n    height: '',\n    eventClick: this.eventClick.bind(this),\n    headerToolbar: this.header,\n    footerToolbar: this.footer,\n    buttonIcons: this.buttonsIcons,\n    locale: '',\n    dateClick: this.dateClick.bind(this),\n  }\n\n  /**\n   * change input management\n   * @param changes component changes\n   */\n  ngOnChanges (changes: SimpleChanges): void {\n    if (changes.height?.currentValue) {\n      this.calendarOptions.height = changes.height.currentValue\n    }\n    if (changes.view?.currentValue) {\n      this.calendarOptions.initialView = changes.view?.currentValue\n    }\n    if (changes.header?.currentValue) {\n      this.calendarOptions.headerToolbar = changes.header?.currentValue\n    }\n    if (changes.footer?.currentValue) {\n      this.calendarOptions.footerToolbar = changes.footer?.currentValue\n    }\n    if (changes.locale?.currentValue) {\n      this.calendarOptions.locale = changes.locale?.currentValue\n    }\n    if (changes.firstDay?.currentValue) {\n      this.calendarOptions.firstDay = this._daysMap[changes.firstDay.currentValue]\n    }\n    if (changes.dayMaxEvents?.currentValue) {\n      this.calendarOptions.dayMaxEvents = changes.dayMaxEvents?.currentValue\n    }\n  }\n\n  /**\n   * emits when an event is clicked\n   * @param event\n   */\n  eventClick (event: any): void {\n    this.whenEventClick.emit(event)\n  }\n\n  /**\n   * emits when a date is clicked\n   * @param event\n   */\n  dateClick (event: any): void {\n    this.whenDateClick.emit(event)\n  }\n\n  /**\n   * emits when the calendar view changes,\n   * if a callback function has been defined it executes the function passed in input\n   * @param event\n   * @param successCallback\n   * @param failureCallback\n   */\n  viewChange (event: any, successCallback: any, failureCallback: any): void {\n    this.whenViewChange.emit(event)\n    this.callBack(event, successCallback, failureCallback)\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -23621,7 +23783,7 @@
                 "AfterViewInit",
                 "OnChanges"
             ],
-            "templateData": "<div class=\"inputWrapper\">\n  <div class=\"dateTimeWrapper\">\n    <div class=\"mb-3\">\n      <label class=\"form-label\"\n             [htmlFor]=\"id\"\n             [attr.aria-label]=\"ariaLabel\"\n             *ngIf=\"label\">\n        {{label | transloco}}\n        <span [hidden]=\"!control?.errors?.required\">*</span>\n      </label>\n      <div class=\"input-group\"\n           [class.input-group-sm]=\"size === 'sm'\"\n           [class.input-group-lg]=\"size === 'lg'\">\n        <input type=\"text\" [id]=\"id\"\n               class=\"form-control\"\n               bsDatepicker\n               [placeholder]=\"placeholder | transloco\"\n               [ngClass]=\"customClass\"\n               [class.is-valid]=\"control?.valid && control?.dirty && successMessage\"\n               [class.is-invalid]=\"control?.invalid && control?.dirty && errorMessage\"\n               [bsConfig]=\"config\"\n               [autofocus]=\"autofocus\"\n               [minDate]=\"minDate\"\n               [maxDate]=\"maxDate\"\n               [daysDisabled]=\"disabledDaysOfTheWeek\"\n               [datesDisabled]=\"disabledDates\"\n               [attr.aria-label]=\"ariaLabel + ' date'\"\n               [tabIndex]=\"tabIndex\"\n               [autocomplete]=\"autocomplete\"\n               [bsValue]=\"_valueDate\"\n               [disabled]=\"_disabled\"\n               [placement]=\"placement\"\n               (bsValueChange)=\"onChangedDate($event)\"\n               (blur)=\"onTouched()\"\n               #drp=\"bsDatepicker\"\n               #input\n        >\n        <div class=\"input-group-append\">\n          <button\n            class=\"btn\"\n            type=\"button\"\n            [ngClass]=\"buttonClass\"\n            (click)=\"_disabled ? null : drp.toggle()\"\n          >\n            <ng-content select=\"[calendarIcon]\"></ng-content>\n          </button>\n        </div>\n        <div class=\"valid-feedback\">\n          {{_successMessage | transloco}}\n        </div>\n\n        <div class=\"invalid-feedback\" [attr.aria-errormessage]=\"_errorMessage\">\n          {{_errorMessage | transloco: {requiredValue: _requiredValue} }}\n        </div>\n      </div>\n    </div>\n    <div class=\"mb-3\"\n         [ngStyle]=\"{'margin-top': _margin}\">\n      <timepicker\n        [id]=\"id\"\n        [ngClass]=\"customClass\"\n        [class.is-valid]=\"control?.valid && control?.dirty && successMessage\"\n        [class.is-invalid]=\"control?.invalid && control?.dirty && errorMessage\"\n        [disabled]=\"_disabled\"\n        [min]=\"minDate\"\n        [max]=\"maxDate\"\n        [showSeconds]=\"showSecond\"\n        [hourStep]=\"hourStep\"\n        [minuteStep]=\"minuteStep\"\n        [secondsStep]=\"secondStep\"\n        [mousewheel]=\"true\"\n        [arrowkeys]=\"true\"\n        [showSpinners]=\"showSelector\"\n        [showMeridian]=\"showMeridianButton\"\n        [hoursPlaceholder]=\"hoursPlaceholder | transloco\"\n        [minutesPlaceholder]=\"minutesPlaceholder | transloco\"\n        [secondsPlaceholder]=\"secondsPlaceholder | transloco\"\n        [ngModel]=\"_valueTime\"\n        [attr.aria-label]=\"ariaLabel + ' time' | transloco\"\n        [tabIndex]=\"tabIndex + 1\"\n        (ngModelChange)=\"onChangedTime($event)\"\n        (blur)=\"onTouched()\"\n      ></timepicker>\n    </div>\n  </div>\n\n  <small [id]=\"id + 'Help'\"\n         class=\"form-text text-muted\"\n         [hidden]=\"control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)\"\n         *ngIf=\"helpMessage\">\n    {{_helpMessage | transloco}}\n  </small>\n</div>\n"
+            "templateData": "<div class=\"inputWrapper\">\n  <div class=\"dateTimeWrapper\">\n    <div class=\"mb-3\">\n      <label class=\"form-label\"\n             [htmlFor]=\"id\"\n             [attr.aria-label]=\"ariaLabel\"\n             *ngIf=\"label\">\n        {{label | transloco}}\n        <span [hidden]=\"!control?.errors?.required\">*</span>\n      </label>\n      <div class=\"input-group\"\n           [class.input-group-sm]=\"size === 'sm'\"\n           [class.input-group-lg]=\"size === 'lg'\">\n        <input type=\"text\" [id]=\"id\"\n               class=\"form-control\"\n               bsDatepicker\n               [placeholder]=\"placeholder | transloco\"\n               [ngClass]=\"customClass\"\n               [class.is-valid]=\"control?.valid && control?.dirty && successMessage\"\n               [class.is-invalid]=\"control?.invalid && control?.dirty && errorMessage\"\n               [bsConfig]=\"config\"\n               [autofocus]=\"autofocus\"\n               [minDate]=\"minDate\"\n               [maxDate]=\"maxDate\"\n               [daysDisabled]=\"disabledDaysOfTheWeek\"\n               [datesDisabled]=\"disabledDates\"\n               [attr.aria-label]=\"ariaLabel + ' date'\"\n               [tabIndex]=\"tabIndex\"\n               [autocomplete]=\"autocomplete\"\n               [bsValue]=\"_valueDate\"\n               [disabled]=\"_disabled\"\n               [placement]=\"placement\"\n               (bsValueChange)=\"onChangedDate($event)\"\n               (blur)=\"onTouched()\"\n               #drp=\"bsDatepicker\"\n               #input\n        >\n        <div class=\"input-group-append\">\n          <button\n            class=\"btn\"\n            type=\"button\"\n            [ngClass]=\"buttonClass\"\n            [tabIndex]=\"tabIndex\"\n            (click)=\"_disabled ? null : drp.toggle()\"\n          >\n            <ng-content select=\"[calendarIcon]\"></ng-content>\n          </button>\n        </div>\n        <div class=\"valid-feedback\">\n          {{_successMessage | transloco}}\n        </div>\n\n        <div class=\"invalid-feedback\" [attr.aria-errormessage]=\"_errorMessage\">\n          {{_errorMessage | transloco: {requiredValue: _requiredValue} }}\n        </div>\n      </div>\n    </div>\n    <div class=\"mb-3\"\n         [ngStyle]=\"{'margin-top': _margin}\">\n      <timepicker\n        [id]=\"id\"\n        [ngClass]=\"customClass\"\n        [class.is-valid]=\"control?.valid && control?.dirty && successMessage\"\n        [class.is-invalid]=\"control?.invalid && control?.dirty && errorMessage\"\n        [disabled]=\"_disabled\"\n        [min]=\"minDate\"\n        [max]=\"maxDate\"\n        [showSeconds]=\"showSecond\"\n        [hourStep]=\"hourStep\"\n        [minuteStep]=\"minuteStep\"\n        [secondsStep]=\"secondStep\"\n        [mousewheel]=\"true\"\n        [arrowkeys]=\"true\"\n        [showSpinners]=\"showSelector\"\n        [showMeridian]=\"showMeridianButton\"\n        [hoursPlaceholder]=\"hoursPlaceholder | transloco\"\n        [minutesPlaceholder]=\"minutesPlaceholder | transloco\"\n        [secondsPlaceholder]=\"secondsPlaceholder | transloco\"\n        [ngModel]=\"_valueTime\"\n        [attr.aria-label]=\"ariaLabel + ' time' | transloco\"\n        [tabIndex]=\"tabIndex\"\n        (ngModelChange)=\"onChangedTime($event)\"\n        (blur)=\"onTouched()\"\n      ></timepicker>\n    </div>\n  </div>\n\n  <small [id]=\"id + 'Help'\"\n         class=\"form-text text-muted\"\n         [hidden]=\"control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)\"\n         *ngIf=\"helpMessage\">\n    {{_helpMessage | transloco}}\n  </small>\n</div>\n"
         },
         {
             "name": "InputEmailComponent",
@@ -40256,7 +40418,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px')\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                  (whenEventClick)=\"openAlert($event)\"\n                  [callBack]=\"loadData\"\n                  [firstDay]=\"firstDay\"\n                  [dayMaxEvents]=\"dayMaxEvents\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n      firstDay: text('firstDay', 'monday'),\n      dayMaxEvents: number('dayMaxEvents', 2),\n      openAlert (event: any): void {\n        alert(event.date ?? event.event._def?.title)\n      },\n      loadData (e: any, success: any, error: any): any {\n        return success([\n          new QuixCalendarEvent('inizio', e.startStr),\n          new QuixCalendarEvent('fine', subtract(new Date(), 1, 'day')),\n          new QuixCalendarEvent('altro', subtract(new Date(), 1, 'day')),\n          new QuixCalendarEvent('fare', subtract(new Date(), 1, 'day')),\n          new QuixCalendarEvent('cose', subtract(new Date(), 1, 'day'))\n        ])\n      }\n    }\n  }\n}"
             },
             {
                 "name": "Candle",
@@ -40304,31 +40466,19 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-auth/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-calendar/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-chart/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-auth/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40376,6 +40526,18 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-calendar/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-dialog/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40400,6 +40562,18 @@
                 "name": "context",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-keycloak/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                "rawdescription": "Then we find all the tests.",
+                "description": "<p>Then we find all the tests.</p>\n"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-map/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -40413,18 +40587,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-utility/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                "rawdescription": "Then we find all the tests.",
-                "description": "<p>Then we find all the tests.</p>\n"
-            },
-            {
-                "name": "context",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -40462,7 +40624,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    date: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"dateFormat\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"date\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.date.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date label'),\n      placeholder: text('placeholder', 'date placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    date: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"dateFormat\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"date\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.date.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date label'),\n      placeholder: text('placeholder', 'date placeholder'),\n      dateFormat: text('dateFormat', 'yyyy-MM-dd')\n    }\n  }\n}"
             },
             {
                 "name": "DateRange",
@@ -40482,7 +40644,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    datetime: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-time\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-time id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"datetime\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.datetime.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-time label'),\n      placeholder: text('placeholder', 'date-time placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
+                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    datetime: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-time\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-time id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"datetime\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.datetime.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-time label'),\n      placeholder: text('placeholder', 'date-time placeholder'),\n      dateFormat: text('dateFormat', 'yyyy-MM-dd')\n    }\n  }\n}"
             },
             {
                 "name": "deleteToast",
@@ -40939,6 +41101,16 @@
                 "description": "<p>definition of the reducer map</p>\n"
             },
             {
+                "name": "QuangCalendar",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Calendar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Calendar.bind({})"
+            },
+            {
                 "name": "QuangChartArea",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -41193,29 +41365,18 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/quang-auth/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-calendar/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/quang-chart/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/quang-auth/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41259,6 +41420,17 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-calendar/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-dialog/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -41281,6 +41453,17 @@
                 "name": "require",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/quang-keycloak/src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type",
+                "rawdescription": "Standard definition for require",
+                "description": "<p>Standard definition for require</p>\n"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/quang-map/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -41293,17 +41476,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/quang-utility/src/test.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "literal type",
-                "rawdescription": "Standard definition for require",
-                "description": "<p>Standard definition for require</p>\n"
-            },
-            {
-                "name": "require",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/quang-keycloak/src/test.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "literal type",
@@ -41606,16 +41778,6 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "TextEdit.bind({})"
-            },
-            {
-                "name": "Time",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Date.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<BlankComponent>",
-                "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    time: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-time\n                      [label]=\"label\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [formName]=\"'form'\"\n                      formControlName=\"time\"\n                    ></quang-input-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.time.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'time label')\n    }\n  }\n}"
             },
             {
                 "name": "Tree",
@@ -42496,7 +42658,17 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px')\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n              <div class=\"row\">\n                  <div class=\"col-6\">\n                      <h3>Quang calendar</h3>\n                  </div>\n                  <div class=\"col-6 text-end\">\n                      <a cardAction href=\"https://rd.quix.it/quang/components/CalendarComponent.html\">Configurazioni</a>\n                  </div>\n              </div>\n              </div>\n              <div class=\"card-body\">\n                <quang-calendar\n                  [height]=\"'600px'\"\n                  (whenEventClick)=\"openAlert($event)\"\n                  [callBack]=\"loadData\"\n                  [firstDay]=\"firstDay\"\n                  [dayMaxEvents]=\"dayMaxEvents\"\n                ></quang-calendar>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      height: text('height', '600px'),\n      firstDay: text('firstDay', 'monday'),\n      dayMaxEvents: number('dayMaxEvents', 2),\n      openAlert (event: any): void {\n        alert(event.date ?? event.event._def?.title)\n      },\n      loadData (e: any, success: any, error: any): any {\n        return success([\n          new QuixCalendarEvent('inizio', e.startStr),\n          new QuixCalendarEvent('fine', subtract(new Date(), 1, 'day')),\n          new QuixCalendarEvent('altro', subtract(new Date(), 1, 'day')),\n          new QuixCalendarEvent('fare', subtract(new Date(), 1, 'day')),\n          new QuixCalendarEvent('cose', subtract(new Date(), 1, 'day'))\n        ])\n      }\n    }\n  }\n}"
+                },
+                {
+                    "name": "QuangCalendar",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Calendar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Calendar.bind({})"
                 }
             ],
             "stories/Input.stories.ts": [
@@ -42826,56 +42998,6 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-auth/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-auth/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-auth/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
-            "projects/quang-calendar/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-calendar/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-calendar/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-chart/src/test.ts": [
                 {
                     "name": "context",
@@ -42894,6 +43016,31 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-chart/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-auth/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-auth/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-auth/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -42976,6 +43123,31 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
+            "projects/quang-calendar/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-calendar/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-calendar/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
             "projects/quang-dialog/src/test.ts": [
                 {
                     "name": "context",
@@ -43019,6 +43191,31 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/quang-event/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "rawdescription": "Standard definition for require",
+                    "description": "<p>Standard definition for require</p>\n"
+                }
+            ],
+            "projects/quang-keycloak/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-keycloak/src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
+                    "rawdescription": "Then we find all the tests.",
+                    "description": "<p>Then we find all the tests.</p>\n"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/quang-keycloak/src/test.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "literal type",
@@ -43076,31 +43273,6 @@
                     "description": "<p>Standard definition for require</p>\n"
                 }
             ],
-            "projects/quang-keycloak/src/test.ts": [
-                {
-                    "name": "context",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-keycloak/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)",
-                    "rawdescription": "Then we find all the tests.",
-                    "description": "<p>Then we find all the tests.</p>\n"
-                },
-                {
-                    "name": "require",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/quang-keycloak/src/test.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "literal type",
-                    "rawdescription": "Standard definition for require",
-                    "description": "<p>Standard definition for require</p>\n"
-                }
-            ],
             "projects/quang-media/src/test.ts": [
                 {
                     "name": "context",
@@ -43135,7 +43307,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    date: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"dateFormat\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"date\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.date.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date label'),\n      placeholder: text('placeholder', 'date placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    date: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"dateFormat\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"date\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.date.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date label'),\n      placeholder: text('placeholder', 'date placeholder'),\n      dateFormat: text('dateFormat', 'yyyy-MM-dd')\n    }\n  }\n}"
                 },
                 {
                     "name": "DateRange",
@@ -43155,7 +43327,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    datetime: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-time\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-time id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"datetime\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.datetime.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-time label'),\n      placeholder: text('placeholder', 'date-time placeholder'),\n      dateFormat: text('dateFormat', 'YYYY-MM-DD')\n    }\n  }\n}"
+                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    datetime: new FormControl('', Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input date time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-date-time\n                      [label]=\"label\"\n                      [placeholder]=\"placeholder\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [autocomplete]=\"'off'\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date-time id'\"\n                      [autofocus]=\"true\"\n                      [dateFormat]=\"'YYYY-MM-DD'\"\n                      [formName]=\"'form'\"\n                      [buttonClass]=\"['btn', 'btn-outline-secondary']\"\n                      formControlName=\"datetime\"\n                    ><svg calendarIcon class=\"svg-inline--fa fa-calendar-alt fa-w-14\" aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"calendar-alt\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\" data-fa-i2svg=\"\"><path fill=\"currentColor\" d=\"M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z\"></path></svg>\n                    </quang-input-date-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.datetime.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'date-time label'),\n      placeholder: text('placeholder', 'date-time placeholder'),\n      dateFormat: text('dateFormat', 'yyyy-MM-dd')\n    }\n  }\n}"
                 },
                 {
                     "name": "InputDate",
@@ -43186,16 +43358,6 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "DateTime.bind({})"
-                },
-                {
-                    "name": "Time",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Date.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<BlankComponent>",
-                    "defaultValue": "(args: BlankComponent) => {\n  const group = new FormGroup({\n    time: new FormControl(null, Validators.required)\n  })\n  return {\n    component: BlankComponent,\n    template:\n      `\n      <section class=\"container-fluid\">\n        <div class=\"row mb-3\">\n          <div class=\"col\">\n            <div class=\"card\">\n              <div class=\"card-header\">\n                <div class=\"row\">\n                    <div class=\"col-6\">\n                        <h3>Quang input time</h3>\n                    </div>\n                    <div class=\"col-6 text-end\">\n                        <a cardAction href=\"https://rd.quix.it/quang/components/InputDateComponent.html\">Configurazioni</a>\n                    </div>\n                </div>\n              </div>\n              <div class=\"card-body\">\n                  <form [formGroup]=\"group\">\n                    <quang-input-time\n                      [label]=\"label\"\n                      hoursPlaceholder=\"00\"\n                      minutesPlaceholder=\"00\"\n                      secondsPlaceholder=\"00\"\n                      [errorMessage]=\"errorMessage\"\n                      [successMessage]=\"successMessage\"\n                      [helpMessage]=\"helpMessage\"\n                      [tabIndex]=\"1\"\n                      [id]=\"'date id'\"\n                      [formName]=\"'form'\"\n                      formControlName=\"time\"\n                    ></quang-input-time>\n                  </form>\n                  <dl>\n                    <dt>Value:</dt>\n                    <dd>{{group.controls.time.value}}</dd>\n                  </dl>\n              </div>\n            </div>\n          </div>\n        </div>\n      </section>\n      `,\n    props: {\n      ...args,\n      group: group,\n      errorMessage: boolean('errorMessage', true),\n      successMessage: boolean('successMessage', true),\n      helpMessage: boolean('helpMessage', true),\n      label: text('label', 'time label')\n    }\n  }\n}"
                 }
             ],
             "projects/quang-dialog/src/lib/toast/toast-store/actions/toast.actions.ts": [
@@ -46288,6 +46450,16 @@
                 "status": "low"
             },
             {
+                "filePath": "stories/Calendar.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "QuangCalendar",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "stories/Chart.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -46543,16 +46715,6 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "InputDateTime",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Date.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Time",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -46965,6 +47127,15 @@
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
                 "status": "low"
+            },
+            {
+                "filePath": "stories/calendar.model.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "QuixCalendarEvent",
+                "coveragePercent": 100,
+                "coverageCount": "5/5",
+                "status": "very-good"
             }
         ]
     }

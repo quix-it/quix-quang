@@ -10,7 +10,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker'
 import { InputDateRangeComponent } from '../projects/quang-date/src/lib/input-date-range/input-date-range.component'
 import { InputDateTimeComponent } from '../projects/quang-date/src/lib/input-date-time/input-date-time.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { InputTimeComponent } from 'projects/quang-date/src/public-api'
+// import { InputTimeComponent } from 'projects/quang-date/src/public-api'
 
 export default {
   title: 'Date',
@@ -38,8 +38,8 @@ export default {
       BrowserAnimationsModule
     ],
     providers: [
-      { provide: TRANSLOCO_SCOPE, useValue: 'date' },
-    ],
+      { provide: TRANSLOCO_SCOPE, useValue: 'date' }
+    ]
   })]
 } as Meta
 
@@ -235,64 +235,64 @@ const DateTime: Story<BlankComponent> = (args: BlankComponent) => {
     }
   }
 }
-const Time: Story<BlankComponent> = (args: BlankComponent) => {
-  const group = new FormGroup({
-    time: new FormControl(null, Validators.required)
-  })
-  return {
-    component: BlankComponent,
-    template:
-      `
-      <section class="container-fluid">
-        <div class="row mb-3">
-          <div class="col">
-            <div class="card">
-              <div class="card-header">
-                <div class="row">
-                    <div class="col-6">
-                        <h3>Quang input time</h3>
-                    </div>
-                    <div class="col-6 text-end">
-                        <a cardAction href="https://rd.quix.it/quang/components/InputDateComponent.html">Configurazioni</a>
-                    </div>
-                </div>
-              </div>
-              <div class="card-body">
-                  <form [formGroup]="group">
-                    <quang-input-time
-                      [label]="label"
-                      hoursPlaceholder="00"
-                      minutesPlaceholder="00"
-                      secondsPlaceholder="00"
-                      [errorMessage]="errorMessage"
-                      [successMessage]="successMessage"
-                      [helpMessage]="helpMessage"
-                      [tabIndex]="1"
-                      [id]="'date id'"
-                      [formName]="'form'"
-                      formControlName="time"
-                    ></quang-input-time>
-                  </form>
-                  <dl>
-                    <dt>Value:</dt>
-                    <dd>{{group.controls.time.value}}</dd>
-                  </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      `,
-    props: {
-      ...args,
-      group: group,
-      errorMessage: boolean('errorMessage', true),
-      successMessage: boolean('successMessage', true),
-      helpMessage: boolean('helpMessage', true),
-      label: text('label', 'time label')
-    }
-  }
-}
+// const Time: Story<BlankComponent> = (args: BlankComponent) => {
+//   const group = new FormGroup({
+//     time: new FormControl(null, Validators.required)
+//   })
+//   return {
+//     component: BlankComponent,
+//     template:
+//       `
+//       <section class="container-fluid">
+//         <div class="row mb-3">
+//           <div class="col">
+//             <div class="card">
+//               <div class="card-header">
+//                 <div class="row">
+//                     <div class="col-6">
+//                         <h3>Quang input time</h3>
+//                     </div>
+//                     <div class="col-6 text-end">
+//                         <a cardAction href="https://rd.quix.it/quang/components/InputDateComponent.html">Configurazioni</a>
+//                     </div>
+//                 </div>
+//               </div>
+//               <div class="card-body">
+//                   <form [formGroup]="group">
+//                     <quang-input-time
+//                       [label]="label"
+//                       hoursPlaceholder="00"
+//                       minutesPlaceholder="00"
+//                       secondsPlaceholder="00"
+//                       [errorMessage]="errorMessage"
+//                       [successMessage]="successMessage"
+//                       [helpMessage]="helpMessage"
+//                       [tabIndex]="1"
+//                       [id]="'date id'"
+//                       [formName]="'form'"
+//                       formControlName="time"
+//                     ></quang-input-time>
+//                   </form>
+//                   <dl>
+//                     <dt>Value:</dt>
+//                     <dd>{{group.controls.time.value}}</dd>
+//                   </dl>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+//       `,
+//     props: {
+//       ...args,
+//       group: group,
+//       errorMessage: boolean('errorMessage', true),
+//       successMessage: boolean('successMessage', true),
+//       helpMessage: boolean('helpMessage', true),
+//       label: text('label', 'time label')
+//     }
+//   }
+// }
 
 export const InputDate = Date.bind({})
 export const InputDateRange = DateRange.bind({})
