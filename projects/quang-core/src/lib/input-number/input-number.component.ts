@@ -2,8 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
-  OnChanges,
+  Input, OnChanges,
   OnInit,
   Optional,
   Renderer2,
@@ -20,7 +19,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-input-number',
   templateUrl: './input-number.component.html',
-  styles: []
+  styles: ['']
 })
 /**
  * input number component
@@ -125,10 +124,6 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
    */
   _requiredValue: any = ''
   /**
-   * Define disabled state
-   */
-  _disabled: boolean = false
-  /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
@@ -160,9 +155,6 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
-    if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
-    }
   }
 
   /**
@@ -183,7 +175,7 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus?.currentValue && this.input) {
+    if (changes.autofocus && this.input) {
       this.input.nativeElement.focus()
     }
   }
@@ -208,7 +200,11 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
    * @param e
    */
   onChangedHandler (e: Event): void {
-    this._value = (e.target as HTMLInputElement).valueAsNumber
+    if (isNaN((e.target as HTMLInputElement).valueAsNumber)) {
+      this._value = null
+    } else {
+      this._value = (e.target as HTMLInputElement).valueAsNumber
+    }
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -227,7 +223,6 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
-    this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 
@@ -242,7 +237,9 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           if (error === 'min' || error === 'max') {
             this._requiredValue = this.control.errors[error][error]

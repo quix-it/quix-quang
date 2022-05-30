@@ -21,12 +21,12 @@ import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx
 @Component({
   selector: 'quang-input-file',
   templateUrl: './input-file.component.html',
-  styles: []
+  styles: ['']
 })
 /**
  * input file component
  */
-export class InputFileComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+export class InputFileComponent implements OnInit, ControlValueAccessor, AfterViewInit {
   /**
    * Html id of input
    */
@@ -69,6 +69,10 @@ export class InputFileComponent implements ControlValueAccessor, OnInit, AfterVi
    * Indicate the position in the page navigation flow with the tab key
    */
   @Input() tabIndex: number = 0
+  /**
+   * Indicate the file type selectable
+   */
+  @Input() acceptFileType: string = ''
   /**
    * The classes that define the style of the button for selecting the file
    */
@@ -151,9 +155,6 @@ export class InputFileComponent implements ControlValueAccessor, OnInit, AfterVi
   ngOnInit (): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
-    }
-    if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
     this._dropMessage = `${this.formName}.${this.control?.name}.drop`
   }
@@ -265,6 +266,9 @@ export class InputFileComponent implements ControlValueAccessor, OnInit, AfterVi
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe(() => {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      }
       if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           if (this.control.errors[error]) {

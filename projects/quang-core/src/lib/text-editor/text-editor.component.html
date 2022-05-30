@@ -1,7 +1,7 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
-         [attr.aria-label]="ariaLabel | transloco"
+  <label class="form-label"
+         [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
          *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
@@ -12,7 +12,7 @@
     [readOnly]="readonly"
     [modules]="_toolbar"
     [preserveWhitespace]="preserveWhitespace"
-    [sanitize]="true"
+    [sanitize]="sanitize"
     [maxLength]="max"
     [minLength]="min"
     [ngClass]="customClass"
@@ -25,17 +25,13 @@
     [format]="returnHtml ? 'html' : 'text'"
     #input
   ></quill-editor>
-  <div class="valid-feedback"
-       aria-live="assertive">
+  <div class="valid-feedback">
     {{_successMessage | transloco}}
   </div>
-  <div class="invalid-feedback"
-       aria-live="polite"
-       [id]="id + '-error'">
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
     {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
   </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
+  <small [id]="id + 'Help'"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">

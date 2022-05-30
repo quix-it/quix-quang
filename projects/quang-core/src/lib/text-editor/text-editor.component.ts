@@ -20,7 +20,7 @@ import { ContentChange, QuillEditorComponent } from 'ngx-quill'
 @Component({
   selector: 'quang-text-editor',
   templateUrl: './text-editor.component.html',
-  styles: []
+  styles: ['']
 })
 /**
  * text editor component
@@ -134,6 +134,10 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    */
   @Input() customClass: string[] = []
   /**
+   * Define if quill have to sanitize the html
+   */
+  @Input() sanitize: boolean = false
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: QuillEditorComponent | undefined
@@ -199,9 +203,6 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   ngOnInit (): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
-    }
-    if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
     if (this.listBar) {
       this._toolbar.toolbar.push([{ list: 'ordered' }, { list: 'bullet' }])
@@ -312,7 +313,9 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
             if (this.control.errors[error]) {

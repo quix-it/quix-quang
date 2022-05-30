@@ -1,7 +1,7 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
-         [attr.aria-label]="ariaLabel | transloco"
+  <label class="form-label"
+         [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
          *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span></label>
@@ -16,7 +16,7 @@
          [min]="min"
          [pattern]="pattern"
          [readOnly]="readonly"
-         [attr.aria-label]="ariaLabel | transloco"
+         [attr.aria-label]="ariaLabel"
          [tabIndex]="tabIndex"
          [step]="step"
          (input)="onChangedHandler($event)"
@@ -24,26 +24,15 @@
          [autocomplete]="autocomplete"
          [class.form-control-lg]="size === 'lg'"
          [class.form-control-sm]="size === 'sm'"
-         [attr.aria-disabled]="_disabled"
-         [attr.aria-autocomplete]="autocomplete"
-         [attr.aria-placeholder]="placeholder | transloco"
-         [attr.aria-readonly]="readonly"
-         [attr.aria-describedby]="id + '-help'"
-         [attr.aria-errormessage]="id + '-error'"
-         [attr.aria-invalid]="control.invalid"
          #input
   >
-  <div class="valid-feedback"
-       aria-live="assertive">
+  <div class="valid-feedback">
     {{_successMessage | transloco}}
   </div>
-  <div class="invalid-feedback"
-       aria-live="polite"
-       [id]="id + '-error'">
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
     {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
   </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
+  <small [id]="id + 'Help'"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">
