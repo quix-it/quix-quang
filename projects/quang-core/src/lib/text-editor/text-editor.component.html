@@ -1,5 +1,6 @@
-<div class="form-group">
-  <label [htmlFor]="id"
+<div class="mb-3">
+  <label class="form-label"
+         [htmlFor]="id"
          [attr.aria-label]="ariaLabel"
          *ngIf="label">
     {{label | transloco}}
@@ -11,7 +12,7 @@
     [readOnly]="readonly"
     [modules]="_toolbar"
     [preserveWhitespace]="preserveWhitespace"
-    [sanitize]="true"
+    [sanitize]="sanitize"
     [maxLength]="max"
     [minLength]="min"
     [ngClass]="customClass"

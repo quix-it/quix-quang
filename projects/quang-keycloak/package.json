@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-keycloak",
-    "version": "11.0.13",
+    "version": "11.0.13-beta.0",
   "dependencies": {
     "keycloak-angular": "^8.1.0",
     "keycloak-js": "^12.0.3"

@@ -17,7 +17,7 @@ import { delay, filter } from 'rxjs/operators'
  * input number component decorator
  */
 @Component({
-  selector: 'quix-input-number',
+  selector: 'quang-input-number',
   templateUrl: './input-number.component.html',
   styles: ['']
 })
@@ -155,9 +155,6 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
-    if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
-    }
   }
 
   /**
@@ -178,7 +175,7 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus?.currentValue && this.input) {
+    if (changes.autofocus && this.input) {
       this.input.nativeElement.focus()
     }
   }
@@ -203,7 +200,11 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
    * @param e
    */
   onChangedHandler (e: Event): void {
-    this._value = (e.target as HTMLInputElement).valueAsNumber
+    if (isNaN((e.target as HTMLInputElement).valueAsNumber)) {
+      this._value = null
+    } else {
+      this._value = (e.target as HTMLInputElement).valueAsNumber
+    }
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -236,7 +237,9 @@ export class InputNumberComponent implements ControlValueAccessor, OnInit, OnCha
       delay(0),
       filter(() => !!this.control.dirty)
     ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
+      if (this.control.valid && this.successMessage) {
+        this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
           if (error === 'min' || error === 'max') {
             this._requiredValue = this.control.errors[error][error]
