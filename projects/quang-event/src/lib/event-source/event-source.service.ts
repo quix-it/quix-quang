@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
 import { EventSourcePolyfill } from 'event-source-polyfill'
+import { KeycloakService } from 'keycloak-angular'
+import { OAuthService } from 'angular-oauth2-oidc'
 
 /**
  * service decorator
@@ -12,6 +14,10 @@ import { EventSourcePolyfill } from 'event-source-polyfill'
  * utility for event source management
  */
 export class QuixEventSourceService {
+  constructor (private readonly KeycloakService: KeycloakService, private readonly AuthService: OAuthService) {
+    this.KeycloakService.getToken()
+    this.AuthService.getAccessToken()
+  }
   /**
    * event source wrapper
    * @private
