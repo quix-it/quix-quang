@@ -1,11 +1,13 @@
-.ql-disabled {
-  background-color: #f8f8f8;
+quill-editor {
+  .ql-disabled {
+    background-color: #f8f8f8;
 
-  &:hover, p:hover, br:hover, .ql-editor:hover {
-    cursor: default;
-    }
+    &:hover, p:hover, br:hover, .ql-editor:hover {
+      cursor: default;
+      }
 
-  .ql-editor.ql-blank::before {
-    color: #cacaca;
+    .ql-editor.ql-blank::before {
+      color: #cacaca;
     }
   }
+}
