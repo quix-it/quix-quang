@@ -51,4 +51,4 @@
 * feat full-calendar add firstDay selectable and dayMaxEvents
 * fix full-calendar bootstrap 5
 * fix quang-input-file, quang-text-editor, quang-input-number
-* fix text-editor style disabled
+* fix text-editor style when disabled
