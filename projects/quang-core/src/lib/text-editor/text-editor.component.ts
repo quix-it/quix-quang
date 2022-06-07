@@ -7,7 +7,8 @@ import {
   Optional,
   Renderer2,
   Self,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay, filter } from 'rxjs/operators'
@@ -20,7 +21,8 @@ import { ContentChange, QuillEditorComponent } from 'ngx-quill'
 @Component({
   selector: 'quang-text-editor',
   templateUrl: './text-editor.component.html',
-  styleUrls: ['./text-editor.component.scss']
+  styleUrls: ['./text-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 /**
  * text editor component
