@@ -36,9 +36,10 @@
     <div class="input-group-append">
       <button
         class="btn"
+        type="button"
+        aria-label="calendar"
         [ngClass]="buttonClass"
         [tabindex]="tabIndex"
-        type="button"
         (click)="_disabled ? null : drp.toggle()"
       >
         <ng-content select="[calendarIcon]"></ng-content>
