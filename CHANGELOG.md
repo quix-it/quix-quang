@@ -46,9 +46,10 @@
 * fix getRoles in quang-keycloak
 * feat add storybook
 
-## 13.1.0-beta.7
+## 13.1.0-beta.8
 
 * feat full-calendar add firstDay selectable and dayMaxEvents
 * fix full-calendar bootstrap 5
 * fix quang-input-file, quang-text-editor, quang-input-number
 * fix text-editor disabled style
+* fix accessibility for input-checkbox, input-radio, input-date, input-range-date, input-date-time, quang-paginator
