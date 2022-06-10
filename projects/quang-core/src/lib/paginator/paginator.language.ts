@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { MatPaginatorIntl } from '@angular/material/paginator'
 import { TranslocoService } from '@ngneat/transloco'
+
 /**
  * service decorator
  */
@@ -36,11 +37,13 @@ export class PaginatorLanguage extends MatPaginatorIntl {
       'quixPaginator.firstPage',
       'quixPaginator.lastPage'
     ]).subscribe(t => {
-      this.itemsPerPageLabel = t['quixPaginator.itemPerPage']
-      this.nextPageLabel = t['quixPaginator.nextPage']
-      this.previousPageLabel = t['quixPaginator.previousPage']
-      this.firstPageLabel = t['quixPaginator.firstPage']
-      this.lastPageLabel = t['quixPaginator.lastPage']
+      [
+        this.itemsPerPageLabel,
+        this.nextPageLabel,
+        this.previousPageLabel,
+        this.firstPageLabel,
+        this.lastPageLabel
+      ] = t
       this.changes.next()
     })
   }

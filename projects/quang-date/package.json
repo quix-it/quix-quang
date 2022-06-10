@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-date",
-    "version": "11.0.13",
+    "version": "11.0.14",
   "peerDependencies": {
     "date-fns": "^2.23.0"
   },

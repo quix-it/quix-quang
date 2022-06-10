@@ -34,8 +34,10 @@
     >
     <div class="input-group-append">
       <button class="btn"
-              [ngClass]="buttonClass"
               type="button"
+              role="button"
+              aria-label="calendar"
+              [ngClass]="buttonClass"
               [ngStyle]="{'pointer-event': _disabled ? 'none' : null}"
               (click)="drp.toggle()"
       >

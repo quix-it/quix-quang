@@ -13,3 +13,6 @@
 ## 11.0.13
 * fix date components
 * fix keycloak roles functions
+
+## 11.0.14
+* fix accessibility for input-checkbox, input-radio, input-date, input-range-date, input-date-time, quang-paginator

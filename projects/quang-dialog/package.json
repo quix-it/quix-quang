@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-dialog",
-    "version": "11.0.13",
+    "version": "11.0.14",
   "peerDependencies": {
     "@sentry/angular": "^6.2.3",
     "@sentry/tracing": "^6.2.3",
