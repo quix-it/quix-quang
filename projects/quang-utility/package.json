@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-utility",
-    "version": "11.0.14",
+    "version": "11.0.15-beta.0",
   "peerDependencies": {
     "ngx-webstorage": "^7.0.1",
     "date-fns": "^2.23.0"
