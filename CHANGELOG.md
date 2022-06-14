@@ -16,3 +16,7 @@
 
 ## 11.0.14
 * fix accessibility for input-checkbox, input-radio, input-date, input-range-date, input-date-time, quang-paginator
+
+## 11.0.15-beta.1
+* fix all modules
+* fix accessibility in input password
