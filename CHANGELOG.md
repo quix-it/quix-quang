@@ -53,3 +53,4 @@
 * fix quang-input-file, quang-text-editor, quang-input-number
 * fix text-editor disabled style
 * fix accessibility for input-checkbox, input-radio, input-date, input-range-date, input-date-time, input-password, quang-paginator
+* update transloco from 3.1.1 to 4.0.0
