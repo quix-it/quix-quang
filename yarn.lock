@@ -2053,10 +2053,10 @@
     "cosmiconfig" "^7.0.0"
     "tslib" "^2.3.0"
 
-"@ngneat/transloco@^3.1.1":
-  "integrity" "sha512-S9Lh3T5I9ck/HPD93HzGwLFBzjzoeUUBr4xL58lXtCHjGMVi9A9oCSgscKOZn/XfQiUwIO0dRhCVhqdT+sUGlQ=="
-  "resolved" "https://registry.npmjs.org/@ngneat/transloco/-/transloco-3.2.0.tgz"
-  "version" "3.2.0"
+"@ngneat/transloco@^4.0.0":
+  "integrity" "sha512-dBis8YaaLL5Cg/Uk+RTtzInD3A8ctKhOo9kbR+4SFHvtSSMM8dXyVwuFMjDGgLKdAn/U6WB6Cwp3LFCw0ftBgQ=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ngneat/transloco/-/transloco-4.1.0.tgz"
+  "version" "4.1.0"
   dependencies:
     "@ngneat/transloco-utils" "^3.0.1"
     "flat" "5.0.2"
