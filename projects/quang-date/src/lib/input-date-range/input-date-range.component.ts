@@ -1,8 +1,10 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef, Inject,
-  Input, LOCALE_ID,
+  ElementRef,
+  Inject,
+  Input,
+  LOCALE_ID,
   OnChanges,
   OnInit,
   Optional,
@@ -15,19 +17,21 @@ import { format } from 'date-fns'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay, filter } from 'rxjs/operators'
-  /**
-  * input date range component decorator
-  */
-  @Component({
-    selector: 'quang-input-date-range',
-    templateUrl: './input-date-range.component.html',
-    styles: ['']
-  })
 
-  /**
-  * input date range component
-  */
-  export class InputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
+/**
+ * input date range component decorator
+ */
+@Component({
+  selector: 'quang-input-date-range',
+  templateUrl: './input-date-range.component.html',
+  styles: []
+})
+/**
+ * input date range component
+ */
+export class InputDateRangeComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges
+{
   /**
    * Html id of input
    */
@@ -72,11 +76,11 @@ import { delay, filter } from 'rxjs/operators'
   /**
    * defines the minimum selectable date
    */
-  @Input() minDate: Date | null = null
+  @Input() minDate: Date | undefined = undefined
   /**
    * defines the maximum selectable date
    */
-  @Input() maxDate: Date | null = null
+  @Input() maxDate: Date | undefined = undefined
   /**
    * defines which days of the week to disable from the selection
    */
@@ -89,6 +93,7 @@ import { delay, filter } from 'rxjs/operators'
    * defines the starting view
    */
   @Input() minView: 'year' | 'month' | 'day' = 'year'
+
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
@@ -127,7 +132,7 @@ import { delay, filter } from 'rxjs/operators'
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> | null = null
+  config: Partial<BsDatepickerConfig> | undefined = undefined
   /**
    * The value of the input
    */
@@ -155,18 +160,18 @@ import { delay, filter } from 'rxjs/operators'
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
+  @ViewChild('input', { static: true }) input:
+    | ElementRef<HTMLInputElement>
+    | undefined
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
+  onTouched: any = () => {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged: any = () => {}
 
   /**
    * constructor
@@ -175,7 +180,7 @@ import { delay, filter } from 'rxjs/operators'
    * @param renderer html access
    * @param localeService locale utility
    */
-  constructor (
+  constructor(
     @Inject(LOCALE_ID) public locale: string,
     @Self() @Optional() public control: NgControl,
     private readonly renderer: Renderer2,
@@ -186,10 +191,9 @@ import { delay, filter } from 'rxjs/operators'
 
   /**
    *  init locale
-   *  check help message and create key
-   *  check if is valid
+   *  chek hel message and create key
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.config = {
       containerClass: 'theme-default',
       isAnimated: true,
@@ -213,22 +217,28 @@ import { delay, filter } from 'rxjs/operators'
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
         this.input?.nativeElement.focus()
       }
     }, 0)
+    console.log(this._value)
+    console.log(this._value.toString())
     this.observeValidate()
     this.control.control?.markAsPristine()
+    if (this._value.toString() === 'Invalid Date,Invalid Date') {
+      this.control.control?.setErrors({ invalidDate: true })
+      this.control.control?.markAsDirty()
+    }
   }
 
   /**
    * Add focus to the input field if the need comes after component initialization
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus?.currentValue && this.input) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['autofocus']?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
   }
@@ -236,14 +246,14 @@ import { delay, filter } from 'rxjs/operators'
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any): void {
+  registerOnChange(fn: any): void {
     this.onChanged = fn
   }
 
@@ -251,12 +261,14 @@ import { delay, filter } from 'rxjs/operators'
    * method triggered when the date selection changes, it triggers the native events of the cva
    * @param dates
    */
-  onChangedHandler (dates: Date[] | null): void {
+  onChangedHandler(dates: (Date | undefined)[] | undefined): void {
     this.onTouched()
     if (this.returnISODate) {
       this.onChanged(dates)
     } else if (dates) {
-      const tmp = dates.map(d => format(d, 'yyyy-MM-dd'))
+      const tmp = dates.map((d: Date | undefined) =>
+        format(d ? d : new Date(), 'yyyy-MM-dd')
+      )
       this.onChanged(tmp)
     } else {
       this.onChanged([])
@@ -267,7 +279,7 @@ import { delay, filter } from 'rxjs/operators'
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value: any): void {
+  writeValue(value: any): void {
     if (value) {
       if (!this.returnISODate && value?.length) {
         this._value = value.map((d: any) => new Date(d))
@@ -283,7 +295,7 @@ import { delay, filter } from 'rxjs/operators'
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  setDisabledState (isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
     this._disabled = isDisabled
   }
@@ -294,19 +306,21 @@ import { delay, filter } from 'rxjs/operators'
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (!this._value.length && this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          if (this.control.errors[error]) {
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-            this._requiredValue = this.control.errors[error].requiredValue
+  observeValidate(): void {
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (!this._value.length && this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
+            }
           }
         }
-      }
-    })
+      })
   }
 }

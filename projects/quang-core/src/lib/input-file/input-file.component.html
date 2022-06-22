@@ -23,14 +23,16 @@
       <p *ngFor="let f of _values;  let i = index">
         <button class="btn btn-link btn-sm"
                 type="button"
-                (click)="deleteFiles(i)">&times;
+                (click)="deleteFiles(i)"
+                [disabled]="input.disabled">&times;
         </button>
         {{f.name}}
       </p>
       <p [hidden]="!_value">
         <button class="btn btn-link btn-sm"
                 type="button"
-                (click)="deleteFile()">&times;
+                (click)="deleteFile()"
+                [disabled]="input.disabled">&times;
         </button>
         {{_value?.name}}
       </p>

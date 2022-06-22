@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-core",
-    "version": "11.0.15-beta.1",
+    "version": "11.0.15",
   "peerDependencies": {
     "ngx-quill": "^13.2.0",
     "quill": "^1.3.7",
