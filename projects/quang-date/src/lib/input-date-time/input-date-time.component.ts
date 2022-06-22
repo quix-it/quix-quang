@@ -1,8 +1,10 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef, Inject,
-  Input, LOCALE_ID,
+  ElementRef,
+  Inject,
+  Input,
+  LOCALE_ID,
   OnChanges,
   OnInit,
   Optional,
@@ -13,7 +15,11 @@ import {
 } from '@angular/core'
 
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
+import {
+  BsDatepickerConfig,
+  BsDatepickerInlineDirective,
+  BsLocaleService
+} from 'ngx-bootstrap/datepicker'
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -27,7 +33,9 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input date time component
  */
-export class InputDateTimeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
+export class InputDateTimeComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges
+{
   /**
    * Html id of input
    */
@@ -87,11 +95,11 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * defines the minimum selectable date
    */
-  @Input() minDate: Date | null = null
+  @Input() minDate: Date | undefined = undefined
   /**
    * defines the maximum selectable date
    */
-  @Input() maxDate: Date | null = null
+  @Input() maxDate: Date | undefined = undefined
   /**
    * Indicates whether, when the page is opened,
    * this input field should be displayed in a focused state or not
@@ -104,15 +112,15 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * the hour advance interval
    */
-  @Input() hourStep: number | null = null
+  @Input() hourStep: number = 0
   /**
    * the minute advance interval
    */
-  @Input() minuteStep: number | null = null
+  @Input() minuteStep: number = 0
   /**
    * the second advance interval
    */
-  @Input() secondStep: number | null = null
+  @Input() secondStep: number = 0
   /**
    * defines which days of the week to disable from the selection
    */
@@ -163,7 +171,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> | null = null
+  config: Partial<BsDatepickerConfig> | undefined = undefined
   /**
    * the top margin of the component
    */
@@ -191,22 +199,24 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
+  @ViewChild('input', { static: true }) input:
+    | ElementRef<HTMLInputElement>
+    | undefined
   /**
    * Dropdown selector html element ref
    */
-  @ViewChild('drp', { static: true }) datePicker: BsDatepickerInlineDirective | undefined
+  @ViewChild('drp', { static: true }) datePicker:
+    | BsDatepickerInlineDirective
+    | undefined
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
+  onTouched: any = () => {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged: any = () => {}
 
   /**
    * constructor
@@ -215,7 +225,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * @param control cva access
    * @param locale actual locale
    */
-  constructor (
+  constructor(
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
     @Self() @Optional() public control: NgControl,
@@ -229,7 +239,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * init locale
    * check help message and init key
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.config = {
       containerClass: 'theme-default',
       isAnimated: true,
@@ -262,7 +272,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
         this.input?.nativeElement.focus()
@@ -270,14 +280,18 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     }, 0)
     this.observeValidate()
     this.control.control?.markAsPristine()
+    if (this._valueDate.toString() === 'Invalid Date') {
+      this.control.control?.setErrors({ invalidDate: true })
+      this.control.control?.markAsDirty()
+    }
   }
 
   /**
    * Add focus to the input field if the need comes after component initialization
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus && this.input) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['autofocus'] && this.input) {
       this.input.nativeElement.focus()
     }
   }
@@ -285,14 +299,14 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any): void {
+  registerOnChange(fn: any): void {
     this.onChanged = fn
   }
 
@@ -300,7 +314,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * When the form is initialized it saves the data in the component state
    * @param value
    */
-  writeValue (value: any): void {
+  writeValue(value: any): void {
     this._valueTime = value
     this._valueDate = value
   }
@@ -309,7 +323,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  setDisabledState (isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
     this._disabled = isDisabled
   }
@@ -318,7 +332,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * event triggered when the date changes
    * @param date
    */
-  onChangedDate (date: Date): void {
+  onChangedDate(date: Date): void {
     if (!date) {
       this.onChanged(null)
     } else if (date.toString() === 'Invalid Date') {
@@ -335,7 +349,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * event triggered at the change of time
    * @param date
    */
-  onChangedTime (date: Event): void {
+  onChangedTime(date: Event): void {
     this.onTouched()
     this._valueDate = date
     this.onChanged(date)
@@ -347,19 +361,21 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          if (this.control.errors[error]) {
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-            this._requiredValue = this.control.errors[error].requiredValue
+  observeValidate(): void {
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
+            }
           }
         }
-      }
-    })
+      })
   }
 }

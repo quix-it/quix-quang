@@ -1,8 +1,10 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef, Inject,
-  Input, LOCALE_ID,
+  ElementRef,
+  Inject,
+  Input,
+  LOCALE_ID,
   OnChanges,
   OnInit,
   Optional,
@@ -13,7 +15,11 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { format } from 'date-fns'
-import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
+import {
+  BsDatepickerConfig,
+  BsDatepickerInlineDirective,
+  BsLocaleService
+} from 'ngx-bootstrap/datepicker'
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -27,7 +33,8 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input date component
  */
-export class InputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
+export class InputDateComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   /**
    * Html id of input
    */
@@ -72,11 +79,11 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   /**
    * defines the minimum selectable date
    */
-  @Input() minDate: Date | null = null
+  @Input() minDate: Date | undefined = undefined
   /**
    * defines the maximum selectable date
    */
-  @Input() maxDate: Date | null = null
+  @Input() maxDate: Date | undefined = undefined
   /**
    * defines which days of the week to disable from the selection
    */
@@ -132,7 +139,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> | null = null
+  config: Partial<BsDatepickerConfig> | undefined = undefined
   /**
    * the status of the success message
    */
@@ -157,19 +164,21 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
-  @ViewChild('drp', { static: true }) datePicker: BsDatepickerInlineDirective | undefined
+  @ViewChild('input', { static: true }) input:
+    | ElementRef<HTMLInputElement>
+    | undefined
+  @ViewChild('drp', { static: true }) datePicker:
+    | BsDatepickerInlineDirective
+    | undefined
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
+  onTouched: any = () => {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged: any = () => {}
 
   /**
    * constructor
@@ -223,6 +232,10 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
     }, 0)
     this.observeValidate()
     this.control.control?.markAsPristine()
+    if (this._value.toString() === 'Invalid Date') {
+      this.control.control?.setErrors({ invalidDate: true })
+      this.control.control?.markAsDirty()
+    }
   }
 
   /**
@@ -230,7 +243,7 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * @param changes component changes
    */
   ngOnChanges (changes: SimpleChanges): void {
-    if (changes.autofocus?.currentValue && this.input) {
+    if (changes['autofocus']?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
   }
@@ -253,7 +266,8 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * method triggered when the date selection changes, it triggers the native events of the cva
    * @param date
    */
-  onChangedHandler (date: Date): void {
+  onChangedHandler (date: Date | undefined): void {
+    this.onTouched()
     if (!date) {
       this.onChanged(null)
     } else if (date.toString() === 'Invalid Date') {
@@ -264,7 +278,6 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
     } else {
       this.onChanged(format(date, 'yyyy-MM-dd'))
     }
-    this.onTouched()
   }
 
   /**
@@ -272,13 +285,16 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * @param value
    */
   writeValue (value: any): void {
-    if (this.returnISODate && value
-    ) {
+    if (value) {
       this._value = new Date(value)
     } else {
       this._value = value
     }
   }
+
+  // getValue(value: any) : string {
+  //   return this._value = value
+  // }
 
   /**
    * Standard definition to create a control value accessor
@@ -296,29 +312,43 @@ export class InputDateComponent implements ControlValueAccessor, OnInit, AfterVi
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          if (this.control.errors[error]) {
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-            this._requiredValue = this.control.errors[error].requiredValue
-            if (error === 'dateBetween') {
-              if (this.dateFormat) {
-                this._requiredValue = format(new Date(this.control.errors.dateBetween.requiredValue[0]), this.dateFormat)
-                this._requiredValue += ' - '
-                this._requiredValue += format(new Date(this.control.errors.dateBetween.requiredValue[1]), this.dateFormat)
-              } else {
-                this._requiredValue = this.control.errors.dateBetween.requiredValue[0]
-                this._requiredValue += ' - '
-                this._requiredValue += this.control.errors.dateBetween.requiredValue[1]
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
+              if (error === 'dateBetween') {
+                if (this.dateFormat) {
+                  this._requiredValue = format(
+                    new Date(
+                      this.control.errors['dateBetween'].requiredValue[0]
+                    ),
+                    this.dateFormat
+                  )
+                  this._requiredValue += ' - '
+                  this._requiredValue += format(
+                    new Date(
+                      this.control.errors['dateBetween'].requiredValue[1]
+                    ),
+                    this.dateFormat
+                  )
+                } else {
+                  this._requiredValue =
+                    this.control.errors['dateBetween'].requiredValue[0]
+                  this._requiredValue += ' - '
+                  this._requiredValue +=
+                    this.control.errors['dateBetween'].requiredValue[1]
+                }
               }
             }
           }
         }
-      }
-    })
+      })
   }
 }

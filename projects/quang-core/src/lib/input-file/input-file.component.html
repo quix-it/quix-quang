@@ -1,10 +1,11 @@
 <div class="mb-3" [ngClass]="customClass">
-  <label class="form-label"
-         [htmlFor]="id"
-         [attr.aria-label]="ariaLabel"
-         *ngIf="label">
-    {{label | transloco}}
-    <span [hidden]="!control?.errors?.required">*</span>
+  <label
+    [htmlFor]="id"
+    class="form-label"
+    [attr.aria-label]="ariaLabel | transloco"
+    *ngIf="label">
+    {{ label | transloco }}
+    <span [hidden]="!control?.errors?.['required']">*</span>
   </label>
   <ngx-file-drop
     [dropZoneLabel]="_dropMessage | transloco"
@@ -15,44 +16,57 @@
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     (blur)="onTouched()"
     [multiple]="multiple"
-    [accept]="acceptFileType"
-    #input>
-    <ng-template ngx-file-drop-content-tmp
-                 let-openFileSelector="openFileSelector">
+    #input
+  >
+    <ng-template
+      ngx-file-drop-content-tmp
+      let-openFileSelector="openFileSelector">
       <ng-content select="[uploadIcon]"></ng-content>
-      <p *ngFor="let f of _values;  let i = index">
-        <button class="btn btn-link btn-sm"
-                type="button"
-                (click)="deleteFiles(i)">&times;
+      <p *ngFor="let f of _values; let i = index">
+        <button
+          class="btn btn-link btn-sm"
+          type="button"
+          (click)="deleteFiles(i)"
+          [disabled]="input.disabled"
+        >
+          &times;
         </button>
-        {{f.name}}
+        {{ f.name }}
       </p>
       <p [hidden]="!_value">
-        <button class="btn btn-link btn-sm"
-                type="button"
-                (click)="deleteFile()">&times;
+        <button
+          class="btn btn-link btn-sm"
+          type="button"
+          (click)="deleteFile()"
+          [disabled]="input.disabled">
+          &times;
         </button>
-        {{_value?.name}}
+        {{ _value?.name }}
       </p>
-      <button type="button"
-              [ngClass]="buttonClass"
-              (click)="openFileSelector()"
-              #inputBtn>
-        {{buttonLabel | transloco}}
+      <button
+        type="button"
+        [ngClass]="buttonClass"
+        (click)="openFileSelector()"
+        #inputBtn>
+        {{ buttonLabel | transloco }}
       </button>
     </ng-template>
   </ngx-file-drop>
-  <div class="valid-feedback">
-    {{_successMessage | transloco}}
+  <div class="valid-feedback" aria-live="assertive">
+    {{ _successMessage | transloco }}
   </div>
-  <div class="invalid-feedback"
-       [attr.aria-errormessage]="_errorMessage">
-    {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
+  <div class="invalid-feedback" aria-live="polite" [id]="id + '-error'">
+    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
-  <small [id]="id + 'Help'"
-         class="form-text text-muted"
-         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         *ngIf="helpMessage">
-    {{_helpMessage | transloco}}
+  <small
+    [id]="id + '-help'"
+    aria-live="assertive"
+    class="form-text text-muted"
+    [hidden]="
+      control?.dirty &&
+      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
+    "
+    *ngIf="helpMessage">
+    {{ _helpMessage | transloco }}
   </small>
 </div>

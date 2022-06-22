@@ -6,14 +6,18 @@ import {
   Input,
   OnInit,
   Optional,
-  Output,
+  Output, QueryList,
   Renderer2,
   Self,
-  ViewChild
+  ViewChild, ViewChildren, ViewContainerRef
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay, filter } from 'rxjs/operators'
-import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx-file-drop'
+import {
+  FileSystemFileEntry,
+  NgxFileDropComponent,
+  NgxFileDropEntry
+} from 'ngx-file-drop'
 
 /**
  * input file component decorator
@@ -21,12 +25,13 @@ import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx
 @Component({
   selector: 'quang-input-file',
   templateUrl: './input-file.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input file component
  */
-export class InputFileComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+export class InputFileComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit {
   /**
    * Html id of input
    */
@@ -70,10 +75,6 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    */
   @Input() tabIndex: number = 0
   /**
-   * Indicate the file type selectable
-   */
-  @Input() acceptFileType: string = ''
-  /**
    * The classes that define the style of the button for selecting the file
    */
   @Input() buttonClass: string[] = []
@@ -81,6 +82,10 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * Array of additional classes to the input field
    */
   @Input() customClass: string[] = []
+  /**
+   * Indicate the file type selectable
+   */
+  @Input() acceptFileType: string = ''
   /**
    * Event that emits when the file being dragged is above the input field
    */
@@ -96,7 +101,13 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   /**
    * The html button of selection
    */
-  @ViewChild('inputBtn', { static: false }) inputBtn: ElementRef<HTMLButtonElement> | undefined
+  @ViewChild('inputBtn', { static: false }) inputBtn:
+    | ElementRef<HTMLButtonElement>
+    | undefined
+  /**
+   *
+   */
+  @ViewChildren('deleteBtns', { read: ViewContainerRef }) public deleteBtns: QueryList<ViewContainerRef> | undefined
   /**
    * The value of the input
    */
@@ -128,14 +139,11 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
-
+  onTouched: any = () => {}
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged: any = () => {}
 
   /**
    * constructor
@@ -155,6 +163,9 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   ngOnInit (): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
+    }
+    if (this.successMessage) {
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
     this._dropMessage = `${this.formName}.${this.control?.name}.drop`
   }
@@ -192,7 +203,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
     } else {
       this._value = null
     }
-    files.forEach(f => {
+    files.forEach((f) => {
       if (f.fileEntry.isFile) {
         const fileEntry = f.fileEntry as FileSystemFileEntry
         fileEntry.file((file: File) => {
@@ -215,7 +226,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * check if the value is a list or not and decide which state to initialize
    * @param value
    */
-  writeValue (value: File | File []): void {
+  writeValue (value: File | File[]): void {
     if (this.multiple) {
       if (value) {
         this._values = value as File[]
@@ -234,6 +245,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
   setDisabledState (isDisabled: boolean): void {
     if (this.input) this.input.disabled = isDisabled
     this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.deleteBtns?.toArray(), 'disabled', isDisabled)
   }
 
   /**
@@ -250,7 +262,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * @param index
    */
   deleteFiles (index: number): void {
-    this._values = this._values.splice(index, 1)
+    this._values.splice(index, 1)
     this.onTouched()
     this.onChanged(this._values)
   }
@@ -262,22 +274,21 @@ export class InputFileComponent implements OnInit, ControlValueAccessor, AfterVi
    * to allow for the creation of custom messages
    */
   observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (this.control.valid && this.successMessage) {
-        this._successMessage = `${this.formName}.${this.control?.name}.valid`
-      }
-      if (this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          if (this.control.errors[error]) {
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-            this._requiredValue = this.control.errors[error].requiredValue
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
+            }
           }
         }
-      }
-    })
+      })
   }
 
   /**
