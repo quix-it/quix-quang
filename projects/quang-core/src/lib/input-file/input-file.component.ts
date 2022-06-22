@@ -105,10 +105,6 @@ export class InputFileComponent
     | ElementRef<HTMLButtonElement>
     | undefined
   /**
-   *
-   */
-  @ViewChildren('deleteBtns', { read: ViewContainerRef }) public deleteBtns: QueryList<ViewContainerRef> | undefined
-  /**
    * The value of the input
    */
   _value: File | null = null
@@ -245,7 +241,6 @@ export class InputFileComponent
   setDisabledState (isDisabled: boolean): void {
     if (this.input) this.input.disabled = isDisabled
     this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
-    this.renderer.setProperty(this.deleteBtns?.toArray(), 'disabled', isDisabled)
   }
 
   /**
