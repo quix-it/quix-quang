@@ -41,6 +41,7 @@ import { InputUrlComponent } from './input-url/input-url.component'
 import { InputTelComponent } from './input-tel/input-tel.component'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { DatalistComponent } from './datalist/datalist.component'
+import { TextViewComponent } from './text-view/text-view.component'
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { DatalistComponent } from './datalist/datalist.component'
     InputFileComponent,
     InputUrlComponent,
     InputTelComponent,
-    DatalistComponent
+    DatalistComponent,
+    TextViewComponent
   ],
   imports: [
     CommonModule,
@@ -120,7 +122,8 @@ import { DatalistComponent } from './datalist/datalist.component'
     InputFileComponent,
     InputUrlComponent,
     InputTelComponent,
-    DatalistComponent
+    DatalistComponent,
+    TextViewComponent
   ]
 })
 export class QuangCoreModule {}
