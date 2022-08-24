@@ -2,7 +2,9 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input, OnChanges, OnInit,
+  Input,
+  OnChanges,
+  OnInit,
   Optional,
   Renderer2,
   Self,
@@ -23,7 +25,9 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * select object component
  */
-export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
+export class SelectObjComponent
+  implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges
+{
   /**
    * The label to display on the input field
    */
@@ -69,11 +73,11 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * Defines the key of the value that will be used as the label for the input
    */
-  @Input() labelValue: string | null = null
+  @Input() labelValue: string = 'description'
   /**
    * Defines the key of the value that will be returned as the value of the input
    */
-  @Input() returnValue: string | null = null
+  @Input() returnValue: string = 'code'
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -96,7 +100,7 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * The value of the input
    */
-  _value: string = ''
+  _value: any
   /**
    * the status of the success message
    */
@@ -116,25 +120,26 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {
-  }
+  @ViewChild('input', { static: true }) input:
+    | ElementRef<HTMLSelectElement>
+    | undefined
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * constructor
    * @param renderer html access
    * @param control cva access
    */
-  constructor (
+  constructor(
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
@@ -144,7 +149,8 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * Check if the help message is required and create the key
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
+    if (this.nullOption) this.list.splice(0,0,{})
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
@@ -157,7 +163,7 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
         this.input?.nativeElement.focus()
@@ -170,13 +176,16 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
    * Add focus to the input field if the need comes after component initialization
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
     if (changes.list?.currentValue) {
       if (!this.nullOption && !this._value) {
-        if (this.returnValue) this._value = this._value = (changes.list.currentValue as any[])[0][this.returnValue]
+        if (this.returnValue)
+          this._value = this._value = (changes.list.currentValue as any[])[0][
+            this.returnValue
+          ]
         this.onTouched()
         this.onChanged(this._value)
       }
@@ -186,14 +195,14 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any): void {
+  registerOnChange(fn: any): void {
     this.onChanged = fn
   }
 
@@ -202,8 +211,8 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: Event): void {
-    this._value = (e.target as HTMLInputElement).value
+  onChangedHandler(e: any): void {
+    this._value = this.list[e.target.selectedIndex][this.returnValue]
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -212,7 +221,7 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value: any): void {
+  writeValue(value: any): void {
     this._value = value
     this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
@@ -221,7 +230,7 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  setDisabledState (isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 
@@ -231,19 +240,21 @@ export class SelectObjComponent implements ControlValueAccessor, AfterViewInit, 
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
-        if (this.control.errors) {
-          for (const error in this.control.errors) {
-            this._requiredValue = this.control.errors[error].requiredValue
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+  observeValidate(): void {
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (this.control.invalid && this.errorMessage) {
+          if (this.control.errors) {
+            for (const error in this.control.errors) {
+              this._requiredValue = this.control.errors[error].requiredValue
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+            }
           }
         }
-      }
-    })
+      })
   }
 }
