@@ -16,6 +16,7 @@
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     (blur)="onTouched()"
     [multiple]="multiple"
+    [accept]="acceptFileType"
     #input
   >
     <ng-template

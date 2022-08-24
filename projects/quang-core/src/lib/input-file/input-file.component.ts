@@ -6,10 +6,10 @@ import {
   Input,
   OnInit,
   Optional,
-  Output, QueryList,
+  Output,
   Renderer2,
   Self,
-  ViewChild, ViewChildren, ViewContainerRef
+  ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay, filter } from 'rxjs/operators'
@@ -31,7 +31,8 @@ import {
  * input file component
  */
 export class InputFileComponent
-  implements ControlValueAccessor, OnInit, AfterViewInit {
+  implements ControlValueAccessor, OnInit, AfterViewInit
+{
   /**
    * Html id of input
    */
@@ -146,7 +147,7 @@ export class InputFileComponent
    * @param renderer html access
    * @param control cva access
    */
-  constructor (
+  constructor(
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
@@ -156,7 +157,7 @@ export class InputFileComponent
   /**
    * Create the key for the help and drop message
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
@@ -170,21 +171,21 @@ export class InputFileComponent
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     this.observeValidate()
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any): void {
+  registerOnChange(fn: any): void {
     this.onChanged = fn
   }
 
@@ -193,7 +194,7 @@ export class InputFileComponent
    * it extracts the data of the selected file and starts the flow of the cva
    * @param files
    */
-  onChangedHandler (files: NgxFileDropEntry[]): void {
+  onChangedHandler(files: NgxFileDropEntry[]): void {
     if (this.multiple) {
       this._values = []
     } else {
@@ -205,16 +206,18 @@ export class InputFileComponent
         fileEntry.file((file: File) => {
           if (this.multiple) {
             this._values = [...this._values, file]
-            this.onTouched()
-            this.onChanged(this._values)
           } else {
             this._value = file
-            this.onTouched()
-            this.onChanged(this._value)
           }
         })
       }
     })
+    this.onTouched()
+    if (this.multiple) {
+      this.onChanged(this._values)
+    } else {
+      this.onChanged(this._value)
+    }
   }
 
   /**
@@ -222,7 +225,7 @@ export class InputFileComponent
    * check if the value is a list or not and decide which state to initialize
    * @param value
    */
-  writeValue (value: File | File[]): void {
+  writeValue(value: File | File[]): void {
     if (this.multiple) {
       if (value) {
         this._values = value as File[]
@@ -238,15 +241,19 @@ export class InputFileComponent
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  setDisabledState (isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     if (this.input) this.input.disabled = isDisabled
-    this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(
+      this.inputBtn?.nativeElement,
+      'disabled',
+      isDisabled
+    )
   }
 
   /**
    * Delete the file, change the input status and start the cva flow
    */
-  deleteFile (): void {
+  deleteFile(): void {
     this._value = null
     this.onTouched()
     this.onChanged(this._value)
@@ -256,7 +263,7 @@ export class InputFileComponent
    * Delete the file list, change the input status and start the cva flow
    * @param index
    */
-  deleteFiles (index: number): void {
+  deleteFiles(index: number): void {
     this._values.splice(index, 1)
     this.onTouched()
     this.onChanged(this._values)
@@ -268,7 +275,7 @@ export class InputFileComponent
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate (): void {
+  observeValidate(): void {
     this.control?.statusChanges
       ?.pipe(
         delay(0),
@@ -290,7 +297,7 @@ export class InputFileComponent
    * When the file during a drag action and above the input field emits an event
    * @param e
    */
-  fileOver (e: any): void {
+  fileOver(e: any): void {
     this.whenDragOver.emit(e)
   }
 
@@ -298,7 +305,7 @@ export class InputFileComponent
    * When the file is dropped into the input field during a drag action, it emits an event
    * @param e
    */
-  fileLeave (e: any): void {
+  fileLeave(e: any): void {
     this.whenDragLeave.emit(e)
   }
 }
