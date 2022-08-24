@@ -150,8 +150,6 @@ export class SelectObjComponent
    * Check if the help message is required and create the key
    */
   ngOnInit(): void {
-    console.log("init");
-    // if (this.nullOption) this.list.splice(0,0,{})
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`;
     }
