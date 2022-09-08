@@ -54,3 +54,8 @@
 * fix text-editor disabled style
 * fix accessibility for input-checkbox, input-radio, input-date, input-range-date, input-date-time, input-password, quang-paginator
 * update transloco from 3.1.1 to 4.0.0
+
+## 13.1.1
+
+* fix select-obj empty value at init
+* feat add select-strg and select-obj default init value by Input

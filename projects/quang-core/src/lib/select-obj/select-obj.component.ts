@@ -96,6 +96,10 @@ export class SelectObjComponent
    * if not specified the field is displayed with standard size
    */
   @Input() size: "lg" | "sm" | null = null;
+  /**
+   * set default start value in select option
+   */
+  @Input() defaultValue: any;
 
   /**
    * The value of the input
@@ -155,6 +159,10 @@ export class SelectObjComponent
     }
     if (this.successMessage) {
       this._successMessage = `${this.formName}.${this.control?.name}.valid`;
+    }
+    if (this.defaultValue) {
+      this.writeValue(this.defaultValue);
+      this.onChanged(this._value);
     }
   }
 
