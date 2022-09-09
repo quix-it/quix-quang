@@ -58,4 +58,4 @@
 ## 13.1.1
 
 * fix select-obj empty value at init
-* feat add select-strg and select-obj default init value by Input
+* feat add default init value by Input in input components
