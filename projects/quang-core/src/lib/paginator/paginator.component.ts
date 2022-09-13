@@ -102,7 +102,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   constructor(private readonly renderer: Renderer2) {}
   ngOnInit(): void {
     if (this.defaultSize) {
-      this._pageIndex = this.pageIndex
+      this._pageSize = this.pageSize
     }
   }
 
