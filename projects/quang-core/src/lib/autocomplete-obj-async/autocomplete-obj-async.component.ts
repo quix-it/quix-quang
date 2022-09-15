@@ -285,15 +285,6 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    */
   writeValue (value: any): void {
     this._value = value
-    if (this.restApi) {
-      this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, '').subscribe(
-        (l: any[]) => this.findObj(l)
-      )
-    } else {
-      this.autocompleteService.getList(this.baseUrl, this.apiUrl, '', this.apiParamName).subscribe(
-        (l: any[]) => this.findObj(l)
-      )
-    }
   }
 
   /**
