@@ -55,7 +55,8 @@
 * fix accessibility for input-checkbox, input-radio, input-date, input-range-date, input-date-time, input-password, quang-paginator
 * update transloco from 3.1.1 to 4.0.0
 
-## 13.1.1
+## 13.2.0
 
 * fix select-obj empty value at init
-* feat add default init value by Input in input components
+* feat: add transloco labels options for quang-paginator pageRange
+* feat add default init value by Input with validation onInit in inputs: datalist, checkbox, email, number, password, radio, search, tel, text, url, select-obj, select-strg, text-area, toggle
