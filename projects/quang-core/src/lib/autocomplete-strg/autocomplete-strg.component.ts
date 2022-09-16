@@ -105,7 +105,7 @@ export class AutocompleteStrgComponent
   /**
    * set default start value in select option
    */
-  @Input() defaultValue: string | undefined = undefined;
+  @Input() defaultValue: string = "";
 
   /**
    * The value of the input
