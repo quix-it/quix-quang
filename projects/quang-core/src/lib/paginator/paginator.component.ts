@@ -61,7 +61,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   /**
    * when true define pageSize initialize as default value of pagination select
    */
-  @Input() defaultSize: boolean = false;
+  @Input() defaultSize: boolean = true;
   /**
    * Raises an event when the page index changes
    */
