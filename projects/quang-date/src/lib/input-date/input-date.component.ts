@@ -281,6 +281,7 @@ export class InputDateComponent
    */
   onChangedHandler(date: Date | undefined): void {
     this.onTouched();
+    this.control.control?.setValue(date)
     if (!date) {
       this.onChanged(null);
     } else if (date.toString() === "Invalid Date") {
