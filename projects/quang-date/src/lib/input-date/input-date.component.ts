@@ -281,7 +281,6 @@ export class InputDateComponent
    */
   onChangedHandler(date: Date | undefined): void {
     this.onTouched();
-    this.control.control?.setValue(date)
     if (!date) {
       this.onChanged(null);
     } else if (date.toString() === "Invalid Date") {
@@ -304,6 +303,8 @@ export class InputDateComponent
     } else {
       this._value = value;
     }
+    if (this.input)
+      this.renderer.setProperty(this.input.nativeElement, "value", value);
   }
 
   // getValue(value: any) : string {
