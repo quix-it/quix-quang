@@ -245,10 +245,7 @@ export class InputDateComponent
     }, 0);
     this.observeValidate();
     this.control.control?.markAsPristine();
-    if (this._value.toString() === "Invalid Date") {
-      this.control.control?.setErrors({ invalidDate: true });
-      this.control.control?.markAsDirty();
-    }
+    if (this._value) this.onBsValueChange(this._value);
   }
 
   /**
@@ -279,11 +276,12 @@ export class InputDateComponent
    * method triggered when the date selection changes, it triggers the native events of the cva
    * @param date
    */
-  onChangedHandler(date: Date | undefined): void {
+   onBsValueChange(date: Date | undefined): void {
     this.onTouched();
     if (!date) {
       this.onChanged(null);
     } else if (date.toString() === "Invalid Date") {
+      this.onChanged(null);
       this.control.control?.setErrors({ invalidDate: true });
       this.control.control?.markAsDirty();
     } else if (this.returnISODate) {
