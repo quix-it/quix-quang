@@ -22,12 +22,12 @@ import {
 } from "ngx-bootstrap/datepicker";
 import { delay, filter } from "rxjs/operators";
 
-const defaultConfig = Object.freeze({
+const defaultConfig = {
   containerClass: "theme-default",
   isAnimated: true,
   adaptivePosition: true,
   returnFocusToInput: true,
-});
+};
 
 /**
  * input date component decorator
