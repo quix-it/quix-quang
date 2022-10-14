@@ -11,24 +11,24 @@ import {
   Renderer2,
   Self,
   SimpleChanges,
-  ViewChild
-} from '@angular/core'
+  ViewChild,
+} from "@angular/core";
 
-import { ControlValueAccessor, NgControl } from '@angular/forms'
+import { ControlValueAccessor, NgControl } from "@angular/forms";
 import {
   BsDatepickerConfig,
   BsDatepickerInlineDirective,
-  BsLocaleService
-} from 'ngx-bootstrap/datepicker'
-import { delay, filter } from 'rxjs/operators'
+  BsLocaleService,
+} from "ngx-bootstrap/datepicker";
+import { delay, filter } from "rxjs/operators";
 
 /**
  * input date time component decorator
  */
 @Component({
-  selector: 'quang-input-date-time',
-  templateUrl: './input-date-time.component.html',
-  styleUrls: ['./input-date-time.component.scss']
+  selector: "quang-input-date-time",
+  templateUrl: "./input-date-time.component.html",
+  styleUrls: ["./input-date-time.component.scss"],
 })
 /**
  * input date time component
@@ -39,184 +39,184 @@ export class InputDateTimeComponent
   /**
    * Html id of input
    */
-  @Input() id: string = ''
+  @Input() id: string = "";
   /**
    * The label to display on the input field
    */
-  @Input() label: string = ''
+  @Input() label: string = "";
   /**
    * The placeholder of the input field
    */
-  @Input() placeholder: string = ''
+  @Input() placeholder: string = "";
   /**
    * The placeholder of the hours input field
    */
-  @Input() hoursPlaceholder: string = 'hh'
+  @Input() hoursPlaceholder: string = "hh";
   /**
    * The placeholder of the minutes input field
    */
-  @Input() minutesPlaceholder: string = 'mm'
+  @Input() minutesPlaceholder: string = "mm";
   /**
    * The placeholder of the seconds input field
    */
-  @Input() secondsPlaceholder: string = 'ss'
+  @Input() secondsPlaceholder: string = "ss";
   /**
    * Defines if you want to display the help message for the user
    */
-  @Input() helpMessage: boolean = false
+  @Input() helpMessage: boolean = false;
   /**
    * defines the format of the return date
    */
-  @Input() dateFormat: string = ''
+  @Input() dateFormat: string = "";
   /**
    * Defines if you want to display the success message for the user
    */
-  @Input() successMessage: boolean = false
+  @Input() successMessage: boolean = false;
   /**
    * Defines if you want to display the error message for the user
    */
-  @Input() errorMessage: boolean = false
+  @Input() errorMessage: boolean = false;
   /**
    * defines whether to display the seconds input
    */
-  @Input() showSecond: boolean = false
+  @Input() showSecond: boolean = false;
   /**
    * defines whether to display the week number
    */
-  @Input() showWeekNumbers: boolean = false
+  @Input() showWeekNumbers: boolean = false;
   /**
    * defines whether to display the chevrons for time selection
    */
-  @Input() showSelector: boolean = false
+  @Input() showSelector: boolean = false;
   /**
    * defines whether to display the button to change the selection from 24h to 12h
    */
-  @Input() showMeridianButton: boolean = false
+  @Input() showMeridianButton: boolean = false;
   /**
    * defines the minimum selectable date
    */
-  @Input() minDate: Date | undefined = undefined
+  @Input() minDate: Date | undefined = undefined;
   /**
    * defines the maximum selectable date
    */
-  @Input() maxDate: Date | undefined = undefined
+  @Input() maxDate: Date | undefined = undefined;
   /**
    * Indicates whether, when the page is opened,
    * this input field should be displayed in a focused state or not
    */
-  @Input() autofocus: boolean = false
+  @Input() autofocus: boolean = false;
   /**
    * the list of dates that cannot be selected in the calendar
    */
-  @Input() disabledDates: Date[] = []
+  @Input() disabledDates: Date[] = [];
   /**
    * the hour advance interval
    */
-  @Input() hourStep: number = 0
+  @Input() hourStep: number = 0;
   /**
    * the minute advance interval
    */
-  @Input() minuteStep: number = 0
+  @Input() minuteStep: number = 0;
   /**
    * the second advance interval
    */
-  @Input() secondStep: number = 0
+  @Input() secondStep: number = 0;
   /**
    * defines which days of the week to disable from the selection
    */
-  @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = []
+  @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = [];
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
-  @Input() ariaLabel: string = `Input ${this.label}`
+  @Input() ariaLabel: string = `Input ${this.label}`;
   /**
    * Defines the class of the selector open button
    */
-  @Input() buttonClass: string[] = []
+  @Input() buttonClass: string[] = [];
   /**
    * Indicate the position in the page navigation flow with the tab key
    */
-  @Input() tabIndex: number = 0
+  @Input() tabIndex: number = 0;
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
    */
-  @Input() formName: string = ''
+  @Input() formName: string = "";
   /**
    * Adds css classes to the component
    */
-  @Input() customClass: string[] = []
+  @Input() customClass: string[] = [];
   /**
    * Defines where to place the date selector in response to the input field
    */
-  @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
+  @Input() placement: "top" | "bottom" | "left" | "right" = "bottom";
   /**
    * Define the size of the input field following the bootstrap css rules
    */
-  @Input() size: 'sm' | 'lg' | null = null
+  @Input() size: "sm" | "lg" | null = null;
   /**
    * Defines the autocomplete tag to indicate to the browser what type of field it is
    * and how to help the user fill it in
    */
-  @Input() autocomplete: string = 'off'
+  @Input() autocomplete: string = "off";
   /**
    * the internal state of the date
    */
-  _valueDate: any
+  _valueDate: any;
   /**
    * the internal state of the time
    */
-  _valueTime: any
+  _valueTime: any;
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> | undefined = undefined
+  config: Partial<BsDatepickerConfig> | undefined = undefined;
   /**
    * the top margin of the component
    */
-  _margin: string = ''
+  _margin: string = "";
   /**
    * the status of the success message
    */
-  _successMessage: string = ''
+  _successMessage: string = "";
   /**
    * the status of the error message
    */
-  _errorMessage: string = ''
+  _errorMessage: string = "";
   /**
    * the status of the help message
    */
-  _helpMessage: string = ''
+  _helpMessage: string = "";
   /**
    * Contains the value required by a validation when it fails
    */
-  _requiredValue: any = ''
+  _requiredValue: any = "";
   /**
    * internal status disabled
    */
-  _disabled: boolean = false
+  _disabled: boolean = false;
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input:
+  @ViewChild("input", { static: true }) input:
     | ElementRef<HTMLInputElement>
-    | undefined
+    | undefined;
   /**
    * Dropdown selector html element ref
    */
-  @ViewChild('drp', { static: true }) datePicker:
+  @ViewChild("drp", { static: true }) datePicker:
     | BsDatepickerInlineDirective
-    | undefined
+    | undefined;
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {}
+  onTouched: any = () => {};
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {}
+  onChanged: any = () => {};
 
   /**
    * constructor
@@ -231,7 +231,7 @@ export class InputDateTimeComponent
     @Self() @Optional() public control: NgControl,
     @Inject(LOCALE_ID) public locale: string
   ) {
-    this.control.valueAccessor = this
+    this.control.valueAccessor = this;
   }
 
   /**
@@ -241,30 +241,30 @@ export class InputDateTimeComponent
    */
   ngOnInit(): void {
     this.config = {
-      containerClass: 'theme-default',
+      containerClass: "theme-default",
       isAnimated: true,
       adaptivePosition: true,
       dateInputFormat: this.dateFormat,
       rangeInputFormat: this.dateFormat,
-      showWeekNumbers: this.showWeekNumbers
-    }
+      showWeekNumbers: this.showWeekNumbers,
+    };
     if (this.label) {
       if (this.showSelector) {
-        this._margin = '.3rem'
+        this._margin = ".3rem";
       } else {
-        this._margin = '2rem'
+        this._margin = "2rem";
       }
     } else {
-      this._margin = '0'
+      this._margin = "0";
     }
     if (this.locale) {
-      this.localeService.use(this.locale)
+      this.localeService.use(this.locale);
     }
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.control?.name}.help`;
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`;
     }
   }
 
@@ -275,14 +275,14 @@ export class InputDateTimeComponent
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input?.nativeElement.focus()
+        this.input?.nativeElement.focus();
       }
-    }, 0)
-    this.observeValidate()
-    this.control.control?.markAsPristine()
-    if (this._valueDate.toString() === 'Invalid Date') {
-      this.control.control?.setErrors({ invalidDate: true })
-      this.control.control?.markAsDirty()
+    }, 0);
+    this.observeValidate();
+    this.control.control?.markAsPristine();
+    if (this._valueDate.toString() === "Invalid Date") {
+      this.control.control?.setErrors({ invalidDate: true });
+      this.control.control?.markAsDirty();
     }
   }
 
@@ -291,8 +291,8 @@ export class InputDateTimeComponent
    * @param changes component changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['autofocus'] && this.input) {
-      this.input.nativeElement.focus()
+    if (changes["autofocus"] && this.input) {
+      this.input.nativeElement.focus();
     }
   }
 
@@ -300,14 +300,14 @@ export class InputDateTimeComponent
    * Standard definition to create a control value accessor
    */
   registerOnTouched(fn: any): void {
-    this.onTouched = fn
+    this.onTouched = fn;
   }
 
   /**
    * Standard definition to create a control value accessor
    */
   registerOnChange(fn: any): void {
-    this.onChanged = fn
+    this.onChanged = fn;
   }
 
   /**
@@ -315,8 +315,13 @@ export class InputDateTimeComponent
    * @param value
    */
   writeValue(value: any): void {
-    this._valueTime = value
-    this._valueDate = value
+    if (value) {
+      this._valueTime = new Date(value);
+      this._valueDate = new Date(value);
+    } else {
+      this._valueTime = value;
+      this._valueDate = value;
+    }
   }
 
   /**
@@ -324,8 +329,12 @@ export class InputDateTimeComponent
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
-    this._disabled = isDisabled
+    this.renderer.setProperty(
+      this.input?.nativeElement,
+      "disabled",
+      isDisabled
+    );
+    this._disabled = isDisabled;
   }
 
   /**
@@ -334,15 +343,15 @@ export class InputDateTimeComponent
    */
   onChangedDate(date: Date): void {
     if (!date) {
-      this.onChanged(null)
-    } else if (date.toString() === 'Invalid Date') {
-      this.control.control?.setErrors({ invalidDate: true })
-      this.control.control?.markAsDirty()
+      this.onChanged(null);
+    } else if (date.toString() === "Invalid Date") {
+      this.control.control?.setErrors({ invalidDate: true });
+      this.control.control?.markAsDirty();
     } else {
-      this.onChanged(date)
-      this._valueTime = date
+      this.onChanged(date);
+      this._valueTime = date;
     }
-    this.onTouched()
+    this.onTouched();
   }
 
   /**
@@ -350,9 +359,9 @@ export class InputDateTimeComponent
    * @param date
    */
   onChangedTime(date: Event): void {
-    this.onTouched()
-    this._valueDate = date
-    this.onChanged(date)
+    this.onTouched();
+    this._valueDate = date;
+    this.onChanged(date);
   }
 
   /**
@@ -371,11 +380,11 @@ export class InputDateTimeComponent
         if (this.control.invalid && this.errorMessage) {
           for (const error in this.control.errors) {
             if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`;
+              this._requiredValue = this.control.errors[error].requiredValue;
             }
           }
         }
-      })
+      });
   }
 }
