@@ -158,6 +158,7 @@ export class InputDateComponent
    * The value of the input
    */
   _value: any;
+
   /**
    * the status of the success message
    */
@@ -185,9 +186,11 @@ export class InputDateComponent
   @ViewChild("input", { static: true }) input:
     | ElementRef<HTMLInputElement>
     | undefined;
+
   @ViewChild("drp", { static: true }) datePicker:
     | BsDatepickerInlineDirective
     | undefined;
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -253,7 +256,7 @@ export class InputDateComponent
    * @param changes component changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["autofocus"]?.currentValue && this.input) {
+    if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus();
     }
   }
@@ -276,7 +279,7 @@ export class InputDateComponent
    * method triggered when the date selection changes, it triggers the native events of the cva
    * @param date
    */
-   onBsValueChange(date: Date | undefined): void {
+  onBsValueChange(date: Date | undefined): void {
     this.onTouched();
     if (!date) {
       this.onChanged(null);
@@ -304,10 +307,6 @@ export class InputDateComponent
     if (this.input)
       this.renderer.setProperty(this.input.nativeElement, "value", value);
   }
-
-  // getValue(value: any) : string {
-  //   return this._value = value
-  // }
 
   /**
    * Standard definition to create a control value accessor
@@ -343,24 +342,20 @@ export class InputDateComponent
               if (error === "dateBetween") {
                 if (this.dateFormat) {
                   this._requiredValue = format(
-                    new Date(
-                      this.control.errors["dateBetween"].requiredValue[0]
-                    ),
+                    new Date(this.control.errors.dateBetween.requiredValue[0]),
                     this.dateFormat
                   );
                   this._requiredValue += " - ";
                   this._requiredValue += format(
-                    new Date(
-                      this.control.errors["dateBetween"].requiredValue[1]
-                    ),
+                    new Date(this.control.errors.dateBetween.requiredValue[1]),
                     this.dateFormat
                   );
                 } else {
                   this._requiredValue =
-                    this.control.errors["dateBetween"].requiredValue[0];
+                    this.control.errors.dateBetween.requiredValue[0];
                   this._requiredValue += " - ";
                   this._requiredValue +=
-                    this.control.errors["dateBetween"].requiredValue[1];
+                    this.control.errors.dateBetween.requiredValue[1];
                 }
               }
             }

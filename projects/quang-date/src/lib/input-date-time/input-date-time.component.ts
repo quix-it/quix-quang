@@ -20,7 +20,15 @@ import {
   BsDatepickerInlineDirective,
   BsLocaleService,
 } from "ngx-bootstrap/datepicker";
+import { BsTimepickerViewComponent } from "ngx-bootstrap/datepicker/themes/bs/bs-timepicker-view.component";
 import { delay, filter } from "rxjs/operators";
+
+const defaultConfig = {
+  containerClass: "theme-default",
+  isAnimated: true,
+  adaptivePosition: true,
+  returnFocusToInput: true,
+};
 
 /**
  * input date time component decorator
@@ -160,6 +168,21 @@ export class InputDateTimeComponent
    * and how to help the user fill it in
    */
   @Input() autocomplete: string = "off";
+
+  /**
+   * Contains the component configurations
+   */
+  private _config: Partial<BsDatepickerConfig> = defaultConfig;
+
+  public get config(): Partial<BsDatepickerConfig> {
+    return this._config;
+  }
+
+  @Input()
+  public set config(value: Partial<BsDatepickerConfig>) {
+    this._config = { ...defaultConfig, ...value };
+  }
+
   /**
    * the internal state of the date
    */
@@ -171,7 +194,7 @@ export class InputDateTimeComponent
   /**
    * Contains the component configurations
    */
-  config: Partial<BsDatepickerConfig> | undefined = undefined;
+  // config: Partial<BsDatepickerConfig> | undefined = undefined
   /**
    * the top margin of the component
    */
@@ -202,12 +225,18 @@ export class InputDateTimeComponent
   @ViewChild("input", { static: true }) input:
     | ElementRef<HTMLInputElement>
     | undefined;
+
   /**
    * Dropdown selector html element ref
    */
   @ViewChild("drp", { static: true }) datePicker:
     | BsDatepickerInlineDirective
     | undefined;
+
+  @ViewChild("timepicker", { static: true }) timePicker:
+    | BsTimepickerViewComponent
+    | undefined;
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -225,6 +254,7 @@ export class InputDateTimeComponent
    * @param control cva access
    * @param locale actual locale
    */
+
   constructor(
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
@@ -240,14 +270,9 @@ export class InputDateTimeComponent
    * check help message and init key
    */
   ngOnInit(): void {
-    this.config = {
-      containerClass: "theme-default",
-      isAnimated: true,
-      adaptivePosition: true,
-      dateInputFormat: this.dateFormat,
-      rangeInputFormat: this.dateFormat,
-      showWeekNumbers: this.showWeekNumbers,
-    };
+    this.config.dateInputFormat = this.dateFormat;
+    this.config.rangeInputFormat = this.dateFormat;
+    this.config.showWeekNumbers = this.showWeekNumbers;
     if (this.label) {
       if (this.showSelector) {
         this._margin = ".3rem";
@@ -280,10 +305,8 @@ export class InputDateTimeComponent
     }, 0);
     this.observeValidate();
     this.control.control?.markAsPristine();
-    if (this._valueDate.toString() === "Invalid Date") {
-      this.control.control?.setErrors({ invalidDate: true });
-      this.control.control?.markAsDirty();
-    }
+    if (this._valueDate) this.onBsValueChange(this._valueDate);
+    if (this._valueTime) this.onBsValueChange(this._valueTime);
   }
 
   /**
@@ -291,7 +314,7 @@ export class InputDateTimeComponent
    * @param changes component changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["autofocus"] && this.input) {
+    if (changes.autofocus && this.input) {
       this.input.nativeElement.focus();
     }
   }
@@ -311,20 +334,6 @@ export class InputDateTimeComponent
   }
 
   /**
-   * When the form is initialized it saves the data in the component state
-   * @param value
-   */
-  writeValue(value: any): void {
-    if (value) {
-      this._valueTime = new Date(value);
-      this._valueDate = new Date(value);
-    } else {
-      this._valueTime = value;
-      this._valueDate = value;
-    }
-  }
-
-  /**
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
@@ -337,31 +346,48 @@ export class InputDateTimeComponent
     this._disabled = isDisabled;
   }
 
-  /**
-   * event triggered when the date changes
-   * @param date
-   */
-  onChangedDate(date: Date): void {
+  onBsValueChange(date: Date | undefined | null): void {
+    this.onTouched();
     if (!date) {
       this.onChanged(null);
+      if ((this._valueTime && this._valueDate) === null)
+        this.control.control?.reset();
     } else if (date.toString() === "Invalid Date") {
+      this.onChanged(null);
       this.control.control?.setErrors({ invalidDate: true });
       this.control.control?.markAsDirty();
     } else {
       this.onChanged(date);
-      this._valueTime = date;
+      this._valueTime = new Date(date);
     }
+  }
+
+  onChangeTime(date: any): void {
     this.onTouched();
+    if (date) {
+      this.onChanged(date);
+    }
   }
 
   /**
-   * event triggered at the change of time
-   * @param date
+   * When the form is initialized it saves the data in the component state
+   * @param value
    */
-  onChangedTime(date: Event): void {
-    this.onTouched();
-    this._valueDate = date;
-    this.onChanged(date);
+  writeValue(value: any): void {
+    if (value) {
+      this._valueTime = new Date(value);
+      this._valueDate = new Date(value);
+    } else {
+      this._valueTime = value;
+      this._valueDate = value;
+    }
+    if (this.input) {
+      this.renderer.setProperty(this.input.nativeElement, "value", value);
+      this.renderer.setValue(
+        [this.timePicker?.hours, this.timePicker?.minutes],
+        value
+      );
+    }
   }
 
   /**
