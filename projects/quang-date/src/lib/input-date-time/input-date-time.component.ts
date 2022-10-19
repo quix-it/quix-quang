@@ -349,9 +349,7 @@ export class InputDateTimeComponent
   onBsValueChange(date: Date | undefined | null): void {
     this.onTouched();
     if (!date) {
-      this.onChanged(null);
-      if ((this._valueTime && this._valueDate) === null)
-        this.control.control?.reset();
+      if ((this._valueTime && this._valueDate) !== null) this.onChanged(null);
     } else if (date.toString() === "Invalid Date") {
       this.onChanged(null);
       this.control.control?.setErrors({ invalidDate: true });
