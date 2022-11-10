@@ -1,53 +1,61 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
-         [attr.aria-label]="ariaLabel | transloco"
-         *ngIf="label">
-    {{label | transloco}}
+  <label
+    [htmlFor]="id"
+    class="form-label"
+    [attr.aria-label]="ariaLabel | transloco"
+    *ngIf="label"
+  >
+    {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <input type="text"
-         class="form-control"
-         #input
-         [id]="id"
-         [placeholder]="placeholder | transloco "
-         [maxLength]="max"
-         [minLength]="min"
-         [pattern]="pattern"
-         [readOnly]="readonly"
-         (input)="onChangedHandler($event)"
-         (blur)="onTouched()"
-         [autocomplete]="autocomplete"
-         [ngClass]="customClass"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [class.form-control-lg]="size === 'lg'"
-         [class.form-control-sm]="size === 'sm'"
-         [tabIndex]="tabIndex"
-         [attr.aria-label]="ariaLabel | transloco"
-         [attr.aria-disabled]="_disabled"
-         [attr.aria-autocomplete]="autocomplete"
-         [attr.aria-placeholder]="placeholder | transloco"
-         [attr.aria-readonly]="readonly"
-         [attr.aria-describedby]="id + '-help'"
-         [attr.aria-errormessage]="id + '-error'"
-         [attr.aria-invalid]="control?.invalid"
+  <input
+    type="text"
+    class="form-control"
+    #input
+    [id]="id"
+    [placeholder]="placeholder | transloco"
+    [maxLength]="max"
+    [minLength]="min"
+    [pattern]="pattern"
+    [readOnly]="readonly"
+    (input)="onChangedHandler($event)"
+    (blur)="onTouched()"
+    [autocomplete]="autocomplete"
+    [ngClass]="customClass"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.form-control-lg]="size === 'lg'"
+    [class.form-control-sm]="size === 'sm'"
+    [tabIndex]="tabIndex"
+    [attr.aria-label]="ariaLabel | transloco"
+    [attr.aria-disabled]="_disabled"
+    [attr.aria-autocomplete]="'inline'"
+    [attr.aria-placeholder]="placeholder | transloco"
+    [attr.aria-readonly]="readonly"
+    [attr.aria-describedby]="id + '-help'"
+    [attr.aria-errormessage]="id + '-error'"
+    [attr.aria-invalid]="control?.invalid && _errorMessage ? true : false"
+  />
+  <div class="valid-feedback" aria-live="assertive">
+    {{ _successMessage | transloco }}
+  </div>
+  <div class="invalid-feedback" aria-live="polite" [id]="id + '-error'">
+    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
+  </div>
+  <small
+    [id]="id + '-help'"
+    aria-live="assertive"
+    class="form-text text-muted"
+    [hidden]="
+      control?.dirty &&
+      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
+    "
+    [attr.aria-hidden]="
+      control?.dirty &&
+      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
+    "
+    *ngIf="helpMessage"
   >
-  <div class="valid-feedback"
-       aria-live="assertive">
-    {{_successMessage | transloco }}
-  </div>
-  <div class="invalid-feedback"
-       aria-live="polite"
-       [id]="id + '-error'">
-    {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
-  </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
-         class="form-text text-muted"
-         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         [attr.aria-hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         *ngIf="helpMessage">
-    {{_helpMessage | transloco}}
+    {{ _helpMessage | transloco }}
   </small>
 </div>

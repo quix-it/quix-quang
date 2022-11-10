@@ -1,11 +1,11 @@
-<div class="paginatorContainer"
-     [id]="id"
-     [ngClass]="customClass">
+<div class="paginatorContainer" [id]="id" [ngClass]="customClass">
   <div>
-    <label for="pageSize"
-           class="form-label"
-      [attr.aria-label]="ariaLabel | transloco">
-      {{'quangPaginator.size' | transloco}}
+    <label
+      for="pageSize"
+      class="form-label"
+      [attr.aria-label]="ariaLabel | transloco"
+    >
+      {{ "quangPaginator.size" | transloco }}
     </label>
     <select
       [tabIndex]="tabIndex"
@@ -14,17 +14,20 @@
       class="form-select"
       [attr.aria-label]="'page size'"
       (change)="onChangeSize($event)"
-      #input>
-      <option [ngValue]="size"
-              [selected]="size === this._pageSize"
-              *ngFor="let size of sizeList">
-        {{size}}
+      #input
+    >
+      <option
+        [ngValue]="size"
+        [selected]="size === this._pageSize"
+        *ngFor="let size of sizeList"
+      >
+        {{ size }}
       </option>
     </select>
   </div>
   <mat-paginator
     id="page index"
-    [tabIndex]="tabIndex + 1"
+    [tabIndex]="isAccessible ? 0 : tabIndex + 1"
     [pageSizeOptions]="sizeList"
     (page)="onChangePage($event)"
     [hidePageSize]="true"

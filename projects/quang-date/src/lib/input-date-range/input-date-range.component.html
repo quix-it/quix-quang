@@ -44,6 +44,7 @@
         [ngClass]="buttonClass"
         [tabIndex]="tabIndex"
         type="button"
+        aria-label="calendar-button"
         [ngStyle]="{ 'pointer-event': _disabled ? 'none' : null }"
         (click)="drp.toggle()"
       >

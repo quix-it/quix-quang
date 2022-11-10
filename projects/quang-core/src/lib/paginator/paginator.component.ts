@@ -63,6 +63,10 @@ export class PaginatorComponent implements OnInit, OnChanges {
    */
   @Input() defaultSize: boolean = true;
   /**
+   * if value true set all elements at same tabIndex of quang-paginator (best practise set to 0 for accessibility)
+   */
+  @Input() isAccessible: boolean = false;
+  /**
    * Raises an event when the page index changes
    */
   @Output() whenPageChange: EventEmitter<number> = new EventEmitter<number>();
@@ -102,7 +106,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   constructor(private readonly renderer: Renderer2) {}
   ngOnInit(): void {
     if (this.defaultSize) {
-      this._pageSize = this.pageSize
+      this._pageSize = this.pageSize;
     }
   }
 
