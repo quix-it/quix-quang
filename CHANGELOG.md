@@ -60,3 +60,6 @@
 * fix select-obj empty value at init
 * feat: add transloco labels options for quang-paginator pageRange
 * feat add default init value by Input with validation onInit in inputs: datalist, checkbox, email, number, password, radio, search, tel, text, url, select-obj, select-strg, text-area, toggle
+
+## 13.2.1
+* fix accessibility in input-text, input-dates, paginator
