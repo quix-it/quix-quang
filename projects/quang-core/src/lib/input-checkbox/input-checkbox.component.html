@@ -6,7 +6,6 @@
     [id]="id"
     [attr.aria-checked]="_value"
     [attr.aria-label]="'ariaLabel' | transloco"
-    [attr.aria-labelledby]="'label' | transloco"
     [tabIndex]="tabIndex"
     [ngClass]="customClass"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
@@ -14,9 +13,9 @@
     (input)="onChangedHandler($event)"
     (blur)="onTouched()"
     [attr.aria-disabled]="_disabled"
-    [attr.aria-describedby]="id + '-help'"
-    [attr.aria-errormessage]="id + '-error'"
-    [attr.aria-invalid]="control.invalid"
+    [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : null"
+    [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : null"
+    [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
     #input />
   <label
     class="form-check-label"
