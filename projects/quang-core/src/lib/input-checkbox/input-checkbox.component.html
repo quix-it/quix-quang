@@ -13,8 +13,8 @@
     (input)="onChangedHandler($event)"
     (blur)="onTouched()"
     [attr.aria-disabled]="_disabled"
-    [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : null"
-    [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : null"
+    [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+    [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
     [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
     #input />
   <label

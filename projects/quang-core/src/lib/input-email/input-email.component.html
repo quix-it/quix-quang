@@ -28,8 +28,8 @@
          [attr.aria-autocomplete]="'inline'"
          [attr.aria-placeholder]="placeholder | transloco"
          [attr.aria-readonly]="readonly"
-         [attr.aria-describedby]="helpMessage ? id + '-help' : null"
-         [attr.aria-errormessage]="errorMessage ? id + '-error' : null"
+         [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+         [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
          [attr.aria-invalid]="control?.invalid && _errorMessage ? true : false"
   >
   <div class="valid-feedback"

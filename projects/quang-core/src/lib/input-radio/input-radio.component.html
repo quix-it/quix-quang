@@ -29,8 +29,8 @@
       (blur)="onTouched()"
       [autocomplete]="autocomplete"
       [attr.aria-disabled]="_disabled"
-      [attr.aria-describedby]="id + '-help'"
-      [attr.aria-errormessage]="id + '-error'"
+      [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+      [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
       [attr.aria-invalid]="control.invalid"
       #input />
     <label

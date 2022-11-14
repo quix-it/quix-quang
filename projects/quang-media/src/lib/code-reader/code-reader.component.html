@@ -20,8 +20,8 @@
               [class.is-invalid]="_errorMessage"
               [attr.aria-label]="ariaLabel | transloco"
               [attr.aria-autocomplete]="autocomplete"
-              [attr.aria-errormessage]="id + '-error'"
               [attr.aria-describedby]="id + '-help'"
+              [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
               class="form-select">
         <option *ngFor="let d of _devices"
                 [ngValue]="d.id">

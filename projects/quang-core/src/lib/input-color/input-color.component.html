@@ -25,8 +25,8 @@
          [attr.aria-autocomplete]="'inline'"
          [attr.aria-placeholder]="placeholder | transloco"
          [attr.aria-readonly]="readonly"
-         [attr.aria-describedby]="id + '-help'"
-         [attr.aria-errormessage]="id + '-error'"
+         [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+         [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
          [attr.aria-invalid]="control.invalid"
          #input
   >

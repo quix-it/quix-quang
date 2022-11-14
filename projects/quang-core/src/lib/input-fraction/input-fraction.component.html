@@ -31,8 +31,8 @@
            [attr.aria-disabled]="_disabled"
            [attr.aria-autocomplete]="'inline'"
            [attr.aria-readonly]="readonly"
-           [attr.aria-describedby]="id + '-help'"
-           [attr.aria-errormessage]="id + '-error'"
+           [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+           [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
            [attr.aria-invalid]="control.invalid"
            #inputInteger>
     <div class="input-group-append">
@@ -69,8 +69,8 @@
            [attr.aria-disabled]="_disabled"
            [attr.aria-autocomplete]="autocomplete"
            [attr.aria-readonly]="readonly"
-           [attr.aria-describedby]="id + '-help'"
-           [attr.aria-errormessage]="id + '-error'"
+           [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+           [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
            [attr.aria-invalid]="control.invalid"
            #inputFraction
     >
