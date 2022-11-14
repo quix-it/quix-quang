@@ -26,7 +26,7 @@
          [class.form-control-lg]="size === 'lg'"
          [class.form-control-sm]="size === 'sm'"
          [attr.aria-disabled]="_disabled"
-         [attr.aria-autocomplete]="autocomplete"
+         [attr.aria-autocomplete]="'inline'"
          [attr.aria-placeholder]="placeholder | transloco"
          [attr.aria-readonly]="readonly"
          [attr.aria-describedby]="helpMessage ? id + '-help' : null"
