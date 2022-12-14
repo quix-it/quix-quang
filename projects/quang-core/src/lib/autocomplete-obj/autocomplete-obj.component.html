@@ -1,53 +1,58 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
-         [attr.aria-label]="ariaLabel | transloco"
-         *ngIf="label">
-    {{label | transloco}}
+  <label
+    [htmlFor]="id"
+    class="form-label"
+    [attr.aria-label]="ariaLabel | transloco"
+    *ngIf="label"
+  >
+    {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <input [ngModel]="_searchValue"
-         [typeahead]="dataList"
-         class="form-control"
-         [id]="id"
-         [name]="id"
-         [readOnly]="readonly"
-         [autofocus]="autofocus"
-         [attr.aria-label]="ariaLabel | transloco"
-         [tabIndex]="tabIndex"
-         [autocomplete]="autocomplete"
-         [isAnimated]="true"
-         [adaptivePosition]="true"
-         [typeaheadOptionField]="searchBy"
-         [typeaheadScrollable]="true"
-         [typeaheadOptionsInScrollableView]="18"
-         [typeaheadMinLength]="startAfter"
-         [placeholder]="placeholder | transloco"
-         [typeaheadOptionsLimit]="optionLimit"
-         [ngClass]="customClass"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         (typeaheadOnSelect)="onChangedHandler($event)"
-         (blur)="onTouched()"
-         [class.form-control-lg]="size === 'lg'"
-         [class.form-control-sm]="size === 'sm'"
-         #input
+  <input
+    [ngModel]="_searchValue"
+    [typeahead]="dataList"
+    class="form-control"
+    [id]="id"
+    [name]="id"
+    [readOnly]="readonly"
+    [autofocus]="autofocus"
+    [attr.aria-label]="ariaLabel | transloco"
+    [tabIndex]="tabIndex"
+    [autocomplete]="autocomplete"
+    [isAnimated]="true"
+    [adaptivePosition]="true"
+    [typeaheadOptionField]="searchBy"
+    [typeaheadScrollable]="true"
+    [typeaheadOptionsInScrollableView]="18"
+    [typeaheadMinLength]="startAfter"
+    [placeholder]="placeholder | transloco"
+    [typeaheadOptionsLimit]="optionLimit"
+    [ngClass]="customClass"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    (typeaheadOnSelect)="onChangedHandler($event)"
+    (blur)="onTouched()"
+    [class.form-control-lg]="size === 'lg'"
+    [class.form-control-sm]="size === 'sm'"
+    (input)="onChangeInput($event)"
+    #input
+  />
+  <div class="valid-feedback" aria-live="assertive">
+    {{ _successMessage | transloco }}
+  </div>
+  <div class="invalid-feedback" aria-live="polite" [id]="id + '-error'">
+    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
+  </div>
+  <small
+    [id]="id + '-help'"
+    aria-live="assertive"
+    class="form-text text-muted"
+    [hidden]="
+      control?.dirty &&
+      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
+    "
+    *ngIf="helpMessage"
   >
-  <div class="valid-feedback"
-       aria-live="assertive">
-    {{_successMessage | transloco}}
-  </div>
-  <div class="invalid-feedback"
-       aria-live="polite"
-       [id]="id + '-error'">
-    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
-  </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
-         class="form-text text-muted"
-         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         *ngIf="helpMessage">
-    {{_helpMessage | transloco}}
+    {{ _helpMessage | transloco }}
   </small>
 </div>
-

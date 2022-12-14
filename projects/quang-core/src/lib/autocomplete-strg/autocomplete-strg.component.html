@@ -30,6 +30,7 @@
          (blur)="onTouched()"
          [class.form-control-lg]="size === 'lg'"
          [class.form-control-sm]="size === 'sm'"
+         (input)="onChangeInput($event)"
          #input
   >
   <div class="valid-feedback"

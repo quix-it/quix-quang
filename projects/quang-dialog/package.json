@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-dialog",
-          "version": "13.2.1-beta.11",
+          "version": "13.2.1-beta.12",
   "peerDependencies": {
     "@angular/core": "^13.1.3",
     "@angular/material": "^13.1.3",

@@ -211,10 +211,19 @@ export class AutocompleteStrgComponent
    * When the input field changes its value, it saves the state of the field and activates the CVA flow
    * @param e
    */
-  onChangedHandler(e: TypeaheadMatch): void {
-    this._value = e.value;
+  onChangedHandler(e: TypeaheadMatch | null): void {
+    this._value = e?.value ?? "";
     this.onTouched();
     this.onChanged(this._value);
+  }
+
+  /**
+   * Stream when input HTML element change value and clear value for form if it's empty
+   * @param e
+   */
+  onChangeInput(e: Event): void {
+    this._value = (e.target as HTMLInputElement).value;
+    if (!this._value) this.onChangedHandler(null);
   }
 
   /**
