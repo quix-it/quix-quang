@@ -10,7 +10,7 @@
     "quill-delta": "^4.2.2",
     "quill-emoji": "^0.1.8",
     "quill-mention": "^3.0.0",
-    "ngx-file-drop": "^13.0.0"
+    "ngx-file-drop": "^14.0.2"
   },
   "devDependencies": {
     "@types/quill": "^2.0.5"

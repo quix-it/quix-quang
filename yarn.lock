@@ -277,7 +277,7 @@
     "uuid" "8.3.2"
     "yargs" "17.5.1"
 
-"@angular/common@^11 || ^12 || ^13", "@angular/common@^13.0.0", "@angular/common@^14.0.0", "@angular/common@^14.0.0 || ^15.0.0", "@angular/common@^14.3.0", "@angular/common@>=11.0.0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@10.x || 11.x || 12.x || 13.x", "@angular/common@14.3.0", "@angular/common@9 - 13":
+"@angular/common@^11 || ^12 || ^13", "@angular/common@^13.0.0", "@angular/common@^14.0.0", "@angular/common@^14.0.0 || ^15.0.0", "@angular/common@^14.3.0", "@angular/common@>=11.0.0", "@angular/common@>=14.0.0", "@angular/common@10.x || 11.x || 12.x || 13.x", "@angular/common@14.3.0", "@angular/common@9 - 13":
   "integrity" "sha512-pV9oyG3JhGWeQ+TFB0Qub6a1VZWMNZ6/7zEopvYivdqa5yDLLDSBRWb6P80RuONXyGnM1pa7l5nYopX+r/23GQ=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/common/-/common-14.3.0.tgz"
   "version" "14.3.0"
@@ -7164,12 +7164,12 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"ngx-file-drop@^13.0.0":
-  "integrity" "sha512-1OF9ln2ZesfNxWEBXMpkkFpUuggejpZtNlGFuyaVAmXyYO4NlCHsOWrgfWB7d8SliHgePD/7s0e60IQs/zqr9g=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-file-drop/-/ngx-file-drop-13.0.0.tgz"
-  "version" "13.0.0"
+"ngx-file-drop@^14.0.2":
+  "integrity" "sha512-tIW+Ymd2IOjUQTqMb2NiuupeRPWwKe19kHmb13gf4Iw8rkvrO6PlqqZ3EqSGPIEJOmV836FZHpM4B1xXjVQLfA=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-file-drop/-/ngx-file-drop-14.0.2.tgz"
+  "version" "14.0.2"
   dependencies:
-    "tslib" "^2.0.0"
+    "tslib" "^2.3.0"
 
 "ngx-quill@^16.1.1":
   "integrity" "sha512-gEw9iE6rFmyNMVC+Q3xjbB+GQxfy7F8aqwPoWNPLsbl/UNb187XudlUwV7OjUZdN7rc78oSHZwCYzeEQGtYgrQ=="
