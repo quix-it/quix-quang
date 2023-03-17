@@ -235,17 +235,17 @@
     "@angular-eslint/bundled-angular-compiler" "14.4.0"
     "@typescript-eslint/utils" "5.43.0"
 
-"@angular/animations@^13.0.0 || ^14.0.0-0", "@angular/animations@^14.0.0", "@angular/animations@^14.3.0", "@angular/animations@14.3.0":
+"@angular/animations@^14.0.0", "@angular/animations@^14.0.0 || ^15.0.0", "@angular/animations@^14.3.0", "@angular/animations@14.3.0":
   "integrity" "sha512-QoBcIKy1ZiU+4qJsAh5Ls20BupWiXiZzKb0s6L9/dntPt5Msr4Ao289XR2P6O1L+kTsCprH9Kt41zyGQ/bkRqg=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/animations/-/animations-14.3.0.tgz"
   "version" "14.3.0"
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/cdk@^13.1.2", "@angular/cdk@13.3.3":
-  "integrity" "sha512-Psuri2mc6W+xKtZr39FHL+cDz7Le9kKTo8ziCtUiydikBBdqfOu6AnWUrEMEGFxS2wt8nolFXDAGUaMUAE3Ekg=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/cdk/-/cdk-13.1.3.tgz"
-  "version" "13.1.3"
+"@angular/cdk@^14.2.7", "@angular/cdk@14.2.7":
+  "integrity" "sha512-/tEsYaUbDSnfEmKVvAMramIptmhI67O+9STjOV0i+74XR2NospeK0fkbywIANu1n3w6AHGMotvRWJrjmbCElFg=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/cdk/-/cdk-14.2.7.tgz"
+  "version" "14.2.7"
   dependencies:
     "tslib" "^2.3.0"
   optionalDependencies:
@@ -277,7 +277,7 @@
     "uuid" "8.3.2"
     "yargs" "17.5.1"
 
-"@angular/common@^11 || ^12 || ^13", "@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^14.0.0", "@angular/common@^14.3.0", "@angular/common@>=11.0.0", "@angular/common@>=12.0.0", "@angular/common@>=13.0.0", "@angular/common@10.x || 11.x || 12.x || 13.x", "@angular/common@14.3.0", "@angular/common@9 - 13":
+"@angular/common@^11 || ^12 || ^13", "@angular/common@^13.0.0", "@angular/common@^14.0.0", "@angular/common@^14.0.0 || ^15.0.0", "@angular/common@^14.3.0", "@angular/common@>=11.0.0", "@angular/common@>=12.0.0", "@angular/common@>=13.0.0", "@angular/common@10.x || 11.x || 12.x || 13.x", "@angular/common@14.3.0", "@angular/common@9 - 13":
   "integrity" "sha512-pV9oyG3JhGWeQ+TFB0Qub6a1VZWMNZ6/7zEopvYivdqa5yDLLDSBRWb6P80RuONXyGnM1pa7l5nYopX+r/23GQ=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/common/-/common-14.3.0.tgz"
   "version" "14.3.0"
@@ -307,14 +307,14 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^11 || ^12 || ^13", "@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^14.0.0", "@angular/core@^14.3.0", "@angular/core@>=11.0.0", "@angular/core@>=12.0.0", "@angular/core@>=13.0.0", "@angular/core@10.x || 11.x || 12.x || 13.x", "@angular/core@14.3.0", "@angular/core@9 - 13":
+"@angular/core@^11 || ^12 || ^13", "@angular/core@^13.0.0", "@angular/core@^14.0.0", "@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^14.3.0", "@angular/core@>=11.0.0", "@angular/core@>=12.0.0", "@angular/core@>=13.0.0", "@angular/core@10.x || 11.x || 12.x || 13.x", "@angular/core@14.3.0", "@angular/core@9 - 13":
   "integrity" "sha512-wYiwItc0Uyn4FWZ/OAx/Ubp2/WrD3EgUJ476y1XI7yATGPF8n9Ld5iCXT08HOvc4eBcYlDfh90kTXR6/MfhzdQ=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/core/-/core-14.3.0.tgz"
   "version" "14.3.0"
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/forms@^13.0.0 || ^14.0.0-0", "@angular/forms@^14.0.0", "@angular/forms@^14.3.0":
+"@angular/forms@^14.0.0", "@angular/forms@^14.0.0 || ^15.0.0", "@angular/forms@^14.3.0":
   "integrity" "sha512-fBZZC2UFMom2AZPjGQzROPXFWO6kvCsPDKctjJwClVC8PuMrkm+RRyiYRdBbt2qxWHEqOZM2OCQo73xUyZOYHw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/forms/-/forms-14.3.0.tgz"
   "version" "14.3.0"
@@ -326,10 +326,10 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/language-service/-/language-service-14.3.0.tgz"
   "version" "14.3.0"
 
-"@angular/material@^13.1.2":
-  "integrity" "sha512-PkZ7VW3/7tqdBHSOOmq7com7Ir147OEe1+kfgF/G3y8WUutI9jY2cHKARXGWB+5WgcqKr7ol43u239UGkPfFHg=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/material/-/material-13.3.3.tgz"
-  "version" "13.3.3"
+"@angular/material@^14.2.7":
+  "integrity" "sha512-WXHh8pEStpgkXZJmYOg2cI8BSHkV82ET4XTJCNPdveumaCn1UYnaNzsXD13kw5z+zmy8CufhFEzdXTrv/yt7KQ=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/material/-/material-14.2.7.tgz"
+  "version" "14.2.7"
   dependencies:
     "tslib" "^2.3.0"
 
@@ -340,7 +340,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/platform-browser@^13.0.0 || ^14.0.0-0", "@angular/platform-browser@^14.3.0", "@angular/platform-browser@14.3.0":
+"@angular/platform-browser@^14.0.0 || ^15.0.0", "@angular/platform-browser@^14.3.0", "@angular/platform-browser@14.3.0":
   "integrity" "sha512-w9Y3740UmTz44T0Egvc+4QV9sEbO61L+aRHbpkLTJdlEGzHByZvxJmJyBYmdqeyTPwc/Zpy7c02frlpfAlyB7A=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/platform-browser/-/platform-browser-14.3.0.tgz"
   "version" "14.3.0"
