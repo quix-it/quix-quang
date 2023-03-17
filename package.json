@@ -34,9 +34,7 @@
     "lint:quang-utility": "ng lint --fix quang-utility",
     "compodoc": "npx compodoc -p tsconfig.json projects -s",
     "build:compodoc": "npx compodoc -p tsconfig.json projects",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "storybook": "npm run docs:json && start-storybook -p 6006",
-    "build-storybook": "npm run docs:json && build-storybook"
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d ."
   },
   "license": "UNLICENSED",
   "dependencies": {
@@ -101,15 +99,6 @@
     "@angular/compiler-cli": "~13.1.2",
     "@angular/language-service": "~13.1.2",
     "@babel/core": "^7.17.8",
-    "@storybook/addon-actions": "^6.4.22",
-    "@storybook/addon-essentials": "^6.4.22",
-    "@storybook/addon-interactions": "^6.4.22",
-    "@storybook/addon-knobs": "^6.4.0",
-    "@storybook/addon-links": "^6.4.22",
-    "@storybook/angular": "^6.1.21",
-    "@storybook/builder-webpack5": "^6.4.22",
-    "@storybook/manager-webpack5": "^6.4.22",
-    "@storybook/testing-library": "^0.0.11",
     "@types/google.maps": "^3.47.2",
     "@types/googlemaps": "^3.43.3",
     "@types/jasmine": "~3.10.3",
