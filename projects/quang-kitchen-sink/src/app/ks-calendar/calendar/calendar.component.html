@@ -1,0 +1,158 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang calendar'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/CalendarComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <quang-calendar
+            [height]="'600px'"
+            [firstDay]="'monday'"></quang-calendar>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'calendar.calendar.html' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Click sulla data</h3>
+        <div cardBody>
+          <quang-calendar
+            [height]="'600px'"
+            (whenDateClick)="openAlert($event)"
+            [firstDay]="'monday'"></quang-calendar>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'calendar.date.html' | transloco }}</pre>
+          <pre class="ts">{{ 'calendar.date.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Click evento - Max eventi per giorno</h3>
+        <div cardBody>
+          <quang-calendar
+            [height]="'600px'"
+            (whenEventClick)="openAlert($event)"
+            [callBack]="loadData"
+            [firstDay]="'monday'"
+            [dayMaxEvents]="2"></quang-calendar>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'calendar.event.html' | transloco }}</pre>
+          <pre class="ts">{{ 'calendar.event.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Eventi asincroni</h3>
+        <div cardBody>
+          <quang-calendar
+            [height]="'600px'"
+            (whenEventClick)="openAlert($event)"
+            [callBack]="loadAsyncData"
+            [firstDay]="'monday'"></quang-calendar>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'calendar.async.html' | transloco }}</pre>
+          <pre class="ts">{{ 'calendar.async.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Ore della settimana</h3>
+        <div cardBody>
+          <quang-calendar
+            [height]="'600px'"
+            [view]="'timeGridWeek'"
+            [firstDay]="'monday'"></quang-calendar>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'calendar.week.html' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Giorni della settimana</h3>
+        <div cardBody>
+          <quang-calendar
+            [height]="'600px'"
+            [view]="'dayGridWeek'"
+            [firstDay]="'monday'"></quang-calendar>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'calendar.day.html' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <a href="https://fullcalendar.io/docs/angular" target="_blank"
+            >Full Calendar</a
+          >
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,179 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Accessible form'"></ks-title>
+      <p>Form di test per accessibilità dei componenti di Quang</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Form</h3>
+        <div cardBody>
+          <form [formGroup]="group">
+            <div class="row">
+              <div class="col-6">
+                <quang-input-text
+                  tabindex="0"
+                  [label]="'accessibility.form.userName.label'"
+                  [placeholder]="'accessibility.form.userName.ph'"
+                  [ariaLabel]="'accessibility.form.userName.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [helpMessage]="false"
+                  [autocomplete]="'off'"
+                  [id]="'userName'"
+                  [autofocus]="true"
+                  [formName]="'accessibility.form'"
+                  [min]="0"
+                  [max]="50"
+                  formControlName="userName"></quang-input-text>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <quang-input-text
+                  tabindex="0"
+                  [label]="'accessibility.form.firstName.label'"
+                  [placeholder]="'accessibility.form.firstName.ph'"
+                  [ariaLabel]="'accessibility.form.firstName.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [autocomplete]="'off'"
+                  [id]="'firstName id'"
+                  [autofocus]="true"
+                  [formName]="'accessibility.form'"
+                  [min]="0"
+                  [max]="50"
+                  formControlName="firstName"></quang-input-text>
+              </div>
+              <div class="col-6">
+                <quang-input-text
+                  tabindex="0"
+                  [label]="'accessibility.form.lastName.label'"
+                  [placeholder]="'accessibility.form.lastName.ph'"
+                  [ariaLabel]="'accessibility.form.lastName.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [autocomplete]="'off'"
+                  [id]="'lastName id'"
+                  [autofocus]="true"
+                  [formName]="'accessibility.form'"
+                  [min]="0"
+                  [max]="50"
+                  formControlName="lastName"></quang-input-text>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <quang-input-email
+                  tabindex="0"
+                  [label]="'accessibility.form.email.label'"
+                  [placeholder]="'accessibility.form.email.ph'"
+                  [ariaLabel]="'accessibility.form.email.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [autocomplete]="'off'"
+                  [id]="'email id'"
+                  [autofocus]="true"
+                  [formName]="'accessibility.form'"
+                  [min]="0"
+                  [max]="50"
+                  formControlName="email"></quang-input-email>
+              </div>
+              <div class="col-6">
+                <quang-input-date
+                  tabindex="0"
+                  [label]="'accessibility.form.date.label'"
+                  [placeholder]="'accessibility.form.date.ph'"
+                  [ariaLabel]="'accessibility.form.date.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [autocomplete]="'off'"
+                  [id]="'date'"
+                  [autofocus]="true"
+                  [dateFormat]="'DD-MM-YYYY'"
+                  [formName]="'accessibility.form'"
+                  [buttonClass]="['btn', 'btn-outline-secondary']"
+                  formControlName="date"
+                  ><i calendarIcon class="fas fa-calendar-alt"></i>
+                </quang-input-date>
+              </div>
+              <div class="col-6">
+                <quang-input-date
+                  tabindex="0"
+                  [label]="'accessibility.form.date.label'"
+                  [placeholder]="'accessibility.form.date.ph'"
+                  [ariaLabel]="'accessibility.form.date.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [autocomplete]="'off'"
+                  [id]="'datee'"
+                  [autofocus]="true"
+                  [dateFormat]="'DD-MM-YYYY'"
+                  [formName]="'accessibility.form'"
+                  [buttonClass]="['btn', 'btn-outline-secondary']"
+                  formControlName="datee"
+                  ><i calendarIcon class="fas fa-calendar-alt"></i>
+                </quang-input-date>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <quang-input-tel
+                  tabindex=""
+                  [label]="'accessibility.form.phone.label'"
+                  [placeholder]="'accessibility.form.phone.ph'"
+                  [ariaLabel]="'accessibility.form.phone.label'"
+                  [min]="9"
+                  [max]="10"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [autocomplete]="'off'"
+                  [id]="'phone id'"
+                  [autofocus]="true"
+                  [formName]="'accessibility.form'"
+                  formControlName="phone"></quang-input-tel>
+              </div>
+              <div class="col-6">
+                <!-- <quang-input-radio
+                  tabindex="0"
+                  [label]="'accessibility.form.sex.label'"
+                  [ariaLabel]="'accessibility.form.sex.label'"
+                  [errorMessage]="true"
+                  [helpMessage]="false"
+                  [autocomplete]="'off'"
+                  [id]="'sex id'"
+                  [autofocus]="true"
+                  [radioList]="list"
+                  [returnValue]="'value'"
+                  [labelValue]="'text'"
+                  [formName]="'accessibility.form'"
+                  [groupName]="'radio-group'"
+                  formControlName="sex"></quang-input-radio>
+                  {{group.controls['sex'].value}} -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <quang-input-checkbox
+                  tabindex="0"
+                  [label]="'accessibility.form.checkbox.label'"
+                  [ariaLabel]="'accessibility.form.checkbox.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [id]="'consent id'"
+                  [autofocus]="true"
+                  [formName]="'accessibility.form'"
+                  formControlName="checkbox"></quang-input-checkbox>
+              </div>
+              <div class="col-6 text-end">
+                <button type="submit" class="btn btn-primary">Salva</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

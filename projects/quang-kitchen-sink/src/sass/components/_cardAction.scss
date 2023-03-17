@@ -1,0 +1,14 @@
+quang-card-action {
+  .card {
+    .card-header {
+      display: flex;
+
+      [cardaction] {
+        margin-left: auto;
+      }
+    }
+
+    .card-body {
+    }
+  }
+}

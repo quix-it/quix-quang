@@ -1,0 +1,9 @@
+ks-root {
+  display: grid;
+  grid-template-columns: 300px auto;
+  grid-template-rows: 85px auto 40px;
+  grid-template-areas:
+    'header header'
+    'aside main'
+    'footer footer';
+}

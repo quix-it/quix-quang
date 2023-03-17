@@ -1,0 +1,90 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Form async validator'"></ks-title>
+      <p>
+        in questo esempio se un campo input contiene "mario, luigi o giovanni"
+        il form non è valido
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <form [formGroup]="group" (submit)="save()">
+            <div class="row">
+              <div class="col">
+                <quang-input-text
+                  [label]="'form.async-validator.form.firstName.label'"
+                  [placeholder]="'form.async-validator.form.firstName.ph'"
+                  [ariaLabel]="'form.form.firstName.form.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [autocomplete]="'off'"
+                  [id]="'firstName id'"
+                  [autofocus]="true"
+                  [formName]="'form.async-validator'"
+                  [min]="0"
+                  [max]="50"
+                  formControlName="firstName"></quang-input-text>
+                <quang-input-text
+                  [label]="'form.async-validator.form.lastName.label'"
+                  [placeholder]="'form.async-validator.form.lastName.ph'"
+                  [ariaLabel]="'form.async-validator.form.lastName.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [autocomplete]="'off'"
+                  [id]="'lastName id'"
+                  [autofocus]="true"
+                  [formName]="'form.async-validator'"
+                  [min]="0"
+                  [max]="50"
+                  formControlName="lastName"></quang-input-text>
+                <quang-input-email
+                  [label]="'form.async-validator.form.email.label'"
+                  [placeholder]="'form.async-validator.form.email.ph'"
+                  [ariaLabel]="'form.async-validator.form.email.label'"
+                  [errorMessage]="true"
+                  [successMessage]="true"
+                  [autocomplete]="'off'"
+                  [id]="'email id'"
+                  [autofocus]="true"
+                  [formName]="'form.async-validator'"
+                  [min]="0"
+                  [max]="50"
+                  formControlName="email"></quang-input-email>
+                <div class="row">
+                  <div class="col-6">
+                    <quang-input-checkbox
+                      [label]="'form.async-validator.form.checkbox.label'"
+                      [ariaLabel]="'form.async-validator.form.checkbox.label'"
+                      [errorMessage]="true"
+                      [successMessage]="true"
+                      [id]="'consent id'"
+                      [autofocus]="true"
+                      [formName]="'form.async-validator'"
+                      formControlName="checkbox"></quang-input-checkbox>
+                  </div>
+                  <div class="col-6 text-end">
+                    <button type="submit" class="btn btn-primary">Salva</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'form.async-validator.html' | transloco }}</pre>
+          <pre class="ts">{{ 'form.async-validator.ts' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+<section class="container-fluid" id="intersection">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Intersection Observer'"></ks-title>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>Demo</h4>
+        <div cardBody>
+          <div
+            id="image-wrapper"
+            class="border border-3 border-secondary"
+            #imageContainer>
+            <img
+              src="/assets/images/lazy/default-placeholder.png"
+              [attr.data-src]="img + i"
+              #image
+              [alt]="'image' + i"
+              *ngFor="let img of images; let i = index" />
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>HTML/TS</h4>
+        <div cardBody>
+          <pre class="html">{{ 'scroll.intersection.html' | transloco }}</pre>
+          <pre class="ts">{{ 'scroll.intersection.ts' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API"
+                >Intersection Observer MDN</a
+              >
+            </li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

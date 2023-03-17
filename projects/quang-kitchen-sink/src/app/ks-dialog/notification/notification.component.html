@@ -1,0 +1,64 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quix notification service'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^12.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <form [formGroup]="noteForm" (ngSubmit)="sendNotification()">
+            <div class="mb-3">
+              <label for="title">Title</label>
+              <input
+                type="text"
+                minlength="0"
+                maxlength="50"
+                class="form-control"
+                formControlName="title"
+                id="title" />
+            </div>
+            <div class="mb-3">
+              <label for="body">Body</label>
+              <textarea
+                minlength="0"
+                maxlength="255"
+                class="form-control"
+                formControlName="body"
+                id="body">
+              </textarea>
+            </div>
+            <button class="btn btn-outline-success" type="submit">Invia</button>
+          </form>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'dialog.notification.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/Notification"
+            target="_blank"
+            >Notification</a
+          >
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

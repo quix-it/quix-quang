@@ -1,0 +1,25 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Card image'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/@quix/quang: ^12.0.0</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <quang-card-image [src]="'https://picsum.photos/800/200'" [alt]="'test'">
+        <div cardBody>Body</div>
+      </quang-card-image>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'components.card-image.html' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

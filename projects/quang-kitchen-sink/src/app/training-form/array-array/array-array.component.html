@@ -1,0 +1,66 @@
+<section class="container-fluid" id="form-array-array">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Form array array'"></ks-title>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <form [formGroup]="group">
+            <button class="btn btn-outline-success" (click)="addArray()">
+              Aggiungi Array
+            </button>
+            <div
+              *ngFor="let a of groupKey"
+              class="first-level"
+              [formArrayName]="a">
+              <p>Array 1° livello, n°{{ a }}</p>
+              <button class="btn btn-outline-success" (click)="addSubArray(a)">
+                Aggiungi sub array
+              </button>
+              <div
+                *ngFor="let s of getArray(a).controls; let i = index"
+                class="second-level"
+                [formArrayName]="i">
+                <p>Array 2° livello, n°{{ i }}</p>
+                <button
+                  class="btn btn-outline-success"
+                  (click)="addArrayControl(a, i)">
+                  Aggiungi control
+                </button>
+                <div
+                  class="mb-3"
+                  *ngFor="
+                    let c of getArrayControl(a, i).controls;
+                    let y = index
+                  ">
+                  <label [htmlFor]="'control' + a + i + y"
+                    >Control n°{{ y }}</label
+                  >
+                  <input
+                    [id]="'control'"
+                    [formControlName]="y"
+                    class="form-control"
+                    type="text" />
+                </div>
+              </div>
+            </div>
+          </form>
+          value: {{ group.value | json }}
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'form.array-array.html' | transloco }}</pre>
+          <pre class="ts">{{ 'form.array-array.code' | transloco }}</pre>
+        </div>
+      </quang-card>
+    </div>
+  </div>
+</section>

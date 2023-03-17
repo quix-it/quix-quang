@@ -1,0 +1,51 @@
+<section class="container-fluid" id="infinite">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'ngx Infinite scroll'"></ks-title>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6" id="wrapper">
+      <div
+        infiniteScroll
+        [infiniteScrollDistance]="0.5"
+        [infiniteScrollThrottle]="300"
+        [infiniteScrollDisabled]="stop"
+        (scrolled)="onScroll()">
+        <quang-card *ngFor="let c of cards">
+          <h5 cardHeader>{{ 'Card ' + c }}</h5>
+          <div cardBody>
+            <img
+              [src]="'https://picsum.photos/500/500?number=' + c"
+              [alt]="c" />
+          </div>
+        </quang-card>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="mb-3">
+        <quang-card-header>
+          <h4 cardHeader>HTML/TS</h4>
+          <div cardBody class="mb-3">
+            <pre class="html">{{ 'lib.infinity.html' | transloco }}</pre>
+            <pre class="ts">{{ 'lib.infinity.code' | transloco }}</pre>
+          </div>
+        </quang-card-header>
+      </div>
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li>
+              <a
+                href="https://www.npmjs.com/package/ngx-infinite-scroll"
+                target="_blank"
+                >Ngx infinite scroll</a
+              >
+            </li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

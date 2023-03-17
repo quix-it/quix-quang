@@ -1,0 +1,36 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang page service'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <!--      <h3>@quix/quang: ^13.0.0</h3>-->
+      <h3>Next feature</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Screen orientation</h3>
+        <div cardBody>
+          <dl>
+            <dt>Page status</dt>
+            <dd>{{ status }}</dd>
+            <dt>Page freeze</dt>
+            <dd>{{ freeze$ | async | json }}</dd>
+            <dt>Page resume</dt>
+            <dd>{{ resume$ | async | json }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.page.ts' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

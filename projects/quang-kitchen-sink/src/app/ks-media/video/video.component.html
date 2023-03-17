@@ -1,0 +1,75 @@
+<section class="container-fluid" id="video">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang video'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/VideoComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <quang-video
+            [id]="'test'"
+            [src]="
+              'https://storage.coverr.co/videos/fbR00NW26LPtWnO01m9w8w2z9CUiFYe8li?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjM1MTc5MjAzfQ.XCeXZ15YrvGSA8NZOXqbg7JRSvJAEaPWGubIrU-JGMM'
+            "
+            [type]="'video/mp4'"
+            [autoplay]="false"
+            [loop]="true"
+            [viewControl]="true"></quang-video>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'image.video.html' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header"><h3>Schermo intero</h3></div>
+        <div class="card-body">
+          <quang-video
+            #quangVideo
+            [id]="'test'"
+            [src]="
+              'https://storage.coverr.co/videos/fbR00NW26LPtWnO01m9w8w2z9CUiFYe8li?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjM1MTc5MjAzfQ.XCeXZ15YrvGSA8NZOXqbg7JRSvJAEaPWGubIrU-JGMM'
+            "
+            [type]="'video/mp4'"
+            [autoplay]="false"
+            [loop]="true"
+            [viewControl]="true"></quang-video>
+          <button
+            type="button"
+            (click)="full()"
+            class="btn btn-outline-success mt-3">
+            Schermo Intero
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'image.video.htmlFull' | transloco }}</pre>
+          <pre class="ts">{{ 'image.video.codeFull' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

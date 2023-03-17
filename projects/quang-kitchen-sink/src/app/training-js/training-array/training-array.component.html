@@ -1,0 +1,281 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Array JS'"></ks-title>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Array</h3>
+        <div cardBody>
+          <div class="row">
+            <div class="col-4">
+              <div class="mb-3">
+                <form [formGroup]="group">
+                  <textarea
+                    class="form-control"
+                    rows="6"
+                    formControlName="array"></textarea>
+                </form>
+              </div>
+            </div>
+            <div class="col-4">
+              <dl>
+                <dt>Value:</dt>
+                <dd>{{ _array | json }}</dd>
+              </dl>
+            </div>
+            <div class="col-4">
+              <dl>
+                <dt>For loop:</dt>
+                <dd>{{ _forResult | json }}</dd>
+                <dt>Array method:</dt>
+                <dd>{{ _methodResult | json }}</dd>
+                <dt>Spread operator:</dt>
+                <dd>{{ _spread | json }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Metodi</h3>
+        <div cardBody>
+          <tabset type="pills">
+            <tab heading="forEach">
+              <pre class="p-3">{{ 'js.array.forEach' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoForEach()">
+                Test
+              </button>
+            </tab>
+            <tab heading="indexOf">
+              <pre class="p-3">{{ 'js.array.indexOf' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoIndexOf()">
+                Test
+              </button>
+            </tab>
+            <tab heading="lastIndexOf">
+              <pre class="p-3">{{ 'js.array.lastIndexOf' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoLastIndexOf()">
+                Test
+              </button>
+            </tab>
+            <tab heading="includes">
+              <pre class="p-3">{{ 'js.array.includes' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoIncludes()">
+                Test
+              </button>
+            </tab>
+            <tab heading="join">
+              <pre class="p-3">{{ 'js.array.join' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoJoin()">
+                Test
+              </button>
+            </tab>
+            <tab heading="fill">
+              <pre class="p-3">{{ 'js.array.fill' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoFill()">
+                Test
+              </button>
+            </tab>
+            <tab heading="flat">
+              <pre class="p-3">{{ 'js.array.flat' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoFlat()">
+                Test
+              </button>
+            </tab>
+            <tab heading="flatMap">
+              <pre class="p-3">{{ 'js.array.flatMap' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoFlatMap()">
+                Test
+              </button>
+            </tab>
+            <tab heading="find">
+              <pre class="p-3">{{ 'js.array.find' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoFind()">
+                Test
+              </button>
+            </tab>
+            <tab heading="findIndex">
+              <pre class="p-3">{{ 'js.array.findIndex' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoFindIndex()">
+                Test
+              </button>
+            </tab>
+            <tab heading="some">
+              <pre class="p-3">{{ 'js.array.some' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoSome()">
+                Test
+              </button>
+            </tab>
+            <tab heading="every">
+              <pre class="p-3">{{ 'js.array.every' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoEvery()">
+                Test
+              </button>
+            </tab>
+            <tab heading="sort">
+              <pre class="p-3">{{ 'js.array.sort' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoSort()">
+                Test
+              </button>
+            </tab>
+            <tab heading="filter">
+              <pre class="p-3">{{ 'js.array.filter' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoFilter()">
+                Test
+              </button>
+            </tab>
+            <tab heading="reduce">
+              <pre class="p-3">{{ 'js.array.reduce' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoReduce()">
+                Test
+              </button>
+            </tab>
+            <tab heading="reduceRight">
+              <pre class="p-3">{{ 'js.array.reduceRight' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoReduceRight()">
+                Test
+              </button>
+            </tab>
+            <tab heading="map">
+              <pre class="p-3">{{ 'js.array.map' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoMap()">
+                Test
+              </button>
+            </tab>
+            <tab heading="concat">
+              <pre class="p-3">{{ 'js.array.concat' | transloco }}</pre>
+              <pre class="p-3">{{ 'js.array.concatSpread' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoConcat()">
+                Test
+              </button>
+            </tab>
+            <tab heading="splice">
+              <pre class="p-3">{{ 'js.array.splice' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoSplice()">
+                Test
+              </button>
+            </tab>
+            <tab heading="slice">
+              <pre class="p-3">{{ 'js.array.slice' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoSlice()">
+                Test
+              </button>
+            </tab>
+            <tab heading="reverse">
+              <pre class="p-3">{{ 'js.array.reverse' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoReverse()">
+                Test
+              </button>
+            </tab>
+            <tab heading="copyWithin">
+              <pre class="p-3">{{ 'js.array.copyWithin' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="demoCopyWithin()">
+                Test
+              </button>
+            </tab>
+          </tabset>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Update</h3>
+        <div cardBody>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ _simpleArray | json }}</dd>
+            <dt>Length:</dt>
+            <dd>{{ _simpleArray.length }}</dd>
+          </dl>
+          <button
+            class="btn mr-3 btn-outline-success"
+            (click)="_simpleArray.push('valuePush')">
+            Push
+          </button>
+          <button
+            class="btn mr-3 btn-outline-success"
+            (click)="_simpleArray.unshift('valueUnshift')">
+            Unshift
+          </button>
+          <button
+            class="btn mr-3 btn-outline-danger"
+            (click)="_simpleArray.pop()">
+            Pop
+          </button>
+          <button
+            class="btn mr-3 btn-outline-danger"
+            (click)="_simpleArray.shift()">
+            Shift
+          </button>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array?retiredLocale=it"
+            target="_blank">
+            MDN documentation
+          </a>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

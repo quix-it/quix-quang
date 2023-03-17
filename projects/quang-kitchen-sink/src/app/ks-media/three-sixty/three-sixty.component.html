@@ -1,0 +1,43 @@
+<section class="container-fluid" id="picture">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang three sixty image'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/QuixThreeSixtyImageComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <quang-three-sixty-image
+            [id]="'test'"
+            [height]="'50vh'"
+            [images]="list"
+            [timeRotation]="150">
+            <i nextIcon class="fas fa-forward"></i>
+            <i previousIcon class="fas fa-backward"></i>
+            <i stopIcon class="fas fa-stop"></i>
+            <i playIcon class="fas fa-play"></i>
+          </quang-three-sixty-image>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'image.three.html' | transloco }}</pre>
+          <pre class="ts">{{ 'image.three.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

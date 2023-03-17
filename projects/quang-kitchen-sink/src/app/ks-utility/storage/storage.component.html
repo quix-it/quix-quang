@@ -1,0 +1,105 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quix storage service'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Session storage</h3>
+        <div cardBody>
+          <form
+            [formGroup]="sessionForm"
+            class="mb-3"
+            (ngSubmit)="saveSession()">
+            <div class="mb-3">
+              <input
+                type="text"
+                formControlName="session"
+                class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-outline-success mr-3">
+              Salva in sessione
+            </button>
+            <button
+              type="submit"
+              (click)="deleteSession()"
+              class="btn btn-outline-secondary">
+              Cancella in sessione
+            </button>
+          </form>
+          value: {{ session }}
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.session.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Local storage</h3>
+        <div cardBody>
+          <form [formGroup]="localForm" class="mb-3" (ngSubmit)="saveLocal()">
+            <div class="mb-3">
+              <input type="text" formControlName="local" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-outline-success mr-3">
+              Salva in locale
+            </button>
+            <button
+              type="submit"
+              (click)="deleteLocal()"
+              class="btn btn-outline-secondary">
+              Cancella in locale
+            </button>
+          </form>
+          Value:{{ local }}
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.local.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage"
+                target="_blank"
+                >Session storage</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
+                target="_blank"
+                >Local storage</a
+              >
+            </li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

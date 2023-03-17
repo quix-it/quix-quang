@@ -1,0 +1,79 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Clipboard'"></ks-title>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>Demo</h4>
+        <div cardBody>
+          <form [formGroup]="group">
+            <div class="mb-3">
+              <input
+                class="form-control"
+                id="test"
+                placeholder="Inserisci il contenuto da copiare"
+                min="0"
+                formControlName="copy"
+                max="30" />
+            </div>
+          </form>
+          <button
+            type="button"
+            [cdkCopyToClipboard]="group.controls['copy'].value"
+            class="btn btn-primary">
+            Copia
+          </button>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>TS</h4>
+        <div cardBody>
+          <pre class="html">{{ 'lib.clipboard.demo' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>Programmatico</h4>
+        <div cardBody>
+          <button type="button" (click)="copy()" class="btn btn-primary">
+            Copia
+          </button>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>HTML</h4>
+        <div cardBody>
+          <pre class="ts">{{ 'lib.clipboard.button' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li>
+              <a
+                href="https://material.angular.io/cdk/clipboard/overview"
+                target="_blank"
+                >Material clipboard</a
+              >
+            </li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

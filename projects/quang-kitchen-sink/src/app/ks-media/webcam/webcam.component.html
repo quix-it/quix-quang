@@ -1,0 +1,88 @@
+<section class="container-fluid" id="webcam">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang webcam'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^13.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/WebcamComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <quang-webcam
+            [photoHeight]="200"
+            [photoWidth]="200"
+            #quangWebcam
+            (whenCameraReady)="checkWebcamStatus($event)"
+            (whenPhotoReady)="checkWebcamPhoto($event)"
+            (whenVideoReady)="checkWebcamVideo($event)"
+          ></quang-webcam>
+          <dl>
+            <dt>Ready:</dt>
+            <dd>{{ ready }}</dd>
+          </dl>
+          <button
+            [disabled]="!ready"
+            class="btn btn-outline-primary me-2"
+            type="button"
+            (click)="start()">
+            Start
+          </button>
+          <button
+            [disabled]="!ready"
+            class="btn btn-outline-primary me-2"
+            type="button"
+            (click)="pause()">
+            Pause
+          </button>
+          <button
+            [disabled]="!ready"
+            class="btn btn-outline-primary me-2"
+            type="button"
+            (click)="takePhoto()">
+            Take photo
+          </button>
+          <button
+            [disabled]="!ready"
+            (click)="takeVideo()"
+            class="btn btn-outline-primary me-2"
+            type="button">
+            Take video
+          </button>
+          <dl>
+            <dt>Image:</dt>
+            <dd>
+              <img [src]="photo" />
+            </dd>
+            <dt>Video:</dt>
+            <dd>
+              <video
+                *ngIf="videoFile"
+                [src]="videoFile"
+                #video
+                preload="auto"
+                controls="true"></video>
+            </dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/ts</h3>
+        <div cardBody>
+          <pre class="html">{{ 'media.webcam.html' | transloco }}</pre>
+          <pre class="ts">{{ 'media.webcam.ts' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

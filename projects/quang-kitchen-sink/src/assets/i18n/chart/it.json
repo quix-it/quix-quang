@@ -1,0 +1,42 @@
+{
+  "area": {
+    "html": "<quang-chart-area\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [chartData]=\"data\"\n            [color]=\"['red', 'blue']\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-area>",
+    "code": "config: string[] = []\n  data = new ChartArea(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [\n      [820, 932, 901, 934, 1290, 1330, 1320],\n      [82, 93, 90, 93, 129, 133, 132]\n    ])\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data} ${e.seriesName}`)\n  }"
+  },
+  "tree": {
+    "html": "<quang-chart-tree\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [chartData]=\"data\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-tree>",
+    "code": "data = [\n    new ChartTree('root', false, [\n      new ChartTree('lv-1', true, [], 1),\n      new ChartTree('lv-1', true, [], 2),\n      new ChartTree('lv-1', true, [\n        new ChartTree('lv-2', true, [], 1),\n        new ChartTree('lv-2', true, [], 2),\n        new ChartTree('lv-2', true, [], 3)\n      ])\n    ])\n  ]\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data.name} ${e.seriesName}`)\n  }"
+  },
+  "gauge": {
+    "html": " <quang-chart-gauge\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [chartData]=\"data\"\n            [min]=\"0\"\n            [max]=\"270\"\n            [pointerColor]=\"'#3e885b'\"\n            [gaugeColor]=\"'#fff'\"\n            [color]=\"'#debac0'\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-gauge>",
+    "code": "data: ChartGauge = new ChartGauge('velocità', 200)\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data.value} ${e.seriesName}`)\n  }"
+  },
+  "bar": {
+    "html": "<quang-chart-bar\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [chartData]=\"data\"\n            [color]=\"['red', 'blue']\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-bar>",
+    "code": "data = new ChartArea(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [\n      [820, 932, 901, 934, 1290, 1330, 1320],\n      [82, 93, 90, 93, 129, 133, 132]\n    ])\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data} ${e.seriesName}`)\n  }"
+  },
+  "line": {
+    "html": "<quang-chart-line\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [chartData]=\"data\"\n            [color]=\"['#3e885b', '#debac0']\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-line>",
+    "code": " data = new ChartArea(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    [\n      [820, 932, 901, 934, 1290, 1330, 1320],\n      [82, 93, 90, 93, 129, 133, 132]\n    ])\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data} ${e.seriesName}`)\n  }"
+  },
+  "pie": {
+    "html": "<quang-chart-pie\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [chartData]=\"data\"\n            [color]=\"['#3e885b', '#debac0', '#f3c677','#66c3ff', '#dd7230']\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-pie>",
+    "code": "data = [\n    new ChartPie(335, 'uno'),\n    new ChartPie(310, 'due'),\n    new ChartPie(234, 'tre'),\n    new ChartPie(135, 'quattro'),\n    new ChartPie(1548, 'cinque')\n  ]\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data.name} ${e.data.value} ${e.seriesName}`)\n  }"
+  },
+  "doughnut": {
+    "html": "<quang-chart-doughnut\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [chartData]=\"data\"\n            [color]=\"['#3e885b', '#debac0', '#f3c677','#66c3ff', '#dd7230']\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-doughnut>",
+    "code": "data = [\n    new ChartDoughnut(335, 'uno'),\n    new ChartDoughnut(310, 'due'),\n    new ChartDoughnut(234, 'tre'),\n    new ChartDoughnut(135, 'quattro'),\n    new ChartDoughnut(1548, 'cinque')\n  ]\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data.name} ${e.data.value} ${e.seriesName}`)\n  }"
+  },
+  "radar": {
+    "html": "<quang-chart-radar\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [radarIndicators]=\"indicators\"\n            [chartData]=\"data\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-radar>",
+    "code": "data: ChartRadar[] = [\n    new ChartRadar(\n      [25,33,45,68,72],\n      'serie 1',\n      '#debac0'\n    ),\n    new ChartRadar(\n      [30,40,50,70,80],\n      'serie 2',\n      '#f3c677'\n    ),\n  ]\n  indicators: ChartRadarIndicator[] = [\n    new ChartRadarIndicator('velocita', 100),\n    new ChartRadarIndicator('precisione', 100),\n    new ChartRadarIndicator('reazione', 100),\n    new ChartRadarIndicator('agilità', 100),\n    new ChartRadarIndicator('resistenza', 100),\n  ]\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data.name} ${e.seriesName}`)\n  }"
+  },
+  "treemap": {
+    "html": "<quang-chart-treemap\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [chartData]=\"data\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-treemap>",
+    "code": "data = [\n    new ChartTreemap('spazio', 10, '#3e885b'),\n    new ChartTreemap('mente', 10, '#debac0'),\n    new ChartTreemap('realtà', 10, '#f3c677'),\n    new ChartTreemap('potere', 10, '#66c3ff'),\n    new ChartTreemap('tempo', 10, '#dd7230')\n  ]\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data.name} ${e.seriesName}`)\n  }"
+  },
+  "candlestick": {
+    "html": "<quang-chart-candlestick\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [chartData]=\"data\"\n            [colors]=\"['#debac0','#3e885b']\"\n            (chartClick)=\"onCLick($event)\"\n          ></quang-chart-candlestick>",
+    "code": "data = new ChartCandlestick(\n    ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27'],\n    [\n      [20, 34, 10, 38],\n      [40, 35, 30, 50],\n      [1, 10, 30, 50],\n      [40, 35, 30, 50]\n    ]\n  )\n\n  onCLick (e: any): void {\n    alert(`${e.type} ${e.data} ${e.seriesName}`)\n  }"
+  }
+}

@@ -1,0 +1,37 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang open street map'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/OpenStreetMapComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <quang-osmap
+            [id]="'testOS'"
+            [height]="'50vh'"
+            [defaultZoom]="15"
+            [defaultCenter]="[10.8889166, 44.6584095]"></quang-osmap>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'map.os.html' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

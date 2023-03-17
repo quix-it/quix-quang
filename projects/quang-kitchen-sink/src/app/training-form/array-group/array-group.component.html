@@ -1,0 +1,56 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Form array group'"></ks-title>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <button class="btn btn-outline-success" (click)="addGroup()">
+            Aggiungi gruppo
+          </button>
+          <button class="btn btn-outline-danger ml-1" (click)="removeGroup()">
+            Rimuovi gruppo
+          </button>
+          <form [formGroup]="group">
+            <ng-container formArrayName="array">
+              <div
+                *ngFor="let input of array.controls; let i = index"
+                [formGroupName]="i">
+                <div class="mb-3">
+                  <label [htmlFor]="'name' + i">Nome {{ i }}</label>
+                  <input
+                    type="text"
+                    [id]="'name' + i"
+                    class="form-control"
+                    formControlName="name" />
+                </div>
+                <div class="mb-3">
+                  <label [htmlFor]="'surname' + i">Cognome {{ i }}</label>
+                  <input
+                    type="text"
+                    [id]="'surname' + i"
+                    class="form-control"
+                    formControlName="surname" />
+                </div>
+              </div>
+            </ng-container>
+          </form>
+          value: {{ group.value?.array | json }}
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'form.array-group.html' | transloco }}</pre>
+          <pre class="ts">{{ 'form.array-group.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

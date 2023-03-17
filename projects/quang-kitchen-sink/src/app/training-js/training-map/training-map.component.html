@@ -1,0 +1,110 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Mappe JS'"></ks-title>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Mappa</h3>
+        <div cardBody>
+          <div class="row">
+            <div class="col-4">
+              <form [formGroup]="group">
+                <div class="mb-3">
+                  <label class="form-label" for="key">Chiave</label>
+                  <input
+                    type="text"
+                    id="key"
+                    autocomplete="off"
+                    class="form-control"
+                    formControlName="key" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="value">Valore</label>
+                  <textarea
+                    id="value"
+                    autocomplete="off"
+                    rows="6"
+                    class="form-control"
+                    formControlName="value"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="col-4">
+              <dl>
+                <dt>.keys():</dt>
+                <dd *ngFor="let k of map.keys()">{{ k }}</dd>
+                <dt>.values():</dt>
+                <dd *ngFor="let v of map.values()">{{ v | json }}</dd>
+                <dt>.size:</dt>
+                <dd>{{ map.size | json }}</dd>
+                <dt>.has("Nemo"):</dt>
+                <dd>{{ map.has('Nemo') | json }}</dd>
+              </dl>
+            </div>
+            <div class="col-4">
+              <h4>KeyValue</h4>
+              <dl>
+                <ng-container *ngFor="let i of map | keyvalue">
+                  <dt>{{ i.key }}</dt>
+                  <dd>{{ i.value | json }}</dd>
+                </ng-container>
+              </dl>
+              <pre class="html">{{ 'js.map.keyvalue' | transloco }}</pre>
+            </div>
+          </div>
+        </div>
+        <div cardBody></div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Metodi</h3>
+        <div cardBody>
+          <tabset type="pills">
+            <tab heading="set">
+              <pre class="p-3">{{ 'js.map.set' | transloco }}</pre>
+              <button class="btn btn-block btn-outline-success" (click)="add()">
+                Test
+              </button>
+            </tab>
+            <tab heading="delete">
+              <pre class="p-3">{{ 'js.map.delete' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="delete()">
+                Test
+              </button>
+            </tab>
+            <tab heading="clear">
+              <pre class="p-3">{{ 'js.map.clear' | transloco }}</pre>
+              <button
+                class="btn btn-block btn-outline-success"
+                (click)="clear()">
+                Test
+              </button>
+            </tab>
+          </tabset>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map?retiredLocale=it"
+            target="_blank">
+            MDN documentation
+          </a>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

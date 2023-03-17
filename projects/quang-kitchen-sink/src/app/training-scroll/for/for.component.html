@@ -1,0 +1,92 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'ngFor'"></ks-title>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>Demo</h4>
+        <div cardBody>
+          <div
+            class="mb-1 border-1 border-secondary border p-3"
+            *ngFor="
+              let item of items;
+              trackBy: trackItem;
+              let i = index;
+              let f = first;
+              let l = last;
+              let o = odd;
+              let e = even
+            ">
+            {{ item.value }}
+            <mat-chip-list>
+              <mat-chip *ngIf="f">First</mat-chip>
+              <mat-chip *ngIf="l">Last</mat-chip>
+              <mat-chip *ngIf="o">Odd</mat-chip>
+              <mat-chip *ngIf="e">Even</mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>HTML</h4>
+        <div cardBody>
+          <pre class="html">{{ 'scroll.for.html' | transloco }}</pre>
+          <pre class="ts">{{ 'scroll.for.ts' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>Demo</h4>
+        <div cardBody>
+          <div
+            class="mb-1 border-1 border-secondary border p-3"
+            *ngFor="
+              let obj of objects | keyvalue;
+              let i = index;
+              let f = first;
+              let l = last;
+              let o = odd;
+              let e = even
+            ">
+            {{ obj?.value }}
+            <mat-chip-list>
+              <mat-chip *ngIf="f">First</mat-chip>
+              <mat-chip *ngIf="l">Last</mat-chip>
+              <mat-chip *ngIf="o">Odd</mat-chip>
+              <mat-chip *ngIf="e">Even</mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h4 cardHeader>HTML</h4>
+        <div cardBody>
+          <pre class="html">{{ 'scroll.for-obj.html' | transloco }}</pre>
+          <pre class="ts">{{ 'scroll.for-obj.ts' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li><a href="">Angular ngFor</a></li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

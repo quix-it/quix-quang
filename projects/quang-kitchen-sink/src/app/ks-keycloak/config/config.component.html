@@ -1,0 +1,111 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang keycloak config'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <h4>Config project</h4>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Modulo</h3>
+        <div cardBody>
+          <pre class="ts">{{
+            'keycloak.config.project.module' | transloco
+          }}</pre>
+        </div>
+      </quang-card-header>
+      <div class="mt-3">
+        <quang-card-header>
+          <h3 cardHeader>Effetti</h3>
+          <div cardBody>
+            <p>in app.module</p>
+            <pre class="ts">{{
+              'keycloak.config.project.effect' | transloco
+            }}</pre>
+          </div>
+        </quang-card-header>
+      </div>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Config</h3>
+        <div cardBody>
+          <pre class="ts">{{
+            'keycloak.config.project.config' | transloco
+          }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <h4>Config product</h4>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Modulo</h3>
+        <div cardBody>
+          <pre class="ts">{{
+            'keycloak.config.product.module' | transloco
+          }}</pre>
+        </div>
+      </quang-card-header>
+      <div class="mt-3"></div>
+      <quang-card-header>
+        <h3 cardHeader>Effetti</h3>
+        <div cardBody>
+          <p>in app.module</p>
+          <pre class="ts">{{
+            'keycloak.config.product.effect' | transloco
+          }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Config</h3>
+        <div cardBody>
+          <pre class="ts">{{
+            'keycloak.config.product.config' | transloco
+          }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li>
+              <a
+                href="https://www.npmjs.com/package/keycloak-js"
+                target="_blank"
+                >NPM keycloak js</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.npmjs.com/package/keycloak-angular"
+                target="_blank"
+                >NPM angular keycloak</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.keycloak.org/docs/latest/securing_apps/"
+                target="_blank"
+                >keycloak js</a
+              >
+            </li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

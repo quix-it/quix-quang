@@ -1,0 +1,14 @@
+.accordion-button:not(.collapsed) {
+  background-color: $white;
+  font-weight: $font-weight-bold;
+}
+
+.accordion-button:not(.collapsed):before {
+  content: '';
+  height: 100%;
+  width: 3px;
+  background-color: $accordion-button-active-color;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}

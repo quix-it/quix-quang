@@ -1,0 +1,54 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang multi-select obj'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/MultiSelectObjComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <form [formGroup]="group">
+            <quang-multi-select-obj
+              [label]="'form.multi-select-obj.label'"
+              [errorMessage]="true"
+              [successMessage]="true"
+              [helpMessage]="true"
+              [tabIndex]="1"
+              [id]="'multi-select-obj id'"
+              [autofocus]="true"
+              [formName]="'form'"
+              [list]="list"
+              [returnValue]="'value'"
+              [labelValue]="'text'"
+              [rowVisible]="6"
+              formControlName="items">
+            </quang-multi-select-obj>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls['items'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.multi-select-obj.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.multi-select-obj.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

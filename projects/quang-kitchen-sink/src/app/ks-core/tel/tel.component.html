@@ -1,0 +1,53 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang input tel'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/InputTelComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <form [formGroup]="group">
+            <quang-input-tel
+              [label]="'form.tel.label'"
+              [placeholder]="'form.tel.ph'"
+              [min]="9"
+              [max]="10"
+              [errorMessage]="true"
+              [successMessage]="true"
+              [helpMessage]="true"
+              [autocomplete]="'off'"
+              [tabIndex]="1"
+              [id]="'tel id'"
+              [autofocus]="true"
+              [formName]="'form'"
+              formControlName="tel"></quang-input-tel>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls['tel'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.tel.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.tel.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

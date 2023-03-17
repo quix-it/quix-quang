@@ -1,0 +1,80 @@
+<section id="swiper" class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Swiper'"></ks-title>
+    </div>
+    <div class="col text-right"></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <div class="wrapper">
+            <swiper [slidesPerView]="2.5" [spaceBetween]="20">
+              <ng-template swiperSlide
+                ><img
+                  alt="swiper"
+                  [src]="'https://picsum.photos/200/300?number=1'"
+              /></ng-template>
+              <ng-template swiperSlide
+                ><img
+                  alt="swiper"
+                  [src]="'https://picsum.photos/200/300?number=2'"
+              /></ng-template>
+              <ng-template swiperSlide
+                ><img
+                  alt="swiper"
+                  [src]="'https://picsum.photos/200/300?number=3'"
+              /></ng-template>
+              <ng-template swiperSlide
+                ><img
+                  alt="swiper"
+                  [src]="'https://picsum.photos/200/300?number=4'"
+              /></ng-template>
+              <ng-template swiperSlide
+                ><img
+                  alt="swiper"
+                  [src]="'https://picsum.photos/200/300?number=5'"
+              /></ng-template>
+              <ng-template swiperSlide
+                ><img
+                  alt="swiper"
+                  [src]="'https://picsum.photos/200/300?number=6'"
+              /></ng-template>
+              <ng-template swiperSlide
+                ><img
+                  alt="swiper"
+                  [src]="'https://picsum.photos/200/300?number=7'"
+              /></ng-template>
+            </swiper>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.swiper.html' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li>
+              <a href="https://swiperjs.com/angular" target="_blank"
+                >Angular swiper</a
+              >
+            </li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

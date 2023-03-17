@@ -1,0 +1,49 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang input toggle'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/ToggleComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <form [formGroup]="group">
+            <quang-toggle
+              [label]="'form.toggle.label'"
+              [errorMessage]="true"
+              [successMessage]="true"
+              [helpMessage]="true"
+              [tabIndex]="1"
+              [id]="'toggle id'"
+              [formName]="'form'"
+              formControlName="toggle">
+            </quang-toggle>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls['toggle'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.toggle.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.toggle.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+<!--use this page to simulate your application within a liferay portal-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>LifeRay portal simulation</title>
+    <style>
+      body {
+        margin: 0;
+      }
+
+      header {
+        height: 5rem;
+      }
+
+      main {
+        display: flex;
+      }
+
+      main #left {
+        width: 15rem;
+      }
+      main #right {
+        width: 15rem;
+      }
+
+      main iframe {
+        min-height: calc(100vh - 5rem - 4px);
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <aside id="left"></aside>
+      <iframe id="portalFrame" src="http://localhost:4200/"></iframe>
+      <aside id="right"></aside>
+    </main>
+    <script type="text/javascript" src="iframeResizer.min.js"></script>
+    <script>
+      ;(function () {
+        'use strict'
+        iFrameResize({ log: true }, document.getElementById('portalFrame'))
+      })()
+    </script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang text area'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/TextAreaComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <form [formGroup]="group">
+            <quang-text-area
+              [label]="'form.text.label'"
+              [placeholder]="'form.text.ph'"
+              [min]="0"
+              [max]="50"
+              [cols]="10"
+              [rows]="10"
+              [errorMessage]="true"
+              [successMessage]="true"
+              [helpMessage]="true"
+              [tabIndex]="1"
+              [id]="'text id'"
+              [autofocus]="true"
+              [formName]="'form'"
+              formControlName="text"></quang-text-area>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls['text'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.textarea.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.textarea.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Resize</h3>
+        <div cardBody>
+          <form [formGroup]="groupResize">
+            <quang-text-area
+              [label]="'form.text.label'"
+              [placeholder]="'form.text.ph'"
+              [min]="0"
+              [max]="50"
+              [cols]="10"
+              [rows]="10"
+              [errorMessage]="true"
+              [successMessage]="true"
+              [helpMessage]="true"
+              [tabIndex]="1"
+              [id]="'text-resize id'"
+              [autofocus]="true"
+              [formName]="'form'"
+              [autoResize]="true"
+              [resizeMode]="'none'"
+              formControlName="text"></quang-text-area>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ groupResize.controls['text'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.textarea-resize.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.textarea-resize.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang device motion service'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <!--      <h3>@quix/quang: ^13.0.0</h3>-->
+      <h3>Next feature</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <dl>
+            <dt>Device motion event</dt>
+            <dd>{{ event$ | async | json }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.device-motion.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

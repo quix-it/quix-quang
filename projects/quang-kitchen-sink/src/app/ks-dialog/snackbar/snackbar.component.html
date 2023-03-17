@@ -1,0 +1,47 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quix snackbar service'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <button
+            type="button"
+            (click)="openSnackbar()"
+            class="btn btn-outline-success mb-3">
+            Apri snackbar
+          </button>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'dialog.snackbar.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <a
+            href="https://material.angular.io/components/snack-bar/overview"
+            target="_blank"
+            >Snack bar</a
+          >
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

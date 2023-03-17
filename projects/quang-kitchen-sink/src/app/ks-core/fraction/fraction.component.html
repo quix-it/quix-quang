@@ -1,0 +1,56 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang input fraction'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <form [formGroup]="group">
+            <quang-input-fraction
+              [label]="'form.fraction.label'"
+              [errorMessage]="true"
+              [successMessage]="true"
+              [helpMessage]="true"
+              [autocomplete]="'off'"
+              [tabIndex]="1"
+              [id]="'test'"
+              [autofocus]="true"
+              [formName]="'form'"
+              [addButtonClass]="['btn', 'btn-outline-success']"
+              [removeButtonClass]="['btn', 'btn-outline-danger']"
+              [stepInteger]="1"
+              [stepFraction]="0.1"
+              [min]="0"
+              [max]="255"
+              formControlName="fraction">
+              <i addIntegerIcon class="fas fa-plus"></i>
+              <i removeIntegerIcon class="fas fa-minus"></i>
+              <i addFractionIcon class="fas fa-plus"></i>
+              <i removeFractionIcon class="fas fa-minus"></i>
+            </quang-input-fraction>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls['fraction'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.fraction.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.fraction.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

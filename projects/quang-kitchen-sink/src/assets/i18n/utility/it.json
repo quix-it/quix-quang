@@ -1,0 +1,14 @@
+{
+  "layout": {
+    "code": "constructor (\n    private layoutService: QuixLayoutService\n  ) { }\n\n  ngOnInit (): void {\n    this.layoutService.getOrientation().subscribe((v) => this.orientation = v)\n  }"
+  },
+  "session": {
+    "code": " saveSession (): void {\n    this.storageService.setSession('session', this.sessionForm.controls.session.value)\n  }\n\n  getSession (): void {\n    this.session = this.storageService.getSession('session')\n  }\n\n  deleteSession (): void {\n    this.storageService.clearSession('session')\n  }\n\n  observeSession (): void {\n    this.storageService.observeSession('session').subscribe(v => {this.session = v})\n  }"
+  },
+  "local": {
+    "code": " saveLocal (): void {\n    this.storageService.setLocal('local', this.localForm.controls.local.value)\n  }\n\n  getLocal (): void {\n    this.local = this.storageService.getLocal('local')\n  }\n\n  deleteLocal (): void {\n    this.storageService.clearLocal('local')\n  }\n\n  observeLocal (): void {\n    this.storageService.observeLocal('local').subscribe(v => {this.local = v})\n  }"
+  },
+  "device-lock": {
+    "code": ""
+  }
+}

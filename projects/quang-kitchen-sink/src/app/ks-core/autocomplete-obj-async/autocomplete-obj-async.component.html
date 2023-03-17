@@ -1,0 +1,56 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang autocomplete object async'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/AutocompleteobjAsync.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <form [formGroup]="group">
+            <quang-autocomplete-obj-async
+              [id]="'test'"
+              [tabIndex]="1"
+              [autofocus]="true"
+              [errorMessage]="true"
+              [helpMessage]="true"
+              [successMessage]="true"
+              [formName]="'form'"
+              [searchBy]="'name'"
+              [returnValue]="'key'"
+              [apiUrl]="'assets/data/villain.json'"
+              [baseUrl]="'./'"
+              formControlName="key"></quang-autocomplete-obj-async>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls['key'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{
+            'core.autocomplete-obj-async.html' | transloco
+          }}</pre>
+          <pre class="ts">{{
+            'core.autocomplete-obj-async.code' | transloco
+          }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+{
+  "calendar": {
+    "html": "<quang-calendar\n            [height]=\"'600px'\"\n            [firstDay]=\"'monday'\"></quang-calendar>"
+  },
+  "date": {
+    "html": "<quang-calendar\n            [height]=\"'600px'\"\n            (whenDateClick)=\"openAlert($event)\"\n           [firstDay]=\"'monday'\"></quang-calendar>",
+    "code": "openAlert (event: any): void {\n    alert(event.date ?? event.event._def?.title)\n  }"
+  },
+  "event": {
+    "html": "<quang-calendar\n            [height]=\"'600px'\"\n            (whenEventClick)=\"openAlert($event)\"\n            [callBack]=\"loadData\"\n            [firstDay]=\"'monday'\"\n            [dayMaxEvents]=\"2\"\n          ></quang-calendar>",
+    "code": "loadData (e: any, success: any, error: any): any {\n    return success([\n      new QuixCalendarEvent('inizio', e.startStr),\n      new QuixCalendarEvent('fine', subtract(new Date(), 1, 'day')),\n      new QuixCalendarEvent('altro', subtract(new Date(), 1, 'day')),\n      new QuixCalendarEvent('fare', subtract(new Date(), 1, 'day')),\n      new QuixCalendarEvent('cose', subtract(new Date(), 1, 'day')),\n    ])\n  }"
+  },
+  "async": {
+    "html": "<quang-calendar\n            [height]=\"'600px'\"\n            (whenEventClick)=\"openAlert($event)\"\n            [callBack]=\"loadAsyncData\"\n            [firstDay]=\"'monday'\"></quang-calendar>",
+    "code": "loadAsyncData (e: any, success: any, error: any): any {\n    new Promise((resolve => {\n      setTimeout(() => resolve([new QuixCalendarEvent('evento', new Date())]), 3000)\n    })).then(\n      (r: any) => {\n        return success(r)\n      },\n      (e: any) => {\n        return error([])\n      })\n  }"
+  },
+  "week": {
+    "html": "<quang-calendar\n            [height]=\"'600px'\"\n            [view]=\"'timeGridWeek'\"\n            [firstDay]=\"'monday'\"\n          ></quang-calendar>"
+  },
+  "day": {
+    "html": "<quang-calendar\n            [height]=\"'600px'\"\n            [view]=\"'dayGridWeek'\"\n            [firstDay]=\"'monday'\"\n          ></quang-calendar>"
+  }
+}

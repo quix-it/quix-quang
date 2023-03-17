@@ -1,0 +1,6 @@
+aside {
+  padding-top: 1rem;
+  grid-area: aside;
+  overflow-y: auto;
+  max-height: calc(100vh - 85px - 40px);
+}

@@ -1,0 +1,50 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'People'"></ks-title>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <p>Tabella di test per accessibilità dei componenti di Quang</p>
+        <div cardBody>
+          <div class="table-responsive">
+            <table class="table table-light">
+              <thead>
+                <tr class="table-dark">
+                  <th scope="col">Name</th>
+                  <th scope="col">Genre</th>
+                  <th scope="col">Height</th>
+                  <th scope="col">Mass</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of people">
+                  <td>{{ p.name }}</td>
+                  <td>{{ p.gender }}</td>
+                  <td>{{ p.height }}</td>
+                  <td>{{ p.mass }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="justify-content-end">
+            <quang-paginator
+              [tabIndex]="0"
+              [id]="'paginator id'"
+              [isAccessible]="true"
+              [totalItems]="totalItems"
+              [pageIndex]="0"
+              [pageSize]="10"
+              (whenPageChange)="pageChange($event)"
+              (whenSizeChange)="sizeChange($event)"
+              [sizeList]="sizeList">
+            </quang-paginator>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>
