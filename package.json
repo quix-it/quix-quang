@@ -73,7 +73,7 @@
     "keycloak-js": "^15.1.1",
     "ng-lazyload-image": "^9.1.1",
     "ngx-bootstrap": "^9.0.0",
-    "ngx-echarts": "^8.0.1",
+    "ngx-echarts": "^14.0.0",
     "ngx-file-drop": "^13.0.0",
     "ngx-quill": "^16.1.1",
     "ngx-webstorage": "^9.0.0",

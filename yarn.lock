@@ -277,7 +277,7 @@
     "uuid" "8.3.2"
     "yargs" "17.5.1"
 
-"@angular/common@^11 || ^12 || ^13", "@angular/common@^13.0.0", "@angular/common@^14.0.0", "@angular/common@^14.0.0 || ^15.0.0", "@angular/common@^14.3.0", "@angular/common@>=11.0.0", "@angular/common@>=12.0.0", "@angular/common@>=13.0.0", "@angular/common@10.x || 11.x || 12.x || 13.x", "@angular/common@14.3.0", "@angular/common@9 - 13":
+"@angular/common@^11 || ^12 || ^13", "@angular/common@^13.0.0", "@angular/common@^14.0.0", "@angular/common@^14.0.0 || ^15.0.0", "@angular/common@^14.3.0", "@angular/common@>=11.0.0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@10.x || 11.x || 12.x || 13.x", "@angular/common@14.3.0", "@angular/common@9 - 13":
   "integrity" "sha512-pV9oyG3JhGWeQ+TFB0Qub6a1VZWMNZ6/7zEopvYivdqa5yDLLDSBRWb6P80RuONXyGnM1pa7l5nYopX+r/23GQ=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/common/-/common-14.3.0.tgz"
   "version" "14.3.0"
@@ -307,7 +307,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^11 || ^12 || ^13", "@angular/core@^13.0.0", "@angular/core@^14.0.0", "@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^14.3.0", "@angular/core@>=11.0.0", "@angular/core@>=12.0.0", "@angular/core@>=13.0.0", "@angular/core@10.x || 11.x || 12.x || 13.x", "@angular/core@14.3.0", "@angular/core@9 - 13":
+"@angular/core@^11 || ^12 || ^13", "@angular/core@^13.0.0", "@angular/core@^14.0.0", "@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^14.3.0", "@angular/core@>=11.0.0", "@angular/core@>=13.0.0", "@angular/core@>=14.0.0", "@angular/core@10.x || 11.x || 12.x || 13.x", "@angular/core@14.3.0", "@angular/core@9 - 13":
   "integrity" "sha512-wYiwItc0Uyn4FWZ/OAx/Ubp2/WrD3EgUJ476y1XI7yATGPF8n9Ld5iCXT08HOvc4eBcYlDfh90kTXR6/MfhzdQ=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/core/-/core-14.3.0.tgz"
   "version" "14.3.0"
@@ -2828,12 +2828,11 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/amdefine/-/amdefine-1.0.1.tgz"
   "version" "1.0.1"
 
-"angular-oauth2-oidc@^13.0.1":
-  "integrity" "sha512-aL1VIv9Jqoqq31lbpUXIeNpM3GeN/ldb3KOlq0cV92amGpZs9J4YA+2rlJ5V9zb6NFNbvd7XfTntMbnNuS0+CQ=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/angular-oauth2-oidc/-/angular-oauth2-oidc-13.0.1.tgz"
-  "version" "13.0.1"
+"angular-oauth2-oidc@^14.0.1":
+  "integrity" "sha512-2DgIqGapAQYSYwgMmMv5Ef7BfpGO7DJvU3kZyjL7Z2aMbpacuzia17eUb2Y/lwqrzJZyMl/sgacAE1SJI4lQ4w=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/angular-oauth2-oidc/-/angular-oauth2-oidc-14.0.1.tgz"
+  "version" "14.0.1"
   dependencies:
-    "fast-sha256" "^1.3.0"
     "tslib" "^2.0.0"
 
 "ansi-colors@^4.1.1", "ansi-colors@4.1.3":
@@ -5037,11 +5036,6 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
   "version" "2.0.6"
 
-"fast-sha256@^1.3.0":
-  "integrity" "sha512-n11RGP/lrWEFI/bWdygLxhI+pVeo1ZYIVwvvPkW7azl/rOy+F3HYRZ2K5zeE9mmkhQppyv9sQFx0JM9UabnpPQ=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/fast-sha256/-/fast-sha256-1.3.0.tgz"
-  "version" "1.3.0"
-
 "fastq@^1.6.0":
   "integrity" "sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/fastq/-/fastq-1.13.0.tgz"
@@ -7163,10 +7157,10 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"ngx-echarts@^8.0.1":
-  "integrity" "sha512-CP+WnCcnMCNpCL9BVmDIZmhGSVPnkJhhFbQEKt0nrwV0L6d4QTAGZ+e4y6G1zTTFKkIMPHpaO0nhtDRgSXAW/w=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-echarts/-/ngx-echarts-8.0.1.tgz"
-  "version" "8.0.1"
+"ngx-echarts@^14.0.0":
+  "integrity" "sha512-Q8J/DXiWqYM2vqTfQq16A7KyxbWECZSiAApS0rBjsAJCPjG/VZogUe0snZ/i3mA6bV3vYm41imTYOaH+Rl97QA=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-echarts/-/ngx-echarts-14.0.0.tgz"
+  "version" "14.0.0"
   dependencies:
     "tslib" "^2.3.0"
 
