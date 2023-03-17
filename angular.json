@@ -491,9 +491,10 @@
       }
     }
   },
-  "defaultProject": "quang",
   "cli": {
     "analytics": "4c69ff4f-b242-4742-a667-c15cf0e09a78",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
