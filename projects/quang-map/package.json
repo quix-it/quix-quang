@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-map",
-          "version": "13.2.1",
+          "version": "15.0.0-beta.0",
   "dependencies": {
     "@angular/core": "^14.3.0",
     "ol": "^6.12.0"
