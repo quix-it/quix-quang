@@ -3,21 +3,21 @@
  */
 export class QuangPicture {
   /**
-   * the minimum width for which you see this image
+   * @param defaultSrc
+   * @param xs <576px
+   * @param sm ≥576px
+   * @param md ≥768px
+   * @param lg ≥992px
+   * @param xl ≥1200px
+   * @param xxl ≥1400px
    */
-  public minWidth: string
-  /**
-   * image url
-   */
-  public src: string
-
-  /**
-   * picture constructor
-   * @param minWidth
-   * @param src
-   */
-  constructor (minWidth: 0 | 415 | 768 | 992 | 1200, src: string) {
-    this.minWidth = `(min-width:${minWidth}px)`
-    this.src = src
-  }
+  constructor(
+    public defaultSrc: string,
+    public xs?: string,
+    public sm?: string,
+    public md?: string,
+    public lg?: string,
+    public xl?: string,
+    public xxl?: string
+  ) {}
 }

@@ -46,9 +46,13 @@ export class QuangValidatorsService {
    * Check if the file size is smaller than required
    * @param maxSize
    */
-  fileMaxSize (maxSize: number): ValidatorFn {
+  fileMaxSize(maxSize: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value && control.value instanceof File && control.value?.size > maxSize) {
+      if (
+        control.value &&
+        control.value instanceof File &&
+        control.value?.size > maxSize
+      ) {
         return { maxSize: { requiredValue: maxSize } }
       }
       return null
@@ -59,9 +63,13 @@ export class QuangValidatorsService {
    * Check if the file size is larger than required
    * @param minSize
    */
-  fileMinSize (minSize: number): ValidatorFn {
+  fileMinSize(minSize: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value && control.value instanceof File && control.value?.size < minSize) {
+      if (
+        control.value &&
+        control.value instanceof File &&
+        control.value?.size < minSize
+      ) {
         return { minSize: { requiredValue: minSize } }
       }
       return null
@@ -71,7 +79,7 @@ export class QuangValidatorsService {
   /**
    * Check if the passed object is a file
    */
-  isFile (): ValidatorFn {
+  isFile(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value && control.value instanceof File) {
         return null
@@ -84,7 +92,7 @@ export class QuangValidatorsService {
    * Check if the file passed is of the type contained in the list of accepted ones
    * @param fileTypes
    */
-  fileType (fileTypes: string[]) {
+  fileType(fileTypes: string[]) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value && !fileTypes.includes(control.value?.type)) {
         return { fileType: { requiredValue: fileTypes.toString() } }
@@ -97,9 +105,14 @@ export class QuangValidatorsService {
    * Check if the passed file has extension contained in the list of accepted ones
    * @param fileExtensions
    */
-  fileExtensions (fileExtensions: string[]) {
+  fileExtensions(fileExtensions: string[]) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value && !fileExtensions.includes(control.value?.name?.match(/(?:\.([^.]+))?$/g)[0])) {
+      if (
+        control.value &&
+        !fileExtensions.includes(
+          control.value?.name?.match(/(?:\.([^.]+))?$/g)[0]
+        )
+      ) {
         return { fileExtension: { requiredValue: fileExtensions.toString() } }
       }
       return null
@@ -109,7 +122,7 @@ export class QuangValidatorsService {
   /**
    * valid if a checkbox is mandatory
    */
-  requiredCheckbox () {
+  requiredCheckbox() {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (!control.value) {
         return { required: { requiredValue: control.value } }
@@ -122,7 +135,7 @@ export class QuangValidatorsService {
    * Check if the past date is more than the necessary one
    * @param minDate
    */
-  minDate (minDate: Date) {
+  minDate(minDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (isBefore(new Date(control.value), minDate)) {
         return { minDate: { requiredValue: minDate } }
@@ -135,7 +148,7 @@ export class QuangValidatorsService {
    * Check if the past date is earlier than needed
    * @param maxDate
    */
-  maxDate (maxDate: Date) {
+  maxDate(maxDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (isAfter(new Date(control.value), maxDate)) {
         return { maxDate: { requiredValue: maxDate } }
@@ -149,25 +162,34 @@ export class QuangValidatorsService {
    * @param startDate
    * @param endDate
    */
-  dateBetween (startDate: Date, endDate: Date) {
+  dateBetween(startDate: Date, endDate: Date) {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!isWithinInterval(new Date(control.value), { start: startDate, end: endDate })) {
+      if (
+        !isWithinInterval(new Date(control.value), {
+          start: startDate,
+          end: endDate
+        })
+      ) {
         return { dateBetween: { requiredValue: [startDate, endDate] } }
       }
       return null
     }
   }
 
-  isFiscalCode () {
+  isFiscalCode() {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!/^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$/gm.test(control.value.toUpperCase())) {
+      if (
+        !/^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$/gm.test(
+          control.value.toUpperCase()
+        )
+      ) {
         return { fiscalCode: false }
       }
       return null
     }
   }
 
-  isVatNumber (locale: string) {
+  isVatNumber(locale: string) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (!europeanVatNumber[locale].test(control.value)) {
         return { vatNumber: false }

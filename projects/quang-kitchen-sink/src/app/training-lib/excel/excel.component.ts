@@ -20,9 +20,9 @@ export class ExcelComponent {
     [2007, 1, 'Toyota ', 'Toyota Corolla', 691, 5.4]
   ]
 
-  constructor(private readonly http: HttpClient) {}
+  constructor (private readonly http: HttpClient) {}
 
-  create(): void {
+  create (): void {
     this.prepareImageForExcel().subscribe((image) => {
       const workbook = new Workbook()
       const worksheet = workbook.addWorksheet('Car Data')
@@ -78,7 +78,7 @@ export class ExcelComponent {
     })
   }
 
-  prepareImageForExcel(): Observable<string> {
+  prepareImageForExcel (): Observable<string> {
     return new Observable((observer) => {
       this.http
         .get('https://picsum.photos/200/300', { responseType: 'blob' })

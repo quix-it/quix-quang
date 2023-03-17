@@ -17,17 +17,17 @@ export class QuangStorageService {
    * @param sessionStorage session storage access
    * @param localStorage local storage access
    */
-  constructor (
+  constructor(
     private readonly sessionStorage: SessionStorageService,
-    private readonly localStorage: LocalStorageService) {
-  }
+    private readonly localStorage: LocalStorageService
+  ) {}
 
   /**
    * saves in the sessionStorage the past data identified by the passed key
    * @param key
    * @param value
    */
-  setSession (key: string, value: any): void {
+  setSession(key: string, value: any): void {
     this.sessionStorage.store(key, JSON.stringify(value))
   }
 
@@ -35,7 +35,7 @@ export class QuangStorageService {
    * retrieves the data saved with the passed key from the sessionStorage
    * @param key
    */
-  getSession (key: string): any {
+  getSession(key: string): any {
     return JSON.parse(this.sessionStorage.retrieve(key))
   }
 
@@ -45,7 +45,7 @@ export class QuangStorageService {
    * @param key
    * @param defaultValue
    */
-  getSessionDefault (key: string, defaultValue: string): string {
+  getSessionDefault(key: string, defaultValue: string): string {
     try {
       return JSON.parse(this.sessionStorage.retrieve(key)) ?? defaultValue
     } catch (e) {
@@ -57,7 +57,7 @@ export class QuangStorageService {
    * deletes the data saved with the passed key from the sessionStorage
    * @param key
    */
-  clearSession (key: string): void {
+  clearSession(key: string): void {
     this.sessionStorage.clear(key)
   }
 
@@ -65,7 +65,7 @@ export class QuangStorageService {
    * returns an observable that it issues whenever the value of the passed key changes within the sessionStoare
    * @param key
    */
-  observeSession (key: string): Observable<any> {
+  observeSession(key: string): Observable<any> {
     return this.sessionStorage.observe(key)
   }
 
@@ -74,7 +74,7 @@ export class QuangStorageService {
    * @param key
    * @param value
    */
-  setLocal (key: string, value: any): void {
+  setLocal(key: string, value: any): void {
     this.localStorage.store(key, JSON.stringify(value))
   }
 
@@ -82,7 +82,7 @@ export class QuangStorageService {
    * retrieves the data saved with the passed key from the localStorage
    * @param key
    */
-  getLocal (key: string): any {
+  getLocal(key: string): any {
     return JSON.parse(this.localStorage.retrieve(key))
   }
 
@@ -92,7 +92,7 @@ export class QuangStorageService {
    * @param key
    * @param defaultValue
    */
-  getLocalDefault (key: string, defaultValue: string): string {
+  getLocalDefault(key: string, defaultValue: string): string {
     try {
       return JSON.parse(this.localStorage.retrieve(key)) ?? defaultValue
     } catch (e) {
@@ -104,7 +104,7 @@ export class QuangStorageService {
    * deletes the data saved with the passed key from the localStorage
    * @param key
    */
-  clearLocal (key: string): void {
+  clearLocal(key: string): void {
     this.localStorage.clear(key)
   }
 
@@ -112,7 +112,7 @@ export class QuangStorageService {
    * returns an observable that emits whenever the value of the passed key changes within the localStoare
    * @param key
    */
-  observeLocal (key: string): Observable<any> {
+  observeLocal(key: string): Observable<any> {
     return this.localStorage.observe(key)
   }
 }

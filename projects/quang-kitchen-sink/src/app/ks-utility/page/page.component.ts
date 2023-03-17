@@ -12,5 +12,5 @@ export class PageComponent {
   freeze$: Observable<any> = this.page.observePageFreeze()
   resume$: Observable<any> = this.page.observePageResume()
 
-  constructor(private readonly page: QuangPageService) {}
+  constructor (private readonly page: QuangPageService) {}
 }

@@ -1,7 +1,6 @@
 import {
   Component,
   ElementRef,
-  Input,
   ViewChild
 } from '@angular/core'
 import { WebcamComponent as QuangWebcam } from '../../../../../quang-media/src/lib/webcam/webcam.component'
@@ -15,40 +14,41 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 export class WebcamComponent {
   @ViewChild('quangWebcam', { static: true }) webcam: QuangWebcam | null = null
   @ViewChild('video', { static: true }) video:
-    | ElementRef<HTMLVideoElement>
-    | undefined = undefined
+  | ElementRef<HTMLVideoElement>
+  | undefined = undefined
+
   ready: boolean = false
   photo: string | undefined = undefined
   videoFile: SafeResourceUrl = ''
-  constructor(private readonly sanitizer: DomSanitizer) {}
+  constructor (private readonly sanitizer: DomSanitizer) {}
 
-  start(): void {
+  start (): void {
     this.webcam?.startDevice()
   }
 
-  pause(): void {
+  pause (): void {
     this.webcam?.pauseDevice()
   }
 
-  checkWebcamStatus(s: boolean): void {
+  checkWebcamStatus (s: boolean): void {
     this.ready = s
   }
 
-  checkWebcamPhoto(s: string | undefined): void {
+  checkWebcamPhoto (s: string | undefined): void {
     this.photo = s
   }
 
-  checkWebcamVideo(v: Blob | MediaSource): void {
+  checkWebcamVideo (v: Blob | MediaSource): void {
     this.videoFile = this.sanitizer.bypassSecurityTrustResourceUrl(
       URL.createObjectURL(v)
     )
   }
 
-  takePhoto(): void {
+  takePhoto (): void {
     this.webcam?.takePhoto()
   }
 
-  takeVideo(): void {
+  takeVideo (): void {
     this.webcam?.startRecordVideo()
     setTimeout(() => {
       this.webcam?.stopRecordVideo()

@@ -1,13 +1,32 @@
-<picture [id]="id"
-         [attr.aria-label]="ariaLabel | transloco">
+<picture [id]="id" [attr.aria-describedby]="ariaLabel">
   <source
-    *ngFor="let i of responsiveList"
-    [media]="i.minWidth"
-    [attr.lazyLoad]="i.src"
-    [attr.defaultImage]="loadingSrc">
+    #source
+    [attr.data-srcset]="picture?.xxl"
+    media="(min-width:1400px)"
+    [srcset]="loadingSrc" />
+  <source
+    #source
+    [attr.data-srcset]="picture?.xl"
+    media="(min-width:1200px)"
+    [srcset]="loadingSrc" />
+  <source
+    #source
+    [attr.data-srcset]="picture?.lg"
+    media="(min-width:992px)"
+    [srcset]="loadingSrc" />
+  <source
+    #source
+    [attr.data-srcset]="picture?.md"
+    media="(min-width:768px)"
+    [srcset]="loadingSrc" />
+  <source
+    #source
+    [attr.data-srcset]="picture?.sm"
+    media="(min-width:576px)"
+    [srcset]="loadingSrc" />
   <img
-    [attr.defaultImage]="loadingSrc"
-    [alt]="alt | transloco"
-    [lazyLoad]="src"
-    [useSrcset]="true">
+    #image
+    [src]="loadingSrc"
+    [attr.data-src]="picture?.xs ?? picture?.defaultSrc"
+    [alt]="alt" />
 </picture>

@@ -8,6 +8,7 @@ import { VideoComponent } from './video/video.component'
 import { AudioComponent } from './audio/audio.component'
 import { CodeReaderComponent } from './code-reader/code-reader.component'
 import { FormsModule } from '@angular/forms'
+import { WebcamComponent } from './webcam/webcam.component'
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms'
     ThreeSixtyImageComponent,
     VideoComponent,
     AudioComponent,
-    CodeReaderComponent
+    CodeReaderComponent,
+    WebcamComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { FormsModule } from '@angular/forms'
     ThreeSixtyImageComponent,
     VideoComponent,
     AudioComponent,
-    CodeReaderComponent
+    CodeReaderComponent,
+    WebcamComponent
   ]
 })
 export class QuangMediaModule {}

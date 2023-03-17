@@ -79,6 +79,10 @@
       "quang-utility": [
         "dist/quang-utility/quang-utility",
         "dist/quang-utility"
+      ],
+      "quang-kitchen-sink": [
+        "dist/quang-kitchen-sink/quang-kitchen-sink",
+        "dist/quang-kitchen-sink"
       ]
     }
   },

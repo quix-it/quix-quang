@@ -67,7 +67,6 @@ SwiperCore.use([Pagination])
     TranslocoModule,
     ClipboardModule,
     NgxMaskModule.forRoot(),
-    SwiperModule,
     ScrollingModule,
     InfiniteScrollModule,
     DragDropModule,
@@ -75,6 +74,7 @@ SwiperCore.use([Pagination])
     QuangDateModule,
     QuangCoreModule,
     FormsModule,
+    SwiperModule,
     ImageCropperModule,
     MatTableModule,
     MatSortModule

@@ -16,15 +16,12 @@ export class QuangLayoutService {
    * constructor
    * @param breakpointObserver material breakpoint utility
    */
-  constructor (
-    private readonly breakpointObserver: BreakpointObserver
-  ) {
-  }
+  constructor(private readonly breakpointObserver: BreakpointObserver) {}
 
   /**
    * returns an observable that reports the state of the device orientation
    */
-  getOrientation (): Observable<any> {
+  getOrientation(): Observable<any> {
     return this.breakpointObserver.observe([
       '(orientation: portrait)',
       '(orientation: landscape)'

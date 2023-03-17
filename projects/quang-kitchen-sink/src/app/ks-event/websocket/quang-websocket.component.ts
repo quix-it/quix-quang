@@ -12,9 +12,9 @@ export class QuangWebsocketComponent {
   msgs: string[] = []
   stop: boolean = false
 
-  constructor (private webSocket: QuangWebsocketService) {}
+  constructor (private readonly webSocket: QuangWebsocketService) {}
 
-  getMessages () {
+  getMessages (): void {
     this.webSocket.messages.forEach((m) => {
       if (!this.msgs.includes(m)) {
         this.msgs.push(m)
