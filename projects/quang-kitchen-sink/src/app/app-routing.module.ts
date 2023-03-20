@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'js',
-    loadChildren: async () =>
+    loadChildren: async (): Promise<any> =>
       await import('./training-js/training-js.module').then(
         (m) => m.TrainingJsModule
       )
