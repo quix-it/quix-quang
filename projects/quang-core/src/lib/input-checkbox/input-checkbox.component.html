@@ -17,8 +17,9 @@
     [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
     [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
     #input />
-  <label
+    <label
     class="form-check-label"
+    [class.cursor-default]="control.disabled"
     [htmlFor]="id"
     [attr.aria-label]="ariaLabel | transloco"
     *ngIf="label">
