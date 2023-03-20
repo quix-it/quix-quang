@@ -201,7 +201,7 @@
     "@angular-eslint/bundled-angular-compiler" "15.2.1"
     "@typescript-eslint/utils" "5.48.2"
 
-"@angular/animations@^14.0.0", "@angular/animations@^15.0.0 || ^16.0.0", "@angular/animations@^15.2.3", "@angular/animations@15.2.3":
+"@angular/animations@^15.0.0", "@angular/animations@^15.0.0 || ^16.0.0", "@angular/animations@^15.2.3", "@angular/animations@15.2.3":
   "integrity" "sha512-65MTsTGAoJXtfSek6Scc3g9ZD6abs+QzcWjgFek0hFX2Lgc144lhEBBmTolFEjPFAS23hjdPQHztegIT92WPAA=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/animations/-/animations-15.2.3.tgz"
   "version" "15.2.3"
@@ -241,7 +241,7 @@
     "symbol-observable" "4.0.0"
     "yargs" "17.6.2"
 
-"@angular/common@^14", "@angular/common@^14.0.0", "@angular/common@^15.0.0 || ^16.0.0", "@angular/common@>= 10.x <= 15.x", "@angular/common@>=10.0.0", "@angular/common@>=11.0.0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=14.0.0 <15.0.0", "@angular/common@12 - 15", "@angular/common@15.2.3":
+"@angular/common@^15", "@angular/common@^15.0.0", "@angular/common@^15.0.0 || ^16.0.0", "@angular/common@>= 10.x <= 15.x", "@angular/common@>=11.0.0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=15.0.0 <16.0.0", "@angular/common@12 - 15", "@angular/common@15.2.3":
   "integrity" "sha512-J68CSb57XadC2weHw7kmHjCdrHNgxPv8ZW6KlnmYvIRJrkKsZuCl+PvFe90VMDvHtlBnSnz8sjAPqoUxesMRNg=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/common/-/common-15.2.3.tgz"
   "version" "15.2.3"
@@ -271,14 +271,14 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^14", "@angular/core@^14.0.0", "@angular/core@^15.0.0 || ^16.0.0", "@angular/core@^15.2.3", "@angular/core@>= 10.x <= 15.x", "@angular/core@>=10.0.0", "@angular/core@>=11.0.0", "@angular/core@>=12.0.0-0", "@angular/core@>=13.0.0", "@angular/core@>=14.0.0", "@angular/core@>=14.0.0 <15.0.0", "@angular/core@12 - 15", "@angular/core@15.2.3":
+"@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^15", "@angular/core@^15.0.0", "@angular/core@^15.0.0 || ^16.0.0", "@angular/core@^15.2.3", "@angular/core@>= 10.x <= 15.x", "@angular/core@>=11.0.0", "@angular/core@>=13.0.0", "@angular/core@>=14.0.0", "@angular/core@>=15.0.0 <16.0.0", "@angular/core@>=15.0.0-0", "@angular/core@12 - 15", "@angular/core@15.2.3":
   "integrity" "sha512-e+d6upOqAyqE7MxxRthd1ZJILSKX+hXHCmujc48id8G3zhP0tD59iZ03KgUe8RMvXMlSBUhwOwDX39tr701eig=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/core/-/core-15.2.3.tgz"
   "version" "15.2.3"
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/forms@^14.0.0", "@angular/forms@^15.0.0 || ^16.0.0", "@angular/forms@^15.2.3", "@angular/forms@>=10.0.0", "@angular/forms@>=12.0.0-0":
+"@angular/forms@^15.0.0", "@angular/forms@^15.0.0 || ^16.0.0", "@angular/forms@^15.2.3", "@angular/forms@>=14.0.0", "@angular/forms@>=15.0.0-0":
   "integrity" "sha512-+ZcmpmIah87JsPF2Nvh2QoklgW9hWXp4azMPrXsuxackZXKTl/xl8NY32WABQndbhVjtSj08SHCuKd0rPHvpGw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/forms/-/forms-15.2.3.tgz"
   "version" "15.2.3"
@@ -358,7 +358,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/router@^14", "@angular/router@^15.2.3", "@angular/router@>= 10.x <= 15.x":
+"@angular/router@^15", "@angular/router@^15.2.3", "@angular/router@>= 10.x <= 15.x":
   "integrity" "sha512-rbgAANRKsx6KPg/oTubyMjGfvSTh+42vj2/fUsARtIqi+kwr1FK/NM/64b1cv+oGYdxZsUkSxNPv4lONjh/DZg=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@angular/router/-/router-15.2.3.tgz"
   "version" "15.2.3"
@@ -1333,70 +1333,6 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     "to-fast-properties" "^2.0.0"
 
-"@codemirror/autocomplete@^6.0.0":
-  "integrity" "sha512-8WE2xp+D0MpWEv5lZ6zPW1/tf4AGb358T5GWYiKEuCP8MvFfT3tH2mIF9Y2yr2e3KbHuSvsVhosiEyqCpiJhZQ=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@codemirror/autocomplete/-/autocomplete-6.4.2.tgz"
-  "version" "6.4.2"
-  dependencies:
-    "@codemirror/language" "^6.0.0"
-    "@codemirror/state" "^6.0.0"
-    "@codemirror/view" "^6.6.0"
-    "@lezer/common" "^1.0.0"
-
-"@codemirror/commands@^6.0.0":
-  "integrity" "sha512-s9lPVW7TxXrI/7voZ+HmD/yiAlwAYn9PH5SUVSUhsxXHhv4yl5eZ3KLntSoTynfdgVYM0oIpccQEWRBQgmNZyw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@codemirror/commands/-/commands-6.2.2.tgz"
-  "version" "6.2.2"
-  dependencies:
-    "@codemirror/language" "^6.0.0"
-    "@codemirror/state" "^6.2.0"
-    "@codemirror/view" "^6.0.0"
-    "@lezer/common" "^1.0.0"
-
-"@codemirror/language@^6.0.0":
-  "integrity" "sha512-cwUd6lzt3MfNYOobdjf14ZkLbJcnv4WtndYaoBkbor/vF+rCNguMPK0IRtvZJG4dsWiaWPcK8x1VijhvSxnstg=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@codemirror/language/-/language-6.6.0.tgz"
-  "version" "6.6.0"
-  dependencies:
-    "@codemirror/state" "^6.0.0"
-    "@codemirror/view" "^6.0.0"
-    "@lezer/common" "^1.0.0"
-    "@lezer/highlight" "^1.0.0"
-    "@lezer/lr" "^1.0.0"
-    "style-mod" "^4.0.0"
-
-"@codemirror/lint@^6.0.0":
-  "integrity" "sha512-KVCECmR2fFeYBr1ZXDVue7x3q5PMI0PzcIbA+zKufnkniMBo1325t0h1jM85AKp8l3tj67LRxVpZfgDxEXlQkg=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@codemirror/lint/-/lint-6.2.0.tgz"
-  "version" "6.2.0"
-  dependencies:
-    "@codemirror/state" "^6.0.0"
-    "@codemirror/view" "^6.0.0"
-    "crelt" "^1.0.5"
-
-"@codemirror/search@^6.0.0":
-  "integrity" "sha512-V9n9233lopQhB1dyjsBK2Wc1i+8hcCqxl1wQ46c5HWWLePoe4FluV3TGHoZ04rBRlGjNyz9DTmpJErig8UE4jw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@codemirror/search/-/search-6.2.3.tgz"
-  "version" "6.2.3"
-  dependencies:
-    "@codemirror/state" "^6.0.0"
-    "@codemirror/view" "^6.0.0"
-    "crelt" "^1.0.5"
-
-"@codemirror/state@^6.0.0", "@codemirror/state@^6.1.4", "@codemirror/state@^6.2.0":
-  "integrity" "sha512-69QXtcrsc3RYtOtd+GsvczJ319udtBf1PTrr2KbLWM/e2CXUPnh0Nz9AUo8WfhSQ7GeL8dPVNUmhQVgpmuaNGA=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@codemirror/state/-/state-6.2.0.tgz"
-  "version" "6.2.0"
-
-"@codemirror/view@^6.0.0", "@codemirror/view@^6.6.0":
-  "integrity" "sha512-ci0r/v6aKOSlzOs7/STMTYP3jX/+YMq2dAfAJcLIB6uom4ThtrUlzeuS7GTRGNqJJ+qAJR1vGWfXgu4CO/0myQ=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@codemirror/view/-/view-6.9.2.tgz"
-  "version" "6.9.2"
-  dependencies:
-    "@codemirror/state" "^6.1.4"
-    "style-mod" "^4.0.0"
-    "w3c-keyname" "^2.2.4"
-
 "@colors/colors@1.5.0":
   "integrity" "sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@colors/colors/-/colors-1.5.0.tgz"
@@ -1494,10 +1430,10 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
-"@ctrl/ngx-codemirror@^5.1.1":
-  "integrity" "sha512-MAByA/cJBZY3yv/cpO87mF9Q24/ptCWf2Pr4n4V1w3G0ya5cKAIyHwIfvJ5nJz/4Gj2i2O/pteDWkyxrbyICoA=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ctrl/ngx-codemirror/-/ngx-codemirror-5.1.1.tgz"
-  "version" "5.1.1"
+"@ctrl/ngx-codemirror@^6.1.0":
+  "integrity" "sha512-73QeoNbnluZalWmNw+SOFctsE+oz0+4Bl9KhlJOIfbCPK/U6OIc+vQNr28hMAp15Y/Idde3LntTwLBDFW0bRVA=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ctrl/ngx-codemirror/-/ngx-codemirror-6.1.0.tgz"
+  "version" "6.1.0"
   dependencies:
     "@types/codemirror" "^5.60.5"
     "tslib" "^2.3.0"
@@ -1768,25 +1704,6 @@
   "integrity" "sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   "version" "2.0.4"
-
-"@lezer/common@^1.0.0":
-  "integrity" "sha512-SVgiGtMnMnW3ActR8SXgsDhw7a0w0ChHSYAyAUxxrOiJ1OqYWEKk/xJd84tTSPo1mo6DXLObAJALNnd0Hrv7Ng=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@lezer/common/-/common-1.0.2.tgz"
-  "version" "1.0.2"
-
-"@lezer/highlight@^1.0.0":
-  "integrity" "sha512-3vLKLPThO4td43lYRBygmMY18JN3CPh9w+XS2j8WC30vR4yZeFG4z1iFe4jXE43NtGqe//zHW5q8ENLlHvz9gw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@lezer/highlight/-/highlight-1.1.3.tgz"
-  "version" "1.1.3"
-  dependencies:
-    "@lezer/common" "^1.0.0"
-
-"@lezer/lr@^1.0.0":
-  "integrity" "sha512-JPQe3mwJlzEVqy67iQiiGozhcngbO8QBgpqZM6oL1Wj/dXckrEexpBLeFkq0edtW5IqnPRFxA24BHJni8Js69w=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@lezer/lr/-/lr-1.3.3.tgz"
-  "version" "1.3.3"
-  dependencies:
-    "@lezer/common" "^1.0.0"
 
 "@mapbox/jsonlint-lines-primitives@~2.0.2":
   "integrity" "sha512-rY0o9A5ECsTQRVhv7tL/OyDpGAoUB4tTvLiW1DSzQGq4bvTPhNw1VpSNjDJc5GFZ2XuyOtSWSVN05qOtcD71qQ=="
@@ -2538,24 +2455,24 @@
     "replace-in-file" "^6.2.0"
     "tslib" "^2.2.0"
 
-"@ngrx/effects@^14.3.3":
-  "integrity" "sha512-bP7rIHlu1KAj5Wm0TWR7Q8VlOQOBu8uiN/fDP3Lqi8FwVW6HOq9eBGcFwJGyqwVAmulsvLFB68MhpMYg2W78+w=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ngrx/effects/-/effects-14.3.3.tgz"
-  "version" "14.3.3"
+"@ngrx/effects@^15.4.0":
+  "integrity" "sha512-/8gHhOM9aeGaw8OG2LLwi4I4p84xzG0EU9TqWrvQcW74wn8sFZONjLvUte5YOzJ5502PPFFrfXSOc+lHnVAJUA=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ngrx/effects/-/effects-15.4.0.tgz"
+  "version" "15.4.0"
   dependencies:
     "tslib" "^2.0.0"
 
-"@ngrx/store-devtools@^14.3.3":
-  "integrity" "sha512-YQFFKYRnmREHCUb0aAaAgSXWKjZqV+5pmzsjW6HZ0GTKoy9R3JI7Miw0gplwkJpLO7Z3AFCuLQIpTs5ryAOwPQ=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ngrx/store-devtools/-/store-devtools-14.3.3.tgz"
-  "version" "14.3.3"
+"@ngrx/store-devtools@^15.4.0":
+  "integrity" "sha512-AqWRprSyS3u/vZlpsBOPMW1/0TZS2LE13/KpZedEY+RMCW+mi53esqgrdNGOB3Wr4vrI82Ar9fgaIm4TQO6LPg=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ngrx/store-devtools/-/store-devtools-15.4.0.tgz"
+  "version" "15.4.0"
   dependencies:
     "tslib" "^2.0.0"
 
-"@ngrx/store@^14.3.3", "@ngrx/store@14.3.3":
-  "integrity" "sha512-VhPDR2a5OQJfrVRah3vdJgL/F6UC8NU/X7lxKFqBW3NC+pmlIeFO/y8jLrZOKBXwG45tY9wrg15S70nEGoZtHA=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ngrx/store/-/store-14.3.3.tgz"
-  "version" "14.3.3"
+"@ngrx/store@^15.4.0", "@ngrx/store@15.4.0":
+  "integrity" "sha512-OvCuNBHL8mAUnRTS6QSFm+IunspsYNu2cCwDovBNn7EGhxRuGihBeNoX47jCqWPHBFtokj4BlatDfpJ/yCh4xQ=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ngrx/store/-/store-15.4.0.tgz"
+  "version" "15.4.0"
   dependencies:
     "tslib" "^2.0.0"
 
@@ -3545,10 +3462,10 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/amdefine/-/amdefine-1.0.1.tgz"
   "version" "1.0.1"
 
-"angular-oauth2-oidc@^14.0.1":
-  "integrity" "sha512-2DgIqGapAQYSYwgMmMv5Ef7BfpGO7DJvU3kZyjL7Z2aMbpacuzia17eUb2Y/lwqrzJZyMl/sgacAE1SJI4lQ4w=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/angular-oauth2-oidc/-/angular-oauth2-oidc-14.0.1.tgz"
-  "version" "14.0.1"
+"angular-oauth2-oidc@^15.0.1":
+  "integrity" "sha512-5gpqO9QL+qFqMItYFHe8F6H5nOIEaowcNUc9iTDs3P1bfVYnoKoVAaijob53PuPTF4YwzdfwKWZi4Mq6P7GENQ=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/angular-oauth2-oidc/-/angular-oauth2-oidc-15.0.1.tgz"
+  "version" "15.0.1"
   dependencies:
     "tslib" "^2.0.0"
 
@@ -4468,18 +4385,10 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/code-block-writer/-/code-block-writer-11.0.3.tgz"
   "version" "11.0.3"
 
-"codemirror@>=5.63.3":
-  "integrity" "sha512-J8j+nZ+CdWmIeFIGXEFbFPtpiYacFMDR8GlHK3IyHQJMCaVRfGx9NT+Hxivv1ckLWPvNdZqndbr/7lVhrf/Svg=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/codemirror/-/codemirror-6.0.1.tgz"
-  "version" "6.0.1"
-  dependencies:
-    "@codemirror/autocomplete" "^6.0.0"
-    "@codemirror/commands" "^6.0.0"
-    "@codemirror/language" "^6.0.0"
-    "@codemirror/lint" "^6.0.0"
-    "@codemirror/search" "^6.0.0"
-    "@codemirror/state" "^6.0.0"
-    "@codemirror/view" "^6.0.0"
+"codemirror@^5.65.9":
+  "integrity" "sha512-z2jlHBocElRnPYysN2HAuhXbO3DNB0bcSKmNz3hcWR2Js2Dkhc1bEOxG93Z3DeUrnm+qx56XOY5wQmbP5KY0sw=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/codemirror/-/codemirror-5.65.12.tgz"
+  "version" "5.65.12"
 
 "color-convert@^1.9.0":
   "integrity" "sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg=="
@@ -4734,11 +4643,6 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/create-require/-/create-require-1.1.1.tgz"
   "version" "1.1.1"
 
-"crelt@^1.0.5":
-  "integrity" "sha512-+BO9wPPi+DWTDcNYhr/W90myha8ptzftZT+LwcmUbbok0rcP/fequmFYCw8NMoH7pkAZQzU78b3kYrlua5a9eA=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/crelt/-/crelt-1.0.5.tgz"
-  "version" "1.0.5"
-
 "critters@0.0.16":
   "integrity" "sha512-JwjgmO6i3y6RWtLYmXwO5jMd+maZt8Tnfu7VVISmEWyQqfLpB8soBswf8/2bu6SBXxtKA68Al3c+qIG1ApT68A=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/critters/-/critters-0.0.16.tgz"
@@ -4846,7 +4750,7 @@
   dependencies:
     "assert-plus" "^1.0.0"
 
-"date-fns@^2.28.0":
+"date-fns@^2.29.3":
   "integrity" "sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/date-fns/-/date-fns-2.29.3.tgz"
   "version" "2.29.3"
@@ -5116,13 +5020,6 @@
     "domhandler" "^5.0.2"
     "entities" "^4.2.0"
 
-"dom7@^4.0.4":
-  "integrity" "sha512-emjdpPLhpNubapLFdjNL9tP06Sr+GZkrIHEXLWvOGsytACUrkbeIdjO5g77m00BrHTznnlcNqgmn7pCN192TBA=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/dom7/-/dom7-4.0.6.tgz"
-  "version" "4.0.6"
-  dependencies:
-    "ssr-window" "^4.0.0"
-
 "domelementtype@^2.0.1", "domelementtype@^2.2.0", "domelementtype@^2.3.0":
   "integrity" "sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/domelementtype/-/domelementtype-2.3.0.tgz"
@@ -5182,6 +5079,11 @@
   dependencies:
     "readable-stream" "^2.0.2"
 
+"earcut@^2.2.3":
+  "integrity" "sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/earcut/-/earcut-2.2.4.tgz"
+  "version" "2.2.4"
+
 "ecc-jsbn@~0.1.1":
   "integrity" "sha512-eh9O+hwRHNbG4BLTjEl3nw044CkGm5X6LoaCf7LPp7UU8Qrt47JYNi6nPX8xjW97TKGKm1ouctg0QSpZe9qrnw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz"
@@ -5190,7 +5092,7 @@
     "jsbn" "~0.1.0"
     "safer-buffer" "^2.1.0"
 
-"echarts@^5.2.2", "echarts@>=5.0.0":
+"echarts@^5.4.1", "echarts@>=5.0.0":
   "integrity" "sha512-9ltS3M2JB0w2EhcYjCdmtrJ+6haZcW6acBolMGIuf01Hql1yrIV01L1aRj7jsaaIULJslEP9Z3vKlEmnJaWJVQ=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/echarts/-/echarts-5.4.1.tgz"
   "version" "5.4.1"
@@ -5823,7 +5725,7 @@
     "d" "1"
     "es5-ext" "~0.10.14"
 
-"event-source-polyfill@^1.0.21":
+"event-source-polyfill@^1.0.31":
   "integrity" "sha512-4IJSItgS/41IxN5UVAVuAyczwZF7ZIEsM1XAoUzIHA6A+xzusEZUutdXz2Nr+MQPLxfTiCvqE79/C8HT8fKFvA=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/event-source-polyfill/-/event-source-polyfill-1.0.31.tgz"
   "version" "1.0.31"
@@ -6327,16 +6229,16 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/gensync/-/gensync-1.0.0-beta.2.tgz"
   "version" "1.0.0-beta.2"
 
-"geotiff@2.0.4":
-  "integrity" "sha512-aG8h9bJccGusioPsEWsEqx8qdXpZN71A20WCvRKGxcnHSOWLKmC5ZmsAmodfxb9TRQvs+89KikGuPzxchhA+Uw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/geotiff/-/geotiff-2.0.4.tgz"
-  "version" "2.0.4"
+"geotiff@^2.0.7":
+  "integrity" "sha512-FKvFTNowMU5K6lHYY2f83d4lS2rsCNdpUC28AX61x9ZzzqPNaWFElWv93xj0eJFaNyOYA63ic5OzJ88dHpoA5Q=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/geotiff/-/geotiff-2.0.7.tgz"
+  "version" "2.0.7"
   dependencies:
     "@petamoriken/float16" "^3.4.7"
     "lerc" "^3.0.0"
-    "lru-cache" "^6.0.0"
     "pako" "^2.0.4"
     "parse-headers" "^2.0.2"
+    "quick-lru" "^6.1.1"
     "web-worker" "^1.2.0"
     "xml-utils" "^1.0.2"
 
@@ -7631,17 +7533,17 @@
     "ua-parser-js" "^0.7.30"
     "yargs" "^16.1.1"
 
-"keycloak-angular@^12.2.0":
-  "integrity" "sha512-KtwkexQLV02s5TBSSp0TN4mgah546OtX2FJG++DRZ5W2BbRYustFSw38zrsE28bSPTxVCGhkw9oBAQmk+UuI1g=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/keycloak-angular/-/keycloak-angular-12.2.0.tgz"
-  "version" "12.2.0"
+"keycloak-angular@^13.0.0":
+  "integrity" "sha512-8IDN97GhH4ZVrpTtuqBHQfn7O4D7ZYQNqR/datpYiXViHGhgY0zbe1mGRi5lhQFH8dmwNurj8EjXKgwrX+eV8g=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/keycloak-angular/-/keycloak-angular-13.0.0.tgz"
+  "version" "13.0.0"
   dependencies:
     "tslib" "^2.3.0"
 
-"keycloak-js@^18 || ^19 || 20", "keycloak-js@19.0.3":
-  "integrity" "sha512-mzCBxrzfl+vB551Q7MB+T9+40IHU4i0a6g1eTatzeEGrQMis5m/BqvPC3kxTsI+/LxHbB9XYQE3u9SlWKDHQCw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/keycloak-js/-/keycloak-js-19.0.3.tgz"
-  "version" "19.0.3"
+"keycloak-js@^18 || ^19 || ^20", "keycloak-js@18.0.1":
+  "integrity" "sha512-IRXToYpbIrkyfLeNNJly2OjUCf11ncx2Sdsg257NVDwjOYE923osu47w8pfxEVWpTaS14/Y2QjbTHciuBK0RBQ=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/keycloak-js/-/keycloak-js-18.0.1.tgz"
+  "version" "18.0.1"
   dependencies:
     "base64-js" "^1.5.1"
     "js-sha256" "^0.9.0"
@@ -8165,28 +8067,21 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz"
   "version" "1.0.1"
 
-"minimatch@^3.0.4", "minimatch@^3.1.1":
+"minimatch@^3.0.4", "minimatch@^3.0.5", "minimatch@^3.1.1", "minimatch@^3.1.2":
   "integrity" "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/minimatch/-/minimatch-3.1.2.tgz"
   "version" "3.1.2"
   dependencies:
     "brace-expansion" "^1.1.7"
 
-"minimatch@^3.0.5":
-  "integrity" "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/minimatch/-/minimatch-3.1.2.tgz"
-  "version" "3.1.2"
+"minimatch@^5.0.1":
+  "integrity" "sha512-9TPBGGak4nHfGZsPBohm9AWg6NoT7QTCehS3BIJABslyZbzxfV78QM2Y6+i741OPZIafFAaiiEMh5OyIrJPgtg=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/minimatch/-/minimatch-5.1.0.tgz"
+  "version" "5.1.0"
   dependencies:
-    "brace-expansion" "^1.1.7"
+    "brace-expansion" "^2.0.1"
 
-"minimatch@^3.1.2":
-  "integrity" "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/minimatch/-/minimatch-3.1.2.tgz"
-  "version" "3.1.2"
-  dependencies:
-    "brace-expansion" "^1.1.7"
-
-"minimatch@^5.0.1", "minimatch@^5.1.0":
+"minimatch@^5.1.0":
   "integrity" "sha512-9TPBGGak4nHfGZsPBohm9AWg6NoT7QTCehS3BIJABslyZbzxfV78QM2Y6+i741OPZIafFAaiiEMh5OyIrJPgtg=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/minimatch/-/minimatch-5.1.0.tgz"
   "version" "5.1.0"
@@ -8304,24 +8199,22 @@
     "minipass" "^3.0.0"
     "yallist" "^4.0.0"
 
-"mkdirp@^0.5.5":
+"mkdirp@^0.5.5", "mkdirp@>=0.5 0":
   "integrity" "sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/mkdirp/-/mkdirp-0.5.6.tgz"
   "version" "0.5.6"
   dependencies:
     "minimist" "^1.2.6"
 
-"mkdirp@^1.0.3", "mkdirp@^1.0.4":
+"mkdirp@^1.0.3":
   "integrity" "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/mkdirp/-/mkdirp-1.0.4.tgz"
   "version" "1.0.4"
 
-"mkdirp@>=0.5 0":
-  "integrity" "sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/mkdirp/-/mkdirp-0.5.6.tgz"
-  "version" "0.5.6"
-  dependencies:
-    "minimist" "^1.2.6"
+"mkdirp@^1.0.4":
+  "integrity" "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/mkdirp/-/mkdirp-1.0.4.tgz"
+  "version" "1.0.4"
 
 "morgan@^1.10.0":
   "integrity" "sha512-AbegBVI4sh6El+1gNwvD5YIck7nSA36weD7xvIxG4in80j/UoK8AEGaWnnz8v1GxonMCltmlNs5ZKbGvl9b1XQ=="
@@ -8445,24 +8338,24 @@
   optionalDependencies:
     "esbuild" "^0.17.0"
 
-"ngx-bootstrap@^9.0.0":
-  "integrity" "sha512-wVwKs1jIASzJrKSPUhOcHY8f39MKyG31SruJdVQ3S/v/PdBVmVuFUJL86Awc8F60di2xD9C4DzzGObkvsHbirw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-bootstrap/-/ngx-bootstrap-9.0.0.tgz"
-  "version" "9.0.0"
+"ngx-bootstrap@^10.2.0":
+  "integrity" "sha512-bn5wdvH6QQ2JGu4TgUbozdULBFMxZNPNTgO7dRiosx9FRrFvKcgxkGSgU/xoj+4kP1vgh8zwzaiDfvH/Bfb+Aw=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-bootstrap/-/ngx-bootstrap-10.2.0.tgz"
+  "version" "10.2.0"
   dependencies:
     "tslib" "^2.3.0"
 
-"ngx-echarts@^14.0.0":
-  "integrity" "sha512-Q8J/DXiWqYM2vqTfQq16A7KyxbWECZSiAApS0rBjsAJCPjG/VZogUe0snZ/i3mA6bV3vYm41imTYOaH+Rl97QA=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-echarts/-/ngx-echarts-14.0.0.tgz"
-  "version" "14.0.0"
+"ngx-echarts@^15.0.2":
+  "integrity" "sha512-n6vWBK7bj5rXZP1Ayj59Hwg2C+G3lspYS4i/gWR+0XCKokLGZOu7rButAl4rVwV12Ns76ams/p7A0pvsBXMAPA=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-echarts/-/ngx-echarts-15.0.2.tgz"
+  "version" "15.0.2"
   dependencies:
     "tslib" "^2.3.0"
 
-"ngx-file-drop@^14.0.2":
-  "integrity" "sha512-tIW+Ymd2IOjUQTqMb2NiuupeRPWwKe19kHmb13gf4Iw8rkvrO6PlqqZ3EqSGPIEJOmV836FZHpM4B1xXjVQLfA=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-file-drop/-/ngx-file-drop-14.0.2.tgz"
-  "version" "14.0.2"
+"ngx-file-drop@^15.0.0":
+  "integrity" "sha512-P1BRa9w+l6CFCQFEHRaUcQy8DvrgwMnWZUWwndcXQ+Qqqa3BOXfrN26uDd+px9FD/P5OkKidhglI7VRX6qmLwg=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-file-drop/-/ngx-file-drop-15.0.0.tgz"
+  "version" "15.0.0"
   dependencies:
     "tslib" "^2.3.0"
 
@@ -8473,31 +8366,31 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"ngx-infinite-scroll@^14.0.1":
-  "integrity" "sha512-PlGL29d2PxNJTn6qdXs4Es0HlJTZ/ZqOVvFWECWm7mK2fN/q+q62s0iUQ7xRf76NuqoNovXvrjZ1zwLFT6c0Wg=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-infinite-scroll/-/ngx-infinite-scroll-14.0.1.tgz"
-  "version" "14.0.1"
+"ngx-infinite-scroll@^15.0.0":
+  "integrity" "sha512-FSP5UphRdl47vW8f/dRnPAU+napzruAKizBX2HS7MH292Ca+va6IU0J5+UQQmO5rXod2RZV7UhJ6+7g4xLfs1A=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-infinite-scroll/-/ngx-infinite-scroll-15.0.0.tgz"
+  "version" "15.0.0"
   dependencies:
     "tslib" "^2.3.0"
 
-"ngx-mask@^14.2.4":
-  "integrity" "sha512-158nAe2tyiZa2T8COoI6SvJCQHqpJ4+JW0amGcvVEYUBF6FIoYK66BlnOJURAOy5qry0d0N45w7J/LGsCBgZcg=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-mask/-/ngx-mask-14.2.4.tgz"
-  "version" "14.2.4"
+"ngx-mask@^15.1.0":
+  "integrity" "sha512-876UIVJCF4ib9ntQXz4D8Wu7U5kr9litPpuGJXlt6E2gmrw0H1vAhzRbBGibFPxTeQWndUCyAH5pnxvSBqsYiA=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-mask/-/ngx-mask-15.1.0.tgz"
+  "version" "15.1.0"
   dependencies:
     "tslib" "^2.3.0"
 
-"ngx-quill@^16.1.1":
-  "integrity" "sha512-gEw9iE6rFmyNMVC+Q3xjbB+GQxfy7F8aqwPoWNPLsbl/UNb187XudlUwV7OjUZdN7rc78oSHZwCYzeEQGtYgrQ=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-quill/-/ngx-quill-16.2.1.tgz"
-  "version" "16.2.1"
+"ngx-quill@^20.0.1":
+  "integrity" "sha512-X02Me3RYuQgoOHXzYrkdi4aaDHPkyTZTUib+2amKxAMpM9LEOh/QYrFjudreQJtih6rhV6kRorO5AS4UueX9Mw=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-quill/-/ngx-quill-20.0.1.tgz"
+  "version" "20.0.1"
   dependencies:
     "tslib" "^2.3.0"
 
-"ngx-webstorage@^10.0.1":
-  "integrity" "sha512-OWmzAzby+/UrbRY/5d229Y4NzFn1a/u2WSEeZqzY5lwB/3d8ODZ6mlW/BZGIuuZ48Hp8tXMM3pFCz9+pEyzvDA=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-webstorage/-/ngx-webstorage-10.0.1.tgz"
-  "version" "10.0.1"
+"ngx-webstorage@^11.1.1":
+  "integrity" "sha512-TA3KQi/A218l8yZmjuRybI4GPeQjZXJflC+7E84AhkGjbLfffw9GteeWADyTOIUuEam+mg8vZI8Jkn8WmSsx0A=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ngx-webstorage/-/ngx-webstorage-11.1.1.tgz"
+  "version" "11.1.1"
   dependencies:
     "tslib" "^2.0.0"
 
@@ -8707,21 +8600,22 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/obuf/-/obuf-1.1.2.tgz"
   "version" "1.1.2"
 
-"ol-mapbox-style@^8.0.5":
-  "integrity" "sha512-3kBBuZC627vDL8vnUdfVbCbfkhkcZj2kXPHQcuLhC4JJEA+XkEVEtEde8x8+AZctRbHwBkSiubTPaRukgLxIRw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ol-mapbox-style/-/ol-mapbox-style-8.2.1.tgz"
-  "version" "8.2.1"
+"ol-mapbox-style@^9.2.0":
+  "integrity" "sha512-YX3u8FBJHsRHaoGxmd724Mp5WPTuV7wLQW6zZhcihMuInsSdCX1EiZfU+8IAL7jG0pbgl5YgC0aWE/MXJcUXxg=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ol-mapbox-style/-/ol-mapbox-style-9.7.0.tgz"
+  "version" "9.7.0"
   dependencies:
     "@mapbox/mapbox-gl-style-spec" "^13.23.1"
     "mapbox-to-css-font" "^2.4.1"
 
-"ol@^6.11.0":
-  "integrity" "sha512-ZG2CKTpJ8Q+tPywYysVwPk+yevwJzlbwjRKhoCvd7kLVWMbfBl1O/+Kg/yrZZrhG9FNXbFH4GeOZ5yVRqo3P4w=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ol/-/ol-6.15.1.tgz"
-  "version" "6.15.1"
+"ol@^7.3.0":
+  "integrity" "sha512-08vJE4xITKPazQ9qJjeqYjRngnM9s+1eSv219Pdlrjj3LpLqjEH386ncq+76Dw1oGPGR8eLVEePk7FEd9XqqMw=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/ol/-/ol-7.3.0.tgz"
+  "version" "7.3.0"
   dependencies:
-    "geotiff" "2.0.4"
-    "ol-mapbox-style" "^8.0.5"
+    "earcut" "^2.2.3"
+    "geotiff" "^2.0.7"
+    "ol-mapbox-style" "^9.2.0"
     "pbf" "3.2.1"
     "rbush" "^3.0.1"
 
@@ -8758,19 +8652,19 @@
   dependencies:
     "mimic-fn" "^2.1.0"
 
-"open@^8.0.9", "open@8.4.0":
-  "integrity" "sha512-XgFPPM+B28FtCCgSb9I+s9szOC1vZRSwgWsRUA5ylIxRTgKozqjOCrVOqGsYABPYK5qnfqClxZTFBa8PKt2v6Q=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/open/-/open-8.4.0.tgz"
-  "version" "8.4.0"
+"open@^8.0.9", "open@8.4.1":
+  "integrity" "sha512-/4b7qZNhv6Uhd7jjnREh1NjnPxlTq+XNWPG88Ydkj5AILcA5m3ajvcg57pB24EQjKv0dK62XnDqk9c/hkIG5Kg=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/open/-/open-8.4.1.tgz"
+  "version" "8.4.1"
   dependencies:
     "define-lazy-prop" "^2.0.0"
     "is-docker" "^2.1.1"
     "is-wsl" "^2.2.0"
 
-"open@8.4.1":
-  "integrity" "sha512-/4b7qZNhv6Uhd7jjnREh1NjnPxlTq+XNWPG88Ydkj5AILcA5m3ajvcg57pB24EQjKv0dK62XnDqk9c/hkIG5Kg=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/open/-/open-8.4.1.tgz"
-  "version" "8.4.1"
+"open@8.4.0":
+  "integrity" "sha512-XgFPPM+B28FtCCgSb9I+s9szOC1vZRSwgWsRUA5ylIxRTgKozqjOCrVOqGsYABPYK5qnfqClxZTFBa8PKt2v6Q=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/open/-/open-8.4.0.tgz"
+  "version" "8.4.0"
   dependencies:
     "define-lazy-prop" "^2.0.0"
     "is-docker" "^2.1.1"
@@ -9342,6 +9236,11 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/queue-microtask/-/queue-microtask-1.2.3.tgz"
   "version" "1.2.3"
 
+"quick-lru@^6.1.1":
+  "integrity" "sha512-S27GBT+F0NTRiehtbrgaSE1idUAJ5bX8dPAQTdylEyNlrdcH5X4Lz7Edz3DYzecbsCluD5zO8ZNEe04z3D3u6Q=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/quick-lru/-/quick-lru-6.1.1.tgz"
+  "version" "6.1.1"
+
 "quickselect@^2.0.0":
   "integrity" "sha512-RKJ22hX8mHe3Y6wH/N3wCM6BWtjaxIyyUIkpHOvfFnxdI4yD4tBXEBKSbriGujF6jnSVkJrffuo6vxACiSSxIw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/quickselect/-/quickselect-2.0.0.tgz"
@@ -9356,10 +9255,19 @@
     "extend" "^3.0.2"
     "fast-diff" "1.1.2"
 
-"quill-delta@^4.0.1", "quill-delta@^4.2.2":
+"quill-delta@^4.0.1":
   "integrity" "sha512-qjbn82b/yJzOjstBgkhtBjN2TNK+ZHP/BgUQO+j6bRhWQQdmj2lH6hXG7+nwwLF41Xgn//7/83lxs9n2BkTtTg=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/quill-delta/-/quill-delta-4.2.2.tgz"
   "version" "4.2.2"
+  dependencies:
+    "fast-diff" "1.2.0"
+    "lodash.clonedeep" "^4.5.0"
+    "lodash.isequal" "^4.5.0"
+
+"quill-delta@^5.0.0":
+  "integrity" "sha512-lVORU8dBPJdxPmwtdGhfRcz2cekn8Osuj5kwHoPMQ3MNlDT/IZ0CGUnQ/tLsAaTn31LWcDC1KyL+gkiGbBlBBw=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/quill-delta/-/quill-delta-5.0.0.tgz"
+  "version" "5.0.0"
   dependencies:
     "fast-diff" "1.2.0"
     "lodash.clonedeep" "^4.5.0"
@@ -9835,7 +9743,7 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/rw/-/rw-1.3.3.tgz"
   "version" "1.3.3"
 
-"rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.5.3 || ^7.5.0", "rxjs@^6.5.5 || ^7.x", "rxjs@^7.5.5", "rxjs@^7.5.6", "rxjs@>=6.0.0", "rxjs@~7.8.0":
+"rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.5.3 || ^7.5.0", "rxjs@^6.5.3 || ^7.6.0", "rxjs@^6.5.5 || ^7.x", "rxjs@^7.0.0", "rxjs@^7.5.5", "rxjs@^7.5.6", "rxjs@>=6.0.0", "rxjs@~7.8.0":
   "integrity" "sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/rxjs/-/rxjs-7.8.0.tgz"
   "version" "7.8.0"
@@ -10026,21 +9934,7 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/semver/-/semver-6.3.0.tgz"
   "version" "6.3.0"
 
-"semver@^7.0.0", "semver@^7.1.1", "semver@^7.3.5", "semver@^7.3.7":
-  "integrity" "sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/semver/-/semver-7.3.7.tgz"
-  "version" "7.3.7"
-  dependencies:
-    "lru-cache" "^6.0.0"
-
-"semver@^7.3.8":
-  "integrity" "sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/semver/-/semver-7.3.8.tgz"
-  "version" "7.3.8"
-  dependencies:
-    "lru-cache" "^6.0.0"
-
-"semver@7.3.8":
+"semver@^7.0.0", "semver@^7.1.1", "semver@^7.3.5", "semver@^7.3.7", "semver@^7.3.8", "semver@7.3.8":
   "integrity" "sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/semver/-/semver-7.3.8.tgz"
   "version" "7.3.8"
@@ -10413,7 +10307,7 @@
     "safer-buffer" "^2.0.2"
     "tweetnacl" "~0.14.0"
 
-"ssr-window@^4.0.0", "ssr-window@^4.0.2":
+"ssr-window@^4.0.2":
   "integrity" "sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/ssr-window/-/ssr-window-4.0.2.tgz"
   "version" "4.0.2"
@@ -10572,11 +10466,6 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   "version" "3.1.1"
 
-"style-mod@^4.0.0":
-  "integrity" "sha512-C4myMmRTO8iaC5Gg+N1ftK2WT4eXUTMAa+HEFPPrfVeO/NtqLTtAmV1HbqnuGtLwCek44Ra76fdGUkSqjiMPcQ=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/style-mod/-/style-mod-4.0.2.tgz"
-  "version" "4.0.2"
-
 "supports-color@^2.0.0":
   "integrity" "sha512-KKNVtd6pCYgPIKU4cp2733HWYCpplQhddZLBUryaAHou723x+FRzQ5Df824Fj+IyyuiQTRoub4SnIFfIcrp70g=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/supports-color/-/supports-color-2.0.0.tgz"
@@ -10608,12 +10497,11 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   "version" "1.0.0"
 
-"swiper@^8.4.6":
-  "integrity" "sha512-VwO/KU3i9IV2Sf+W2NqyzwWob4yX9Qdedq6vBtS0rFqJ6Fa5iLUJwxQkuD4I38w0WDJwmFl8ojkdcRFPHWD+2g=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/swiper/-/swiper-8.4.7.tgz"
-  "version" "8.4.7"
+"swiper@^9.1.1":
+  "integrity" "sha512-D1zArOwI6XCXCYBULPA4jTxpqp5SQtvntjinbXNZwXzj6P3KS51zSWuMarCLXq5oRISay4nX+TuShpxz8qhtbw=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/swiper/-/swiper-9.1.1.tgz"
+  "version" "9.1.1"
   dependencies:
-    "dom7" "^4.0.4"
     "ssr-window" "^4.0.2"
 
 "symbol-observable@4.0.0":
@@ -11138,11 +11026,6 @@
   "integrity" "sha512-qZKX4RnBzH2ugr8Lxa7x+0V6XD9Sb/ouARtiasEQCHB1EVU4NXtmHsDDrx1dO4ne5fc3J6EW05BP1Dl0z0iung=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/void-elements/-/void-elements-2.0.1.tgz"
   "version" "2.0.1"
-
-"w3c-keyname@^2.2.4":
-  "integrity" "sha512-f+fciywl1SJEniZHD6H+kUO8gOnwIr7f4ijKA6+ZvJFjeGi1r4PDLl53Ayud9O/rk64RqgoQine0feoeOU0kXg=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/w3c-keyname/-/w3c-keyname-2.2.6.tgz"
-  "version" "2.2.6"
 
 "watchpack@^2.4.0":
   "integrity" "sha512-Lcvm7MGST/4fup+ifyKi2hjyIAwcdI4HRgtvTpIUxBRhB+RFtUh8XtDOxUfctVCnhVi+QQj49i91OyvzkJl6cg=="
