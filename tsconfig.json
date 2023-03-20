@@ -14,11 +14,14 @@
     "module": "esnext",
     "importHelpers": true,
     "skipLibCheck": true,
-    "target": "es2020",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
-    "types": ["google.maps", "googlemaps"],
+    "types": [
+      "google.maps",
+      "googlemaps"
+    ],
     "lib": [
       "es2018",
       "dom"
@@ -26,7 +29,7 @@
     "paths": {
       "quang": [
         "dist/quang/quang",
-        "dist/quang",
+        "dist/quang"
       ],
       "quang-auth": [
         "dist/quang-auth/quang-auth",
@@ -84,7 +87,8 @@
         "dist/quang-kitchen-sink/quang-kitchen-sink",
         "dist/quang-kitchen-sink"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

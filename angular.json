@@ -106,8 +106,8 @@
               "projects/quang-kitchen-sink/src/assets"
             ],
             "styles": [
-            "projects/quang-kitchen-sink/src/styles.scss"
-          ],
+              "projects/quang-kitchen-sink/src/styles.scss"
+            ],
             "scripts": []
           }
         },
@@ -615,5 +615,13 @@
     "schematicCollections": [
       "@angular-eslint/schematics"
     ]
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
   }
 }
