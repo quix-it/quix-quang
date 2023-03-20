@@ -2,8 +2,8 @@
   "name": "@quix/quang-event",
           "version": "15.0.0-beta.0",
   "peerDependencies": {
-    "@angular/core": "^14.3.0",
-    "event-source-polyfill": "^1.0.21",
+    "@angular/core": "^15.2.3",
+    "event-source-polyfill": "^1.0.31",
     "@vertx/eventbus-bridge-client.js": "^1.0.0"
   },
   "devDependencies": {

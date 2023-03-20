@@ -2,9 +2,9 @@
   "name": "@quix/quang-chart",
           "version": "15.0.0-beta.0",
   "peerDependencies": {
-    "@angular/core": "^14.3.0",
-    "echarts": "^5.2.2",
-    "ngx-echarts": "^14.0.0",
+    "@angular/core": "^15.2.3",
+    "echarts": "^5.4.1",
+    "ngx-echarts": "^15.0.2",
     "resize-observer-polyfill": "^1.5.1",
     "@juggle/resize-observer": "^3.3.1"
   }
