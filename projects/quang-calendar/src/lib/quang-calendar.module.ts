@@ -8,12 +8,12 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import { TranslocoModule } from '@ngneat/transloco'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
 
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  bootstrap5Plugin,
-  interactionPlugin,
-  timeGridPlugin
-])
+// FullCalendarModule.registerPlugins([
+//   dayGridPlugin,
+//   bootstrap5Plugin,
+//   interactionPlugin,
+//   timeGridPlugin
+// ])
 
 @NgModule({
   declarations: [

@@ -141,10 +141,6 @@ $blank-light-theme: mat.define-light-theme(
 @import 'node_modules/bootstrap/scss/containers';
 @import 'vendors/toast';
 @import 'vendors/datePickerVariables';
-@import 'node_modules/codemirror/lib/codemirror';
-@import 'node_modules/codemirror/theme/darcula';
-@import 'node_modules/codemirror/theme/material';
-@import 'node_modules/codemirror/theme/cobalt';
 @import 'node_modules/ngx-bootstrap/datepicker/utils/scss/variables';
 @import 'node_modules/ngx-bootstrap/datepicker/utils/scss/mixins';
 @import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker';
@@ -152,6 +148,7 @@ $blank-light-theme: mat.define-light-theme(
 @import 'vendors/paginator';
 @import 'vendors/matTooltip';
 @import 'node_modules/swiper/swiper';
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 // components
 @import 'components/skeleton';

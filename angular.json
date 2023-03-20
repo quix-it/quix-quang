@@ -105,7 +105,9 @@
               "projects/quang-kitchen-sink/src/favicon.ico",
               "projects/quang-kitchen-sink/src/assets"
             ],
-            "styles": ["projects/quang-kitchen-sink/src/styles.scss"],
+            "styles": [
+            "projects/quang-kitchen-sink/src/styles.scss"
+          ],
             "scripts": []
           }
         },

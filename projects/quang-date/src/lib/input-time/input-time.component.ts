@@ -13,8 +13,7 @@ import {
 import { ControlValueAccessor, NgControl } from "@angular/forms";
 import { BsLocaleService } from "ngx-bootstrap/datepicker";
 import { delay, filter } from "rxjs/operators";
-import { BsTimepickerViewComponent } from "ngx-bootstrap/datepicker/themes/bs/bs-timepicker-view.component";
-import { TimepickerActions, TimepickerConfig } from "ngx-bootstrap/timepicker";
+import { TimepickerComponent, TimepickerConfig } from "ngx-bootstrap/timepicker";
 
 export function getTimepickerConfig(): TimepickerConfig {
   return Object.assign(new TimepickerConfig(), {
@@ -152,7 +151,7 @@ export class InputTimeComponent
    * The html input element
    */
   @ViewChild("input", { static: true }) input:
-    | BsTimepickerViewComponent
+    | TimepickerComponent
     | undefined;
 
   /**

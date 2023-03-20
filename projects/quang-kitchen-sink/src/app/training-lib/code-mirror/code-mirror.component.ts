@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import 'codemirror/mode/javascript/javascript'
-import 'codemirror/mode/markdown/markdown'
-import 'codemirror/mode/htmlmixed/htmlmixed'
 
 @Component({
   selector: 'ks-code-mirror',

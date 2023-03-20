@@ -72,7 +72,9 @@ export class QuangAuthDownloadDirective {
         )
       )
       .subscribe(([blob, fileName]) => {
-        const objectUrl = window.URL.createObjectURL(blob)
+        let objectUrl 
+        if (typeof blob !== 'string')
+        objectUrl = window.URL.createObjectURL(blob)
         anchor.href = objectUrl
         anchor.download = this.fileName ? this.fileName : fileName as string
         anchor.click()

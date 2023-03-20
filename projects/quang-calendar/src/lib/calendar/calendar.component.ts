@@ -5,9 +5,9 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core'
-import { CalendarOptions } from '@fullcalendar/angular'
+import { CalendarOptions } from '@fullcalendar/core'
 
 /**
  * calendar component decorator
