@@ -60,7 +60,7 @@
     "@fullcalendar/interaction": "^6.1.4",
     "@fullcalendar/timegrid": "^6.1.4",
     "@juggle/resize-observer": "^3.3.1",
-    "@ngneat/transloco": "^4.0.0",
+    "@ngneat/transloco": "^4.2.6",
     "@ngrx/effects": "^15.4.0",
     "@ngrx/store": "^15.4.0",
     "@ngrx/store-devtools": "^15.4.0",
