@@ -22,7 +22,7 @@
             [formats]="qrCodeFormat"
             [errorMessage]="'No webcam available'"
             (whenFindCode)="logCode($event)"></quang-code-reader>
-          {{ result | json }}
+          {{ resultQr | json }}
         </div>
       </quang-card-action-header>
     </div>
@@ -42,11 +42,11 @@
         <h3 cardHeader>Bar Code</h3>
         <div cardBody>
           <quang-code-reader
-            [id]="'reader'"
+            [id]="'readerBar'"
             [formats]="barCodeFormat"
             [errorMessage]="'No webcam available'"
-            (whenFindCode)="logCode($event)"></quang-code-reader>
-          {{ result | json }}
+            (whenFindCode)="logBarCode($event)"></quang-code-reader>
+          {{ resultBar | json }}
         </div>
       </quang-card-header>
     </div>

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { Html5QrcodeResult } from 'html5-qrcode/core'
+import { Component } from '@angular/core'
+import { type Html5QrcodeResult } from 'html5-qrcode/core'
 import { Html5QrcodeSupportedFormats } from 'html5-qrcode'
 
 @Component({
@@ -8,7 +8,8 @@ import { Html5QrcodeSupportedFormats } from 'html5-qrcode'
   styles: []
 })
 export class CodeReaderComponent {
-  result: any = ''
+  resultQr: any = ''
+  resultBar: any = ''
   barCodeFormat = [
     Html5QrcodeSupportedFormats.EAN_13,
     Html5QrcodeSupportedFormats.EAN_8
@@ -16,7 +17,11 @@ export class CodeReaderComponent {
 
   qrCodeFormat = [Html5QrcodeSupportedFormats.QR_CODE]
 
-  logCode(code: Html5QrcodeResult): void {
-    this.result = code
+  logCode (code: Html5QrcodeResult): void {
+    this.resultQr = code
+  }
+
+  logBarCode (code: Html5QrcodeResult): void {
+    this.resultBar = code
   }
 }
