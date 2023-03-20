@@ -12,7 +12,7 @@ import {
 } from "@angular/core";
 import { ControlValueAccessor, NgControl } from "@angular/forms";
 import { delay, filter } from "rxjs/operators";
-import { MatSlideToggle } from "@angular/material/slide-toggle";
+import { MatLegacySlideToggle as MatSlideToggle } from "@angular/material/legacy-slide-toggle";
 
 /**
  * toggle component decorator

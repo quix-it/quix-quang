@@ -9,7 +9,7 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay, filter } from 'rxjs/operators'
-import { MatSlider, MatSliderChange } from '@angular/material/slider'
+import { MatLegacySlider as MatSlider, MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider'
 
 /**
  * slider component decorator

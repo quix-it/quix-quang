@@ -29,7 +29,7 @@ import { CropperComponent } from './cropper/cropper.component'
 import { ImageCropperModule } from 'ngx-image-cropper'
 import { TranslocoComponent } from './transloco/transloco.component'
 import { DataTableComponent } from './data-table/data-table.component'
-import { MatTableModule } from '@angular/material/table'
+import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table'
 import { MatSortModule } from '@angular/material/sort'
 
 import { VconsoleComponent } from './vconsole/vconsole.component'
