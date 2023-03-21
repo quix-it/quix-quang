@@ -29,6 +29,7 @@ import { ImageCropperModule } from 'ngx-image-cropper'
 import { TranslocoComponent } from './transloco/transloco.component'
 import { DataTableComponent } from './data-table/data-table.component'
 import { MatSortModule } from '@angular/material/sort'
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 
 import { VconsoleComponent } from './vconsole/vconsole.component'
 import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
@@ -64,7 +65,8 @@ SwiperCore.use([Pagination])
     ReactiveFormsModule,
     TranslocoModule,
     ClipboardModule,
-    // NgxMaskModule.forRoot(),
+    NgxMaskDirective,
+    NgxMaskPipe,
     ScrollingModule,
     InfiniteScrollModule,
     DragDropModule,
@@ -77,6 +79,6 @@ SwiperCore.use([Pagination])
     ImageCropperModule,
     MatSortModule
   ],
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'lib' }]
+  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'lib' }, provideNgxMask()]
 })
 export class TrainingLibModule {}
