@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core'
+import { type AfterViewInit, Component, ViewChild } from '@angular/core'
 import { MatSort } from '@angular/material/sort'
 import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table'
 
@@ -32,7 +32,7 @@ export class DataTableComponent implements AfterViewInit {
   sortDataSource = new MatTableDataSource(this.dataSource)
   @ViewChild(MatSort) sort: MatSort | null = null
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit (): void {
     this.sortDataSource.sort = this.sort
   }
 }

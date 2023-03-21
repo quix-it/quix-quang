@@ -35,6 +35,7 @@ import { VconsoleComponent } from './vconsole/vconsole.component'
 import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
 import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
 import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
+import { MatTableModule } from '@angular/material/table'
 
 SwiperCore.use([Pagination])
 
@@ -71,6 +72,7 @@ SwiperCore.use([Pagination])
     InfiniteScrollModule,
     DragDropModule,
     ImageCropperModule,
+    MatTableModule,
     QuangDateModule,
     QuangCoreModule,
     FormsModule,
