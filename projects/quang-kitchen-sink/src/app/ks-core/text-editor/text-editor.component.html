@@ -26,7 +26,7 @@
               [errorMessage]="true"
               [successMessage]="true"
               [helpMessage]="true"
-              [tabIndex]="1"
+              [tabIndex]="2"
               [id]="'texteditor id'"
               [autofocus]="true"
               [formName]="'form'"
@@ -34,7 +34,7 @@
           </form>
           <dl>
             <dt>Value:</dt>
-            <dd>{{ group.controls['text'].value }}</dd>
+            <dd>{{ groupBars.controls['text'].value }}</dd>
           </dl>
         </div>
       </quang-card-action-header>
@@ -67,7 +67,6 @@
               [tabIndex]="2"
               [id]="'texteditor-bars id'"
               [listBar]="true"
-              [textTypeBar]="true"
               [textStyleBar]="true"
               [alignBar]="true"
               [fontBar]="true"
@@ -78,7 +77,6 @@
               [indentBar]="true"
               [formName]="'form'"
               formControlName="text"></quang-text-editor>
-<!--            <input type="text" formControlName="text">-->
           </form>
           <dl>
             <dt>Value:</dt>

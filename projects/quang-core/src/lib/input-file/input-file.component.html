@@ -17,6 +17,7 @@
     (blur)="onTouched()"
     [multiple]="multiple"
     [accept]="acceptFileType"
+    [disabled]="_disabled"
     #input
   >
     <ng-template
@@ -48,6 +49,7 @@
         type="button"
         [ngClass]="buttonClass"
         (click)="openFileSelector()"
+        [disabled]="_disabled"
         #inputBtn>
         {{ buttonLabel | transloco }}
       </button>

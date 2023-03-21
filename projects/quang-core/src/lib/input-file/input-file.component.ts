@@ -134,6 +134,10 @@ export class InputFileComponent
    */
   _requiredValue: any = ''
   /**
+   * Define disabled state
+   */
+    _disabled: boolean = false;
+  /**
    * Standard definition to create a control value accessor
    */
   onTouched: any = () => {}
@@ -242,12 +246,8 @@ export class InputFileComponent
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    if (this.input) this.input.disabled = isDisabled
-    this.renderer.setProperty(
-      this.inputBtn?.nativeElement,
-      'disabled',
-      isDisabled
-    )
+    this._disabled = isDisabled
+    console.log('sjaf',this.renderer, this.input, isDisabled)
   }
 
   /**

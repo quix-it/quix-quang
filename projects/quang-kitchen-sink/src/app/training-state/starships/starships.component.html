@@ -9,25 +9,25 @@
       <quang-card-header>
         <h3 cardHeader>Demo</h3>
         <div cardBody>
-          <button class="btn btn-primary mb-3" (click)="getStarships()">
-            Carica
+          <button class="btn btn-primary mb-3"
+                  (click)="getStarships()">Carica
           </button>
           <table class="table">
             <thead>
-              <tr>
-                <th>Modello</th>
-                <th>Nome</th>
-              </tr>
+            <tr>
+              <th>Modello</th>
+              <th>Nome</th>
+            </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let s of starships$ | async">
-                <td>{{ s.model }}</td>
-                <td>{{ s.name }}</td>
-              </tr>
+            <tr *ngFor="let s of starships$ | async">
+              <td>{{s.model}}</td>
+              <td>{{s.name}}</td>
+            </tr>
             </tbody>
           </table>
           <pre>
-          {{ falcon$ | async | json }}
+          {{falcon$ | async | json}}
           </pre>
         </div>
       </quang-card-header>

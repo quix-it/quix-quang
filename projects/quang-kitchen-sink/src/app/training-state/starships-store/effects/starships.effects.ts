@@ -7,7 +7,7 @@ import { of } from 'rxjs'
 
 @Injectable()
 export class StarshipsEffects {
-  constructor(
+  constructor (
     private readonly actions: Actions,
     private readonly starshipsService: StarshipsService
   ) {}
