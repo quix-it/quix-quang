@@ -2443,7 +2443,7 @@
     "cosmiconfig" "^7.0.0"
     "tslib" "^2.3.0"
 
-"@ngneat/transloco@^4.0.0":
+"@ngneat/transloco@^4.2.6":
   "integrity" "sha512-dh1pivJFSRLlF4fSAuwSWG2pwdhLHQ7FiDbVcJQIm3q0c6io5SqfRCi2WiFw+R0dys5RXNFX0PBr9spgYFdpdw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/@ngneat/transloco/-/transloco-4.2.6.tgz"
   "version" "4.2.6"

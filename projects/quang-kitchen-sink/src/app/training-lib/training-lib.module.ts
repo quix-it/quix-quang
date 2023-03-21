@@ -75,6 +75,7 @@ SwiperCore.use([Pagination])
     QuangCoreModule,
     FormsModule,
     SwiperModule,
+    TranslocoModule,
     ImageCropperModule,
     MatTableModule,
     MatSortModule
