@@ -15,7 +15,6 @@ import { PdfComponent } from './pdf/pdf.component'
 import { MaskComponent } from './mask/mask.component'
 import { SwiperComponent } from './swiper/swiper.component'
 import { DateFnsComponent } from './date-fns/date-fns.component'
-import { NgxMaskModule } from 'ngx-mask'
 import { SwiperModule } from 'swiper/angular'
 import SwiperCore, { Pagination } from 'swiper'
 import { PlatformComponent } from './platform/platform.component'
@@ -29,7 +28,6 @@ import { CropperComponent } from './cropper/cropper.component'
 import { ImageCropperModule } from 'ngx-image-cropper'
 import { TranslocoComponent } from './transloco/transloco.component'
 import { DataTableComponent } from './data-table/data-table.component'
-import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table'
 import { MatSortModule } from '@angular/material/sort'
 
 import { VconsoleComponent } from './vconsole/vconsole.component'
@@ -66,7 +64,7 @@ SwiperCore.use([Pagination])
     ReactiveFormsModule,
     TranslocoModule,
     ClipboardModule,
-    NgxMaskModule.forRoot(),
+    // NgxMaskModule.forRoot(),
     ScrollingModule,
     InfiniteScrollModule,
     DragDropModule,
@@ -77,7 +75,6 @@ SwiperCore.use([Pagination])
     SwiperModule,
     TranslocoModule,
     ImageCropperModule,
-    MatTableModule,
     MatSortModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'lib' }]

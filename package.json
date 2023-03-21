@@ -93,7 +93,7 @@
     "quill-emoji": "^0.2.0",
     "quill-mention": "^3.0.4",
     "resize-observer-polyfill": "^1.5.1",
-    "swiper": "^9.1.1",
+    "swiper": "^8.4.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.1",
     "@types/pdfmake": "^0.2.2",

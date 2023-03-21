@@ -5025,6 +5025,13 @@
     "domhandler" "^5.0.2"
     "entities" "^4.2.0"
 
+"dom7@^4.0.4":
+  "integrity" "sha512-emjdpPLhpNubapLFdjNL9tP06Sr+GZkrIHEXLWvOGsytACUrkbeIdjO5g77m00BrHTznnlcNqgmn7pCN192TBA=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/dom7/-/dom7-4.0.6.tgz"
+  "version" "4.0.6"
+  dependencies:
+    "ssr-window" "^4.0.0"
+
 "domelementtype@^2.0.1", "domelementtype@^2.2.0", "domelementtype@^2.3.0":
   "integrity" "sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/domelementtype/-/domelementtype-2.3.0.tgz"
@@ -10312,7 +10319,7 @@
     "safer-buffer" "^2.0.2"
     "tweetnacl" "~0.14.0"
 
-"ssr-window@^4.0.2":
+"ssr-window@^4.0.0", "ssr-window@^4.0.2":
   "integrity" "sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ=="
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/ssr-window/-/ssr-window-4.0.2.tgz"
   "version" "4.0.2"
@@ -10502,11 +10509,12 @@
   "resolved" "https://maven.quix.it/nexus/repository/npm-group/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   "version" "1.0.0"
 
-"swiper@^9.1.1":
-  "integrity" "sha512-D1zArOwI6XCXCYBULPA4jTxpqp5SQtvntjinbXNZwXzj6P3KS51zSWuMarCLXq5oRISay4nX+TuShpxz8qhtbw=="
-  "resolved" "https://maven.quix.it/nexus/repository/npm-group/swiper/-/swiper-9.1.1.tgz"
-  "version" "9.1.1"
+"swiper@^8.4.7":
+  "integrity" "sha512-VwO/KU3i9IV2Sf+W2NqyzwWob4yX9Qdedq6vBtS0rFqJ6Fa5iLUJwxQkuD4I38w0WDJwmFl8ojkdcRFPHWD+2g=="
+  "resolved" "https://maven.quix.it/nexus/repository/npm-group/swiper/-/swiper-8.4.7.tgz"
+  "version" "8.4.7"
   dependencies:
+    "dom7" "^4.0.4"
     "ssr-window" "^4.0.2"
 
 "symbol-observable@4.0.0":
