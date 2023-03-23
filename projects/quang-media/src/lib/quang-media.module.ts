@@ -12,11 +12,11 @@ import { CommonModule } from '@angular/common'
 
 @NgModule({
   declarations: [
+    AudioComponent,
+    CodeReaderComponent,
     PictureComponent,
     ThreeSixtyImageComponent,
     VideoComponent,
-    AudioComponent,
-    CodeReaderComponent,
     WebcamComponent
   ],
   imports: [
