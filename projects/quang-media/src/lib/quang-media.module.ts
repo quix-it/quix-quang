@@ -29,8 +29,8 @@ import { CommonModule } from '@angular/common'
     PictureComponent,
     ThreeSixtyImageComponent,
     VideoComponent,
-    AudioComponent,
     CodeReaderComponent,
+    AudioComponent,
     WebcamComponent
   ]
 })
