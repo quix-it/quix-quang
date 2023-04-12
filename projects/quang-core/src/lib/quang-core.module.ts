@@ -12,7 +12,6 @@ import { SelectStrgComponent } from './select-strg/select-strg.component'
 import { TextAreaComponent } from './text-area/text-area.component'
 import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input'
 import { ToggleComponent } from './toggle/toggle.component'
-import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle'
 import { QuillModule } from 'ngx-quill'
 import { TextEditorComponent } from './text-editor/text-editor.component'
 import { TranslocoModule } from '@ngneat/transloco'
@@ -42,6 +41,7 @@ import { InputTelComponent } from './input-tel/input-tel.component'
 import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip'
 import { DatalistComponent } from './datalist/datalist.component'
 import { TextViewComponent } from './text-view/text-view.component'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 @NgModule({
   declarations: [
