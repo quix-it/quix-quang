@@ -64,3 +64,6 @@
 ## 13.2.1
 * fix accessibility in input-text, input-dates, paginator
 * fix structure of autocomplete-obj and autocomplete-strg
+
+## 13.2.2
+* fix quang-input-file drag and drop
