@@ -194,30 +194,28 @@ export class InputFileComponent
    * it extracts the data of the selected file and starts the flow of the cva
    * @param files
    */
-  onChangedHandler(files: NgxFileDropEntry[]): void {
+  onChangedHandler (files: NgxFileDropEntry[]): void {
     if (this.multiple) {
-      this._values = []
-    } else {
-      this._value = null
-    }
-    files.forEach((f) => {
-      if (f.fileEntry.isFile) {
-        const fileEntry = f.fileEntry as FileSystemFileEntry
-        fileEntry.file((file: File) => {
-          if (this.multiple) {
+      files.forEach((f) => {
+        if (f.fileEntry.isFile) {
+          const fileEntry = f.fileEntry as FileSystemFileEntry
+          fileEntry.file((file: File) => {
             this._values = [...this._values, file]
-          } else {
-            this._value = file
-          }
+            this.onChanged(this._values)
+          })
+        }
+      })
+    } else {
+      const file = files[0]
+      if (file.fileEntry.isFile) {
+        const fileEntry = file.fileEntry as FileSystemFileEntry
+        fileEntry.file((f: File) => {
+          this._value = f
+          this.onChanged(this._value)
         })
       }
-    })
-    this.onTouched()
-    if (this.multiple) {
-      this.onChanged(this._values)
-    } else {
-      this.onChanged(this._value)
     }
+    this.onTouched()
   }
 
   /**
