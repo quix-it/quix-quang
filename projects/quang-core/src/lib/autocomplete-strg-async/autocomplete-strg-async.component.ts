@@ -23,7 +23,7 @@ import { QuangAutocompleteAsyncService } from '../autocomplete-service/quang-aut
 @Component({
   selector: 'quang-autocomplete-strg-async',
   templateUrl: './autocomplete-strg-async.component.html',
-  styles: ['']
+  styleUrls: ['./autocomplete-strg-async.component.scss']
 })
 /**
  * autocomplete string async component

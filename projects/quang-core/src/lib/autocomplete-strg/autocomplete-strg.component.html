@@ -7,6 +7,7 @@
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <input [ngModel]="_value"
+         type="search"
          [typeahead]="dataList"
          class="form-control"
          [id]="id"
@@ -22,10 +23,12 @@
          [isAnimated]="true"
          [adaptivePosition]="true"
          [typeaheadScrollable]="true"
+         [optionsListTemplate]="dropdownList"
+         [typeaheadItemTemplate]="dropdownItem"
          [typeaheadOptionsInScrollableView]="18"
          [typeaheadMinLength]="startAfter"
          [placeholder]="placeholder | transloco"
-         [typeaheadOptionsLimit]="optionLimit"
+         [typeaheadOptionsLimit]="dataList.length"
          (typeaheadOnSelect)="onChangedHandler($event)"
          (blur)="onTouched()"
          [class.form-control-lg]="size === 'lg'"
@@ -33,6 +36,26 @@
          (input)="onChangeInput($event)"
          #input
   >
+<ng-template #dropdownList let-matches="matches" let-itemTemplate="itemTemplate" let-query="query">
+  <cdk-virtual-scroll-viewport itemSize="25" class="typeahead-viewport">
+    <button
+      type="button"
+      *cdkVirtualFor="let match of matches; let i = index"
+      class="dropdown-item"
+      (click)="writeValue(match)"
+    >
+      <ng-template
+        [ngTemplateOutlet]="itemTemplate"
+        [ngTemplateOutletContext]="{ item: match.item, index: i, match: match, query: query }"
+      ></ng-template>
+    </button>
+  </cdk-virtual-scroll-viewport>
+</ng-template>
+
+<ng-template #dropdownItem let-model="item">
+  {{ model }}
+</ng-template>
+
   <div class="valid-feedback"
        aria-live="assertive">
     {{_successMessage | transloco}}

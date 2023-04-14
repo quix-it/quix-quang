@@ -21,7 +21,7 @@ import { TypeaheadMatch } from "ngx-bootstrap/typeahead";
 @Component({
   selector: "quang-autocomplete-strg",
   templateUrl: "./autocomplete-strg.component.html",
-  styles: [""],
+  styleUrls: ["./autocomplete-strg.component.scss"],
 })
 /**
  * autocomplete string component
@@ -239,11 +239,11 @@ export class AutocompleteStrgComponent
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(
-      this.input?.nativeElement,
-      "disabled",
-      isDisabled
-    );
+      this.renderer?.setProperty(
+        this.input?.nativeElement,
+        "disabled",
+        isDisabled
+      );
   }
 
   /**

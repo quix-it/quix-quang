@@ -7,33 +7,53 @@
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <input [ngModel]="_value"
-         [typeahead]="suggestions$"
-         [typeaheadAsync]="true"
-         class="form-control"
-         [id]="id"
-         [name]="id"
-         [readOnly]="readonly"
-         [autofocus]="autofocus"
-         [attr.aria-label]="ariaLabel | transloco"
-         [tabIndex]="tabIndex"
-         [autocomplete]="autocomplete"
-         [isAnimated]="true"
-         [adaptivePosition]="true"
-         [typeaheadScrollable]="true"
-         [typeaheadOptionsInScrollableView]="18"
-         [typeaheadMinLength]="startAfter"
-         [placeholder]="placeholder | transloco"
-         [typeaheadOptionsLimit]="optionLimit"
-         (typeaheadOnSelect)="onSelectHandler($event)"
-         (input)="onChangedHandler($event)"
-         (blur)="onTouched()"
-         [ngClass]="customClass"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [class.form-control-lg]="size === 'lg'"
-         [class.form-control-sm]="size === 'sm'"
-         #input
-  >
+  type="search"
+  [typeahead]="suggestions$"
+  class="form-control"
+  [id]="id"
+  [name]="id"
+  [ngClass]="customClass"
+  [class.is-valid]="control?.valid && control?.dirty && successMessage"
+  [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+  [readOnly]="readonly"
+  [autofocus]="autofocus"
+  [attr.aria-label]="ariaLabel | transloco"
+  [tabIndex]="tabIndex"
+  [autocomplete]="autocomplete"
+  [isAnimated]="true"
+  [adaptivePosition]="true"
+  [typeaheadScrollable]="true"
+  [optionsListTemplate]="dropdownList"
+  [typeaheadItemTemplate]="dropdownItem"
+  [typeaheadOptionsInScrollableView]="18"
+  [typeaheadMinLength]="startAfter"
+  [placeholder]="placeholder | transloco"
+  (typeaheadOnSelect)="onSelectHandler($event)"
+  (blur)="onTouched()"
+  [class.form-control-lg]="size === 'lg'"
+  [class.form-control-sm]="size === 'sm'"
+  (input)="onChangedHandler($event)"
+  #input
+>
+<ng-template #dropdownList let-matches="matches" let-itemTemplate="itemTemplate" let-query="query">
+<cdk-virtual-scroll-viewport itemSize="25" class="typeahead-viewport">
+<button
+type="button"
+*cdkVirtualFor="let match of matches; let i = index"
+class="dropdown-item"
+(click)="writeValue(match)"
+>
+<ng-template
+ [ngTemplateOutlet]="itemTemplate"
+ [ngTemplateOutletContext]="{ item: match.item, index: i, match: match, query: query }"
+></ng-template>
+</button>
+</cdk-virtual-scroll-viewport>
+</ng-template>
+
+<ng-template #dropdownItem let-model="item">
+{{ model }}
+</ng-template>
   <div class="valid-feedback"
        aria-live="assertive">
     {{_successMessage | transloco}}
