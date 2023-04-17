@@ -6,35 +6,58 @@
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <input [ngModel]="_searchValue"
-         [id]="id"
-         [name]="id"
-         [typeahead]="suggestions$"
-         [typeaheadAsync]="true"
-         class="form-control"
-         [readOnly]="readonly"
-         [autofocus]="autofocus"
-         [attr.aria-label]="ariaLabel | transloco"
-         [tabIndex]="tabIndex"
-         [autocomplete]="autocomplete"
-         [isAnimated]="true"
-         [adaptivePosition]="true"
-         [typeaheadOptionField]="searchBy"
-         [typeaheadScrollable]="true"
-         [typeaheadOptionsInScrollableView]="18"
-         [typeaheadMinLength]="startAfter"
-         [placeholder]="placeholder | transloco"
-         [typeaheadOptionsLimit]="optionLimit"
-         [ngClass]="customClass"
-         (typeaheadOnSelect)="onSelectHandler($event)"
-         (input)="onChangedHandler($event)"
-         (blur)="onTouched()"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [class.form-control-lg]="size === 'lg'"
-         [class.form-control-sm]="size === 'sm'"
-         #input
-  >
+  <input 
+        [ngModel]="_searchValue"
+        type="search"
+        [typeahead]="suggestions$"
+        class="form-control"
+        [id]="id"
+        [name]="id"
+        [ngClass]="customClass"
+        [typeaheadAsync]="true"
+        [readOnly]="readonly"
+        [autofocus]="autofocus"
+        [attr.aria-label]="ariaLabel | transloco"
+        [tabIndex]="tabIndex"
+        [autocomplete]="autocomplete"
+        [isAnimated]="true"
+        [adaptivePosition]="true"
+        [typeaheadOptionField]="searchBy"
+        [typeaheadScrollable]="true"
+        [optionsListTemplate]="dropdownList"
+        [typeaheadItemTemplate]="dropdownItem"
+        [typeaheadOptionsInScrollableView]="18"
+        [typeaheadMinLength]="startAfter"
+        [placeholder]="placeholder | transloco"
+        [typeaheadOptionsLimit]="optionLimit"
+        (input)="onChangedHandler($event)"
+        (blur)="onTouched()"
+        [class.is-valid]="control?.valid && control?.dirty && successMessage"
+        [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+        [class.form-control-lg]="size === 'lg'"
+        [class.form-control-sm]="size === 'sm'"
+        #input
+        >
+  
+  <ng-template #dropdownList let-matches="matches" let-itemTemplate="itemTemplate" let-query="query">
+    <cdk-virtual-scroll-viewport itemSize="25" class="typeahead-viewport">
+      <button
+        type="button"
+        *cdkVirtualFor="let match of matches; let i = index"
+        class="dropdown-item"
+        (click)="onSelectHandler(match)"
+      >
+        <ng-template
+          [ngTemplateOutlet]="itemTemplate"
+          [ngTemplateOutletContext]="{ item: match.item, index: i, match: match, query: query }"
+        ></ng-template>
+      </button>
+    </cdk-virtual-scroll-viewport>
+  </ng-template>
+  
+  <ng-template #dropdownItem let-model="item">
+    {{ model[searchBy] }}
+  </ng-template>
   <div class="valid-feedback"
        aria-live="assertive">
     {{_successMessage | transloco}}
