@@ -12,7 +12,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { ControlValueAccessor, NgControl } from "@angular/forms";
-import { delay, filter } from "rxjs/operators";
+import { delay, filter, map, startWith } from "rxjs/operators";
 import { TypeaheadMatch } from "ngx-bootstrap/typeahead";
 
 /**
@@ -21,7 +21,7 @@ import { TypeaheadMatch } from "ngx-bootstrap/typeahead";
 @Component({
   selector: "quang-autocomplete-obj",
   templateUrl: "./autocomplete-obj.component.html",
-  styles: [""],
+  styleUrls: ["./autocomplete-obj.component.scss"],
 })
 /**
  * autocomplete object component
@@ -172,6 +172,15 @@ export class AutocompleteObjComponent
     if (this.successMessage) {
       this._successMessage = `${this.formName}.${this.control?.name}.valid`;
     }
+    this.observeOnChange()
+  }
+
+  observeOnChange(): void {
+    this.control?.control?.valueChanges?.pipe(startWith(''), map((value) => {
+      const description: string = value
+      console.log(description)
+      return description
+    }))
   }
 
   /**
@@ -219,6 +228,7 @@ export class AutocompleteObjComponent
     this._value = e?.item[this.returnValue];
     this.onTouched();
     this.onChanged(this._value);
+    if (this._value) this.writeValue(this._value)
   }
 
   /**
@@ -239,9 +249,9 @@ export class AutocompleteObjComponent
     if (this.dataList.find((item) => item[this.returnValue] === value)) {
       this._searchValue = this.dataList.find(
         (item) => item[this.returnValue] === value
-      )[this.searchBy];
-    }
-    this.renderer.setProperty(this.input?.nativeElement, "value", value);
+        )[this.searchBy];
+      }
+      this.renderer.setProperty(this.input?.nativeElement, "value", value);
   }
 
   /**

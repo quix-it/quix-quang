@@ -42,6 +42,7 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
 import { DatalistComponent } from './datalist/datalist.component'
 import { TextViewComponent } from './text-view/text-view.component'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { ScrollingModule } from '@angular/cdk/scrolling'
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
     MatSliderModule,
     MatPaginatorModule,
     NgxFileDropModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ScrollingModule
   ],
   providers: [
     QuangAutocompleteAsyncService,
