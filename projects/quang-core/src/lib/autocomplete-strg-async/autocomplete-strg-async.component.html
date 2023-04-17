@@ -41,7 +41,7 @@
 type="button"
 *cdkVirtualFor="let match of matches; let i = index"
 class="dropdown-item"
-(click)="writeValue(match)"
+(click)="onSelectHandler(match)"
 >
 <ng-template
  [ngTemplateOutlet]="itemTemplate"

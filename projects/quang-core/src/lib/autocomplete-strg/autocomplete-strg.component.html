@@ -29,20 +29,20 @@
          [typeaheadMinLength]="startAfter"
          [placeholder]="placeholder | transloco"
          [typeaheadOptionsLimit]="dataList.length"
-         (typeaheadOnSelect)="onChangedHandler($event)"
          (blur)="onTouched()"
          [class.form-control-lg]="size === 'lg'"
          [class.form-control-sm]="size === 'sm'"
          (input)="onChangeInput($event)"
          #input
-  >
+         >
+         <!-- (typeaheadOnSelect)="onChangedHandler($event)" -->
 <ng-template #dropdownList let-matches="matches" let-itemTemplate="itemTemplate" let-query="query">
   <cdk-virtual-scroll-viewport itemSize="25" class="typeahead-viewport">
     <button
       type="button"
       *cdkVirtualFor="let match of matches; let i = index"
       class="dropdown-item"
-      (click)="writeValue(match)"
+      (click)="onChangedHandler(match)"
     >
       <ng-template
         [ngTemplateOutlet]="itemTemplate"
