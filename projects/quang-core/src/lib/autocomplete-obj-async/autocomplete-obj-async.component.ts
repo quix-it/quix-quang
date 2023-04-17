@@ -23,7 +23,7 @@ import { QuangAutocompleteAsyncService } from '../autocomplete-service/quang-aut
 @Component({
   selector: 'quang-autocomplete-obj-async',
   templateUrl: './autocomplete-obj-async.component.html',
-  styles: ['']
+  styleUrls: ['./autocomplete-obj-async.component.scss']
 })
 /**
  * autocomplete object async component
@@ -276,6 +276,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
     this._value = e.item[this.returnValue]
     this.onTouched()
     this.onChanged(this._value)
+    if (this._value) this.renderer.setProperty(this.input?.nativeElement, "value", e.item[this.searchBy]);
   }
 
   /**
