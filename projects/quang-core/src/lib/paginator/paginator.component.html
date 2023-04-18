@@ -26,6 +26,9 @@
       </option>
     </select>
   </div>
+  <div *ngIf="showElements" class="ms-3">
+    {{'quangPaginator.totalItems' | transloco}} {{totalItems}}
+  </div>
   <mat-paginator
     id="page index"
     [tabIndex]="isAccessible ? 0 : tabIndex + 1"
