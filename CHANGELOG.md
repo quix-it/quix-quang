@@ -64,3 +64,8 @@
 ## 13.2.1
 * fix accessibility in input-text, input-dates, paginator
 * fix structure of autocomplete-obj and autocomplete-strg
+
+## 15.0.0
+* feat update to angular 15
+* feat implements virtual scroll in autocomplete-strg, autocomplete-strg-async, autocomplete-obj, autocomplete-obj-async
+* feat add elements label in quang-paginator

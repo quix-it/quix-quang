@@ -9,6 +9,7 @@
     "nextPage": "Next page",
     "lastPage": "Last page",
     "pageRangeNoResults": "No results",
-    "pageRange": "Pagina {{page}} di {{amountPages}}"
+    "pageRange": "Pagina {{page}} di {{amountPages}}",
+    "totalItems": "Elements:"
   }
 }

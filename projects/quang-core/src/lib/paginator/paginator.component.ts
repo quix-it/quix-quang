@@ -67,6 +67,10 @@ export class PaginatorComponent implements OnInit, OnChanges {
    */
   @Input() isAccessible: boolean = false;
   /**
+   * if value true add elements label near pages
+   */
+  @Input() showElements: boolean = false;
+  /**
    * Raises an event when the page index changes
    */
   @Output() whenPageChange: EventEmitter<number> = new EventEmitter<number>();
