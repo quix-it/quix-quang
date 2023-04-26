@@ -8,36 +8,6 @@
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <!-- <input
-    [ngModel]="_searchValue"
-    [typeahead]="dataList"
-    class="form-control"
-    [id]="id"
-    [name]="id"
-    [readOnly]="readonly"
-    [autofocus]="autofocus"
-    [attr.aria-label]="ariaLabel | transloco"
-    [tabIndex]="tabIndex"
-    [autocomplete]="autocomplete"
-    [isAnimated]="true"
-    [adaptivePosition]="true"
-    [typeaheadOptionField]="searchBy"
-    [typeaheadScrollable]="true"
-    [typeaheadOptionsInScrollableView]="18"
-    [typeaheadMinLength]="startAfter"
-    [placeholder]="placeholder | transloco"
-    [typeaheadOptionsLimit]="optionLimit"
-    [ngClass]="customClass"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    (typeaheadOnSelect)="onChangedHandler($event)"
-    (blur)="onTouched()"
-    [class.form-control-lg]="size === 'lg'"
-    [class.form-control-sm]="size === 'sm'"
-    (input)="onChangeInput($event)"
-    #input
-  /> -->
-
   <input #input
   type="search"
   class="form-control"
@@ -65,7 +35,7 @@
   />
 
 <ng-template #dropdownList let-matches="matches" let-itemTemplate="itemTemplate" let-query="query">
-  <cdk-virtual-scroll-viewport itemSize="25" class="typeahead-viewport">
+  <cdk-virtual-scroll-viewport itemSize="32" class="typeahead-viewport">
     <button
       type="button"
       *cdkVirtualFor="let match of matches; let i = index"
