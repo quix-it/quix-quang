@@ -301,6 +301,9 @@ export class InputDateComponent
   writeValue(value: any): void {
     if (value) {
       this._value = new Date(value);
+      if (this.dateFormat) {
+        this._value = format(this._value, this.dateFormat)
+      }
     } else {
       this._value = value;
     }
