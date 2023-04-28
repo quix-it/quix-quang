@@ -195,8 +195,9 @@ export class AutocompleteObjComponent
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus();
     }
-    if (changes.control.currentValue !== changes.control.previousValue)
-      this.writeValue(changes.control.currentValue);
+    if (changes.dataList.currentValue !== changes.dataList.previousValue) {
+      this.writeValue(this._value);
+    }
   }
 
   /**
@@ -238,12 +239,16 @@ export class AutocompleteObjComponent
    * @param value
    */
   writeValue(value: any): void {
-    if (this.dataList.find((item) => item[this.returnValue] === value)) {
-      this._searchValue = this.dataList.find(
+    if (this.dataList?.find((item) => item[this.returnValue] === value)) {
+      this._searchValue = this.dataList?.find(
         (item) => item[this.returnValue] === value
       )[this.searchBy];
     }
-    this.renderer.setProperty(this.input?.nativeElement, "value", value);
+    this.renderer.setProperty(
+      this.input?.nativeElement,
+      "value",
+      this._searchValue
+    );
   }
 
   /**

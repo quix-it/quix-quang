@@ -201,12 +201,12 @@
 "@angular-eslint/bundled-angular-compiler@13.2.1":
   "integrity" "sha512-v/O9s6yvg7MJTQ9iNdXpZJOAjunY4ATk/dE3+xTsLwWTZXTXLXZE1FtKD/reijoItZtGiLUJ+F1pK5nwq/iI6w=="
   "resolved" "https://registry.npmjs.org/@angular-eslint/bundled-angular-compiler/-/bundled-angular-compiler-13.2.1.tgz"
-  "version" "13.2.1"
+  "version" "13.2.3"
 
 "@angular-eslint/eslint-plugin-template@^13.1.0", "@angular-eslint/eslint-plugin-template@13.2.1":
   "integrity" "sha512-fA11IGfnWzJePFVS04JKigQY33/Twp5Gv3sj6o8NLRi25NbZDFMc6YjRv8FuKfJ0DXrZh0nLgP2L/01qnXDgZQ=="
   "resolved" "https://registry.npmjs.org/@angular-eslint/eslint-plugin-template/-/eslint-plugin-template-13.2.1.tgz"
-  "version" "13.2.1"
+  "version" "13.2.3"
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "13.2.1"
     "@typescript-eslint/experimental-utils" "5.17.0"
@@ -216,7 +216,7 @@
 "@angular-eslint/eslint-plugin@^13.1.0", "@angular-eslint/eslint-plugin@13.2.1":
   "integrity" "sha512-hlHzbe7MIBbZ4IUKvJh5pjN5nKw0YZBwPyIB1+IBOJAdjWuS274uUGTZxKeyJiyJi0FOUu5+Z6vbM9ZJ2uzjcw=="
   "resolved" "https://registry.npmjs.org/@angular-eslint/eslint-plugin/-/eslint-plugin-13.2.1.tgz"
-  "version" "13.2.1"
+  "version" "13.2.3"
   dependencies:
     "@angular-eslint/utils" "13.2.1"
     "@typescript-eslint/experimental-utils" "5.17.0"
@@ -224,7 +224,7 @@
 "@angular-eslint/schematics@^13.1.0":
   "integrity" "sha512-uejXuV9mGzjxw/WY7T3FBpm3HWmOtjnA3eFXzY2VssqaYbEcBl9DakBh9h+KivV86iH3F3ElY8WC0Ka25TCCsg=="
   "resolved" "https://registry.npmjs.org/@angular-eslint/schematics/-/schematics-13.2.1.tgz"
-  "version" "13.2.1"
+  "version" "13.2.3"
   dependencies:
     "@angular-eslint/eslint-plugin" "13.2.1"
     "@angular-eslint/eslint-plugin-template" "13.2.1"
@@ -235,7 +235,7 @@
 "@angular-eslint/template-parser@^13.1.0":
   "integrity" "sha512-aSZjKYTUXjJ3sehm90CfZey/ed333IxP0TpnaG7Lue9rSEa3BkKOv8Kffy+EhDkpdTpjdwdmGfopxxsbm9sPHw=="
   "resolved" "https://registry.npmjs.org/@angular-eslint/template-parser/-/template-parser-13.2.1.tgz"
-  "version" "13.2.1"
+  "version" "13.2.3"
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "13.2.1"
     "eslint-scope" "^5.1.0"
@@ -243,7 +243,7 @@
 "@angular-eslint/utils@13.2.1":
   "integrity" "sha512-TCw56jQDPe/FDg3IC0QTQVn4mv5Pzb8K4YpO2hiBdU4XwmOTGWjbwZO++Wr1Gekw1OJYVWSIwNfz2MrGIDsu7A=="
   "resolved" "https://registry.npmjs.org/@angular-eslint/utils/-/utils-13.2.1.tgz"
-  "version" "13.2.1"
+  "version" "13.2.3"
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "13.2.1"
     "@typescript-eslint/experimental-utils" "5.17.0"
@@ -2225,7 +2225,7 @@
 "@rollup/plugin-node-resolve@^13.0.0":
   "integrity" "sha512-btX7kzGvp1JwShQI9V6IM841YKNPYjKCvUbNrQ2EcVYbULtUd/GH6wZ/qdqH13j9pOHBER+EZXNN2L8RSJhVRA=="
   "resolved" "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-13.2.1.tgz"
-  "version" "13.2.1"
+  "version" "13.2.3"
   dependencies:
     "@rollup/pluginutils" "^3.1.0"
     "@types/resolve" "1.17.1"
