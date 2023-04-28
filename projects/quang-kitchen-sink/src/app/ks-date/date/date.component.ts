@@ -22,4 +22,10 @@ export class DateComponent {
   groupISO: FormGroup = new FormGroup({
     date: new FormControl('', Validators.required)
   })
+
+  date = 'Thu Apr 06 2023 18:09:36 GMT+0200 (Ora legale dell’Europa centrale)'
+
+  fillDate (): void {
+    this.group.patchValue({ date: this.date })
+  }
 }

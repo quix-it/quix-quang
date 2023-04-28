@@ -17,6 +17,7 @@
           >Configurazioni</a
         >
         <div cardBody>
+          <button class="btn btn-primary" (click)="fillDate()">fill</button>
           <form [formGroup]="group">
             <quang-input-date
               [label]="'form.date.label'"
