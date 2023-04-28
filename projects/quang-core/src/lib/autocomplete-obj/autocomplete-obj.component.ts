@@ -195,6 +195,8 @@ export class AutocompleteObjComponent
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus();
     }
+    if (changes.control.currentValue !== changes.control.previousValue)
+      this.writeValue(changes.control.currentValue);
   }
 
   /**
