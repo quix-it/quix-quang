@@ -1,4 +1,7 @@
 <div class="paginatorContainer" [id]="id" [ngClass]="customClass">
+  <div *ngIf="showTotalElementsCount" class="me-3 mb-2">
+    {{'quangPaginator.totalItems' | transloco}} {{totalItems}}
+  </div>
   <div>
     <label
       for="pageSize"
@@ -25,9 +28,6 @@
         {{ size }}
       </option>
     </select>
-  </div>
-  <div *ngIf="showElements" class="ms-3">
-    {{'quangPaginator.totalItems' | transloco}} {{totalItems}}
   </div>
   <mat-paginator
     id="page index"

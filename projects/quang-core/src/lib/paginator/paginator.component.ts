@@ -18,7 +18,7 @@ import { MatLegacyPaginator as MatPaginator } from "@angular/material/legacy-pag
 @Component({
   selector: "quang-paginator",
   templateUrl: "./paginator.component.html",
-  styles: [],
+  styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -69,7 +69,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   /**
    * if value true add elements label near pages
    */
-  @Input() showElements: boolean = false;
+  @Input() showTotalElementsCount: boolean = false;
   /**
    * Raises an event when the page index changes
    */
