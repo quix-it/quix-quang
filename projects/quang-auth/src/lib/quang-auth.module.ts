@@ -10,6 +10,7 @@ import { QuangAuthService } from './quang-auth.service'
 import { QuangAuthConfig } from './quang-auth.config'
 import { IsNotAuthenticatedDirective } from './quang-auth-directive/is-not-authenticated.directive'
 import { quangAuthReducer } from './quang-auth-module.reducer'
+import { OAuthModule } from 'angular-oauth2-oidc'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { quangAuthReducer } from './quang-auth-module.reducer'
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature(QUANGAUTH_KEY, quangAuthReducer)
+    StoreModule.forFeature(QUANGAUTH_KEY, quangAuthReducer),
+    OAuthModule.forRoot()
   ],
   providers: [
     QuangAuthService
