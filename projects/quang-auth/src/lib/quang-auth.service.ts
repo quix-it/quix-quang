@@ -45,14 +45,20 @@ export class QuangAuthService {
     if (config) {
       this.config = config
     }
-    if (this._window().oidcConfig) {
+    if (this._window()?.oidcConfig) {
       this.authConfig = this._window().oidcConfig
-    } else if (this.config.oidcConfig) {
+    } else if (this.config?.oidcConfig) {
       this.authConfig = this.config.oidcConfig
-    } else {
-      alert('[AUTH SERVICE] No auth config')
     }
-    this.oauthService.configure(this.authConfig)
+    this.configureAuth()
+
+  }
+
+  configureAuth() {
+    if(this.authConfig) {
+      this.oauthService.setStorage(localStorage)
+      this.oauthService.configure(this.authConfig)
+    }
   }
 
   /**
