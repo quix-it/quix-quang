@@ -187,6 +187,10 @@ export class InputDateComponent
     | ElementRef<HTMLInputElement>
     | undefined;
 
+    @ViewChild("inputBtn", {static: true}) inputBtn:
+    | ElementRef<HTMLButtonElement> 
+    | undefined;
+
   @ViewChild("drp", { static: true }) datePicker:
     | BsDatepickerInlineDirective
     | undefined;
@@ -289,8 +293,10 @@ export class InputDateComponent
       this.control.control?.markAsDirty();
     } else if (this.returnISODate) {
       this.onChanged(date);
+    } else if (this.dateFormat) {
+      this.onChanged(format(date, this.dateFormat));
     } else {
-      this.onChanged(date);
+      this.onChanged(date)
     }
   }
 
@@ -301,7 +307,7 @@ export class InputDateComponent
   writeValue(value: any): void {
     if (value) {
       this._value = new Date(value);
-      if (this.dateFormat && this._value.toString() !== "Invalid Date") {
+      if (this.dateFormat) {
         this._value = format(this._value, this.dateFormat)
       }
     } else {
@@ -321,6 +327,11 @@ export class InputDateComponent
       "disabled",
       isDisabled
     );
+    this.renderer.setProperty(
+      this.inputBtn?.nativeElement,
+      "disabled",
+      isDisabled
+    )
     this._disabled = isDisabled;
   }
 
