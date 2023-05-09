@@ -293,8 +293,6 @@ export class InputDateComponent
       this.control.control?.markAsDirty();
     } else if (this.returnISODate) {
       this.onChanged(date);
-    } else if (this.dateFormat) {
-      this.onChanged(format(date, this.dateFormat));
     } else {
       this.onChanged(date)
     }
