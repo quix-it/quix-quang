@@ -165,6 +165,10 @@ export class InputDateRangeComponent
     | ElementRef<HTMLInputElement>
     | undefined;
 
+  @ViewChild("input", { static: true }) inputBtn:
+    | ElementRef<HTMLButtonElement>
+    | undefined  
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -304,7 +308,11 @@ export class InputDateRangeComponent
       this._value = value;
     }
     if (this.input)
-      this.renderer.setProperty(this.input.nativeElement, "value", value);
+      this.renderer.setProperty(
+        this.input.nativeElement,
+        "value",
+        value ? format(new Date(value), "dd-MM-yyyy") : value
+      );
   }
 
   /**
@@ -317,6 +325,12 @@ export class InputDateRangeComponent
       "disabled",
       isDisabled
     );
+
+    this.renderer.setProperty(
+      this.inputBtn.nativeElement,
+      "disabled",
+      isDisabled
+    )
     this._disabled = isDisabled;
   }
 

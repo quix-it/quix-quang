@@ -15,12 +15,8 @@ import {
 } from "@angular/core";
 
 import { ControlValueAccessor, NgControl } from "@angular/forms";
-import {
-  BsDatepickerConfig,
-  BsDatepickerInlineDirective,
-  BsLocaleService,
-} from "ngx-bootstrap/datepicker";
-import { BsTimepickerViewComponent } from "ngx-bootstrap/datepicker/themes/bs/bs-timepicker-view.component";
+import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from "ngx-bootstrap/datepicker";
+import { TimepickerComponent } from "ngx-bootstrap/timepicker";
 import { delay, filter } from "rxjs/operators";
 
 const defaultConfig = {
@@ -226,6 +222,10 @@ export class InputDateTimeComponent
     | ElementRef<HTMLInputElement>
     | undefined;
 
+  @ViewChild("input", { static: true }) inputBtn:
+    | ElementRef<HTMLButtonElement>
+    | undefined
+
   /**
    * Dropdown selector html element ref
    */
@@ -234,7 +234,7 @@ export class InputDateTimeComponent
     | undefined;
 
   @ViewChild("timepicker", { static: true }) timePicker:
-    | BsTimepickerViewComponent
+    | TimepickerComponent
     | undefined;
 
   /**
@@ -340,6 +340,12 @@ export class InputDateTimeComponent
   setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(
       this.input?.nativeElement,
+      "disabled",
+      isDisabled
+    );
+
+    this.renderer.setProperty(
+      this.inputBtn?.nativeElement,
       "disabled",
       isDisabled
     );

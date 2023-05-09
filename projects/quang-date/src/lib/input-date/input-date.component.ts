@@ -187,8 +187,8 @@ export class InputDateComponent
     | ElementRef<HTMLInputElement>
     | undefined;
 
-    @ViewChild("inputBtn", {static: true}) inputBtn:
-    | ElementRef<HTMLButtonElement> 
+  @ViewChild("inputBtn", { static: true }) inputBtn:
+    | ElementRef<HTMLButtonElement>
     | undefined;
 
   @ViewChild("drp", { static: true }) datePicker:
@@ -294,7 +294,7 @@ export class InputDateComponent
     } else if (this.returnISODate) {
       this.onChanged(date);
     } else {
-      this.onChanged(date)
+      this.onChanged(format(date, "dd-MM-yyyy"));
     }
   }
 
@@ -305,14 +305,15 @@ export class InputDateComponent
   writeValue(value: any): void {
     if (value) {
       this._value = new Date(value);
-      if (this.dateFormat) {
-        this._value = format(this._value, this.dateFormat)
-      }
     } else {
       this._value = value;
     }
     if (this.input)
-      this.renderer.setProperty(this.input.nativeElement, "value", value);
+      this.renderer.setProperty(
+        this.input.nativeElement,
+        "value",
+        value ? format(this._value, "dd-MM-yyyy") : value
+      );
   }
 
   /**
@@ -329,7 +330,7 @@ export class InputDateComponent
       this.inputBtn?.nativeElement,
       "disabled",
       isDisabled
-    )
+    );
     this._disabled = isDisabled;
   }
 
