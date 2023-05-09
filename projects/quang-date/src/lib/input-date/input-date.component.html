@@ -45,6 +45,7 @@
         [tabindex]="tabIndex"
         type="button"
         aria-label="calendar-button"
+        #inputBtn
         (click)="_disabled ? null : drp.toggle()"
       >
         <ng-content select="[calendarIcon]"></ng-content>

@@ -29,10 +29,10 @@ export class DateComponent {
   }
 
   disableForm (): void {
-    this.group.controls.date.disable()
+    this.group.disable()
   }
 
   enableForm (): void {
-    this.group.controls.date.enable()
+    this.group.enable()
   }
 }
