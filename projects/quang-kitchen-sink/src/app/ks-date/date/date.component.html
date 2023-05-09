@@ -18,6 +18,8 @@
         >
         <div cardBody>
           <button class="btn btn-primary" (click)="fillDate()">fill</button>
+          <button class="btn btn-primary" (click)="disableForm()">disable</button>
+          <button class="btn btn-primary" (click)="enableForm()">enable</button>
           <form [formGroup]="group">
             <quang-input-date
               [label]="'form.date.label'"
@@ -29,6 +31,7 @@
               [tabIndex]="1"
               [id]="'date id'"
               [autofocus]="true"
+              [returnISODate]="true"
               [dateFormat]="'YYYY-MM-DD'"
               [formName]="'form'"
               [buttonClass]="['btn', 'btn-outline-secondary']"

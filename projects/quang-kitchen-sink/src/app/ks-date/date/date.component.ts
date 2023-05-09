@@ -10,6 +10,7 @@ import { addYears } from 'date-fns'
 export class DateComponent {
   minDate: Date = new Date()
   maxDate: Date = addYears(new Date(), 1)
+  date = '2020-02-28T00:00:00.000Z'
 
   group: FormGroup = new FormGroup({
     date: new FormControl(undefined, Validators.required)
@@ -23,9 +24,15 @@ export class DateComponent {
     date: new FormControl('', Validators.required)
   })
 
-  date = 'Thu Apr 06 2023 18:09:36 GMT+0200 (Ora legale dell’Europa centrale)'
-
   fillDate (): void {
     this.group.patchValue({ date: this.date })
+  }
+
+  disableForm (): void {
+    this.group.controls.date.disable()
+  }
+
+  enableForm (): void {
+    this.group.controls.date.enable()
   }
 }
