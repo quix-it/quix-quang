@@ -293,10 +293,8 @@ export class InputDateComponent
       this.control.control?.markAsDirty();
     } else if (this.returnISODate) {
       this.onChanged(date);
-    } else if (this.dateFormat) {
-      this.onChanged(format(date, this.dateFormat));
-    } else {
-      this.onChanged(date)
+    } else  {
+      this.onChanged(format(date, 'dd-MM-yyyy'));
     }
   }
 
@@ -307,14 +305,11 @@ export class InputDateComponent
   writeValue(value: any): void {
     if (value) {
       this._value = new Date(value);
-      if (this.dateFormat) {
-        this._value = format(this._value, this.dateFormat)
-      }
     } else {
       this._value = value;
     }
     if (this.input)
-      this.renderer.setProperty(this.input.nativeElement, "value", value);
+      this.renderer.setProperty(this.input.nativeElement, "value", value ? format(this._value, "dd-MM-yyyy") : value);
   }
 
   /**

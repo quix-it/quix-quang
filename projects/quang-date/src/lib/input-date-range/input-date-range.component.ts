@@ -165,6 +165,10 @@ export class InputDateRangeComponent
     | ElementRef<HTMLInputElement>
     | undefined;
 
+  @ViewChild("input", { static: true}) inputBtn:
+    | ElementRef<HTMLButtonElement>
+    | undefined
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -284,7 +288,7 @@ export class InputDateRangeComponent
       this.onChanged(dates);
     } else {
       const tmp = dates.map((d: Date | undefined) =>
-        format(d ?? new Date(), "yyyy-MM-dd")
+        format(d ?? new Date(), "dd-MM-yyyy")
       );
       this.onChanged(tmp);
     }
@@ -304,7 +308,7 @@ export class InputDateRangeComponent
       this._value = value;
     }
     if (this.input)
-      this.renderer.setProperty(this.input.nativeElement, "value", value);
+      this.renderer.setProperty(this.input.nativeElement, "value", value ? format(value, "dd-MM-yyyy") : value);
   }
 
   /**
@@ -314,6 +318,11 @@ export class InputDateRangeComponent
   setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(
       this.input?.nativeElement,
+      "disabled",
+      isDisabled
+    );
+    this.renderer.setProperty(
+      this.inputBtn?.nativeElement,
       "disabled",
       isDisabled
     );

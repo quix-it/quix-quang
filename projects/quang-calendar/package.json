@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-calendar",
-          "version": "15.0.0-beta.19",
+          "version": "15.0.0-beta.20",
   "peerDependencies": {
     "@angular/core": "^15.2.3",
     "fullcalendar": "^6.1.4",
