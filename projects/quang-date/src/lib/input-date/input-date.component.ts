@@ -290,7 +290,7 @@ export class InputDateComponent
     } else if (this.returnISODate) {
       this.onChanged(date);
     } else {
-      this.onChanged(format(date, "yyyy-MM-dd"));
+      this.onChanged(date);
     }
   }
 
