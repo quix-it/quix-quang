@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-auth",
-          "version": "13.2.7",
+          "version": "13.2.8-beta.0",
   "peerDependencies": {
     "@angular/core": "^13.1.3",
     "angular-oauth2-oidc": "^13.0.1",
