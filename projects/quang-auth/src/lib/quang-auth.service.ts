@@ -55,7 +55,6 @@ export class QuangAuthService {
   }
 
   configureAuth() {
-    console.log('configureAuth',this.authConfig)
     if(this.authConfig) {
       this.oauthService.setStorage(localStorage)
       this.oauthService.configure(this.authConfig)
@@ -66,7 +65,6 @@ export class QuangAuthService {
    * Start the login process, if the user is not logged in, redirect to the identity provider
    */
   login (): Observable<any> {
-    console.log('start login')
     return from(this.oauthService.loadDiscoveryDocumentAndLogin())
   }
 
@@ -82,9 +80,7 @@ export class QuangAuthService {
    * if the process is successful dispatch the successful login
    */
   loginAndDispatch (): void {
-    console.log('pre loginAndDispatch')
     from(this.oauthService.loadDiscoveryDocumentAndLogin()).subscribe(isAuthenticated => {
-      console.log('loginAndDispatch ->',isAuthenticated)
       if (isAuthenticated) {
         this.oauthService.setupAutomaticSilentRefresh()
         this.store.dispatch(QuangAuthActions.userLogin())
@@ -97,9 +93,7 @@ export class QuangAuthService {
    * if the process is successful dispatch the successful login
    */
   tryLoginAndDispatch (): void {
-    console.log('pre tryLoginAndDispatch')
     from(this.oauthService.loadDiscoveryDocumentAndTryLogin()).subscribe(isAuthenticated => {
-      console.log('tryLoginAndDispatch ->',isAuthenticated)
       if (isAuthenticated) {
         this.oauthService.setupAutomaticSilentRefresh()
         this.store.dispatch(QuangAuthActions.userLogin())
