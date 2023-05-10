@@ -129,72 +129,72 @@ export class AsideComponent implements OnInit {
       {
         name: 'Quang cards',
         children: [
-          { name: 'Quang card', url: 'quang-components/card' },
-          { name: 'Quang card action', url: 'quang-components/card-action' },
+          { name: 'Quang card', url: 'quang-cards/card' },
+          { name: 'Quang card action', url: 'quang-cards/card-action' },
           {
             name: 'Quang card action header',
-            url: 'quang-components/card-action-header'
+            url: 'quang-cards/card-action-header'
           },
-          { name: 'Quang card header', url: 'quang-components/card-header' },
-          { name: 'Quang card simple', url: 'quang-components/card-simple' },
-          { name: 'Quang card image', url: 'quang-components/card-image' }
+          { name: 'Quang card header', url: 'quang-cards/card-header' },
+          { name: 'Quang card simple', url: 'quang-cards/card-simple' },
+          { name: 'Quang card image', url: 'quang-cards/card-image' }
         ]
       },
       {
         name: 'Quang components',
         children: [
-          { name: 'Quang text editor', url: 'quang-core/texteditor' },
-          { name: 'Quang datalist', url: 'quang-core/datalist' },
-          { name: 'Quang input checkbox', url: 'quang-core/checkbox' },
-          { name: 'Quang input color', url: 'quang-core/color' },
-          { name: 'Quang input email', url: 'quang-core/email' },
-          { name: 'Quang input file', url: 'quang-core/file' },
-          { name: 'Quang input fraction', url: 'quang-core/fraction' },
-          { name: 'Quang input number', url: 'quang-core/number' },
-          { name: 'Quang input password', url: 'quang-core/password' },
-          { name: 'Quang input radio', url: 'quang-core/radio' },
-          { name: 'Quang input search', url: 'quang-core/search' },
-          { name: 'Quang input tel', url: 'quang-core/tel' },
-          { name: 'Quang input text', url: 'quang-core/text' },
-          { name: 'Quang input url', url: 'quang-core/url' },
+          { name: 'Quang text editor', url: 'quang-components/texteditor' },
+          { name: 'Quang datalist', url: 'quang-components/datalist' },
+          { name: 'Quang input checkbox', url: 'quang-components/checkbox' },
+          { name: 'Quang input color', url: 'quang-components/color' },
+          { name: 'Quang input email', url: 'quang-components/email' },
+          { name: 'Quang input file', url: 'quang-components/file' },
+          { name: 'Quang input fraction', url: 'quang-components/fraction' },
+          { name: 'Quang input number', url: 'quang-components/number' },
+          { name: 'Quang input password', url: 'quang-components/password' },
+          { name: 'Quang input radio', url: 'quang-components/radio' },
+          { name: 'Quang input search', url: 'quang-components/search' },
+          { name: 'Quang input tel', url: 'quang-components/tel' },
+          { name: 'Quang input text', url: 'quang-components/text' },
+          { name: 'Quang input url', url: 'quang-components/url' },
           {
             name: 'Quang multi-select obj',
-            url: 'quang-core/multi-select-obj'
+            url: 'quang-components/multi-select-obj'
           },
           {
             name: 'Quang multi-select strg',
-            url: 'quang-core/multi-select-strg'
+            url: 'quang-components/multi-select-strg'
           },
-          { name: 'Quang paginator', url: 'quang-core/paginator' },
+          { name: 'Quang paginator', url: 'quang-components/paginator' },
           {
             name: 'Quang paginator service',
-            url: 'quang-core/paginatorservice'
+            url: 'quang-components/paginatorservice'
           },
-          { name: 'Quang select obj', url: 'quang-core/select-obj' },
-          { name: 'Quang select strg', url: 'quang-core/select-strg' },
-          { name: 'Quang slider', url: 'quang-core/slider' },
-          { name: 'Quang text area', url: 'quang-core/textarea' },
-          { name: 'Quang text editor', url: 'quang-core/texteditor' },
-          { name: 'Quang toggle', url: 'quang-core/toggle' },
+          { name: 'Quang select obj', url: 'quang-components/select-obj' },
+          { name: 'Quang select strg', url: 'quang-components/select-strg' },
+          { name: 'Quang slider', url: 'quang-components/slider' },
+          { name: 'Quang text area', url: 'quang-components/textarea' },
+          { name: 'Quang text editor', url: 'quang-components/texteditor' },
+          { name: 'Quang toggle', url: 'quang-components/toggle' },
           {
             name: 'Quang autocomplete strg',
-            url: 'quang-core/autocomplete-strg'
+            url: 'quang-components/autocomplete-strg'
           },
           {
             name: 'Quang autocomplete strg async',
-            url: 'quang-core/autocomplete-strg-async'
+            url: 'quang-components/autocomplete-strg-async'
           },
           {
             name: 'Quang autocomplete obj ',
-            url: 'quang-core/autocomplete-obj'
+            url: 'quang-components/autocomplete-obj'
           },
           {
             name: 'Quang autocomplete obj async',
-            url: 'quang-core/autocomplete-obj-async'
+            url: 'quang-components/autocomplete-obj-async'
           },
-          { name: 'Quang auth download', url: 'quang-core/auth-download' },
-          { name: 'Quang auth image', url: 'quang-core/auth-image' },
-          { name: 'Custom icons', url: 'quang-core/custom-icons' }
+          { name: 'Quang auth download', url: 'quang-components/auth-download' },
+          { name: 'Quang auth image', url: 'quang-components/auth-image' },
+          { name: 'Custom icons', url: 'quang-components/custom-icons' }
         ]
       },
       {
