@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core'
-import { Person } from './person.model'
+import { Component, type OnInit } from '@angular/core'
 import { MasterService } from './master.service'
-import { PersonResponse } from './person-response.model'
-import { QuangPaginatorService } from '../../../../../quang-components/src/lib/paginator/paginator.service'
+import { type PersonResponse } from './person-response.model'
+import { type Person } from './person.model'
 
 @Component({
   selector: 'ks-master',
@@ -16,13 +15,13 @@ export class MasterComponent implements OnInit {
   sizeList = [10, 15, 25, 50]
   totalItems: number = 0
 
-  constructor(private readonly masterService: MasterService) {}
+  constructor (private readonly masterService: MasterService) {}
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.getPeople()
   }
 
-  getPeople(): void {
+  getPeople (): void {
     this.masterService
       .getPeople(this.page)
       .subscribe((resp: PersonResponse) => {
@@ -31,12 +30,12 @@ export class MasterComponent implements OnInit {
       })
   }
 
-  pageChange(p: number): void {
+  pageChange (p: number): void {
     this.page = p + 1
     this.getPeople()
   }
 
-  sizeChange(s: number): void {
+  sizeChange (s: number): void {
     this.size = s
     this.getPeople()
   }
