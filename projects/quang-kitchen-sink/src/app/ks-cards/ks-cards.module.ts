@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { KsComponentsRoutingModule } from './ks-components-routing.module'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { CardComponent } from './card/card.component'
 import { SharedModule } from '../shared/shared.module'
@@ -10,7 +9,8 @@ import { CardSimpleComponent } from './card-simple/card-simple.component'
 import { CardActionHeaderComponent } from './card-action-header/card-action-header.component'
 import { CardActionComponent } from './card-action/card-action.component'
 import { CardImageComponent } from './card-image/card-image.component'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
+import { QuangCardsModule } from 'projects/quang-cards/src/public-api'
+import { KsCardsRoutingModule } from './ks-cards-routing.module'
 
 @NgModule({
   declarations: [
@@ -23,11 +23,11 @@ import { QuangComponentsModule } from '../../../../quang-components/src/lib/quan
   ],
   imports: [
     CommonModule,
-    KsComponentsRoutingModule,
+    KsCardsRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     TranslocoModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'components' }]
 })
-export class KsComponentsModule {}
+export class KsCardsModule {}

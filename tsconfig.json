@@ -67,9 +67,9 @@
         "dist/quang-map/quang-map",
         "dist/quang-map"
       ],
-      "quang-components": [
-        "dist/quang-components/quang-components",
-        "dist/quang-components"
+      "quang-cards": [
+        "dist/quang-cards/quang-cards",
+        "dist/quang-cards"
       ],
       "qunag-dialog": [
         "dist/qunag-dialog/qunag-dialog",

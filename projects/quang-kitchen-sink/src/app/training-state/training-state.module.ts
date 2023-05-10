@@ -13,7 +13,7 @@ import { PlanetsFormComponent } from './planets/planets-form/planets-form.compon
 import { PlanetsListComponent } from './planets/planets-list/planets-list.component'
 import { TranslocoModule } from '@ngneat/transloco'
 import { SharedModule } from '../shared/shared.module'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
+import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [

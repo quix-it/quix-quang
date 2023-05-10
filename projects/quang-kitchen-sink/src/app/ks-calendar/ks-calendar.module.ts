@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module'
 
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { QuangCalendarModule } from '../../../../quang-calendar/src/lib/quang-calendar.module'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
+import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [CalendarComponent],

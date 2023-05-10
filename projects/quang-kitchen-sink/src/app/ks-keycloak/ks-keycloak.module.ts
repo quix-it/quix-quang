@@ -8,7 +8,7 @@ import { SelectorComponent } from './selector/selector.component'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { SharedModule } from '../shared/shared.module'
 import { GuardComponent } from './guard/guard.component'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
+import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [

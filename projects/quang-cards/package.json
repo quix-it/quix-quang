@@ -1,5 +1,5 @@
 {
-  "name": "@quix/quang-components",
+  "name": "@quix/quang-cards",
           "version": "15.0.0-beta.20",
   "peerDependencies": {
     "@angular/core": "^15.2.3",

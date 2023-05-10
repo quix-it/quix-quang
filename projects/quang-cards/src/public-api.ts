@@ -10,4 +10,4 @@ export * from './lib/card-image/card-image.component'
 export * from './lib/card-simple/card-simple.component'
 export * from './lib/card-footer/card-footer.component'
 
-export * from './lib/quang-components.module'
+export * from './lib/quang-cards.module'

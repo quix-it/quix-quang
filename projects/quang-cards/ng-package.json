@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/quang/components",
+  "dest": "../../dist/quang/cards",
   "lib": {
     "entryFile": "src/public-api.ts"
   },

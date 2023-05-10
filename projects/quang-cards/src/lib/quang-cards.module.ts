@@ -33,4 +33,4 @@ import { CardFooterComponent } from './card-footer/card-footer.component'
     CardFooterComponent
   ]
 })
-export class QuangComponentsModule {}
+export class QuangCardsModule {}

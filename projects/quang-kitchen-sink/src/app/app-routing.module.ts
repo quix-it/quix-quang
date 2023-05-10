@@ -27,10 +27,10 @@ const routes: Routes = [
       )
   },
   {
-    path: 'quang-components',
+    path: 'quang-cards',
     loadChildren: async () =>
-      await import('./ks-components/ks-components.module').then(
-        (m) => m.KsComponentsModule
+      await import('./ks-cards/ks-cards.module').then(
+        (m) => m.KsCardsModule
       )
   },
   {

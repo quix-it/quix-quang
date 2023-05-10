@@ -8,7 +8,7 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips'
 import { ScrollComponent } from './scroll/scroll.component'
 import { IntersectionComponent } from './intersection/intersection.component'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
+import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [ForComponent, ScrollComponent, IntersectionComponent],
