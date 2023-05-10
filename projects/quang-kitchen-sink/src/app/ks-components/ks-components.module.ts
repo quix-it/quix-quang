@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { KsCoreRoutingModule } from './ks-core-routing.module'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { TextComponent } from './text/text.component'
 import { NumberComponent } from './number/number.component'
@@ -35,9 +34,10 @@ import { AutocompleteObjComponent } from './autocomplete-obj/autocomplete-obj.co
 import { AuthDownloadComponent } from './auth-download/auth-download.component'
 import { AuthImageComponent } from './auth-image/auth-image.component'
 import { QuillModule } from 'ngx-quill'
-import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
 import { CustomIconsComponent } from './custom-icons/custom-icons.component'
 import { QuangCardsModule } from 'projects/quang-cards/src/public-api'
+import { KsComponentsRoutingModule } from './ks-components-routing.module'
+import { QuangComponentsModule } from 'projects/quang-components/src/public-api'
 
 @NgModule({
   declarations: [
@@ -74,15 +74,15 @@ import { QuangCardsModule } from 'projects/quang-cards/src/public-api'
   ],
   imports: [
     CommonModule,
-    KsCoreRoutingModule,
+    KsComponentsRoutingModule,
     SharedModule,
     QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
-    QuangCoreModule,
+    QuangComponentsModule,
     QuillModule,
     FormsModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'core' }]
 })
-export class KsCoreModule {}
+export class KsComponentsModule {}

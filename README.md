@@ -30,7 +30,7 @@ CommonModule,
 ReactiveFormsModule, 
 SharedModule, 
 QuangCardsModule, 
-QuangCoreModule,
+QuangComponentsModule,
 QuangDateModule, 
 TranslocoModule
 ],`

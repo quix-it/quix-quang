@@ -8,7 +8,7 @@ import { AccessibilityRoutingModule } from './accessibility-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MasterComponent } from './master/master.component'
 import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
-import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
+import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
 import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
 
 @NgModule({
@@ -20,7 +20,7 @@ import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.modul
     QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
-    QuangCoreModule,
+    QuangComponentsModule,
     QuangDateModule
   ],
   providers: [

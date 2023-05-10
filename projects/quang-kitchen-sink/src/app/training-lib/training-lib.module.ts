@@ -34,7 +34,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 import { VconsoleComponent } from './vconsole/vconsole.component'
 import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
-import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
+import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
 import { MatTableModule } from '@angular/material/table'
 
 SwiperCore.use([Pagination])
@@ -74,7 +74,7 @@ SwiperCore.use([Pagination])
     ImageCropperModule,
     MatTableModule,
     QuangDateModule,
-    QuangCoreModule,
+    QuangComponentsModule,
     FormsModule,
     SwiperModule,
     TranslocoModule,

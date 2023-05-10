@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Person } from './person.model'
 import { MasterService } from './master.service'
 import { PersonResponse } from './person-response.model'
-import { QuangPaginatorService } from '../../../../../quang-core/src/lib/paginator/paginator.service'
+import { QuangPaginatorService } from '../../../../../quang-components/src/lib/paginator/paginator.service'
 
 @Component({
   selector: 'ks-master',

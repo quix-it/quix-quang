@@ -15,7 +15,7 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { SyncValidatorComponent } from './sync-validator/sync-validator.component'
 import { AsyncValidatorComponent } from './async-validator/async-validator.component'
 import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
-import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
+import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.modul
     QuangCardsModule,
     ReactiveFormsModule,
     TranslocoModule,
-    QuangCoreModule
+    QuangComponentsModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'form' }]
 })

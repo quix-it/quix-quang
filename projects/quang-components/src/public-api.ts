@@ -34,4 +34,4 @@ export * from './lib/paginator/paginator.service'
 export * from './lib/datalist/datalist.component'
 export * from './lib/text-view/text-view.component'
 
-export * from './lib/quang-core.module'
+export * from './lib/quang-components.module'

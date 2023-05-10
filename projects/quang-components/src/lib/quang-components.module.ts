@@ -128,4 +128,4 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
     TextViewComponent
   ]
 })
-export class QuangCoreModule {}
+export class QuangComponentsModule {}
