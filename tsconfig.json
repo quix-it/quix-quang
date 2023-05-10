@@ -39,9 +39,13 @@
         "dist/quang-keycloak/quang-keycloak",
         "dist/quang-keycloak"
       ],
-      "quang-core": [
-        "dist/quang-core/quang-core",
-        "dist/quang-core"
+      "quang-components": [
+        "dist/quang-components/quang-components",
+        "dist/quang-components"
+      ],
+      "quang-components/autocomplete-obj": [
+        "dist/quang-components/quang-components/autcomplete-obj",
+        "dist/quang-components/autcomplete-obj"
       ],
       "quang-calendar": [
         "dist/quang-calendar/quang-calendar",

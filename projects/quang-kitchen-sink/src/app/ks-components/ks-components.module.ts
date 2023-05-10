@@ -38,6 +38,7 @@ import { CustomIconsComponent } from './custom-icons/custom-icons.component'
 import { QuangCardsModule } from 'projects/quang-cards/src/public-api'
 import { KsComponentsRoutingModule } from './ks-components-routing.module'
 import { QuangComponentsModule } from 'projects/quang-components/src/public-api'
+import { AutocompleteObjModule } from 'projects/quang-components/autocomplete-obj/autocomplete-obj.module'
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { QuangComponentsModule } from 'projects/quang-components/src/public-api'
     ReactiveFormsModule,
     QuangComponentsModule,
     QuillModule,
-    FormsModule
+    FormsModule,
+    AutocompleteObjModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'core' }]
 })
