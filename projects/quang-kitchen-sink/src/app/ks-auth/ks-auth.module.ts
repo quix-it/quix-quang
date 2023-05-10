@@ -8,7 +8,7 @@ import { AuthConfigComponent } from './auth-config/auth-config.component'
 import { AuthDirectiveComponent } from './auth-directive/auth-directive.component'
 import { AuthSelectorComponent } from './auth-selector/auth-selector.component'
 import { AuthGuardComponent } from './auth-guard/auth-guard.component'
-import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-car
     CommonModule,
     KsAuthRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     TranslocoModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }]

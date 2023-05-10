@@ -6,7 +6,7 @@ import { BusComponent } from './bus/bus.component'
 import { SourceComponent } from './source/source.component'
 import { SharedModule } from '../shared/shared.module'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
-import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 import { QuangWebsocketComponent } from './websocket/quang-websocket.component'
 import { FormsModule } from '@angular/forms'
 
@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms'
     CommonModule,
     KsEventRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     TranslocoModule,
     FormsModule
   ],

@@ -127,7 +127,7 @@ export class AsideComponent implements OnInit {
         ]
       },
       {
-        name: 'Quang components',
+        name: 'Quang cards',
         children: [
           { name: 'Quang card', url: 'quang-components/card' },
           { name: 'Quang card action', url: 'quang-components/card-action' },
@@ -141,7 +141,7 @@ export class AsideComponent implements OnInit {
         ]
       },
       {
-        name: 'Quang core',
+        name: 'Quang components',
         children: [
           { name: 'Quang text editor', url: 'quang-core/texteditor' },
           { name: 'Quang datalist', url: 'quang-core/datalist' },

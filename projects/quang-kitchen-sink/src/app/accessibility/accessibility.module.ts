@@ -7,7 +7,7 @@ import { FormComponent } from './form/form.component'
 import { AccessibilityRoutingModule } from './accessibility-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MasterComponent } from './master/master.component'
-import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
 import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
 
@@ -17,7 +17,7 @@ import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.modul
     CommonModule,
     AccessibilityRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
     QuangCoreModule,

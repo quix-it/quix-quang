@@ -9,7 +9,7 @@ import { DateRangeComponent } from './date-range/date-range.component'
 import { DateTimeComponent } from './date-time/date-time.component'
 import { TimeComponent } from './time/time.component'
 import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
-import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-car
     CommonModule,
     KsDateRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     QuangDateModule,
     TranslocoModule,
     ReactiveFormsModule,

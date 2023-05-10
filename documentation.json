@@ -39551,14 +39551,14 @@
             ]
         },
         {
-            "name": "QuangComponentsModule",
-            "id": "module-QuangComponentsModule-36d0b4e47026c079f8e5d3fdd89b6e41ce306982159e4e11c2820c2138ed6bdbf76c6e62a09eb115876fabab877eb1e06e7eaebac8591c3b22eb85b0852e8468",
+            "name": "QuangCardsModule",
+            "id": "module-QuangCardsModule-36d0b4e47026c079f8e5d3fdd89b6e41ce306982159e4e11c2820c2138ed6bdbf76c6e62a09eb115876fabab877eb1e06e7eaebac8591c3b22eb85b0852e8468",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/quang-components/src/lib/quang-components.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core'\nimport { CardComponent } from './card/card.component'\nimport { CardActionComponent } from './card-action/card-action.component'\nimport { CardSimpleComponent } from './card-simple/card-simple.component'\nimport { CommonModule } from '@angular/common'\nimport { CardHeaderComponent } from './card-header/card-header.component'\nimport { CardActionHeaderComponent } from './card-action-header/card-action-header.component'\nimport { CardImageComponent } from './card-image/card-image.component'\nimport { TranslocoModule } from '@ngneat/transloco'\nimport { CardFooterComponent } from './card-footer/card-footer.component'\n\n@NgModule({\n  declarations: [\n    CardComponent,\n    CardActionComponent,\n    CardActionHeaderComponent,\n    CardSimpleComponent,\n    CardHeaderComponent,\n    CardImageComponent,\n    CardFooterComponent\n  ],\n  imports: [\n    CommonModule,\n    TranslocoModule\n  ],\n  exports: [\n    CardComponent,\n    CardActionComponent,\n    CardActionHeaderComponent,\n    CardSimpleComponent,\n    CardHeaderComponent,\n    CardImageComponent,\n    CardFooterComponent\n  ]\n})\nexport class QuangComponentsModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core'\nimport { CardComponent } from './card/card.component'\nimport { CardActionComponent } from './card-action/card-action.component'\nimport { CardSimpleComponent } from './card-simple/card-simple.component'\nimport { CommonModule } from '@angular/common'\nimport { CardHeaderComponent } from './card-header/card-header.component'\nimport { CardActionHeaderComponent } from './card-action-header/card-action-header.component'\nimport { CardImageComponent } from './card-image/card-image.component'\nimport { TranslocoModule } from '@ngneat/transloco'\nimport { CardFooterComponent } from './card-footer/card-footer.component'\n\n@NgModule({\n  declarations: [\n    CardComponent,\n    CardActionComponent,\n    CardActionHeaderComponent,\n    CardSimpleComponent,\n    CardHeaderComponent,\n    CardImageComponent,\n    CardFooterComponent\n  ],\n  imports: [\n    CommonModule,\n    TranslocoModule\n  ],\n  exports: [\n    CardComponent,\n    CardActionComponent,\n    CardActionHeaderComponent,\n    CardSimpleComponent,\n    CardHeaderComponent,\n    CardImageComponent,\n    CardFooterComponent\n  ]\n})\nexport class QuangCardsModule {}\n",
             "children": [
                 {
                     "type": "providers",

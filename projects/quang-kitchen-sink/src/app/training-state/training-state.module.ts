@@ -13,7 +13,7 @@ import { PlanetsFormComponent } from './planets/planets-form/planets-form.compon
 import { PlanetsListComponent } from './planets/planets-list/planets-list.component'
 import { TranslocoModule } from '@ngneat/transloco'
 import { SharedModule } from '../shared/shared.module'
-import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-car
     CommonModule,
     TrainingStateRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     StoreModule.forFeature(TRAINING_STATE_KEY, trainingStateReducers),
     EffectsModule.forFeature([PlanetsEffects.PlanetsEffects]),
     TranslocoModule

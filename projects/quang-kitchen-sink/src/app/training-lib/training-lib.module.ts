@@ -32,7 +32,7 @@ import { MatSortModule } from '@angular/material/sort'
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 
 import { VconsoleComponent } from './vconsole/vconsole.component'
-import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
 import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
 import { MatTableModule } from '@angular/material/table'
@@ -61,7 +61,7 @@ SwiperCore.use([Pagination])
     CommonModule,
     TrainingLibRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     CodemirrorModule,
     ReactiveFormsModule,
     TranslocoModule,

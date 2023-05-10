@@ -8,7 +8,7 @@ import { SelectorComponent } from './selector/selector.component'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { SharedModule } from '../shared/shared.module'
 import { GuardComponent } from './guard/guard.component'
-import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-car
     CommonModule,
     KsKeycloakRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     TranslocoModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'keycloak' }]

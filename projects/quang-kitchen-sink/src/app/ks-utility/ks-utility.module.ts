@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { PageComponent } from './page/page.component'
 import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
 import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
-import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 import { DeviceComponent } from './device/device.component'
 import { DeviceMotionComponent } from './device-motion/device-motion.component'
 
@@ -27,7 +27,7 @@ import { DeviceMotionComponent } from './device-motion/device-motion.component'
     CommonModule,
     KsUtilityRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
     QuangDateModule,

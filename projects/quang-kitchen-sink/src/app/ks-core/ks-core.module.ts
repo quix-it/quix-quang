@@ -35,9 +35,9 @@ import { AutocompleteObjComponent } from './autocomplete-obj/autocomplete-obj.co
 import { AuthDownloadComponent } from './auth-download/auth-download.component'
 import { AuthImageComponent } from './auth-image/auth-image.component'
 import { QuillModule } from 'ngx-quill'
-import { QuangComponentsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
 import { CustomIconsComponent } from './custom-icons/custom-icons.component'
+import { QuangCardsModule } from 'projects/quang-cards/src/public-api'
 
 @NgModule({
   declarations: [
@@ -76,7 +76,7 @@ import { CustomIconsComponent } from './custom-icons/custom-icons.component'
     CommonModule,
     KsCoreRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
     QuangCoreModule,
