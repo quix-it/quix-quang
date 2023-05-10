@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { TranslocoModule } from '@ngneat/transloco'
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead'
-import { QuangAutocompleteAsyncService } from '../../autocomplete-service/quang-autocomplete-async.service'
+import { QuangAutocompleteAsyncService } from './quang-autocomplete-async.service'
 
 @NgModule({
   declarations: [AutocompleteStrgAsyncComponent],

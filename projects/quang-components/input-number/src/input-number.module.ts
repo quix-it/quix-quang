@@ -9,4 +9,4 @@ import { TranslocoModule } from '@ngneat/transloco'
   imports: [CommonModule, TranslocoModule, FormsModule],
   exports: [InputNumberComponent]
 })
-export class InputNumber {}
+export class InputNumberModule {}

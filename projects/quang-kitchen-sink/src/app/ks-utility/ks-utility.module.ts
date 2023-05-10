@@ -8,11 +8,12 @@ import { ValidationComponent } from './validation/validation.component'
 import { SharedModule } from '../shared/shared.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { PageComponent } from './page/page.component'
-import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
 import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 import { DeviceComponent } from './device/device.component'
 import { DeviceMotionComponent } from './device-motion/device-motion.component'
+import { InputDateModule } from 'projects/quang-components/input-date/public-api'
+import { InputFileModule } from 'projects/quang-components/input-file/public-api'
+import { InputTextModule } from 'projects/quang-components/input-text/public-api'
 
 @NgModule({
   declarations: [
@@ -30,8 +31,10 @@ import { DeviceMotionComponent } from './device-motion/device-motion.component'
     QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
-    QuangDateModule,
-    QuangComponentsModule
+    QuangCardsModule,
+    InputDateModule,
+    InputFileModule,
+    InputTextModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'utility' }]
 })

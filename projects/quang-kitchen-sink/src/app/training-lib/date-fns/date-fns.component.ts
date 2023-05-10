@@ -30,28 +30,28 @@ export class DateFnsComponent {
 
   distance: string = ''
 
-  addDay(): void {
+  addDay (): void {
     this.dayResult = format(
       addDays(new Date(), this.group.get('number')?.value),
       this.dateFormat
     )
   }
 
-  addMonth(): void {
+  addMonth (): void {
     this.monthResult = format(
       addMonths(new Date(), this.group.get('number')?.value),
       this.dateFormat
     )
   }
 
-  addYear(): void {
+  addYear (): void {
     this.yearResult = format(
       addYears(new Date(), this.group.get('number')?.value),
       this.dateFormat
     )
   }
 
-  datesDistance(): void {
+  datesDistance (): void {
     this.distance = formatDistanceStrict(
       new Date(this.group.get('dateRange')?.value[0]),
       new Date(this.group.get('dateRange')?.value[1])

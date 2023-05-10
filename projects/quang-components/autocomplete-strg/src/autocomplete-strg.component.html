@@ -7,11 +7,13 @@
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <input [ngModel]="_value"
-         [typeahead]="suggestions$"
-         [typeaheadAsync]="true"
+         [typeahead]="dataList"
          class="form-control"
          [id]="id"
          [name]="id"
+         [ngClass]="customClass"
+         [class.is-valid]="control?.valid && control?.dirty && successMessage"
+         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
          [readOnly]="readonly"
          [autofocus]="autofocus"
          [attr.aria-label]="ariaLabel | transloco"
@@ -24,14 +26,11 @@
          [typeaheadMinLength]="startAfter"
          [placeholder]="placeholder | transloco"
          [typeaheadOptionsLimit]="optionLimit"
-         (typeaheadOnSelect)="onSelectHandler($event)"
-         (input)="onChangedHandler($event)"
+         (typeaheadOnSelect)="onChangedHandler($event)"
          (blur)="onTouched()"
-         [ngClass]="customClass"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
          [class.form-control-lg]="size === 'lg'"
          [class.form-control-sm]="size === 'sm'"
+         (input)="onChangeInput($event)"
          #input
   >
   <div class="valid-feedback"
@@ -39,7 +38,6 @@
     {{_successMessage | transloco}}
   </div>
   <div class="invalid-feedback"
-       aria-live="polite"
        [id]="id + '-error'">
     {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
   </div>

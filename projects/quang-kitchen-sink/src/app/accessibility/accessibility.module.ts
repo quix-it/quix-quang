@@ -8,8 +8,12 @@ import { AccessibilityRoutingModule } from './accessibility-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MasterComponent } from './master/master.component'
 import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
-import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
+import { InputTextModule } from 'projects/quang-components/input-text/public-api'
+import { InputEmailModule } from 'projects/quang-components/input-email/public-api'
+import { InputDateModule } from 'projects/quang-components/input-date/public-api'
+import { InputTelModule } from 'projects/quang-components/input-tel/public-api'
+import { InputCheckboxModule } from 'projects/quang-components/input-checkbox/public-api'
+import { PaginatorModule } from 'projects/quang-components/paginator/public-api'
 
 @NgModule({
   declarations: [FormComponent, MasterComponent],
@@ -20,8 +24,12 @@ import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.modul
     QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
-    QuangComponentsModule,
-    QuangDateModule
+    InputTextModule,
+    InputEmailModule,
+    InputDateModule,
+    InputTelModule,
+    InputCheckboxModule,
+    PaginatorModule
   ],
   providers: [
     {

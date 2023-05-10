@@ -20,7 +20,6 @@ import { QuangDialogModule } from '../../../quang-dialog/src/lib/quang-dialog.mo
 import { QuangUtilityModule } from '../../../quang-utility/src/lib/quang-utility.module'
 import { QuangMapModule } from '../../../quang-map/src/lib/quang-map.module'
 import { QuangKeycloakModule } from '../../../quang-keycloak/src/lib/quang-keycloak.module'
-import { QuangDateModule } from '../../../quang-date/src/lib/quang-date.module'
 import { QuangMediaModule } from '../../../quang-media/src/lib/quang-media.module'
 import { QuangLoaderInterceptor } from '../../../quang-dialog/src/lib/loader/quang-loader.interceptor'
 import { QuangHttpErrorInterceptor } from '../../../quang-dialog/src/lib/http-error/quang-http-error.interceptor'
@@ -58,7 +57,6 @@ defineLocale('en', enGbLocale)
     QuangUtilityModule,
     SharedModule,
     ReactiveFormsModule,
-    QuangDateModule,
     QuangMediaModule,
     QuangMapModule.forRoot({ googleKey: environment.googleKey }),
     QuangKeycloakModule,

@@ -15,7 +15,7 @@ import { NgControl } from '@angular/forms'
 import { Observable, Observer, of } from 'rxjs'
 import { debounceTime, delay, filter, map, switchMap } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
-import { QuangAutocompleteAsyncService } from '../../autocomplete-service/quang-autocomplete-async.service'
+import { QuangAutocompleteAsyncService } from './quang-autocomplete-async.service'
 
 /**
  * autocomplete object async component decorator

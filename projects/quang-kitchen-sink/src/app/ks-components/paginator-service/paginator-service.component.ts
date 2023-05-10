@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { QuangPaginatorService } from '../../../../../quang-components/src/lib/paginator/paginator.service'
+import { QuangPaginatorService } from 'projects/quang-components/paginator/src/paginator.service'
 
 @Component({
   selector: 'ks-paginator-service',
