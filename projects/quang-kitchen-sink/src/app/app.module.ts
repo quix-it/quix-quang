@@ -23,9 +23,9 @@ import { QuangKeycloakModule } from '../../../quang-keycloak/src/lib/quang-keycl
 import { QuangMediaModule } from '../../../quang-media/src/lib/quang-media.module'
 import { QuangLoaderInterceptor } from '../../../quang-dialog/src/lib/loader/quang-loader.interceptor'
 import { QuangHttpErrorInterceptor } from '../../../quang-dialog/src/lib/http-error/quang-http-error.interceptor'
+import { QuangCardsModule } from 'projects/quang-cards/src/public-api'
 import { registerLocaleData } from '@angular/common'
 import localeitIT from '@angular/common/locales/it'
-import { QuangCardsModule } from 'projects/quang-cards/src/public-api'
 
 registerLocaleData(localeitIT)
 
@@ -60,7 +60,7 @@ defineLocale('en', enGbLocale)
     QuangMediaModule,
     QuangMapModule.forRoot({ googleKey: environment.googleKey }),
     QuangKeycloakModule,
-    // AccessibilityModule
+    AccessibilityModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'it-it' },

@@ -38,6 +38,14 @@
       "node": "./chart/fesm2015/quix-quang-chart.mjs",
       "default": "./chart/fesm2020/quix-quang-chart.mjs"
     },
+    "./cards": {
+      "types": "./cards/quix-quang-cards.d.ts",
+      "esm2020": "./cards/esm2020/quix-quang-cards.mjs",
+      "es2020": "./cards/fesm2020/quix-quang-cards.mjs",
+      "es2015": "./cards/fesm2015/quix-quang-cards.mjs",
+      "node": "./cards/fesm2015/quix-quang-cards.mjs",
+      "default": "./cards/fesm2020/quix-quang-cards.mjs"
+    },
     "./components": {
       "types": "./components/quix-quang-components.d.ts",
       "esm2020": "./components/esm2020/quix-quang-components.mjs",
@@ -45,22 +53,6 @@
       "es2015": "./components/fesm2015/quix-quang-components.mjs",
       "node": "./components/fesm2015/quix-quang-components.mjs",
       "default": "./components/fesm2020/quix-quang-components.mjs"
-    },
-    "./core": {
-      "types": "./core/quix-quang-core.d.ts",
-      "esm2020": "./core/esm2020/quix-quang-core.mjs",
-      "es2020": "./core/fesm2020/quix-quang-core.mjs",
-      "es2015": "./core/fesm2015/quix-quang-core.mjs",
-      "node": "./core/fesm2015/quix-quang-core.mjs",
-      "default": "./core/fesm2020/quix-quang-core.mjs"
-    },
-    "./date": {
-      "types": "./date/quix-quang-date.d.ts",
-      "esm2020": "./date/esm2020/quix-quang-date.mjs",
-      "es2020": "./date/fesm2020/quix-quang-date.mjs",
-      "es2015": "./date/fesm2015/quix-quang-date.mjs",
-      "node": "./date/fesm2015/quix-quang-date.mjs",
-      "default": "./date/fesm2020/quix-quang-date.mjs"
     },
     "./dialog": {
       "types": "./dialog/quix-quang-dialog.d.ts",

@@ -66,6 +66,7 @@ import { TextEditorModule } from 'projects/quang-components/text-editor/src/text
 import { TextViewModule } from 'projects/quang-components/text-view/src/text-view.module'
 import { ToggleModule } from 'projects/quang-components/toggle/src/toggle.module'
 import { PaginatorServiceComponent } from './paginator-service/paginator-service.component'
+import { QuangPaginatorService } from 'projects/quang-components/paginator/src/paginator.service'
 
 @NgModule({
   declarations: [
@@ -106,7 +107,6 @@ import { PaginatorServiceComponent } from './paginator-service/paginator-service
     SharedModule,
     TranslocoModule,
     ReactiveFormsModule,
-    QuillModule,
     FormsModule,
     QuangCardsModule,
     QuangAuthDownloadModule,
@@ -137,9 +137,8 @@ import { PaginatorServiceComponent } from './paginator-service/paginator-service
     TextAreaModule,
     TextEditorModule,
     TextViewModule,
-    ToggleModule,
-    PaginatorServiceComponent
+    ToggleModule
   ],
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'core' }]
+  providers: [QuangPaginatorService, { provide: TRANSLOCO_SCOPE, useValue: 'core' }]
 })
 export class KsComponentsModule {}
