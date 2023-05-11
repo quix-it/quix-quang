@@ -108,13 +108,13 @@ const routes: Routes = [
     loadChildren: async () =>
       await import('./ks-auth/ks-auth.module').then((m) => m.KsAuthModule)
   },
-  {
-    path: 'accessibility',
-    loadChildren: async () =>
-      await import('./accessibility/accessibility.module').then(
-        (m) => m.AccessibilityModule
-      )
-  }
+  // {
+  //   path: 'accessibility',
+  //   loadChildren: async () =>
+  //     await import('./accessibility/accessibility.module').then(
+  //       (m) => m.AccessibilityModule
+  //     )
+  // }
 ]
 
 @NgModule({

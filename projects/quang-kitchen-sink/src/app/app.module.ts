@@ -60,8 +60,7 @@ defineLocale('en', enGbLocale)
     QuangMediaModule,
     QuangMapModule.forRoot({ googleKey: environment.googleKey }),
     QuangKeycloakModule,
-    AccessibilityModule
-
+    // AccessibilityModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'it-it' },
