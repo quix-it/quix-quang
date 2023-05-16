@@ -1,0 +1,11 @@
+.toggle-wrapper {
+  &.form-inline {
+    .form-label {
+      margin-right: .5rem
+    }
+  }
+
+  label {
+    display: block;
+  }
+}

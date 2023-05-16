@@ -1,0 +1,37 @@
+<div class="mb-3 toggle-wrapper"
+     [class.form-inline]="labelInline">
+  <label [htmlFor]="id"
+         class="form-label"
+         [attr.aria-label]="ariaLabel | transloco"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <mat-slide-toggle
+    [id]="id"
+    [ngClass]="customClass"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [attr.aria-label]="ariaLabel | transloco"
+    (input)="onChangedHandler($event)"
+    (blur)="onTouched()"
+    #input
+  ></mat-slide-toggle>
+  <div class="valid-feedback"
+       aria-live="assertive">
+    {{_successMessage | transloco}}
+  </div>
+  <div class="invalid-feedback"
+       aria-live="polite"
+       [id]="id + '-error'">
+    {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
+  </div>
+  <small [id]="id + '-help'"
+         aria-live="assertive"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>
+

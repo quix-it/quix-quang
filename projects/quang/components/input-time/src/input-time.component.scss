@@ -1,0 +1,15 @@
+timepicker {
+  &.is-valid {
+    & + .valid-feedback {
+      display: block;
+    }
+  }
+
+  &.is-invalid {
+    & + .valid-feedback {
+      & + .invalid-feedback {
+        display: block;
+      }
+    }
+  }
+}

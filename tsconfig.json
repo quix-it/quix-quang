@@ -30,6 +30,10 @@
       "@quix/quang/*": [
         "dist/quang/*"
       ],
+      "@quix/quang/components/*": [
+        "projects/quang-components/*",
+        "projects/quang-components"
+      ],
       "quang": [
         "dist/quang/quang",
         "dist/quang"
@@ -89,6 +93,9 @@
       "quang-kitchen-sink": [
         "dist/quang-kitchen-sink/quang-kitchen-sink",
         "dist/quang-kitchen-sink"
+      ],
+      "tester": [
+        "dist/tester"
       ]
     },
     "useDefineForClassFields": false

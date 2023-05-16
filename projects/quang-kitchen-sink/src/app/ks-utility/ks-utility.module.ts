@@ -13,7 +13,7 @@ import { DeviceComponent } from './device/device.component'
 import { DeviceMotionComponent } from './device-motion/device-motion.component'
 import { InputDateModule } from 'projects/quang-components/input-date/public-api'
 import { InputFileModule } from 'projects/quang-components/input-file/public-api'
-import { InputTextModule } from 'projects/quang-components/input-text/public-api'
+import { InputTextModule } from '@quix/quang/components/input-text/src/public_api'
 
 @NgModule({
   declarations: [

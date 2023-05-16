@@ -1,0 +1,36 @@
+.toast {
+  position: fixed;
+  min-width: 200px;
+  z-index: 999999;
+
+  &.top-left {
+    top: 2rem;
+    left: 1rem;
+  }
+
+  &.top-right {
+    top: 2rem;
+    right: 1rem;
+  }
+
+  &.bottom-left {
+    bottom: 2rem;
+    left: 1rem;
+  }
+
+  &.bottom-right {
+    bottom: 2rem;
+    right: 1rem;
+  }
+
+  .toast-header {
+    .rounded  {
+      height: 1.125rem;
+      width: 1.125rem;
+      display: inline-block;
+    }
+    small {
+      margin-left: 1rem;
+    }
+  }
+}

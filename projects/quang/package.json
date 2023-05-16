@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang",
-          "version": "15.0.0-beta.22",
+          "version": "15.0.0-beta.30",
   "peerDependencies": {
     "@angular/cdk": "^15.2.3",
     "@angular/material": "^15.2.3",
@@ -13,94 +13,7 @@
     "@ngrx/store": "^15.4.0",
     "@ngrx/store-devtools": "^15.4.0"
   },
-  "exports": {
-    "./auth": {
-      "types": "./auth/quix-quang-auth.d.ts",
-      "esm2020": "./auth/esm2020/quix-quang-auth.mjs",
-      "es2020": "./auth/fesm2020/quix-quang-auth.mjs",
-      "es2015": "./auth/fesm2015/quix-quang-auth.mjs",
-      "node": "./auth/fesm2015/quix-quang-auth.mjs",
-      "default": "./auth/fesm2020/quix-quang-auth.mjs"
-    },
-    "./calendar": {
-      "types": "./calendar/quix-quang-calendar.d.ts",
-      "esm2020": "./calendar/esm2020/quix-quang-calendar.mjs",
-      "es2020": "./calendar/fesm2020/quix-quang-calendar.mjs",
-      "es2015": "./calendar/fesm2015/quix-quang-calendar.mjs",
-      "node": "./calendar/fesm2015/quix-quang-calendar.mjs",
-      "default": "./calendar/fesm2020/quix-quang-calendar.mjs"
-    },
-    "./chart": {
-      "types": "./chart/quix-quang-chart.d.ts",
-      "esm2020": "./chart/esm2020/quix-quang-chart.mjs",
-      "es2020": "./chart/fesm2020/quix-quang-chart.mjs",
-      "es2015": "./chart/fesm2015/quix-quang-chart.mjs",
-      "node": "./chart/fesm2015/quix-quang-chart.mjs",
-      "default": "./chart/fesm2020/quix-quang-chart.mjs"
-    },
-    "./cards": {
-      "types": "./cards/quix-quang-cards.d.ts",
-      "esm2020": "./cards/esm2020/quix-quang-cards.mjs",
-      "es2020": "./cards/fesm2020/quix-quang-cards.mjs",
-      "es2015": "./cards/fesm2015/quix-quang-cards.mjs",
-      "node": "./cards/fesm2015/quix-quang-cards.mjs",
-      "default": "./cards/fesm2020/quix-quang-cards.mjs"
-    },
-    "./components/*": {
-      "types": "./components/**.d.ts",
-      "esm2020": "./components/esm2020/**.mjs",
-      "es2020": "./components/fesm2020/**.mjs",
-      "es2015": "./components/fesm2015/**.mjs",
-      "node": "./components/fesm2015/**.mjs",
-      "default": "./components/fesm2020/**.mjs"
-    },
-    "./dialog": {
-      "types": "./dialog/quix-quang-dialog.d.ts",
-      "esm2020": "./dialog/esm2020/quix-quang-dialog.mjs",
-      "es2020": "./dialog/fesm2020/quix-quang-dialog.mjs",
-      "es2015": "./dialog/fesm2015/quix-quang-dialog.mjs",
-      "node": "./dialog/fesm2015/quix-quang-dialog.mjs",
-      "default": "./dialog/fesm2020/quix-quang-dialog.mjs"
-    },
-    "./event": {
-      "types": "./event/quix-quang-event.d.ts",
-      "esm2020": "./event/esm2020/quix-quang-event.mjs",
-      "es2020": "./event/fesm2020/quix-quang-event.mjs",
-      "es2015": "./event/fesm2015/quix-quang-event.mjs",
-      "node": "./event/fesm2015/quix-quang-event.mjs",
-      "default": "./event/fesm2020/quix-quang-event.mjs"
-    },
-    "./keycloak": {
-      "types": "./keycloak/quix-quang-keycloak.d.ts",
-      "esm2020": "./keycloak/esm2020/quix-quang-keycloak.mjs",
-      "es2020": "./keycloak/fesm2020/quix-quang-keycloak.mjs",
-      "es2015": "./keycloak/fesm2015/quix-quang-keycloak.mjs",
-      "node": "./keycloak/fesm2015/quix-quang-keycloak.mjs",
-      "default": "./keycloak/fesm2020/quix-quang-keycloak.mjs"
-    },
-    "./map": {
-      "types": "./map/quix-quang-map.d.ts",
-      "esm2020": "./map/esm2020/quix-quang-map.mjs",
-      "es2020": "./map/fesm2020/quix-quang-map.mjs",
-      "es2015": "./map/fesm2015/quix-quang-map.mjs",
-      "node": "./map/fesm2015/quix-quang-map.mjs",
-      "default": "./map/fesm2020/quix-quang-map.mjs"
-    },
-    "./media": {
-      "types": "./media/quix-quang-media.d.ts",
-      "esm2020": "./media/esm2020/quix-quang-media.mjs",
-      "es2020": "./media/fesm2020/quix-quang-media.mjs",
-      "es2015": "./media/fesm2015/quix-quang-media.mjs",
-      "node": "./media/fesm2015/quix-quang-media.mjs",
-      "default": "./media/fesm2020/quix-quang-media.mjs"
-    },
-    "./utility": {
-      "types": "./utility/quix-quang-utility.d.ts",
-      "esm2020": "./utility/esm2020/quix-quang-utility.mjs",
-      "es2020": "./utility/fesm2020/quix-quang-utility.mjs",
-      "es2015": "./utility/fesm2015/quix-quang-utility.mjs",
-      "node": "./utility/fesm2015/quix-quang-utility.mjs",
-      "default": "./utility/fesm2020/quix-quang-utility.mjs"
-    }
+  "dependencies": {
+    "tslib": "^2.3.0"
   }
 }

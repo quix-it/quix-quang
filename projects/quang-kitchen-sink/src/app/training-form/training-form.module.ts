@@ -15,7 +15,7 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { SyncValidatorComponent } from './sync-validator/sync-validator.component'
 import { AsyncValidatorComponent } from './async-validator/async-validator.component'
 import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
-import { InputTextModule } from 'projects/quang-components/input-text/public-api'
+import { InputTextModule } from '@quix/quang/components/input-text/src/public_api'
 import { InputEmailModule } from 'projects/quang-components/input-email/public-api'
 import { InputCheckboxModule } from 'projects/quang-components/input-checkbox/public-api'
 
