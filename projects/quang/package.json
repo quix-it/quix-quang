@@ -46,13 +46,13 @@
       "node": "./cards/fesm2015/quix-quang-cards.mjs",
       "default": "./cards/fesm2020/quix-quang-cards.mjs"
     },
-    "./components": {
-      "types": "./components/quix-quang-components.d.ts",
-      "esm2020": "./components/esm2020/quix-quang-components.mjs",
-      "es2020": "./components/fesm2020/quix-quang-components.mjs",
-      "es2015": "./components/fesm2015/quix-quang-components.mjs",
-      "node": "./components/fesm2015/quix-quang-components.mjs",
-      "default": "./components/fesm2020/quix-quang-components.mjs"
+    "./components/*": {
+      "types": "./components/**.d.ts",
+      "esm2020": "./components/esm2020/**.mjs",
+      "es2020": "./components/fesm2020/**.mjs",
+      "es2015": "./components/fesm2015/**.mjs",
+      "node": "./components/fesm2015/**.mjs",
+      "default": "./components/fesm2020/**.mjs"
     },
     "./dialog": {
       "types": "./dialog/quix-quang-dialog.d.ts",
