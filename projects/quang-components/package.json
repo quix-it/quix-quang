@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang-components",
-          "version": "15.0.0-beta.21",
+          "version": "15.0.0-beta.22",
   "peerDependencies": {
     "@angular/core": "^15.2.3",
     "ngx-bootstrap": "^10.2.0",
