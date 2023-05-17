@@ -10,4 +10,4 @@ import { TranslocoModule } from '@ngneat/transloco'
   imports: [CommonModule, MatSlideToggleModule, TranslocoModule, FormsModule],
   exports: [ToggleComponent]
 })
-export class ToggleModule {}
+export class QuangToggleModule {}

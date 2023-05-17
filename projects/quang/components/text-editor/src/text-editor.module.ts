@@ -10,4 +10,4 @@ import { TranslocoModule } from '@ngneat/transloco'
   imports: [CommonModule, QuillModule.forRoot(), TranslocoModule, FormsModule],
   exports: [TextEditorComponent]
 })
-export class TextEditorModule {}
+export class QuangTextEditorModule {}

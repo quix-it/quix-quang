@@ -9,4 +9,4 @@ import { TranslocoModule } from '@ngneat/transloco'
   imports: [CommonModule, TranslocoModule, FormsModule],
   exports: [TextViewComponent]
 })
-export class TextViewModule {}
+export class QuangTextViewModule {}
