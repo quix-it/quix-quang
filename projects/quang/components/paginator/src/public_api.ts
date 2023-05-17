@@ -1,3 +1,3 @@
-export * from './src/paginator.component'
-export * from './src/paginator.service'
-export * from './src/paginator.module'
+export * from './paginator.component'
+export * from './paginator.service'
+export * from './paginator.module'

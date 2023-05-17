@@ -1,2 +1,2 @@
-export * from './src/multi-select-strg.component'
-export * from './src/multi-select-strg.module'
+export * from './multi-select-strg.component'
+export * from './multi-select-strg.module'

@@ -1,2 +1,2 @@
-export * from './src/multi-select-obj.component'
-export * from './src/multi-select-obj.module'
+export * from './multi-select-obj.component'
+export * from './multi-select-obj.module'

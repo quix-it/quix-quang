@@ -1,2 +1,2 @@
-export * from './src/select-obj.component'
-export * from './src/select-obj.module'
+export * from './select-obj.component'
+export * from './select-obj.module'

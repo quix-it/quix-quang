@@ -1,2 +1,2 @@
-export * from './src/text-area.component'
-export * from './src/text-area.module'
+export * from './text-area.component'
+export * from './text-area.module'

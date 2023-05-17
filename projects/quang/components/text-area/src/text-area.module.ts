@@ -10,4 +10,4 @@ import { TextFieldModule } from '@angular/cdk/text-field'
   imports: [CommonModule, TextFieldModule, TranslocoModule, FormsModule],
   exports: [TextAreaComponent]
 })
-export class TextAreaModule {}
+export class QuangTextAreaModule {}
