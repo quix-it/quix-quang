@@ -18,13 +18,12 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { AccessibilityModule } from './accessibility/accessibility.module'
 import { QuangDialogModule } from '../../../quang-dialog/src/lib/quang-dialog.module'
 import { QuangUtilityModule } from '../../../quang-utility/src/lib/quang-utility.module'
-import { QuangComponentsModule } from '../../../quang-components/src/lib/quang-components.module'
 import { QuangMapModule } from '../../../quang-map/src/lib/quang-map.module'
 import { QuangKeycloakModule } from '../../../quang-keycloak/src/lib/quang-keycloak.module'
-import { QuangDateModule } from '../../../quang-date/src/lib/quang-date.module'
 import { QuangMediaModule } from '../../../quang-media/src/lib/quang-media.module'
 import { QuangLoaderInterceptor } from '../../../quang-dialog/src/lib/loader/quang-loader.interceptor'
 import { QuangHttpErrorInterceptor } from '../../../quang-dialog/src/lib/http-error/quang-http-error.interceptor'
+import { QuangCardsModule } from 'projects/quang-cards/src/public-api'
 import { registerLocaleData } from '@angular/common'
 import localeitIT from '@angular/common/locales/it'
 
@@ -54,11 +53,10 @@ defineLocale('en', enGbLocale)
     HttpClientModule,
     TranslocoRootModule,
     QuangDialogModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     QuangUtilityModule,
     SharedModule,
     ReactiveFormsModule,
-    QuangDateModule,
     QuangMediaModule,
     QuangMapModule.forRoot({ googleKey: environment.googleKey }),
     QuangKeycloakModule,

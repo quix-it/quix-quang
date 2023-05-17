@@ -29,8 +29,8 @@ the project module imports.
 CommonModule, 
 ReactiveFormsModule, 
 SharedModule, 
-QuangComponentsModule, 
-QuangCoreModule,
+QuangCardsModule, 
+QuangComponentsModule,
 QuangDateModule, 
 TranslocoModule
 ],`

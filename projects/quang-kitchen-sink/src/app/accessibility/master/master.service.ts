@@ -9,12 +9,12 @@ import { PersonResponse } from './person-response.model'
   providedIn: 'root'
 })
 export class MasterService {
-  constructor(public http: HttpClient) {}
+  constructor (public http: HttpClient) {}
 
-  getPeople(index: number): Observable<PersonResponse> {
+  getPeople (index: number): Observable<PersonResponse> {
     const params = new HttpParams().set('page', index)
     return this.http
-      .get('https://swapi.dev/api/people/', { params: params })
+      .get('https://swapi.dev/api/people/', { params })
       .pipe(
         map(
           (data: any) =>

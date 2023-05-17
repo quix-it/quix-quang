@@ -32,10 +32,11 @@ import { MatSortModule } from '@angular/material/sort'
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 
 import { VconsoleComponent } from './vconsole/vconsole.component'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
-import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
-import { QuangCoreModule } from '../../../../quang-core/src/lib/quang-core.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 import { MatTableModule } from '@angular/material/table'
+import { InputNumberModule } from 'projects/quang-components/input-number/public-api'
+import { InputDateModule } from 'projects/quang-components/input-date/public-api'
+import { InputDateRangeModule } from 'projects/quang-components/input-date-range/public-api'
 
 SwiperCore.use([Pagination])
 
@@ -61,7 +62,7 @@ SwiperCore.use([Pagination])
     CommonModule,
     TrainingLibRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     CodemirrorModule,
     ReactiveFormsModule,
     TranslocoModule,
@@ -73,13 +74,15 @@ SwiperCore.use([Pagination])
     DragDropModule,
     ImageCropperModule,
     MatTableModule,
-    QuangDateModule,
-    QuangCoreModule,
     FormsModule,
     SwiperModule,
     TranslocoModule,
     ImageCropperModule,
-    MatSortModule
+    MatSortModule,
+    QuangCardsModule,
+    InputNumberModule,
+    InputDateModule,
+    InputDateRangeModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'lib' }, provideNgxMask()]
 })

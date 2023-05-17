@@ -17,7 +17,7 @@ import { BottomSheetExampleComponent } from './bottom-sheet/bottom-sheet-example
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet'
 import { NotificationComponent } from './notification/notification.component'
 import { ReactiveFormsModule } from '@angular/forms'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
 import { QuangDialogModule } from '../../../../quang-dialog/src/lib/quang-dialog.module'
 
 @NgModule({
@@ -38,7 +38,7 @@ import { QuangDialogModule } from '../../../../quang-dialog/src/lib/quang-dialog
     CommonModule,
     KsDialogRoutingModule,
     SharedModule,
-    QuangComponentsModule,
+    QuangCardsModule,
     QuangDialogModule,
     TranslocoModule,
     ReactiveFormsModule

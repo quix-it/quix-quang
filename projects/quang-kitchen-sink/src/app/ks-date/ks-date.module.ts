@@ -8,8 +8,11 @@ import { DateComponent } from './date/date.component'
 import { DateRangeComponent } from './date-range/date-range.component'
 import { DateTimeComponent } from './date-time/date-time.component'
 import { TimeComponent } from './time/time.component'
-import { QuangDateModule } from '../../../../quang-date/src/lib/quang-date.module'
-import { QuangComponentsModule } from '../../../../quang-components/src/lib/quang-components.module'
+import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { InputDateModule } from 'projects/quang-components/input-date/public-api'
+import { InputDateRangeModule } from 'projects/quang-components/input-date-range/public-api'
+import { InputDateTimeModule } from 'projects/quang-components/input-date-time/public-api'
+import { InputTimeModule } from 'projects/quang-components/input-time/public-api'
 
 @NgModule({
   declarations: [
@@ -22,11 +25,13 @@ import { QuangComponentsModule } from '../../../../quang-components/src/lib/quan
     CommonModule,
     KsDateRoutingModule,
     SharedModule,
-    QuangComponentsModule,
-    QuangDateModule,
+    QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
-    QuangDateModule
+    InputDateModule,
+    InputDateRangeModule,
+    InputDateTimeModule,
+    InputTimeModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'date' }]
 })

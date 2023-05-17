@@ -27,6 +27,13 @@
       "dom"
     ],
     "paths": {
+      "@quix/quang/*": [
+        "dist/quang/*"
+      ],
+      "@quix/quang/components/*": [
+        "projects/quang-components/*",
+        "projects/quang-components"
+      ],
       "quang": [
         "dist/quang/quang",
         "dist/quang"
@@ -39,9 +46,9 @@
         "dist/quang-keycloak/quang-keycloak",
         "dist/quang-keycloak"
       ],
-      "quang-core": [
-        "dist/quang-core/quang-core",
-        "dist/quang-core"
+      "quang-components/*": [
+        "dist/quang-components/quang-components/*",
+        "dist/quang-components/*"
       ],
       "quang-calendar": [
         "dist/quang-calendar/quang-calendar",
@@ -67,9 +74,9 @@
         "dist/quang-map/quang-map",
         "dist/quang-map"
       ],
-      "quang-components": [
-        "dist/quang-components/quang-components",
-        "dist/quang-components"
+      "quang-cards": [
+        "dist/quang-cards/quang-cards",
+        "dist/quang-cards"
       ],
       "qunag-dialog": [
         "dist/qunag-dialog/qunag-dialog",
@@ -86,6 +93,9 @@
       "quang-kitchen-sink": [
         "dist/quang-kitchen-sink/quang-kitchen-sink",
         "dist/quang-kitchen-sink"
+      ],
+      "tester": [
+        "dist/tester"
       ]
     },
     "useDefineForClassFields": false
