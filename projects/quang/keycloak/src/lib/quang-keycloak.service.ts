@@ -142,4 +142,8 @@ export class QuangKeycloakService {
   getToken(): Observable<string> {
     return from(this.keyCloak.getToken())
   }
+
+  getRefreshToken(): string {
+    return this.keyCloak.getKeycloakInstance().refreshToken
+  }
 }
