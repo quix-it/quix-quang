@@ -1,7 +1,7 @@
 import { Injectable, Optional } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { from, Observable, of } from 'rxjs'
-import { KeycloakService } from 'keycloak-angular'
+import { KeycloakOptions, KeycloakService } from 'keycloak-angular'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
 import { QuangKeycloakActions } from './quang-keycloak-store/actions'
 
@@ -18,7 +18,7 @@ export class QuangKeycloakService {
   /**
    * keycloak wrapper configuration
    */
-  public authConfig: any
+  public authConfig: KeycloakOptions
   /**
    * window access
    */
@@ -37,10 +37,8 @@ export class QuangKeycloakService {
   ) {
     if (this._window().keycloakConfig) {
       this.authConfig = this._window().keycloakConfig
-      this.authConfig.enableLogging = !config?.production
     } else if (config?.keycloakConfig) {
       this.authConfig = config.keycloakConfig
-      this.authConfig.enableLogging = !config?.production
     }
     if (config?.ionicApplication) {
       this.authConfig.initOptions.silentCheckSsoRedirectUri = `${window.location.origin}/assets/static/silent-check-sso.html`
@@ -56,6 +54,8 @@ export class QuangKeycloakService {
   startAuth (): Observable<any> {
     if(this.authConfig) {
       return from(this.keyCloak.init(this.authConfig))
+    } else {
+      return of(false)
     }
   }
 
@@ -137,5 +137,9 @@ export class QuangKeycloakService {
     } else {
       alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')
     }
+  }
+
+  getToken(): Observable<string> {
+    return from(this.keyCloak.getToken())
   }
 }
