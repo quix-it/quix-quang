@@ -138,4 +138,8 @@ export class QuangKeycloakService {
       alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')
     }
   }
+
+  getToken(): Observable<string> {
+    return from(this.keyCloak.getToken())
+  }
 }
