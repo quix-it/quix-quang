@@ -41,8 +41,6 @@ export class QuangKeycloakService {
     } else if (config?.keycloakConfig) {
       this.authConfig = config.keycloakConfig
       this.authConfig.enableLogging = !config?.production
-    } else {
-      alert('[AUTH KEYCLOAK SERVICE] No auth config')
     }
     if (config?.ionicApplication) {
       this.authConfig.initOptions.silentCheckSsoRedirectUri = `${window.location.origin}/assets/static/silent-check-sso.html`
@@ -56,7 +54,9 @@ export class QuangKeycloakService {
    * starts the authentication flow
    */
   startAuth (): Observable<any> {
-    return from(this.keyCloak.init(this.authConfig))
+    if(this.authConfig) {
+      return from(this.keyCloak.init(this.authConfig))
+    }
   }
 
   /**
