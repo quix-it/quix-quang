@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { ChartDoughnut } from '../../../../../quang-chart/src/lib/chart-doughnut/chart-doughnut.model'
+import { ChartDoughnut } from '../../../../../quang/chart/src/lib/chart-doughnut/chart-doughnut.model'
 
 @Component({
   selector: 'ks-doughnut',

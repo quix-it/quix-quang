@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { QuangOfflineService } from '../../../../../quang-dialog/src/lib/offline/offline.service'
+import { QuangOfflineService } from '../../../../../quang/dialog/src/lib/offline/offline.service'
 
 @Component({
   selector: 'ks-offline',

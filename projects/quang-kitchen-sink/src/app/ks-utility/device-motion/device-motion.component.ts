@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Observable } from 'rxjs'
-import { QuangDeviceMotionService } from '../../../../../quang-utility/src/lib/device-motion/device-motion.service'
+import { QuangDeviceMotionService } from '../../../../../quang/utility/src/public_api'
 
 @Component({
   selector: 'ks-device-motion',

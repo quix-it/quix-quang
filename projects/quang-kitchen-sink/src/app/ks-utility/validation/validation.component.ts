@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { addDays } from 'date-fns'
-import { QuangValidatorsService } from '../../../../../quang-utility/src/lib/quang-validators/quang-validators.service'
+import { QuangValidatorsService } from '../../../../../quang/utility/src/public_api'
 
 @Component({
   selector: 'ks-validation',
@@ -9,6 +9,8 @@ import { QuangValidatorsService } from '../../../../../quang-utility/src/lib/qua
   styles: []
 })
 export class ValidationComponent {
+  constructor (private readonly validatorService: QuangValidatorsService) {}
+
   fileForm: FormGroup = new FormGroup({
     file: new FormControl('', [
       this.validatorService.isFile,
@@ -39,6 +41,4 @@ export class ValidationComponent {
   vatForm: FormGroup = new FormGroup({
     code: new FormControl('', [this.validatorService.isVatNumber('IT')])
   })
-
-  constructor(private readonly validatorService: QuangValidatorsService) {}
 }

@@ -8,11 +8,11 @@ import { DateComponent } from './date/date.component'
 import { DateRangeComponent } from './date-range/date-range.component'
 import { DateTimeComponent } from './date-time/date-time.component'
 import { TimeComponent } from './time/time.component'
-import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
-import { InputDateModule } from 'projects/quang-components/input-date/public-api'
-import { InputDateRangeModule } from 'projects/quang-components/input-date-range/public-api'
-import { InputDateTimeModule } from 'projects/quang-components/input-date-time/public-api'
-import { InputTimeModule } from 'projects/quang-components/input-time/public-api'
+import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangInputDateModule } from '../../../../quang/components/input-date/src/input-date.module'
+import { QuangInputDateRangeModule } from '../../../../quang/components/input-date-range/src/input-date-range.module'
+import { QuangInputDateTimeModule } from '../../../../quang/components/input-date-time/src/input-date-time.module'
+import { QuangInputTimeModule } from '../../../../quang/components/input-time/src/input-time.module'
 
 @NgModule({
   declarations: [
@@ -28,10 +28,10 @@ import { InputTimeModule } from 'projects/quang-components/input-time/public-api
     QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
-    InputDateModule,
-    InputDateRangeModule,
-    InputDateTimeModule,
-    InputTimeModule
+    QuangInputDateModule,
+    QuangInputDateRangeModule,
+    QuangInputDateTimeModule,
+    QuangInputTimeModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'date' }]
 })

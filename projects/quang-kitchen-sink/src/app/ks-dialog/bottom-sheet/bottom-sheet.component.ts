@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { BottomSheetExampleComponent } from './bottom-sheet-example/bottom-sheet-example.component'
 import { merge } from 'rxjs'
-import { QuangBottomSheetService } from '../../../../../quang-dialog/src/lib/bottom-sheet/bottom-sheet.service'
+import { QuangBottomSheetService } from '../../../../../quang/dialog/src/lib/bottom-sheet/bottom-sheet.service'
 
 @Component({
   selector: 'ks-bottom-sheet',

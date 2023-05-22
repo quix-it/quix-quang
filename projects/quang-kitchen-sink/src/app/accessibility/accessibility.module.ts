@@ -7,13 +7,13 @@ import { FormComponent } from './form/form.component'
 import { AccessibilityRoutingModule } from './accessibility-routing.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MasterComponent } from './master/master.component'
-import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
-import { InputTextModule } from '@quix/quang/components/input-text/src/public_api'
-import { InputEmailModule } from 'projects/quang-components/input-email/public-api'
-import { InputDateModule } from 'projects/quang-components/input-date/public-api'
-import { InputTelModule } from 'projects/quang-components/input-tel/public-api'
-import { InputCheckboxModule } from 'projects/quang-components/input-checkbox/public-api'
-import { PaginatorModule } from 'projects/quang-components/paginator/public-api'
+import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangInputTextModule } from '../../../../quang/components/input-text/src/input-text.module'
+import { QuangInputEmailModule } from '../../../../quang/components/input-email/src/input-email.module'
+import { QuangInputDateModule } from '../../../../quang/components/input-date/src/input-date.module'
+import { QuangInputTelModule } from '../../../../quang/components/input-tel/src/input-tel.module'
+import { QuangInputCheckboxModule } from '../../../../quang/components/input-checkbox/src/input-checkbox.module'
+import { QuangPaginatorModule } from '../../../../quang/components/paginator/src/paginator.module'
 
 @NgModule({
   declarations: [FormComponent, MasterComponent],
@@ -24,12 +24,12 @@ import { PaginatorModule } from 'projects/quang-components/paginator/public-api'
     QuangCardsModule,
     TranslocoModule,
     ReactiveFormsModule,
-    InputTextModule,
-    InputEmailModule,
-    InputDateModule,
-    InputTelModule,
-    InputCheckboxModule,
-    PaginatorModule
+    QuangInputTextModule,
+    QuangInputEmailModule,
+    QuangInputDateModule,
+    QuangInputTelModule,
+    QuangInputCheckboxModule,
+    QuangPaginatorModule
   ],
   providers: [
     {

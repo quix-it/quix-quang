@@ -32,11 +32,11 @@ import { MatSortModule } from '@angular/material/sort'
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 
 import { VconsoleComponent } from './vconsole/vconsole.component'
-import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
 import { MatTableModule } from '@angular/material/table'
-import { InputNumberModule } from 'projects/quang-components/input-number/public-api'
-import { InputDateModule } from 'projects/quang-components/input-date/public-api'
-import { InputDateRangeModule } from 'projects/quang-components/input-date-range/public-api'
+import { QuangInputNumberModule } from '../../../../quang/components/input-number/src/input-number.module'
+import { QuangInputDateModule } from '../../../../quang/components/input-date/src/input-date.module'
+import { QuangInputDateRangeModule } from '../../../../quang/components/input-date-range/src/input-date-range.module'
 
 SwiperCore.use([Pagination])
 
@@ -80,9 +80,9 @@ SwiperCore.use([Pagination])
     ImageCropperModule,
     MatSortModule,
     QuangCardsModule,
-    InputNumberModule,
-    InputDateModule,
-    InputDateRangeModule
+    QuangInputNumberModule,
+    QuangInputDateModule,
+    QuangInputDateRangeModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'lib' }, provideNgxMask()]
 })

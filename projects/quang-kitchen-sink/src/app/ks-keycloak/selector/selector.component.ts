@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { Observable } from 'rxjs'
+import { type Observable } from 'rxjs'
 import { select, Store } from '@ngrx/store'
 import {
   selectHasRoles,
@@ -7,8 +7,7 @@ import {
   selectIsAuthenticated,
   selectUserInfo,
   selectUserRoles
-} from '../../../../../quang-auth/src/lib/quang-auth-store/selectors/quang-auth.selectors'
-import { QuangKeycloakModuleState } from '../../../../../quang-keycloak/src/lib/quang-keycloak-module.reducer'
+} from '../../../../../quang/auth/src/lib/quang-auth-store/selectors/quang-auth.selectors'
 
 @Component({
   selector: 'ks-selector',
@@ -22,9 +21,10 @@ export class SelectorComponent {
   all: Observable<any> = this.store.select(
     selectHasRoles(['quake_usermanager_admin'])
   )
+
   until: Observable<any> = this.store.select(
     selectHasUntilRoles(['quake_usermanager_admin'])
   )
 
-  constructor(private readonly store: Store<any>) {}
+  constructor (private readonly store: Store<any>) {}
 }

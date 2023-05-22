@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { subtract } from 'ngx-bootstrap/chronos'
-import { QuangCalendarEvent } from '../../../../../quang-calendar/src/lib/calendar/calendar.model'
+import { QuangCalendarEvent } from '../../../../../quang/calendar/src/lib/calendar/calendar.model'
 
 @Component({
   selector: 'ks-calendar',
@@ -8,11 +8,11 @@ import { QuangCalendarEvent } from '../../../../../quang-calendar/src/lib/calend
   styles: []
 })
 export class CalendarComponent {
-  openAlert(event: any): void {
+  openAlert (event: any): void {
     alert(event.date ?? event.event._def?.title)
   }
 
-  loadData(e: any, success: any, error: any): any {
+  loadData (e: any, success: any, error: any): any {
     return success([
       new QuangCalendarEvent('inizio', e.startStr),
       new QuangCalendarEvent('fine', subtract(new Date(), 1, 'day')),
@@ -22,10 +22,10 @@ export class CalendarComponent {
     ])
   }
 
-  loadAsyncData(e: any, success: any, error: any): any {
+  loadAsyncData (e: any, success: any, error: any): any {
     new Promise((resolve) => {
       setTimeout(
-        () => resolve([new QuangCalendarEvent('evento', new Date())]),
+        () => { resolve([new QuangCalendarEvent('evento', new Date())]) },
         3000
       )
     }).then(

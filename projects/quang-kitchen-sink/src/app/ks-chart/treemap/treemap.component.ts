@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { ChartTreemap } from '../../../../../quang-chart/src/lib/chart-treemap/chart-treemap.model'
+import { Component } from '@angular/core'
+import { ChartTreemap } from '../../../../../quang/chart/src/lib/chart-treemap/chart-treemap.model'
 
 @Component({
   selector: 'ks-treemap',

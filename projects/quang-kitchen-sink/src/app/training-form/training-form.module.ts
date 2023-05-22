@@ -14,10 +14,10 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { SyncValidatorComponent } from './sync-validator/sync-validator.component'
 import { AsyncValidatorComponent } from './async-validator/async-validator.component'
-import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
-import { InputTextModule } from '@quix/quang/components/input-text/src/public_api'
-import { InputEmailModule } from 'projects/quang-components/input-email/public-api'
-import { InputCheckboxModule } from 'projects/quang-components/input-checkbox/public-api'
+import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangInputTextModule } from '../../../../quang/components/input-text/src/input-text.module'
+import { QuangInputEmailModule } from '../../../../quang/components/input-email/src/input-email.module'
+import { QuangInputCheckboxModule } from '../../../../quang/components/input-checkbox/src/input-checkbox.module'
 
 @NgModule({
   declarations: [
@@ -38,9 +38,9 @@ import { InputCheckboxModule } from 'projects/quang-components/input-checkbox/pu
     QuangCardsModule,
     ReactiveFormsModule,
     TranslocoModule,
-    InputTextModule,
-    InputEmailModule,
-    InputCheckboxModule
+    QuangInputTextModule,
+    QuangInputEmailModule,
+    QuangInputCheckboxModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'form' }]
 })

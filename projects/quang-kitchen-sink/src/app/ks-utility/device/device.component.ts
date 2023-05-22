@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs'
-import { QuangDeviceService } from '../../../../../quang-utility/src/lib/device/device.service'
+import { QuangDeviceService } from '../../../../../quang/utility/src/public_api'
 
 @Component({
   selector: 'ks-device',

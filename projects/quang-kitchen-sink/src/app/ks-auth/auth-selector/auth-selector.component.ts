@@ -7,8 +7,8 @@ import {
   selectIsAuthenticated,
   selectUserInfo,
   selectUserRoles
-} from '../../../../../quang-auth/src/lib/quang-auth-store/selectors/quang-auth.selectors'
-import { QuangAuthModuleState } from '../../../../../quang-auth/src/lib/quang-auth-module.reducer'
+} from '../../../../../quang/auth/src/lib/quang-auth-store/selectors/quang-auth.selectors'
+import { QuangAuthModuleState } from '../../../../../quang/auth/src/lib/quang-auth-module.reducer'
 
 @Component({
   selector: 'auth-auth-selector',
@@ -22,9 +22,10 @@ export class AuthSelectorComponent {
   all: Observable<any> = this.store.select(
     selectHasRoles(['quake_usermanager_admin'])
   )
+
   until: Observable<any> = this.store.select(
     selectHasUntilRoles(['quake_usermanager_admin'])
   )
 
-  constructor(private readonly store: Store<QuangAuthModuleState>) {}
+  constructor (private readonly store: Store<QuangAuthModuleState>) {}
 }

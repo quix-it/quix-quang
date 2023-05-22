@@ -8,12 +8,12 @@ import { ValidationComponent } from './validation/validation.component'
 import { SharedModule } from '../shared/shared.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { PageComponent } from './page/page.component'
-import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
 import { DeviceComponent } from './device/device.component'
 import { DeviceMotionComponent } from './device-motion/device-motion.component'
-import { InputDateModule } from 'projects/quang-components/input-date/public-api'
-import { InputFileModule } from 'projects/quang-components/input-file/public-api'
-import { InputTextModule } from '@quix/quang/components/input-text/src/public_api'
+import { QuangInputDateModule } from '../../../../quang/components/input-date/src/input-date.module'
+import { QuangInputFileModule } from '../../../../quang/components/input-file/src/input-file.module'
+import { QuangInputTextModule } from '../../../../quang/components/input-text/src/input-text.module'
 
 @NgModule({
   declarations: [
@@ -32,9 +32,9 @@ import { InputTextModule } from '@quix/quang/components/input-text/src/public_ap
     TranslocoModule,
     ReactiveFormsModule,
     QuangCardsModule,
-    InputDateModule,
-    InputFileModule,
-    InputTextModule
+    QuangInputDateModule,
+    QuangInputFileModule,
+    QuangInputTextModule
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'utility' }]
 })

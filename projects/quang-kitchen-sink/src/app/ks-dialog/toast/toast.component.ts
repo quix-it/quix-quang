@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
-import { QuangToastService } from '../../../../../quang-dialog/src/lib/toast/toast.service'
-import { QuangToast } from '../../../../../quang-dialog/src/lib/toast/toast.model'
+import { QuangToastService } from '../../../../../quang/dialog/src/lib/toast/toast.service'
+import { QuangToast } from '../../../../../quang/dialog/src/lib/toast/toast.model'
 
 @Component({
   selector: 'ks-toast',

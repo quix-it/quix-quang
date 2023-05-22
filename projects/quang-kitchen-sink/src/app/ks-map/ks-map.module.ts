@@ -6,8 +6,8 @@ import { GoogleComponent } from './google/google.component'
 import { OsComponent } from './os/os.component'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { SharedModule } from '../shared/shared.module'
-import { QuangCardsModule } from '../../../../quang-cards/src/lib/quang-cards.module'
-import { QuangMapModule } from '../../../../quang-map/src/lib/quang-map.module'
+import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangMapModule } from '../../../../quang/map/src/lib/quang-map.module'
 
 @NgModule({
   declarations: [GoogleComponent, OsComponent],

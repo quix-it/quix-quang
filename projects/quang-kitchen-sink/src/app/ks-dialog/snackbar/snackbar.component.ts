@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { QuangSnackbarService } from '../../../../../quang-dialog/src/lib/snackbar/quang-snackbar.service'
+import { QuangSnackbarService } from '../../../../../quang/dialog/src/lib/snackbar/quang-snackbar.service'
 
 @Component({
   selector: 'ks-snackbar',
@@ -7,9 +7,9 @@ import { QuangSnackbarService } from '../../../../../quang-dialog/src/lib/snackb
   styles: []
 })
 export class SnackbarComponent {
-  constructor(private readonly snackbarService: QuangSnackbarService) {}
+  constructor (private readonly snackbarService: QuangSnackbarService) {}
 
-  openSnackbar(): void {
+  openSnackbar (): void {
     this.snackbarService.openSnackbar('Testo di esempio', 5000, 'Alert', () => {
       alert('action function')
     })

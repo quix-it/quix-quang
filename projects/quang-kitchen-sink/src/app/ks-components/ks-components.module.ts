@@ -35,38 +35,38 @@ import { AuthImageComponent } from './auth-image/auth-image.component'
 import { QuillModule } from 'ngx-quill'
 import { CustomIconsComponent } from './custom-icons/custom-icons.component'
 import { KsComponentsRoutingModule } from './ks-components-routing.module'
-import { PaginatorModule } from 'projects/quang-components/paginator/src/paginator.module'
-import { QuangCardsModule } from 'projects/quang-cards/src/lib/quang-cards.module'
-import { QuangAuthDownloadModule } from 'projects/quang-components/quang-auth-donwload/src/quang-auth-download.module'
-import { QuangAuthImageModule } from 'projects/quang-components/quang-auth-image/src/quang-auth-image.module'
-import { AutocompleteObjModule } from 'projects/quang-components/autocomplete-obj/src/autocomplete-obj.module'
-import { AutocompleteObjAsyncModule } from 'projects/quang-components/autocomplete-obj-async/src/autocomplete-obj-async.module'
-import { AutocompleteStrgModule } from 'projects/quang-components/autocomplete-strg/src/autocomplete-strg.module'
-import { AutocompleteStrgAsyncModule } from 'projects/quang-components/autocomplete-strg-async/src/autocomplete-strg-async.module'
-import { InputCheckboxModule } from 'projects/quang-components/input-checkbox/src/input-checkbox.module'
-import { InputColorModule } from 'projects/quang-components/input-color/src/input-color.module'
-import { DatalistModule } from 'projects/quang-components/datalist/src/datalist.module'
-import { InputEmailModule } from 'projects/quang-components/input-email/src/input-email.module'
-import { InputFileModule } from 'projects/quang-components/input-file/src/input-file.module'
-import { InputFractionModule } from 'projects/quang-components/input-fraction/src/input-fraction.module'
-import { MultiSelectObjModule } from 'projects/quang-components/multi-select-obj/src/multi-select-obj.module'
-import { MultiSelectStrgModule } from 'projects/quang-components/multi-select-strg/src/multi-select-strg.module'
-import { InputNumberModule } from 'projects/quang-components/input-number/src/input-number.module'
-import { InputPasswordModule } from 'projects/quang-components/input-password/src/input-password.module'
-import { InputRadioModule } from 'projects/quang-components/input-radio/src/input-radio.module'
-import { InputSearchModule } from 'projects/quang-components/input-search/src/input-search.module'
-import { InputUrlModule } from 'projects/quang-components/input-url/src/input-url.module'
-import { SelectObjModule } from 'projects/quang-components/select-obj/src/select-obj.module'
-import { SelectStrgModule } from 'projects/quang-components/select-strg/src/select-strg.module'
-import { SliderModule } from 'projects/quang-components/slider/src/slider.module'
-import { InputTelModule } from 'projects/quang-components/input-tel/src/input-tel.module'
-import { InputTextModule } from 'projects/quang-components/input-text/src/input-text.module'
-import { TextAreaModule } from 'projects/quang-components/text-area/src/text-area.module'
-import { TextEditorModule } from 'projects/quang-components/text-editor/src/text-editor.module'
-import { TextViewModule } from 'projects/quang-components/text-view/src/text-view.module'
-import { ToggleModule } from 'projects/quang-components/toggle/src/toggle.module'
+import { QuangPaginatorModule } from '../../../../quang/components/paginator/src/paginator.module'
+import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangAuthDownloadModule } from '../../../../quang/directives/quang-auth-donwload/src/quang-auth-download.module'
+import { QuangAuthImageModule } from '../../../../quang/directives/quang-auth-image/src/quang-auth-image.module'
+import { QuangAutocompleteObjModule } from '../../../../quang/components/autocomplete-obj/src/autocomplete-obj.module'
+import { QuangAutocompleteObjAsyncModule } from '../../../../quang/components/autocomplete-obj-async/src/autocomplete-obj-async.module'
+import { QuangAutocompleteStrgModule } from '../../../../quang/components/autocomplete-strg/src/autocomplete-strg.module'
+import { QuangAutocompleteStrgAsyncModule } from '../../../../quang/components/autocomplete-strg-async/src/autocomplete-strg-async.module'
+import { QuangInputCheckboxModule } from '../../../../quang/components/input-checkbox/src/input-checkbox.module'
+import { QuangInputColorModule } from '../../../../quang/components/input-color/src/input-color.module'
+import { QuangDatalistModule } from '../../../../quang/components/datalist/src/datalist.module'
+import { QuangInputEmailModule } from '../../../../quang/components/input-email/src/input-email.module'
+import { QuangInputFileModule } from '../../../../quang/components/input-file/src/input-file.module'
+import { QuangInputFractionModule } from '../../../../quang/components/input-fraction/src/input-fraction.module'
+import { QuangMultiSelectObjModule } from '../../../../quang/components/multi-select-obj/src/multi-select-obj.module'
+import { QuangMultiSelectStrgModule } from '../../../../quang/components/multi-select-strg/src/multi-select-strg.module'
+import { QuangInputNumberModule } from '../../../../quang/components/input-number/src/input-number.module'
+import { QuangInputPasswordModule } from '../../../../quang/components/input-password/src/input-password.module'
+import { QuangInputRadioModule } from '../../../../quang/components/input-radio/src/input-radio.module'
+import { QuangInputSearchModule } from '../../../../quang/components/input-search/src/input-search.module'
+import { QuangInputUrlModule } from '../../../../quang/components/input-url/src/input-url.module'
+import { QuangSelectObjModule } from '../../../../quang/components/select-obj/src/select-obj.module'
+import { QuangSelectStrgModule } from '../../../../quang/components/select-strg/src/select-strg.module'
+import { QuangSliderModule } from '../../../../quang/components/slider/src/slider.module'
+import { QuangInputTelModule } from '../../../../quang/components/input-tel/src/input-tel.module'
+import { QuangInputTextModule } from '../../../../quang/components/input-text/src/input-text.module'
+import { QuangTextAreaModule } from '../../../../quang/components/text-area/src/text-area.module'
+import { QuangTextEditorModule } from '../../../../quang/components/text-editor/src/text-editor.module'
+import { QuangTextViewModule } from '../../../../quang/components/text-view/src/text-view.module'
+import { QuangToggleModule } from '../../../../quang/components/toggle/src/toggle.module'
+import { QuangPaginatorService } from '../../../../quang/components/paginator/src/paginator.service'
 import { PaginatorServiceComponent } from './paginator-service/paginator-service.component'
-import { QuangPaginatorService } from 'projects/quang-components/paginator/src/paginator.service'
 
 @NgModule({
   declarations: [
@@ -108,36 +108,37 @@ import { QuangPaginatorService } from 'projects/quang-components/paginator/src/p
     TranslocoModule,
     ReactiveFormsModule,
     FormsModule,
+    QuillModule,
     QuangCardsModule,
     QuangAuthDownloadModule,
     QuangAuthImageModule,
-    AutocompleteObjModule,
-    AutocompleteObjAsyncModule,
-    AutocompleteStrgModule,
-    AutocompleteStrgAsyncModule,
-    InputCheckboxModule,
-    InputColorModule,
-    DatalistModule,
-    InputEmailModule,
-    InputFileModule,
-    InputFractionModule,
-    MultiSelectObjModule,
-    MultiSelectStrgModule,
-    InputNumberModule,
-    PaginatorModule,
-    InputPasswordModule,
-    InputRadioModule,
-    InputSearchModule,
-    InputUrlModule,
-    SelectObjModule,
-    SelectStrgModule,
-    SliderModule,
-    InputTelModule,
-    InputTextModule,
-    TextAreaModule,
-    TextEditorModule,
-    TextViewModule,
-    ToggleModule
+    QuangAutocompleteObjModule,
+    QuangAutocompleteObjAsyncModule,
+    QuangAutocompleteStrgModule,
+    QuangAutocompleteStrgAsyncModule,
+    QuangInputCheckboxModule,
+    QuangInputColorModule,
+    QuangDatalistModule,
+    QuangInputEmailModule,
+    QuangInputFileModule,
+    QuangInputFractionModule,
+    QuangMultiSelectObjModule,
+    QuangMultiSelectStrgModule,
+    QuangInputNumberModule,
+    QuangPaginatorModule,
+    QuangInputPasswordModule,
+    QuangInputRadioModule,
+    QuangInputSearchModule,
+    QuangInputUrlModule,
+    QuangSelectObjModule,
+    QuangSelectStrgModule,
+    QuangSliderModule,
+    QuangInputTelModule,
+    QuangInputTextModule,
+    QuangTextAreaModule,
+    QuangTextEditorModule,
+    QuangTextViewModule,
+    QuangToggleModule
   ],
   providers: [QuangPaginatorService, { provide: TRANSLOCO_SCOPE, useValue: 'core' }]
 })

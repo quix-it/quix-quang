@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { ExampleComponent } from './example/example.component'
 import { merge } from 'rxjs'
-import { QuangModalService } from '../../../../../quang-dialog/src/lib/modal/quang-modal.service'
+import { QuangModalService } from '../../../../../quang/dialog/src/lib/modal/quang-modal.service'
 
 @Component({
   selector: 'ks-modal',

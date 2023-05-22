@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { ChartArea } from '../../../../../quang-chart/src/lib/chart-area/chart-area.model'
+import { Component } from '@angular/core'
+import { ChartArea } from '../../../../../quang/chart/src/lib/chart-area/chart-area.model'
 
 @Component({
   selector: 'ks-line',

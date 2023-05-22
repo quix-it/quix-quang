@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { ChartTree } from '../../../../../quang-chart/src/lib/chart-tree/chart-tree.model'
+import { ChartTree } from '../../../../../quang/chart/src/lib/chart-tree/chart-tree.model'
 
 @Component({
   selector: 'ks-tree',

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { Store } from '@ngrx/store'
-import { AppState } from '../../app-store/app.reducers'
-import { QuangNotificationService } from '../../../../../quang-dialog/src/lib/notification/notification.service'
-import { QuangNotification } from '../../../../../quang-dialog/src/lib/notification/notification.model'
+import { type AppState } from '../../app-store/app.reducers'
+import { QuangNotificationService } from '../../../../../quang/dialog/src/lib/notification/notification.service'
+import { QuangNotification } from '../../../../../quang/dialog/src/lib/notification/notification.model'
 
 @Component({
   selector: 'ks-notification',
@@ -16,18 +16,18 @@ export class NotificationComponent {
     body: new FormControl('')
   })
 
-  constructor(
+  constructor (
     private readonly store: Store<AppState>,
     private readonly notificationService: QuangNotificationService
   ) {}
 
-  sendNotification(): void {
+  sendNotification (): void {
     this.notificationService.requestPermission().subscribe((p) => {
       if (p) {
         this.notificationService.sendNotification(
           new QuangNotification(
-            this.noteForm.controls['title'].value,
-            this.noteForm.controls['body'].value,
+            this.noteForm.controls.title.value,
+            this.noteForm.controls.body.value,
             'https://picsum.photos/800/1200'
           )
         )
