@@ -13,7 +13,7 @@
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [attr.aria-label]="ariaLabel | transloco"
-    (input)="onChangedHandler($event)"
+    (change)="onChangedHandler($event)"
     (blur)="onTouched()"
     #input
   ></mat-slide-toggle>

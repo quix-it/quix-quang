@@ -13,6 +13,7 @@ import {
 import { ControlValueAccessor, NgControl } from "@angular/forms";
 import { delay, filter } from "rxjs/operators";
 import { MatLegacySlideToggle as MatSlideToggle } from "@angular/material/legacy-slide-toggle";
+import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 
 /**
  * toggle component decorator
@@ -173,8 +174,8 @@ export class ToggleComponent
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler(e: Event): void {
-    this._value = (e.target as HTMLInputElement).checked;
+  onChangedHandler(e: MatSlideToggleChange): void {
+    this._value = e.checked;
     this.onTouched();
     this.onChanged(this._value);
   }
