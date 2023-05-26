@@ -28,7 +28,9 @@ import { QuangAutocompleteAsyncService } from './quang-autocomplete-async.servic
 /**
  * autocomplete object async component
  */
-export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnChanges {
+export class AutocompleteObjAsyncComponent
+  implements OnInit, AfterViewInit, OnChanges
+{
   /**
    * The label to display on the input field
    */
@@ -156,18 +158,17 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | null = null
+  @ViewChild('input', { static: true })
+  input: ElementRef<HTMLInputElement> | null = null
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
+  onTouched: any = () => {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged: any = () => {}
 
   /**
    * constructor
@@ -175,7 +176,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * @param autocompleteService
    * @param control cva access
    */
-  constructor (
+  constructor(
     private readonly renderer: Renderer2,
     private readonly autocompleteService: QuangAutocompleteAsyncService,
     @Self() @Optional() public control: NgControl
@@ -188,34 +189,34 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * based on the configurations it decides which method to use
    * Check if the help message is required and create the key
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
     let prev: string = ''
     this.suggestions$ = new Observable((observer: Observer<string>) => {
       observer.next(this._searchValue)
     }).pipe(
       debounceTime(300),
-      filter(s => s !== prev),
+      filter((s) => s !== prev),
       switchMap((query: string) => {
         prev = query
         if (query) {
           if (this.restApi) {
             return this.autocompleteService
               .getRestList(this.baseUrl, this.apiUrl, query)
-              .pipe(
-                map((data: any) => data || [])
-              )
+              .pipe(map((data: any) => data || []))
           }
           return this.autocompleteService
             .getList(this.baseUrl, this.apiUrl, query, this.apiParamName)
-            .pipe(
-              map((data: any) => data || [])
-            )
+            .pipe(map((data: any) => data || []))
         }
         return of([])
       }),
-      map(r => {
+      map((r) => {
         const targetData = this.targetObject ? r[this.targetObject] : r
-        return (targetData || []).filter((s: any) => s[this.searchBy].toLowerCase().includes(this._searchValue.toLowerCase()))
+        return (targetData || []).filter((s: any) =>
+          s[this.searchBy]
+            .toLowerCase()
+            .includes(this._searchValue.toLowerCase())
+        )
       })
     )
     if (this.helpMessage) {
@@ -230,7 +231,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
         this.input?.nativeElement.focus()
@@ -242,14 +243,14 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any): void {
+  registerOnChange(fn: any): void {
     this.onChanged = fn
   }
 
@@ -257,7 +258,8 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * Add focus to the input field if the need comes after component initialization
    * @param changes component changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
@@ -267,23 +269,28 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * When the input value changes, the search status is saved and the cva flow is activated
    * @param e
    */
-  onChangedHandler (e: Event): void {
+  onChangedHandler(e: Event): void {
+    
     this._searchValue = (e.target as HTMLInputElement).value
     this.onTouched()
-    if (!this._searchValue) {
-      this.onChanged('')
-    }
+    this.onChanged(this._searchValue)
   }
 
   /**
    * When the user selects an option, it saves the selection status and starts the cva flow
    * @param e
    */
-  onSelectHandler (e: TypeaheadMatch): void {
+  onSelectHandler(e: TypeaheadMatch): void {
+    
     this._value = e.item[this.returnValue]
     this.onTouched()
     this.onChanged(this._value)
-    if (this._value) this.renderer.setProperty(this.input?.nativeElement, "value", e.item[this.searchBy]);
+    if (this._value)
+      this.renderer.setProperty(
+        this.input?.nativeElement,
+        'value',
+        e.item[this.searchBy]
+      )
   }
 
   /**
@@ -291,7 +298,8 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * to its corresponding object in the options list
    * @param value
    */
-  writeValue (value: any): void {
+  writeValue(value: any): void {
+    this._searchValue = value
     this._value = value
   }
 
@@ -299,9 +307,8 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * Based on the configuration it retrieves the values from the passed option object
    * @param l
    */
-  findObj (l: any[]): void {
-    const o = l.find(
-      e => e[this.returnValue] === this._value)
+  findObj(l: any[]): void {
+    const o = l.find((e) => e[this.returnValue] === this._value)
     if (o) {
       this._searchValue = o[this.searchBy]
     }
@@ -311,7 +318,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  setDisabledState (isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 
@@ -321,19 +328,21 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          if (this.control.errors[error]) {
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-            this._requiredValue = this.control.errors[error].requiredValue
+  observeValidate(): void {
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
+            }
           }
         }
-      }
-    })
+      })
   }
 }
