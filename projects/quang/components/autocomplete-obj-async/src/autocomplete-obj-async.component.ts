@@ -123,6 +123,10 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
    * and how to help the user fill it in
    */
   @Input() autocomplete: string = 'off'
+  /**
+   * Target object inside the response
+   */
+  @Input() targetObject: string = null
 
   /**
    * The value of the input
@@ -209,7 +213,10 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
         }
         return of([])
       }),
-      map(r => r.filter((s: any) => s[this.searchBy].toLowerCase().includes(this._searchValue.toLowerCase())))
+      map(r => {
+        const targetData = this.targetObject ? r[this.targetObject] : r
+        return targetData.filter((s: any) => s[this.searchBy].toLowerCase().includes(this._searchValue.toLowerCase()))
+      })
     )
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
