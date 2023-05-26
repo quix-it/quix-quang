@@ -215,7 +215,7 @@ export class AutocompleteObjAsyncComponent implements OnInit, AfterViewInit, OnC
       }),
       map(r => {
         const targetData = this.targetObject ? r[this.targetObject] : r
-        return targetData.filter((s: any) => s[this.searchBy].toLowerCase().includes(this._searchValue.toLowerCase()))
+        return (targetData || []).filter((s: any) => s[this.searchBy].toLowerCase().includes(this._searchValue.toLowerCase()))
       })
     )
     if (this.helpMessage) {
