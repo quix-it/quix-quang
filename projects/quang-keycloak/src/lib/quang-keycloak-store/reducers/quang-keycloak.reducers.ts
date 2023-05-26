@@ -3,7 +3,7 @@ import {
   userInfoLogin,
   userInfoLogout,
   userLogin,
-  userLogout,
+  userLogout, userNotLogin,
   userRolesLogin,
   userRolesLogout
 } from '../actions/quang-keycloak.actions'
@@ -39,6 +39,7 @@ const initialValue: QuangKeycloakUserState = {
 const reducer = createReducer(
   initialValue,
   on(userLogin, (state) => ({ ...state, isAuthenticated: true })),
+  on(userNotLogin, (state) => ({ ...state, isAuthenticated: false })),
   on(userLogout, (state) => ({ ...state, isAuthenticated: false })),
   on(userInfoLogin, (state, action) =>
     ({ ...state, user: action.user })),

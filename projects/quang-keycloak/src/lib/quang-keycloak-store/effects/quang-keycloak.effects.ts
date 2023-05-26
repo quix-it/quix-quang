@@ -6,9 +6,9 @@ import {
   userInfoLogin,
   userInfoLogout,
   userLogin,
-  userLogout,
+  userLogout, userNotLogin,
   userRolesLogin,
-  userRolesLogout
+  userRolesLogout, userStartAuth
 } from '../actions/quang-keycloak.actions'
 
 /**
@@ -26,16 +26,34 @@ export class QuangKeycloakEffects {
    * Start the login procedure,
    * if the user completes the login dispatches the successful login
    */
-  startAuthEffect$ = createEffect(
+    // add an effect startupEffect$ to the action init that fires the action userStartAuth
+  startupEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
-      mergeMap(action => this.quangKeycloakService.startAuth()
-        .pipe(
-          map(is => userLogin())
-        )
-      )
+      map(action => userStartAuth())
     )
   )
+
+  /**
+   * If the user completes the login dispatches the successful login
+   * and saves the user data and roles in the store
+   */
+  startAuthEffect$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(userStartAuth),
+      mergeMap(action => this.quangKeycloakService.startAuth()
+        .pipe(
+          map((isLogged: boolean) => {
+              if (isLogged) {
+                return userLogin()
+              } else {
+                return userNotLogin()
+              }
+            }
+          )
+        )
+      )
+    ))
 
   /**
    * When the login procedure is completed and the successful login is sent,
