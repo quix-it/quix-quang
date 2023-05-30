@@ -259,7 +259,6 @@ export class AutocompleteObjAsyncComponent
    * @param changes component changes component changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
@@ -270,7 +269,6 @@ export class AutocompleteObjAsyncComponent
    * @param e
    */
   onChangedHandler(e: Event): void {
-    
     this._searchValue = (e.target as HTMLInputElement).value
     this.onTouched()
     this.onChanged(this._searchValue)
@@ -281,7 +279,6 @@ export class AutocompleteObjAsyncComponent
    * @param e
    */
   onSelectHandler(e: TypeaheadMatch): void {
-    
     this._value = e.item[this.returnValue]
     this.onTouched()
     this.onChanged(this._value)
