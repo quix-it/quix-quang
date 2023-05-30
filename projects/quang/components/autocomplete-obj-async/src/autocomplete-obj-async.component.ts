@@ -2,10 +2,12 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Optional,
+  Output,
   Renderer2,
   Self,
   SimpleChanges,
@@ -130,6 +132,7 @@ export class AutocompleteObjAsyncComponent
    */
   @Input() targetObject: string = null
 
+  @Output() onSelectValue: EventEmitter<string> = new EventEmitter<string>()
   /**
    * The value of the input
    */
@@ -155,8 +158,6 @@ export class AutocompleteObjAsyncComponent
    */
   _requiredValue: any = ''
   suggestions$: Observable<any> | null = null
-
-  _list: any
   /**
    * The html input element
    */
@@ -206,10 +207,9 @@ export class AutocompleteObjAsyncComponent
               .getRestList(this.baseUrl, this.apiUrl, query)
               .pipe(map((data: any) => data || []))
           }
-          this._list = this.autocompleteService
-          .getList(this.baseUrl, this.apiUrl, query, this.apiParamName)
-          .pipe(map((data: any) => data || []))
-          return this._list
+          return this.autocompleteService
+            .getList(this.baseUrl, this.apiUrl, query, this.apiParamName)
+            .pipe(map((data: any) => data || []))
         }
         return of([])
       }),
@@ -285,12 +285,14 @@ export class AutocompleteObjAsyncComponent
     this._value = e.item[this.returnValue]
     this.onTouched()
     this.onChanged(this._value)
-    if (this._value)
+    if (this._value) {
       this.renderer.setProperty(
         this.input?.nativeElement,
         'value',
         e.item[this.searchBy]
       )
+      this.onSelectValue.emit(e.item[this.searchBy])
+    }
   }
 
   /**
