@@ -155,6 +155,8 @@ export class AutocompleteObjAsyncComponent
    */
   _requiredValue: any = ''
   suggestions$: Observable<any> | null = null
+
+  _list: any
   /**
    * The html input element
    */
@@ -204,9 +206,10 @@ export class AutocompleteObjAsyncComponent
               .getRestList(this.baseUrl, this.apiUrl, query)
               .pipe(map((data: any) => data || []))
           }
-          return this.autocompleteService
-            .getList(this.baseUrl, this.apiUrl, query, this.apiParamName)
-            .pipe(map((data: any) => data || []))
+          this._list = this.autocompleteService
+          .getList(this.baseUrl, this.apiUrl, query, this.apiParamName)
+          .pipe(map((data: any) => data || []))
+          return this._list
         }
         return of([])
       }),
