@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang",
-  "version": "15.0.2-beta.5",
+  "version": "15.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
