@@ -19,7 +19,7 @@
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [ngModel]="_value"
-    (onBlur)="onTouched()"
+    (onBlur)="emitBlur()"
     (onContentChanged)="onChangedHandler($event)"
     (onEditorCreated)="checkFocus($event)"
     [format]="returnHtml ? 'html' : 'text'"

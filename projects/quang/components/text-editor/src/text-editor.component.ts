@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
   Optional,
+  Output,
   Renderer2,
   Self,
   ViewChild,
@@ -140,6 +142,10 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    */
   @Input() sanitize: boolean = false
   /**
+   * 
+   */
+  @Output() onBlur: EventEmitter<any> = new EventEmitter<any>()
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: QuillEditorComponent | undefined
@@ -262,6 +268,11 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
     if (this.autofocus) {
       editor.focus()
     }
+  }
+
+  emitBlur(): void {
+    this.onTouched()
+    this.onBlur.emit()
   }
 
   /**
