@@ -78,7 +78,7 @@ export class CodeReaderComponent implements OnInit {
         this._devices = d
       },
       err => {
-        console.log(err)
+        console.error(err)
         this._errorMessage = true
       })
   }

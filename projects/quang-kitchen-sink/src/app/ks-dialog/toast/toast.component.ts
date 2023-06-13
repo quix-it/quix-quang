@@ -11,7 +11,6 @@ export class ToastComponent {
   constructor(private readonly toastService: QuangToastService) {}
 
   openToast(): void {
-    console.log('toast')
     this.toastService.openToast(
       new QuangToast(
         'success',

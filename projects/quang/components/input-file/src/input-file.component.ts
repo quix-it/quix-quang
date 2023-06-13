@@ -245,7 +245,6 @@ export class InputFileComponent
    */
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
-    console.log('sjaf',this.renderer, this.input, isDisabled)
   }
 
   /**
