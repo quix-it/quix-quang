@@ -5,16 +5,14 @@
         class="form-label"
         [htmlFor]="id"
         [attr.aria-label]="ariaLabel"
-        *ngIf="label"
-      >
+        *ngIf="label">
         {{ label | transloco }}
         <span [hidden]="!control?.errors?.['required']">*</span>
       </label>
       <div
         class="input-group"
         [class.input-group-sm]="size === 'sm'"
-        [class.input-group-lg]="size === 'lg'"
-      >
+        [class.input-group-lg]="size === 'lg'">
         <input
           type="text"
           [id]="id"
@@ -41,18 +39,16 @@
           (bsValueChange)="onBsValueChange($event)"
           (blur)="onTouched()"
           #drp="bsDatepicker"
-          #input
-        />
+          #input />
         <div class="input-group-append">
           <button
-          #inputBtn
+            #inputBtn
             class="btn"
             type="button"
             [ngClass]="buttonClass"
             [tabIndex]="tabIndex"
             aria-label="calendar-button"
-            (click)="_disabled ? null : drp.toggle()"
-          >
+            (click)="_disabled ? null : drp.toggle()">
             <ng-content select="[calendarIcon]"></ng-content>
           </button>
         </div>
@@ -61,36 +57,42 @@
         </div>
 
         <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
-          {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
+          {{ _errorMessage | transloco : { requiredValue: _requiredValue } }}
         </div>
       </div>
     </div>
-    <div class="mb-3" [ngStyle]="{ 'margin-top': _margin }">
-      <timepicker
-        [id]="id"
-        [ngClass]="customClass"
-        [class.is-valid]="control?.valid && control?.dirty && successMessage"
-        [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-        [disabled]="_disabled"
-        [min]="minDate"
-        [max]="maxDate"
-        [showSeconds]="showSecond"
-        [hourStep]="hourStep"
-        [minuteStep]="minuteStep"
-        [secondsStep]="secondStep"
-        [mousewheel]="true"
-        [arrowkeys]="true"
-        [showSpinners]="showSelector"
-        [showMeridian]="showMeridianButton"
-        [hoursPlaceholder]="hoursPlaceholder | transloco"
-        [minutesPlaceholder]="minutesPlaceholder | transloco"
-        [secondsPlaceholder]="secondsPlaceholder | transloco"
-        [(ngModel)]="_valueTime"
-        [attr.aria-label]="ariaLabel + ' time' | transloco"
-        [tabIndex]="tabIndex"
-        (ngModelChange)="onChangeTime($event)"
-        (blur)="onTouched()"
-      ></timepicker>
+    <div class="mb-3">
+      <div
+        class="input-group"
+        [class.input-group-sm]="size === 'sm'"
+        [class.input-group-lg]="size === 'lg'">
+        <timepicker
+          [id]="id"
+          [ngClass]="customClass"
+          [class.is-valid]="control?.valid && control?.dirty && successMessage"
+          [class.is-invalid]="
+            control?.invalid && control?.dirty && errorMessage
+          "
+          [disabled]="_disabled"
+          [min]="minDate"
+          [max]="maxDate"
+          [showSeconds]="showSecond"
+          [hourStep]="hourStep"
+          [minuteStep]="minuteStep"
+          [secondsStep]="secondStep"
+          [mousewheel]="true"
+          [arrowkeys]="true"
+          [showSpinners]="showSelector"
+          [showMeridian]="showMeridianButton"
+          [hoursPlaceholder]="hoursPlaceholder | transloco"
+          [minutesPlaceholder]="minutesPlaceholder | transloco"
+          [secondsPlaceholder]="secondsPlaceholder | transloco"
+          [(ngModel)]="_valueTime"
+          [attr.aria-label]="ariaLabel + ' time' | transloco"
+          [tabIndex]="tabIndex"
+          (ngModelChange)="onChangeTime($event)"
+          (blur)="onTouched()"></timepicker>
+      </div>
     </div>
   </div>
 
@@ -101,8 +103,7 @@
       control?.dirty &&
       ((control?.valid && successMessage) || (control?.invalid && errorMessage))
     "
-    *ngIf="helpMessage"
-  >
+    *ngIf="helpMessage">
     {{ _helpMessage | transloco }}
   </small>
 </div>
