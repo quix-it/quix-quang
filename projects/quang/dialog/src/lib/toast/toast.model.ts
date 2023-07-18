@@ -25,7 +25,7 @@ export class QuangToast {
     /**
      * toast position
      */
-    public position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' = 'bottom-right',
+    public position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'center' = 'bottom-right',
     /**
      * toast view timing
      */

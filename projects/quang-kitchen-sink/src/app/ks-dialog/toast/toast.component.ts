@@ -15,7 +15,7 @@ export class ToastComponent {
       new QuangToast(
         'success',
         'Toast title',
-        'bottom-right',
+        'center',
         5000,
         'this is a toast',
         null,
