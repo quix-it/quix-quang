@@ -1,6 +1,6 @@
-import { type AfterViewInit, Component, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ViewChild } from '@angular/core'
 import { MatSort } from '@angular/material/sort'
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table'
+import { MatTableDataSource } from '@angular/material/table'
 
 interface PeriodicElement {
   name: string

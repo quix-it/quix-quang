@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { Store } from '@ngrx/store'
-import { type AppState } from '../../app-store/app.reducers'
+import { AppState } from '../../app-store/app.reducers'
 import { QuangNotificationService } from '../../../../../quang/dialog/src/lib/notification/notification.service'
 import { QuangNotification } from '../../../../../quang/dialog/src/lib/notification/notification.model'
 

@@ -1,7 +1,7 @@
-import { Component, type OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { MasterService } from './master.service'
-import { type PersonResponse } from './person-response.model'
-import { type Person } from './person.model'
+import { PersonResponse } from './person-response.model'
+import { Person } from './person.model'
 
 @Component({
   selector: 'ks-master',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage'
-import { type Observable } from 'rxjs'
+import { Observable } from 'rxjs'
 
 /**
  * service decorator

@@ -11,7 +11,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from "@angular/core";
-import { MatLegacyPaginator as MatPaginator } from "@angular/material/legacy-paginator";
+import { MatPaginator } from "@angular/material/paginator";
 /**
  * paginator component decorator
  */

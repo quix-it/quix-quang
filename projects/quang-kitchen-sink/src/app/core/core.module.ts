@@ -6,7 +6,7 @@ import { FooterComponent } from './footer/footer.component'
 
 import { RouterModule } from '@angular/router'
 import { MatTreeModule } from '@angular/material/tree'
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button'
+import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({

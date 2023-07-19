@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { type Html5QrcodeResult } from 'html5-qrcode/core'
+import { Html5QrcodeResult } from 'html5-qrcode/core'
 import { Html5QrcodeSupportedFormats } from 'html5-qrcode'
 
 @Component({

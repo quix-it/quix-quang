@@ -1,9 +1,9 @@
-import { Component, type OnDestroy, type OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { type Observable, Subject, Subscription } from 'rxjs'
-import { type Starship } from './starship.model'
+import { Observable, Subject, Subscription } from 'rxjs'
+import { Starship } from './starship.model'
 import { StarshipsSelectors } from '../starships-store/selectors'
-import { type AppState } from '../../app-store/app.reducers'
+import { AppState } from '../../app-store/app.reducers'
 import { StarshipsActions } from '../starships-store/actions'
 import { takeUntil } from 'rxjs/operators'
 
