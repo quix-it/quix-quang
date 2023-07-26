@@ -114,6 +114,18 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    */
   @Input() mediaBar: boolean = false
   /**
+   * Toolbar for inserting link
+   */
+  @Input() mediaLinkBar: boolean = false
+  /**
+   * Toolbar for inserting image
+   */
+  @Input() mediaImageBar: boolean = false
+  /**
+   * Toolbar for inserting video
+   */
+  @Input() mediaVideoBar: boolean = false
+  /**
    * headers bar
    */
   @Input() headerBar: boolean = false
@@ -230,6 +242,16 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
     }
     if (this.mediaBar) {
       this._toolbar.toolbar.push(['link', 'image', 'video'])
+    } else {
+      if (this.mediaLinkBar) {
+        this._toolbar.toolbar.push(['link'])
+      }
+      if (this.mediaImageBar) {
+        this._toolbar.toolbar.push(['image'])
+      }
+      if (this.mediaVideoBar) {
+        this._toolbar.toolbar.push(['video'])
+      }
     }
     if (this.headerBar) {
       this._toolbar.toolbar.push([{ header: [1, 2, 3, 4, 5, 6, false] }])
