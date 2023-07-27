@@ -131,6 +131,10 @@ export class AutocompleteObjAsyncComponent
    * Target object inside the response
    */
   @Input() targetObject: string = null
+  /**
+   * Defines if position adaptable *default = true
+   */
+  @Input() adaptivePosition = true
 
   @Output() onSelectValue: EventEmitter<string> = new EventEmitter<string>()
   /**

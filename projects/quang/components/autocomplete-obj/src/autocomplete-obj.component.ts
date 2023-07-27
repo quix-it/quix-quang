@@ -110,6 +110,10 @@ export class AutocompleteObjComponent
    * and how to help the user fill it in
    */
   @Input() autocomplete: string = "off";
+  /**
+   * Defines if position adaptable *default = true
+   */
+    @Input() adaptivePosition = true
 
   /**
    * The value of the input

@@ -106,6 +106,10 @@ export class AutocompleteStrgComponent
    * set default start value in select option
    */
   @Input() defaultValue: string = "";
+  /**
+   * Defines if position adaptable *default = true
+   */
+  @Input() adaptivePosition = true
 
   /**
    * The value of the input
