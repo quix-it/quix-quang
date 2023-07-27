@@ -9,7 +9,7 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay, filter } from 'rxjs/operators'
-import { MatSlider, MatSliderChange } from '@angular/material/slider'
+import { MatLegacySlider, MatLegacySliderChange } from '@angular/material/legacy-slider'
 
 /**
  * slider component decorator
@@ -101,7 +101,7 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: MatSlider | undefined
+  @ViewChild('input', { static: true }) input: MatLegacySlider | undefined
   /**
    * Standard definition to create a control value accessor
    */
@@ -163,7 +163,7 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: MatSliderChange): void {
+  onChangedHandler (e: MatLegacySliderChange): void {
     if (e?.value !== null) this._value = e.value
     this.onTouched()
     this.onChanged(this._value)

@@ -25,7 +25,7 @@ import {
 @Component({
   selector: 'quang-input-file',
   templateUrl: './input-file.component.html',
-  styles: []
+  styleUrls: ['./input-file.component.scss']
 })
 /**
  * input file component

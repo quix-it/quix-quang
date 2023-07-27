@@ -1,4 +1,4 @@
-<div class="mb-3" [ngClass]="customClass">
+<div class="mb-3 quang-input-file" [ngClass]="customClass">
   <label
     [htmlFor]="id"
     class="form-label"
@@ -37,13 +37,13 @@
       </p>
       <p [hidden]="!_value">
         <button
-          class="btn btn-link btn-sm"
+          class="btn btn-link btn-sm break-words"
           type="button"
           (click)="deleteFile()"
           [disabled]="input.disabled">
           &times;
+          {{ _value?.name }}
         </button>
-        {{ _value?.name }}
       </p>
       <button
         type="button"
