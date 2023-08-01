@@ -14,7 +14,6 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay, filter } from 'rxjs/operators'
-import 'quill-emoji/dist/quill-emoji.js'
 import { ContentChange, QuillEditorComponent } from 'ngx-quill'
 
 /**
