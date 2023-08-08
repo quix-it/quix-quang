@@ -189,7 +189,7 @@ export class SelectObjComponent
     }
     if (changes.list?.currentValue) {
       if (!this.nullOption && !this._value) {
-        if (this.returnValue)
+        if (this.returnValue && (changes.list.currentValue as any[])[0])
           this._value = this._value = (changes.list.currentValue as any[])[0][
             this.returnValue
           ];
