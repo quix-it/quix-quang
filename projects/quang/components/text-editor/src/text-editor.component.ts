@@ -152,6 +152,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
    * Define if quill have to sanitize the html
    */
   @Input() sanitize: boolean = false
+  @Input() extraConfigData: {} = {}
   /**
    * 
    */
@@ -183,11 +184,11 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
   /**
    * The status of the toolbar
    */
-  _toolbar: any = { toolbar: [] }
+  _toolbar: any[] = []
   /**
    * The status of the modules
    */
-  modules: { [key: string]: string } = {}
+  modules: { [key: string]: any } = {}
 
   /**
    * Standard definition to create a control value accessor
@@ -224,47 +225,51 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
     if (this.listBar) {
-      this._toolbar.toolbar.push([{ list: 'ordered' }, { list: 'bullet' }])
+      this._toolbar.push([{ list: 'ordered' }, { list: 'bullet' }])
     }
     if (this.textTypeBar) {
-      this._toolbar.toolbar.push(['bold', 'italic', 'underline', 'strike'])
-      this._toolbar.toolbar.push(['blockquote', 'code-block'])
+      this._toolbar.push(['bold', 'italic', 'underline', 'strike'])
+      this._toolbar.push(['blockquote', 'code-block'])
     }
     if (this.textStyleBar) {
-      this._toolbar.toolbar.push([{ color: [] }, { background: [] }])
+      this._toolbar.push([{ color: [] }, { background: [] }])
     }
     if (this.alignBar) {
-      this._toolbar.toolbar.push([{ align: [] }])
+      this._toolbar.push([{ align: [] }])
     }
     if (this.fontBar) {
-      this._toolbar.toolbar.push([{ font: [] }])
+      this._toolbar.push([{ font: [] }])
     }
     if (this.mediaBar) {
-      this._toolbar.toolbar.push(['link', 'image', 'video'])
+      this._toolbar.push(['link', 'image', 'video'])
     } else {
       if (this.mediaLinkBar) {
-        this._toolbar.toolbar.push(['link'])
+        this._toolbar.push(['link'])
       }
       if (this.mediaImageBar) {
-        this._toolbar.toolbar.push(['image'])
+        this._toolbar.push(['image'])
       }
       if (this.mediaVideoBar) {
-        this._toolbar.toolbar.push(['video'])
+        this._toolbar.push(['video'])
       }
     }
     if (this.headerBar) {
-      this._toolbar.toolbar.push([{ header: [1, 2, 3, 4, 5, 6, false] }])
+      this._toolbar.push([{ header: [1, 2, 3, 4, 5, 6, false] }])
     }
     if (this.sizeBar) {
-      this._toolbar.toolbar.push([{ size: ['small', 'normal', 'large', 'huge'] }])
+      this._toolbar.push([{ size: ['small', 'normal', 'large', 'huge'] }])
     }
     if (this.indentBar) {
-      this._toolbar.toolbar.push([{ indent: '-1' }, { indent: '+1' }])
+      this._toolbar.push([{ indent: '-1' }, { indent: '+1' }])
     }
     if (this.emojiBar) {
       this._toolbar['emoji-shortname'] = true
       this._toolbar['emoji-textarea'] = true
       this._toolbar['emoji-toolbar'] = true
+    }
+    this.modules = {
+      toolbar: this._toolbar,
+      ...this.extraConfigData
     }
   }
 
@@ -351,7 +356,7 @@ export class TextEditorComponent implements ControlValueAccessor, AfterViewInit,
         this._successMessage = `${this.formName}.${this.control?.name}.valid`
       } else if (this.control.invalid && this.errorMessage) {
         for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
+          if (Object.prototype?.hasOwnProperty?.call(this.control.errors?.error, '')) {
             if (this.control.errors[error]) {
               this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
               this._requiredValue = this.control.errors[error].requiredValue
