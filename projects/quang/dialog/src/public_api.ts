@@ -2,9 +2,7 @@
  * Public API Surface of quang-dialog
  */
 
-export * from './lib/bottom-sheet/bottom-sheet.service'
 export * from './lib/modal/quang-modal.service'
-export * from './lib/snackbar/quang-snackbar.service'
 export * from './lib/toast/toast.component'
 export * from './lib/toast/toast.model'
 export * from './lib/toast/toast.service'

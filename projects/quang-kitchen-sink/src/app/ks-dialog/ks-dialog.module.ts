@@ -9,12 +9,8 @@ import { ToastComponent } from './toast/toast.component'
 import { LoaderComponent } from './loader/loader.component'
 import { ModalComponent } from './modal/modal.component'
 import { ExampleComponent } from './modal/example/example.component'
-import { SnackbarComponent } from './snackbar/snackbar.component'
 import { OfflineComponent } from './offline/offline.component'
 import { HttpErrorComponent } from './http-error/http-error.component'
-import { BottomSheetComponent } from './bottom-sheet/bottom-sheet.component'
-import { BottomSheetExampleComponent } from './bottom-sheet/bottom-sheet-example/bottom-sheet-example.component'
-import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet'
 import { NotificationComponent } from './notification/notification.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
@@ -27,11 +23,8 @@ import { QuangDialogModule } from '../../../../quang/dialog/src/lib/quang-dialog
     LoaderComponent,
     ModalComponent,
     ExampleComponent,
-    SnackbarComponent,
     OfflineComponent,
     HttpErrorComponent,
-    BottomSheetComponent,
-    BottomSheetExampleComponent,
     NotificationComponent
   ],
   imports: [
@@ -44,8 +37,7 @@ import { QuangDialogModule } from '../../../../quang/dialog/src/lib/quang-dialog
     ReactiveFormsModule
   ],
   providers: [
-    { provide: TRANSLOCO_SCOPE, useValue: 'dialog' },
-    { provide: MAT_BOTTOM_SHEET_DATA, useValue: {} }
+    { provide: TRANSLOCO_SCOPE, useValue: 'dialog' }
   ]
 })
 export class KsDialogModule {}
