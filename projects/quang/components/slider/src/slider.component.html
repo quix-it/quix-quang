@@ -1,41 +1,46 @@
 <div class="mb-3 slider-wrapper">
-  <label [htmlFor]="id"
-         class="form-label"
-         [attr.aria-label]="ariaLabel | transloco"
-         *ngIf="label">
-    {{label | transloco}}
+  <label
+    [htmlFor]="id"
+    class="form-label"
+    [attr.aria-label]="ariaLabel | transloco"
+    *ngIf="label">
+    {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <mat-slider
-    [id]="id"
-    [vertical]="vertical"
-    [ngStyle]="{width: vertical ? null : '100%'}"
-    thumbLabel
-    [tickInterval]="interval"
-    [max]="maxValue"
-    [min]="minValue"
-    [attr.aria-label]="ariaLabel | transloco"
-    (change)="onChangedHandler($event)"
-    (blur)="onTouched()"
-    [ngClass]="customClass"
-    [class.is-valid]="control?.valid && control?.dirty"
-    [class.is-invalid]="control?.invalid && control?.dirty"
-    #input
-  ></mat-slider>
-  <div class="valid-feedback"
-       aria-live="assertive">
-    {{_successMessage | transloco}}
+  <div class="slider-container">
+    <input
+      type="range"
+      [id]="id"
+      class="form-range"
+      [ngClass]="customClass"
+      [class.vertical]="vertical"
+      [disabled]="disabled"
+      [ngStyle]="{ width: vertical ? null : '100%' }"
+      [min]="minValue"
+      [max]="maxValue"
+      [step]="interval"
+      [attr.aria-label]="ariaLabel | transloco"
+      (change)="onChangedHandler($event)"
+      (blur)="onTouched()"
+      [class.is-valid]="control?.valid && control?.dirty"
+      [class.is-invalid]="control?.invalid && control?.dirty"
+      #input />
   </div>
-  <div class="invalid-feedback"
-       aria-live="polite"
-       [id]="id + '-error'">
-    {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
+  <div class="valid-feedback" aria-live="assertive">
+    {{ _successMessage | transloco }}
   </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
-         class="form-text text-muted"
-         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         *ngIf="helpMessage">
-    {{_helpMessage | transloco}}
+  <div class="invalid-feedback" aria-live="polite" [id]="id + '-error'">
+    {{ _errorMessage | transloco : { requiredValue: _requiredValue } }}
+  </div>
+  <small
+    [id]="id + '-help'"
+    aria-live="assertive"
+    class="form-text text-muted"
+    [hidden]="
+      control?.dirty &&
+      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
+    "
+    *ngIf="helpMessage">
+    {{ _helpMessage | transloco }}
   </small>
 </div>

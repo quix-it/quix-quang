@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   Input,
   OnInit,
   Optional,
@@ -9,7 +10,6 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { delay, filter } from 'rxjs/operators'
-import { MatLegacySlider, MatLegacySliderChange } from '@angular/material/legacy-slider'
 
 /**
  * slider component decorator
@@ -77,6 +77,10 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * Array of additional classes to the input field
    */
   @Input() customClass: string[] = []
+  /**
+   * Disable element
+   */
+  @Input() disabled: boolean = false
 
   /**
    * The value of the input
@@ -101,7 +105,7 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: MatLegacySlider | undefined
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
   /**
    * Standard definition to create a control value accessor
    */
@@ -163,8 +167,8 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: MatLegacySliderChange): void {
-    if (e?.value !== null) this._value = e.value
+  onChangedHandler (e: any): void {
+    if (e !== null) this._value = e.target.value
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -174,16 +178,16 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
   writeValue (value: any): void {
-    if (this.input) this.input.value = value
+    if (this.input) this.input.nativeElement.value = value
   }
 
   /**
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  setDisabledState (isDisabled: boolean): void {
-    this.input?.setDisabledState(isDisabled)
-  }
+  // setDisabledState (isDisabled: boolean): void {
+  //   this.input?.nativeElement.setDisabledState(isDisabled)
+  // }
 
   /**
    * When the input field changes,
