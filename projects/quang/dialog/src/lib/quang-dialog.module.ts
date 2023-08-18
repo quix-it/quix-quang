@@ -1,11 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core'
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
-import { QuangBottomSheetService } from './bottom-sheet/bottom-sheet.service'
 import { QuangModalService } from './modal/quang-modal.service'
 import { StoreModule } from '@ngrx/store'
 import { quangDialogReducers } from './quang-dialog.reducers'
-import { QuangSnackbarService } from './snackbar/quang-snackbar.service'
-import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { QuangToastComponent } from './toast/toast.component'
 import { QuangToastService } from './toast/toast.service'
 import { CommonModule } from '@angular/common'
@@ -29,18 +25,14 @@ import { QuangNotificationService } from './notification/notification.service'
     SkeletonComponent
   ],
   imports: [
-    MatBottomSheetModule,
     StoreModule.forFeature(QUANGDIALOG_KEY, quangDialogReducers),
     EffectsModule.forFeature([NotificationEffects]),
-    MatSnackBarModule,
     CommonModule,
     TranslocoModule,
     ModalModule.forRoot()
   ],
   providers: [
-    QuangBottomSheetService,
     QuangModalService,
-    QuangSnackbarService,
     QuangToastService,
     QuangHttpErrorService,
     QuangNotificationService
