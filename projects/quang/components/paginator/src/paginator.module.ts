@@ -6,12 +6,14 @@ import { TranslocoModule } from '@ngneat/transloco'
 import { QuangPaginatorService } from './paginator.service'
 import { PaginatorLanguage } from './paginator.language'
 import { PaginationModule } from 'ngx-bootstrap/pagination'
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
 
 @NgModule({
   declarations: [PaginatorComponent],
   imports: [
     CommonModule,
-    PaginationModule.forRoot(),
+    PaginationModule,
+    TooltipModule,
     TranslocoModule,
     FormsModule
   ],

@@ -46,26 +46,42 @@
   #nextTemplate
   let-disabled="disabled"
   let-currentPage="currentPage">
-  <span class="material-symbols-outlined"> chevron_right </span>
+  <span
+    class="material-symbols-outlined"
+    [tooltip]="'quangPaginator.nextPage' | transloco">
+    chevron_right
+  </span>
 </ng-template>
 
 <ng-template
   #prevTemplate
   let-disabled="disabled"
   let-currentPage="currentPage">
-  <span class="material-symbols-outlined"> chevron_left </span>
+  <span
+    class="material-symbols-outlined"
+    [tooltip]="'quangPaginator.previousPage' | transloco">
+    chevron_left
+  </span>
 </ng-template>
 
 <ng-template
   #lastTemplate
   let-disabled="disabled"
   let-currentPage="currentPage">
-  <span class="material-symbols-outlined"> last_page </span>
+  <span
+    class="material-symbols-outlined"
+    [tooltip]="'quangPaginator.lastPage' | transloco">
+    last_page
+  </span>
 </ng-template>
 
 <ng-template
   #firstTemplate
   let-disabled="disabled"
   let-currentPage="currentPage">
-  <span class="material-symbols-outlined"> first_page </span>
+  <span
+    class="material-symbols-outlined"
+    [tooltip]="'quangPaginator.firstPage' | transloco">
+    first_page
+  </span>
 </ng-template>

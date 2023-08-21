@@ -18,7 +18,10 @@
         gap: 1.5rem;
         &:focus {
           box-shadow: none;
-          background-color: none;
+          background-color: unset;
+        }
+        &:hover {
+          background-color: #eff2f7;
         }
         span {
           vertical-align: bottom;
