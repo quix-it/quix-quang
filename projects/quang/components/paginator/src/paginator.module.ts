@@ -5,19 +5,17 @@ import { FormsModule } from '@angular/forms'
 import { TranslocoModule } from '@ngneat/transloco'
 import { QuangPaginatorService } from './paginator.service'
 import { PaginatorLanguage } from './paginator.language'
-import {
-  MatPaginatorIntl,
-  MatPaginatorModule
-} from '@angular/material/paginator'
+import { PaginationModule } from 'ngx-bootstrap/pagination'
 
 @NgModule({
   declarations: [PaginatorComponent],
-  imports: [CommonModule, MatPaginatorModule, TranslocoModule, FormsModule],
-  providers: [
-    QuangPaginatorService,
-    PaginatorLanguage,
-    { provide: MatPaginatorIntl, useClass: PaginatorLanguage }
+  imports: [
+    CommonModule,
+    PaginationModule.forRoot(),
+    TranslocoModule,
+    FormsModule
   ],
+  providers: [QuangPaginatorService, PaginatorLanguage],
   exports: [PaginatorComponent]
 })
 export class QuangPaginatorModule {}
