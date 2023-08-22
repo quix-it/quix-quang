@@ -69,3 +69,8 @@
 * feat update to angular 15
 * feat implements virtual scroll in autocomplete-strg, autocomplete-strg-async, autocomplete-obj, autocomplete-obj-async
 * feat add elements label in quang-paginator
+
+## 15.1.0
+* feat remove material
+* feat paginator esier to implements
+* fix date's components errors on ExpressionChangedAfterItHasBeenCheckedError
