@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { MatPaginatorIntl } from '@angular/material/paginator'
 import { TranslocoService } from '@ngneat/transloco'
+import { PaginatorIntl } from './paginatorIntl';
 
 /**
  * service decorator
@@ -11,7 +11,7 @@ import { TranslocoService } from '@ngneat/transloco'
 /**
  * paginator language management
  */
-export class PaginatorLanguage extends MatPaginatorIntl {
+export class PaginatorLanguage extends PaginatorIntl {
   /**
    * constructor
    * @param translateService translation utility
