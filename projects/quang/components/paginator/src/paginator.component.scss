@@ -5,7 +5,7 @@
   flex-wrap: wrap;
   @media (min-width: 576px) {
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: end;
     order: 2;
   }
 
