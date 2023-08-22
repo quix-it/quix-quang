@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Inject,
@@ -258,6 +259,7 @@ export class InputDateTimeComponent
   constructor(
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
+    private readonly changeDetectorRef: ChangeDetectorRef,
     @Self() @Optional() public control: NgControl,
     @Inject(LOCALE_ID) public locale: string
   ) {
@@ -391,6 +393,7 @@ export class InputDateTimeComponent
         value
       );
     }
+    this.changeDetectorRef.detectChanges()
   }
 
   /**
