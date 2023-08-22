@@ -8,9 +8,9 @@ import { QuangToast } from '../../../../../quang/dialog/src/lib/toast/toast.mode
   styles: []
 })
 export class ToastComponent {
-  constructor(private readonly toastService: QuangToastService) {}
+  constructor (private readonly toastService: QuangToastService) {}
 
-  openToast(): void {
+  openToast (): void {
     this.toastService.openToast(
       new QuangToast(
         'success',

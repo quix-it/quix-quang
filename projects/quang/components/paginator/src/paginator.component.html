@@ -1,14 +1,13 @@
 <div class="paginatorContainer" [id]="id" [ngClass]="customClass">
   <div *ngIf="showTotalElementsCount" class="me-3 mb-2">
-    {{'quangPaginator.totalItems' | transloco}} {{totalItems}}
+    {{ 'quangPaginator.totalItems' | transloco }} {{ totalItems }}
   </div>
   <div class="me-3">
     <label
       for="pageSize"
       class="form-label"
-      [attr.aria-label]="ariaLabel | transloco"
-    >
-      {{ "quangPaginator.size" | transloco }}
+      [attr.aria-label]="ariaLabel | transloco">
+      {{ 'quangPaginator.size' | transloco }}
     </label>
     <select
       [tabIndex]="tabIndex"
@@ -18,25 +17,71 @@
       autocomplete="off"
       [attr.aria-label]="'page size'"
       (change)="onChangeSize($event)"
-      #input
-    >
+      #input>
       <option
         [ngValue]="size"
         [selected]="size === this._pageSize"
-        *ngFor="let size of sizeList"
-      >
+        *ngFor="let size of sizeList">
         {{ size }}
       </option>
     </select>
   </div>
-  <mat-paginator
-    id="page index"
+  <pagination
+    id="quangPaginator"
     [tabIndex]="isAccessible ? 0 : tabIndex + 1"
-    [pageSizeOptions]="sizeList"
-    (page)="onChangePage($event)"
-    [hidePageSize]="true"
-    [showFirstLastButtons]="true"
+    (pageChanged)="onChangePage($event)"
+    [(ngModel)]="_page"
+    [itemsPerPage]="_pageSize"
+    [boundaryLinks]="true"
+    [totalItems]="totalItems"
     [attr.aria-label]="'page index'"
-    #quangPaginator
-  ></mat-paginator>
+    [customFirstTemplate]="firstTemplate"
+    [customLastTemplate]="lastTemplate"
+    [customPreviousTemplate]="prevTemplate"
+    [customNextTemplate]="nextTemplate"
+    #quangPagination></pagination>
 </div>
+
+<ng-template
+  #nextTemplate
+  let-disabled="disabled"
+  let-currentPage="currentPage">
+  <span
+    class="material-symbols-outlined"
+    [tooltip]="'quangPaginator.nextPage' | transloco">
+    chevron_right
+  </span>
+</ng-template>
+
+<ng-template
+  #prevTemplate
+  let-disabled="disabled"
+  let-currentPage="currentPage">
+  <span
+    class="material-symbols-outlined"
+    [tooltip]="'quangPaginator.previousPage' | transloco">
+    chevron_left
+  </span>
+</ng-template>
+
+<ng-template
+  #lastTemplate
+  let-disabled="disabled"
+  let-currentPage="currentPage">
+  <span
+    class="material-symbols-outlined"
+    [tooltip]="'quangPaginator.lastPage' | transloco">
+    last_page
+  </span>
+</ng-template>
+
+<ng-template
+  #firstTemplate
+  let-disabled="disabled"
+  let-currentPage="currentPage">
+  <span
+    class="material-symbols-outlined"
+    [tooltip]="'quangPaginator.firstPage' | transloco">
+    first_page
+  </span>
+</ng-template>

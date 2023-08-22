@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { fromEvent, merge, Observable, of } from 'rxjs'
 import { mapTo } from 'rxjs/operators'
-import { QuangSnackbarService } from '../snackbar/quang-snackbar.service'
 import { Store } from '@ngrx/store'
 import { TranslocoService } from '@ngneat/transloco'
 import { QuangDialogStateModule } from '../quang-dialog.reducers'
@@ -30,7 +29,6 @@ export class QuangOfflineService {
    * @param store
    */
   constructor (
-    private readonly quangSnackbar: QuangSnackbarService,
     private readonly translate: TranslocoService,
     private readonly store: Store<QuangDialogStateModule>
   ) {
@@ -57,12 +55,8 @@ export class QuangOfflineService {
     this.getConnectionObserver().subscribe((connection: boolean) => {
       if (!connection) {
         this.store.dispatch(OfflineActions.offline())
-        this.quangSnackbar.openSnackbar(this.offlineLabel)
       } else {
         this.store.dispatch(OfflineActions.online())
-        if (this.quangSnackbar.snackBar) {
-          this.quangSnackbar.closeSnackbar()
-        }
       }
     })
   }

@@ -9,17 +9,17 @@ import {
   Output,
   Renderer2,
   SimpleChanges,
-  ViewChild,
-} from "@angular/core";
-import { MatPaginator } from "@angular/material/paginator";
+  ViewChild
+} from '@angular/core'
+import { PaginationComponent } from 'ngx-bootstrap/pagination'
 /**
  * paginator component decorator
  */
 @Component({
-  selector: "quang-paginator",
-  templateUrl: "./paginator.component.html",
-  styleUrls: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'quang-paginator',
+  templateUrl: './paginator.component.html',
+  styleUrls: ['./paginator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
  * paginator component
@@ -28,80 +28,80 @@ export class PaginatorComponent implements OnInit, OnChanges {
   /**
    * Html id of input
    */
-  @Input() id: string = "";
+  @Input() id: string = ''
   /**
    * Array of additional classes to the input field
    */
-  @Input() customClass: string[] = [];
+  @Input() customClass: string[] = []
   /**
    * Total number of records
    */
-  @Input() totalItems: number = 0;
+  @Input() totalItems: number = 0
   /**
    * Indicate the position in the page navigation flow with the tab key
    */
-  @Input() tabIndex: number = 0;
+  @Input() tabIndex: number = 0
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
-  @Input() ariaLabel: string = `Paginator ${this.id}`;
+  @Input() ariaLabel: string = `Paginator ${this.id}`
   /**
    * List of selectable page sizes
    */
-  @Input() sizeList: number[] = [];
+  @Input() sizeList: number[] = []
   /**
    * Page size
    */
-  @Input() pageSize: number = 0;
+  @Input() pageSize: number = 0
   /**
    * Page index
    */
-  @Input() pageIndex: number = 0;
+  @Input() pageIndex: number = 1
   /**
    * when true define pageSize initialize as default value of pagination select
    */
-  @Input() defaultSize: boolean = true;
+  @Input() defaultSize: boolean = true
   /**
    * if value true set all elements at same tabIndex of quang-paginator (best practise set to 0 for accessibility)
    */
-  @Input() isAccessible: boolean = false;
+  @Input() isAccessible: boolean = false
   /**
    * if value true add elements label near pages
    */
-  @Input() showTotalElementsCount: boolean = false;
+  @Input() showTotalElementsCount: boolean = false
   /**
    * Raises an event when the page index changes
    */
-  @Output() whenPageChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() whenPageChange: EventEmitter<number> = new EventEmitter<number>()
   /**
    * Raises an event when the page size changes
    */
-  @Output() whenSizeChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() whenSizeChange: EventEmitter<number> = new EventEmitter<number>()
   /**
    * mat paginator html element
    */
-  @ViewChild("quangPaginator", { static: true }) paginator:
-    | MatPaginator
-    | undefined;
+  @ViewChild('quangPaginator', { static: true }) paginator:
+    | PaginationComponent
+    | undefined
   /**
    * The html input element
    */
-  @ViewChild("input", { static: true }) input:
+  @ViewChild('input', { static: true }) input:
     | ElementRef<HTMLSelectElement>
-    | undefined;
+    | undefined
   /**
    * Size of the list
    */
-  _length: number = 0;
+  _length: number = 0
   /**
    * Page index state
    */
-  _pageIndex: number = 0;
+  _page: number = 0
   /**
    * page size state
    */
-  _pageSize: number = 0;
+  _pageSize: number = 0
 
   /**
    * constructor
@@ -110,7 +110,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   constructor(private readonly renderer: Renderer2) {}
   ngOnInit(): void {
     if (this.defaultSize) {
-      this._pageSize = this.pageSize;
+      this._pageSize = this.pageSize
     }
   }
 
@@ -120,29 +120,20 @@ export class PaginatorComponent implements OnInit, OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.totalItems?.currentValue && this.paginator) {
-      this._length = changes.totalItems?.currentValue;
-      this.paginator.length = changes.totalItems?.currentValue;
-    }
-    if (changes.pageIndex && this.paginator) {
-      if (
-        changes.pageIndex.currentValue >= 0 &&
-        changes.pageIndex.currentValue !== this._pageIndex
-      ) {
-        this._pageIndex = changes.pageIndex.currentValue;
-        this.paginator.pageIndex = changes.pageIndex.currentValue;
-      }
+      this._length = changes.totalItems?.currentValue
+      this.paginator.totalItems = changes.totalItems?.currentValue
     }
     if (changes.pageSize && this.paginator) {
       if (
         changes.pageSize?.currentValue >= 0 &&
         changes.pageSize?.currentValue !== this._pageSize
       ) {
-        this.paginator.pageSize = changes.pageSize.currentValue;
+        this.paginator.itemsPerPage = changes.pageSize.currentValue
         this.renderer.setProperty(
           this.input?.nativeElement,
-          "value",
+          'value',
           changes.pageSize.currentValue
-        );
+        )
       }
     }
   }
@@ -152,9 +143,9 @@ export class PaginatorComponent implements OnInit, OnChanges {
    * @param event
    */
   onChangePage(event: any): void {
-    if (event.pageIndex !== this._pageIndex) {
-      this._pageIndex = event.pageIndex;
-      this.whenPageChange.emit(this._pageIndex);
+    if (event.page !== this._page) {
+      this._page = event.page
+      this.whenPageChange.emit(this._page)
     }
   }
 
@@ -163,18 +154,15 @@ export class PaginatorComponent implements OnInit, OnChanges {
    * @param event
    */
   onChangeSize(event: any): void {
-    if (this.paginator)
-      this.paginator.pageSize = parseInt(
-        (event.target as HTMLInputElement).value
-      );
-    this._pageSize = parseInt((event.target as HTMLInputElement).value);
-    this.whenSizeChange.emit(this._pageSize);
+    this._pageSize = parseInt(event.target.value)
+    this.whenSizeChange.emit(this._pageSize)
   }
 
   /**
    * Go to the first page of the pager
    */
   goToFirstPage(): void {
-    this.paginator?.firstPage();
+    this._page = 1
+    this.whenPageChange.emit(this._page)
   }
 }
