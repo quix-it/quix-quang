@@ -125,7 +125,7 @@ export class QuangModalService {
    * they will be emitted by the observable onHide of this service
    * @param hideData
    */
-  closeModal (hideData: string | number): void {
+  closeModal (hideData: any): void {
     this.modalService.onHide.emit(hideData)
     this.modalRef?.hide()
   }
