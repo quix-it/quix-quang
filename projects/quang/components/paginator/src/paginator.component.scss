@@ -1,3 +1,24 @@
+.paginatorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  @media (min-width: 576px) {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    order: 2;
+  }
+
+  #pageSize {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    order: 2;
+    @media (min-width: 576px) {
+      order: 1;
+    }
+  }
+}
+
 ::ng-deep #quangPaginator {
   .pagination {
     margin-bottom: 0.5rem;
@@ -42,5 +63,6 @@
   margin-bottom: 1rem;
   color: #0000008a;
   font-size: 0.75rem;
-  font-family: 'Roboto, Helvetica Neue, sans-serif';
 }
+//   }
+// }
