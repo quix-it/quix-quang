@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { MatPaginatorIntl } from "@angular/material/paginator";
-import { TranslocoService } from "@ngneat/transloco";
+import { Injectable } from '@angular/core'
+import { MatPaginatorIntl } from '@angular/material/paginator'
+import { TranslocoService } from '@ngneat/transloco'
 
 /**
  * service decorator
  */
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
 /**
  * paginator language management
@@ -17,23 +17,23 @@ export class PaginatorLanguage extends MatPaginatorIntl {
    * @param translateService translation utility
    */
   constructor(private readonly translateService: TranslocoService) {
-    super();
+    super()
     this.translateService.langChanges$.subscribe(() => {
-      this.getAndInitTranslations();
-    });
-    this.getAndInitTranslations();
+      this.getAndInitTranslations()
+    })
+    this.getAndInitTranslations()
     this.getRangeLabel = (page: number, pageSize: number, length: number) => {
       if (length === 0) {
         return this.translateService.translate(
-          "quangPaginator.pageRangeNoResults"
-        );
+          'quangPaginator.pageRangeNoResults'
+        )
       }
-      const amountPages = Math.ceil(length / pageSize);
-      return this.translateService.translate("quangPaginator.pageRange", {
+      const amountPages = Math.ceil(length / pageSize)
+      return this.translateService.translate('quangPaginator.pageRange', {
         page: page + 1,
-        amountPages,
-      });
-    };
+        amountPages
+      })
+    }
   }
 
   /**
@@ -42,21 +42,21 @@ export class PaginatorLanguage extends MatPaginatorIntl {
   getAndInitTranslations(): void {
     this.translateService
       .selectTranslate([
-        "quangPaginator.itemPerPage",
-        "quangPaginator.nextPage",
-        "quangPaginator.previousPage",
-        "quangPaginator.firstPage",
-        "quangPaginator.lastPage",
+        'quangPaginator.itemPerPage',
+        'quangPaginator.nextPage',
+        'quangPaginator.previousPage',
+        'quangPaginator.firstPage',
+        'quangPaginator.lastPage'
       ])
       .subscribe((t) => {
-        [
+        ;[
           this.itemsPerPageLabel,
           this.nextPageLabel,
           this.previousPageLabel,
           this.firstPageLabel,
-          this.lastPageLabel,
-        ] = t;
-        this.changes.next();
-      });
+          this.lastPageLabel
+        ] = t
+        this.changes.next()
+      })
   }
 }
