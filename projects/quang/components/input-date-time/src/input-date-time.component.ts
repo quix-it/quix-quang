@@ -106,6 +106,14 @@ export class InputDateTimeComponent
    */
   @Input() maxDate: Date | undefined = undefined;
   /**
+   * defines the minimum selectable time
+   */
+  @Input() minTime: Date | undefined = undefined;
+  /**
+   * defines the maximum selectable time
+   */
+  @Input() maxTime: Date | undefined = undefined;
+  /**
    * Indicates whether, when the page is opened,
    * this input field should be displayed in a focused state or not
    */

@@ -30,13 +30,24 @@
   }
 
   .toast-header {
-    .rounded  {
+    .rounded {
       height: 1.125rem;
       width: 1.125rem;
       display: inline-block;
+      &.success {
+        background: $success;
+      }
+
+      &.warning {
+        background: $warning;
+      }
+
+      &.error {
+        background: $danger;
+      }
     }
-    small {
-      margin-left: 1rem;
-    }
+  }
+  small {
+    margin-left: 1rem;
   }
 }
