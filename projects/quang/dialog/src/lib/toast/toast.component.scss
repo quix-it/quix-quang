@@ -35,15 +35,15 @@
       width: 1.125rem;
       display: inline-block;
       &.success {
-        background: $success;
+        background: #28a745;
       }
 
       &.warning {
-        background: $warning;
+        background: #ffc107;
       }
 
       &.error {
-        background: $danger;
+        background: #dc3545;
       }
     }
   }
