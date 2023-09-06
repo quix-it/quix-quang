@@ -33,10 +33,7 @@ export class QuangModalService {
    * constructor
    * @param modalService modal utility
    */
-  constructor (
-    private readonly modalService: BsModalService
-  ) {
-  }
+  constructor(private readonly modalService: BsModalService) {}
 
   /**
    * opens the modal
@@ -50,7 +47,8 @@ export class QuangModalService {
    * @param closeWithKeyboard
    * @param ignoreCloseWithClick
    */
-  openModal (modalComponent: any,
+  openModal(
+    modalComponent: any,
     modalTitle: string,
     size?: 'xl' | 'lg' | 'md' | 'sm',
     modalParams?: any,
@@ -74,28 +72,28 @@ export class QuangModalService {
   /**
    * event that traces the opening of the modal
    */
-  onShownEvent (): Observable<any> {
+  onShownEvent(): Observable<any> {
     return this.modalService.onShown.pipe(take(1))
   }
 
   /**
    * event that traces the opening of the modal
    */
-  onShowEvent (): Observable<any> {
+  onShowEvent(): Observable<any> {
     return this.modalService.onShow.pipe(take(1))
   }
 
   /**
    * event that traces the closure of the modal
    */
-  onHideEvent (): Observable<any> {
+  onHideEvent(): Observable<any> {
     return this.modalService.onHide.pipe(take(1))
   }
 
   /**
    * event that traces the successful closure of the modal
    */
-  onHiddenEvent (): Observable<any> {
+  onHiddenEvent(): Observable<any> {
     return this.modalService.onHidden.pipe(take(1))
   }
 
@@ -104,19 +102,20 @@ export class QuangModalService {
    * @param size
    * @private
    */
-  private setSize (size: string): void {
+  private setSize(size: string): void {
+    if (!this.config.class) this.config.class = ''
     switch (size) {
       case 'xl':
-        this.config.class = 'modal-xl'
+        this.config.class += ' modal-xl'
         break
       case 'lg':
-        this.config.class = 'modal-lg'
+        this.config.class += ' modal-lg'
         break
       case 'sm':
-        this.config.class = 'modal-sm'
+        this.config.class += ' modal-sm'
         break
       default:
-        this.config.class = 'modal-md'
+        this.config.class += ' modal-md'
         break
     }
   }
@@ -126,7 +125,7 @@ export class QuangModalService {
    * they will be emitted by the observable onHide of this service
    * @param hideData
    */
-  closeModal (hideData: any): void {
+  closeModal(hideData: any): void {
     this.modalService.onHide.emit(hideData)
     this.modalRef?.hide()
   }
