@@ -52,20 +52,21 @@ export class QuangModalService {
    */
   openModal (modalComponent: any,
     modalTitle: string,
-    size: 'xl' | 'lg' | 'md' | 'sm',
+    size?: 'xl' | 'lg' | 'md' | 'sm',
     modalParams?: any,
     closeWithKeyboard?: boolean,
-    ignoreCloseWithClick?: boolean
+    ignoreCloseWithClick?: boolean,
+    cssClass?: string
   ): void {
     this.modalRef = new BsModalRef()
     this.config = {
       ...this.config,
       keyboard: closeWithKeyboard,
       ignoreBackdropClick: ignoreCloseWithClick,
-      class: '',
+      class: cssClass,
       initialState: modalParams
     }
-    this.setSize(size)
+    this.setSize(size || 'md')
     this.modalRef = this.modalService.show(modalComponent, this.config)
     this.modalRef.content.title = modalTitle
   }
