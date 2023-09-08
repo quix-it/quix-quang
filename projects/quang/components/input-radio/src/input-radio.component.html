@@ -1,45 +1,49 @@
-<div class="mb-3">
+<div class="mb-3 d-flex flex-column custom-radio">
   <label
     [htmlFor]="id"
     class="form-label"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [attr.aria-label]="ariaLabel | transloco"
     *ngIf="label">
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.['required']">*</span>
   </label>
-  <div
-    class="form-check"
-    [class.form-check-inline]="inline"
-    *ngFor="let radio of radioList; let index = index">
-    <input
-      type="radio"
-      role="radio"
-      [attr.aria-labelledby]="label | transloco"
-      [attr.aria-checked]="_value === radio[returnValue]"
-      class="form-check-input"
-      [name]="groupName"
-      [id]="id + radio[labelValue]"
-      [tabIndex]="0"
-      [ngClass]="customClass"
-      [class.is-valid]="control?.valid && control?.dirty && successMessage"
-      [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-      [value]="radio[returnValue]"
-      [checked]="radio[returnValue]?.toString() === _value?.toString()"
-      (input)="onChangedHandler($event)"
-      (blur)="onTouched()"
-      [autocomplete]="autocomplete"
-      [disabled]="_disabled"
-      [attr.aria-disabled]="_disabled"
-      [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
-      [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
-      [attr.aria-invalid]="control.invalid"
-      #input />
-    <label
-      class="form-check-label"
-      [attr.aria-label]="ariaLabel | transloco"
-      [htmlFor]="id + radio[labelValue]">
-      {{ radio[labelValue] | transloco }}
-    </label>
+  <div [ngClass]="{'custom-row-radio': direction === 'row'}">
+    <div
+      class="form-check"
+      [class.form-check-inline]="inline"
+      *ngFor="let radio of radioList; let index = index">
+      <input
+        type="radio"
+        role="radio"
+        [attr.aria-labelledby]="label | transloco"
+        [attr.aria-checked]="_value === radio[returnValue]"
+        class="form-check-input"
+        [name]="groupName"
+        [id]="id + radio[labelValue]"
+        [tabIndex]="0"
+        [ngClass]="customClass"
+        [class.is-valid]="control?.valid && control?.dirty && successMessage"
+        [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+        [value]="radio[returnValue]"
+        [checked]="radio[returnValue]?.toString() === _value?.toString()"
+        (input)="onChangedHandler($event)"
+        (blur)="onTouched()"
+        [autocomplete]="autocomplete"
+        [disabled]="_disabled"
+        [attr.aria-disabled]="_disabled"
+        [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+        [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+        [attr.aria-invalid]="control.invalid"
+        #input />
+      <label
+        class="form-check-label"
+        [attr.aria-label]="ariaLabel | transloco"
+        [htmlFor]="id + radio[labelValue]">
+        {{ radio[labelValue] | transloco }}
+      </label>
+    </div>
   </div>
   <div
     class="valid-feedback"

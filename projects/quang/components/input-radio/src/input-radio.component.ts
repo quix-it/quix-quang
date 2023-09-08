@@ -97,6 +97,11 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
   @Input() autocomplete: string = 'off'
 
   /**
+   * Defines if the radio buttons are to be shown in a row or column
+   */
+  @Input() direction: 'row' | 'column' = 'row'
+
+  /**
    * The value of the input
    */
   _value: string | number = ''

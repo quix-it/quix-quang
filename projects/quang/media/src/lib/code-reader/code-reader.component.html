@@ -8,6 +8,7 @@
     <div class="mb-3">
       <label [htmlFor]="id"
              class="form-label"
+             [class.is-invalid]="_errorMessage"
              [attr.aria-label]="ariaLabel | transloco"
              *ngIf="label">
         {{label | transloco}}

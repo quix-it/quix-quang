@@ -3,6 +3,8 @@
     <div class="mb-3">
       <label
         class="form-label"
+        [class.is-valid]="control?.valid && control?.dirty && successMessage"
+        [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
         [htmlFor]="id"
         [attr.aria-label]="ariaLabel"
         *ngIf="label">
