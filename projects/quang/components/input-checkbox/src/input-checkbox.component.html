@@ -19,6 +19,8 @@
     #input />
     <label
     class="form-check-label"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.cursor-default]="control.disabled"
     [htmlFor]="id"
     [attr.aria-label]="ariaLabel | transloco"
