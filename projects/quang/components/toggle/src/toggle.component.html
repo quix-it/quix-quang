@@ -1,4 +1,13 @@
-<div class="mb-3 toggle-wrapper form-check form-switch" [class.form-inline]="labelInline">
+<div
+  class="mb-3 toggle-wrapper form-check form-switch"
+  [class.form-inline]="labelInline"
+  [ngClass]="
+    direction === 'row'
+      ? 'direction-row'
+      : direction === 'reverse-row'
+      ? 'direction-reverse-row'
+      : 'direction-column'
+  ">
   <label
     [htmlFor]="id"
     class="form-label"
@@ -24,9 +33,13 @@
     (blur)="onTouched()"
     [attr.aria-disabled]="_disabled"
     [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
-    [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+    [attr.aria-errormessage]="
+      errorMessage && _errorMessage ? id + '-error' : ''
+    "
     [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
     #input />
+</div>
+<div class="feedback">
   <div class="valid-feedback" aria-live="assertive">
     {{ _successMessage | transloco }}
   </div>

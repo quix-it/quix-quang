@@ -1,11 +1,31 @@
 .toggle-wrapper {
-  &.form-inline {
-    .form-label {
-      margin-right: .5rem
-    }
-  }
+  padding-left: unset;
+  display: flex;
 
   label {
     display: block;
   }
+
+  input {
+    margin-left: unset;
+  }
+}
+
+.direction-row {
+  flex-direction: row;
+  .form-label {
+    margin-right: 0.5rem;
+  }
+}
+
+.direction-reverse-row {
+  flex-direction: row-reverse;
+  justify-content: start;
+  input {
+    margin-right: 0.5rem;
+  }
+}
+
+.direction-column {
+  flex-direction: column;
 }

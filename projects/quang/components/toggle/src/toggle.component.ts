@@ -74,6 +74,10 @@ export class ToggleComponent
    */
   @Input() defaultValue: boolean = false
   /**
+   * set toggle direction. default = column
+   */
+  @Input() direction: 'row' | 'reverse-row' | 'column' = 'column'
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: HTMLInputElement | undefined
