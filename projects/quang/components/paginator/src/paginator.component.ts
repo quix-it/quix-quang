@@ -9,7 +9,6 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core'
-import { PaginationComponent } from 'ngx-bootstrap/pagination'
 /**
  * paginator component decorator
  */
@@ -21,7 +20,7 @@ import { PaginationComponent } from 'ngx-bootstrap/pagination'
 /**
  * paginator component
  */
-export class PaginatorComponent implements OnInit {
+export class PaginatorComponent {
   /**
    * Html id of input
    */
@@ -50,15 +49,13 @@ export class PaginatorComponent implements OnInit {
   /**
    * Page size
    */
-  @Input() pageSize: number = 0
+  @Input() set pageSize(val: number) {
+    this._pageSize = val
+  }
   /**
    * Page index
    */
   @Input() pageIndex: number = 1
-  /**
-   * when true define pageSize initialize as default value of pagination select
-   */
-  @Input() defaultSize: boolean = true
   /**
    * if value true set all elements at same tabIndex of quang-paginator (best practise set to 0 for accessibility)
    */
@@ -75,12 +72,6 @@ export class PaginatorComponent implements OnInit {
    * Raises an event when the page size changes
    */
   @Output() whenSizeChange: EventEmitter<number> = new EventEmitter<number>()
-  /**
-   * mat paginator html element
-   */
-  @ViewChild('quangPaginator', { static: true }) paginator:
-    | PaginationComponent
-    | undefined
   /**
    * The html input element
    */
@@ -109,11 +100,6 @@ export class PaginatorComponent implements OnInit {
    * @param renderer html access
    */
   constructor(private readonly renderer: Renderer2, private readonly changeDetectionRef: ChangeDetectorRef) {}
-  ngOnInit(): void {
-    if (this.defaultSize) {
-      this._pageSize = this.pageSize
-    }
-  }
 
   /**
    * When the page index changes, it saves the state and issues the event
