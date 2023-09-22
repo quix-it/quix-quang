@@ -15,14 +15,11 @@
     justify-content: end;
   }
 
-  .size-select {
-    min-width: 80px;
-  }
-
   #pageSize {
     display: inline-block;
     margin-bottom: 0.5rem;
     order: 2;
+    min-width: 80px;
     @media (min-width: 576px) {
       order: 1;
     }
