@@ -38,9 +38,10 @@
       [placement]="placement"
       (bsValueChange)="onBsValueChange($event)"
       (blur)="onTouched()"
+      [isDisabled]="_disabled"
       #drp="bsDatepicker"
     />
-    <div class="input-group-append">
+    <div class="input-group-append" *ngIf="!_disabled">
       <button
         class="btn"
         [ngClass]="buttonClass"

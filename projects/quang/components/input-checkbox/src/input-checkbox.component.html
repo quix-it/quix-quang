@@ -10,6 +10,7 @@
     [ngClass]="customClass"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [checked]="_value"
     (input)="onChangedHandler($event)"
     (blur)="onTouched()"
     [attr.aria-disabled]="_disabled"
@@ -24,6 +25,7 @@
     [class.cursor-default]="control.disabled"
     [htmlFor]="id"
     [attr.aria-label]="ariaLabel | transloco"
+    (click)="changeValue()"
     *ngIf="label">
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.['required']">*</span>

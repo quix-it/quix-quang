@@ -200,6 +200,12 @@ export class InputCheckboxComponent
     this.onChanged(this._value);
   }
 
+  changeValue() {
+    this._value = !this._value;
+    this.onTouched();
+    this.onChanged(this._value);
+  }
+
   /**
    * When the CVA is initialized as control it initializes the internal states
    * @param value

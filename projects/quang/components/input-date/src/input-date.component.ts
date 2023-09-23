@@ -184,17 +184,14 @@ export class InputDateComponent
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input:
+  @ViewChild('input') input:
     | ElementRef<HTMLInputElement>
     | undefined
 
-  @ViewChild('inputBtn', { static: true }) inputBtn:
+  @ViewChild('inputBtn') inputBtn:
     | ElementRef<HTMLButtonElement>
     | undefined
 
-  @ViewChild('drp', { static: true }) datePicker:
-    | BsDatepickerInlineDirective
-    | undefined
 
   /**
    * Standard definition to create a control value accessor
@@ -254,7 +251,7 @@ export class InputDateComponent
     }, 0)
     this.observeValidate()
     this.control.control?.markAsPristine()
-    if (this._value) this.onBsValueChange(this._value)
+    if (this._value) {this.onBsValueChange(this._value)}
   }
 
   /**
@@ -296,7 +293,7 @@ export class InputDateComponent
     } else if (this.returnISODate) {
       this.onChanged(date)
     } else {
-      this.onChanged(format(date, 'dd-MM-yyyy'))
+      this.onChanged(format(date, this.fixedDateFnsFormat(this.dateFormat)))
     }
   }
 
@@ -305,18 +302,26 @@ export class InputDateComponent
    * @param value
    */
   writeValue(value: any): void {
-    if (value) {
+    if (value && typeof value === 'string') {
       this._value = new Date(value)
     } else {
       this._value = value
     }
-    if (this.input)
+    if(this._value) {
+      console.log('input date writeValue', this._value, format(this._value, this.fixedDateFnsFormat(this.dateFormat)))
+    }
+    if (this.input) {
       this.renderer.setProperty(
         this.input.nativeElement,
         'value',
-        value ? format(this._value, 'dd-MM-yyyy') : value
+        this._value ? format(this._value, this.fixedDateFnsFormat(this.dateFormat)) : this._value
       )
+    }
     this.changeDetectorRef.detectChanges()
+  }
+
+  fixedDateFnsFormat(date: string): string {
+    return date.replace('DD', 'dd').replace('YYYY', 'yyyy')
   }
 
   /**
@@ -324,12 +329,18 @@ export class InputDateComponent
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
-    this.renderer.setProperty(
-      this.inputBtn?.nativeElement,
-      'disabled',
-      isDisabled
-    )
+    if(this.renderer) {
+      if(this.input) {
+        this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+      }
+      if(this.inputBtn) {
+        this.renderer.setProperty(
+          this.inputBtn?.nativeElement,
+          'disabled',
+          isDisabled
+        )
+      }
+    }
     this._disabled = isDisabled
   }
 
@@ -355,12 +366,12 @@ export class InputDateComponent
                 if (this.dateFormat) {
                   this._requiredValue = format(
                     new Date(this.control.errors.dateBetween.requiredValue[0]),
-                    this.dateFormat
+                    this.fixedDateFnsFormat(this.dateFormat)
                   )
                   this._requiredValue += ' - '
                   this._requiredValue += format(
                     new Date(this.control.errors.dateBetween.requiredValue[1]),
-                    this.dateFormat
+                    this.fixedDateFnsFormat(this.dateFormat)
                   )
                 } else {
                   this._requiredValue =
