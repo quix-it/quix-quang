@@ -170,7 +170,7 @@ export class InputDateTimeComponent
   /**
    * Contains the component configurations
    */
-  private config: Partial<BsDatepickerConfig> | undefined = undefined;
+  config: Partial<BsDatepickerConfig> | undefined = undefined;
 
   /**
    * the internal state of the date

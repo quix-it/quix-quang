@@ -1,6 +1,6 @@
 {
   "name": "@quix/root",
-  "version": "15.1.8-20",
+  "version": "15.1.9-1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

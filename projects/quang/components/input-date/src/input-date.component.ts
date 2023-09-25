@@ -136,7 +136,7 @@ export class InputDateComponent
   /**
    * Contains the component configurations
    */
-  _config: Partial<BsDatepickerConfig> | undefined = undefined
+  config: Partial<BsDatepickerConfig> | undefined = undefined
 
   /**
    * The value of the input
@@ -208,7 +208,7 @@ export class InputDateComponent
    * check help message and init the key
    */
   ngOnInit(): void {
-    this._config = {
+    this.config = {
       containerClass: 'theme-default',
       isAnimated: true,
       adaptivePosition: true,
