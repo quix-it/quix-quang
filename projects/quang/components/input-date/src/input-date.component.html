@@ -3,7 +3,7 @@
     class="form-label"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '_input'"
     [attr.aria-label]="ariaLabel | transloco"
     *ngIf="label"
   >
@@ -20,7 +20,7 @@
       class="form-control"
       bsDatepicker
       #input
-      [id]="id"
+      [id]="id + '_input'"
       [placeholder]="placeholder | transloco"
       [maxDate]="maxDate"
       [minDate]="minDate"

@@ -18,17 +18,9 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 import { format } from 'date-fns'
 import {
   BsDatepickerConfig,
-  BsDatepickerInlineDirective,
   BsLocaleService
 } from 'ngx-bootstrap/datepicker'
 import { delay, filter } from 'rxjs/operators'
-
-const defaultConfig = {
-  containerClass: 'theme-default',
-  isAnimated: true,
-  adaptivePosition: true,
-  returnFocusToInput: true
-}
 
 /**
  * input date component decorator
@@ -144,7 +136,12 @@ export class InputDateComponent
   /**
    * Contains the component configurations
    */
-  private _config: Partial<BsDatepickerConfig> = defaultConfig
+  private _config: Partial<BsDatepickerConfig> = {
+  containerClass: 'theme-default',
+  isAnimated: true,
+  adaptivePosition: true,
+  returnFocusToInput: true
+}
 
   public get config(): Partial<BsDatepickerConfig> {
     return this._config
@@ -152,7 +149,7 @@ export class InputDateComponent
 
   @Input()
   public set config(value: Partial<BsDatepickerConfig>) {
-    this._config = { ...defaultConfig, ...value }
+    this._config = { ...this._config, ...value }
   }
 
   /**
@@ -225,9 +222,10 @@ export class InputDateComponent
    * check help message and init the key
    */
   ngOnInit(): void {
-    this.config.dateInputFormat = this.dateFormat
-    this.config.rangeInputFormat = this.dateFormat
-    this.config.showWeekNumbers = this.showWeekNumbers
+    this._config.dateInputFormat = this.dateFormat
+    this._config.rangeInputFormat = this.dateFormat
+    this._config.showWeekNumbers = this.showWeekNumbers
+    this.config = {...this._config}
     if (this.locale) {
       this.localeService.use(this.locale)
     }
