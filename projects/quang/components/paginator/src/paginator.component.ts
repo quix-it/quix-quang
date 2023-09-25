@@ -129,7 +129,6 @@ export class PaginatorComponent {
   */
  goToFirstPage(): void {
    this._page = 1
-   this.whenPageChange.emit(this._page)
    this.changeDetectionRef.detectChanges()
   }
 
