@@ -222,9 +222,7 @@ export class InputTimeComponent
    */
   onChangedHandler(date: any): void {
     this.onTouched();
-    if (date) {
-      this.onChanged(date);
-    }
+    this.onChanged(date);
   }
 
   /**

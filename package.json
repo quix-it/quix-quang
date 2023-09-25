@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang",
-          "version": "13.2.12",
+          "version": "13.2.12-2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -20,6 +20,8 @@
     "build:quang-media": "ng-packagr -p projects/quang-media",
     "build:quang-utility": "ng-packagr -p projects/quang-utility",
     "build:quang-auth": "ng-packagr -p projects/quang-auth",
+    "cleanup": "rm -rf dist",
+    "publish:quang": "npm run cleanup && npm run build:quang && cd dist/quang && npm publish",
     "lint:quang-core": "ng lint --fix quang-core",
     "lint:quang-auth": "ng lint --fix quang-auth",
     "lint:quang-calendar": "ng lint --fix quang-calendar",
