@@ -20,13 +20,6 @@ import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from
 import { TimepickerComponent } from "ngx-bootstrap/timepicker";
 import { delay, filter } from "rxjs/operators";
 
-const defaultConfig = {
-  containerClass: "theme-default",
-  isAnimated: true,
-  adaptivePosition: true,
-  returnFocusToInput: true,
-};
-
 /**
  * input date time component decorator
  */
@@ -177,16 +170,7 @@ export class InputDateTimeComponent
   /**
    * Contains the component configurations
    */
-  private _config: Partial<BsDatepickerConfig> = defaultConfig;
-
-  public get config(): Partial<BsDatepickerConfig> {
-    return this._config;
-  }
-
-  @Input()
-  public set config(value: Partial<BsDatepickerConfig>) {
-    this._config = { ...defaultConfig, ...value };
-  }
+  private config: Partial<BsDatepickerConfig> | undefined = undefined;
 
   /**
    * the internal state of the date
@@ -280,9 +264,15 @@ export class InputDateTimeComponent
    * check help message and init key
    */
   ngOnInit(): void {
-    this.config.dateInputFormat = this.dateFormat;
-    this.config.rangeInputFormat = this.dateFormat;
-    this.config.showWeekNumbers = this.showWeekNumbers;
+    this.config = {
+      containerClass: "theme-default",
+      isAnimated: true,
+      adaptivePosition: true,
+      returnFocusToInput: true,
+      dateInputFormat: this.dateFormat,
+      rangeInputFormat: this.dateFormat,
+      showWeekNumbers: this.showWeekNumbers,
+    };
     if (this.label) {
       if (this.showSelector) {
         this._margin = ".3rem";

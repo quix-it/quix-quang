@@ -136,21 +136,7 @@ export class InputDateComponent
   /**
    * Contains the component configurations
    */
-  private _config: Partial<BsDatepickerConfig> = {
-  containerClass: 'theme-default',
-  isAnimated: true,
-  adaptivePosition: true,
-  returnFocusToInput: true
-}
-
-  public get config(): Partial<BsDatepickerConfig> {
-    return this._config
-  }
-
-  @Input()
-  public set config(value: Partial<BsDatepickerConfig>) {
-    this._config = { ...this._config, ...value }
-  }
+  _config: Partial<BsDatepickerConfig> | undefined = undefined
 
   /**
    * The value of the input
@@ -222,10 +208,15 @@ export class InputDateComponent
    * check help message and init the key
    */
   ngOnInit(): void {
-    this._config.dateInputFormat = this.dateFormat
-    this._config.rangeInputFormat = this.dateFormat
-    this._config.showWeekNumbers = this.showWeekNumbers
-    this.config = {...this._config}
+    this._config = {
+      containerClass: 'theme-default',
+      isAnimated: true,
+      adaptivePosition: true,
+      returnFocusToInput: true,
+      dateInputFormat: this.dateFormat,
+      rangeInputFormat: this.dateFormat,
+      showWeekNumbers: this.showWeekNumbers,
+    }
     if (this.locale) {
       this.localeService.use(this.locale)
     }
