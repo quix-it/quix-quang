@@ -3,6 +3,46 @@
   "version": 1,
   "newProjectRoot": "projects/@quix",
   "projects": {
+    "quang": {
+      "projectType": "library",
+      "root": "projects/@quix/quang",
+      "sourceRoot": "projects/@quix/quang",
+      "prefix": "quang",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/@quix/quang/ng-package.json"
+          },
+          "configurations": {
+            "development": {
+              "tsConfig": "projects/@quix/quang/tsconfig.lib.json"
+            },
+            "production": {
+              "tsConfig": "projects/@quix/quang/tsconfig.lib.prod.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/@quix/quang/src/test.ts",
+            "tsConfig": "projects/@quix/quang/tsconfig.spec.json",
+            "karmaConfig": "projects/@quix/quang/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/@quix/quang/**/*.ts",
+              "projects/@quix/quang/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "kitchen-sink": {
       "projectType": "application",
       "schematics": {
@@ -20,7 +60,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/quang-kitchen-sink",
+            "outputPath": "dist/kitchen-sink",
             "index": "projects/@quix/kitchen-sink/src/index.html",
             "main": "projects/@quix/kitchen-sink/src/main.ts",
             "polyfills": "projects/@quix/kitchen-sink/src/polyfills.ts",
@@ -79,10 +119,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "quang-kitchen-sink:build:production"
+              "browserTarget": "kitchen-sink:build:production"
             },
             "development": {
-              "browserTarget": "quang-kitchen-sink:build:development"
+              "browserTarget": "kitchen-sink:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +130,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "quang-kitchen-sink:build"
+            "browserTarget": "kitchen-sink:build"
           }
         },
         "test": {
@@ -117,46 +157,6 @@
             "lintFilePatterns": [
               "projects/@quix/kitchen-sink/**/*.ts",
               "projects/@quix/kitchen-sink/**/*.html"
-            ]
-          }
-        }
-      }
-    },
-    "quang": {
-      "projectType": "library",
-      "root": "projects/@quix/quang",
-      "sourceRoot": "projects/@quix/quang",
-      "prefix": "quang",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/@quix/quang/ng-package.json"
-          },
-          "configurations": {
-            "development": {
-              "tsConfig": "projects/@quix/quang/tsconfig.lib.json"
-            },
-            "production": {
-              "tsConfig": "projects/@quix/quang/tsconfig.lib.prod.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/@quix/quang/src/test.ts",
-            "tsConfig": "projects/@quix/quang/tsconfig.spec.json",
-            "karmaConfig": "projects/@quix/quang/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/@quix/quang/**/*.ts",
-              "projects/@quix/quang/**/*.html"
             ]
           }
         }

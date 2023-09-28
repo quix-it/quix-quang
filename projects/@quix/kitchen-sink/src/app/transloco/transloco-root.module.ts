@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http'
+import { Injectable, NgModule } from '@angular/core'
 import {
+  HashMap,
+  TRANSLOCO_CONFIG,
   TRANSLOCO_LOADER,
   Translation,
   TranslocoLoader,
-  TRANSLOCO_CONFIG,
-  translocoConfig,
   TranslocoModule,
-  HashMap
+  translocoConfig
 } from '@ngneat/transloco'
-import { Injectable, NgModule } from '@angular/core'
-import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs'
+
+import { environment } from '../../environments/environment'
 
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {

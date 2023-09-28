@@ -3,7 +3,7 @@ import { QuangOpenIdConnectService } from '../../oidc.service'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { map, mergeMap } from 'rxjs/operators'
 import { Store } from '@ngrx/store'
-import { QuangAuthActions } from '../actions'
+import { QuangOpenIdConnectActions } from '../actions'
 
 /**
  * service decorator
@@ -17,11 +17,11 @@ export class QuangAuthEffects {
    */
   getInfoUserEffect$ = createEffect(
     () => this.actions$.pipe(
-      ofType(QuangAuthActions.userLogin),
+      ofType(QuangOpenIdConnectActions.userLogin),
       mergeMap(action =>
         this.quangAuthService.getUserInfo().pipe(
           map((user: any) => {
-            return QuangAuthActions.userInfoLogin({ user: user })
+            return QuangOpenIdConnectActions.userInfoLogin({ user: user })
           })
         )
       )
@@ -34,10 +34,10 @@ export class QuangAuthEffects {
    */
   deleteUserEffect$ = createEffect(
     () => this.actions$.pipe(
-      ofType(QuangAuthActions.userLogout),
+      ofType(QuangOpenIdConnectActions.userLogout),
       map(action => {
-        this.store.dispatch(QuangAuthActions.userRolesLogout())
-        this.store.dispatch(QuangAuthActions.userInfoLogout())
+        this.store.dispatch(QuangOpenIdConnectActions.userRolesLogout())
+        this.store.dispatch(QuangOpenIdConnectActions.userInfoLogout())
         this.quangAuthService.stopRefreshToken()
         this.quangAuthService.logout()
       }

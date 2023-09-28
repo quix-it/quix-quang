@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store'
 import { Observable, of, throwError } from 'rxjs'
 import { catchError, filter, switchMap, take } from 'rxjs/operators'
 
-import { QuangAuthSelectors } from '../store/selectors'
+import { QuangOpenIdConnectSelectors } from '../store/selectors'
 import {
   selectHasEveryRole,
   selectUserInfo
@@ -44,7 +44,7 @@ export class QuangRolesGuard implements CanActivate {
    */
   checkHasAtLeastOneRole(allowedRoles: string[]): Observable<boolean> {
     return this.authStore
-      .select(QuangAuthSelectors.selectHasAtLeastOneRole(allowedRoles))
+      .select(QuangOpenIdConnectSelectors.selectHasAtLeastOneRole(allowedRoles))
       .pipe(take(1))
   }
 

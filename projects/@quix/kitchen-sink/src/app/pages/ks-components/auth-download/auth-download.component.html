@@ -1,0 +1,40 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang auth download'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/directives/QuangAuthDownloadDirective.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <button
+            class="btn btn-primary"
+            [url]="'/kitchen-sink/assets/images/core/header.png'"
+            [contentType]="'image/png'"
+            [accept]="'image/png'"
+            quangDownload>
+            Download
+          </button>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.download.html' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

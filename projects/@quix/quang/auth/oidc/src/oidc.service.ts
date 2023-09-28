@@ -5,7 +5,7 @@ import { Observable, from } from 'rxjs'
 
 import { QuangOpenIdConnectModuleState } from './oidc-module.reducer'
 import { QuangOpenIdConnectConfig } from './oidc.config'
-import { QuangAuthActions } from './store/actions'
+import { QuangOpenIdConnectActions } from './store/actions'
 
 @Injectable({
   providedIn: 'root'
@@ -76,7 +76,7 @@ export class QuangOpenIdConnectService {
       (isAuthenticated) => {
         if (isAuthenticated) {
           this.oauthService.setupAutomaticSilentRefresh()
-          this.store.dispatch(QuangAuthActions.userLogin())
+          this.store.dispatch(QuangOpenIdConnectActions.userLogin())
         }
       }
     )
@@ -91,7 +91,7 @@ export class QuangOpenIdConnectService {
       (isAuthenticated) => {
         if (isAuthenticated) {
           this.oauthService.setupAutomaticSilentRefresh()
-          this.store.dispatch(QuangAuthActions.userLogin())
+          this.store.dispatch(QuangOpenIdConnectActions.userLogin())
         }
       }
     )
@@ -113,7 +113,7 @@ export class QuangOpenIdConnectService {
    */
   getUserInfoAndDispatch(): void {
     from(this.oauthService.loadUserProfile()).subscribe((user: any) => {
-      this.store.dispatch(QuangAuthActions.userInfoLogin({ user: user }))
+      this.store.dispatch(QuangOpenIdConnectActions.userInfoLogin({ user: user }))
     })
   }
 
@@ -142,9 +142,9 @@ export class QuangOpenIdConnectService {
    * log out and dispatch the actions to delete the user from the store
    */
   logoutAndDispatch(): void {
-    this.store.dispatch(QuangAuthActions.userLogout())
-    this.store.dispatch(QuangAuthActions.userInfoLogout())
-    this.store.dispatch(QuangAuthActions.userRolesLogout())
+    this.store.dispatch(QuangOpenIdConnectActions.userLogout())
+    this.store.dispatch(QuangOpenIdConnectActions.userInfoLogout())
+    this.store.dispatch(QuangOpenIdConnectActions.userRolesLogout())
     this.oauthService.stopAutomaticRefresh()
     this.oauthService.logOut()
   }

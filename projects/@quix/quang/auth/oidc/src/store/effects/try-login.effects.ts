@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects'
 import { map, mergeMap } from 'rxjs/operators'
 import { QuangOpenIdConnectService } from '../../oidc.service'
 import { Store } from '@ngrx/store'
-import { QuangAuthActions } from '../actions'
+import { QuangOpenIdConnectActions } from '../actions'
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +20,10 @@ export class QuangTryLoginEffects {
           map(is => {
             if (is && this.quangAuthService.isAuthenticated()) {
               this.quangAuthService.startRefreshToken()
-              this.store.dispatch(QuangAuthActions.userLogin())
+              this.store.dispatch(QuangOpenIdConnectActions.userLogin())
             } else {
-              this.store.dispatch(QuangAuthActions.userRolesLogout())
-              this.store.dispatch(QuangAuthActions.userInfoLogout())
+              this.store.dispatch(QuangOpenIdConnectActions.userRolesLogout())
+              this.store.dispatch(QuangOpenIdConnectActions.userInfoLogout())
             }
           })
         )

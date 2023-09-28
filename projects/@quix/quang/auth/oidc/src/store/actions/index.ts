@@ -1,3 +1,3 @@
-import * as QuangAuthActions from './oidc.actions'
+import * as QuangOpenIdConnectActions from './oidc.actions'
 
-export { QuangAuthActions }
+export { QuangOpenIdConnectActions }

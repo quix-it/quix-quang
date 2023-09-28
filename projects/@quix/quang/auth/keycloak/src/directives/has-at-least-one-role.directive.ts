@@ -39,7 +39,7 @@ export class QuangHasAtLeastOneRoleDirective implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authStore
       .select(
-        QuangKeycloakSelectors.selectHasUntilRoles(this.quangHasAtLeastOneRole)
+        QuangKeycloakSelectors.selectHasAtLeastOneRole(this.quangHasAtLeastOneRole)
       )
       .pipe(distinctUntilChanged(), takeUntil(this.onDestroy$))
       .subscribe((hasRole) => {

@@ -38,7 +38,7 @@ export class QuangHasEveryRoleDirective implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.authStore
-      .select(QuangKeycloakSelectors.selectHasRoles(this.quangHasEveryRole))
+      .select(QuangKeycloakSelectors.selectHasEveryRole(this.quangHasEveryRole))
       .pipe(distinctUntilChanged(), takeUntil(this.onDestroy$))
       .subscribe((hasRole) => {
         if (hasRole) {

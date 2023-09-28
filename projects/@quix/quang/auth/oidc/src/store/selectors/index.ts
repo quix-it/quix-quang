@@ -1,3 +1,3 @@
-import * as QuangAuthSelectors from './oidc.selectors'
+import * as QuangOpenIdConnectSelectors from './oidc.selectors'
 
-export { QuangAuthSelectors }
+export { QuangOpenIdConnectSelectors }

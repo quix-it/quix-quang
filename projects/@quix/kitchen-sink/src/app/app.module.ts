@@ -1,31 +1,37 @@
+import { registerLocaleData } from '@angular/common'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
+import localeitIT from '@angular/common/locales/it'
 import { LOCALE_ID, NgModule } from '@angular/core'
+import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
-import { AppRoutingModule } from './app-routing.module'
-import { AppComponent } from './app.component'
-import { CoreModule } from './core/core.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { EffectsModule } from '@ngrx/effects'
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'
-import { appReducers } from './app-store/app.reducers'
 import { StoreModule } from '@ngrx/store'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { defineLocale, enGbLocale, itLocale } from 'ngx-bootstrap/chronos'
+
+import {
+  QuangCardsModule,
+  QuangMapModule,
+  QuangMediaModule
+} from '@quix/quang/components'
+import {
+  QuangDialogModule,
+  QuangHttpErrorInterceptor,
+  QuangLoaderInterceptor
+} from '@quix/quang/dialog'
+import { QuangKeycloakModule } from '@quix/quang/auth/keycloak'
+import { QuangUtilityModule } from '@quix/quang/utility'
+
 import { environment } from '../environments/environment'
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
-import { TranslocoRootModule } from './transloco/transloco-root.module'
-import { HomeComponent } from './home/home.component'
-import { defineLocale, itLocale, enGbLocale } from 'ngx-bootstrap/chronos'
+import { AccessibilityModule } from './pages/accessibility/accessibility.module'
+import { AppRoutingModule } from './app-routing.module'
+import { appReducers } from './store/app.reducer'
+import { AppComponent } from './app.component'
+import { CoreModule } from './core/core.module'
+import { HomeComponent } from './pages/home/home.component'
 import { SharedModule } from './shared/shared.module'
-import { ReactiveFormsModule } from '@angular/forms'
-import { AccessibilityModule } from './accessibility/accessibility.module'
-import { QuangDialogModule } from '../../../quang/dialog/src/lib/quang-dialog.module'
-import { QuangUtilityModule } from '../../../quang/utility/src/lib/quang-utility.module'
-import { QuangMapModule } from '../../../quang/components/map/src/lib/quang-map.module'
-import { QuangKeycloakModule } from '../../../quang/auth/keycloak/src/lib/quang-keycloak.module'
-import { QuangMediaModule } from '../../../quang/components/media/src/lib/quang-media.module'
-import { QuangLoaderInterceptor } from '../../../quang/dialog/src/lib/loader/quang-loader.interceptor'
-import { QuangHttpErrorInterceptor } from '../../../quang/dialog/src/http-error/error.interceptor'
-import { QuangCardsModule } from '../../../quang/components/cards/src/lib/quang-cards.module'
-import { registerLocaleData } from '@angular/common'
-import localeitIT from '@angular/common/locales/it'
+import { TranslocoRootModule } from './transloco/transloco-root.module'
 
 registerLocaleData(localeitIT)
 
