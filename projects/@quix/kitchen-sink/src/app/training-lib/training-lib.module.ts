@@ -32,7 +32,7 @@ import { MatSortModule } from '@angular/material/sort'
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 
 import { VconsoleComponent } from './vconsole/vconsole.component'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
 import { MatTableModule } from '@angular/material/table'
 import { QuangInputNumberModule } from '../../../../quang/components/input-number/src/input-number.module'
 import { QuangInputDateModule } from '../../../../quang/components/input-date/src/input-date.module'

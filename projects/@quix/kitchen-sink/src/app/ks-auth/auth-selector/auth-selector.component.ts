@@ -7,8 +7,8 @@ import {
   selectIsAuthenticated,
   selectUserInfo,
   selectUserRoles
-} from '../../../../../quang/auth/src/lib/quang-auth-store/selectors/quang-auth.selectors'
-import { QuangAuthModuleState } from '../../../../../quang/auth/src/lib/quang-auth-module.reducer'
+} from '../../../../../quang/auth/oidc/src/lib/quang-auth-store/selectors/quang-auth.selectors'
+import { QuangAuthModuleState } from '../../../../../quang/auth/oidc/src/lib/quang-auth-module.reducer'
 
 @Component({
   selector: 'auth-auth-selector',

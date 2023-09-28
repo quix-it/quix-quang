@@ -1,6 +1,6 @@
 {
-  "name": "@quix/root",
-  "version": "15.1.10",
+  "name": "@quix/projects",
+  "version": "15.2.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,10 +9,10 @@
     "lint": "ng lint --fix",
     "e2e": "ng e2e",
     "release:install": "npm ci --ignore-script",
-    "start:ks": "ng serve @quix/kitchen-sink",
+    "start:ks": "ng serve kitchen-sink",
     "cleanup": "rm -r dist",
     "publish:quang": "npm run cleanup && npm run build:quang && cd dist/quang && npm publish",
-    "build:quang": "ng-packagr -p projects/@quix/quang",
+    "build:quang": "ng build quang",
     "lint:quang": "ng lint --fix quang",
     "compodoc": "npx compodoc -p tsconfig.json projects -s",
     "build:compodoc": "npx compodoc -p tsconfig.json projects",

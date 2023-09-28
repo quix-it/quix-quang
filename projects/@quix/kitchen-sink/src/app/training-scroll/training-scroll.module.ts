@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { ScrollComponent } from './scroll/scroll.component'
 import { IntersectionComponent } from './intersection/intersection.component'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
 import { MatLegacyChipsModule } from '@angular/material/legacy-chips'
 
 @NgModule({

@@ -3,7 +3,7 @@ import {
   ElementRef,
   ViewChild
 } from '@angular/core'
-import { WebcamComponent as QuangWebcam } from '../../../../../quang/media/src/lib/webcam/webcam.component'
+import { WebcamComponent as QuangWebcam } from '../../../../../quang/components/media/src/lib/webcam/webcam.component'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 
 @Component({

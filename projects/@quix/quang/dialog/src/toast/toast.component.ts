@@ -8,8 +8,8 @@ import {
 import { QuangToast } from './toast.model'
 import { delay, Observable, of, Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { ToastSelectors } from './toast-store/selectors'
-import { QuangDialogStateModule } from '../quang-dialog.reducers'
+import { QuangToastSelectors } from './store/selectors'
+import { QuangDialogStateModule } from '../dialog.reducer'
 import { take } from 'rxjs/operators'
 
 /**
@@ -32,7 +32,7 @@ export class QuangToastComponent implements AfterViewInit, OnDestroy {
    * observable for toast state
    * @private
    */
-  private readonly toastState$: Observable<QuangToast> = this.store.select(ToastSelectors.selectToast)
+  private readonly toastState$: Observable<QuangToast> = this.store.select(QuangToastSelectors.selectToast)
   /**
    * subscription to a toast state
    * @private

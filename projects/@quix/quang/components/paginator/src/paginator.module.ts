@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core'
-import { PaginatorComponent } from './paginator.component'
+import { QuangPaginatorComponent } from './paginator.component'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { TranslocoModule } from '@ngneat/transloco'
 import { QuangPaginatorService } from './paginator.service'
-import { PaginatorLanguage } from './paginator.language'
+import { QuangPaginatorLanguageService } from './paginator-language.service'
 import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 
 @NgModule({
-  declarations: [PaginatorComponent],
+  declarations: [QuangPaginatorComponent],
   imports: [
     CommonModule,
     PaginationModule,
@@ -17,7 +17,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
     TranslocoModule,
     FormsModule
   ],
-  providers: [QuangPaginatorService, PaginatorLanguage],
-  exports: [PaginatorComponent]
+  providers: [QuangPaginatorService, QuangPaginatorLanguageService],
+  exports: [QuangPaginatorComponent]
 })
 export class QuangPaginatorModule {}

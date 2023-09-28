@@ -27,7 +27,7 @@ import { delay, filter, take } from "rxjs/operators";
 /**
  * text area component
  */
-export class TextAreaComponent
+export class QuangTextAreaComponent
   implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges
 {
   /**

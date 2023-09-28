@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core'
+import { TranslocoService } from '@ngneat/transloco'
+import { Store } from '@ngrx/store'
 import { fromEvent, merge, Observable, of } from 'rxjs'
 import { mapTo } from 'rxjs/operators'
-import { Store } from '@ngrx/store'
-import { TranslocoService } from '@ngneat/transloco'
-import { QuangDialogStateModule } from '../quang-dialog.reducers'
-import { OfflineActions } from './offline-store/actions'
-import { OfflineSelectors } from './offline-store/selectors'
+
+import { QuangDialogStateModule } from '../dialog.reducer'
+import { QuangOfflineActions } from './store/actions'
+import { QuangOfflineSelectors } from './store/selectors'
 
 /**
  * service decorator
@@ -28,16 +29,15 @@ export class QuangOfflineService {
    * @param translate
    * @param store
    */
-  constructor (
+  constructor(
     private readonly translate: TranslocoService,
     private readonly store: Store<QuangDialogStateModule>
-  ) {
-  }
+  ) {}
 
   /**
    * Connection status observer
    */
-  getConnectionObserver (): Observable<boolean> {
+  getConnectionObserver(): Observable<boolean> {
     return merge(
       of(navigator.onLine),
       fromEvent(window, 'online').pipe(mapTo(true)),
@@ -50,13 +50,13 @@ export class QuangOfflineService {
    * if there is no connection, it displays an alert snackbar and sends the disconnected status to the store
    * otherwise it closes the snackbar, if open, and sends the connected status to the store
    */
-  observeOffline (): void {
+  observeOffline(): void {
     this.getLabel()
     this.getConnectionObserver().subscribe((connection: boolean) => {
       if (!connection) {
-        this.store.dispatch(OfflineActions.offline())
+        this.store.dispatch(QuangOfflineActions.offline())
       } else {
-        this.store.dispatch(OfflineActions.online())
+        this.store.dispatch(QuangOfflineActions.online())
       }
     })
   }
@@ -65,7 +65,7 @@ export class QuangOfflineService {
    * retrieves the translation of the offline message,
    * in the general translations file the key is always "offline.msg"
    */
-  getLabel (): void {
+  getLabel(): void {
     this.translate.selectTranslate('offline.msg').subscribe((l) => {
       this.offlineLabel = l
     })
@@ -74,7 +74,7 @@ export class QuangOfflineService {
   /**
    * convenience method of having lost the connection without knowing the selector name of ngRx
    */
-  observeLine (): Observable<any> {
-    return this.store.select(OfflineSelectors.selectLine)
+  observeLine(): Observable<any> {
+    return this.store.select(QuangOfflineSelectors.selectLine)
   }
 }

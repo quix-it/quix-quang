@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing'
 
-import { OfflineInterceptor } from './offline.interceptor'
+import { QuangOfflineInterceptor } from './offline.interceptor'
 
 describe('OfflineInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      OfflineInterceptor
+      QuangOfflineInterceptor
     ]
   }))
 
   it('should be created', () => {
-    const interceptor: OfflineInterceptor = TestBed.inject(OfflineInterceptor)
+    const interceptor: QuangOfflineInterceptor = TestBed.inject(QuangOfflineInterceptor)
     expect(interceptor).toBeTruthy()
   })
 })

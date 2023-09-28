@@ -13,7 +13,7 @@ import { OfflineComponent } from './offline/offline.component'
 import { HttpErrorComponent } from './http-error/http-error.component'
 import { NotificationComponent } from './notification/notification.component'
 import { ReactiveFormsModule } from '@angular/forms'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
 import { QuangDialogModule } from '../../../../quang/dialog/src/lib/quang-dialog.module'
 
 @NgModule({

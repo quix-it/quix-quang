@@ -36,14 +36,14 @@ import { QuillModule } from 'ngx-quill'
 import { CustomIconsComponent } from './custom-icons/custom-icons.component'
 import { KsComponentsRoutingModule } from './ks-components-routing.module'
 import { QuangPaginatorModule } from '../../../../quang/components/paginator/src/paginator.module'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
-import { QuangAuthDownloadModule } from '../../../../quang/directives/quang-auth-download/src/quang-auth-download.module'
-import { QuangAuthImageModule } from '../../../../quang/directives/quang-auth-image/src/quang-auth-image.module'
-import { QuangAutocompleteObjModule } from '../../../../quang/components/autocomplete/autocomplete-obj/src/autocomplete-obj.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
+import { QuangDownloadModule } from '../../../../quang/directives/download/src/download.module'
+import { QuangImageSrcModule } from '../../../../quang/directives/image-src/src/image-src.module'
+import { QuangAutocompleteObjModule } from '../../../../quang/components/autocomplete/object/src/autocomplete-obj.module'
 import { QuangAutocompleteObjAsyncModule } from '../../../../quang/components/autocomplete-obj-async/src/autocomplete-obj-async.module'
 import { QuangAutocompleteStrgModule } from '../../../../quang/components/autocomplete-strg/src/autocomplete-strg.module'
 import { QuangAutocompleteStrgAsyncModule } from '../../../../quang/components/autocomplete-strg-async/src/autocomplete-strg-async.module'
-import { QuangInputCheckboxModule } from '../../../../quang/components/input/input-checkbox/src/input-checkbox.module'
+import { QuangInputCheckboxModule } from '../../../../quang/components/input/checkbox/src/input-checkbox.module'
 import { QuangInputColorModule } from '../../../../quang/components/input-color/src/input-color.module'
 import { QuangDatalistModule } from '../../../../quang/components/datalist/src/datalist.module'
 import { QuangInputEmailModule } from '../../../../quang/components/input-email/src/input-email.module'
@@ -62,7 +62,7 @@ import { QuangSliderModule } from '../../../../quang/components/slider/src/slide
 import { QuangInputTelModule } from '../../../../quang/components/input-tel/src/input-tel.module'
 import { QuangInputTextModule } from '../../../../quang/components/input-text/src/input-text.module'
 import { QuangTextAreaModule } from '../../../../quang/components/input/text-area/src/text-area.module'
-import { QuangTextEditorModule } from '../../../../quang/components/wysiwyg/editor/src/text-editor.module'
+import { QuangWysiwygEditorModule } from '../../../../quang/components/wysiwyg/editor/src/wysiwyg-editor.module'
 import { QuangTextViewModule } from '../../../../quang/components/text-view/src/text-view.module'
 import { QuangToggleModule } from '../../../../quang/components/toggle/src/toggle.module'
 import { QuangPaginatorService } from '../../../../quang/components/paginator/src/paginator.service'
@@ -110,8 +110,8 @@ import { PaginatorServiceComponent } from './paginator-service/paginator-service
     FormsModule,
     QuillModule,
     QuangCardsModule,
-    QuangAuthDownloadModule,
-    QuangAuthImageModule,
+    QuangDownloadModule,
+    QuangImageSrcModule,
     QuangAutocompleteObjModule,
     QuangAutocompleteObjAsyncModule,
     QuangAutocompleteStrgModule,
@@ -136,7 +136,7 @@ import { PaginatorServiceComponent } from './paginator-service/paginator-service
     QuangInputTelModule,
     QuangInputTextModule,
     QuangTextAreaModule,
-    QuangTextEditorModule,
+    QuangWysiwygEditorModule,
     QuangTextViewModule,
     QuangToggleModule
   ],

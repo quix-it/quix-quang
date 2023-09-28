@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 /**
  * quang skeleton
  */
-export class SkeletonComponent {
+export class QuangSkeletonComponent {
   /**
    * Custom id for skeleton div
    */

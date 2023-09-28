@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { QuangPicture } from '../../../../../quang/media/src/lib/picture/picture.model'
+import { QuangPicture } from '../../../../../quang/components/media/src/lib/picture/picture.model'
 
 @Component({
   selector: 'ks-picture',

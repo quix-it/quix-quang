@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ToggleComponent } from './toggle.component'
+import { QuangToggleComponent } from './toggle.component'
 
 describe('ToggleComponent', () => {
-  let component: ToggleComponent
-  let fixture: ComponentFixture<ToggleComponent>
+  let component: QuangToggleComponent
+  let fixture: ComponentFixture<QuangToggleComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ToggleComponent]
+      declarations: [QuangToggleComponent]
     })
       .compileComponents()
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToggleComponent)
+    fixture = TestBed.createComponent(QuangToggleComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

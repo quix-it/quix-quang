@@ -20,7 +20,7 @@ import {
 /**
  * paginator component
  */
-export class PaginatorComponent {
+export class QuangPaginatorComponent {
   /**
    * Html id of input
    */
@@ -123,7 +123,7 @@ export class PaginatorComponent {
       this.goToFirstPage()
     }
   }
-  
+
   /**
    * Go to the first page of the pager
   */

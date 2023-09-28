@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import {
   ChartRadar,
   ChartRadarIndicator
-} from '../../../../../quang/chart/src/lib/chart-radar/chart-radar.model'
+} from '../../../../../quang/components/chart/src/lib/chart-radar/chart-radar.model'
 
 @Component({
   selector: 'ks-radar',

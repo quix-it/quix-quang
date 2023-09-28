@@ -22,7 +22,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * slider component
  */
-export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+export class QuangSliderComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   /**
    * The label to display on the input field
    */

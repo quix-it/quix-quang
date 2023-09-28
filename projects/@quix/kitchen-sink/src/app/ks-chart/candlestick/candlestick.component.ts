@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { ChartCandlestick } from '../../../../../quang/chart/src/lib/chart-candlestick/chart-candlestick.model'
+import { ChartCandlestick } from '../../../../../quang/components/chart/src/lib/chart-candlestick/chart-candlestick.model'
 
 @Component({
   selector: 'ks-candlestick',

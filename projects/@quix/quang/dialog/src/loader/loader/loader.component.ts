@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core'
 import { Observable, Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { QuangDialogConfig } from '../../quang-dialog.config'
-import { QuangDialogStateModule } from '../../quang-dialog.reducers'
-import { LoaderSelectors } from '../loader-store/selectors'
+import { QuangDialogConfig } from '../../dialog.config'
+import { QuangDialogStateModule } from '../../dialog.reducer'
+import { QuangLoaderSelectors } from '../store/selectors'
 /**
  * loader component decorator
  */
@@ -15,7 +15,7 @@ import { LoaderSelectors } from '../loader-store/selectors'
 /**
  * loader component
  */
-export class LoaderComponent implements OnInit, OnDestroy {
+export class QuangLoaderComponent implements OnInit, OnDestroy {
   /**
    * loader html element
    */
@@ -27,7 +27,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
   /**
    * observable for loader state
    */
-  loader$: Observable<any> = this.store.select(LoaderSelectors.selectLoader)
+  loader$: Observable<any> = this.store.select(QuangLoaderSelectors.selectLoader)
   /**
    * counter for active call
    */

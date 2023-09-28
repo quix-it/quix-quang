@@ -14,10 +14,10 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { SyncValidatorComponent } from './sync-validator/sync-validator.component'
 import { AsyncValidatorComponent } from './async-validator/async-validator.component'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
 import { QuangInputTextModule } from '../../../../quang/components/input-text/src/input-text.module'
 import { QuangInputEmailModule } from '../../../../quang/components/input-email/src/input-email.module'
-import { QuangInputCheckboxModule } from '../../../../quang/components/input/input-checkbox/src/input-checkbox.module'
+import { QuangInputCheckboxModule } from '../../../../quang/components/input/checkbox/src/input-checkbox.module'
 
 @NgModule({
   declarations: [

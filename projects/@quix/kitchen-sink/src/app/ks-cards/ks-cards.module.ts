@@ -9,7 +9,7 @@ import { CardSimpleComponent } from './card-simple/card-simple.component'
 import { CardActionHeaderComponent } from './card-action-header/card-action-header.component'
 import { CardActionComponent } from './card-action/card-action.component'
 import { CardImageComponent } from './card-image/card-image.component'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
 import { KsCardsRoutingModule } from './ks-cards-routing.module'
 
 @NgModule({

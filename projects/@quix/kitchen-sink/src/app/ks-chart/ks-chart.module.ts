@@ -15,8 +15,8 @@ import { TreemapComponent } from './treemap/treemap.component'
 import { CandlestickComponent } from './candlestick/candlestick.component'
 import { GaugeComponent } from './gauge/gauge.component'
 import { TreeComponent } from './tree/tree.component'
-import { QuangChartModule } from '../../../../quang/chart/src/lib/quang-chart.module'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangChartModule } from '../../../../quang/components/chart/src/lib/quang-chart.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [

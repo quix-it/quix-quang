@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { ChartPie } from '../../../../../quang/chart/src/lib/chart-pie/chart-pie.model'
+import { ChartPie } from '../../../../../quang/components/chart/src/lib/chart-pie/chart-pie.model'
 
 @Component({
   selector: 'ks-pie',

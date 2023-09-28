@@ -7,7 +7,7 @@ import {
   selectIsAuthenticated,
   selectUserInfo,
   selectUserRoles
-} from '../../../../../quang/auth/src/lib/quang-auth-store/selectors/quang-auth.selectors'
+} from '../../../../../quang/auth/oidc/src/lib/quang-auth-store/selectors/quang-auth.selectors'
 
 @Component({
   selector: 'ks-selector',

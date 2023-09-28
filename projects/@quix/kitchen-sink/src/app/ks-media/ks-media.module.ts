@@ -9,8 +9,8 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { CodeReaderComponent } from './code-reader/code-reader.component'
 import { AudioComponent } from './audio/audio.component'
 import { WebcamComponent } from './webcam/webcam.component'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
-import { QuangMediaModule } from '../../../../quang/media/src/lib/quang-media.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
+import { QuangMediaModule } from '../../../../quang/components/media/src/lib/quang-media.module'
 
 @NgModule({
   declarations: [

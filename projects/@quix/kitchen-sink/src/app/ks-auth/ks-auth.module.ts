@@ -8,7 +8,7 @@ import { AuthConfigComponent } from './auth-config/auth-config.component'
 import { AuthDirectiveComponent } from './auth-directive/auth-directive.component'
 import { AuthSelectorComponent } from './auth-selector/auth-selector.component'
 import { AuthGuardComponent } from './auth-guard/auth-guard.component'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [

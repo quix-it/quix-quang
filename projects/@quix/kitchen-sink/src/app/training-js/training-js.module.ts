@@ -8,7 +8,7 @@ import { SharedModule } from '../shared/shared.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { TabsModule } from 'ngx-bootstrap/tabs'
-import { QuangCardsModule } from '../../../../quang/cards/src/lib/quang-cards.module'
+import { QuangCardsModule } from '../../../../quang/components/cards/src/lib/quang-cards.module'
 
 @NgModule({
   declarations: [TrainingMapComponent, TrainingArrayComponent],

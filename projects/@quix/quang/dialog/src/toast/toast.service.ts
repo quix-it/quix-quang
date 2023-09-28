@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { QuangToast } from './toast.model'
-import { ToastActions } from './toast-store/actions'
-import { QuangDialogStateModule } from '../quang-dialog.reducers'
+import { QuangToastActions } from './store/actions'
+import { QuangDialogStateModule } from '../dialog.reducer'
 /**
  * service decorator
  */
@@ -27,13 +27,13 @@ export class QuangToastService {
    * @param toast
    */
   openToast (toast: QuangToast): void {
-    this.store.dispatch(ToastActions.openToast({ toastData: toast }))
+    this.store.dispatch(QuangToastActions.openToast({ toastData: toast }))
   }
 
   /**
    * lose the toast
    */
   closeToast (): void {
-    this.store.dispatch(ToastActions.deleteToast())
+    this.store.dispatch(QuangToastActions.deleteToast())
   }
 }

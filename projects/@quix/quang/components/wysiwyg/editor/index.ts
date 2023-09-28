@@ -1,2 +1,2 @@
-export * from './src/text-editor.component'
-export * from './src/text-editor.module'
+export * from './src/wysiwyg-editor.component'
+export * from './src/wysiwyg-editor.module'

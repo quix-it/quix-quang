@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { LoaderComponent } from './loader.component'
+import { QuangLoaderComponent } from './loader.component'
 
 describe('LoaderComponent', () => {
-  let component: LoaderComponent
-  let fixture: ComponentFixture<LoaderComponent>
+  let component: QuangLoaderComponent
+  let fixture: ComponentFixture<QuangLoaderComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LoaderComponent]
+      declarations: [QuangLoaderComponent]
     })
       .compileComponents()
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoaderComponent)
+    fixture = TestBed.createComponent(QuangLoaderComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

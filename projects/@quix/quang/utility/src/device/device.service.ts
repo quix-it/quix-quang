@@ -16,7 +16,9 @@ export class QuangDeviceService {
    * defines how to lock the device screen
    * @param lockType
    */
+  // @ts-ignore @see https://github.com/microsoft/TypeScript-DOM-lib-generator/issues/1615
   lockScreenOrientation(lockType: OrientationLockType): void {
+    // @ts-ignore @see https://github.com/microsoft/TypeScript-DOM-lib-generator/issues/1615
     window.screen.orientation.lock(lockType)
   }
 

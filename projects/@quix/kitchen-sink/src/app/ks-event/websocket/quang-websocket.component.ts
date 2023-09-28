@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { QuangWebsocketService } from '../../../../../quang/event/src/lib/quang-websocket/quang-websocket.service'
+import { QuangWebsocketService } from '../../../../../quang/event/src/lib/websocket/quang-websocket.service'
 
 @Component({
   selector: 'quang-websocket',

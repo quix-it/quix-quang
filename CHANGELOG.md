@@ -74,3 +74,6 @@
 * feat remove material
 * feat paginator esier to implements
 * fix date's components errors on ExpressionChangedAfterItHasBeenCheckedError
+
+## 15.2.0
+* feat reorganized exports

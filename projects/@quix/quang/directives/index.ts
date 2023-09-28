@@ -1,2 +1,2 @@
-export * from './quang-auth-download'
-export * from './quang-auth-image'
+export * from './download'
+export * from './image-src'

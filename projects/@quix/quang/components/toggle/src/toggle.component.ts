@@ -24,7 +24,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * toggle component
  */
-export class ToggleComponent
+export class QuangToggleComponent
   implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges
 {
   /**
