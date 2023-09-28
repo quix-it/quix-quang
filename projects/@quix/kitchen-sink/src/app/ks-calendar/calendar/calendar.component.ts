@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { subtract } from 'ngx-bootstrap/chronos'
-import { QuangCalendarEvent } from '../../../../../quang/calendar/src/lib/calendar/calendar.model'
+import { QuangCalendarEvent } from '../../../../../quang/calendar/src/calendar/calendar.model'
 
 @Component({
   selector: 'ks-calendar',

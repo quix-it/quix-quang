@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Observable } from 'rxjs'
-import { QuangPageService } from '../../../../../quang/utility/src/public_api'
+import { QuangPageService } from '../../../../../quang/utility'
 
 @Component({
   selector: 'ks-page',

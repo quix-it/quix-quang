@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { ChartArea } from '../../../../../quang/chart/src/lib/chart-area/chart-area.model'
+import { ChartArea } from '../../../../../quang/chart/lib/chart-area/chart-area.model'
 
 @Component({
   selector: 'ks-area',

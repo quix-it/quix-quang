@@ -12,7 +12,7 @@ import { QuangInputTextModule } from '../../../../quang/components/input-text/sr
 import { QuangInputEmailModule } from '../../../../quang/components/input-email/src/input-email.module'
 import { QuangInputDateModule } from '../../../../quang/components/input-date/src/input-date.module'
 import { QuangInputTelModule } from '../../../../quang/components/input-tel/src/input-tel.module'
-import { QuangInputCheckboxModule } from '../../../../quang/components/input-checkbox/src/input-checkbox.module'
+import { QuangInputCheckboxModule } from '../../../../quang/components/input/input-checkbox/src/input-checkbox.module'
 import { QuangPaginatorModule } from '../../../../quang/components/paginator/src/paginator.module'
 
 @NgModule({

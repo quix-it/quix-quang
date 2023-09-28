@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { QuangStorageService } from '../../../../../quang/utility/src/public_api'
+import { QuangStorageService } from '../../../../../quang/utility'
 
 @Component({
   selector: 'ks-storage',

@@ -1,55 +1,64 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": ["!**/*"],
-  "rules": {
-    "@typescript-eslint/strict-boolean-expressions": "off",
-    "@typescript-eslint/no-floating-promises": "off",
-    "no-underscore-dangle": "off",
-    "@angular-eslint/template/eqeqeq": "off",
-    "@typescript-eslint/restrict-template-expressions": "off",
-    "@typescript-eslint/restrict-plus-operands": "off",
-    "no-control-regex": "off"
-  },
+  "ignorePatterns": [
+    "!**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "parserOptions": {
+        "createDefaultProgram": true,
         "project": [
           "projects/quang-kitchen-sink/tsconfig.app.json",
           "projects/quang-kitchen-sink/tsconfig.spec.json"
-        ],
-        "createDefaultProgram": true
+        ]
       },
       "rules": {
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "quang",
-            "style": "camelCase"
-          }
-        ],
         "@angular-eslint/component-selector": [
           "error",
           {
-            "type": "element",
-            "prefix": ["quang", "ks"],
-            "style": "kebab-case"
+            "prefix": [
+              "quang",
+              "ks"
+            ],
+            "style": "kebab-case",
+            "type": "element"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "prefix": "quang",
+            "style": "camelCase",
+            "type": "attribute"
           }
         ]
       }
     },
     {
-      "files": ["*.html"],
+      "files": [
+        "*.html"
+      ],
       "rules": {
-        "@typescript-eslint/strict-boolean-expressions": "off",
-        "@typescript-eslint/no-floating-promises": "off",
-        "no-underscore-dangle": "off",
         "@angular-eslint/template/eqeqeq": "off",
-        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/restrict-plus-operands": "off",
-        "no-control-regex": "off"
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "no-control-regex": "off",
+        "no-underscore-dangle": "off"
       }
     }
-  ]
+  ],
+  "rules": {
+    "@angular-eslint/template/eqeqeq": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/restrict-plus-operands": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "no-control-regex": "off",
+    "no-underscore-dangle": "off"
+  }
 }

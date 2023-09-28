@@ -1,9 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
+  "newProjectRoot": "projects/@quix",
   "projects": {
-    "@quix/kitchen-sink": {
+    "kitchen-sink": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -122,7 +122,7 @@
         }
       }
     },
-    "@quix/quang": {
+    "quang": {
       "projectType": "library",
       "root": "projects/@quix/quang",
       "sourceRoot": "projects/@quix/quang",
@@ -131,7 +131,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/@quix/quang/tsconfig.lib.json",
             "project": "projects/@quix/quang/ng-package.json"
           },
           "configurations": {

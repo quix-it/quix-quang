@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { QuangLayoutService } from '../../../../../quang/utility/src/public_api'
+import { QuangLayoutService } from '../../../../../quang/utility'
 
 @Component({
   selector: 'ks-layout',

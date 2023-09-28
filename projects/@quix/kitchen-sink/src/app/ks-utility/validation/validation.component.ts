@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { addDays } from 'date-fns'
-import { QuangValidatorsService } from '../../../../../quang/utility/src/public_api'
+import { QuangValidatorsService } from '../../../../../quang/utility'
 
 @Component({
   selector: 'ks-validation',
