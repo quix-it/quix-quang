@@ -14,12 +14,12 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 import SwiperCore, { Pagination } from 'swiper'
 import { SwiperModule } from 'swiper/angular'
 
+import { QuangCardsModule } from '@quix/quang/components/cards'
 import {
-  QuangCardsModule,
   QuangInputDateModule,
   QuangInputDateRangeModule,
   QuangInputNumberModule
-} from '@quix/quang/components'
+} from '@quix/quang/components/input'
 
 import { SharedModule } from '../../shared/shared.module'
 import { ClipboardComponent } from './clipboard/clipboard.component'

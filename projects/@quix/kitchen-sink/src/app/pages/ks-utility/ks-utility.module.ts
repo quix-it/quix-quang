@@ -3,13 +3,6 @@ import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 
-import {
-  QuangCardsModule,
-  QuangInputDateModule,
-  QuangInputFileModule,
-  QuangInputTextModule
-} from '@quix/quang/components'
-
 import { SharedModule } from '../../shared/shared.module'
 import { DeviceMotionComponent } from './device-motion/device-motion.component'
 import { DeviceComponent } from './device/device.component'
@@ -18,6 +11,8 @@ import { LayoutComponent } from './layout/layout.component'
 import { PageComponent } from './page/page.component'
 import { StorageComponent } from './storage/storage.component'
 import { ValidationComponent } from './validation/validation.component'
+import { QuangCardsModule } from '@quix/quang/components/cards'
+import { QuangInputDateModule, QuangInputFileModule, QuangInputTextModule } from '@quix/quang/components/input'
 
 @NgModule({
   declarations: [

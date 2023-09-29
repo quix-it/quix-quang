@@ -4,8 +4,8 @@ import {
   ViewChild
 } from '@angular/core'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
+import { QuangWebcamComponent } from '@quix/quang/components/media'
 
-import { QuangWebcamComponent } from '@quix/quang/components'
 
 @Component({
   selector: 'ks-webcam',

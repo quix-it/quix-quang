@@ -5,11 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 
 import {
-  QuangCardsModule,
   QuangInputCheckboxModule,
   QuangInputEmailModule,
   QuangInputTextModule
-} from '@quix/quang/components'
+} from '@quix/quang/components/input'
+import { QuangCardsModule } from '@quix/quang/components/cards'
 
 import { SharedModule } from '../../shared/shared.module'
 import { ArrayArrayComponent } from './array-array/array-array.component'

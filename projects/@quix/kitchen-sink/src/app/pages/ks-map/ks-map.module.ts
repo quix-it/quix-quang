@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 
-import { QuangCardsModule, QuangMapModule } from '@quix/quang/components'
 
 import { SharedModule } from '../../shared/shared.module'
 import { GoogleComponent } from './google/google.component'
 import { KsMapRoutingModule } from './ks-map-routing.module'
 import { OsComponent } from './os/os.component'
+import { QuangCardsModule } from '@quix/quang/components/cards'
+import { QuangMapModule } from '@quix/quang/components/map'
 
 @NgModule({
   declarations: [GoogleComponent, OsComponent],

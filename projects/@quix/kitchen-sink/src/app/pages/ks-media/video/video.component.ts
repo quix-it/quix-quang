@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { QuangVideoComponent } from '@quix/quang/components'
+import { QuangVideoComponent } from '@quix/quang/components/media'
 
 @Component({
   selector: 'ks-video',
