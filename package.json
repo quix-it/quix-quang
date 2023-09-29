@@ -1,6 +1,6 @@
 {
   "name": "@quix/projects",
-  "version": "15.2.0-2",
+  "version": "15.2.0-3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
