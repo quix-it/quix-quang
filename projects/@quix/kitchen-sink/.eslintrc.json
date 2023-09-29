@@ -1,5 +1,5 @@
 {
-  "extends": "../../.eslintrc.json",
+  "extends": "../../../.eslintrc.json",
   "ignorePatterns": [
     "!**/*"
   ],
@@ -11,8 +11,8 @@
       "parserOptions": {
         "createDefaultProgram": true,
         "project": [
-          "projects/quang-kitchen-sink/tsconfig.app.json",
-          "projects/quang-kitchen-sink/tsconfig.spec.json"
+          "projects/@quix/kitchen-sink/tsconfig.app.json",
+          "projects/@quix/kitchen-sink/tsconfig.spec.json"
         ]
       },
       "rules": {

@@ -1,21 +1,22 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-
 import { ReactiveFormsModule } from '@angular/forms'
+
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 
+import { QuangCardsModule } from '@quix/quang/components/cards'
 import {
-  QuangCardsModule,
   QuangInputCheckboxModule,
   QuangInputDateModule,
   QuangInputEmailModule,
   QuangInputTelModule,
-  QuangInputTextModule,
-  QuangPaginatorModule
-} from '@quix/quang/components'
+  QuangInputTextModule
+} from '@quix/quang/components/input'
+import { QuangPaginatorModule } from '@quix/quang/components/paginator'
 
 import { SharedModule } from '../../shared/shared.module'
 import { AccessibilityRoutingModule } from './accessibility-routing.module'
+
 import { FormComponent } from './form/form.component'
 import { MasterComponent } from './master/master.component'
 

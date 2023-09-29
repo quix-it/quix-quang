@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { QuillModule } from 'ngx-quill'
 
@@ -8,9 +9,11 @@ import {
   QuangAutocompleteObjAsyncModule,
   QuangAutocompleteObjModule,
   QuangAutocompleteStrgAsyncModule,
-  QuangAutocompleteStrgModule,
-  QuangCardsModule,
-  QuangDatalistModule,
+  QuangAutocompleteStrgModule
+} from '@quix/quang/components/autocomplete'
+import { QuangCardsModule } from '@quix/quang/components/cards'
+import { QuangDatalistModule } from '@quix/quang/components/datalist'
+import {
   QuangInputCheckboxModule,
   QuangInputColorModule,
   QuangInputEmailModule,
@@ -23,24 +26,25 @@ import {
   QuangInputTelModule,
   QuangInputTextModule,
   QuangInputUrlModule,
+  QuangTextAreaModule
+} from '@quix/quang/components/input'
+import { QuangPaginatorModule, QuangPaginatorService } from '@quix/quang/components/paginator'
+import {
   QuangMultiSelectObjModule,
   QuangMultiSelectStrgModule,
-  QuangPaginatorModule,
-  QuangPaginatorService,
   QuangSelectObjModule,
-  QuangSelectStrgModule,
-  QuangSliderModule,
-  QuangTextAreaModule,
-  QuangToggleModule,
-  QuangWysiwygEditorModule,
-  QuangWysiwygViewModule
-} from '@quix/quang/components'
-import {
-  QuangDownloadModule,
-  QuangImageSrcModule
-} from '@quix/quang/directives'
+  QuangSelectStrgModule
+} from '@quix/quang/components/select'
+import { QuangSliderModule } from '@quix/quang/components/slider'
+import { QuangToggleModule } from '@quix/quang/components/toggle'
+import { QuangWysiwygEditorModule, QuangWysiwygViewModule } from '@quix/quang/components/wysiwyg'
+import { QuangDownloadModule, QuangImageSrcModule } from '@quix/quang/directives'
 
 import { SharedModule } from '../../shared/shared.module'
+import { KsComponentsRoutingModule } from './ks-components-routing.module'
+
+import { PaginatorServiceComponent } from './paginator-service/paginator-service.component'
+
 import { AuthDownloadComponent } from './auth-download/auth-download.component'
 import { AuthImageComponent } from './auth-image/auth-image.component'
 import { AutocompleteObjAsyncComponent } from './autocomplete-obj-async/autocomplete-obj-async.component'
@@ -54,11 +58,9 @@ import { DatalistComponent } from './datalist/datalist.component'
 import { EmailComponent } from './email/email.component'
 import { FileComponent } from './file/file.component'
 import { FractionComponent } from './fraction/fraction.component'
-import { KsComponentsRoutingModule } from './ks-components-routing.module'
 import { MultiSelectObjComponent } from './multi-select-obj/multi-select-obj.component'
 import { MultiSelectStrgComponent } from './multi-select-strg/multi-select-strg.component'
 import { NumberComponent } from './number/number.component'
-import { PaginatorServiceComponent } from './paginator-service/paginator-service.component'
 import { PaginatorComponent } from './paginator/paginator.component'
 import { PasswordComponent } from './password/password.component'
 import { RadioComponent } from './radio/radio.component'
@@ -145,9 +147,6 @@ import { UrlComponent } from './url/url.component'
     QuangWysiwygViewModule,
     QuangToggleModule
   ],
-  providers: [
-    QuangPaginatorService,
-    { provide: TRANSLOCO_SCOPE, useValue: 'core' }
-  ]
+  providers: [QuangPaginatorService, { provide: TRANSLOCO_SCOPE, useValue: 'core' }]
 })
 export class KsComponentsModule {}
