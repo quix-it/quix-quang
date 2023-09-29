@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { fromEvent, Observable } from 'rxjs'
+
+import { Observable, fromEvent } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,10 @@ export class QuangDeviceService {
    * defines how to lock the device screen
    * @param lockType
    */
+  // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
   // @ts-ignore @see https://github.com/microsoft/TypeScript-DOM-lib-generator/issues/1615
   lockScreenOrientation(lockType: OrientationLockType): void {
+    // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
     // @ts-ignore @see https://github.com/microsoft/TypeScript-DOM-lib-generator/issues/1615
     window.screen.orientation.lock(lockType)
   }

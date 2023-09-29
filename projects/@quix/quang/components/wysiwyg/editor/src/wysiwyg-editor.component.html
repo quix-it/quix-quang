@@ -1,42 +1,49 @@
 <div class="mb-3">
-  <label class="form-label"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [htmlFor]="id"
-         [attr.aria-label]="ariaLabel"
-         *ngIf="label">
-    {{label | transloco}}
+  <label
+    [attr.aria-label]="ariaLabel"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <quill-editor
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [format]="returnHtml ? 'html' : 'text'"
     [id]="id"
-    [placeholder]="placeholder | transloco"
-    [readOnly]="readonly"
-    [modules]="modules"
-    [preserveWhitespace]="preserveWhitespace"
-    [sanitize]="sanitize"
     [maxLength]="max"
     [minLength]="min"
+    [modules]="modules"
     [ngClass]="customClass"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [ngModel]="_value"
+    [placeholder]="placeholder | transloco"
+    [preserveWhitespace]="preserveWhitespace"
+    [readOnly]="readonly"
+    [sanitize]="sanitize"
     (onBlur)="emitBlur()"
     (onContentChanged)="onChangedHandler($event)"
     (onEditorCreated)="checkFocus($event)"
-    [format]="returnHtml ? 'html' : 'text'"
     #input
   ></quill-editor>
   <div class="valid-feedback">
-    {{_successMessage | transloco}}
+    {{ _successMessage | transloco }}
   </div>
-  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
-    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  <div
+    [attr.aria-errormessage]="_errorMessage"
+    class="invalid-feedback"
+  >
+    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
-  <small [id]="id + 'Help'"
-         class="form-text text-muted"
-         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         *ngIf="helpMessage">
-    {{_helpMessage | transloco}}
+  <small
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [id]="id + 'Help'"
+    *ngIf="helpMessage"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
   </small>
 </div>

@@ -1,10 +1,8 @@
-import { TRAINING_STATE_KEY } from './training-state.selector'
 import { ActionReducerMap } from '@ngrx/store'
-import {
-  planetsReducer,
-  PlanetsState
-} from '../planets-store/reducers/planets.reducers'
+
 import { AppState } from '../../../store/app.reducer'
+import { PlanetsState, planetsReducer } from '../planets-store/reducers/planets.reducers'
+import { TRAINING_STATE_KEY } from './training-state.selector'
 
 export interface TrainingState {
   planetsState: PlanetsState

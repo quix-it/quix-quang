@@ -18,15 +18,16 @@
         >
         <div cardBody>
           <quang-chart-gauge
-            [id]="'test'"
-            [height]="'50vh'"
             [chartData]="data"
-            [min]="0"
-            [max]="270"
-            [pointerColor]="'#3e885b'"
-            [gaugeColor]="'#fff'"
             [color]="'#debac0'"
-            (chartClick)="onCLick($event)"></quang-chart-gauge>
+            [gaugeColor]="'#fff'"
+            [height]="'50vh'"
+            [id]="'test'"
+            [max]="270"
+            [min]="0"
+            [pointerColor]="'#3e885b'"
+            (chartClick)="onCLick($event)"
+          ></quang-chart-gauge>
         </div>
       </quang-card-action-header>
     </div>

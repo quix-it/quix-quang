@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core'
-import { QuangStorageService } from './storage-service/storage.service'
+
 import { NgxWebstorageModule } from 'ngx-webstorage'
-import { QuangValidatorsService } from './validators/validators.service'
-import { QuangLayoutService } from './layout/layout.service'
+
 import { QuangDeviceMotionService } from './device-motion/device-motion.service'
-import { QuangPageService } from './page/page.service'
 import { QuangDeviceService } from './device/device.service'
+import { QuangLayoutService } from './layout/layout.service'
+import { QuangPageService } from './page/page.service'
+import { QuangStorageService } from './storage-service/storage.service'
+import { QuangValidatorsService } from './validators/validators.service'
 
 @NgModule({
   declarations: [],

@@ -7,8 +7,11 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
-import { ChartTreemap } from './chart-treemap.model'
+
 import { EChartsOption } from 'echarts'
+
+import { ChartTreemap } from './chart-treemap.model'
+
 /**
  * chart treemap component decorator
  */
@@ -56,7 +59,7 @@ export class ChartTreemapComponent implements OnChanges {
   /**
    * click event on the graph
    */
-  @Output() chartClick: EventEmitter<any> = new EventEmitter()
+  @Output() chartClick = new EventEmitter<any>()
   /**
    * basic configuration of the chart
    */
@@ -68,17 +71,21 @@ export class ChartTreemapComponent implements OnChanges {
    * change input management
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.chartData?.currentValue?.length) {
-      this.chartOption.series = [{
-        type: 'treemap',
-        roam: false,
-        breadcrumb: { show: false, emptyItemWidth: 0 },
-        nodeClick: 'zoomToNode',
-        data: [{
-          children: changes.chartData.currentValue
-        }]
-      }]
+      this.chartOption.series = [
+        {
+          type: 'treemap',
+          roam: false,
+          breadcrumb: { show: false, emptyItemWidth: 0 },
+          nodeClick: 'zoomToNode',
+          data: [
+            {
+              children: changes.chartData.currentValue
+            }
+          ]
+        }
+      ]
     }
     if (changes.grid?.currentValue) {
       this.chartOption.grid = changes.grid.currentValue
@@ -89,7 +96,7 @@ export class ChartTreemapComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e
    */
-  onChartClick (e: any): void {
+  onChartClick(e: any): void {
     this.chartClick.emit(e)
   }
 }

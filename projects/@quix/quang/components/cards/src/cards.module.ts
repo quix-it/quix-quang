@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
+
 import { TranslocoModule } from '@ngneat/transloco'
 
 import { QuangCardActionHeaderComponent } from './action-header/card-action-header.component'

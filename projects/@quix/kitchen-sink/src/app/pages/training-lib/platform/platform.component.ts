@@ -1,10 +1,10 @@
-import { Component } from '@angular/core'
 import {
+  Platform,
   getSupportedInputTypes,
   supportsPassiveEventListeners,
-  supportsScrollBehavior,
-  Platform
+  supportsScrollBehavior
 } from '@angular/cdk/platform'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'ks-platform',

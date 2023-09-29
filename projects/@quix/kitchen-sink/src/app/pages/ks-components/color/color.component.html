@@ -19,16 +19,17 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-color
-              [label]="'form.color.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
               [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'color id'"
               [autofocus]="true"
+              [errorMessage]="true"
               [formName]="'form'"
-              formControlName="color">
+              [helpMessage]="true"
+              [id]="'color id'"
+              [label]="'form.color.label'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="color"
+            >
             </quang-input-color>
           </form>
           <dl>

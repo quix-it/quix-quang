@@ -1,4 +1,7 @@
-<section class="container-fluid" id="picture">
+<section
+  class="container-fluid"
+  id="picture"
+>
   <div class="row">
     <div class="col">
       <ks-title [title]="'Quang code reader'"></ks-title>
@@ -18,10 +21,11 @@
         >
         <div cardBody>
           <quang-code-reader
-            [id]="'reader'"
-            [formats]="qrCodeFormat"
             [errorMessage]="'No webcam available'"
-            (whenFindCode)="logCode($event)"></quang-code-reader>
+            [formats]="qrCodeFormat"
+            [id]="'reader'"
+            (whenFindCode)="logCode($event)"
+          ></quang-code-reader>
           {{ resultQr | json }}
         </div>
       </quang-card-action-header>
@@ -42,10 +46,11 @@
         <h3 cardHeader>Bar Code</h3>
         <div cardBody>
           <quang-code-reader
-            [id]="'readerBar'"
-            [formats]="barCodeFormat"
             [errorMessage]="'No webcam available'"
-            (whenFindCode)="logBarCode($event)"></quang-code-reader>
+            [formats]="barCodeFormat"
+            [id]="'readerBar'"
+            (whenFindCode)="logBarCode($event)"
+          ></quang-code-reader>
           {{ resultBar | json }}
         </div>
       </quang-card-header>

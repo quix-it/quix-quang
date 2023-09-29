@@ -1,12 +1,5 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core'
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core'
+
 import { from } from 'rxjs'
 
 @Component({
@@ -32,11 +25,13 @@ export class QuangWebcamComponent implements OnInit {
    */
   @ViewChild('video', { static: true })
   video: ElementRef<HTMLVideoElement> | null = null
+
   /**
    *
    */
   @ViewChild('canvas', { static: true })
   canvas: ElementRef<HTMLCanvasElement> | null = null
+
   /**
    *
    */
@@ -62,18 +57,16 @@ export class QuangWebcamComponent implements OnInit {
    */
   _recordedChunks: any = []
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.getDevice()
   }
 
   /**
    *
    */
-  getDevice (): void {
-    from(
-      navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-    ).subscribe((stream) => {
-      if (this.video && this.video.nativeElement) {
+  getDevice(): void {
+    from(navigator.mediaDevices.getUserMedia({ video: true, audio: false })).subscribe((stream) => {
+      if (this.video?.nativeElement) {
         this.video.nativeElement.srcObject = stream
       }
       this._stream = stream
@@ -84,41 +77,33 @@ export class QuangWebcamComponent implements OnInit {
   /**
    *
    */
-  public startDevice (): void {
+  public startDevice(): void {
     this.video?.nativeElement.play()
   }
 
   /**
    *
    */
-  public pauseDevice (): void {
+  public pauseDevice(): void {
     this.video?.nativeElement.pause()
   }
 
   /**
    *
    */
-  takePhoto (): void {
+  takePhoto(): void {
     if (this.video?.nativeElement) {
-      (this.canvas?.nativeElement as HTMLCanvasElement)
+      ;(this.canvas?.nativeElement as HTMLCanvasElement)
         ?.getContext('2d')
-        ?.drawImage(
-          this.video?.nativeElement,
-          0,
-          0,
-          this.photoWidth,
-          this.photoHeight
-        )
-      this.whenPhotoReady.emit(
-        this.canvas?.nativeElement.toDataURL('image/png')
-      )
+        ?.drawImage(this.video?.nativeElement, 0, 0, this.photoWidth, this.photoHeight)
+      this.whenPhotoReady.emit(this.canvas?.nativeElement.toDataURL('image/png'))
     }
   }
 
   /**
    *
    */
-  startRecordVideo (): void {
+  startRecordVideo(): void {
     if (this._stream) {
       this._recorder = new MediaRecorder(this._stream)
       this._recorder.ondataavailable = (e: BlobEvent) => {
@@ -131,14 +116,14 @@ export class QuangWebcamComponent implements OnInit {
   /**
    *
    */
-  recorderOnDataAvailable (event: any): void {
+  recorderOnDataAvailable(event: any): void {
     this._recordedChunks.push(event.data)
   }
 
   /**
    *
    */
-  stopRecordVideo (): void {
+  stopRecordVideo(): void {
     this._recorder?.stop()
     this.whenVideoReady.emit(new Blob(this._recordedChunks))
     this._recordedChunks = []

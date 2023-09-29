@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { StarshipsComponent } from './starships/starships.component'
+
 import { PlanetsComponent } from './planets/planets.component'
+import { StarshipsComponent } from './starships/starships.component'
 
 const routes: Routes = [
   { path: 'starships', component: StarshipsComponent },

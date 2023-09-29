@@ -1,6 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store'
-import { deleteToast, openToast } from '../actions/toast.actions'
+
 import { QuangToast } from '../../toast.model'
+
+import { deleteToast, openToast } from '../actions/toast.actions'
 
 /**
  * define toast state in store
@@ -21,12 +23,8 @@ export const initialState: ToastsState = { toastData: null }
  */
 const reducer = createReducer(
   initialState,
-  on(openToast, (state, action) =>
-    ({ ...state, toastData: action.toastData })
-  ),
-  on(deleteToast, (state) =>
-    ({ ...state, toastData: null })
-  )
+  on(openToast, (state, action) => ({ ...state, toastData: action.toastData })),
+  on(deleteToast, (state) => ({ ...state, toastData: null }))
 )
 
 /**
@@ -34,6 +32,6 @@ const reducer = createReducer(
  * @param state
  * @param action
  */
-export function toastReducers (state: ToastsState | undefined, action: Action): any {
+export function toastReducers(state: ToastsState | undefined, action: Action): any {
   return reducer(state, action)
 }

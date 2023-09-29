@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormArray, FormControl, FormGroup } from '@angular/forms'
 
 @Component({
@@ -12,7 +12,7 @@ export class ArrayComponent {
   })
 
   get array(): FormArray {
-    return this.group.controls['array'] as FormArray
+    return this.group.controls.array as FormArray
   }
 
   addControl(): void {

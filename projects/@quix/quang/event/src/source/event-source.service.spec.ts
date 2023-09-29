@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing'
+
 import { QuangEventSourceService } from './event-source.service'
 
 describe('QuangEventSourceService', () => {

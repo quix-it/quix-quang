@@ -7,7 +7,7 @@ export class ChartPie {
    * @param value chart value
    * @param name chart name
    */
-  constructor (
+  constructor(
     /**
      * chart value
      */
@@ -16,6 +16,5 @@ export class ChartPie {
      * chart name
      */
     public name: string
-  ) {
-  }
+  ) {}
 }

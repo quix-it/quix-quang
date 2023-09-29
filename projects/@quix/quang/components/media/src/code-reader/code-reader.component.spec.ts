@@ -9,8 +9,7 @@ describe('CodeReaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuangCodeReaderComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   })
 
   beforeEach(() => {

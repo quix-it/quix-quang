@@ -19,16 +19,17 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-select-strg
-              [label]="'form.select-strg.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'select-strg id'"
               [autofocus]="true"
+              [errorMessage]="true"
               [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'select-strg id'"
+              [label]="'form.select-strg.label'"
               [list]="list"
-              formControlName="item">
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="item"
+            >
             </quang-select-strg>
           </form>
           <dl>

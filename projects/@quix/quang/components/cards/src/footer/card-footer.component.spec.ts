@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { QuangCardFooterComponent } from './card-footer.component'
 
@@ -9,8 +9,7 @@ describe('CardFooterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [QuangCardFooterComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

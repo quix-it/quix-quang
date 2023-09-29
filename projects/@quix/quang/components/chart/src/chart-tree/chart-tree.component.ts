@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core'
+
 import { EChartsOption } from 'echarts'
+
 import { ChartTree } from './chart-tree.model'
 
 @Component({
@@ -49,7 +51,7 @@ export class ChartTreeComponent implements OnChanges {
   /**
    * click event on the graph
    */
-  @Output() chartClick: EventEmitter<any> = new EventEmitter()
+  @Output() chartClick = new EventEmitter<any>()
   /**
    * basic configuration of the chart
    */
@@ -88,18 +90,18 @@ export class ChartTreeComponent implements OnChanges {
    * change input management
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.chartData?.currentValue) {
-      (this.chartOption.series as any)[0].data = changes.chartData.currentValue
+      ;(this.chartOption.series as any)[0].data = changes.chartData.currentValue
     }
     if (changes.grid?.currentValue) {
       this.chartOption.grid = changes.grid.currentValue
     }
     if (changes.color?.currentValue) {
-      (this.chartOption.series as any)[0].lineStyle.color = changes.color.currentValue
+      ;(this.chartOption.series as any)[0].lineStyle.color = changes.color.currentValue
     }
     if (changes.nodeColor?.currentValue) {
-      (this.chartOption.series as any)[0].itemStyle.color = changes.nodeColor.currentValue
+      ;(this.chartOption.series as any)[0].itemStyle.color = changes.nodeColor.currentValue
     }
   }
 
@@ -107,7 +109,7 @@ export class ChartTreeComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e: any): void {
+  onChartClick(e: any): void {
     this.chartClick.emit(e)
   }
 }

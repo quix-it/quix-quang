@@ -11,11 +11,11 @@ export class PaginatorComponent {
   sizeList = [5, 10, 15, 25, 50]
   list = Array(100).map((v, i) => ({ value: i, text: `Item${i}` }))
 
-  pageChange (p: number): void {
+  pageChange(p: number): void {
     this.page = p
   }
 
-  sizeChange (s: number): void {
+  sizeChange(s: number): void {
     this.size = s
   }
 }

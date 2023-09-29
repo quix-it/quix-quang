@@ -12,9 +12,11 @@ import {
   ViewChild
 } from '@angular/core'
 import { NgControl } from '@angular/forms'
+
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
 import { Observable, Observer, of } from 'rxjs'
 import { debounceTime, delay, filter, map, switchMap } from 'rxjs/operators'
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
+
 import { QuangAutocompleteAsyncService } from './autocomplete-async.service'
 
 /**
@@ -148,14 +150,12 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
+  onTouched: any = () => {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged: any = () => {}
 
   /**
    * constructor
@@ -163,7 +163,7 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
    * @param autocompleteService
    * @param control cva access
    */
-  constructor (
+  constructor(
     private readonly renderer: Renderer2,
     private readonly autocompleteService: QuangAutocompleteAsyncService,
     @Self() @Optional() public control: NgControl
@@ -176,32 +176,28 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
    * based on the configurations it decides which method to use
    * Check if the help message is required and create the key
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
     let prev: string = ''
     this.suggestions$ = new Observable((observer: Observer<string>) => {
       observer.next(this._value)
     }).pipe(
       debounceTime(300),
-      filter(s => s !== prev),
+      filter((s) => s !== prev),
       switchMap((query: string) => {
         prev = query
         if (query) {
           if (this.restApi) {
             return this.autocompleteService
               .getRestList(this.baseUrl, this.apiUrl, query)
-              .pipe(
-                map((data: any) => data || [])
-              )
+              .pipe(map((data: any) => data || []))
           }
           return this.autocompleteService
             .getList(this.baseUrl, this.apiUrl, query, this.apiParamName)
-            .pipe(
-              map((data: any) => data || [])
-            )
+            .pipe(map((data: any) => data || []))
         }
         return of([])
       }),
-      map(r => r.filter((s: string) => s.toLowerCase().includes(this._value.toLowerCase())))
+      map((r) => r.filter((s: string) => s.toLowerCase().includes(this._value.toLowerCase())))
     )
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
@@ -215,7 +211,7 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
         this.input?.nativeElement.focus()
@@ -228,7 +224,7 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
    * Add focus to the input field if the need comes after component initialization
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
@@ -237,14 +233,14 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any): void {
+  registerOnChange(fn: any): void {
     this.onChanged = fn
   }
 
@@ -252,7 +248,7 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
    * When the input value changes, the search status is saved and the cva flow is activated
    * @param e
    */
-  onChangedHandler (e: Event): void {
+  onChangedHandler(e: Event): void {
     this._value = (e.target as HTMLInputElement).value
     this.onTouched()
     this.onChanged(this._value)
@@ -262,7 +258,7 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
    * When the user selects an option, it saves the selection status and starts the cva flow
    * @param e
    */
-  onSelectHandler (e: TypeaheadMatch): void {
+  onSelectHandler(e: TypeaheadMatch): void {
     this._value = e.value
     this.onTouched()
     this.onChanged(this._value)
@@ -272,7 +268,7 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
    * When the CVA is initialized as control it initializes the internal states
    * @param value
    */
-  writeValue (value: any): void {
+  writeValue(value: any): void {
     this._value = value
   }
 
@@ -280,7 +276,7 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  setDisabledState (isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 
@@ -290,19 +286,21 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          if (this.control.errors[error]) {
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-            this._requiredValue = this.control.errors[error].requiredValue
+  observeValidate(): void {
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            if (this.control.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._requiredValue = this.control.errors[error].requiredValue
+            }
           }
         }
-      }
-    })
+      })
   }
 }

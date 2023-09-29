@@ -1,55 +1,58 @@
 <div class="mb-3">
   <label
-    class="form-label"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [htmlFor]="id + '_input'"
     [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id + '_input'"
     *ngIf="label"
+    class="form-label"
   >
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.['required']">*</span>
   </label>
   <div
-    class="input-group"
-    [class.input-group-sm]="size === 'sm'"
     [class.input-group-lg]="size === 'lg'"
+    [class.input-group-sm]="size === 'sm'"
+    class="input-group"
   >
     <input
-      type="text"
-      class="form-control"
-      bsDatepicker
-      #input
+      [attr.aria-disabled]="_disabled"
+      [attr.aria-label]="ariaLabel | transloco"
+      [autocomplete]="autocomplete"
+      [bsConfig]="config"
+      [bsValue]="_value"
+      [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+      [class.is-valid]="control?.valid && control?.dirty && successMessage"
+      [datesDisabled]="disabledDates"
+      [daysDisabled]="disabledDaysOfTheWeek"
       [id]="id + '_input'"
-      [placeholder]="placeholder | transloco"
+      [isDisabled]="_disabled"
       [maxDate]="maxDate"
       [minDate]="minDate"
       [ngClass]="customClass"
-      [class.is-valid]="control?.valid && control?.dirty && successMessage"
-      [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-      [bsConfig]="config"
-      [daysDisabled]="disabledDaysOfTheWeek"
-      [datesDisabled]="disabledDates"
-      [autocomplete]="autocomplete"
-      [attr.aria-label]="ariaLabel | transloco"
-      [attr.aria-disabled]="_disabled"
-      [tabIndex]="tabIndex"
-      [bsValue]="_value"
+      [placeholder]="placeholder | transloco"
       [placement]="placement"
-      (bsValueChange)="onBsValueChange($event)"
+      [tabIndex]="tabIndex"
       (blur)="onTouched()"
-      [isDisabled]="_disabled"
+      (bsValueChange)="onBsValueChange($event)"
       #drp="bsDatepicker"
+      #input
+      bsDatepicker
+      class="form-control"
+      type="text"
     />
-    <div class="input-group-append" *ngIf="!_disabled">
+    <div
+      *ngIf="!_disabled"
+      class="input-group-append"
+    >
       <button
-        class="btn"
         [ngClass]="buttonClass"
         [tabindex]="tabIndex"
-        type="button"
-        aria-label="calendar-button"
-        #inputBtn
         (click)="_disabled ? null : drp.toggle()"
+        #inputBtn
+        aria-label="calendar-button"
+        class="btn"
+        type="button"
       >
         <ng-content select="[calendarIcon]"></ng-content>
       </button>
@@ -58,18 +61,18 @@
     <div class="valid-feedback">
       {{ _successMessage | transloco }}
     </div>
-    <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    <div
+      [attr.aria-errormessage]="_errorMessage"
+      class="invalid-feedback"
+    >
       {{ _errorMessage | transloco }}
     </div>
   </div>
   <small
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
     [id]="id + 'Help'"
-    class="form-text text-muted"
-    [hidden]="
-      control?.dirty &&
-      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
-    "
     *ngIf="helpMessage"
+    class="form-text text-muted"
   >
     {{ _helpMessage | transloco }}
   </small>

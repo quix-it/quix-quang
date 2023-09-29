@@ -11,9 +11,6 @@
     "outDir": "../../../out-tsc/lib",
     "types": []
   },
-  "exclude": [
-    "**/*.spec.ts",
-    "**/*.stories.*"
-  ],
+  "exclude": ["**/*.spec.ts", "**/*.stories.*"],
   "extends": "../../../tsconfig.json"
 }

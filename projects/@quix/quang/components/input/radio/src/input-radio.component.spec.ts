@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { QuangInputRadioComponent } from './input-radio.component'
 
@@ -9,8 +9,7 @@ describe('InputRadioComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [QuangInputRadioComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

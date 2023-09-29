@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
+
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 
 import { QuangCardsModule } from '@quix/quang/components/cards'
 import { QuangDialogModule } from '@quix/quang/dialog'
 
 import { SharedModule } from '../../shared/shared.module'
-import { HttpErrorComponent } from './http-error/http-error.component'
 import { KsDialogRoutingModule } from './ks-dialog-routing.module'
+
+import { HttpErrorComponent } from './http-error/http-error.component'
 import { LoaderComponent } from './loader/loader.component'
 import { ExampleComponent } from './modal/example/example.component'
 import { ModalComponent } from './modal/modal.component'

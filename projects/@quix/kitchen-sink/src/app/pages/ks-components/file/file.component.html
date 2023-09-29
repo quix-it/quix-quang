@@ -14,18 +14,22 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-file
-              [label]="'form.file.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'file id'"
-              [formName]="'form'"
-              [buttonLabel]="'form.file.button.label'"
-              [buttonClass]="['btn', 'btn-outline-secondary']"
               [acceptFileType]="'image/*'"
-              formControlName="file">
-              <i uploadIcon class="fas fa-upload"></i>
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [buttonLabel]="'form.file.button.label'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'file id'"
+              [label]="'form.file.label'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="file"
+            >
+              <i
+                class="fas fa-upload"
+                uploadIcon
+              ></i>
             </quang-input-file>
           </form>
           <dl>
@@ -52,18 +56,22 @@
         <div cardBody>
           <form [formGroup]="groupMulti">
             <quang-input-file
-              [label]="'form.file.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'file-min-max id'"
-              [multiple]="true"
-              [formName]="'form'"
-              [buttonLabel]="'form.file.button.label'"
               [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="file">
-              <i uploadIcon class="fas fa-upload"></i>
+              [buttonLabel]="'form.file.button.label'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'file-min-max id'"
+              [label]="'form.file.label'"
+              [multiple]="true"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="file"
+            >
+              <i
+                class="fas fa-upload"
+                uploadIcon
+              ></i>
             </quang-input-file>
           </form>
           <dl>

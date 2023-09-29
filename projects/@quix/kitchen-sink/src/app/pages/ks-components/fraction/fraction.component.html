@@ -14,26 +14,39 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-fraction
-              [label]="'form.fraction.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'test'"
-              [autofocus]="true"
-              [formName]="'form'"
               [addButtonClass]="['btn', 'btn-outline-success']"
-              [removeButtonClass]="['btn', 'btn-outline-danger']"
-              [stepInteger]="1"
-              [stepFraction]="0.1"
-              [min]="0"
+              [autocomplete]="'off'"
+              [autofocus]="true"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'test'"
+              [label]="'form.fraction.label'"
               [max]="255"
-              formControlName="fraction">
-              <i addIntegerIcon class="fas fa-plus"></i>
-              <i removeIntegerIcon class="fas fa-minus"></i>
-              <i addFractionIcon class="fas fa-plus"></i>
-              <i removeFractionIcon class="fas fa-minus"></i>
+              [min]="0"
+              [removeButtonClass]="['btn', 'btn-outline-danger']"
+              [stepFraction]="0.1"
+              [stepInteger]="1"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="fraction"
+            >
+              <i
+                addIntegerIcon
+                class="fas fa-plus"
+              ></i>
+              <i
+                class="fas fa-minus"
+                removeIntegerIcon
+              ></i>
+              <i
+                addFractionIcon
+                class="fas fa-plus"
+              ></i>
+              <i
+                class="fas fa-minus"
+                removeFractionIcon
+              ></i>
             </quang-input-fraction>
           </form>
           <dl>

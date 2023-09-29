@@ -79,10 +79,7 @@ export class QuangVideoComponent implements OnChanges {
    * constructor
    * @param sanitizer
    */
-  constructor (
-    private readonly sanitizer: DomSanitizer
-  ) {
-  }
+  constructor(private readonly sanitizer: DomSanitizer) {}
 
   /**
    * When the source changes, sanitize the url and start the video,
@@ -90,7 +87,7 @@ export class QuangVideoComponent implements OnChanges {
    * if the video at the change of url is not restarted, I force the restart
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.src?.currentValue) {
       this.src = this.sanitizer.bypassSecurityTrustUrl(changes.src?.currentValue)
       if (this.video) {
@@ -107,9 +104,9 @@ export class QuangVideoComponent implements OnChanges {
   /**
    * Method to view the video in full screen
    */
-  public toFullScreen (): void {
-    if ((this.video?.nativeElement)?.requestFullscreen) {
-      (this.video?.nativeElement)?.requestFullscreen()
+  public toFullScreen(): void {
+    if (this.video?.nativeElement?.requestFullscreen) {
+      this.video?.nativeElement?.requestFullscreen()
     }
   }
 }

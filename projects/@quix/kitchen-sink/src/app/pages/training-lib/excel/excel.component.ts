@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http'
 import { Component } from '@angular/core'
+
 import { Workbook } from 'exceljs'
 import * as fs from 'file-saver'
-import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
 
 @Component({
@@ -20,9 +21,9 @@ export class ExcelComponent {
     [2007, 1, 'Toyota ', 'Toyota Corolla', 691, 5.4]
   ]
 
-  constructor (private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
-  create (): void {
+  create(): void {
     this.prepareImageForExcel().subscribe((image) => {
       const workbook = new Workbook()
       const worksheet = workbook.addWorksheet('Car Data')
@@ -78,18 +79,16 @@ export class ExcelComponent {
     })
   }
 
-  prepareImageForExcel (): Observable<string> {
+  prepareImageForExcel(): Observable<string> {
     return new Observable((observer) => {
-      this.http
-        .get('https://picsum.photos/200/300', { responseType: 'blob' })
-        .subscribe((image) => {
-          const reader = new FileReader()
-          reader.readAsDataURL(image)
-          reader.onload = () => {
-            observer.next(reader.result as string)
-            observer.complete()
-          }
-        })
+      this.http.get('https://picsum.photos/200/300', { responseType: 'blob' }).subscribe((image) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(image)
+        reader.onload = () => {
+          observer.next(reader.result as string)
+          observer.complete()
+        }
+      })
     })
   }
 }

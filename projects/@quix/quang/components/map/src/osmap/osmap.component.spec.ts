@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { OSMapComponent } from './osmap.component'
 
@@ -9,8 +9,7 @@ describe('OSMapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OSMapComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

@@ -18,12 +18,13 @@
         >
         <div cardBody>
           <quang-chart-tree
-            [id]="'test'"
-            [height]="'50vh'"
             [chartData]="data"
-            [nodeColor]="'#3e885b'"
             [color]="'#debac0'"
-            (chartClick)="onCLick($event)"></quang-chart-tree>
+            [height]="'50vh'"
+            [id]="'test'"
+            [nodeColor]="'#3e885b'"
+            (chartClick)="onCLick($event)"
+          ></quang-chart-tree>
         </div>
       </quang-card-action-header>
     </div>

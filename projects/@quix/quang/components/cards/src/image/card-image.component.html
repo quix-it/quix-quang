@@ -1,8 +1,9 @@
 <div class="card">
   <img
+    [alt]="alt | transloco"
     [src]="src"
     class="card-img-top"
-    [alt]="alt | transloco">
+  />
   <div class="card-body">
     <ng-content select="[cardBody]"></ng-content>
   </div>

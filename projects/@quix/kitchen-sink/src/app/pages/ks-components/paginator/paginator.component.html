@@ -18,15 +18,16 @@
         >
         <div cardBody>
           <quang-paginator
-            [tabIndex]="1"
             [id]="'paginator id'"
-            [totalItems]="list.length"
             [pageIndex]="0"
             [pageSize]="10"
             [showTotalElementsCount]="true"
+            [sizeList]="sizeList"
+            [tabIndex]="1"
+            [totalItems]="list.length"
             (whenPageChange)="pageChange($event)"
             (whenSizeChange)="sizeChange($event)"
-            [sizeList]="sizeList">
+          >
           </quang-paginator>
           <dl>
             <dt>Pagina:</dt>

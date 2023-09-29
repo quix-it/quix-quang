@@ -1,6 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store'
-import { PlanetsActions } from '../actions'
+
 import { Planet } from '../../planets/planet.model'
+
+import { PlanetsActions } from '../actions'
 
 export interface PlanetsState {
   list: Planet[]
@@ -21,9 +23,6 @@ const reducer = createReducer(
   on(PlanetsActions.getPlanetsError, () => initialValue)
 )
 
-export function planetsReducer(
-  state: PlanetsState | undefined,
-  action: Action
-): any {
+export function planetsReducer(state: PlanetsState | undefined, action: Action): any {
   return reducer(state, action)
 }

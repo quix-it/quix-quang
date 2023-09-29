@@ -1,4 +1,7 @@
-<section class="container-fluid" id="dd">
+<section
+  class="container-fluid"
+  id="dd"
+>
   <div class="row">
     <div class="col">
       <ks-title [title]="'Drag & drop'"></ks-title>
@@ -10,7 +13,12 @@
       <quang-card-header>
         <h3 cardHeader>Demo</h3>
         <div cardBody>
-          <div class="example-box" cdkDrag>Drag me around</div>
+          <div
+            cdkDrag
+            class="example-box"
+          >
+            Drag me around
+          </div>
         </div>
       </quang-card-header>
     </div>
@@ -30,9 +38,10 @@
         <div cardBody>
           <div class="example-boundary">
             <div
-              class="example-box"
+              cdkDrag
               cdkDragBoundary=".example-boundary"
-              cdkDrag>
+              class="example-box"
+            >
               I can only be dragged within the container
             </div>
           </div>
@@ -56,13 +65,18 @@
           <div class="example-container mb-3">
             <h4>Da fare</h4>
             <div
-              cdkDropList
-              #todoList="cdkDropList"
-              [cdkDropListData]="todo"
               [cdkDropListConnectedTo]="[doneList]"
+              [cdkDropListData]="todo"
+              (cdkDropListDropped)="dropConnection($event)"
+              #todoList="cdkDropList"
+              cdkDropList
               class="example-list"
-              (cdkDropListDropped)="dropConnection($event)">
-              <div class="example-box-list" *ngFor="let item of todo" cdkDrag>
+            >
+              <div
+                *ngFor="let item of todo"
+                cdkDrag
+                class="example-box-list"
+              >
                 {{ item }}
               </div>
             </div>
@@ -70,13 +84,18 @@
           <div class="example-container">
             <h4>Fatti</h4>
             <div
-              cdkDropList
-              #doneList="cdkDropList"
-              [cdkDropListData]="done"
               [cdkDropListConnectedTo]="[todoList]"
+              [cdkDropListData]="done"
+              (cdkDropListDropped)="dropConnection($event)"
+              #doneList="cdkDropList"
+              cdkDropList
               class="example-list"
-              (cdkDropListDropped)="dropConnection($event)">
-              <div class="example-box-list" *ngFor="let item of done" cdkDrag>
+            >
+              <div
+                *ngFor="let item of done"
+                cdkDrag
+                class="example-box-list"
+              >
                 {{ item }}
               </div>
             </div>
@@ -100,25 +119,28 @@
         <h3 cardHeader>Matrice</h3>
         <div cardBody>
           <button
-            type="button"
+            (click)="addRow()"
             class="btn btn-outline-success"
-            (click)="addRow()">
+            type="button"
+          >
             Aggiungi riga
           </button>
           <div class="example-matrix">
             <div *ngFor="let r of row; let i = index">
               <div
-                cdkDropListOrientation="horizontal"
-                cdkDropList
-                [id]="r.id"
-                [cdkDropListData]="r.value"
                 [cdkDropListConnectedTo]="connectedTo"
+                [cdkDropListData]="r.value"
+                [id]="r.id"
+                (cdkDropListDropped)="dropConnection($event)"
+                cdkDropList
+                cdkDropListOrientation="horizontal"
                 class="list"
-                (cdkDropListDropped)="dropConnection($event)">
+              >
                 <div
-                  class="box"
                   *ngFor="let item of r.value; let y = index"
-                  cdkDrag>
+                  cdkDrag
+                  class="box"
+                >
                   {{ 'index ' + getIndex(i, y) }} - {{ item }}
                 </div>
               </div>

@@ -1,3 +1,4 @@
+import { CdkTextareaAutosize } from '@angular/cdk/text-field'
 import {
   AfterViewInit,
   Component,
@@ -10,142 +11,141 @@ import {
   Renderer2,
   Self,
   SimpleChanges,
-  ViewChild,
-} from "@angular/core";
-import { ControlValueAccessor, NgControl } from "@angular/forms";
-import { CdkTextareaAutosize } from "@angular/cdk/text-field";
-import { delay, filter, take } from "rxjs/operators";
+  ViewChild
+} from '@angular/core'
+import { ControlValueAccessor, NgControl } from '@angular/forms'
+
+import { delay, filter, take } from 'rxjs/operators'
 
 /**
  * text area component decorator
  */
 @Component({
-  selector: "quang-text-area",
-  templateUrl: "./text-area.component.html",
-  styles: [],
+  selector: 'quang-text-area',
+  templateUrl: './text-area.component.html',
+  styles: []
 })
 /**
  * text area component
  */
-export class QuangTextAreaComponent
-  implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges
-{
+export class QuangTextAreaComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
   /**
    * The label to display on the input field
    */
-  @Input() label: string = "";
+  @Input() label: string = ''
   /**
    * The placeholder of the input field
    */
-  @Input() placeholder: string = "";
+  @Input() placeholder: string = ''
   /**
    * Html id of input
    */
-  @Input() id: string = "";
+  @Input() id: string = ''
   /**
    * Defines if you want to display the success message for the user
    */
-  @Input() successMessage: boolean = false;
+  @Input() successMessage: boolean = false
   /**
    * Defines if you want to display the error message for the user
    */
-  @Input() errorMessage: boolean = false;
+  @Input() errorMessage: boolean = false
   /**
    * Defines if you want to display the help message for the user
    */
-  @Input() helpMessage: boolean = false;
+  @Input() helpMessage: boolean = false
   /**
    * Defines the minimum length of the input field
    */
-  @Input() min: number = 0;
+  @Input() min: number = 0
   /**
    * Defines the maximum length of the input field
    */
-  @Input() max: number = 0;
+  @Input() max: number = 0
   /**
    * Indicates whether, when the page is opened,
    * this input field should be displayed in a focused state or not
    */
-  @Input() autofocus: boolean = false;
+  @Input() autofocus: boolean = false
   /**
    * Defines whether the input field is in a read-only state
    */
-  @Input() readonly: boolean = false;
+  @Input() readonly: boolean = false
   /**
    * Defines whether the text area has the ability to update its size based on the text content
    */
-  @Input() autoResize: boolean = false;
+  @Input() autoResize: boolean = false
   /**
    * Number of lines in the text area
    */
-  @Input() rows: number = 0;
+  @Input() rows: number = 0
   /**
    * Number of column in the text area
    */
-  @Input() cols: number = 0;
+  @Input() cols: number = 0
   /**
    * Indicate the position in the page navigation flow with the tab key
    */
-  @Input() tabIndex: number = 0;
+  @Input() tabIndex: number = 0
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
-  @Input() ariaLabel: string = `Input ${this.label}`;
+  @Input() ariaLabel: string = `Input ${this.label}`
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
    */
-  @Input() formName: string = "";
+  @Input() formName: string = ''
   /**
    * It defines how the size or direction of the text area can change
    */
-  @Input() resizeMode: "none" | "auto" | "vertical" | "horizzontal" = "auto";
+  @Input() resizeMode: 'none' | 'auto' | 'vertical' | 'horizzontal' = 'auto'
   /**
    * Array of additional classes to the input field
    */
-  @Input() customClass: string[] = [];
+  @Input() customClass: string[] = []
   /**
    * set default start value in select option
    */
-  @Input() defaultValue: string = "";
+  @Input() defaultValue: string = ''
 
   /**
    * The value of the input
    */
-  _value: string = "";
+  _value: string = ''
   /**
    * the status of the success message
    */
-  _successMessage: string = "";
+  _successMessage: string = ''
   /**
    * the status of the error message
    */
-  _errorMessage: string = "";
+  _errorMessage: string = ''
   /**
    * the status of the help message
    */
-  _helpMessage: string = "";
+  _helpMessage: string = ''
   /**
    * Contains the value required by a validation when it fails
    */
-  _requiredValue: any = "";
+  _requiredValue: any = ''
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {};
+  onTouched: any = () => {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {};
+  onChanged: any = () => {}
 
   /**
    * The html input element
    */
-  @ViewChild("input", { static: true })
-  input: ElementRef<HTMLTextAreaElement> | null = null;
-  @ViewChild("autosize") autosize: CdkTextareaAutosize | null = null;
+  @ViewChild('input', { static: true })
+  input: ElementRef<HTMLTextAreaElement> | null = null
+
+  @ViewChild('autosize') autosize: CdkTextareaAutosize | null = null
 
   /**
    * constructor
@@ -158,7 +158,7 @@ export class QuangTextAreaComponent
     private readonly ngZone: NgZone,
     @Self() @Optional() public control: NgControl
   ) {
-    this.control.valueAccessor = this;
+    this.control.valueAccessor = this
   }
 
   /**
@@ -169,13 +169,11 @@ export class QuangTextAreaComponent
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input?.nativeElement.focus();
+        this.input?.nativeElement.focus()
       }
-    }, 0);
-    this.ngZone.onStable
-      .pipe(take(1))
-      .subscribe(() => this.autosize?.resizeToFitContent(this.autoResize));
-    this.observeValidate();
+    }, 0)
+    this.ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize?.resizeToFitContent(this.autoResize))
+    this.observeValidate()
   }
 
   /**
@@ -183,14 +181,14 @@ export class QuangTextAreaComponent
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`;
+      this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`;
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
     if (this.defaultValue) {
-      this.writeValue(this.defaultValue);
-      this.onChanged(this._value);
+      this.writeValue(this.defaultValue)
+      this.onChanged(this._value)
     }
   }
 
@@ -200,7 +198,7 @@ export class QuangTextAreaComponent
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.autofocus?.currentValue && this.input) {
-      this.input.nativeElement.focus();
+      this.input.nativeElement.focus()
     }
   }
 
@@ -208,14 +206,14 @@ export class QuangTextAreaComponent
    * Standard definition to create a control value accessor
    */
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+    this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
   registerOnChange(fn: any): void {
-    this.onChanged = fn;
+    this.onChanged = fn
   }
 
   /**
@@ -224,9 +222,9 @@ export class QuangTextAreaComponent
    * @param e
    */
   onChangedHandler(e: Event): void {
-    this._value = (e.target as HTMLInputElement).value;
-    this.onTouched();
-    this.onChanged(this._value);
+    this._value = (e.target as HTMLInputElement).value
+    this.onTouched()
+    this.onChanged(this._value)
   }
 
   /**
@@ -234,8 +232,8 @@ export class QuangTextAreaComponent
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
   writeValue(value: string): void {
-    this._value = value;
-    this.renderer.setProperty(this.input?.nativeElement, "value", value);
+    this._value = value
+    this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
 
   /**
@@ -243,11 +241,7 @@ export class QuangTextAreaComponent
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(
-      this.input?.nativeElement,
-      "disabled",
-      isDisabled
-    );
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 
   /**
@@ -266,15 +260,15 @@ export class QuangTextAreaComponent
         if (this.control.invalid && this.errorMessage) {
           if (this.control.errors) {
             for (const error in this.control.errors) {
-              if (error === "minlength" || error === "maxlength") {
-                this._requiredValue = this.control.errors[error].requiredLength;
+              if (error === 'minlength' || error === 'maxlength') {
+                this._requiredValue = this.control.errors[error].requiredLength
               } else {
-                this._requiredValue = this.control.errors[error].requiredValue;
+                this._requiredValue = this.control.errors[error].requiredValue
               }
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`;
+              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
             }
           }
         }
-      });
+      })
   }
 }

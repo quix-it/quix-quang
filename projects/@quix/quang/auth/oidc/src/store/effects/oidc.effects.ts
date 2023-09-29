@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core'
-import { QuangOpenIdConnectService } from '../../oidc.service'
-import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { map, mergeMap } from 'rxjs/operators'
+
 import { Store } from '@ngrx/store'
+import { map, mergeMap } from 'rxjs/operators'
+
+import { QuangOpenIdConnectService } from '../../oidc.service'
+
 import { QuangOpenIdConnectActions } from '../actions'
+
+import { Actions, createEffect, ofType } from '@ngrx/effects'
 
 /**
  * service decorator
@@ -15,13 +19,13 @@ export class QuangAuthEffects {
   /**
    * Effect that is triggered when the effective login is dispatched, it recovers user data
    */
-  getInfoUserEffect$ = createEffect(
-    () => this.actions$.pipe(
+  getInfoUserEffect$ = createEffect(() =>
+    this.actions$.pipe(
       ofType(QuangOpenIdConnectActions.userLogin),
-      mergeMap(action =>
+      mergeMap((action) =>
         this.quangAuthService.getUserInfo().pipe(
           map((user: any) => {
-            return QuangOpenIdConnectActions.userInfoLogin({ user: user })
+            return QuangOpenIdConnectActions.userInfoLogin({ user })
           })
         )
       )
@@ -33,16 +37,17 @@ export class QuangAuthEffects {
    * deletes user data and starts the logout procedure
    */
   deleteUserEffect$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(QuangOpenIdConnectActions.userLogout),
-      map(action => {
-        this.store.dispatch(QuangOpenIdConnectActions.userRolesLogout())
-        this.store.dispatch(QuangOpenIdConnectActions.userInfoLogout())
-        this.quangAuthService.stopRefreshToken()
-        this.quangAuthService.logout()
-      }
-      )
-    ), { dispatch: false }
+    () =>
+      this.actions$.pipe(
+        ofType(QuangOpenIdConnectActions.userLogout),
+        map((action) => {
+          this.store.dispatch(QuangOpenIdConnectActions.userRolesLogout())
+          this.store.dispatch(QuangOpenIdConnectActions.userInfoLogout())
+          this.quangAuthService.stopRefreshToken()
+          this.quangAuthService.logout()
+        })
+      ),
+    { dispatch: false }
   )
 
   /**
@@ -51,10 +56,9 @@ export class QuangAuthEffects {
    * @param quangAuthService auth utility
    * @param store store access
    */
-  constructor (
+  constructor(
     private readonly actions$: Actions,
     private readonly quangAuthService: QuangOpenIdConnectService,
     private readonly store: Store<any>
-  ) {
-  }
+  ) {}
 }

@@ -18,11 +18,12 @@
         >
         <div cardBody>
           <quang-chart-radar
-            [id]="'test'"
-            [height]="'50vh'"
-            [radarIndicators]="indicators"
             [chartData]="data"
-            (chartClick)="onCLick($event)"></quang-chart-radar>
+            [height]="'50vh'"
+            [id]="'test'"
+            [radarIndicators]="indicators"
+            (chartClick)="onCLick($event)"
+          ></quang-chart-radar>
         </div>
       </quang-card-action-header>
     </div>

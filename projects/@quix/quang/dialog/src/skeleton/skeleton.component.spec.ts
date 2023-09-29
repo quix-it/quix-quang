@@ -9,8 +9,7 @@ describe('SkeletonComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuangSkeletonComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   })
 
   beforeEach(() => {

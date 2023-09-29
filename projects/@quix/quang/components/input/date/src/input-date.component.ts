@@ -15,11 +15,9 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
 import { format } from 'date-fns'
-import {
-  BsDatepickerConfig,
-  BsLocaleService
-} from 'ngx-bootstrap/datepicker'
+import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -33,9 +31,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input date component
  */
-export class QuangInputDateComponent
-  implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges
-{
+export class QuangInputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   /**
    * Html id of input
    */
@@ -167,14 +163,9 @@ export class QuangInputDateComponent
   /**
    * The html input element
    */
-  @ViewChild('input') input:
-    | ElementRef<HTMLInputElement>
-    | undefined
+  @ViewChild('input') input: ElementRef<HTMLInputElement> | undefined
 
-  @ViewChild('inputBtn') inputBtn:
-    | ElementRef<HTMLButtonElement>
-    | undefined
-
+  @ViewChild('inputBtn') inputBtn: ElementRef<HTMLButtonElement> | undefined
 
   /**
    * Standard definition to create a control value accessor
@@ -215,7 +206,7 @@ export class QuangInputDateComponent
       returnFocusToInput: true,
       dateInputFormat: this.dateFormat,
       rangeInputFormat: this.dateFormat,
-      showWeekNumbers: this.showWeekNumbers,
+      showWeekNumbers: this.showWeekNumbers
     }
     if (this.locale) {
       this.localeService.use(this.locale)
@@ -240,7 +231,9 @@ export class QuangInputDateComponent
     }, 0)
     this.observeValidate()
     this.control.control?.markAsPristine()
-    if (this._value) {this.onBsValueChange(this._value)}
+    if (this._value) {
+      this.onBsValueChange(this._value)
+    }
   }
 
   /**
@@ -296,7 +289,7 @@ export class QuangInputDateComponent
     } else {
       this._value = value
     }
-    if(this._value) {
+    if (this._value) {
       console.log('input date writeValue', this._value, format(this._value, this.fixedDateFnsFormat(this.dateFormat)))
     }
     if (this.input) {
@@ -318,16 +311,12 @@ export class QuangInputDateComponent
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    if(this.renderer) {
-      if(this.input) {
+    if (this.renderer) {
+      if (this.input) {
         this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
       }
-      if(this.inputBtn) {
-        this.renderer.setProperty(
-          this.inputBtn?.nativeElement,
-          'disabled',
-          isDisabled
-        )
+      if (this.inputBtn) {
+        this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
       }
     }
     this._disabled = isDisabled
@@ -363,11 +352,9 @@ export class QuangInputDateComponent
                     this.fixedDateFnsFormat(this.dateFormat)
                   )
                 } else {
-                  this._requiredValue =
-                    this.control.errors.dateBetween.requiredValue[0]
+                  this._requiredValue = this.control.errors.dateBetween.requiredValue[0]
                   this._requiredValue += ' - '
-                  this._requiredValue +=
-                    this.control.errors.dateBetween.requiredValue[1]
+                  this._requiredValue += this.control.errors.dateBetween.requiredValue[1]
                 }
               }
             }

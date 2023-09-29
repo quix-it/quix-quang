@@ -1,12 +1,5 @@
 import { Component } from '@angular/core'
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators
-} from '@angular/forms'
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms'
 
 @Component({
   selector: 'ks-sync-validator',
@@ -23,7 +16,7 @@ export class SyncValidatorComponent {
     checkbox: new FormControl(null, [Validators.required])
   })
 
-  validateInput (): ValidatorFn {
+  validateInput(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (control.value.toString().toLowerCase().includes('mario')) {
         return { validInput: true }
@@ -32,5 +25,5 @@ export class SyncValidatorComponent {
     }
   }
 
-  save (): void {}
+  save(): void {}
 }

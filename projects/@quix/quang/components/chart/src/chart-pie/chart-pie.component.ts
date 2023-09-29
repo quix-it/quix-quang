@@ -7,8 +7,11 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
-import { ChartPie } from './chart-pie.model'
+
 import { EChartsOption } from 'echarts'
+
+import { ChartPie } from './chart-pie.model'
+
 /**
  * chart pie component decorator
  */
@@ -60,7 +63,7 @@ export class ChartPieComponent implements OnChanges {
   /**
    * click event on the graph
    */
-  @Output() chartClick: EventEmitter<any> = new EventEmitter()
+  @Output() chartClick = new EventEmitter<any>()
   /**
    * basic configuration of the chart
    */
@@ -84,12 +87,12 @@ export class ChartPieComponent implements OnChanges {
    * change input management
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.color?.currentValue) {
       this.chartOption.color = changes.color.currentValue
     }
     if (changes.chartData?.currentValue && (this.chartOption?.series as any[])[0]) {
-      (this.chartOption.series as any)[0].data = changes.chartData.currentValue
+      ;(this.chartOption.series as any)[0].data = changes.chartData.currentValue
     }
     if (changes.grid?.currentValue) {
       this.chartOption.grid = changes.grid.currentValue
@@ -100,7 +103,7 @@ export class ChartPieComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e: any): void {
+  onChartClick(e: any): void {
     this.chartClick.emit(e)
   }
 }

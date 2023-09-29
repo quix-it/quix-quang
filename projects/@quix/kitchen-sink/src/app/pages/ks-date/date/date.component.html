@@ -17,26 +17,45 @@
           >Configurazioni</a
         >
         <div cardBody>
-          <button class="btn btn-primary" (click)="fillDate()">fill</button>
-          <button class="btn btn-primary" (click)="disableForm()">disable</button>
-          <button class="btn btn-primary" (click)="enableForm()">enable</button>
+          <button
+            (click)="fillDate()"
+            class="btn btn-primary"
+          >
+            fill
+          </button>
+          <button
+            (click)="disableForm()"
+            class="btn btn-primary"
+          >
+            disable
+          </button>
+          <button
+            (click)="enableForm()"
+            class="btn btn-primary"
+          >
+            enable
+          </button>
           <form [formGroup]="group">
             <quang-input-date
+              [autocomplete]="'off'"
+              [autofocus]="true"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date id'"
               [label]="'form.date.label'"
               [placeholder]="'form.date.ph'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'date id'"
-              [autofocus]="true"
               [returnISODate]="true"
-              [dateFormat]="'YYYY-MM-DD'"
-              [formName]="'form'"
-              [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="date">
-              <i calendarIcon class="fas fa-calendar-alt"></i>
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="date"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
             </quang-input-date>
           </form>
           <dl>
@@ -63,21 +82,25 @@
         <div cardBody>
           <form [formGroup]="groupMinMax">
             <quang-input-date
-              [label]="'form.date.label'"
-              [placeholder]="'form.date.ph'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
               [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'date-min-max id'"
-              [dateFormat]="'YYYY-MM-DD'"
-              [minDate]="minDate"
-              [maxDate]="maxDate"
-              [formName]="'form'"
               [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="date">
-              <i calendarIcon class="fas fa-calendar-alt"></i>
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-min-max id'"
+              [label]="'form.date.label'"
+              [maxDate]="maxDate"
+              [minDate]="minDate"
+              [placeholder]="'form.date.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="date"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
             </quang-input-date>
           </form>
           <dl>
@@ -104,20 +127,24 @@
         <div cardBody>
           <form [formGroup]="groupISO">
             <quang-input-date
+              [autocomplete]="'off'"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-iso id'"
               [label]="'form.date.label'"
               [placeholder]="'form.date.ph'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'date-iso id'"
-              [dateFormat]="'YYYY-MM-DD'"
               [returnISODate]="true"
-              [formName]="'form'"
-              [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="date">
-              <i calendarIcon class="fas fa-calendar-alt"></i>
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="date"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
             </quang-input-date>
           </form>
           <dl>

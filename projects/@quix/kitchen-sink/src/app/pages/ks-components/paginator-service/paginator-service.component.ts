@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+
 import { QuangPaginatorService } from '@quix/quang/components/paginator'
 
 @Component({
@@ -16,19 +17,19 @@ export class PaginatorServiceComponent {
 
   list = this.paginatorService.getPage(this.all, this.page, this.size)
 
-  constructor (private readonly paginatorService: QuangPaginatorService) {}
+  constructor(private readonly paginatorService: QuangPaginatorService) {}
 
-  pageChange (p: number): void {
+  pageChange(p: number): void {
     this.page = p
     this.makePage()
   }
 
-  sizeChange (s: number): void {
+  sizeChange(s: number): void {
     this.size = s
     this.makePage()
   }
 
-  makePage (): void {
+  makePage(): void {
     this.list = this.paginatorService.getPage(this.all, this.page, this.size)
   }
 }

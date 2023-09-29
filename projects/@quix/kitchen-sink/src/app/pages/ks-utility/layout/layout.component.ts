@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+
 import { QuangLayoutService } from '@quix/quang/utility'
 
 @Component({

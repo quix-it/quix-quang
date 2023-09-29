@@ -1,7 +1,10 @@
 import { Component } from '@angular/core'
-import { ExampleComponent } from './example/example.component'
+
 import { merge } from 'rxjs'
+
 import { QuangModalService } from '@quix/quang/dialog'
+
+import { ExampleComponent } from './example/example.component'
 
 @Component({
   selector: 'ks-modal',

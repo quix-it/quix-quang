@@ -19,18 +19,19 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-search
-              [label]="'form.search.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
               [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'search id'"
               [autofocus]="true"
-              [min]="0"
-              [max]="50"
+              [errorMessage]="true"
               [formName]="'form'"
-              formControlName="search">
+              [helpMessage]="true"
+              [id]="'search id'"
+              [label]="'form.search.label'"
+              [max]="50"
+              [min]="0"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="search"
+            >
             </quang-input-search>
           </form>
           <dl>

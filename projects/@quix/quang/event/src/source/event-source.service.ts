@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
-import { Subject } from 'rxjs'
+
 import { EventSourcePolyfill } from 'event-source-polyfill'
+import { Subject } from 'rxjs'
+
 /**
  * service decorator
  */
@@ -19,7 +21,7 @@ export class QuangEventSourceService {
   /**
    * the subject that outputs the returned values
    */
-  events: Subject<any> = new Subject()
+  events = new Subject<any>()
 
   /**
    * method to initialize and observe the eventSource message
@@ -29,20 +31,25 @@ export class QuangEventSourceService {
    * @param param
    * @param heartbeatTimeout
    */
-  openEventSource (baseUrl: string, url: string, auth: boolean, param?: string, heartbeatTimeout?: number): Subject<any> {
+  openEventSource(
+    baseUrl: string,
+    url: string,
+    auth: boolean,
+    param?: string,
+    heartbeatTimeout?: number
+  ): Subject<any> {
     this.events = new Subject()
     if (auth) {
       this.evs = new EventSourcePolyfill(`${baseUrl}${url}/${param}`, {
         headers: {
           Authorization: 'Bearer ' + window.localStorage.getItem('access_token')
         },
-        heartbeatTimeout: heartbeatTimeout || 45 * 1000
+        heartbeatTimeout: heartbeatTimeout ?? 45 * 1000
       })
     } else {
-      this.evs = new EventSourcePolyfill(`${baseUrl}${url}/${param}`,
-        {
-          heartbeatTimeout: heartbeatTimeout || 45 * 1000
-        })
+      this.evs = new EventSourcePolyfill(`${baseUrl}${url}/${param}`, {
+        heartbeatTimeout: heartbeatTimeout ?? 45 * 1000
+      })
     }
     this.onOpen()
     this.onEvent()
@@ -55,7 +62,7 @@ export class QuangEventSourceService {
    * logs that the anal has been opened and sends in the observable that the channel has been opened
    * @private
    */
-  private onOpen (): void {
+  private onOpen(): void {
     this.evs.onopen = () => {
       this.events.next('eventSourceInit')
       console.log('EventSource link opened')
@@ -68,7 +75,7 @@ export class QuangEventSourceService {
    * if it is not possible emit the response as it came from the channel
    * @private
    */
-  private onEvent (): void {
+  private onEvent(): void {
     this.evs.onmessage = (m) => {
       try {
         this.events.next(JSON.parse(m.data))
@@ -82,7 +89,7 @@ export class QuangEventSourceService {
    * Channel error handling sends the observable into error
    * @private
    */
-  private onError (): void {
+  private onError(): void {
     this.evs.onerror = (e) => {
       this.events.error(e)
       console.error(e)
@@ -92,7 +99,7 @@ export class QuangEventSourceService {
   /**
    * close the event source channel
    */
-  closeEventSource (): void {
+  closeEventSource(): void {
     this.events.complete()
     this.evs.close()
   }

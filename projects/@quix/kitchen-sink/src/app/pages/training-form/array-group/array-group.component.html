@@ -9,32 +9,41 @@
       <quang-card-header>
         <h3 cardHeader>Demo</h3>
         <div cardBody>
-          <button class="btn btn-outline-success" (click)="addGroup()">
+          <button
+            (click)="addGroup()"
+            class="btn btn-outline-success"
+          >
             Aggiungi gruppo
           </button>
-          <button class="btn btn-outline-danger ml-1" (click)="removeGroup()">
+          <button
+            (click)="removeGroup()"
+            class="btn btn-outline-danger ml-1"
+          >
             Rimuovi gruppo
           </button>
           <form [formGroup]="group">
             <ng-container formArrayName="array">
               <div
+                [formGroupName]="i"
                 *ngFor="let input of array.controls; let i = index"
-                [formGroupName]="i">
+              >
                 <div class="mb-3">
                   <label [htmlFor]="'name' + i">Nome {{ i }}</label>
                   <input
-                    type="text"
                     [id]="'name' + i"
                     class="form-control"
-                    formControlName="name" />
+                    formControlName="name"
+                    type="text"
+                  />
                 </div>
                 <div class="mb-3">
                   <label [htmlFor]="'surname' + i">Cognome {{ i }}</label>
                   <input
-                    type="text"
                     [id]="'surname' + i"
                     class="form-control"
-                    formControlName="surname" />
+                    formControlName="surname"
+                    type="text"
+                  />
                 </div>
               </div>
             </ng-container>

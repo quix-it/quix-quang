@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode'
-import { from } from 'rxjs'
 import { Html5QrcodeResult } from 'html5-qrcode/core'
+import { from } from 'rxjs'
 
 @Component({
   selector: 'quang-code-reader',
@@ -42,7 +43,7 @@ export class QuangCodeReaderComponent implements OnInit {
   /**
    * Defines the size of the box in which the code will be identified
    */
-  @Input() qrBox: { width: number, height: number } = { width: 250, height: 250 }
+  @Input() qrBox: { width: number; height: number } = { width: 250, height: 250 }
   /**
    * event emitter for co
    */
@@ -50,7 +51,7 @@ export class QuangCodeReaderComponent implements OnInit {
   /**
    * Devices list
    */
-  _devices: Array<{ [key: string]: any }> = []
+  _devices: Array<Record<string, any>> = []
   /**
    * selected device
    */
@@ -64,45 +65,44 @@ export class QuangCodeReaderComponent implements OnInit {
    */
   _reader: Html5Qrcode | null = null
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.getCameras()
   }
 
   /**
    * search for available cameras to start the reader
    */
-  getCameras (): void {
+  getCameras(): void {
     from(Html5Qrcode.getCameras()).subscribe(
-      d => {
+      (d) => {
         this._errorMessage = false
         this._devices = d
       },
-      err => {
+      (err) => {
         console.error(err)
         this._errorMessage = true
-      })
+      }
+    )
   }
 
   /**
    * Starts the reading of the code,
    * when it identifies a valid code it emits an event
    */
-  startReader (): void {
-    this._reader = new Html5Qrcode(
-      'wrapper-reader',
-      { formatsToSupport: this.formats, verbose: false }
-    )
-    this._reader.start(
-      this._cameraId,
-      {
-        fps: 10,
-        qrbox: this.qrBox
-      },
-      (decodedText: string, decodedResult: Html5QrcodeResult) => {
-        this.whenFindCode.emit(decodedResult)
-      },
-      (e) => {
-      })
+  startReader(): void {
+    this._reader = new Html5Qrcode('wrapper-reader', { formatsToSupport: this.formats, verbose: false })
+    this._reader
+      .start(
+        this._cameraId,
+        {
+          fps: 10,
+          qrbox: this.qrBox
+        },
+        (decodedText: string, decodedResult: Html5QrcodeResult) => {
+          this.whenFindCode.emit(decodedResult)
+        },
+        (e) => {}
+      )
       .catch((e) => {
         console.error(e)
       })
@@ -111,11 +111,13 @@ export class QuangCodeReaderComponent implements OnInit {
   /**
    * stop reader
    */
-  public stopReader (): void {
+  public stopReader(): void {
     if (this._reader) {
       from(this._reader.stop()).subscribe(
         (ignore) => {},
-        (e) => console.error(e)
+        (e) => {
+          console.error(e)
+        }
       )
     }
   }

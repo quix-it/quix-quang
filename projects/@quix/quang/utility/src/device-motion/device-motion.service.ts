@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { fromEvent, Observable } from 'rxjs'
+
+import { Observable, fromEvent } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'

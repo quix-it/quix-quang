@@ -13,6 +13,7 @@ import {
   ViewEncapsulation
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
 import { ContentChange, QuillEditorComponent } from 'ngx-quill'
 import { delay, filter } from 'rxjs/operators'
 
@@ -28,9 +29,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * text editor component
  */
-export class QuangWysiwygEditorComponent
-  implements ControlValueAccessor, AfterViewInit, OnInit
-{
+export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterViewInit, OnInit {
   /**
    * The label to display on the input field
    */
@@ -154,11 +153,11 @@ export class QuangWysiwygEditorComponent
    * Define if quill have to sanitize the html
    */
   @Input() sanitize: boolean = false
-  @Input() extraConfigData: {} = {}
+  @Input() extraConfigData: Record<string, unknown> = {}
   /**
    *
    */
-  @Output() onBlur: EventEmitter<any> = new EventEmitter<any>()
+  @Output() blurred: EventEmitter<any> = new EventEmitter<any>()
   /**
    * The html input element
    */
@@ -190,7 +189,7 @@ export class QuangWysiwygEditorComponent
   /**
    * The status of the modules
    */
-  modules: { [key: string]: any } = {}
+  modules: Record<string, any> = {}
 
   /**
    * Standard definition to create a control value accessor
@@ -298,7 +297,7 @@ export class QuangWysiwygEditorComponent
 
   emitBlur(): void {
     this.onTouched()
-    this.onBlur.emit()
+    this.blurred.emit()
   }
 
   /**
@@ -358,12 +357,7 @@ export class QuangWysiwygEditorComponent
           this._successMessage = `${this.formName}.${this.control?.name}.valid`
         } else if (this.control.invalid && this.errorMessage) {
           for (const error in this.control.errors) {
-            if (
-              Object.prototype?.hasOwnProperty?.call(
-                this.control.errors?.error,
-                ''
-              )
-            ) {
+            if (Object.prototype?.hasOwnProperty?.call(this.control.errors?.error, '')) {
               if (this.control.errors[error]) {
                 this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
                 this._requiredValue = this.control.errors[error].requiredValue

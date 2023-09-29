@@ -35,10 +35,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/@quix/quang/**/*.ts",
-              "projects/@quix/quang/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/@quix/quang/**/*.ts", "projects/@quix/quang/**/*.html"]
           }
         }
       }
@@ -67,20 +64,14 @@
             "tsConfig": "projects/@quix/kitchen-sink/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "baseHref": "/kitchen-sink/",
-            "assets": [
-              "projects/@quix/kitchen-sink/src/favicon.ico",
-              "projects/@quix/kitchen-sink/src/assets"
-            ],
+            "assets": ["projects/@quix/kitchen-sink/src/favicon.ico", "projects/@quix/kitchen-sink/src/assets"],
             "styles": [
               "projects/@quix/kitchen-sink/src/sass/styles.scss",
               "node_modules/quill/dist/quill.core.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/quill-emoji/dist/quill-emoji.css"
             ],
-            "scripts": [
-              "node_modules/@fortawesome/fontawesome-free/js/all.js",
-              "node_modules/quill/dist/quill.min.js"
-            ]
+            "scripts": ["node_modules/@fortawesome/fontawesome-free/js/all.js", "node_modules/quill/dist/quill.min.js"]
           },
           "configurations": {
             "production": {
@@ -141,23 +132,15 @@
             "tsConfig": "projects/@quix/kitchen-sink/tsconfig.spec.json",
             "karmaConfig": "projects/@quix/kitchen-sink/karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/@quix/kitchen-sink/src/favicon.ico",
-              "projects/@quix/kitchen-sink/src/assets"
-            ],
-            "styles": [
-              "projects/@quix/kitchen-sink/src/styles.scss"
-            ],
+            "assets": ["projects/@quix/kitchen-sink/src/favicon.ico", "projects/@quix/kitchen-sink/src/assets"],
+            "styles": ["projects/@quix/kitchen-sink/src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/@quix/kitchen-sink/**/*.ts",
-              "projects/@quix/kitchen-sink/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/@quix/kitchen-sink/**/*.ts", "projects/@quix/kitchen-sink/**/*.html"]
           }
         }
       }
@@ -165,9 +148,7 @@
   },
   "cli": {
     "analytics": "4c69ff4f-b242-4742-a667-c15cf0e09a78",
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "schematicCollections": ["@angular-eslint/schematics"]
   },
   "schematics": {
     "@angular-eslint/schematics:application": {

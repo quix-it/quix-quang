@@ -19,18 +19,19 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-wysiwyg-editor
-              [label]="'form.texteditor.label'"
-              [placeholder]="'form.texteditor.ph'"
-              [min]="0"
-              [max]="500"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="2"
-              [id]="'texteditor id'"
               [autofocus]="true"
+              [errorMessage]="true"
               [formName]="'form'"
-              formControlName="text"></quang-wysiwyg-editor>
+              [helpMessage]="true"
+              [id]="'texteditor id'"
+              [label]="'form.texteditor.label'"
+              [max]="500"
+              [min]="0"
+              [placeholder]="'form.texteditor.ph'"
+              [successMessage]="true"
+              [tabIndex]="2"
+              formControlName="text"
+            ></quang-wysiwyg-editor>
           </form>
           <dl>
             <dt>Value:</dt>
@@ -57,26 +58,27 @@
         <div cardBody>
           <form [formGroup]="groupBars">
             <quang-wysiwyg-editor
-              [label]="'form.texteditor.label'"
-              [placeholder]="'form.texteditor.ph'"
-              [min]="0"
-              [max]="500"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="2"
-              [id]="'texteditor-bars id'"
-              [listBar]="true"
-              [textStyleBar]="true"
               [alignBar]="true"
-              [fontBar]="true"
-              [mediaBar]="true"
-              [headerBar]="true"
-              [sizeBar]="true"
               [emojiBar]="true"
-              [indentBar]="true"
+              [errorMessage]="true"
+              [fontBar]="true"
               [formName]="'form'"
-              formControlName="text"></quang-wysiwyg-editor>
+              [headerBar]="true"
+              [helpMessage]="true"
+              [id]="'texteditor-bars id'"
+              [indentBar]="true"
+              [label]="'form.texteditor.label'"
+              [listBar]="true"
+              [max]="500"
+              [mediaBar]="true"
+              [min]="0"
+              [placeholder]="'form.texteditor.ph'"
+              [sizeBar]="true"
+              [successMessage]="true"
+              [tabIndex]="2"
+              [textStyleBar]="true"
+              formControlName="text"
+            ></quang-wysiwyg-editor>
           </form>
           <dl>
             <dt>Value:</dt>
@@ -103,28 +105,29 @@
         <div cardBody>
           <form [formGroup]="groupHtml">
             <quang-wysiwyg-editor
-              [label]="'form.texteditor.label'"
-              [placeholder]="'form.texteditor.ph'"
-              [min]="0"
-              [max]="500"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="3"
-              [id]="'texteditor-html id'"
-              [returnHtml]="true"
-              [listBar]="true"
-              [textTypeBar]="true"
-              [textStyleBar]="true"
               [alignBar]="true"
-              [fontBar]="true"
-              [mediaBar]="true"
-              [headerBar]="true"
-              [sizeBar]="true"
               [emojiBar]="true"
-              [indentBar]="true"
+              [errorMessage]="true"
+              [fontBar]="true"
               [formName]="'form'"
-              formControlName="text"></quang-wysiwyg-editor>
+              [headerBar]="true"
+              [helpMessage]="true"
+              [id]="'texteditor-html id'"
+              [indentBar]="true"
+              [label]="'form.texteditor.label'"
+              [listBar]="true"
+              [max]="500"
+              [mediaBar]="true"
+              [min]="0"
+              [placeholder]="'form.texteditor.ph'"
+              [returnHtml]="true"
+              [sizeBar]="true"
+              [successMessage]="true"
+              [tabIndex]="3"
+              [textStyleBar]="true"
+              [textTypeBar]="true"
+              formControlName="text"
+            ></quang-wysiwyg-editor>
           </form>
           <dl>
             <dt>Value:</dt>

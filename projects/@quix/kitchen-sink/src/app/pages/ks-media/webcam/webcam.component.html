@@ -1,4 +1,7 @@
-<section class="container-fluid" id="webcam">
+<section
+  class="container-fluid"
+  id="webcam"
+>
   <div class="row">
     <div class="col">
       <ks-title [title]="'Quang webcam'"></ks-title>
@@ -20,10 +23,10 @@
           <quang-webcam
             [photoHeight]="200"
             [photoWidth]="200"
-            #quangWebcam
             (whenCameraReady)="checkWebcamStatus($event)"
             (whenPhotoReady)="checkWebcamPhoto($event)"
             (whenVideoReady)="checkWebcamVideo($event)"
+            #quangWebcam
           ></quang-webcam>
           <dl>
             <dt>Ready:</dt>
@@ -31,30 +34,34 @@
           </dl>
           <button
             [disabled]="!ready"
+            (click)="start()"
             class="btn btn-outline-primary me-2"
             type="button"
-            (click)="start()">
+          >
             Start
           </button>
           <button
             [disabled]="!ready"
+            (click)="pause()"
             class="btn btn-outline-primary me-2"
             type="button"
-            (click)="pause()">
+          >
             Pause
           </button>
           <button
             [disabled]="!ready"
+            (click)="takePhoto()"
             class="btn btn-outline-primary me-2"
             type="button"
-            (click)="takePhoto()">
+          >
             Take photo
           </button>
           <button
             [disabled]="!ready"
             (click)="takeVideo()"
             class="btn btn-outline-primary me-2"
-            type="button">
+            type="button"
+          >
             Take video
           </button>
           <dl>
@@ -65,11 +72,12 @@
             <dt>Video:</dt>
             <dd>
               <video
-                *ngIf="videoFile"
                 [src]="videoFile"
+                *ngIf="videoFile"
                 #video
+                controls="true"
                 preload="auto"
-                controls="true"></video>
+              ></video>
             </dd>
           </dl>
         </div>

@@ -10,7 +10,8 @@ export class FileComponent {
   config: string[] = [
     "@Input() id: string = ''",
     "@Input() label: string = ''",
-    "@Input() ariaLabel: string = `Input ${this.label}`",
+    // eslint-disable-next-line no-template-curly-in-string
+    '@Input() ariaLabel: string = `Input ${this.label}`',
     '@Input() buttonLabel: string',
     "@Input() formName: string = ''",
     '@Input() helpMessage: boolean = false',

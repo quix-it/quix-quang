@@ -7,8 +7,10 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
-import { ChartCandlestick } from './chart-candlestick.model'
+
 import { EChartsOption } from 'echarts'
+
+import { ChartCandlestick } from './chart-candlestick.model'
 
 /**
  * chart candlestick component decorator
@@ -61,7 +63,7 @@ export class ChartCandlestickComponent implements OnChanges {
   /**
    * click event on the graph
    */
-  @Output() chartClick: EventEmitter<any> = new EventEmitter()
+  @Output() chartClick = new EventEmitter<any>()
   /**
    * basic configuration of the chart
    */
@@ -75,21 +77,23 @@ export class ChartCandlestickComponent implements OnChanges {
    * change input management
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.chartData?.currentValue) {
       this.chartOption.xAxis = {
         data: changes.chartData.currentValue.category
       }
-      this.chartOption.series = [{
-        type: 'candlestick',
-        itemStyle: {
-          color: this.colors[0],
-          borderColor: this.colors[0],
-          color0: this.colors[1],
-          borderColor0: this.colors[1]
-        },
-        data: changes.chartData.currentValue.series
-      }]
+      this.chartOption.series = [
+        {
+          type: 'candlestick',
+          itemStyle: {
+            color: this.colors[0],
+            borderColor: this.colors[0],
+            color0: this.colors[1],
+            borderColor0: this.colors[1]
+          },
+          data: changes.chartData.currentValue.series
+        }
+      ]
     }
     if (changes.grid?.currentValue) {
       this.chartOption.grid = changes.grid.currentValue
@@ -100,7 +104,7 @@ export class ChartCandlestickComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e
    */
-  onChartClick (e: any): void {
+  onChartClick(e: any): void {
     this.chartClick.emit(e)
   }
 }

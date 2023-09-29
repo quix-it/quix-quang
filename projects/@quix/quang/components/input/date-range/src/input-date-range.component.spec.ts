@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { QuangInputDateRangeComponent } from './input-date-range.component'
 
@@ -9,8 +9,7 @@ describe('InputDateRangeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [QuangInputDateRangeComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

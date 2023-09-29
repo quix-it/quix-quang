@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+
 import { ChartGauge } from '@quix/quang/components/chart'
 
 @Component({

@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core'
-import { QuangInputPasswordComponent } from './input-password.component'
 import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+
 import { TranslocoModule } from '@ngneat/transloco'
+
+import { QuangInputPasswordComponent } from './input-password.component'
 
 @NgModule({
   declarations: [QuangInputPasswordComponent],

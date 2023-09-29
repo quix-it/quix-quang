@@ -14,43 +14,47 @@
             <div class="mb-3">
               <label for="mask1">label</label>
               <input
-                id="mask1"
-                type="text"
-                class="form-control"
                 [mask]="'00/00/00 00:00:00'"
                 [showMaskTyped]="true"
-                formControlName="mask1" />
+                class="form-control"
+                formControlName="mask1"
+                id="mask1"
+                type="text"
+              />
             </div>
             <div class="mb-3">
               <label for="mask2">label</label>
               <input
-                id="mask2"
-                type="text"
+                [mask]="'000-0000000'"
+                [showMaskTyped]="true"
                 class="form-control"
                 formControlName="mask2"
-                [mask]="'000-0000000'"
-                [showMaskTyped]="true" />
+                id="mask2"
+                type="text"
+              />
             </div>
             <div class="mb-3">
               <label for="mask1">label</label>
               <input
-                id="mask3"
-                type="text"
+                [mask]="'0000-0000-0000-0000'"
+                [showMaskTyped]="true"
                 class="form-control"
                 formControlName="mask3"
-                [mask]="'0000-0000-0000-0000'"
-                [showMaskTyped]="true" />
+                id="mask3"
+                type="text"
+              />
             </div>
             <div class="mb-3">
               <label for="mask4">label</label>
               <input
-                id="mask4"
-                type="text"
-                class="form-control"
-                formControlName="mask4"
                 [hiddenInput]="true"
                 [mask]="'XXX/X0/0000'"
-                placeholder="***/*8/2020" />
+                class="form-control"
+                formControlName="mask4"
+                id="mask4"
+                placeholder="***/*8/2020"
+                type="text"
+              />
             </div>
           </form>
         </div>
@@ -75,7 +79,9 @@
         <div cardBody>
           <ul>
             <li>
-              <a href="https://www.npmjs.com/package/ngx-mask" target="_blank"
+              <a
+                href="https://www.npmjs.com/package/ngx-mask"
+                target="_blank"
                 >Ngx mask</a
               >
             </li>

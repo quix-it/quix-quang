@@ -1,4 +1,7 @@
-<section class="container-fluid" id="intersection">
+<section
+  class="container-fluid"
+  id="intersection"
+>
   <div class="row">
     <div class="col">
       <ks-title [title]="'Intersection Observer'"></ks-title>
@@ -10,15 +13,17 @@
         <h4 cardHeader>Demo</h4>
         <div cardBody>
           <div
-            id="image-wrapper"
+            #imageContainer
             class="border border-3 border-secondary"
-            #imageContainer>
+            id="image-wrapper"
+          >
             <img
-              src="/assets/images/lazy/default-placeholder.png"
-              [attr.data-src]="img + i"
-              #image
               [alt]="'image' + i"
-              *ngFor="let img of images; let i = index" />
+              [attr.data-src]="img + i"
+              *ngFor="let img of images; let i = index"
+              #image
+              src="/assets/images/lazy/default-placeholder.png"
+            />
           </div>
         </div>
       </quang-card-header>
@@ -40,8 +45,7 @@
         <div cardBody>
           <ul>
             <li>
-              <a
-                href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API"
+              <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API"
                 >Intersection Observer MDN</a
               >
             </li>

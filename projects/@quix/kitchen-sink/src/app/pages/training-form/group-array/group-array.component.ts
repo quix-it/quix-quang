@@ -13,11 +13,11 @@ export class GroupArrayComponent {
   })
 
   get array1(): FormArray {
-    return this.group.controls['array1'] as FormArray
+    return this.group.controls.array1 as FormArray
   }
 
   get array2(): FormArray {
-    return this.group.controls['array2'] as FormArray
+    return this.group.controls.array2 as FormArray
   }
 
   addArray1(): void {

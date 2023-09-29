@@ -8,10 +8,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class TelComponent {
   group: FormGroup = new FormGroup({
-    tel: new FormControl('', [
-      Validators.required,
-      Validators.minLength(9),
-      Validators.maxLength(10)
-    ])
+    tel: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(10)])
   })
 }

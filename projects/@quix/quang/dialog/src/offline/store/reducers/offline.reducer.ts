@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store'
+
 import { offline, online } from '../actions/offline.action'
 
 /**
@@ -22,8 +23,8 @@ const initialState: OfflineState = {
  */
 const reducer = createReducer(
   initialState,
-  on(online, state => ({ ...state, line: true })),
-  on(offline, state => ({ ...state, line: false }))
+  on(online, (state) => ({ ...state, line: true })),
+  on(offline, (state) => ({ ...state, line: false }))
 )
 
 /**
@@ -31,6 +32,6 @@ const reducer = createReducer(
  * @param state
  * @param action
  */
-export function offlineReducer (state: OfflineState | undefined, action: Action): any {
+export function offlineReducer(state: OfflineState | undefined, action: Action): any {
   return reducer(state, action)
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
+
 import { TranslocoService } from '@ngneat/transloco'
-import { PaginatorIntl } from './paginatorIntl';
+
+import { PaginatorIntl } from './paginatorIntl'
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +20,7 @@ export class QuangPaginatorLanguageService extends PaginatorIntl {
     this.getAndInitTranslations()
     this.getRangeLabel = (page: number, pageSize: number, length: number) => {
       if (length === 0) {
-        return this.translateService.translate(
-          'quangPaginator.pageRangeNoResults'
-        )
+        return this.translateService.translate('quangPaginator.pageRangeNoResults')
       }
       const amountPages = Math.ceil(length / pageSize)
       return this.translateService.translate('quangPaginator.pageRange', {
@@ -43,13 +43,8 @@ export class QuangPaginatorLanguageService extends PaginatorIntl {
         'quangPaginator.lastPage'
       ])
       .subscribe((t) => {
-        ;[
-          this.itemsPerPageLabel,
-          this.nextPageLabel,
-          this.previousPageLabel,
-          this.firstPageLabel,
-          this.lastPageLabel
-        ] = t
+        ;[this.itemsPerPageLabel, this.nextPageLabel, this.previousPageLabel, this.firstPageLabel, this.lastPageLabel] =
+          t
         this.changes.next()
       })
   }

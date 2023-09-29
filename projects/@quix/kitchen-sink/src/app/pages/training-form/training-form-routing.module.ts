@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { ControlComponent } from './control/control.component'
-import { GroupComponent } from './group/group.component'
-import { ArrayComponent } from './array/array.component'
+
 import { ArrayArrayComponent } from './array-array/array-array.component'
 import { ArrayGroupComponent } from './array-group/array-group.component'
+import { ArrayComponent } from './array/array.component'
+import { AsyncValidatorComponent } from './async-validator/async-validator.component'
+import { ControlComponent } from './control/control.component'
 import { GroupArrayComponent } from './group-array/group-array.component'
 import { GroupGroupComponent } from './group-group/group-group.component'
+import { GroupComponent } from './group/group.component'
 import { SyncValidatorComponent } from './sync-validator/sync-validator.component'
-import { AsyncValidatorComponent } from './async-validator/async-validator.component'
 
 const routes: Routes = [
   { path: 'control', component: ControlComponent },

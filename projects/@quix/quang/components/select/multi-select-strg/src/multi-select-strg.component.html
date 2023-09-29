@@ -1,55 +1,65 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [attr.aria-label]="ariaLabel | transloco"
-         *ngIf="label">
-    {{label | transloco}}
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <select class="form-select"
-          multiple
-          [size]="rowVisible"
-          [id]="id"
-          [autofocus]="autofocus"
-          [ngClass]="customClass"
-          [class.is-valid]="control?.valid && control?.dirty && successMessage"
-          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-          [attr.aria-label]="ariaLabel | transloco"
-          (input)="onChangedHandler($event)"
-          (blur)="onTouched()"
-          [class.form-select-lg]="size === 'lg'"
-          [class.form-select-sm]="size === 'sm'"
-          [tabIndex]="tabIndex"
-          #input
+  <select
+    [attr.aria-label]="ariaLabel | transloco"
+    [autofocus]="autofocus"
+    [class.form-select-lg]="size === 'lg'"
+    [class.form-select-sm]="size === 'sm'"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [id]="id"
+    [ngClass]="customClass"
+    [size]="rowVisible"
+    [tabIndex]="tabIndex"
+    (blur)="onTouched()"
+    (input)="onChangedHandler($event)"
+    #input
+    class="form-select"
+    multiple
   >
-    <option [ngValue]="null"
-            *ngIf="nullOption"></option>
-    <option *ngFor="let item of list"
-            [value]="item"
-            [selected]="_value?.includes(item)"
-            #options
+    <option
+      [ngValue]="null"
+      *ngIf="nullOption"
+    ></option>
+    <option
+      [selected]="_value?.includes(item)"
+      [value]="item"
+      *ngFor="let item of list"
+      #options
     >
-      {{translateValue ? (item | transloco) : item }}
+      {{ translateValue ? (item | transloco) : item }}
     </option>
   </select>
-  <div class="valid-feedback"
-       aria-live="assertive">
-    {{_successMessage | transloco}}
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
+    {{ _successMessage | transloco }}
   </div>
-  <div class="invalid-feedback"
-       aria-live="polite"
-       [id]="id + '-error'">
-    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  <div
+    [id]="id + '-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
+    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
-         class="form-text text-muted"
-         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         *ngIf="helpMessage">
-    {{_helpMessage | transloco}}
+  <small
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [id]="id + '-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
   </small>
-
-
 </div>

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { DateComponent } from './date/date.component'
+
 import { DateRangeComponent } from './date-range/date-range.component'
 import { DateTimeComponent } from './date-time/date-time.component'
+import { DateComponent } from './date/date.component'
 import { TimeComponent } from './time/time.component'
 
 const routes: Routes = [

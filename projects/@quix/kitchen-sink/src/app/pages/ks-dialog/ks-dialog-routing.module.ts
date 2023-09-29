@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { SkeletonComponent } from './skeleton/skeleton.component'
-import { ToastComponent } from './toast/toast.component'
+
+import { HttpErrorComponent } from './http-error/http-error.component'
 import { LoaderComponent } from './loader/loader.component'
 import { ModalComponent } from './modal/modal.component'
-import { OfflineComponent } from './offline/offline.component'
-import { HttpErrorComponent } from './http-error/http-error.component'
 import { NotificationComponent } from './notification/notification.component'
+import { OfflineComponent } from './offline/offline.component'
+import { SkeletonComponent } from './skeleton/skeleton.component'
+import { ToastComponent } from './toast/toast.component'
 
 const routes: Routes = [
   { path: 'skeleton', component: SkeletonComponent },

@@ -19,16 +19,17 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-autocomplete-obj
-              [id]="'test'"
-              [tabIndex]="1"
-              [errorMessage]="true"
-              [helpMessage]="true"
-              [successMessage]="true"
-              [formName]="'form'"
               [dataList]="list"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'test'"
               [returnValue]="'key'"
               [searchBy]="'name'"
-              formControlName="key"></quang-autocomplete-obj>
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="key"
+            ></quang-autocomplete-obj>
           </form>
           <dl>
             <dt>Value:</dt>

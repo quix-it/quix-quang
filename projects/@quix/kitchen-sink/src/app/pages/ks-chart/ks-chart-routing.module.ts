@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+
 import { AreaComponent } from './area/area.component'
 import { BarComponent } from './bar/bar.component'
+import { CandlestickComponent } from './candlestick/candlestick.component'
+import { DoughnutComponent } from './doughnut/doughnut.component'
+import { GaugeComponent } from './gauge/gauge.component'
 import { LineComponent } from './line/line.component'
 import { PieComponent } from './pie/pie.component'
-import { DoughnutComponent } from './doughnut/doughnut.component'
 import { RadarComponent } from './radar/radar.component'
-import { CandlestickComponent } from './candlestick/candlestick.component'
-import { TreemapComponent } from './treemap/treemap.component'
 import { TreeComponent } from './tree/tree.component'
-import { GaugeComponent } from './gauge/gauge.component'
+import { TreemapComponent } from './treemap/treemap.component'
 
 const routes: Routes = [
   { path: 'area', component: AreaComponent },

@@ -11,6 +11,7 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -24,9 +25,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * toggle component
  */
-export class QuangToggleComponent
-  implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges
-{
+export class QuangToggleComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   /**
    * Array of additional classes to the input field
    */
@@ -200,12 +199,8 @@ export class QuangToggleComponent
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this._disabled = isDisabled;
-    this.renderer.setProperty(
-      this.input,
-      "disabled",
-      isDisabled
-    );
+    this._disabled = isDisabled
+    this.renderer.setProperty(this.input, 'disabled', isDisabled)
   }
 
   /**
@@ -223,12 +218,7 @@ export class QuangToggleComponent
       .subscribe(() => {
         if (this.control.invalid && this.errorMessage) {
           for (const error in this.control.errors) {
-            if (
-              Object.prototype.hasOwnProperty.call(
-                this.control.errors.error,
-                ''
-              )
-            ) {
+            if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
               if (this.control.errors[error]) {
                 this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
                 this._requiredValue = this.control.errors[error].requiredValue

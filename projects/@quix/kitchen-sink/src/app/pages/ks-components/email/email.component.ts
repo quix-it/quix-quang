@@ -18,6 +18,7 @@ export class EmailComponent {
     '@Input() readonly: boolean = false',
     '@Input() multiple: boolean = false',
     "@Input() pattern: string = ''",
+    // eslint-disable-next-line no-template-curly-in-string
     '@Input() ariaLabel: string = `Input ${this.label}`',
     '@Input() tabIndex: number = 0',
     "@Input() formName: string = ''",

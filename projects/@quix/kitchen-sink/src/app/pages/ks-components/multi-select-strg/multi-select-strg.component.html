@@ -19,17 +19,18 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-multi-select-strg
-              [label]="'form.multi-select-strg.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'multi-select-strg id'"
               [autofocus]="true"
+              [errorMessage]="true"
               [formName]="'form'"
-              [rowVisible]="6"
+              [helpMessage]="true"
+              [id]="'multi-select-strg id'"
+              [label]="'form.multi-select-strg.label'"
               [list]="list"
-              formControlName="items">
+              [rowVisible]="6"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="items"
+            >
             </quang-multi-select-strg>
           </form>
           <dl>
@@ -43,9 +44,7 @@
       <quang-card-header>
         <h3 cardHeader>HTML/TS</h3>
         <div cardBody>
-          <pre class="html">{{
-            'core.multi-select-strg.html' | transloco
-          }}</pre>
+          <pre class="html">{{ 'core.multi-select-strg.html' | transloco }}</pre>
           <pre class="ts">{{ 'core.multi-select-strg.code' | transloco }}</pre>
         </div>
       </quang-card-header>

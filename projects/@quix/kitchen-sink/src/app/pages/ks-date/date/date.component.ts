@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+
 import { addYears } from 'date-fns'
 
 @Component({
@@ -24,15 +25,15 @@ export class DateComponent {
     date: new FormControl('', Validators.required)
   })
 
-  fillDate (): void {
+  fillDate(): void {
     this.group.patchValue({ date: this.date })
   }
 
-  disableForm (): void {
+  disableForm(): void {
     this.group.disable()
   }
 
-  enableForm (): void {
+  enableForm(): void {
     this.group.enable()
   }
 }

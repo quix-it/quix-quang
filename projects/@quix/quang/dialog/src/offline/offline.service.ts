@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core'
+
 import { TranslocoService } from '@ngneat/transloco'
 import { Store } from '@ngrx/store'
-import { fromEvent, merge, Observable, of } from 'rxjs'
+import { Observable, fromEvent, merge, of } from 'rxjs'
 import { mapTo } from 'rxjs/operators'
 
-import { QuangDialogStateModule } from '../dialog.reducer'
 import { QuangOfflineActions } from './store/actions'
+
 import { QuangOfflineSelectors } from './store/selectors'
+
+import { QuangDialogStateModule } from '../dialog.reducer'
 
 /**
  * service decorator

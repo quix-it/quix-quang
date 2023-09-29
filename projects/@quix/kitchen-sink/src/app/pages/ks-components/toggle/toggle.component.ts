@@ -10,6 +10,7 @@ export class ToggleComponent {
   config: string[] = [
     '@Input() customClass: string[] = []',
     "@Input() label: string = ''",
+    // eslint-disable-next-line no-template-curly-in-string
     '@Input() ariaLabel: string = `Input ${this.label}`',
     '@Input() autofocus: boolean = false',
     "@Input() id: string = ''",

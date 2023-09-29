@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { ChartTreemapComponent } from './chart-treemap.component'
 
@@ -9,8 +9,7 @@ describe('ChartTreemapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ChartTreemapComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

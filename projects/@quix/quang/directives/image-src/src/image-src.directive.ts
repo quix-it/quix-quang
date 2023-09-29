@@ -1,7 +1,8 @@
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { switchMap } from 'rxjs/operators'
+import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core'
+
 import { of } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
 
 /**
  * directive decorator
@@ -31,30 +32,30 @@ export class QuangImageSrcDirective implements OnChanges {
    * @param el
    * @param http
    */
-  constructor (
+  constructor(
     private readonly el: ElementRef,
-    private readonly http: HttpClient) {
-  }
+    private readonly http: HttpClient
+  ) {}
 
   /**
    * Download the image,
    * With an ajax call it downloads the image blob and adds the src attribute with the file just downloaded
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.src?.currentValue) {
       const headers = new HttpHeaders({
         'Content-Type': this.contentType ? this.contentType : 'application/json',
         Accept: this.accept ? this.accept : 'application/json'
       })
       this.http
-        .get(this.src, { headers: headers, responseType: 'blob' as 'json' })
-        .pipe(
-          switchMap((resp: any) => of(new Blob([resp], { type: resp.type })))
-        )
-        .subscribe(blob => {
+        .get(this.src, { headers, responseType: 'blob' as 'json' })
+        .pipe(switchMap((resp: any) => of(new Blob([resp], { type: resp.type }))))
+        .subscribe((blob) => {
           const reader = new FileReader()
           reader.readAsDataURL(blob)
-          reader.onload = () => { this.el.nativeElement.src = reader.result }
+          reader.onload = () => {
+            this.el.nativeElement.src = reader.result
+          }
         })
     }
   }

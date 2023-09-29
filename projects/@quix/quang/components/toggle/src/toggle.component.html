@@ -1,62 +1,64 @@
 <div
-  class="mb-3 toggle-wrapper form-check form-switch"
   [class.form-inline]="labelInline"
   [ngClass]="
-    direction === 'row'
-      ? 'direction-row'
-      : direction === 'reverse-row'
-      ? 'direction-reverse-row'
-      : 'direction-column'
-  ">
+    direction === 'row' ? 'direction-row' : direction === 'reverse-row' ? 'direction-reverse-row' : 'direction-column'
+  "
+  class="mb-3 toggle-wrapper form-check form-switch"
+>
   <label
-    [htmlFor]="id"
-    class="form-label"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [attr.aria-label]="ariaLabel | transloco"
-    *ngIf="label">
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <input
-    type="checkbox"
-    role="switch"
-    class="form-check-input"
-    [name]="id"
-    [id]="id"
     [attr.aria-checked]="_value"
+    [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+    [attr.aria-disabled]="_disabled"
+    [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+    [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
     [attr.aria-label]="'ariaLabel' | transloco"
     [attr.checked]="_value"
-    [tabIndex]="tabIndex"
-    [ngClass]="customClass"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    (input)="onChangedHandler($event)"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [id]="id"
+    [name]="id"
+    [ngClass]="customClass"
+    [tabIndex]="tabIndex"
     (blur)="onTouched()"
-    [attr.aria-disabled]="_disabled"
-    [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
-    [attr.aria-errormessage]="
-      errorMessage && _errorMessage ? id + '-error' : ''
-    "
-    [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
-    #input />
+    (input)="onChangedHandler($event)"
+    #input
+    class="form-check-input"
+    role="switch"
+    type="checkbox"
+  />
 </div>
 <div class="feedback">
-  <div class="valid-feedback" aria-live="assertive">
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
     {{ _successMessage | transloco }}
   </div>
-  <div class="invalid-feedback" aria-live="polite" [id]="id + '-error'">
-    {{ _errorMessage | transloco : { requiredValue: _requiredValue } }}
+  <div
+    [id]="id + '-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
+    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
     [id]="id + '-help'"
+    *ngIf="helpMessage"
     aria-live="assertive"
     class="form-text text-muted"
-    [hidden]="
-      control?.dirty &&
-      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
-    "
-    *ngIf="helpMessage">
+  >
     {{ _helpMessage | transloco }}
   </small>
 </div>

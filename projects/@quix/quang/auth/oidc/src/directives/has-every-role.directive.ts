@@ -1,11 +1,5 @@
-import {
-  Directive,
-  Input,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewContainerRef
-} from '@angular/core'
+import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
+
 import { Store } from '@ngrx/store'
 import { Subject } from 'rxjs'
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
@@ -16,7 +10,6 @@ import { selectHasEveryRole } from '../store/selectors/oidc.selectors'
   selector: '[quangHasEveryRole]'
 })
 export class QuangHasEveryRoleDirective implements OnInit, OnDestroy {
-
   @Input() quangHasEveryRole: string[]
 
   private readonly onDestroy$ = new Subject<void>()

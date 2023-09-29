@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { ChartAreaComponent } from './chart-area.component'
 
@@ -9,8 +9,7 @@ describe('ChartAreaComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ChartAreaComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

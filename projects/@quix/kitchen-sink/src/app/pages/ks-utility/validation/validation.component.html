@@ -14,17 +14,21 @@
         <div cardBody>
           <form [formGroup]="fileForm">
             <quang-input-file
-              [label]="'form.file.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'file id'"
-              [formName]="'form'"
-              [buttonLabel]="'form.file.button.label'"
               [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="file">
-              <i uploadIcon class="fas fa-upload"></i>
+              [buttonLabel]="'form.file.button.label'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'file id'"
+              [label]="'form.file.label'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="file"
+            >
+              <i
+                class="fas fa-upload"
+                uploadIcon
+              ></i>
             </quang-input-file>
           </form>
         </div>
@@ -47,13 +51,17 @@
           <form [formGroup]="dateForm">
             <div class="mb-3">
               <quang-input-date
-                [id]="'mm'"
-                [formName]="'form'"
-                [errorMessage]="true"
-                [successMessage]="true"
                 [buttonClass]="['btn', 'btn-outline-dark']"
-                formControlName="date">
-                <i calendarIcon class="fas fa-calendar"></i>
+                [errorMessage]="true"
+                [formName]="'form'"
+                [id]="'mm'"
+                [successMessage]="true"
+                formControlName="date"
+              >
+                <i
+                  calendarIcon
+                  class="fas fa-calendar"
+                ></i>
               </quang-input-date>
             </div>
           </form>
@@ -77,13 +85,17 @@
           <form [formGroup]="betweenForm">
             <div class="mb-3">
               <quang-input-date
-                [id]="'mm'"
-                [formName]="'form'"
-                formControlName="date"
+                [buttonClass]="['btn', 'btn-outline-dark']"
                 [errorMessage]="true"
+                [formName]="'form'"
+                [id]="'mm'"
                 [successMessage]="true"
-                [buttonClass]="['btn', 'btn-outline-dark']">
-                <i calendarIcon class="fas fa-calendar"></i>
+                formControlName="date"
+              >
+                <i
+                  calendarIcon
+                  class="fas fa-calendar"
+                ></i>
               </quang-input-date>
             </div>
           </form>
@@ -94,9 +106,7 @@
       <quang-card-header>
         <h3 cardHeader>TS</h3>
         <div cardBody>
-          <pre class="ts">{{
-            'utility.validation.date-between.code' | transloco
-          }}</pre>
+          <pre class="ts">{{ 'utility.validation.date-between.code' | transloco }}</pre>
         </div>
       </quang-card-header>
     </div>
@@ -108,13 +118,14 @@
         <div cardBody>
           <form [formGroup]="fiscalForm">
             <quang-input-text
+              [errorMessage]="true"
+              [formName]="'form'"
               [id]="'fiscal-code'"
               [label]="'Codice fiscale'"
-              [min]="0"
               [max]="16"
-              [formName]="'form'"
-              [errorMessage]="true"
-              formControlName="code"></quang-input-text>
+              [min]="0"
+              formControlName="code"
+            ></quang-input-text>
           </form>
         </div>
       </quang-card-header>
@@ -123,9 +134,7 @@
       <quang-card-header>
         <h3 cardHeader>TS</h3>
         <div cardBody>
-          <pre class="ts">{{
-            'utility.validation.fiscal.code' | transloco
-          }}</pre>
+          <pre class="ts">{{ 'utility.validation.fiscal.code' | transloco }}</pre>
         </div>
       </quang-card-header>
     </div>
@@ -137,13 +146,14 @@
         <div cardBody>
           <form [formGroup]="vatForm">
             <quang-input-text
+              [errorMessage]="true"
+              [formName]="'form'"
               [id]="'vat-number'"
               [label]="'Partita iva'"
-              [min]="0"
               [max]="11"
-              [formName]="'form'"
-              [errorMessage]="true"
-              formControlName="code"></quang-input-text>
+              [min]="0"
+              formControlName="code"
+            ></quang-input-text>
           </form>
         </div>
       </quang-card-header>

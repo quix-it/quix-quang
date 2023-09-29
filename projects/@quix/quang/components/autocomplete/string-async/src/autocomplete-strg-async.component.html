@@ -1,55 +1,64 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [attr.aria-label]="ariaLabel | transloco"
-         *ngIf="label">
-    {{label | transloco}}
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <input [ngModel]="_value"
-         [typeahead]="suggestions$"
-         [typeaheadAsync]="true"
-         class="form-control"
-         [id]="id"
-         [name]="id"
-         [readOnly]="readonly"
-         [autofocus]="autofocus"
-         [attr.aria-label]="ariaLabel | transloco"
-         [tabIndex]="tabIndex"
-         [autocomplete]="autocomplete"
-         [isAnimated]="true"
-         [adaptivePosition]="adaptivePosition"
-         [typeaheadScrollable]="true"
-         [typeaheadOptionsInScrollableView]="18"
-         [typeaheadMinLength]="startAfter"
-         [placeholder]="placeholder | transloco"
-         [typeaheadOptionsLimit]="optionLimit"
-         (typeaheadOnSelect)="onSelectHandler($event)"
-         (input)="onChangedHandler($event)"
-         (blur)="onTouched()"
-         [ngClass]="customClass"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [class.form-control-lg]="size === 'lg'"
-         [class.form-control-sm]="size === 'sm'"
-         #input
+  <input
+    [adaptivePosition]="adaptivePosition"
+    [attr.aria-label]="ariaLabel | transloco"
+    [autocomplete]="autocomplete"
+    [autofocus]="autofocus"
+    [class.form-control-lg]="size === 'lg'"
+    [class.form-control-sm]="size === 'sm'"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [id]="id"
+    [isAnimated]="true"
+    [name]="id"
+    [ngClass]="customClass"
+    [ngModel]="_value"
+    [placeholder]="placeholder | transloco"
+    [readOnly]="readonly"
+    [tabIndex]="tabIndex"
+    [typeahead]="suggestions$"
+    [typeaheadAsync]="true"
+    [typeaheadMinLength]="startAfter"
+    [typeaheadOptionsInScrollableView]="18"
+    [typeaheadOptionsLimit]="optionLimit"
+    [typeaheadScrollable]="true"
+    (blur)="onTouched()"
+    (input)="onChangedHandler($event)"
+    (typeaheadOnSelect)="onSelectHandler($event)"
+    #input
+    class="form-control"
+  />
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
   >
-  <div class="valid-feedback"
-       aria-live="assertive">
-    {{_successMessage | transloco}}
+    {{ _successMessage | transloco }}
   </div>
-  <div class="invalid-feedback"
-       aria-live="polite"
-       [id]="id + '-error'">
-    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  <div
+    [id]="id + '-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
+    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
-         class="form-text text-muted"
-         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         *ngIf="helpMessage">
-    {{_helpMessage | transloco}}
+  <small
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [id]="id + '-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
   </small>
 </div>

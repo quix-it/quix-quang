@@ -19,17 +19,18 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-slider
-              [label]="'form.slider.label'"
               [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'slider-id'"
               [formName]="'form'"
-              [minValue]="0"
-              [maxValue]="100"
+              [helpMessage]="true"
+              [id]="'slider-id'"
               [interval]="10"
-              formControlName="slider">
+              [label]="'form.slider.label'"
+              [maxValue]="100"
+              [minValue]="0"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="slider"
+            >
             </quang-slider>
           </form>
           <dl>
@@ -56,18 +57,19 @@
         <div cardBody>
           <form [formGroup]="groupVert">
             <quang-slider
-              [label]="'form.slider.label'"
               [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'slider id'"
               [formName]="'form'"
-              [minValue]="0"
-              [maxValue]="100"
+              [helpMessage]="true"
+              [id]="'slider id'"
               [interval]="10"
+              [label]="'form.slider.label'"
+              [maxValue]="100"
+              [minValue]="0"
+              [successMessage]="true"
+              [tabIndex]="1"
               [vertical]="true"
-              formControlName="slider">
+              formControlName="slider"
+            >
             </quang-slider>
           </form>
           <dl>

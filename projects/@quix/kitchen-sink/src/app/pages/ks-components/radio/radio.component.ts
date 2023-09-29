@@ -14,6 +14,7 @@ export class RadioComponent {
     '@Input() inline: boolean = false',
     '@Input() radioList: any[] = []',
     '@Input() autofocus: boolean = false',
+    // eslint-disable-next-line no-template-curly-in-string
     '@Input() ariaLabel: string = `Input ${this.label}`',
     '@Input() tabIndex: number = 0',
     '@Input() successMessage: boolean = false',

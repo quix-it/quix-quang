@@ -1,44 +1,59 @@
-<div [id]="id"
-     class="mb-3">
-  <div id="wrapper-reader"
-       [hidden]="!_cameraId"
+<div
+  [id]="id"
+  class="mb-3"
+>
+  <div
+    [hidden]="!_cameraId"
+    id="wrapper-reader"
   ></div>
-  <div id="wrapper-devices"
-       [hidden]="_cameraId">
+  <div
+    [hidden]="_cameraId"
+    id="wrapper-devices"
+  >
     <div class="mb-3">
-      <label [htmlFor]="id"
-             class="form-label"
-             [class.is-invalid]="_errorMessage"
-             [attr.aria-label]="ariaLabel | transloco"
-             *ngIf="label">
-        {{label | transloco}}
+      <label
+        [attr.aria-label]="ariaLabel | transloco"
+        [class.is-invalid]="_errorMessage"
+        [htmlFor]="id"
+        *ngIf="label"
+        class="form-label"
+      >
+        {{ label | transloco }}
       </label>
-      <select id="devices-select"
-              [(ngModel)]="_cameraId"
-              (change)="startReader()"
-              [id]="id + '-selector'"
-              [tabindex]="tabIndex"
-              [class.is-invalid]="_errorMessage"
-              [attr.aria-label]="ariaLabel | transloco"
-              [attr.aria-autocomplete]="autocomplete"
-              [attr.aria-describedby]="id + '-help'"
-              [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
-              class="form-select">
-        <option *ngFor="let d of _devices"
-                [ngValue]="d.id">
-          {{d.label}}
+      <select
+        [attr.aria-autocomplete]="autocomplete"
+        [attr.aria-describedby]="id + '-help'"
+        [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+        [attr.aria-label]="ariaLabel | transloco"
+        [class.is-invalid]="_errorMessage"
+        [id]="id + '-selector'"
+        [tabindex]="tabIndex"
+        (change)="startReader()"
+        [(ngModel)]="_cameraId"
+        class="form-select"
+        id="devices-select"
+      >
+        <option
+          [ngValue]="d.id"
+          *ngFor="let d of _devices"
+        >
+          {{ d.label }}
         </option>
       </select>
-      <div class="invalid-feedback"
-           aria-live="polite"
-           [id]="id + '-error'">
-        {{errorMessage | transloco}}
+      <div
+        [id]="id + '-error'"
+        aria-live="polite"
+        class="invalid-feedback"
+      >
+        {{ errorMessage | transloco }}
       </div>
-      <small [id]="id + '-help'"
-             [hidden]="_errorMessage"
-             aria-live="assertive"
-             class="form-text text-muted">
-        {{'quang-code-reader.helper' | transloco}}
+      <small
+        [hidden]="_errorMessage"
+        [id]="id + '-help'"
+        aria-live="assertive"
+        class="form-text text-muted"
+      >
+        {{ 'quang-code-reader.helper' | transloco }}
       </small>
     </div>
   </div>

@@ -15,8 +15,9 @@
                 <form [formGroup]="group">
                   <textarea
                     class="form-control"
+                    formControlName="array"
                     rows="6"
-                    formControlName="array"></textarea>
+                  ></textarea>
                 </form>
               </div>
             </div>
@@ -50,136 +51,153 @@
             <tab heading="forEach">
               <pre class="p-3">{{ 'js.array.forEach' | transloco }}</pre>
               <button
+                (click)="demoForEach()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoForEach()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="indexOf">
               <pre class="p-3">{{ 'js.array.indexOf' | transloco }}</pre>
               <button
+                (click)="demoIndexOf()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoIndexOf()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="lastIndexOf">
               <pre class="p-3">{{ 'js.array.lastIndexOf' | transloco }}</pre>
               <button
+                (click)="demoLastIndexOf()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoLastIndexOf()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="includes">
               <pre class="p-3">{{ 'js.array.includes' | transloco }}</pre>
               <button
+                (click)="demoIncludes()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoIncludes()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="join">
               <pre class="p-3">{{ 'js.array.join' | transloco }}</pre>
               <button
+                (click)="demoJoin()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoJoin()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="fill">
               <pre class="p-3">{{ 'js.array.fill' | transloco }}</pre>
               <button
+                (click)="demoFill()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoFill()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="flat">
               <pre class="p-3">{{ 'js.array.flat' | transloco }}</pre>
               <button
+                (click)="demoFlat()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoFlat()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="flatMap">
               <pre class="p-3">{{ 'js.array.flatMap' | transloco }}</pre>
               <button
+                (click)="demoFlatMap()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoFlatMap()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="find">
               <pre class="p-3">{{ 'js.array.find' | transloco }}</pre>
               <button
+                (click)="demoFind()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoFind()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="findIndex">
               <pre class="p-3">{{ 'js.array.findIndex' | transloco }}</pre>
               <button
+                (click)="demoFindIndex()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoFindIndex()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="some">
               <pre class="p-3">{{ 'js.array.some' | transloco }}</pre>
               <button
+                (click)="demoSome()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoSome()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="every">
               <pre class="p-3">{{ 'js.array.every' | transloco }}</pre>
               <button
+                (click)="demoEvery()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoEvery()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="sort">
               <pre class="p-3">{{ 'js.array.sort' | transloco }}</pre>
               <button
+                (click)="demoSort()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoSort()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="filter">
               <pre class="p-3">{{ 'js.array.filter' | transloco }}</pre>
               <button
+                (click)="demoFilter()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoFilter()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="reduce">
               <pre class="p-3">{{ 'js.array.reduce' | transloco }}</pre>
               <button
+                (click)="demoReduce()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoReduce()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="reduceRight">
               <pre class="p-3">{{ 'js.array.reduceRight' | transloco }}</pre>
               <button
+                (click)="demoReduceRight()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoReduceRight()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="map">
               <pre class="p-3">{{ 'js.array.map' | transloco }}</pre>
               <button
+                (click)="demoMap()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoMap()">
+              >
                 Test
               </button>
             </tab>
@@ -187,40 +205,45 @@
               <pre class="p-3">{{ 'js.array.concat' | transloco }}</pre>
               <pre class="p-3">{{ 'js.array.concatSpread' | transloco }}</pre>
               <button
+                (click)="demoConcat()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoConcat()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="splice">
               <pre class="p-3">{{ 'js.array.splice' | transloco }}</pre>
               <button
+                (click)="demoSplice()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoSplice()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="slice">
               <pre class="p-3">{{ 'js.array.slice' | transloco }}</pre>
               <button
+                (click)="demoSlice()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoSlice()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="reverse">
               <pre class="p-3">{{ 'js.array.reverse' | transloco }}</pre>
               <button
+                (click)="demoReverse()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoReverse()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="copyWithin">
               <pre class="p-3">{{ 'js.array.copyWithin' | transloco }}</pre>
               <button
+                (click)="demoCopyWithin()"
                 class="btn btn-block btn-outline-success"
-                (click)="demoCopyWithin()">
+              >
                 Test
               </button>
             </tab>
@@ -241,23 +264,27 @@
             <dd>{{ _simpleArray.length }}</dd>
           </dl>
           <button
+            (click)="_simpleArray.push('valuePush')"
             class="btn mr-3 btn-outline-success"
-            (click)="_simpleArray.push('valuePush')">
+          >
             Push
           </button>
           <button
+            (click)="_simpleArray.unshift('valueUnshift')"
             class="btn mr-3 btn-outline-success"
-            (click)="_simpleArray.unshift('valueUnshift')">
+          >
             Unshift
           </button>
           <button
+            (click)="_simpleArray.pop()"
             class="btn mr-3 btn-outline-danger"
-            (click)="_simpleArray.pop()">
+          >
             Pop
           </button>
           <button
+            (click)="_simpleArray.shift()"
             class="btn mr-3 btn-outline-danger"
-            (click)="_simpleArray.shift()">
+          >
             Shift
           </button>
         </div>
@@ -271,7 +298,8 @@
         <div cardBody>
           <a
             href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array?retiredLocale=it"
-            target="_blank">
+            target="_blank"
+          >
             MDN documentation
           </a>
         </div>

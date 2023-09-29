@@ -1,7 +1,9 @@
 import { ActionReducerMap } from '@ngrx/store'
+
 import { QUANGKEYCLOAK_KEY } from './keycloak-module.selectors'
-import { QuangKeycloakUserState } from './store/reducers/keycloak.reducer'
+
 import { QuangKeycloakReducers } from './store/reducers'
+import { QuangKeycloakUserState } from './store/reducers/keycloak.reducer'
 
 /**
  * interface that defines the state of the module

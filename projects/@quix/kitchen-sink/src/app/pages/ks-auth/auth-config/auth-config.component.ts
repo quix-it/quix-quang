@@ -5,6 +5,4 @@ import { Component } from '@angular/core'
   templateUrl: './auth-config.component.html',
   styles: []
 })
-export class AuthConfigComponent {
-  constructor() {}
-}
+export class AuthConfigComponent {}

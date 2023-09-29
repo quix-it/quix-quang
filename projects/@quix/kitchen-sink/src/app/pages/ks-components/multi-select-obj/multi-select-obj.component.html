@@ -19,19 +19,20 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-multi-select-obj
-              [label]="'form.multi-select-obj.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'multi-select-obj id'"
               [autofocus]="true"
+              [errorMessage]="true"
               [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'multi-select-obj id'"
+              [label]="'form.multi-select-obj.label'"
+              [labelValue]="'text'"
               [list]="list"
               [returnValue]="'value'"
-              [labelValue]="'text'"
               [rowVisible]="6"
-              formControlName="items">
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="items"
+            >
             </quang-multi-select-obj>
           </form>
           <dl>

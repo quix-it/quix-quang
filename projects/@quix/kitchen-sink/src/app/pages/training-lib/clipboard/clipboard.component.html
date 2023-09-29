@@ -13,17 +13,19 @@
             <div class="mb-3">
               <input
                 class="form-control"
-                id="test"
-                placeholder="Inserisci il contenuto da copiare"
-                min="0"
                 formControlName="copy"
-                max="30" />
+                id="test"
+                max="30"
+                min="0"
+                placeholder="Inserisci il contenuto da copiare"
+              />
             </div>
           </form>
           <button
-            type="button"
             [cdkCopyToClipboard]="group.controls['copy'].value"
-            class="btn btn-primary">
+            class="btn btn-primary"
+            type="button"
+          >
             Copia
           </button>
         </div>
@@ -43,7 +45,11 @@
       <quang-card-header>
         <h4 cardHeader>Programmatico</h4>
         <div cardBody>
-          <button type="button" (click)="copy()" class="btn btn-primary">
+          <button
+            (click)="copy()"
+            class="btn btn-primary"
+            type="button"
+          >
             Copia
           </button>
         </div>

@@ -19,30 +19,37 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-radio
-              [label]="'form.radio.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
               [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'radio id'"
               [autofocus]="true"
-              [radioList]="list"
-              [labelValue]="'text'"
-              [returnValue]="'value'"
+              [errorMessage]="true"
               [formName]="'form'"
               [groupName]="'radio-group'"
-              formControlName="radio">
+              [helpMessage]="true"
+              [id]="'radio id'"
+              [label]="'form.radio.label'"
+              [labelValue]="'text'"
+              [radioList]="list"
+              [returnValue]="'value'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="radio"
+            >
             </quang-input-radio>
           </form>
           <dl>
             <dt>Value:</dt>
             <dd>{{ group.controls['radio'].value }}</dd>
           </dl>
-          <button class="btn btn-outline-danger" (click)="disable()">
+          <button
+            (click)="disable()"
+            class="btn btn-outline-danger"
+          >
             Disable
           </button>
-          <button class="btn btn-outline-success ms-3" (click)="enable()">
+          <button
+            (click)="enable()"
+            class="btn btn-outline-success ms-3"
+          >
             Enable
           </button>
         </div>

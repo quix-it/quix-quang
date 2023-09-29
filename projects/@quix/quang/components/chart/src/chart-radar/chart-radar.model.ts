@@ -26,11 +26,11 @@ export class ChartRadar {
    */
   public symbol: string = 'none'
 
-  constructor (value: number[], name?: string, color?: string) {
+  constructor(value: number[], name?: string, color?: string) {
     this.value = value
     this.name = name
     if (color) {
-      this.lineStyle = { color: color }
+      this.lineStyle = { color }
     }
   }
 }
@@ -44,7 +44,7 @@ export class ChartRadarIndicator {
    * @param name chart name
    * @param max chart max
    */
-  constructor (
+  constructor(
     /**
      * chart name
      */
@@ -53,6 +53,5 @@ export class ChartRadarIndicator {
      * chart max
      */
     public max: number
-  ) {
-  }
+  ) {}
 }

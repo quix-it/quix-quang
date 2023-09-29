@@ -12,12 +12,15 @@
       <quang-card-action-header>
         <h3 cardHeader>Demo</h3>
         <div cardBody>
-          <button class="btn btn-primary my-3"
-                  (click)="getMessages()">Chiama server
+          <button
+            (click)="getMessages()"
+            class="btn btn-primary my-3"
+          >
+            Chiama server
           </button>
           <dl>
             <dt class="mb-2">Messages:</dt>
-            <dd *ngFor="let msg of msgs">{{msg}}</dd>
+            <dd *ngFor="let msg of msgs">{{ msg }}</dd>
           </dl>
         </div>
       </quang-card-action-header>

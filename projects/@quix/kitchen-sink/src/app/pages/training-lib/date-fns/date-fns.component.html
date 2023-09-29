@@ -12,20 +12,29 @@
         <div cardBody>
           {{ today }}
           <div>
-            <form [formGroup]="group" (submit)="addDay()">
+            <form
+              [formGroup]="group"
+              (submit)="addDay()"
+            >
               <quang-input-number
-                [placeholder]="'add days...'"
                 [autocomplete]="'off'"
-                [tabIndex]="1"
-                [id]="'days'"
                 [autofocus]="true"
                 [formName]="'form'"
-                [step]="1"
-                [min]="0"
+                [id]="'days'"
                 [max]="50"
-                formControlName="number">
+                [min]="0"
+                [placeholder]="'add days...'"
+                [step]="1"
+                [tabIndex]="1"
+                formControlName="number"
+              >
               </quang-input-number>
-              <button class="btn btn-secondary" type="submit">Add days</button>
+              <button
+                class="btn btn-secondary"
+                type="submit"
+              >
+                Add days
+              </button>
               <dl>
                 <dt>result:</dt>
                 <dd>{{ dayResult }}</dd>
@@ -53,20 +62,27 @@
         <div cardBody>
           {{ today }}
           <div>
-            <form [formGroup]="group" (submit)="addMonth()">
+            <form
+              [formGroup]="group"
+              (submit)="addMonth()"
+            >
               <quang-input-number
-                [placeholder]="'add months...'"
                 [autocomplete]="'off'"
-                [tabIndex]="1"
-                [id]="'months'"
                 [autofocus]="true"
                 [formName]="'form'"
-                [step]="1"
-                [min]="0"
+                [id]="'months'"
                 [max]="50"
-                formControlName="number">
+                [min]="0"
+                [placeholder]="'add months...'"
+                [step]="1"
+                [tabIndex]="1"
+                formControlName="number"
+              >
               </quang-input-number>
-              <button class="btn btn-secondary" type="submit">
+              <button
+                class="btn btn-secondary"
+                type="submit"
+              >
                 Add months
               </button>
               <dl>
@@ -96,20 +112,29 @@
         <div cardBody>
           {{ today }}
           <div>
-            <form [formGroup]="group" (submit)="addYear()">
+            <form
+              [formGroup]="group"
+              (submit)="addYear()"
+            >
               <quang-input-number
-                [placeholder]="'number'"
                 [autocomplete]="'off'"
-                [tabIndex]="1"
-                [id]="'years'"
                 [autofocus]="true"
                 [formName]="'form'"
-                [step]="1"
-                [min]="0"
+                [id]="'years'"
                 [max]="50"
-                formControlName="number">
+                [min]="0"
+                [placeholder]="'number'"
+                [step]="1"
+                [tabIndex]="1"
+                formControlName="number"
+              >
               </quang-input-number>
-              <button class="btn btn-secondary" type="submit">Add years</button>
+              <button
+                class="btn btn-secondary"
+                type="submit"
+              >
+                Add years
+              </button>
               <dl>
                 <dt>result:</dt>
                 <dd>{{ yearResult }}</dd>
@@ -137,20 +162,30 @@
         <div cardBody>
           {{ today }}
           <div>
-            <form [formGroup]="group" (submit)="datesDistance()">
+            <form
+              [formGroup]="group"
+              (submit)="datesDistance()"
+            >
               <quang-input-date-range
-                [placeholder]="'insert dates'"
                 [autocomplete]="'off'"
-                [tabIndex]="1"
-                [id]="'dates'"
                 [autofocus]="true"
+                [buttonClass]="['btn', 'btn-outline-secondary']"
                 [dateFormat]="'YYYY-MM-DD'"
                 [formName]="'form'"
-                [buttonClass]="['btn', 'btn-outline-secondary']"
-                formControlName="dateRange">
-                <i calendarIcon class="fas fa-calendar-alt"></i>
+                [id]="'dates'"
+                [placeholder]="'insert dates'"
+                [tabIndex]="1"
+                formControlName="dateRange"
+              >
+                <i
+                  calendarIcon
+                  class="fas fa-calendar-alt"
+                ></i>
               </quang-input-date-range>
-              <button class="btn btn-outline-primary" type="submit">
+              <button
+                class="btn btn-outline-primary"
+                type="submit"
+              >
                 Calculate distance
               </button>
               <dl>
@@ -180,7 +215,11 @@
         <div cardBody>
           <ul>
             <li>
-              <a href="https://date-fns.org/" target="_blank">Date fns</a>
+              <a
+                href="https://date-fns.org/"
+                target="_blank"
+                >Date fns</a
+              >
             </li>
           </ul>
         </div>

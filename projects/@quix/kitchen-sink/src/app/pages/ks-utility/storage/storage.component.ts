@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
+
 import { QuangStorageService } from '@quix/quang/utility'
 
 @Component({
@@ -18,52 +19,46 @@ export class StorageComponent implements OnInit {
     local: new FormControl('')
   })
 
-  constructor (private readonly storageService: QuangStorageService) {}
+  constructor(private readonly storageService: QuangStorageService) {}
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.getSession()
     this.getLocal()
     this.observeLocal()
     this.observeSession()
   }
 
-  saveSession (): void {
-    this.storageService.setSession(
-      'session',
-      this.sessionForm.controls.session.value
-    )
+  saveSession(): void {
+    this.storageService.setSession('session', this.sessionForm.controls.session.value)
   }
 
-  getSession (): void {
+  getSession(): void {
     this.session = this.storageService.getSession('session')
   }
 
-  deleteSession (): void {
+  deleteSession(): void {
     this.storageService.clearSession('session')
   }
 
-  observeSession (): void {
+  observeSession(): void {
     this.storageService.observeSession('session').subscribe((v: any) => {
       this.session = v
     })
   }
 
-  saveLocal (): void {
-    this.storageService.setLocal(
-      'local',
-      this.localForm.controls.local.value
-    )
+  saveLocal(): void {
+    this.storageService.setLocal('local', this.localForm.controls.local.value)
   }
 
-  getLocal (): void {
+  getLocal(): void {
     this.local = this.storageService.getLocal('local')
   }
 
-  deleteLocal (): void {
+  deleteLocal(): void {
     this.storageService.clearLocal('local')
   }
 
-  observeLocal (): void {
+  observeLocal(): void {
     this.storageService.observeLocal('local').subscribe((v: any) => {
       this.local = v
     })

@@ -19,20 +19,21 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-text-area
-              [label]="'form.text.label'"
-              [placeholder]="'form.text.ph'"
-              [min]="0"
-              [max]="50"
-              [cols]="10"
-              [rows]="10"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'text id'"
               [autofocus]="true"
+              [cols]="10"
+              [errorMessage]="true"
               [formName]="'form'"
-              formControlName="text"></quang-text-area>
+              [helpMessage]="true"
+              [id]="'text id'"
+              [label]="'form.text.label'"
+              [max]="50"
+              [min]="0"
+              [placeholder]="'form.text.ph'"
+              [rows]="10"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="text"
+            ></quang-text-area>
           </form>
           <dl>
             <dt>Value:</dt>
@@ -58,22 +59,23 @@
         <div cardBody>
           <form [formGroup]="groupResize">
             <quang-text-area
-              [label]="'form.text.label'"
-              [placeholder]="'form.text.ph'"
-              [min]="0"
-              [max]="50"
-              [cols]="10"
-              [rows]="10"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'text-resize id'"
               [autofocus]="true"
-              [formName]="'form'"
               [autoResize]="true"
+              [cols]="10"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'text-resize id'"
+              [label]="'form.text.label'"
+              [max]="50"
+              [min]="0"
+              [placeholder]="'form.text.ph'"
               [resizeMode]="'none'"
-              formControlName="text"></quang-text-area>
+              [rows]="10"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="text"
+            ></quang-text-area>
           </form>
           <dl>
             <dt>Value:</dt>

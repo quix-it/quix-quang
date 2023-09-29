@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core'
-import { QuangSliderComponent } from './slider.component'
 import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+
 import { TranslocoModule } from '@ngneat/transloco'
+
+import { QuangSliderComponent } from './slider.component'
 
 @NgModule({
   declarations: [QuangSliderComponent],

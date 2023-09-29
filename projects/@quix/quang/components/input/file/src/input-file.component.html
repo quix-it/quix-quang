@@ -1,37 +1,42 @@
-<div class="mb-3 quang-input-file" [ngClass]="customClass">
+<div
+  [ngClass]="customClass"
+  class="mb-3 quang-input-file"
+>
   <label
-    [htmlFor]="id"
-    class="form-label"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [attr.aria-label]="ariaLabel | transloco"
-    *ngIf="label">
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.['required']">*</span>
   </label>
   <ngx-file-drop
-    [dropZoneLabel]="_dropMessage | transloco"
-    (onFileDrop)="onChangedHandler($event)"
-    (onFileOver)="fileOver($event)"
-    (onFileLeave)="fileLeave($event)"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    (blur)="onTouched()"
-    [multiple]="multiple"
     [accept]="acceptFileType"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [disabled]="_disabled"
+    [dropZoneLabel]="_dropMessage | transloco"
+    [multiple]="multiple"
+    (blur)="onTouched()"
+    (onFileDrop)="onChangedHandler($event)"
+    (onFileLeave)="fileLeave($event)"
+    (onFileOver)="fileOver($event)"
     #input
   >
     <ng-template
+      let-openFileSelector="openFileSelector"
       ngx-file-drop-content-tmp
-      let-openFileSelector="openFileSelector">
+    >
       <ng-content select="[uploadIcon]"></ng-content>
       <p *ngFor="let f of _values; let i = index">
         <button
+          [disabled]="input.disabled"
+          (click)="deleteFiles(i)"
           class="btn btn-link btn-sm"
           type="button"
-          (click)="deleteFiles(i)"
-          [disabled]="input.disabled"
         >
           &times;
         </button>
@@ -39,39 +44,46 @@
       </p>
       <p [hidden]="!_value">
         <button
+          [disabled]="input.disabled"
+          (click)="deleteFile()"
           class="btn btn-link btn-sm break-words"
           type="button"
-          (click)="deleteFile()"
-          [disabled]="input.disabled">
+        >
           &times;
           {{ _value?.name }}
         </button>
       </p>
       <button
-        type="button"
+        [disabled]="_disabled"
         [ngClass]="buttonClass"
         (click)="openFileSelector()"
-        [disabled]="_disabled"
-        #inputBtn>
+        #inputBtn
+        type="button"
+      >
         {{ buttonLabel | transloco }}
       </button>
     </ng-template>
   </ngx-file-drop>
-  <div class="valid-feedback" aria-live="assertive">
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
     {{ _successMessage | transloco }}
   </div>
-  <div class="invalid-feedback" aria-live="polite" [id]="id + '-error'">
+  <div
+    [id]="id + '-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
     {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
     [id]="id + '-help'"
+    *ngIf="helpMessage"
     aria-live="assertive"
     class="form-text text-muted"
-    [hidden]="
-      control?.dirty &&
-      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
-    "
-    *ngIf="helpMessage">
+  >
     {{ _helpMessage | transloco }}
   </small>
 </div>

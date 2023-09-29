@@ -1,4 +1,7 @@
-<section class="container-fluid" id="form-array-array">
+<section
+  class="container-fluid"
+  id="form-array-array"
+>
   <div class="row">
     <div class="col">
       <ks-title [title]="'Form array array'"></ks-title>
@@ -10,41 +13,47 @@
         <h3 cardHeader>Demo</h3>
         <div cardBody>
           <form [formGroup]="group">
-            <button class="btn btn-outline-success" (click)="addArray()">
+            <button
+              (click)="addArray()"
+              class="btn btn-outline-success"
+            >
               Aggiungi Array
             </button>
             <div
+              [formArrayName]="a"
               *ngFor="let a of groupKey"
               class="first-level"
-              [formArrayName]="a">
+            >
               <p>Array 1° livello, n°{{ a }}</p>
-              <button class="btn btn-outline-success" (click)="addSubArray(a)">
+              <button
+                (click)="addSubArray(a)"
+                class="btn btn-outline-success"
+              >
                 Aggiungi sub array
               </button>
               <div
+                [formArrayName]="i"
                 *ngFor="let s of getArray(a).controls; let i = index"
                 class="second-level"
-                [formArrayName]="i">
+              >
                 <p>Array 2° livello, n°{{ i }}</p>
                 <button
+                  (click)="addArrayControl(a, i)"
                   class="btn btn-outline-success"
-                  (click)="addArrayControl(a, i)">
+                >
                   Aggiungi control
                 </button>
                 <div
+                  *ngFor="let c of getArrayControl(a, i).controls; let y = index"
                   class="mb-3"
-                  *ngFor="
-                    let c of getArrayControl(a, i).controls;
-                    let y = index
-                  ">
-                  <label [htmlFor]="'control' + a + i + y"
-                    >Control n°{{ y }}</label
-                  >
+                >
+                  <label [htmlFor]="'control' + a + i + y">Control n°{{ y }}</label>
                   <input
-                    [id]="'control'"
                     [formControlName]="y"
+                    [id]="'control'"
                     class="form-control"
-                    type="text" />
+                    type="text"
+                  />
                 </div>
               </div>
             </div>

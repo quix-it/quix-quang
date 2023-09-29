@@ -1,26 +1,31 @@
-<div class="toast fade"
-     [class.hide]="!data"
-     [class.show]="data"
-     role="alert"
-     aria-live="assertive"
-     aria-atomic="true"
-     [class.show]="data"
-     [ngClass]="data?.position">
+<div
+  [class.hide]="!data"
+  [class.show]="data"
+  [class.show]="data"
+  [ngClass]="data?.position"
+  aria-atomic="true"
+  aria-live="assertive"
+  class="toast fade"
+  role="alert"
+>
   <div class="toast-header">
-    <span class="rounded me-2"
-          [ngClass]="data?.type"
+    <span
+      [ngClass]="data?.type"
+      class="rounded me-2"
     ></span>
-    <strong class="me-auto">{{data?.title | transloco}}</strong>
-    <small>{{data?.date | date: data?.dateFormat}}</small>
-    <button type="button"
-            class="me-2 mb-1 btn-close"
-            data-dismiss="toast"
-            aria-label="Close"
-            (click)="close()">
+    <strong class="me-auto">{{ data?.title | transloco }}</strong>
+    <small>{{ data?.date | date: data?.dateFormat }}</small>
+    <button
+      (click)="close()"
+      aria-label="Close"
+      class="me-2 mb-1 btn-close"
+      data-dismiss="toast"
+      type="button"
+    >
       <span aria-hidden="true"></span>
     </button>
   </div>
   <div class="toast-body">
-    {{data?.text | transloco:{ textValue: data?.textValue } }}
+    {{ data?.text | transloco: { textValue: data?.textValue } }}
   </div>
 </div>

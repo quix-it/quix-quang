@@ -22,6 +22,7 @@ export class TextAreaComponent {
     '@Input() rows: number = 0',
     '@Input() cols: number = 0',
     '@Input() tabIndex: number = 0',
+    // eslint-disable-next-line no-template-curly-in-string
     '@Input() ariaLabel: string = `Input ${this.label}`',
     "@Input() formName: string = ''",
     "@Input() resizeMode: 'none' | 'auto' | 'vertical' | 'horizzontal' = 'auto'",
@@ -29,18 +30,10 @@ export class TextAreaComponent {
   ]
 
   group: FormGroup = new FormGroup({
-    text: new FormControl('', [
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(500)
-    ])
+    text: new FormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(500)])
   })
 
   groupResize: FormGroup = new FormGroup({
-    text: new FormControl('', [
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(500)
-    ])
+    text: new FormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(500)])
   })
 }

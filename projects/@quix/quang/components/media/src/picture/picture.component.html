@@ -1,32 +1,41 @@
-<picture [id]="id" [attr.aria-describedby]="ariaLabel">
+<picture
+  [attr.aria-describedby]="ariaLabel"
+  [id]="id"
+>
   <source
-    #source
     [attr.data-srcset]="picture?.xxl"
+    [srcset]="loadingSrc"
+    #source
     media="(min-width:1400px)"
-    [srcset]="loadingSrc" />
+  />
   <source
-    #source
     [attr.data-srcset]="picture?.xl"
+    [srcset]="loadingSrc"
+    #source
     media="(min-width:1200px)"
-    [srcset]="loadingSrc" />
+  />
   <source
-    #source
     [attr.data-srcset]="picture?.lg"
+    [srcset]="loadingSrc"
+    #source
     media="(min-width:992px)"
-    [srcset]="loadingSrc" />
+  />
   <source
-    #source
     [attr.data-srcset]="picture?.md"
-    media="(min-width:768px)"
-    [srcset]="loadingSrc" />
-  <source
+    [srcset]="loadingSrc"
     #source
+    media="(min-width:768px)"
+  />
+  <source
     [attr.data-srcset]="picture?.sm"
+    [srcset]="loadingSrc"
+    #source
     media="(min-width:576px)"
-    [srcset]="loadingSrc" />
+  />
   <img
-    #image
-    [src]="loadingSrc"
+    [alt]="alt"
     [attr.data-src]="picture?.xs ?? picture?.defaultSrc"
-    [alt]="alt" />
+    [src]="loadingSrc"
+    #image
+  />
 </picture>

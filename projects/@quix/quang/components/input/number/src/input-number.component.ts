@@ -9,141 +9,141 @@ import {
   Renderer2,
   Self,
   SimpleChanges,
-  ViewChild,
-} from "@angular/core";
-import { ControlValueAccessor, NgControl } from "@angular/forms";
-import { delay, filter } from "rxjs/operators";
+  ViewChild
+} from '@angular/core'
+import { ControlValueAccessor, NgControl } from '@angular/forms'
+
+import { delay, filter } from 'rxjs/operators'
 
 /**
  * input number component decorator
  */
 @Component({
-  selector: "quang-input-number",
-  templateUrl: "./input-number.component.html",
-  styles: [""],
+  selector: 'quang-input-number',
+  templateUrl: './input-number.component.html',
+  styles: ['']
 })
 /**
  * input number component
  */
-export class QuangInputNumberComponent
-  implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit
-{
+export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit {
   /**
    * The label to display on the input field
    */
-  @Input() label: string = "";
+  @Input() label: string = ''
   /**
    * The placeholder of the input field
    */
-  @Input() placeholder: string = "";
+  @Input() placeholder: string = ''
   /**
    * Html id of input
    */
-  @Input() id: string = "";
+  @Input() id: string = ''
   /**
    * Defines if you want to display the success message for the user
    */
-  @Input() successMessage: boolean = false;
+  @Input() successMessage: boolean = false
   /**
    * Defines if you want to display the error message for the user
    */
-  @Input() errorMessage: boolean = false;
+  @Input() errorMessage: boolean = false
   /**
    * Defines the minimum value of the input field
    */
-  @Input() min: number = 0;
+  @Input() min: number = 0
   /**
    * Defines the maximum value of the input field
    */
-  @Input() max: number = 0;
+  @Input() max: number = 0
   /**
    * Defines the validation pattern of the input field
    */
-  @Input() pattern: string = "";
+  @Input() pattern: string = ''
   /**
    * Defines if you want to display the help message for the user
    */
-  @Input() helpMessage: boolean = false;
+  @Input() helpMessage: boolean = false
   /**
    * Indicates whether, when the page is opened,
    * this input field should be displayed in a focused state or not
    */
-  @Input() autofocus: boolean = false;
+  @Input() autofocus: boolean = false
   /**
    * Defines whether the input field is in a read-only state
    */
-  @Input() readonly: boolean = false;
+  @Input() readonly: boolean = false
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
    */
-  @Input() ariaLabel: string = `Input ${this.label}`;
+  @Input() ariaLabel: string = `Input ${this.label}`
   /**
    * Indicate the position in the page navigation flow with the tab key
    */
-  @Input() tabIndex: number = 0;
+  @Input() tabIndex: number = 0
   /**
    * It defines the advancement or reduction steps of the input field
    * between one number and the next selected by the user
    */
-  @Input() step: number = 1;
+  @Input() step: number = 1
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
    */
-  @Input() formName: string = "";
+  @Input() formName: string = ''
   /**
    * Array of additional classes to the input field
    */
-  @Input() customClass: string[] = [];
+  @Input() customClass: string[] = []
   /**
    * Adds bootstrap classes to the input that define the size of the field,
    * if not specified the field is displayed with standard size
    */
-  @Input() size: "lg" | "sm" | null = null;
+  @Input() size: 'lg' | 'sm' | null = null
   /**
    * Defines the autocomplete tag to indicate to the browser what type of field it is
    * and how to help the user fill it in
    */
-  @Input() autocomplete: string = "off";
+  @Input() autocomplete: string = 'off'
   /**
    * set default start value in select option
    */
-  @Input() defaultValue: number | undefined = undefined;
+  @Input() defaultValue: number | undefined = undefined
 
   /**
    * The value of the input
    */
-  _value: number | null = null;
+  _value: number | null = null
   /**
    * the status of the success message
    */
-  _successMessage: string = "";
+  _successMessage: string = ''
   /**
    * the status of the error message
    */
-  _errorMessage: string = "";
+  _errorMessage: string = ''
   /**
    * the status of the help message
    */
-  _helpMessage: string = "";
+  _helpMessage: string = ''
   /**
    * Contains the value required by a validation when it fails
    */
-  _requiredValue: any = "";
+  _requiredValue: any = ''
   /**
    * The html input element
    */
-  @ViewChild("input", { static: true })
-  input: ElementRef<HTMLInputElement> | null = null;
+  @ViewChild('input', { static: true })
+  input: ElementRef<HTMLInputElement> | null = null
+
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {};
+  onTouched: any = () => {}
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {};
+  onChanged: any = () => {}
 
   /**
    * constructor
@@ -154,7 +154,7 @@ export class QuangInputNumberComponent
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
-    this.control.valueAccessor = this;
+    this.control.valueAccessor = this
   }
 
   /**
@@ -162,14 +162,14 @@ export class QuangInputNumberComponent
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`;
+      this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
     if (this.control.valid && this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`;
+      this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
     if (this.defaultValue) {
-      this.writeValue(this.defaultValue);
-      this.onChanged(this._value);
+      this.writeValue(this.defaultValue)
+      this.onChanged(this._value)
     }
   }
 
@@ -180,10 +180,10 @@ export class QuangInputNumberComponent
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
-        this.input?.nativeElement.focus();
+        this.input?.nativeElement.focus()
       }
-    }, 0);
-    this.observeValidate();
+    }, 0)
+    this.observeValidate()
   }
 
   /**
@@ -192,7 +192,7 @@ export class QuangInputNumberComponent
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.autofocus && this.input) {
-      this.input.nativeElement.focus();
+      this.input.nativeElement.focus()
     }
   }
 
@@ -200,14 +200,14 @@ export class QuangInputNumberComponent
    * Standard definition to create a control value accessor
    */
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+    this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
   registerOnChange(fn: any): void {
-    this.onChanged = fn;
+    this.onChanged = fn
   }
 
   /**
@@ -217,12 +217,12 @@ export class QuangInputNumberComponent
    */
   onChangedHandler(e: Event): void {
     if (isNaN((e.target as HTMLInputElement).valueAsNumber)) {
-      this._value = null;
+      this._value = null
     } else {
-      this._value = (e.target as HTMLInputElement).valueAsNumber;
+      this._value = (e.target as HTMLInputElement).valueAsNumber
     }
-    this.onTouched();
-    this.onChanged(this._value);
+    this.onTouched()
+    this.onChanged(this._value)
   }
 
   /**
@@ -230,8 +230,8 @@ export class QuangInputNumberComponent
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
   writeValue(value: number): void {
-    this._value = value;
-    this.renderer.setProperty(this.input?.nativeElement, "value", value);
+    this._value = value
+    this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
 
   /**
@@ -239,11 +239,7 @@ export class QuangInputNumberComponent
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(
-      this.input?.nativeElement,
-      "disabled",
-      isDisabled
-    );
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 
   /**
@@ -261,14 +257,14 @@ export class QuangInputNumberComponent
       .subscribe(() => {
         if (this.control.invalid && this.errorMessage) {
           for (const error in this.control.errors) {
-            if (error === "min" || error === "max") {
-              this._requiredValue = this.control.errors[error][error];
+            if (error === 'min' || error === 'max') {
+              this._requiredValue = this.control.errors[error][error]
             } else {
-              this._requiredValue = this.control.errors[error].requiredValue;
+              this._requiredValue = this.control.errors[error].requiredValue
             }
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`;
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
           }
         }
-      });
+      })
   }
 }

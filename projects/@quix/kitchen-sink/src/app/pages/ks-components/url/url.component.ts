@@ -9,6 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 export class UrlComponent {
   config: string[] = [
     "@Input() label: string = ''",
+    // eslint-disable-next-line no-template-curly-in-string
     '@Input() ariaLabel: string = `Input ${this.label}`',
     '@Input() customClass: string[] = []',
     "@Input() placeholder: string = ''",
@@ -28,10 +29,6 @@ export class UrlComponent {
   ]
 
   group: FormGroup = new FormGroup({
-    url: new FormControl('', [
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(50)
-    ])
+    url: new FormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(50)])
   })
 }

@@ -19,20 +19,24 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-date-range
+              [autocomplete]="'off'"
+              [autofocus]="true"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-range id'"
               [label]="'form.date-range.label'"
               [placeholder]="'form.date-range.ph'"
-              [errorMessage]="true"
               [successMessage]="true"
-              [helpMessage]="true"
-              [autocomplete]="'off'"
               [tabIndex]="1"
-              [id]="'date-range id'"
-              [autofocus]="true"
-              [dateFormat]="'YYYY-MM-DD'"
-              [formName]="'form'"
-              [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="dateRange">
-              <i calendarIcon class="fas fa-calendar-alt"></i>
+              formControlName="dateRange"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
             </quang-input-date-range>
           </form>
           <dl>
@@ -59,21 +63,25 @@
         <div cardBody>
           <form [formGroup]="groupMinMax">
             <quang-input-date-range
-              [label]="'form.date-range.label'"
-              [placeholder]="'form.date-range.ph'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
               [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'date-range id'"
-              [dateFormat]="'YYYY-MM-DD'"
-              [minDate]="minDate"
-              [maxDate]="maxDate"
-              [formName]="'form'"
               [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="dateRange">
-              <i calendarIcon class="fas fa-calendar-alt"></i>
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-range id'"
+              [label]="'form.date-range.label'"
+              [maxDate]="maxDate"
+              [minDate]="minDate"
+              [placeholder]="'form.date-range.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="dateRange"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
             </quang-input-date-range>
           </form>
           <dl>
@@ -87,9 +95,7 @@
       <quang-card-header>
         <h3 cardHeader>HTML/TS</h3>
         <div cardBody>
-          <pre class="html">{{
-            'date.date-range-min-max.html' | transloco
-          }}</pre>
+          <pre class="html">{{ 'date.date-range-min-max.html' | transloco }}</pre>
           <pre class="ts">{{ 'date.date-range-min-max.code' | transloco }}</pre>
         </div>
       </quang-card-header>
@@ -102,20 +108,24 @@
         <div cardBody>
           <form [formGroup]="groupISO">
             <quang-input-date-range
+              [autocomplete]="'off'"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-range id'"
               [label]="'form.date-range.label'"
               [placeholder]="'form.date-range.ph'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'date-range id'"
-              [dateFormat]="'YYYY-MM-DD'"
               [returnISODate]="true"
-              [formName]="'form'"
-              [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="dateRange">
-              <i calendarIcon class="fas fa-calendar-alt"></i>
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="dateRange"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
             </quang-input-date-range>
           </form>
           <dl>

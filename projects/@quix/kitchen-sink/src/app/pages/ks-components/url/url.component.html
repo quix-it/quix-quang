@@ -19,19 +19,20 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-url
-              [label]="'form.url.label'"
-              [placeholder]="'form.url.ph'"
-              [min]="0"
-              [max]="50"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
               [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'url id'"
               [autofocus]="true"
+              [errorMessage]="true"
               [formName]="'form'"
-              formControlName="url"></quang-input-url>
+              [helpMessage]="true"
+              [id]="'url id'"
+              [label]="'form.url.label'"
+              [max]="50"
+              [min]="0"
+              [placeholder]="'form.url.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="url"
+            ></quang-input-url>
           </form>
           <dl>
             <dt>Value:</dt>

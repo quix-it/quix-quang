@@ -1,9 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store'
+
 import {
   userInfoLogin,
   userInfoLogout,
   userLogin,
-  userLogout, userNotLogin,
+  userLogout,
+  userNotLogin,
   userRolesLogin,
   userRolesLogout
 } from '../actions/keycloak.actions'
@@ -41,16 +43,14 @@ const reducer = createReducer(
   on(userLogin, (state) => ({ ...state, isAuthenticated: true })),
   on(userNotLogin, (state) => ({ ...state, isAuthenticated: false })),
   on(userLogout, (state) => ({ ...state, isAuthenticated: false })),
-  on(userInfoLogin, (state, action) =>
-    ({ ...state, user: action.user })),
+  on(userInfoLogin, (state, action) => ({ ...state, user: action.user })),
   on(userInfoLogout, (state) => ({ ...state, user: null })),
-  on(userRolesLogin, (state, action) =>
-    ({ ...state, roles: action.roles })),
+  on(userRolesLogin, (state, action) => ({ ...state, roles: action.roles })),
   on(userRolesLogout, (state) => ({ ...state, roles: [] }))
 )
 /**
  * defines the name of the state reducer
  */
-export function quangKeycloakUserReducer (state: QuangKeycloakUserState | undefined, action: Action): any {
+export function quangKeycloakUserReducer(state: QuangKeycloakUserState | undefined, action: Action): any {
   return reducer(state, action)
 }

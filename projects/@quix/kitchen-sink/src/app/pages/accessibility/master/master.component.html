@@ -32,15 +32,16 @@
           </div>
           <div class="justify-content-end">
             <quang-paginator
-              [tabIndex]="0"
               [id]="'paginator id'"
               [isAccessible]="true"
-              [totalItems]="totalItems"
               [pageIndex]="0"
               [pageSize]="10"
+              [sizeList]="sizeList"
+              [tabIndex]="0"
+              [totalItems]="totalItems"
               (whenPageChange)="pageChange($event)"
               (whenSizeChange)="sizeChange($event)"
-              [sizeList]="sizeList">
+            >
             </quang-paginator>
           </div>
         </div>

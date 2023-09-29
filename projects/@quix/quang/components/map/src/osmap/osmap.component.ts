@@ -1,17 +1,10 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core'
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core'
+
 import Map from 'ol/Map'
 import View from 'ol/View'
 import { Tile } from 'ol/layer'
-import { OSM } from 'ol/source'
 import * as olProj from 'ol/proj'
+import { OSM } from 'ol/source'
 
 /**
  * open street map component decorator
@@ -79,14 +72,14 @@ export class QuangOpenStreetMapComponent implements OnChanges, AfterViewInit {
   /**
    * Create the map
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     this.createMap()
   }
 
   /**
    * Create the map and add the listener for the events
    */
-  createMap (): void {
+  createMap(): void {
     this._map = new Map({
       target: this.id,
       layers: [this._tile],
@@ -104,7 +97,7 @@ export class QuangOpenStreetMapComponent implements OnChanges, AfterViewInit {
    * When the default zoom changes it generates a new map
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.defaultCenter?.currentValue) {
       this.createMap()
     }

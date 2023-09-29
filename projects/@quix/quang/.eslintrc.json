@@ -4,6 +4,7 @@
   "overrides": [
     {
       "files": ["*.ts"],
+      "excludedFiles": ["*.d.ts"],
       "rules": {
         "@angular-eslint/component-selector": [
           "error",

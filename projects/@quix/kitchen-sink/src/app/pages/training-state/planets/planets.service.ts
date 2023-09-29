@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
+
 import { Planet } from './planet.model'
 
 @Injectable({
@@ -13,11 +15,7 @@ export class PlanetsService {
   getPlanets(): Observable<Planet[]> {
     return this.http
       .get('https://swapi.dev/api/planets')
-      .pipe(
-        map((r: any) =>
-          r.results.map((p: any) => new Planet(p.url, p.name, p.terrain))
-        )
-      )
+      .pipe(map((r: any) => r.results.map((p: any) => new Planet(p.url, p.name, p.terrain))))
   }
 
   getPlanet(id: string): Observable<Planet> {

@@ -1,4 +1,7 @@
-<section class="container-fluid" id="video">
+<section
+  class="container-fluid"
+  id="video"
+>
   <div class="row">
     <div class="col">
       <ks-title [title]="'Quang video'"></ks-title>
@@ -18,14 +21,15 @@
         >
         <div cardBody>
           <quang-video
+            [autoplay]="false"
             [id]="'test'"
+            [loop]="true"
             [src]="
               'https://storage.coverr.co/videos/fbR00NW26LPtWnO01m9w8w2z9CUiFYe8li?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjM1MTc5MjAzfQ.XCeXZ15YrvGSA8NZOXqbg7JRSvJAEaPWGubIrU-JGMM'
             "
             [type]="'video/mp4'"
-            [autoplay]="false"
-            [loop]="true"
-            [viewControl]="true"></quang-video>
+            [viewControl]="true"
+          ></quang-video>
         </div>
       </quang-card-action-header>
     </div>
@@ -44,19 +48,21 @@
         <div class="card-header"><h3>Schermo intero</h3></div>
         <div class="card-body">
           <quang-video
-            #quangVideo
+            [autoplay]="false"
             [id]="'test'"
+            [loop]="true"
             [src]="
               'https://storage.coverr.co/videos/fbR00NW26LPtWnO01m9w8w2z9CUiFYe8li?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjM1MTc5MjAzfQ.XCeXZ15YrvGSA8NZOXqbg7JRSvJAEaPWGubIrU-JGMM'
             "
             [type]="'video/mp4'"
-            [autoplay]="false"
-            [loop]="true"
-            [viewControl]="true"></quang-video>
+            [viewControl]="true"
+            #quangVideo
+          ></quang-video>
           <button
-            type="button"
             (click)="full()"
-            class="btn btn-outline-success mt-3">
+            class="btn btn-outline-success mt-3"
+            type="button"
+          >
             Schermo Intero
           </button>
         </div>

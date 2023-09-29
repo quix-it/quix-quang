@@ -15,6 +15,7 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
 import { format, isDate, isValid } from 'date-fns'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { delay, filter } from 'rxjs/operators'
@@ -30,9 +31,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input date range component
  */
-export class QuangInputDateRangeComponent
-  implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges
-{
+export class QuangInputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
   /**
    * Html id of input
    */
@@ -161,13 +160,9 @@ export class QuangInputDateRangeComponent
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input:
-    | ElementRef<HTMLInputElement>
-    | undefined
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
 
-  @ViewChild('input', { static: true }) inputBtn:
-    | ElementRef<HTMLButtonElement>
-    | undefined
+  @ViewChild('input', { static: true }) inputBtn: ElementRef<HTMLButtonElement> | undefined
 
   /**
    * Standard definition to create a control value accessor
@@ -269,15 +264,12 @@ export class QuangInputDateRangeComponent
   onBsValueChange(dates: Array<Date | undefined> | undefined): void {
     this.onTouched()
     const x = dates?.toString().split(' - ')
-    if (Array.isArray(x) && x.length === 2)
-      dates = [new Date(x[0]), new Date(x[1])]
+    if (Array.isArray(x) && x.length === 2) dates = [new Date(x[0]), new Date(x[1])]
     if (!dates || (Array.isArray(dates) && !dates.length)) {
       if (dates !== this._value) this.onChanged(null)
     } else if (
       !Array.isArray(dates) ||
-      dates.some(
-        (value) => value === undefined || !isValid(value) || !isDate(value)
-      ) ||
+      dates.some((value) => value === undefined || !isValid(value) || !isDate(value)) ||
       dates.toString().includes('Invalid Date')
     ) {
       this.onChanged([])
@@ -287,9 +279,7 @@ export class QuangInputDateRangeComponent
     } else if (this.returnISODate) {
       this.onChanged(dates)
     } else {
-      const tmp = dates.map((d: Date | undefined) =>
-        format(d ?? new Date(), 'dd-MM-yyyy')
-      )
+      const tmp = dates.map((d: Date | undefined) => format(d ?? new Date(), 'dd-MM-yyyy'))
       this.onChanged(tmp)
     }
   }
@@ -300,8 +290,7 @@ export class QuangInputDateRangeComponent
    */
   writeValue(value: any): void {
     const x = value?.toString().split(' - ')
-    if (Array.isArray(x) && x.length === 2)
-      value = [new Date(x[0]), new Date(x[1])]
+    if (Array.isArray(x) && x.length === 2) value = [new Date(x[0]), new Date(x[1])]
     if (Array.isArray(value) && !this.returnISODate) {
       this._value = value.map((d: any) => new Date(d))
     } else {
@@ -324,11 +313,7 @@ export class QuangInputDateRangeComponent
    */
   setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
-    this.renderer.setProperty(
-      this.inputBtn?.nativeElement,
-      'disabled',
-      isDisabled
-    )
+    this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
     this._disabled = isDisabled
   }
 

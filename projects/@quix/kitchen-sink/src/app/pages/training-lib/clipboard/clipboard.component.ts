@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Clipboard } from '@angular/cdk/clipboard'
+import { Component } from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component({
   selector: 'ks-clipboard',
@@ -9,16 +9,12 @@ import { Clipboard } from '@angular/cdk/clipboard'
 })
 export class ClipboardComponent {
   group: FormGroup = new FormGroup({
-    copy: new FormControl('', [
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(50)
-    ])
+    copy: new FormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(50)])
   })
 
   constructor(private readonly clipboard: Clipboard) {}
 
-  copy() {
+  copy(): void {
     this.clipboard.copy('Ciao io sono deadpool')
   }
 }

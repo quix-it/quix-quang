@@ -18,11 +18,12 @@
         >
         <div cardBody>
           <quang-chart-pie
-            [id]="'test'"
-            [height]="'50vh'"
             [chartData]="data"
             [color]="['#3e885b', '#debac0', '#f3c677', '#66c3ff', '#dd7230']"
-            (chartClick)="onCLick($event)"></quang-chart-pie>
+            [height]="'50vh'"
+            [id]="'test'"
+            (chartClick)="onCLick($event)"
+          ></quang-chart-pie>
         </div>
       </quang-card-action-header>
     </div>

@@ -8,7 +8,8 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core'
-import { fromEvent, Subscription } from 'rxjs'
+
+import { Subscription, fromEvent } from 'rxjs'
 
 @Component({
   selector: 'ks-scroll',
@@ -16,8 +17,7 @@ import { fromEvent, Subscription } from 'rxjs'
   styles: []
 })
 export class ScrollComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('scrollerContainer') scrollDiv: ElementRef<HTMLDivElement> | null =
-    null
+  @ViewChild('scrollerContainer') scrollDiv: ElementRef<HTMLDivElement> | null = null
   winRederer: number = 0
   winHostListener: number = 0
   winFromEvent: number = 0
@@ -29,11 +29,9 @@ export class ScrollComponent implements OnInit, OnDestroy, AfterViewInit {
     this.winHostListener = this.getYPosition(e)
   }
 
-  scrollSubscription$: Subscription = fromEvent(window, 'scroll').subscribe(
-    (e: Event) => {
-      this.winFromEvent = this.getYPosition(e)
-    }
-  )
+  scrollSubscription$: Subscription = fromEvent(window, 'scroll').subscribe((e: Event) => {
+    this.winFromEvent = this.getYPosition(e)
+  })
 
   scrollerSubscription$: Subscription = new Subscription()
 
@@ -46,10 +44,7 @@ export class ScrollComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.scrollerSubscription$ = fromEvent(
-      this.scrollDiv?.nativeElement as any,
-      'scroll'
-    ).subscribe((e) => {
+    this.scrollerSubscription$ = fromEvent(this.scrollDiv?.nativeElement as any, 'scroll').subscribe((e) => {
       this.elFromEvent = this.getDivYPosition(e)
     })
     this.renderer2.listen(this.scrollDiv?.nativeElement, 'scroll', (e) => {

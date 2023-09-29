@@ -13,7 +13,7 @@ export class QuangToast {
    * @param date define toast date
    * @param dateFormat define toast date format
    */
-  constructor (
+  constructor(
     /**
      * toast type
      */
@@ -46,6 +46,5 @@ export class QuangToast {
      * toast date format
      */
     public dateFormat?: string
-  ) {
-  }
+  ) {}
 }

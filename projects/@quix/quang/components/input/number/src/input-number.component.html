@@ -1,56 +1,51 @@
 <div class="mb-3">
   <label
-    class="form-label"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [htmlFor]="id"
     [attr.aria-label]="ariaLabel"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
     *ngIf="label"
+    class="form-label"
   >
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span></label
   >
   <input
-    type="number"
-    class="form-control"
-    [id]="id"
-    [placeholder]="placeholder | transloco"
-    [ngClass]="customClass"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [max]="max"
-    [min]="min"
-    [pattern]="pattern"
-    [readOnly]="readonly"
     [attr.aria-label]="ariaLabel"
-    [tabIndex]="tabIndex"
-    [step]="step"
-    (input)="onChangedHandler($event)"
-    (blur)="onTouched()"
     [autocomplete]="autocomplete"
     [class.form-control-lg]="size === 'lg'"
     [class.form-control-sm]="size === 'sm'"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [id]="id"
+    [max]="max"
+    [min]="min"
+    [ngClass]="customClass"
+    [pattern]="pattern"
+    [placeholder]="placeholder | transloco"
+    [readOnly]="readonly"
+    [step]="step"
+    [tabIndex]="tabIndex"
+    (blur)="onTouched()"
+    (input)="onChangedHandler($event)"
     #input
+    class="form-control"
+    type="number"
   />
   <div class="valid-feedback">
     {{ _successMessage | transloco }}
   </div>
   <div
+    [attr.aria-errormessage]="errorMessage && _errorMessage ? _errorMessage : ''"
     class="invalid-feedback"
-    [attr.aria-errormessage]="
-      errorMessage && _errorMessage ? _errorMessage : ''
-    "
   >
     {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
     [id]="id + 'Help'"
-    class="form-text text-muted"
-    [hidden]="
-      control?.dirty &&
-      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
-    "
     *ngIf="helpMessage"
+    class="form-text text-muted"
   >
     {{ _helpMessage | transloco }}
   </small>

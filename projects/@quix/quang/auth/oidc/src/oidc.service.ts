@@ -1,11 +1,14 @@
 import { Injectable, Optional } from '@angular/core'
+
 import { Store } from '@ngrx/store'
 import { OAuthService } from 'angular-oauth2-oidc'
 import { Observable, from } from 'rxjs'
 
 import { QuangOpenIdConnectModuleState } from './oidc-module.reducer'
-import { QuangOpenIdConnectConfig } from './oidc.config'
+
 import { QuangOpenIdConnectActions } from './store/actions'
+
+import { QuangOpenIdConnectConfig } from './oidc.config'
 
 @Injectable({
   providedIn: 'root'
@@ -72,14 +75,12 @@ export class QuangOpenIdConnectService {
    * if the process is successful dispatch the successful login
    */
   loginAndDispatch(): void {
-    from(this.oauthService.loadDiscoveryDocumentAndLogin()).subscribe(
-      (isAuthenticated) => {
-        if (isAuthenticated) {
-          this.oauthService.setupAutomaticSilentRefresh()
-          this.store.dispatch(QuangOpenIdConnectActions.userLogin())
-        }
+    from(this.oauthService.loadDiscoveryDocumentAndLogin()).subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.oauthService.setupAutomaticSilentRefresh()
+        this.store.dispatch(QuangOpenIdConnectActions.userLogin())
       }
-    )
+    })
   }
 
   /**
@@ -87,14 +88,12 @@ export class QuangOpenIdConnectService {
    * if the process is successful dispatch the successful login
    */
   tryLoginAndDispatch(): void {
-    from(this.oauthService.loadDiscoveryDocumentAndTryLogin()).subscribe(
-      (isAuthenticated) => {
-        if (isAuthenticated) {
-          this.oauthService.setupAutomaticSilentRefresh()
-          this.store.dispatch(QuangOpenIdConnectActions.userLogin())
-        }
+    from(this.oauthService.loadDiscoveryDocumentAndTryLogin()).subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.oauthService.setupAutomaticSilentRefresh()
+        this.store.dispatch(QuangOpenIdConnectActions.userLogin())
       }
-    )
+    })
   }
 
   isAuthenticated(): boolean {
@@ -113,7 +112,7 @@ export class QuangOpenIdConnectService {
    */
   getUserInfoAndDispatch(): void {
     from(this.oauthService.loadUserProfile()).subscribe((user: any) => {
-      this.store.dispatch(QuangOpenIdConnectActions.userInfoLogin({ user: user }))
+      this.store.dispatch(QuangOpenIdConnectActions.userInfoLogin({ user }))
     })
   }
 

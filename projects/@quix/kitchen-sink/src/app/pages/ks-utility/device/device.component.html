@@ -26,9 +26,7 @@
       <quang-card-header>
         <h3 cardHeader>TS</h3>
         <div cardBody>
-          <pre class="ts">{{
-            'utility.device-orientation.code' | transloco
-          }}</pre>
+          <pre class="ts">{{ 'utility.device-orientation.code' | transloco }}</pre>
         </div>
       </quang-card-header>
     </div>
@@ -39,15 +37,17 @@
         <h3 cardHeader>Vibrate</h3>
         <div cardBody>
           <button
-            type="button"
+            (click)="vibrate()"
             class="btn btn-outline-primary"
-            (click)="vibrate()">
+            type="button"
+          >
             Vibrate
           </button>
           <button
-            type="button"
+            (click)="vibratePattern()"
             class="btn btn-outline-primary ms-3"
-            (click)="vibratePattern()">
+            type="button"
+          >
             Vibrate pattern
           </button>
         </div>
@@ -68,15 +68,17 @@
         <h3 cardHeader>Lock</h3>
         <div cardBody>
           <button
-            type="button"
+            (click)="lockScreen()"
             class="btn btn-outline-danger"
-            (click)="lockScreen()">
+            type="button"
+          >
             Lock screen
           </button>
           <button
-            type="button"
+            (click)="unlockScreen()"
             class="btn btn-outline-success ms-3"
-            (click)="unlockScreen()">
+            type="button"
+          >
             Unlock screen
           </button>
         </div>

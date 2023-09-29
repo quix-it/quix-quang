@@ -1,47 +1,55 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [attr.aria-label]="ariaLabel | transloco"
-         *ngIf="label">
-    {{label | transloco}}
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <div class="input-group">
     <div class="input-group-prepend">
-      <button type="button"
-              [ngClass]="addButtonClass"
-              (click)="addInteger()"
-              [disabled]="_disabled || readonly">
+      <button
+        [disabled]="_disabled || readonly"
+        [ngClass]="addButtonClass"
+        (click)="addInteger()"
+        type="button"
+      >
         <ng-content select="[addIntegerIcon]"></ng-content>
       </button>
     </div>
-    <input type="text"
-           class="form-control text-right"
-           [id]="id + 'dec'"
-           [step]="stepInteger"
-           [readOnly]="readonly"
-           [attr.aria-label]="ariaLabel | transloco"
-           [tabIndex]="tabIndex"
-           [ngClass]="customClass"
-           [class.is-valid]="control?.valid && control?.dirty && successMessage"
-           [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-           (input)="writeValueInteger($event)"
-           (blur)="onTouched()"
-           [autocomplete]="autocomplete"
-           [attr.aria-disabled]="_disabled"
-           [attr.aria-autocomplete]="'inline'"
-           [attr.aria-readonly]="readonly"
-           [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
-           [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
-           [attr.aria-invalid]="control.invalid"
-           #inputInteger>
+    <input
+      [attr.aria-autocomplete]="'inline'"
+      [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+      [attr.aria-disabled]="_disabled"
+      [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+      [attr.aria-invalid]="control.invalid"
+      [attr.aria-label]="ariaLabel | transloco"
+      [attr.aria-readonly]="readonly"
+      [autocomplete]="autocomplete"
+      [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+      [class.is-valid]="control?.valid && control?.dirty && successMessage"
+      [id]="id + 'dec'"
+      [ngClass]="customClass"
+      [readOnly]="readonly"
+      [step]="stepInteger"
+      [tabIndex]="tabIndex"
+      (blur)="onTouched()"
+      (input)="writeValueInteger($event)"
+      #inputInteger
+      class="form-control text-right"
+      type="text"
+    />
     <div class="input-group-append">
-      <button type="button"
-              [ngClass]="removeButtonClass"
-              (click)="removeInteger()"
-              [disabled]="_disabled || readonly">
+      <button
+        [disabled]="_disabled || readonly"
+        [ngClass]="removeButtonClass"
+        (click)="removeInteger()"
+        type="button"
+      >
         <ng-content select="[removeIntegerIcon]"></ng-content>
       </button>
     </div>
@@ -49,56 +57,67 @@
       <span class="input-group-text">,</span>
     </div>
     <div class="input-group-append">
-      <button type="button"
-              [ngClass]="addButtonClass"
-              (click)="addFraction()"
-              [disabled]="_disabled || readonly">
+      <button
+        [disabled]="_disabled || readonly"
+        [ngClass]="addButtonClass"
+        (click)="addFraction()"
+        type="button"
+      >
         <ng-content select="[addFractionIcon]"></ng-content>
       </button>
     </div>
-    <input type="text"
-           class="form-control"
-           [id]="id + 'int'"
-           [step]="stepFraction"
-           [attr.aria-label]="ariaLabel | transloco"
-           [readOnly]="readonly"
-           [ngClass]="customClass"
-           [class.is-valid]="control?.valid && control?.dirty && successMessage"
-           [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-           (input)="writeValueFraction($event)"
-           (blur)="onTouched()"
-           [autocomplete]="autocomplete"
-           [attr.aria-disabled]="_disabled"
-           [attr.aria-autocomplete]="autocomplete"
-           [attr.aria-readonly]="readonly"
-           [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
-           [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
-           [attr.aria-invalid]="control.invalid"
-           #inputFraction
-    >
+    <input
+      [attr.aria-autocomplete]="autocomplete"
+      [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+      [attr.aria-disabled]="_disabled"
+      [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+      [attr.aria-invalid]="control.invalid"
+      [attr.aria-label]="ariaLabel | transloco"
+      [attr.aria-readonly]="readonly"
+      [autocomplete]="autocomplete"
+      [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+      [class.is-valid]="control?.valid && control?.dirty && successMessage"
+      [id]="id + 'int'"
+      [ngClass]="customClass"
+      [readOnly]="readonly"
+      [step]="stepFraction"
+      (blur)="onTouched()"
+      (input)="writeValueFraction($event)"
+      #inputFraction
+      class="form-control"
+      type="text"
+    />
     <div class="input-group-append">
-      <button type="button"
-              [ngClass]="removeButtonClass"
-              (click)="removeFraction()"
-              [disabled]="_disabled || readonly">
+      <button
+        [disabled]="_disabled || readonly"
+        [ngClass]="removeButtonClass"
+        (click)="removeFraction()"
+        type="button"
+      >
         <ng-content select="[removeFractionIcon]"></ng-content>
       </button>
     </div>
-    <div class="valid-feedback"
-       aria-live="assertive">
-      {{_successMessage | transloco}}
+    <div
+      aria-live="assertive"
+      class="valid-feedback"
+    >
+      {{ _successMessage | transloco }}
     </div>
-    <div class="invalid-feedback"
-       aria-live="polite"
-       [id]="id + '-error'">
-      {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
+    <div
+      [id]="id + '-error'"
+      aria-live="polite"
+      class="invalid-feedback"
+    >
+      {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
     </div>
   </div>
-  <small [id]="id + '-help'"
-         aria-live="assertive"
-         class="form-text text-muted"
-         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         *ngIf="helpMessage">
-    {{_helpMessage | transloco}}
+  <small
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [id]="id + '-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
   </small>
 </div>

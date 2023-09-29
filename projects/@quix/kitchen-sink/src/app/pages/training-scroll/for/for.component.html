@@ -10,7 +10,6 @@
         <h4 cardHeader>Demo</h4>
         <div cardBody>
           <div
-            class="mb-1 border-1 border-secondary border p-3"
             *ngFor="
               let item of items;
               trackBy: trackItem;
@@ -19,7 +18,9 @@
               let l = last;
               let o = odd;
               let e = even
-            ">
+            "
+            class="mb-1 border-1 border-secondary border p-3"
+          >
             {{ item.value }}
             <mat-chip-list>
               <mat-chip *ngIf="f">First</mat-chip>
@@ -47,7 +48,6 @@
         <h4 cardHeader>Demo</h4>
         <div cardBody>
           <div
-            class="mb-1 border-1 border-secondary border p-3"
             *ngFor="
               let obj of objects | keyvalue;
               let i = index;
@@ -55,7 +55,9 @@
               let l = last;
               let o = odd;
               let e = even
-            ">
+            "
+            class="mb-1 border-1 border-secondary border p-3"
+          >
             {{ obj?.value }}
             <mat-chip-list>
               <mat-chip *ngIf="f">First</mat-chip>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal'
+import { Observable } from 'rxjs'
 import { take } from 'rxjs/operators'
 
 /**
@@ -64,7 +65,7 @@ export class QuangModalService {
       class: cssClass,
       initialState: modalParams
     }
-    this.setSize(size || 'md')
+    this.setSize(size ?? 'md')
     this.modalRef = this.modalService.show(modalComponent, this.config)
     this.modalRef.content.title = modalTitle
   }

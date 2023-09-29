@@ -1,5 +1,5 @@
 export class Starship {
-  constructor (
+  constructor(
     public id: string,
     public name: string,
     public model: string

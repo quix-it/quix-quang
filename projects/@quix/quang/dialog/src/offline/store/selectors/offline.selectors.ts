@@ -1,7 +1,8 @@
 import { createSelector } from '@ngrx/store'
 
-import { QuangDialogState } from '../../../dialog.reducer'
 import { selectQuangDialog } from '../../../dialog.selectors'
+
+import { QuangDialogState } from '../../../dialog.reducer'
 
 /**
  * selector for offline store state

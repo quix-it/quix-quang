@@ -8,6 +8,7 @@ import {
   ViewChild,
   ViewChildren
 } from '@angular/core'
+
 import { QuangPicture } from './picture.model'
 
 /**
@@ -44,11 +45,8 @@ export class QuangPictureComponent implements AfterViewInit {
    * arialabel for the image
    */
   @Input() ariaLabel: string = ''
-  @ViewChild('image') image: ElementRef<HTMLImageElement> | undefined =
-    undefined
-  @ViewChildren('source') sources:
-    | QueryList<ElementRef<HTMLSourceElement>>
-    | undefined = undefined
+  @ViewChild('image') image: ElementRef<HTMLImageElement> | undefined = undefined
+  @ViewChildren('source') sources: QueryList<ElementRef<HTMLSourceElement>> | undefined = undefined
   observerImage: IntersectionObserver | undefined = undefined
   observerSource: IntersectionObserver | undefined = undefined
 

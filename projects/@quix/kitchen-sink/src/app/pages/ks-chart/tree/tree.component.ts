@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+
 import { ChartTree } from '@quix/quang/components/chart'
 
 @Component({

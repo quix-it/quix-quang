@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+
 import { ConfigComponent } from './config/config.component'
 import { DirectiveComponent } from './directive/directive.component'
-import { SelectorComponent } from './selector/selector.component'
 import { GuardComponent } from './guard/guard.component'
+import { SelectorComponent } from './selector/selector.component'
 
 const routes: Routes = [
   { path: 'config', component: ConfigComponent },

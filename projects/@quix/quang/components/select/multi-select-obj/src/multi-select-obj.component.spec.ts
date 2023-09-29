@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { MultiSelectObjComponent } from './multi-select-obj.component'
 
@@ -9,8 +9,7 @@ describe('MultiSelectObjComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MultiSelectObjComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

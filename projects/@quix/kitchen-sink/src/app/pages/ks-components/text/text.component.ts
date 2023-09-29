@@ -9,10 +9,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 export class TextComponent {
   @Input() errorMessage: boolean = true
   group: FormGroup = new FormGroup({
-    text: new FormControl('', [
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(50)
-    ])
+    text: new FormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(50)])
   })
 }

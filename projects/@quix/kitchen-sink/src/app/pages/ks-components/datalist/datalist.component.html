@@ -19,16 +19,17 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-datalist
-              [label]="'form.datalist.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'test'"
               [autofocus]="true"
+              [errorMessage]="true"
               [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'test'"
+              [label]="'form.datalist.label'"
               [list]="list"
-              formControlName="select"></quang-datalist>
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="select"
+            ></quang-datalist>
           </form>
           <dl>
             <dt>Value:</dt>

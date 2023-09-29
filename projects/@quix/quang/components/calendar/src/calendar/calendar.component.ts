@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
+
 import { CalendarOptions } from '@fullcalendar/core'
 
 /**
@@ -49,41 +50,34 @@ export class QuangCalendarComponent implements OnChanges {
    * @param s
    * @param f
    */
-  @Input() callBack: (e: any, s: any, f: any) => {} = (e, s, f) => []
+  @Input() callBack: (e: any, s: any, f: any) => any = (e, s, f) => []
   /**
    * Defines the type of calendar view
    */
-  @Input() view: 'timeGridWeek' | 'dayGridMonth' | 'dayGridWeek' =
-    'dayGridMonth'
+  @Input() view: 'timeGridWeek' | 'dayGridMonth' | 'dayGridWeek' = 'dayGridMonth'
   /**
    * Defines the format of the calendar header
    */
-  @Input() header: { [key: string]: any } = {}
+  @Input() header: Record<string, any> = {}
   /**
    * Defines the format of the calendar footer
    */
-  @Input() footer: { [key: string]: any } = {}
+  @Input() footer: Record<string, any> = {}
   /**
    * Defines the classes of the font-awesome icons that will be used in the buttons
    */
-  @Input() buttonsIcons: { [key: string]: any } = {
+  @Input() buttonsIcons: Record<string, any> = {
     close: ' fas fa-times',
     prev: ' fas fa-chevron-left',
     next: ' fas fa-chevron-right',
     prevYear: ' fas fa-angle-double-left',
     nextYear: ' fas fa-angle-double-right'
   }
+
   /**
    *
    */
-  @Input() firstDay:
-    | 'monday'
-    | 'tuesday'
-    | 'wednesday'
-    | 'thursday'
-    | 'friday'
-    | 'saturday'
-    | 'sunday' = 'monday'
+  @Input() firstDay: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday' = 'monday'
   /**
    *
    */
@@ -109,7 +103,7 @@ export class QuangCalendarComponent implements OnChanges {
    */
   @Output() whenViewChange: EventEmitter<any> = new EventEmitter<any>()
 
-  _daysMap: { [key: string]: number } = {
+  _daysMap: Record<string, number> = {
     monday: 1,
     tuesday: 2,
     wednesday: 3,
@@ -118,7 +112,7 @@ export class QuangCalendarComponent implements OnChanges {
     saturday: 6,
     sunday: 0
   }
-  
+
   /**
    * calendar config
    */
@@ -131,7 +125,7 @@ export class QuangCalendarComponent implements OnChanges {
     headerToolbar: this.header,
     footerToolbar: this.footer,
     buttonIcons: this.buttonsIcons,
-    locale: '',
+    locale: ''
     // dateClick: this.dateClick.bind(this)
   }
 
@@ -156,8 +150,7 @@ export class QuangCalendarComponent implements OnChanges {
       this.calendarOptions.locale = changes.locale?.currentValue
     }
     if (changes.firstDay?.currentValue) {
-      this.calendarOptions.firstDay =
-        this._daysMap[changes.firstDay.currentValue]
+      this.calendarOptions.firstDay = this._daysMap[changes.firstDay.currentValue]
     }
     if (changes.dayMaxEvents?.currentValue) {
       this.calendarOptions.dayMaxEvents = changes.dayMaxEvents?.currentValue

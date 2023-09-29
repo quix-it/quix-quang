@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { MultiSelectStrgComponent } from './multi-select-strg.component'
 
@@ -9,8 +9,7 @@ describe('MultiSelectStrgComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MultiSelectStrgComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

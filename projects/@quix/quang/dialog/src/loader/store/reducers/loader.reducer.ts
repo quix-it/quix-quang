@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store'
+
 import { addLoader, removeLoader } from '../actions/loader.actions'
 
 /**
@@ -31,6 +32,6 @@ const reducer = createReducer(
  * @param state
  * @param action
  */
-export function loaderReducer (state: QuangLoaderState | undefined, action: Action): any {
+export function loaderReducer(state: QuangLoaderState | undefined, action: Action): any {
   return reducer(state, action)
 }

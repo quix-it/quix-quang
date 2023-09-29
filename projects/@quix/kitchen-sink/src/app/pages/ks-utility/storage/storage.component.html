@@ -14,21 +14,27 @@
         <div cardBody>
           <form
             [formGroup]="sessionForm"
+            (ngSubmit)="saveSession()"
             class="mb-3"
-            (ngSubmit)="saveSession()">
+          >
             <div class="mb-3">
               <input
-                type="text"
+                class="form-control"
                 formControlName="session"
-                class="form-control" />
+                type="text"
+              />
             </div>
-            <button type="submit" class="btn btn-outline-success mr-3">
+            <button
+              class="btn btn-outline-success mr-3"
+              type="submit"
+            >
               Salva in sessione
             </button>
             <button
-              type="submit"
               (click)="deleteSession()"
-              class="btn btn-outline-secondary">
+              class="btn btn-outline-secondary"
+              type="submit"
+            >
               Cancella in sessione
             </button>
           </form>
@@ -50,17 +56,29 @@
       <quang-card-header>
         <h3 cardHeader>Local storage</h3>
         <div cardBody>
-          <form [formGroup]="localForm" class="mb-3" (ngSubmit)="saveLocal()">
+          <form
+            [formGroup]="localForm"
+            (ngSubmit)="saveLocal()"
+            class="mb-3"
+          >
             <div class="mb-3">
-              <input type="text" formControlName="local" class="form-control" />
+              <input
+                class="form-control"
+                formControlName="local"
+                type="text"
+              />
             </div>
-            <button type="submit" class="btn btn-outline-success mr-3">
+            <button
+              class="btn btn-outline-success mr-3"
+              type="submit"
+            >
               Salva in locale
             </button>
             <button
-              type="submit"
               (click)="deleteLocal()"
-              class="btn btn-outline-secondary">
+              class="btn btn-outline-secondary"
+              type="submit"
+            >
               Cancella in locale
             </button>
           </form>

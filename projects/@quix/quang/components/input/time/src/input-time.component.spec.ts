@@ -9,8 +9,7 @@ describe('InputTimeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuangInputTimeComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   })
 
   beforeEach(() => {

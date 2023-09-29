@@ -9,7 +9,9 @@ import {
 } from '@angular/core'
 
 import { EChartsOption } from 'echarts'
+
 import { ChartBar } from './chart-bar.model'
+
 /**
  * chart bar component decorator
  */
@@ -64,7 +66,7 @@ export class ChartBarComponent implements OnChanges {
   /**
    * click event on the graph
    */
-  @Output() chartClick: EventEmitter<any> = new EventEmitter()
+  @Output() chartClick = new EventEmitter<any>()
   /**
    * basic configuration of the chart
    */
@@ -83,7 +85,7 @@ export class ChartBarComponent implements OnChanges {
    * change input management
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.color?.currentValue) {
       this.chartOption.color = changes.color?.currentValue
     }
@@ -119,7 +121,7 @@ export class ChartBarComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e: any): void {
+  onChartClick(e: any): void {
     this.chartClick.emit(e)
   }
 }

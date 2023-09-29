@@ -1,5 +1,7 @@
 import { createFeatureSelector } from '@ngrx/store'
+
 import { QuangDialogState, QuangDialogStateModule } from './dialog.reducer'
+
 /**
  * the key that identifies the module store
  */

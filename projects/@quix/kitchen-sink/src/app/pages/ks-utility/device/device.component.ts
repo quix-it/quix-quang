@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy } from '@angular/core'
+
 import { Subscription } from 'rxjs'
 
 import { QuangDeviceService } from '@quix/quang/utility'
@@ -8,14 +9,12 @@ import { QuangDeviceService } from '@quix/quang/utility'
   templateUrl: './device.component.html',
   styles: []
 })
-export class DeviceComponent implements OnInit, OnDestroy {
+export class DeviceComponent implements OnDestroy {
   screenSubscription$: Subscription = new Subscription()
   screen: unknown
   screenOrientation: string = this.device.getScreenOrientation()
 
   constructor(private readonly device: QuangDeviceService) {}
-
-  ngOnInit(): void {}
 
   observeScreenOrientation(): void {
     this.device.observeScreenOrientation().subscribe((e) => {
@@ -36,10 +35,7 @@ export class DeviceComponent implements OnInit, OnDestroy {
   }
 
   vibratePattern(): void {
-    this.device.vibrate([
-      500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
-      40, 500
-    ])
+    this.device.vibrate([500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500])
   }
 
   ngOnDestroy(): void {

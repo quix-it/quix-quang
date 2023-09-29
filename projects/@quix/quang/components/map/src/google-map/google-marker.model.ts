@@ -9,7 +9,7 @@ export class GoogleMarker {
    * @param data define marker data
    * @param customIcon define marker icon
    */
-  constructor (
+  constructor(
     /**
      * latitude
      */
@@ -21,7 +21,7 @@ export class GoogleMarker {
     /**
      * marker data
      */
-    public data?: {},
+    public data?: Record<string, unknown>,
     /**
      * icon image url
      */

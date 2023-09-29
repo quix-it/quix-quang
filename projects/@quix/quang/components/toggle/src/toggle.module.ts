@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core'
-import { QuangToggleComponent } from './toggle.component'
 import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+
 import { TranslocoModule } from '@ngneat/transloco'
+
+import { QuangToggleComponent } from './toggle.component'
 
 @NgModule({
   declarations: [QuangToggleComponent],

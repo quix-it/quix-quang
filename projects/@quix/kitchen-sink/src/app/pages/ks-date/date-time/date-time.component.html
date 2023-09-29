@@ -19,23 +19,27 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-date-time
+              [autocomplete]="'off'"
+              [autofocus]="true"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-time id'"
               [label]="'form.date-time.label'"
               [placeholder]="'form.date-time.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="datetime"
               hoursPlaceholder="00"
               minutesPlaceholder="00"
               secondsPlaceholder="00"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'date-time id'"
-              [autofocus]="true"
-              [dateFormat]="'YYYY-MM-DD'"
-              [formName]="'form'"
-              [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="datetime">
-              <i calendarIcon class="fas fa-calendar-alt"></i>
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
             </quang-input-date-time>
           </form>
           <dl>
@@ -62,24 +66,28 @@
         <div cardBody>
           <form [formGroup]="groupMinMax">
             <quang-input-date-time
+              [autocomplete]="'off'"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-time id'"
               [label]="'form.date-time.label'"
+              [maxDate]="maxDate"
+              [minDate]="minDate"
               [placeholder]="'form.date-time.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="datetime"
               hoursPlaceholder="00"
               minutesPlaceholder="00"
               secondsPlaceholder="00"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'date-time id'"
-              [dateFormat]="'YYYY-MM-DD'"
-              [minDate]="minDate"
-              [maxDate]="maxDate"
-              [formName]="'form'"
-              [buttonClass]="['btn', 'btn-outline-secondary']"
-              formControlName="datetime">
-              <i calendarIcon class="fas fa-calendar-alt"></i>
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
             </quang-input-date-time>
           </form>
           <dl>
@@ -93,9 +101,7 @@
       <quang-card-header>
         <h3 cardHeader>HTML/TS</h3>
         <div cardBody>
-          <pre class="html">{{
-            'date.date-time-min-max.html' | transloco
-          }}</pre>
+          <pre class="html">{{ 'date.date-time-min-max.html' | transloco }}</pre>
           <pre class="ts">{{ 'date.date-time-min-max.code' | transloco }}</pre>
         </div>
       </quang-card-header>

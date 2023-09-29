@@ -9,8 +9,7 @@ describe('AudioComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuangAudioComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   })
 
   beforeEach(() => {

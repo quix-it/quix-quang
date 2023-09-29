@@ -9,23 +9,31 @@
       <quang-card-header>
         <h3 cardHeader>Demo</h3>
         <div cardBody>
-          <button class="btn btn-outline-success" (click)="addControl()">
+          <button
+            (click)="addControl()"
+            class="btn btn-outline-success"
+          >
             Aggiungi input
           </button>
-          <button class="btn btn-outline-danger ml-1" (click)="removeControl()">
+          <button
+            (click)="removeControl()"
+            class="btn btn-outline-danger ml-1"
+          >
             Rimuovi input
           </button>
           <form [formGroup]="group">
             <ng-container formArrayName="array">
               <div
                 *ngFor="let input of array.controls; let i = index"
-                class="mb-3">
+                class="mb-3"
+              >
                 <label [htmlFor]="'text' + i">Text {{ i }}</label>
                 <input
-                  type="text"
+                  [formControlName]="i"
                   [id]="'text' + i"
                   class="form-control"
-                  [formControlName]="i" />
+                  type="text"
+                />
               </div>
             </ng-container>
           </form>

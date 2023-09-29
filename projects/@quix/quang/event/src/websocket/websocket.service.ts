@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core'
 
 @Injectable()
 export class QuangWebsocketService {
-  private socket = new WebSocket('wss://javascript.info/article/websocket/demo/hello')
+  private readonly socket = new WebSocket('wss://javascript.info/article/websocket/demo/hello')
   public messages: string[] = []
 
-  constructor () {
+  constructor() {
     this.socket.onopen = () => {
       this.socket.send('sended message')
       this.messages.push('[open] connection')

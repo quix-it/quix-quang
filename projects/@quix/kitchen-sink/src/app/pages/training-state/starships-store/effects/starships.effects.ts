@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core'
-import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { StarshipsActions } from '../actions'
-import { catchError, map, mergeMap } from 'rxjs/operators'
-import { StarshipsService } from '../../starships/starships.service'
+
 import { of } from 'rxjs'
+import { catchError, map, mergeMap } from 'rxjs/operators'
+
+import { StarshipsService } from '../../starships/starships.service'
+
+import { StarshipsActions } from '../actions'
+
+import { Actions, createEffect, ofType } from '@ngrx/effects'
 
 @Injectable()
 export class StarshipsEffects {
-  constructor (
+  constructor(
     private readonly actions: Actions,
     private readonly starshipsService: StarshipsService
   ) {}
@@ -18,9 +22,7 @@ export class StarshipsEffects {
       mergeMap(() =>
         this.starshipsService.getStarships().pipe(
           map((r) => StarshipsActions.getStarshipsSuccess({ starships: r })),
-          catchError((error) =>
-            of(StarshipsActions.getStarshipsError({ error }))
-          )
+          catchError((error) => of(StarshipsActions.getStarshipsError({ error })))
         )
       )
     )
@@ -32,9 +34,7 @@ export class StarshipsEffects {
       mergeMap((action) =>
         this.starshipsService.getStarship(action.id).pipe(
           map((r) => StarshipsActions.getStarshipSuccess({ starship: r })),
-          catchError((error) =>
-            of(StarshipsActions.getStarshipError({ error }))
-          )
+          catchError((error) => of(StarshipsActions.getStarshipError({ error })))
         )
       )
     )

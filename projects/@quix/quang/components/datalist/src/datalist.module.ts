@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core'
-import { DatalistComponent } from './datalist.component'
 import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+
 import { TranslocoModule } from '@ngneat/transloco'
+
+import { DatalistComponent } from './datalist.component'
 
 @NgModule({
   declarations: [DatalistComponent],

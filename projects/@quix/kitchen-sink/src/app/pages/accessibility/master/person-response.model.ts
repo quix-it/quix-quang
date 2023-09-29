@@ -1,5 +1,8 @@
-import { Person } from "./person.model";
+import { Person } from './person.model'
 
 export class PersonResponse {
-  constructor (public count: number, public people: Person[]) {}
+  constructor(
+    public count: number,
+    public people: Person[]
+  ) {}
 }

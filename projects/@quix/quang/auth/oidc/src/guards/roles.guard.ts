@@ -1,20 +1,12 @@
 import { Injectable } from '@angular/core'
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router'
+import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router'
+
 import { Store } from '@ngrx/store'
 import { Observable, of, throwError } from 'rxjs'
 import { catchError, filter, switchMap, take } from 'rxjs/operators'
 
 import { QuangOpenIdConnectSelectors } from '../store/selectors'
-import {
-  selectHasEveryRole,
-  selectUserInfo
-} from '../store/selectors/oidc.selectors'
+import { selectHasEveryRole, selectUserInfo } from '../store/selectors/oidc.selectors'
 
 @Injectable({
   providedIn: 'root'
@@ -43,9 +35,7 @@ export class QuangRolesGuard implements CanActivate {
    * @param allowedRoles role list
    */
   checkHasAtLeastOneRole(allowedRoles: string[]): Observable<boolean> {
-    return this.authStore
-      .select(QuangOpenIdConnectSelectors.selectHasAtLeastOneRole(allowedRoles))
-      .pipe(take(1))
+    return this.authStore.select(QuangOpenIdConnectSelectors.selectHasAtLeastOneRole(allowedRoles)).pipe(take(1))
   }
 
   /**
@@ -55,11 +45,7 @@ export class QuangRolesGuard implements CanActivate {
    */
   canActivate(
     route: ActivatedRouteSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authStore.select(selectUserInfo).pipe(
       filter((user) => !!user),
       take(1),

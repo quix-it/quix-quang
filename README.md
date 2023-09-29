@@ -3,12 +3,12 @@
 Quang is the UI component library developed by Quix for front end projects with Angular framework. It is based on the
 bootstrap design system and consists of:
 
-* 2 modules for managing the authentication flow
-* 9 graphic components
-* 2 services for socket management
-* 42 components
-* 2 directives for the management of authenticated files
-* 7 utility services
+- 2 modules for managing the authentication flow
+- 9 graphic components
+- 2 services for socket management
+- 42 components
+- 2 directives for the management of authenticated files
+- 7 utility services
 
 The goal of this library is to speed up code writing and lower the percentage of errors by standardizing the components
 most used in projects and thus allowing each developer to focus attention on the design logic. Compared to previous
@@ -34,4 +34,3 @@ QuangComponentsModule,
 QuangDateModule, 
 TranslocoModule
 ],`
-

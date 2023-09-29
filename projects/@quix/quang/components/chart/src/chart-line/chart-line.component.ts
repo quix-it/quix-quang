@@ -7,8 +7,10 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
-import { ChartLine } from './chart-line.model'
+
 import { EChartsOption } from 'echarts'
+
+import { ChartLine } from './chart-line.model'
 
 /**
  * chart line component decorator
@@ -61,7 +63,7 @@ export class ChartLineComponent implements OnChanges {
   /**
    * click event on the graph
    */
-  @Output() chartClick: EventEmitter<any> = new EventEmitter()
+  @Output() chartClick = new EventEmitter<any>()
   /**
    * basic configuration of the chart
    */
@@ -82,7 +84,7 @@ export class ChartLineComponent implements OnChanges {
    * change input management
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.color?.currentValue) {
       this.chartOption.color = changes.color?.currentValue
     }
@@ -94,8 +96,7 @@ export class ChartLineComponent implements OnChanges {
       this.chartOption.series = changes.chartData?.currentValue.series.map((s: any) => ({
         data: s,
         type: 'line'
-      })
-      )
+      }))
     }
     if (changes.grid?.currentValue) {
       this.chartOption.grid = changes.grid.currentValue
@@ -106,7 +107,7 @@ export class ChartLineComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e: any): void {
+  onChartClick(e: any): void {
     this.chartClick.emit(e)
   }
 }

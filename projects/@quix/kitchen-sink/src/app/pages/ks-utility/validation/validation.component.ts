@@ -1,7 +1,9 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { QuangValidatorsService } from '@quix/quang/utility'
+
 import { addDays } from 'date-fns'
+
+import { QuangValidatorsService } from '@quix/quang/utility'
 
 @Component({
   selector: 'ks-validation',
@@ -29,9 +31,7 @@ export class ValidationComponent {
   })
 
   betweenForm: FormGroup = new FormGroup({
-    date: new FormControl('', [
-      this.validatorService.dateBetween(new Date(), addDays(new Date(), 5))
-    ])
+    date: new FormControl('', [this.validatorService.dateBetween(new Date(), addDays(new Date(), 5))])
   })
 
   fiscalForm: FormGroup = new FormGroup({

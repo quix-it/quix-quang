@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core'
-import { QuangModalService } from '../modal/modal.service'
-import { QuangHttpErrorModalComponent } from './modal/http-error-modal.component'
 import { HttpErrorResponse } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+
+import { QuangModalService } from '../modal/modal.service'
+
+import { QuangHttpErrorModalComponent } from './modal/http-error-modal.component'
+
 /**
  * service decorator
  */
@@ -25,18 +28,15 @@ export class QuangHttpErrorService {
    * constructor
    * @param quangModalService modal utility
    */
-  constructor (
-    private readonly quangModalService: QuangModalService
-  ) {
-  }
+  constructor(private readonly quangModalService: QuangModalService) {}
 
   /**
    * opens the generic error mode
    * opens only one error modal at a time and ignores the others
    * @param error
    */
-  openErrorModal (error: HttpErrorResponse): void {
-    this.quangModalService.onHideEvent().subscribe(e => {
+  openErrorModal(error: HttpErrorResponse): void {
+    this.quangModalService.onHideEvent().subscribe((e) => {
       switch (e) {
         case 'backdrop-click':
           this.isOpen = false
@@ -55,9 +55,10 @@ export class QuangHttpErrorService {
         this.modalError,
         `httpErrorModal.${error?.status}.title`,
         'md',
-        { error: error },
+        { error },
         true,
-        false)
+        false
+      )
       this.isOpen = true
     }
   }

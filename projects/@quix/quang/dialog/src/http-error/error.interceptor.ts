@@ -1,9 +1,13 @@
-import { Injectable, Optional } from '@angular/core'
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
-import { catchError, map } from 'rxjs/operators'
+import { Injectable, Optional } from '@angular/core'
+
 import { Observable, throwError } from 'rxjs'
+import { catchError, map } from 'rxjs/operators'
+
 import { QuangHttpErrorService } from './error.service'
+
 import { QuangDialogConfig } from '../dialog.config'
+
 /**
  * Interceptor decorator
  */
@@ -15,7 +19,7 @@ export class QuangHttpErrorInterceptor implements HttpInterceptor {
   /**
    * no loader interceptor for this url or error
    */
-  noErrorUrls: Array<{ url: string, error: number }> = []
+  noErrorUrls: Array<{ url: string; error: number }> = []
   /**
    * window access
    */
@@ -26,7 +30,7 @@ export class QuangHttpErrorInterceptor implements HttpInterceptor {
    * @param quangHttpErrorService
    * @param config
    */
-  constructor (
+  constructor(
     private readonly quangHttpErrorService: QuangHttpErrorService,
     @Optional() config?: QuangDialogConfig
   ) {
@@ -45,14 +49,14 @@ export class QuangHttpErrorInterceptor implements HttpInterceptor {
    * @param req http request http request
    * @param next http observable
    */
-  intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       map((resp: HttpEvent<any>) => {
         return resp
       }),
       catchError((error: HttpErrorResponse) => {
         if (this.noErrorUrls?.length) {
-          if (!this.noErrorUrls.find(rule => rule.error === error.status && error.url?.includes(rule.url))) {
+          if (!this.noErrorUrls.find((rule) => rule.error === error.status && error.url?.includes(rule.url))) {
             this.quangHttpErrorService.openErrorModal(error)
           }
         } else {

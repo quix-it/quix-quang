@@ -1,10 +1,15 @@
 import { Component } from '@angular/core'
-import { TrainingStateModuleStore } from '../training-state-store/training-state.reducers'
-import { Observable } from 'rxjs'
+
 import { Store } from '@ngrx/store'
+import { Observable } from 'rxjs'
+
 import { Planet } from './planet.model'
-import { PlanetsSelectors } from '../planets-store/selectors'
+
 import { PlanetsActions } from '../planets-store/actions'
+
+import { PlanetsSelectors } from '../planets-store/selectors'
+
+import { TrainingStateModuleStore } from '../training-state-store/training-state.reducers'
 
 @Component({
   selector: 'ks-planets',
@@ -12,9 +17,7 @@ import { PlanetsActions } from '../planets-store/actions'
   styles: []
 })
 export class PlanetsComponent {
-  planets$: Observable<Planet[] | null> = this.store.select(
-    PlanetsSelectors.selectPlanets
-  )
+  planets$: Observable<Planet[] | null> = this.store.select(PlanetsSelectors.selectPlanets)
   PlanetActions = PlanetsActions
 
   constructor(public readonly store: Store<TrainingStateModuleStore>) {}

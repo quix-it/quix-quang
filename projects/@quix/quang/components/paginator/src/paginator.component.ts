@@ -4,11 +4,11 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   Renderer2,
   ViewChild
 } from '@angular/core'
+
 /**
  * paginator component decorator
  */
@@ -52,6 +52,11 @@ export class QuangPaginatorComponent {
   @Input() set pageSize(val: number) {
     this._pageSize = val
   }
+
+  get pageSize(): number {
+    return this._pageSize
+  }
+
   /**
    * Page index
    */
@@ -75,9 +80,7 @@ export class QuangPaginatorComponent {
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input:
-    | ElementRef<HTMLSelectElement>
-    | undefined
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
   /**
    * Size of the list
    */
@@ -99,7 +102,10 @@ export class QuangPaginatorComponent {
    * constructor
    * @param renderer html access
    */
-  constructor(private readonly renderer: Renderer2, private readonly changeDetectionRef: ChangeDetectorRef) {}
+  constructor(
+    private readonly renderer: Renderer2,
+    private readonly changeDetectionRef: ChangeDetectorRef
+  ) {}
 
   /**
    * When the page index changes, it saves the state and issues the event
@@ -126,10 +132,10 @@ export class QuangPaginatorComponent {
 
   /**
    * Go to the first page of the pager
-  */
- goToFirstPage(): void {
-   this._page = 1
-   this.changeDetectionRef.detectChanges()
+   */
+  goToFirstPage(): void {
+    this._page = 1
+    this.changeDetectionRef.detectChanges()
   }
 
   getNumPages(n: number): void {

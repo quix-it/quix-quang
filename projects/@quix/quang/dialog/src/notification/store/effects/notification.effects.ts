@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core'
-import { Actions, createEffect, ofType } from '@ngrx/effects'
+
 import { map } from 'rxjs/operators'
+
 import { sendNotification } from '../actions/notification.actions'
+
+import { Actions, createEffect, ofType } from '@ngrx/effects'
 
 /**
  * Service decoratore
@@ -23,19 +26,17 @@ export class QuangNotificationEffects {
    * it takes care of creating and displaying the notification
    */
   sendNotification$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(sendNotification),
-      map((action) => {
-        this.notification = new Notification(
-          action.notificationData.title,
-          {
+    () =>
+      this.actions$.pipe(
+        ofType(sendNotification),
+        map((action) => {
+          this.notification = new Notification(action.notificationData.title, {
             body: action.notificationData.body,
             icon: action.notificationData.iconUrl,
             image: action.notificationData.imageUrl
-          }
-        )
-      })
-    ),
+          })
+        })
+      ),
     { dispatch: false }
   )
 
@@ -43,7 +44,5 @@ export class QuangNotificationEffects {
    * constructor
    * @param actions$
    */
-  constructor (
-    private readonly actions$: Actions
-  ) {}
+  constructor(private readonly actions$: Actions) {}
 }

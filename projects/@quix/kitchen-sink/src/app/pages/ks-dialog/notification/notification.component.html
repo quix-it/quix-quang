@@ -12,28 +12,38 @@
       <quang-card-header>
         <h3 cardHeader>Demo</h3>
         <div cardBody>
-          <form [formGroup]="noteForm" (ngSubmit)="sendNotification()">
+          <form
+            [formGroup]="noteForm"
+            (ngSubmit)="sendNotification()"
+          >
             <div class="mb-3">
               <label for="title">Title</label>
               <input
-                type="text"
-                minlength="0"
-                maxlength="50"
                 class="form-control"
                 formControlName="title"
-                id="title" />
+                id="title"
+                maxlength="50"
+                minlength="0"
+                type="text"
+              />
             </div>
             <div class="mb-3">
               <label for="body">Body</label>
               <textarea
-                minlength="0"
-                maxlength="255"
                 class="form-control"
                 formControlName="body"
-                id="body">
+                id="body"
+                maxlength="255"
+                minlength="0"
+              >
               </textarea>
             </div>
-            <button class="btn btn-outline-success" type="submit">Invia</button>
+            <button
+              class="btn btn-outline-success"
+              type="submit"
+            >
+              Invia
+            </button>
           </form>
         </div>
       </quang-card-header>

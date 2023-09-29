@@ -1,52 +1,61 @@
 <div class="mb-3">
-  <label [htmlFor]="id"
-         class="form-label"
-         [class.is-valid]="control?.valid && control?.dirty && successMessage"
-         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-         [attr.aria-label]="ariaLabel | transloco"
-         *ngIf="label">
-    {{label | transloco}}
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <textarea class="form-control"
-            [id]="id"
-            [placeholder]="placeholder | transloco"
-            [ngStyle]="{'resize': resizeMode}"
-            [maxLength]="max"
-            [minLength]="min"
-            [readOnly]="readonly"
-            [autofocus]="autofocus"
-            [rows]="rows"
-            [cols]="cols"
-            [attr.aria-label]="ariaLabel | transloco"
-            [tabIndex]="tabIndex"
-            cdkTextareaAutosize
-            [cdkAutosizeMinRows]="0"
-            [cdkAutosizeMaxRows]="rows"
-            [ngClass]="customClass"
-            [class.is-valid]="control?.valid && control?.dirty && successMessage"
-            [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-            (input)="onChangedHandler($event)"
-            (blur)="onTouched()"
-            #input
-            #autosize="cdkTextareaAutosize"
+  <textarea
+    [attr.aria-label]="ariaLabel | transloco"
+    [autofocus]="autofocus"
+    [cdkAutosizeMaxRows]="rows"
+    [cdkAutosizeMinRows]="0"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [cols]="cols"
+    [id]="id"
+    [maxLength]="max"
+    [minLength]="min"
+    [ngClass]="customClass"
+    [ngStyle]="{ resize: resizeMode }"
+    [placeholder]="placeholder | transloco"
+    [readOnly]="readonly"
+    [rows]="rows"
+    [tabIndex]="tabIndex"
+    (blur)="onTouched()"
+    (input)="onChangedHandler($event)"
+    #autosize="cdkTextareaAutosize"
+    #input
+    cdkTextareaAutosize
+    class="form-control"
   ></textarea>
-  <div class="valid-feedback"
-       aria-live="assertive">
-    {{_successMessage | transloco}}
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
+    {{ _successMessage | transloco }}
   </div>
 
-  <div class="invalid-feedback"
-       aria-live="polite"
-       [id]="id + '-error'">
-    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  <div
+    [id]="id + '-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
+    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
 
-  <small [id]="id + '-help'"
-         aria-live="assertive"
-         class="form-text text-muted"
-         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
-         *ngIf="helpMessage">
-    {{_helpMessage | transloco}}
+  <small
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [id]="id + '-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
   </small>
 </div>

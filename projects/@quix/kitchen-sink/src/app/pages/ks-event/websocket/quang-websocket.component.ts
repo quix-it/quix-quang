@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+
 import { QuangWebsocketService } from '@quix/quang/event'
 
 @Component({
@@ -7,14 +8,13 @@ import { QuangWebsocketService } from '@quix/quang/event'
   styleUrls: [],
   providers: [QuangWebsocketService]
 })
-
 export class QuangWebsocketComponent {
   msgs: string[] = []
   stop: boolean = false
 
-  constructor (private readonly webSocket: QuangWebsocketService) {}
+  constructor(private readonly webSocket: QuangWebsocketService) {}
 
-  getMessages (): void {
+  getMessages(): void {
     this.webSocket.messages.forEach((m) => {
       if (!this.msgs.includes(m)) {
         this.msgs.push(m)

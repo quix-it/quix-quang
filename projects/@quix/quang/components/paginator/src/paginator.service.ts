@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+
 /**
  * service decorator
  */
@@ -15,7 +16,7 @@ export class QuangPaginatorService {
    * @param pageNumber page number
    * @param pageSize page size
    */
-  getPage (list: any[], pageNumber: number, pageSize: number): any[] {
+  getPage(list: any[], pageNumber: number, pageSize: number): any[] {
     const start = pageNumber * pageSize
     const end = (pageNumber + 1) * pageSize
     return list.slice(start, end)

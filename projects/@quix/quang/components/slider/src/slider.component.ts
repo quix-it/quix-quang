@@ -1,14 +1,6 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  Optional,
-  Self,
-  ViewChild
-} from '@angular/core'
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Optional, Self, ViewChild } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -109,29 +101,25 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
+  onTouched: any = () => {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged: any = () => {}
 
   /**
    * constructor
    * @param control cva access
    */
-  constructor (
-    @Self() @Optional() public control: NgControl
-  ) {
+  constructor(@Self() @Optional() public control: NgControl) {
     this.control.valueAccessor = this
   }
 
   /**
    * Check if the help message is required and create the key
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
@@ -144,21 +132,21 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     this.observeValidate()
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any): void {
+  registerOnChange(fn: any): void {
     this.onChanged = fn
   }
 
@@ -167,7 +155,7 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: any): void {
+  onChangedHandler(e: any): void {
     if (e !== null) this._value = e.target.value
     this.onTouched()
     this.onChanged(this._value)
@@ -177,7 +165,7 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value: any): void {
+  writeValue(value: any): void {
     if (this.input) this.input.nativeElement.value = value
   }
 
@@ -195,21 +183,23 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
+  observeValidate(): void {
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
+              if (this.control.errors[error]) {
+                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+                this._requiredValue = this.control.errors[error].requiredValue
+              }
             }
           }
         }
-      }
-    })
+      })
   }
 }

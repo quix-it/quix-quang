@@ -1,16 +1,14 @@
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
 import { Injectable, Optional } from '@angular/core'
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest
-} from '@angular/common/http'
+
+import { Store } from '@ngrx/store'
 import { Observable, throwError } from 'rxjs'
 import { catchError, finalize, map } from 'rxjs/operators'
-import { Store } from '@ngrx/store'
-import { QuangDialogConfig } from '../dialog.config'
+
 import { LoaderActions } from './store/actions'
+
+import { QuangDialogConfig } from '../dialog.config'
+
 /**
  * service decorator
  */
@@ -39,7 +37,7 @@ export class QuangLoaderInterceptor implements HttpInterceptor {
    * @param store store access
    * @param config module config
    */
-  constructor (
+  constructor(
     private readonly store: Store<any>,
     @Optional() config?: QuangDialogConfig
   ) {
@@ -64,7 +62,10 @@ export class QuangLoaderInterceptor implements HttpInterceptor {
    * @param request http request
    */
   private readonly checkUrl = (request: HttpRequest<any>): boolean => {
-    return this.noLoaderUrls.some(url => request.url.includes(url)) || this.noLoaderMethods.some(method => request.method === method)
+    return (
+      this.noLoaderUrls.some((url) => request.url.includes(url)) ||
+      this.noLoaderMethods.some((method) => request.method === method)
+    )
   }
 
   /**
@@ -72,7 +73,7 @@ export class QuangLoaderInterceptor implements HttpInterceptor {
    * @param request http request http request
    * @param next http observable
    */
-  intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const noLoader = this.checkUrl(request)
     if (!noLoader) {
       this.store.dispatch(LoaderActions.addLoader())

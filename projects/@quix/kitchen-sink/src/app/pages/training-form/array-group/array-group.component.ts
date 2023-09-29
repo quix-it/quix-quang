@@ -17,7 +17,7 @@ export class ArrayGroupComponent {
   })
 
   get array(): FormArray {
-    return this.group.controls['array'] as FormArray
+    return this.group.controls.array as FormArray
   }
 
   addGroup(): void {

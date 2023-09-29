@@ -1,7 +1,9 @@
-import { QUANGOIDC_KEY } from './oidc-module.selectors'
 import { ActionReducerMap } from '@ngrx/store'
-import { QuangAuthUserState } from './store/reducers/oidc.reducer'
+
+import { QUANGOIDC_KEY } from './oidc-module.selectors'
+
 import { QuangAuthReducers } from './store/reducers'
+import { QuangAuthUserState } from './store/reducers/oidc.reducer'
 
 export interface QuangOpenIdConnectState {
   quangAuthUserState: QuangAuthUserState

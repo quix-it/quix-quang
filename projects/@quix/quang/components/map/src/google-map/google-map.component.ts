@@ -1,17 +1,10 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core'
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core'
+
 import { of, timer } from 'rxjs'
 import { delay, delayWhen, map, retryWhen } from 'rxjs/operators'
 
 import { QuangGoogleMapService } from './google-map.service'
+
 import { GoogleMarker } from './google-marker.model'
 
 /**
@@ -80,6 +73,7 @@ export class QuangGoogleMapComponent implements OnChanges {
    */
   @ViewChild('map', { static: false })
   mapDiv: ElementRef<HTMLDivElement> | null = null
+
   /**
    * function to access the window
    */
@@ -153,7 +147,9 @@ export class QuangGoogleMapComponent implements OnChanges {
       } catch (e) {
         of('')
           .pipe(delay(100))
-          .subscribe(() => this.renderMap())
+          .subscribe(() => {
+            this.renderMap()
+          })
       }
     }
   }

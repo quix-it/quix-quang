@@ -7,7 +7,7 @@ export class ChartArea {
    * @param category chart category
    * @param series chart series
    */
-  constructor (
+  constructor(
     /**
      * chart category
      */
@@ -16,6 +16,5 @@ export class ChartArea {
      * chart series
      */
     public series: number[][]
-  ) {
-  }
+  ) {}
 }

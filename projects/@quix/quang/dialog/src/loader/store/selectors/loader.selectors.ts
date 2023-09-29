@@ -1,5 +1,7 @@
 import { createSelector } from '@ngrx/store'
+
 import { selectQuangDialog } from '../../../dialog.selectors'
+
 import { QuangDialogState } from '../../../dialog.reducer'
 
 /**

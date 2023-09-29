@@ -32,7 +32,7 @@ export class DataTableComponent implements AfterViewInit {
   sortDataSource = new MatTableDataSource(this.dataSource)
   @ViewChild(MatSort) sort: MatSort | null = null
 
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     this.sortDataSource.sort = this.sort
   }
 }

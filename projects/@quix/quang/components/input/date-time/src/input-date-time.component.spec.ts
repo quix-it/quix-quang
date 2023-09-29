@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { InputDateTimeComponent } from './input-date-time.component'
 
@@ -9,8 +9,7 @@ describe('InputDateTimeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [InputDateTimeComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

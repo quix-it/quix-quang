@@ -19,15 +19,16 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-toggle
-              [label]="'form.toggle.label'"
               [errorMessage]="true"
-              direction="column"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'toggle id'"
               [formName]="'form'"
-              formControlName="toggle">
+              [helpMessage]="true"
+              [id]="'toggle id'"
+              [label]="'form.toggle.label'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              direction="column"
+              formControlName="toggle"
+            >
             </quang-toggle>
           </form>
           <dl>

@@ -1,4 +1,5 @@
 import { createFeatureSelector } from '@ngrx/store'
+
 import { QuangKeycloakModuleState, QuangKeycloakState } from './keycloak-module.reducer'
 
 /**
@@ -8,4 +9,6 @@ export const QUANGKEYCLOAK_KEY = 'quang-keycloak-module'
 /**
  * module selector
  */
-export const selectQuangKeycloak = createFeatureSelector<QuangKeycloakModuleState, QuangKeycloakState>(QUANGKEYCLOAK_KEY)
+export const selectQuangKeycloak = createFeatureSelector<QuangKeycloakModuleState, QuangKeycloakState>(
+  QUANGKEYCLOAK_KEY
+)

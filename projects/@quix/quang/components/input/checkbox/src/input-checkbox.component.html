@@ -1,51 +1,61 @@
-<div class="form-check" [class.form-check-inline]="inline">
+<div
+  [class.form-check-inline]="inline"
+  class="form-check"
+>
   <input
-    type="checkbox"
-    class="form-check-input"
-    [name]="id"
-    [id]="id"
     [attr.aria-checked]="_value"
-    [attr.aria-label]="'ariaLabel' | transloco"
-    [tabIndex]="tabIndex"
-    [ngClass]="customClass"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [checked]="_value"
-    (input)="onChangedHandler($event)"
-    (blur)="onTouched()"
-    [attr.aria-disabled]="_disabled"
     [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+    [attr.aria-disabled]="_disabled"
     [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
     [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
-    #input />
-    <label
-    class="form-check-label"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [attr.aria-label]="'ariaLabel' | transloco"
+    [checked]="_value"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.cursor-default]="control.disabled"
-    [htmlFor]="id"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [id]="id"
+    [name]="id"
+    [ngClass]="customClass"
+    [tabIndex]="tabIndex"
+    (blur)="onTouched()"
+    (input)="onChangedHandler($event)"
+    #input
+    class="form-check-input"
+    type="checkbox"
+  />
+  <label
     [attr.aria-label]="ariaLabel | transloco"
+    [class.cursor-default]="control.disabled"
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
     (click)="changeValue()"
-    *ngIf="label">
+    *ngIf="label"
+    class="form-check-label"
+  >
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.['required']">*</span>
   </label>
-  <div class="valid-feedback" aria-live="assertive">
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
     {{ _successMessage | transloco }}
   </div>
-  <div class="invalid-feedback" aria-live="polite" [id]="id + '-error'">
+  <div
+    [id]="id + '-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
     {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small
-    [id]="id + '-help'"
-    aria-live="assertive"
     [attr.aria-describedby]="id"
+    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [id]="id + '-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
     class="form-text text-muted"
-    [hidden]="
-      control?.dirty &&
-      ((control?.valid && successMessage) || (control?.invalid && errorMessage))
-    "
-    *ngIf="helpMessage">
+  >
     {{ _helpMessage | transloco }}
   </small>
 </div>

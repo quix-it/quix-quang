@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core'
-import { SelectObjComponent } from './select-obj.component'
 import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+
 import { TranslocoModule } from '@ngneat/transloco'
+
+import { SelectObjComponent } from './select-obj.component'
 
 @NgModule({
   declarations: [SelectObjComponent],

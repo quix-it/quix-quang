@@ -10,7 +10,7 @@ export class QuangKeycloakConfig {
    * @param ionicApplication define ionic framework
    * @param production define environment
    */
-  constructor (
+  constructor(
     /**
      *
      */
@@ -24,6 +24,5 @@ export class QuangKeycloakConfig {
      * this parameter will change the keycloak configurations to start the login process as a mobile application
      */
     public ionicApplication: boolean = false
-  ) {
-  }
+  ) {}
 }

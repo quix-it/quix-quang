@@ -13,22 +13,32 @@
             <div class="col-4">
               <form [formGroup]="group">
                 <div class="mb-3">
-                  <label class="form-label" for="key">Chiave</label>
+                  <label
+                    class="form-label"
+                    for="key"
+                    >Chiave</label
+                  >
                   <input
-                    type="text"
-                    id="key"
                     autocomplete="off"
                     class="form-control"
-                    formControlName="key" />
+                    formControlName="key"
+                    id="key"
+                    type="text"
+                  />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label" for="value">Valore</label>
+                  <label
+                    class="form-label"
+                    for="value"
+                    >Valore</label
+                  >
                   <textarea
-                    id="value"
                     autocomplete="off"
-                    rows="6"
                     class="form-control"
-                    formControlName="value"></textarea>
+                    formControlName="value"
+                    id="value"
+                    rows="6"
+                  ></textarea>
                 </div>
               </form>
             </div>
@@ -68,23 +78,28 @@
           <tabset type="pills">
             <tab heading="set">
               <pre class="p-3">{{ 'js.map.set' | transloco }}</pre>
-              <button class="btn btn-block btn-outline-success" (click)="add()">
+              <button
+                (click)="add()"
+                class="btn btn-block btn-outline-success"
+              >
                 Test
               </button>
             </tab>
             <tab heading="delete">
               <pre class="p-3">{{ 'js.map.delete' | transloco }}</pre>
               <button
+                (click)="delete()"
                 class="btn btn-block btn-outline-success"
-                (click)="delete()">
+              >
                 Test
               </button>
             </tab>
             <tab heading="clear">
               <pre class="p-3">{{ 'js.map.clear' | transloco }}</pre>
               <button
+                (click)="clear()"
                 class="btn btn-block btn-outline-success"
-                (click)="clear()">
+              >
                 Test
               </button>
             </tab>
@@ -100,7 +115,8 @@
         <div cardBody>
           <a
             href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map?retiredLocale=it"
-            target="_blank">
+            target="_blank"
+          >
             MDN documentation
           </a>
         </div>

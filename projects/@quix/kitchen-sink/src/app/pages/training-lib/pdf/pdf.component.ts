@@ -1,9 +1,10 @@
-import { Component } from '@angular/core'
-import { Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
+import { Component } from '@angular/core'
+
 import pdfMake from 'pdfmake/build/pdfmake'
-import { TDocumentDefinitions } from 'pdfmake/interfaces'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
+import { TDocumentDefinitions } from 'pdfmake/interfaces'
+import { Observable } from 'rxjs'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -49,7 +50,7 @@ export class PdfComponent {
         },
         { qr: 'text in QR' },
         {
-          image: image,
+          image,
           width: 150,
           height: 150
         }
@@ -60,16 +61,14 @@ export class PdfComponent {
 
   prepareImageForPdf(): Observable<any> {
     return new Observable((observer) => {
-      this.http
-        .get('https://picsum.photos/200/300', { responseType: 'blob' })
-        .subscribe((image) => {
-          const reader = new FileReader()
-          reader.readAsDataURL(image)
-          reader.onload = () => {
-            observer.next(reader.result)
-            observer.complete()
-          }
-        })
+      this.http.get('https://picsum.photos/200/300', { responseType: 'blob' }).subscribe((image) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(image)
+        reader.onload = () => {
+          observer.next(reader.result)
+          observer.complete()
+        }
+      })
     })
   }
 }

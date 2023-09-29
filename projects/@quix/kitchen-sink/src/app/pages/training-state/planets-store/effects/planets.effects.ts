@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core'
-import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { PlanetsService } from '../../planets/planets.service'
-import { PlanetsActions } from '../actions'
-import { catchError, map, mergeMap } from 'rxjs/operators'
+
 import { of } from 'rxjs'
+import { catchError, map, mergeMap } from 'rxjs/operators'
+
+import { PlanetsService } from '../../planets/planets.service'
+
+import { PlanetsActions } from '../actions'
+
+import { Actions, createEffect, ofType } from '@ngrx/effects'
 
 @Injectable()
 export class PlanetsEffects {

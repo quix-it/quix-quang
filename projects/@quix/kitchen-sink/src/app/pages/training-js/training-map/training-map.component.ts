@@ -13,29 +13,23 @@ export class TrainingMapComponent {
     value: new FormControl('')
   })
 
-  add (): void {
+  add(): void {
     try {
-      this.map.set(
-        this.group.controls.key.value,
-        JSON.parse(this.group.controls.value.value)
-      )
+      this.map.set(this.group.controls.key.value, JSON.parse(this.group.controls.value.value))
     } catch (e) {
-      this.map.set(
-        this.group.controls.key.value,
-        this.group.controls.value.value
-      )
+      this.map.set(this.group.controls.key.value, this.group.controls.value.value)
     }
     this.group.markAsPristine()
     this.group.reset()
   }
 
-  delete (): void {
+  delete(): void {
     this.map.delete(this.group.controls.key.value)
     this.group.markAsPristine()
     this.group.reset()
   }
 
-  clear (): void {
+  clear(): void {
     this.map.clear()
   }
 }

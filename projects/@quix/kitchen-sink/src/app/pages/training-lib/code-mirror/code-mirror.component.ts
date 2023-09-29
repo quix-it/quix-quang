@@ -8,11 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class CodeMirrorComponent {
   group: FormGroup = new FormGroup({
-    code: new FormControl('', [
-      Validators.required,
-      Validators.minLength(0),
-      Validators.maxLength(50)
-    ])
+    code: new FormControl('', [Validators.required, Validators.minLength(0), Validators.maxLength(50)])
   })
 
   _markdown = {

@@ -7,7 +7,9 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core'
+
 import { EChartsOption } from 'echarts'
+
 import { ChartGauge } from './chart-gauge.model'
 
 @Component({
@@ -70,7 +72,7 @@ export class ChartGaugeComponent implements OnChanges {
   /**
    * click event on the graph
    */
-  @Output() chartClick: EventEmitter<any> = new EventEmitter()
+  @Output() chartClick = new EventEmitter<any>()
   /**
    * basic configuration of the chart
    */
@@ -95,9 +97,7 @@ export class ChartGaugeComponent implements OnChanges {
         },
         axisLine: {
           lineStyle: {
-            color: [
-              [1, this.gaugeColor]
-            ]
+            color: [[1, this.gaugeColor]]
           }
         },
         itemStyle: {
@@ -111,27 +111,27 @@ export class ChartGaugeComponent implements OnChanges {
    * change input management
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.chartData?.currentValue) {
-      (this.chartOption.series as any)[0].data = [changes.chartData.currentValue]
+      ;(this.chartOption.series as any)[0].data = [changes.chartData.currentValue]
     }
     if (changes.grid?.currentValue) {
       this.chartOption.grid = changes.grid.currentValue
     }
     if (changes.min?.currentValue) {
-      (this.chartOption.series as any)[0].min = changes.min.currentValue
+      ;(this.chartOption.series as any)[0].min = changes.min.currentValue
     }
     if (changes.max?.currentValue) {
-      (this.chartOption.series as any)[0].max = changes.max.currentValue
+      ;(this.chartOption.series as any)[0].max = changes.max.currentValue
     }
     if (changes.pointerColor?.currentValue) {
-      (this.chartOption.series as any)[0].pointer.itemStyle = { color: changes.pointerColor.currentValue }
+      ;(this.chartOption.series as any)[0].pointer.itemStyle = { color: changes.pointerColor.currentValue }
     }
     if (changes.gaugeColor?.currentValue) {
-      (this.chartOption.series as any)[0].axisLine.lineStyle.color = [[1, changes.gaugeColor.currentValue]]
+      ;(this.chartOption.series as any)[0].axisLine.lineStyle.color = [[1, changes.gaugeColor.currentValue]]
     }
     if (changes.color?.currentValue) {
-      (this.chartOption.series as any)[0].itemStyle.color = changes.color.currentValue
+      ;(this.chartOption.series as any)[0].itemStyle.color = changes.color.currentValue
     }
   }
 
@@ -139,7 +139,7 @@ export class ChartGaugeComponent implements OnChanges {
    * function triggered by clicking on an element of the chart emits an event to the parent component
    * @param e event
    */
-  onChartClick (e: any): void {
+  onChartClick(e: any): void {
     this.chartClick.emit(e)
   }
 }

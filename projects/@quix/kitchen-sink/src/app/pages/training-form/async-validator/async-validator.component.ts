@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+
 import { AsyncValidatorService } from './async-validator.service'
 
 @Component({
@@ -8,14 +9,12 @@ import { AsyncValidatorService } from './async-validator.service'
   styles: []
 })
 export class AsyncValidatorComponent {
-  constructor(private readonly AsyncValidatorService: AsyncValidatorService) {}
+  constructor(private readonly asyncValidatorService: AsyncValidatorService) {}
 
   group: FormGroup = new FormGroup({
     firstName: new FormControl('', {
       validators: Validators.required,
-      asyncValidators: [
-        this.AsyncValidatorService.validate.bind(this.AsyncValidatorService)
-      ]
+      asyncValidators: [this.asyncValidatorService.validate.bind(this.asyncValidatorService)]
     }),
     lastName: new FormControl('', {
       validators: Validators.required

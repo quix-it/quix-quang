@@ -1,11 +1,11 @@
 <div
+  [attr.aria-describedby]="ariaLabel | transloco"
   [id]="id"
-  [ngStyle]="{'height': height}"
-  echarts
+  [ngStyle]="{ height: height }"
   [options]="chartOption"
   [tabIndex]="tabIndex"
   (chartClick)="onChartClick($event)"
-  [attr.aria-describedby]="ariaLabel | transloco"
   aria-live="off"
+  echarts
   role="graphics-document"
 ></div>

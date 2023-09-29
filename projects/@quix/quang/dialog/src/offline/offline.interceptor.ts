@@ -1,16 +1,13 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest
-} from '@angular/common/http'
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+
 import { Store } from '@ngrx/store'
 import { Observable, of, timer } from 'rxjs'
 import { delayWhen, map, retryWhen, switchMap } from 'rxjs/operators'
 
-import { QuangDialogStateModule } from '../dialog.reducer'
 import { QuangOfflineSelectors } from './store/selectors'
+
+import { QuangDialogStateModule } from '../dialog.reducer'
 
 /**
  * Interceptor decorator
@@ -31,10 +28,7 @@ export class QuangOfflineInterceptor implements HttpInterceptor {
    * @param request http request http request
    * @param next http observable
    */
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return this.store.select(QuangOfflineSelectors.selectLine).pipe(
       map((line) => {
         if (!line) {

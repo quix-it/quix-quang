@@ -9,8 +9,7 @@ describe('CardImageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuangCardImageComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   })
 
   beforeEach(() => {

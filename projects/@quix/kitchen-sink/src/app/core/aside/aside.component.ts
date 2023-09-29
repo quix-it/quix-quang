@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
 import { FlatTreeControl } from '@angular/cdk/tree'
+import { Component, OnInit } from '@angular/core'
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 
 interface ExampleFlatNode {
@@ -26,7 +26,7 @@ export class AsideComponent implements OnInit {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       url: node.url,
-      level: level
+      level
     }
   }
 
@@ -44,7 +44,7 @@ export class AsideComponent implements OnInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener)
 
-  hasChild(_: number, node: ExampleFlatNode) {
+  hasChild(_: number, node: ExampleFlatNode): boolean {
     return node.expandable
   }
 

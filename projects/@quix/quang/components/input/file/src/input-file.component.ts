@@ -12,12 +12,9 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
+import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx-file-drop'
 import { delay, filter } from 'rxjs/operators'
-import {
-  FileSystemFileEntry,
-  NgxFileDropComponent,
-  NgxFileDropEntry
-} from 'ngx-file-drop'
 
 /**
  * input file component decorator
@@ -30,9 +27,7 @@ import {
 /**
  * input file component
  */
-export class QuangInputFileComponent
-  implements ControlValueAccessor, OnInit, AfterViewInit
-{
+export class QuangInputFileComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   /**
    * Html id of input
    */
@@ -102,9 +97,7 @@ export class QuangInputFileComponent
   /**
    * The html button of selection
    */
-  @ViewChild('inputBtn', { static: false }) inputBtn:
-    | ElementRef<HTMLButtonElement>
-    | undefined
+  @ViewChild('inputBtn', { static: false }) inputBtn: ElementRef<HTMLButtonElement> | undefined
   /**
    * The value of the input
    */
@@ -136,7 +129,7 @@ export class QuangInputFileComponent
   /**
    * Define disabled state
    */
-    _disabled: boolean = false;
+  _disabled: boolean = false
   /**
    * Standard definition to create a control value accessor
    */
@@ -198,7 +191,7 @@ export class QuangInputFileComponent
    * it extracts the data of the selected file and starts the flow of the cva
    * @param files
    */
-  onChangedHandler (files: NgxFileDropEntry[]): void {
+  onChangedHandler(files: NgxFileDropEntry[]): void {
     if (this.multiple) {
       files.forEach((f) => {
         if (f.fileEntry.isFile) {

@@ -25,10 +25,7 @@ export class FormComponent {
     ]),
     date: new FormControl('', Validators.required),
     datee: new FormControl('', Validators.required),
-    phone: new FormControl('', [
-      Validators.minLength(9),
-      Validators.maxLength(10)
-    ]),
+    phone: new FormControl('', [Validators.minLength(9), Validators.maxLength(10)]),
     sex: new FormControl(null, Validators.required),
     checkbox: new FormControl(null, Validators.required)
   })

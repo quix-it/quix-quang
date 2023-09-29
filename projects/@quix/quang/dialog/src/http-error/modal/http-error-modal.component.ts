@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core'
 import { HttpErrorResponse } from '@angular/common/http'
+import { Component, Input } from '@angular/core'
+
 import { QuangModalService } from '../../modal/modal.service'
 
 /**
@@ -27,15 +28,12 @@ export class QuangHttpErrorModalComponent {
    * constructor
    * @param modalService modal utility
    */
-  constructor (
-    private readonly modalService: QuangModalService
-  ) {
-  }
+  constructor(private readonly modalService: QuangModalService) {}
 
   /**
    * close modal error
    */
-  closeModal (): void {
+  closeModal(): void {
     this.modalService.closeModal('close')
   }
 }

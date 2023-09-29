@@ -1,33 +1,33 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy } from '@angular/core'
+
 import { Store } from '@ngrx/store'
 import { Observable, Subject, Subscription } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-import { AppState } from '../../../store/app.reducer'
-import { StarshipsActions } from '../starships-store/actions'
-import { StarshipsSelectors } from '../starships-store/selectors'
+
 import { Starship } from './starship.model'
+
+import { StarshipsActions } from '../starships-store/actions'
+
+import { StarshipsSelectors } from '../starships-store/selectors'
+
+import { AppState } from '../../../store/app.reducer'
 
 @Component({
   selector: 'ks-starships',
   templateUrl: './starships.component.html',
   styles: []
 })
-export class StarshipsComponent implements OnInit, OnDestroy {
-  starships$: Observable<Starship[]> = this.store.select(
-    StarshipsSelectors.selectStarships
-  )
+export class StarshipsComponent implements OnDestroy {
+  starships$: Observable<Starship[]> = this.store.select(StarshipsSelectors.selectStarships)
   falcon$: Observable<Starship | undefined> = this.store.select(
     StarshipsSelectors.selectStarshipById('https://swapi.dev/api/starships/10/')
   )
+
   starships: Starship[] = []
   starshipsSubscription$: Subscription = new Subscription()
   destroy$ = new Subject<any>()
 
   constructor(private readonly store: Store<AppState>) {}
-
-  ngOnInit(): void {
-    // this.observeStarships()
-  }
 
   observeStarships(): void {
     this.starships$.pipe(takeUntil(this.destroy$)).subscribe((s) => {

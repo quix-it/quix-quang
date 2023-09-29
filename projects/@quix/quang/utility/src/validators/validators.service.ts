@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { AbstractControl, ValidatorFn } from '@angular/forms'
+
 import { isAfter, isBefore, isWithinInterval } from 'date-fns'
 
-export const europeanVatNumber: { [key: string]: RegExp } = {
+export const europeanVatNumber: Record<string, RegExp> = {
   AT: /U[0-9]{8}/gm,
   BE: /0[0-9]{9}/gm,
   BG: /[0-9]{9,10}/gm,
@@ -47,12 +48,8 @@ export class QuangValidatorsService {
    * @param maxSize
    */
   fileMaxSize(maxSize: number): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (
-        control.value &&
-        control.value instanceof File &&
-        control.value?.size > maxSize
-      ) {
+    return (control: AbstractControl): Record<string, any> | null => {
+      if (control.value && control.value instanceof File && control.value?.size > maxSize) {
         return { maxSize: { requiredValue: maxSize } }
       }
       return null
@@ -64,12 +61,8 @@ export class QuangValidatorsService {
    * @param minSize
    */
   fileMinSize(minSize: number): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (
-        control.value &&
-        control.value instanceof File &&
-        control.value?.size < minSize
-      ) {
+    return (control: AbstractControl): Record<string, any> | null => {
+      if (control.value && control.value instanceof File && control.value?.size < minSize) {
         return { minSize: { requiredValue: minSize } }
       }
       return null
@@ -80,7 +73,7 @@ export class QuangValidatorsService {
    * Check if the passed object is a file
    */
   isFile(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): Record<string, any> | null => {
       if (control.value && control.value instanceof File) {
         return null
       }
@@ -93,7 +86,7 @@ export class QuangValidatorsService {
    * @param fileTypes
    */
   fileType(fileTypes: string[]) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): Record<string, any> | null => {
       if (control.value && !fileTypes.includes(control.value?.type)) {
         return { fileType: { requiredValue: fileTypes.toString() } }
       }
@@ -106,13 +99,8 @@ export class QuangValidatorsService {
    * @param fileExtensions
    */
   fileExtensions(fileExtensions: string[]) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (
-        control.value &&
-        !fileExtensions.includes(
-          control.value?.name?.match(/(?:\.([^.]+))?$/g)[0]
-        )
-      ) {
+    return (control: AbstractControl): Record<string, any> | null => {
+      if (control.value && !fileExtensions.includes(control.value?.name?.match(/(?:\.([^.]+))?$/g)[0])) {
         return { fileExtension: { requiredValue: fileExtensions.toString() } }
       }
       return null
@@ -123,7 +111,7 @@ export class QuangValidatorsService {
    * valid if a checkbox is mandatory
    */
   requiredCheckbox() {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): Record<string, any> | null => {
       if (!control.value) {
         return { required: { requiredValue: control.value } }
       }
@@ -136,7 +124,7 @@ export class QuangValidatorsService {
    * @param minDate
    */
   minDate(minDate: Date) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): Record<string, any> | null => {
       if (isBefore(new Date(control.value), minDate)) {
         return { minDate: { requiredValue: minDate } }
       }
@@ -149,7 +137,7 @@ export class QuangValidatorsService {
    * @param maxDate
    */
   maxDate(maxDate: Date) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): Record<string, any> | null => {
       if (isAfter(new Date(control.value), maxDate)) {
         return { maxDate: { requiredValue: maxDate } }
       }
@@ -163,7 +151,7 @@ export class QuangValidatorsService {
    * @param endDate
    */
   dateBetween(startDate: Date, endDate: Date) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): Record<string, any> | null => {
       if (
         !isWithinInterval(new Date(control.value), {
           start: startDate,
@@ -177,7 +165,7 @@ export class QuangValidatorsService {
   }
 
   isFiscalCode() {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): Record<string, any> | null => {
       if (
         !/^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$/gm.test(
           control.value.toUpperCase()
@@ -190,7 +178,7 @@ export class QuangValidatorsService {
   }
 
   isVatNumber(locale: string) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: AbstractControl): Record<string, any> | null => {
       if (!europeanVatNumber[locale].test(control.value)) {
         return { vatNumber: false }
       }

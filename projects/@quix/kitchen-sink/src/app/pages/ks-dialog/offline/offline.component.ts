@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+
 import { QuangOfflineService } from '@quix/quang/dialog'
 
 @Component({

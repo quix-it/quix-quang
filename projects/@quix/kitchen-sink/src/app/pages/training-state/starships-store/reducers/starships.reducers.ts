@@ -1,5 +1,7 @@
-import { Starship } from '../../starships/starship.model'
 import { Action, createReducer, on } from '@ngrx/store'
+
+import { Starship } from '../../starships/starship.model'
+
 import { StarshipsActions } from '../actions'
 
 export interface StarshipsState {
@@ -21,9 +23,6 @@ const reducer = createReducer(
   on(StarshipsActions.getStarshipsError, () => initialValue)
 )
 
-export function starshipsReducer(
-  state: StarshipsState | undefined,
-  action: Action
-): any {
+export function starshipsReducer(state: StarshipsState | undefined, action: Action): any {
   return reducer(state, action)
 }

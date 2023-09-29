@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from '@angular/cdk/drag-drop'
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'ks-drag-drop',
@@ -24,18 +20,9 @@ export class DragDropComponent {
 
   dropConnection(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      )
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex)
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      )
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
     }
   }
 

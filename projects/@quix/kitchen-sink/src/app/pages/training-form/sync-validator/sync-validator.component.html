@@ -2,10 +2,7 @@
   <div class="row">
     <div class="col">
       <ks-title [title]="'Form sync validator'"></ks-title>
-      <p>
-        in questo esempio se un campo input contiene "mario" il form non è
-        valido
-      </p>
+      <p>in questo esempio se un campo input contiene "mario" il form non è valido</p>
     </div>
   </div>
   <div class="row">
@@ -13,62 +10,74 @@
       <quang-card-header>
         <h3 cardHeader>Demo</h3>
         <div cardBody>
-          <form [formGroup]="group" (submit)="save()">
+          <form
+            [formGroup]="group"
+            (submit)="save()"
+          >
             <div class="row">
               <div class="col">
                 <quang-input-text
-                  [label]="'form.sync-validator.form.firstName.label'"
-                  [placeholder]="'form.sync-validator.form.firstName.ph'"
                   [ariaLabel]="'form.form.firstName.form.label'"
-                  [errorMessage]="true"
-                  [successMessage]="true"
                   [autocomplete]="'off'"
+                  [autofocus]="true"
+                  [errorMessage]="true"
+                  [formName]="'form.sync-validator'"
                   [id]="'firstName id'"
-                  [autofocus]="true"
-                  [formName]="'form.sync-validator'"
-                  [min]="0"
+                  [label]="'form.sync-validator.form.firstName.label'"
                   [max]="50"
-                  formControlName="firstName"></quang-input-text>
+                  [min]="0"
+                  [placeholder]="'form.sync-validator.form.firstName.ph'"
+                  [successMessage]="true"
+                  formControlName="firstName"
+                ></quang-input-text>
                 <quang-input-text
-                  [label]="'form.sync-validator.form.lastName.label'"
-                  [placeholder]="'form.sync-validator.form.lastName.ph'"
                   [ariaLabel]="'form.sync-validator.form.lastName.label'"
-                  [errorMessage]="true"
-                  [successMessage]="true"
                   [autocomplete]="'off'"
+                  [autofocus]="true"
+                  [errorMessage]="true"
+                  [formName]="'form.sync-validator'"
                   [id]="'lastName id'"
-                  [autofocus]="true"
-                  [formName]="'form.sync-validator'"
-                  [min]="0"
+                  [label]="'form.sync-validator.form.lastName.label'"
                   [max]="50"
-                  formControlName="lastName"></quang-input-text>
-                <quang-input-email
-                  [label]="'form.sync-validator.form.email.label'"
-                  [placeholder]="'form.sync-validator.form.email.ph'"
-                  [ariaLabel]="'form.sync-validator.form.email.label'"
-                  [errorMessage]="true"
+                  [min]="0"
+                  [placeholder]="'form.sync-validator.form.lastName.ph'"
                   [successMessage]="true"
+                  formControlName="lastName"
+                ></quang-input-text>
+                <quang-input-email
+                  [ariaLabel]="'form.sync-validator.form.email.label'"
                   [autocomplete]="'off'"
-                  [id]="'email id'"
                   [autofocus]="true"
+                  [errorMessage]="true"
                   [formName]="'form.sync-validator'"
-                  [min]="0"
+                  [id]="'email id'"
+                  [label]="'form.sync-validator.form.email.label'"
                   [max]="50"
-                  formControlName="email"></quang-input-email>
+                  [min]="0"
+                  [placeholder]="'form.sync-validator.form.email.ph'"
+                  [successMessage]="true"
+                  formControlName="email"
+                ></quang-input-email>
                 <div class="row">
                   <div class="col-6">
                     <quang-input-checkbox
-                      [label]="'form.sync-validator.form.checkbox.label'"
                       [ariaLabel]="'form.sync-validator.form.checkbox.label'"
-                      [errorMessage]="true"
-                      [successMessage]="true"
-                      [id]="'consent id'"
                       [autofocus]="true"
+                      [errorMessage]="true"
                       [formName]="'form.sync-validator'"
-                      formControlName="checkbox"></quang-input-checkbox>
+                      [id]="'consent id'"
+                      [label]="'form.sync-validator.form.checkbox.label'"
+                      [successMessage]="true"
+                      formControlName="checkbox"
+                    ></quang-input-checkbox>
                   </div>
                   <div class="col-6 text-end">
-                    <button type="submit" class="btn btn-primary">Salva</button>
+                    <button
+                      class="btn btn-primary"
+                      type="submit"
+                    >
+                      Salva
+                    </button>
                   </div>
                 </div>
               </div>

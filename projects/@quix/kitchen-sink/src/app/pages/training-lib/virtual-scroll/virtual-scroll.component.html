@@ -1,4 +1,7 @@
-<section class="container-fluid" id="virtual">
+<section
+  class="container-fluid"
+  id="virtual"
+>
   <div class="row">
     <div class="col">
       <ks-title [title]="'Virtual scroll'"></ks-title>
@@ -9,14 +12,18 @@
       <quang-card-header>
         <h4 cardHeader>Demo</h4>
         <div cardBody>
-          <cdk-virtual-scroll-viewport itemSize="800" class="example-viewport">
+          <cdk-virtual-scroll-viewport
+            class="example-viewport"
+            itemSize="800"
+          >
             <div *cdkVirtualFor="let c of cards">
               <quang-card>
                 <h5 cardHeader>{{ 'Card ' + c }}</h5>
                 <div cardBody>
                   <img
+                    [alt]="c"
                     [src]="'https://picsum.photos/500/500?number=' + c"
-                    [alt]="c" />
+                  />
                 </div>
               </quang-card>
             </div>

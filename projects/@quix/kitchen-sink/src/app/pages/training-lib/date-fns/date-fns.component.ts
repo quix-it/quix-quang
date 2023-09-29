@@ -1,12 +1,7 @@
 import { Component } from '@angular/core'
-import {
-  format,
-  addDays,
-  addMonths,
-  addYears,
-  formatDistanceStrict
-} from 'date-fns'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+
+import { addDays, addMonths, addYears, format, formatDistanceStrict } from 'date-fns'
 
 @Component({
   selector: 'ks-date-fns',
@@ -30,28 +25,19 @@ export class DateFnsComponent {
 
   distance: string = ''
 
-  addDay (): void {
-    this.dayResult = format(
-      addDays(new Date(), this.group.get('number')?.value),
-      this.dateFormat
-    )
+  addDay(): void {
+    this.dayResult = format(addDays(new Date(), this.group.get('number')?.value), this.dateFormat)
   }
 
-  addMonth (): void {
-    this.monthResult = format(
-      addMonths(new Date(), this.group.get('number')?.value),
-      this.dateFormat
-    )
+  addMonth(): void {
+    this.monthResult = format(addMonths(new Date(), this.group.get('number')?.value), this.dateFormat)
   }
 
-  addYear (): void {
-    this.yearResult = format(
-      addYears(new Date(), this.group.get('number')?.value),
-      this.dateFormat
-    )
+  addYear(): void {
+    this.yearResult = format(addYears(new Date(), this.group.get('number')?.value), this.dateFormat)
   }
 
-  datesDistance (): void {
+  datesDistance(): void {
     this.distance = formatDistanceStrict(
       new Date(this.group.get('dateRange')?.value[0]),
       new Date(this.group.get('dateRange')?.value[1])

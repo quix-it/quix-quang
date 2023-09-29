@@ -51,9 +51,6 @@ const reducer = createReducer(
  * @param state module state
  * @param action section action
  */
-export function quangAuthUserReducer(
-  state: QuangAuthUserState | undefined,
-  action: Action
-): any {
+export function quangAuthUserReducer(state: QuangAuthUserState | undefined, action: Action): any {
   return reducer(state, action)
 }

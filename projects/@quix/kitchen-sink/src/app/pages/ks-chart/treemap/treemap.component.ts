@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+
 import { ChartTreemap } from '@quix/quang/components/chart'
 
 @Component({

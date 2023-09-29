@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router'
-import { Observable, of, throwError } from 'rxjs'
-import {
-  catchError, filter, map, switchMap, take
-} from 'rxjs/operators'
+
 import { Store } from '@ngrx/store'
+import { Observable, of, throwError } from 'rxjs'
+import { catchError, filter, switchMap, take } from 'rxjs/operators'
+
 import { QuangKeycloakSelectors } from '../store/selectors'
 
 /**
@@ -22,30 +22,25 @@ export class QuangKeycloakGuard implements CanActivate {
    * @param authStore auth store access
    * @param router router utility
    */
-  constructor (
+  constructor(
     private readonly authStore: Store<any>,
     private readonly router: Router
-  ) {
-  }
+  ) {}
 
   /**
    * check if the user has all the required roles saved in the store
    * @param allowedRoles role list
    */
-  checkAllRole (allowedRoles: string[]): Observable<boolean> {
-    return this.authStore
-      .select(QuangKeycloakSelectors.selectHasEveryRole(allowedRoles))
-      .pipe(take(1))
+  checkAllRole(allowedRoles: string[]): Observable<boolean> {
+    return this.authStore.select(QuangKeycloakSelectors.selectHasEveryRole(allowedRoles)).pipe(take(1))
   }
 
   /**
    * check if the user has at least one required role saved in the store
    * @param allowedRoles role list
    */
-  checkUntilRole (allowedRoles: string[]): Observable<boolean> {
-    return this.authStore
-      .select(QuangKeycloakSelectors.selectHasAtLeastOneRole(allowedRoles))
-      .pipe(take(1))
+  checkUntilRole(allowedRoles: string[]): Observable<boolean> {
+    return this.authStore.select(QuangKeycloakSelectors.selectHasAtLeastOneRole(allowedRoles)).pipe(take(1))
   }
 
   /**
@@ -53,30 +48,29 @@ export class QuangKeycloakGuard implements CanActivate {
    * @param route active route
    * @param state router state
    */
-  canActivate (
+  canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authStore
-      .select(QuangKeycloakSelectors.selectUserInfo)
-      .pipe(
-        filter(user => !!user),
-        take(1),
-        switchMap(user => {
-          if (route.data.condition === 'AND') {
-            return this.checkAllRole(route.data.allowedRoles)
-          }
-          return this.checkUntilRole(route.data.allowedRoles)
-        }),
-        switchMap(find => {
-          if (!find) {
-            throwError(find)
-          }
-          return of(find)
-        }),
-        catchError(e => {
-          this.router.navigate(['403'])
-          return of(false)
-        })
-      )
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.authStore.select(QuangKeycloakSelectors.selectUserInfo).pipe(
+      filter((user) => !!user),
+      take(1),
+      switchMap((user) => {
+        if (route.data.condition === 'AND') {
+          return this.checkAllRole(route.data.allowedRoles)
+        }
+        return this.checkUntilRole(route.data.allowedRoles)
+      }),
+      switchMap((find) => {
+        if (!find) {
+          throwError(find)
+        }
+        return of(find)
+      }),
+      catchError((e) => {
+        this.router.navigate(['403'])
+        return of(false)
+      })
+    )
   }
 }

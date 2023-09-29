@@ -1,10 +1,5 @@
-import {
-  Directive,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewContainerRef
-} from '@angular/core'
+import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
+
 import { Store } from '@ngrx/store'
 import { Subject } from 'rxjs'
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
@@ -15,7 +10,6 @@ import { QuangKeycloakSelectors } from '../store/selectors'
   selector: '[quangIsNotAuthenticated]'
 })
 export class QuangIsNotAuthenticatedDirective implements OnInit, OnDestroy {
-
   private readonly destroy$ = new Subject()
 
   /**

@@ -19,17 +19,18 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-time
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date id'"
               [label]="'form.time.label'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="time"
               hoursPlaceholder="00"
               minutesPlaceholder="00"
               secondsPlaceholder="00"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'date id'"
-              [formName]="'form'"
-              formControlName="time"></quang-input-time>
+            ></quang-input-time>
           </form>
           <dl>
             <dt>Value:</dt>
@@ -55,19 +56,20 @@
         <div cardBody>
           <form [formGroup]="groupMinMax">
             <quang-input-time
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date id'"
               [label]="'form.time.label'"
+              [maxTime]="maxTime"
+              [minTime]="minTime"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="time"
               hoursPlaceholder="00"
               minutesPlaceholder="00"
               secondsPlaceholder="00"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'date id'"
-              [minTime]="minTime"
-              [maxTime]="maxTime"
-              [formName]="'form'"
-              formControlName="time"></quang-input-time>
+            ></quang-input-time>
           </form>
           <dl>
             <dt>Value:</dt>

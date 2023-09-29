@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable, NgModule } from '@angular/core'
+
 import {
   HashMap,
   TRANSLOCO_CONFIG,

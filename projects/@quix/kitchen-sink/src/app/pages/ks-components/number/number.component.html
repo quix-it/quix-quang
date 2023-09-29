@@ -19,20 +19,21 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-number
-              [label]="'form.number.label'"
-              [placeholder]="'form.number.ph'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
               [autocomplete]="'off'"
-              [tabIndex]="1"
-              [id]="'text id'"
               [autofocus]="true"
+              [errorMessage]="true"
               [formName]="'form'"
-              [step]="1"
-              [min]="0"
+              [helpMessage]="true"
+              [id]="'text id'"
+              [label]="'form.number.label'"
               [max]="50"
-              formControlName="number"></quang-input-number>
+              [min]="0"
+              [placeholder]="'form.number.ph'"
+              [step]="1"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="number"
+            ></quang-input-number>
           </form>
           <dl>
             <dt>Value:</dt>

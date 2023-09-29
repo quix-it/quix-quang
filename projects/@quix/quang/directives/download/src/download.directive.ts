@@ -1,7 +1,8 @@
-import { Directive, HostListener, Input } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { switchMap } from 'rxjs/operators'
+import { Directive, HostListener, Input } from '@angular/core'
+
 import { of } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
 
 /**
  * directive decorator
@@ -34,7 +35,7 @@ export class QuangDownloadDirective {
    * click listener
    * @param e event
    */
-  @HostListener('click', ['$event']) onClick (e: Event): void {
+  @HostListener('click', ['$event']) onClick(e: Event): void {
     e.preventDefault()
     this.downloadFile()
   }
@@ -43,17 +44,14 @@ export class QuangDownloadDirective {
    * constructor
    * @param http
    */
-  constructor (
-    private readonly http: HttpClient
-  ) {
-  }
+  constructor(private readonly http: HttpClient) {}
 
   /**
    * Download the file,
    * create a temporary tag a download the blob with an ajax call,
    * start the download and remove the temporary tag
    */
-  downloadFile (): void {
+  downloadFile(): void {
     const anchor = document.createElement('a')
     document.body.appendChild(anchor)
     const headers = new HttpHeaders({
@@ -61,22 +59,20 @@ export class QuangDownloadDirective {
       Accept: this.accept ? this.accept : 'application/json'
     })
     this.http
-      .get(this.url, { headers: headers, responseType: 'blob' as 'json', observe: 'response' })
+      .get(this.url, { headers, responseType: 'blob' as 'json', observe: 'response' })
       .pipe(
         switchMap((r: any) => {
-            return of([
-              new Blob([r.body], { type: r.body?.type }),
-              this.getFilename(r.headers.get('content-disposition'))
-            ])
-          }
-        )
+          return of([
+            new Blob([r.body], { type: r.body?.type }),
+            this.getFilename(r.headers.get('content-disposition'))
+          ])
+        })
       )
       .subscribe(([blob, fileName]) => {
         let objectUrl
-        if (typeof blob !== 'string')
-        objectUrl = window.URL.createObjectURL(blob)
+        if (typeof blob !== 'string') objectUrl = window.URL.createObjectURL(blob)
         anchor.href = objectUrl
-        anchor.download = this.fileName ? this.fileName : fileName as string
+        anchor.download = this.fileName ? this.fileName : (fileName as string)
         anchor.click()
         window.URL.revokeObjectURL(objectUrl)
         document.body.removeChild(anchor)
@@ -87,10 +83,7 @@ export class QuangDownloadDirective {
    * Set name to downloaded file
    * @param cd
    */
-  getFilename (cd: string): string {
-    return cd
-      .slice(cd.indexOf('filename='))
-      .replace('filename=', '')
-      .trim()
+  getFilename(cd: string): string {
+    return cd.slice(cd.indexOf('filename=')).replace('filename=', '').trim()
   }
 }

@@ -8,20 +8,11 @@ import { QuangToast, QuangToastService } from '@quix/quang/dialog'
   styles: []
 })
 export class ToastComponent {
-  constructor (private readonly toastService: QuangToastService) {}
+  constructor(private readonly toastService: QuangToastService) {}
 
-  openToast (): void {
+  openToast(): void {
     this.toastService.openToast(
-      new QuangToast(
-        'success',
-        'Toast title',
-        'center',
-        5000,
-        'this is a toast',
-        null,
-        new Date(),
-        'dd/MM/yyyy'
-      )
+      new QuangToast('success', 'Toast title', 'center', 5000, 'this is a toast', null, new Date(), 'dd/MM/yyyy')
     )
   }
 }

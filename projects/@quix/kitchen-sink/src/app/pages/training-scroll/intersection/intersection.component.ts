@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  QueryList,
-  ViewChild,
-  ViewChildren
-} from '@angular/core'
+import { AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core'
 
 @Component({
   selector: 'ks-intersection',
@@ -13,8 +6,7 @@ import {
   styles: []
 })
 export class IntersectionComponent implements AfterViewInit {
-  @ViewChild('imageContainer') container: ElementRef<HTMLDivElement> | null =
-    null
+  @ViewChild('imageContainer') container: ElementRef<HTMLDivElement> | null = null
   @ViewChildren('image') imageItem: QueryList<HTMLImageElement> | [] = []
   observer: IntersectionObserver | null = null
   images: string[] = Array(30).fill('https://picsum.photos/500/500?number=')

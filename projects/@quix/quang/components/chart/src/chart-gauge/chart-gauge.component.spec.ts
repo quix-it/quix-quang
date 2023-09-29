@@ -9,8 +9,7 @@ describe('ChartGaugeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ChartGaugeComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   })
 
   beforeEach(() => {

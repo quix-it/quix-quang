@@ -19,18 +19,19 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-autocomplete-obj-async
-              [id]="'test'"
-              [tabIndex]="1"
-              [autofocus]="true"
-              [errorMessage]="true"
-              [helpMessage]="true"
-              [successMessage]="true"
-              [formName]="'form'"
-              [searchBy]="'name'"
-              [returnValue]="'key'"
               [apiUrl]="'assets/data/villain.json'"
+              [autofocus]="true"
               [baseUrl]="'./'"
-              formControlName="key"></quang-autocomplete-obj-async>
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'test'"
+              [returnValue]="'key'"
+              [searchBy]="'name'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="key"
+            ></quang-autocomplete-obj-async>
           </form>
           <dl>
             <dt>Value:</dt>
@@ -43,12 +44,8 @@
       <quang-card-header>
         <h3 cardHeader>HTML/TS</h3>
         <div cardBody>
-          <pre class="html">{{
-            'core.autocomplete-obj-async.html' | transloco
-          }}</pre>
-          <pre class="ts">{{
-            'core.autocomplete-obj-async.code' | transloco
-          }}</pre>
+          <pre class="html">{{ 'core.autocomplete-obj-async.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.autocomplete-obj-async.code' | transloco }}</pre>
         </div>
       </quang-card-header>
     </div>

@@ -19,15 +19,16 @@
         <div cardBody>
           <form [formGroup]="group">
             <quang-input-checkbox
-              [label]="'form.checkbox.label'"
-              [errorMessage]="true"
-              [successMessage]="true"
-              [helpMessage]="true"
-              [tabIndex]="1"
-              [id]="'checkbox id'"
               [autofocus]="true"
+              [errorMessage]="true"
               [formName]="'form'"
-              formControlName="checkbox">
+              [helpMessage]="true"
+              [id]="'checkbox id'"
+              [label]="'form.checkbox.label'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="checkbox"
+            >
             </quang-input-checkbox>
           </form>
           <dl>

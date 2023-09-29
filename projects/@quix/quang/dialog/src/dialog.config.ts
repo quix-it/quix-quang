@@ -9,7 +9,7 @@ export class QuangDialogConfig {
    * @param noLoaderUrls define no loader url list
    * @param noLoaderMethods define no loader url method
    */
-  constructor (
+  constructor(
     /**
      * define release environment
      */
@@ -17,7 +17,7 @@ export class QuangDialogConfig {
     /**
      * defines the list of errors not to be caught
      */
-    public noErrorUrls?: Array<{ url: string, error: number }>,
+    public noErrorUrls?: Array<{ url: string; error: number }>,
     /**
      * defines the list of url not to be caught from loader
      */

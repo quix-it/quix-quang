@@ -1,79 +1,81 @@
 <div class="mb-3 d-flex flex-column custom-radio">
   <label
-    [htmlFor]="id"
-    class="form-label"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [attr.aria-label]="ariaLabel | transloco"
-    *ngIf="label">
+    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.['required']">*</span>
   </label>
-  <div [ngClass]="{'custom-row-radio': direction === 'row'}">
+  <div [ngClass]="{ 'custom-row-radio': direction === 'row' }">
     <div
-      class="form-check"
       [class.form-check-inline]="inline"
-      *ngFor="let radio of radioList; let index = index">
+      *ngFor="let radio of radioList; let index = index"
+      class="form-check"
+    >
       <input
-        type="radio"
-        role="radio"
-        [attr.aria-labelledby]="label | transloco"
         [attr.aria-checked]="_value === radio[returnValue]"
-        class="form-check-input"
-        [name]="groupName"
-        [id]="id + radio[labelValue]"
-        [tabIndex]="0"
-        [ngClass]="customClass"
-        [class.is-valid]="control?.valid && control?.dirty && successMessage"
-        [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-        [value]="radio[returnValue]"
-        [checked]="radio[returnValue]?.toString() === _value?.toString()"
-        (input)="onChangedHandler($event)"
-        (blur)="onTouched()"
-        [autocomplete]="autocomplete"
-        [disabled]="_disabled"
-        [attr.aria-disabled]="_disabled"
         [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+        [attr.aria-disabled]="_disabled"
         [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
         [attr.aria-invalid]="control.invalid"
-        #input />
+        [attr.aria-labelledby]="label | transloco"
+        [autocomplete]="autocomplete"
+        [checked]="radio[returnValue]?.toString() === _value?.toString()"
+        [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+        [class.is-valid]="control?.valid && control?.dirty && successMessage"
+        [disabled]="_disabled"
+        [id]="id + radio[labelValue]"
+        [name]="groupName"
+        [ngClass]="customClass"
+        [tabIndex]="0"
+        [value]="radio[returnValue]"
+        (blur)="onTouched()"
+        (input)="onChangedHandler($event)"
+        #input
+        class="form-check-input"
+        role="radio"
+        type="radio"
+      />
       <label
-        class="form-check-label"
         [attr.aria-label]="ariaLabel | transloco"
-        [htmlFor]="id + radio[labelValue]">
+        [htmlFor]="id + radio[labelValue]"
+        class="form-check-label"
+      >
         {{ radio[labelValue] | transloco }}
       </label>
     </div>
   </div>
   <div
-    class="valid-feedback"
-    aria-live="assertive"
     [ngStyle]="{
-      display:
-        control?.valid && control?.dirty && successMessage ? 'block' : 'none'
-    }">
+      display: control?.valid && control?.dirty && successMessage ? 'block' : 'none'
+    }"
+    aria-live="assertive"
+    class="valid-feedback"
+  >
     {{ _successMessage | transloco }}
   </div>
   <div
-    class="invalid-feedback"
-    aria-live="polite"
     [id]="id + '-error'"
     [ngStyle]="{
-      display:
-        control?.invalid && control?.dirty && errorMessage ? 'block' : 'none'
-    }">
+      display: control?.invalid && control?.dirty && errorMessage ? 'block' : 'none'
+    }"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
     {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
   </div>
   <small
-    [id]="id + '-help'"
-    aria-live="assertive"
     [attr.aria-describedby]="id"
+    [hidden]="control?.dirty && ((control.valid && successMessage) || (control.invalid && errorMessage))"
+    [id]="id + '-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
     class="form-text text-muted"
-    [hidden]="
-      control?.dirty &&
-      ((control.valid && successMessage) || (control.invalid && errorMessage))
-    "
-    *ngIf="helpMessage">
+  >
     {{ _helpMessage | transloco }}
   </small>
 </div>

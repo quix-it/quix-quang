@@ -9,7 +9,7 @@ export class ChartTree {
    * @param value
    * @param children
    */
-  constructor (
+  constructor(
     /**
      *
      */

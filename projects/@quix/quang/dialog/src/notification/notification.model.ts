@@ -9,7 +9,7 @@ export class QuangNotification {
    * @param imageUrl
    * @param iconUrl
    */
-  constructor (
+  constructor(
     /**
      *
      */

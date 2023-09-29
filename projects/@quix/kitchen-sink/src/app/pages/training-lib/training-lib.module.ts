@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatSortModule } from '@angular/material/sort'
 import { MatTableModule } from '@angular/material/table'
+
 import { CodemirrorModule } from '@ctrl/ngx-codemirror'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { ImageCropperModule } from 'ngx-image-cropper'
@@ -15,13 +16,11 @@ import SwiperCore, { Pagination } from 'swiper'
 import { SwiperModule } from 'swiper/angular'
 
 import { QuangCardsModule } from '@quix/quang/components/cards'
-import {
-  QuangInputDateModule,
-  QuangInputDateRangeModule,
-  QuangInputNumberModule
-} from '@quix/quang/components/input'
+import { QuangInputDateModule, QuangInputDateRangeModule, QuangInputNumberModule } from '@quix/quang/components/input'
 
 import { SharedModule } from '../../shared/shared.module'
+import { TrainingLibRoutingModule } from './training-lib-routing.module'
+
 import { ClipboardComponent } from './clipboard/clipboard.component'
 import { CodeMirrorComponent } from './code-mirror/code-mirror.component'
 import { CropperComponent } from './cropper/cropper.component'
@@ -34,7 +33,6 @@ import { MaskComponent } from './mask/mask.component'
 import { PdfComponent } from './pdf/pdf.component'
 import { PlatformComponent } from './platform/platform.component'
 import { SwiperComponent } from './swiper/swiper.component'
-import { TrainingLibRoutingModule } from './training-lib-routing.module'
 import { TranslocoComponent } from './transloco/transloco.component'
 import { VconsoleComponent } from './vconsole/vconsole.component'
 import { VirtualScrollComponent } from './virtual-scroll/virtual-scroll.component'

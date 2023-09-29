@@ -18,8 +18,9 @@
         >
         <div cardBody>
           <quang-calendar
+            [firstDay]="'monday'"
             [height]="'600px'"
-            [firstDay]="'monday'"></quang-calendar>
+          ></quang-calendar>
         </div>
       </quang-card-action-header>
     </div>
@@ -38,9 +39,10 @@
         <h3 cardHeader>Click sulla data</h3>
         <div cardBody>
           <quang-calendar
+            [firstDay]="'monday'"
             [height]="'600px'"
             (whenDateClick)="openAlert($event)"
-            [firstDay]="'monday'"></quang-calendar>
+          ></quang-calendar>
         </div>
       </quang-card-header>
     </div>
@@ -60,11 +62,12 @@
         <h3 cardHeader>Click evento - Max eventi per giorno</h3>
         <div cardBody>
           <quang-calendar
+            [callBack]="loadData"
+            [dayMaxEvents]="2"
+            [firstDay]="'monday'"
             [height]="'600px'"
             (whenEventClick)="openAlert($event)"
-            [callBack]="loadData"
-            [firstDay]="'monday'"
-            [dayMaxEvents]="2"></quang-calendar>
+          ></quang-calendar>
         </div>
       </quang-card-header>
     </div>
@@ -84,10 +87,11 @@
         <h3 cardHeader>Eventi asincroni</h3>
         <div cardBody>
           <quang-calendar
+            [callBack]="loadAsyncData"
+            [firstDay]="'monday'"
             [height]="'600px'"
             (whenEventClick)="openAlert($event)"
-            [callBack]="loadAsyncData"
-            [firstDay]="'monday'"></quang-calendar>
+          ></quang-calendar>
         </div>
       </quang-card-header>
     </div>
@@ -107,9 +111,10 @@
         <h3 cardHeader>Ore della settimana</h3>
         <div cardBody>
           <quang-calendar
+            [firstDay]="'monday'"
             [height]="'600px'"
             [view]="'timeGridWeek'"
-            [firstDay]="'monday'"></quang-calendar>
+          ></quang-calendar>
         </div>
       </quang-card-header>
     </div>
@@ -128,9 +133,10 @@
         <h3 cardHeader>Giorni della settimana</h3>
         <div cardBody>
           <quang-calendar
+            [firstDay]="'monday'"
             [height]="'600px'"
             [view]="'dayGridWeek'"
-            [firstDay]="'monday'"></quang-calendar>
+          ></quang-calendar>
         </div>
       </quang-card-header>
     </div>
@@ -148,7 +154,9 @@
       <quang-card-header>
         <h3 cardHeader>Approfondimenti</h3>
         <div cardBody>
-          <a href="https://fullcalendar.io/docs/angular" target="_blank"
+          <a
+            href="https://fullcalendar.io/docs/angular"
+            target="_blank"
             >Full Calendar</a
           >
         </div>

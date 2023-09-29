@@ -32,14 +32,15 @@
             </tbody>
           </table>
           <quang-paginator
-            [tabIndex]="1"
             [id]="'paginator id'"
-            [totalItems]="all.length"
             [pageIndex]="0"
             [pageSize]="10"
+            [sizeList]="sizeList"
+            [tabIndex]="1"
+            [totalItems]="all.length"
             (whenPageChange)="pageChange($event)"
             (whenSizeChange)="sizeChange($event)"
-            [sizeList]="sizeList">
+          >
           </quang-paginator>
           <dl>
             <dt>Pagina:</dt>

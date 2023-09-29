@@ -1,11 +1,5 @@
-import {
-  Directive,
-  Input,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewContainerRef
-} from '@angular/core'
+import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
+
 import { Store } from '@ngrx/store'
 import { Subject } from 'rxjs'
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
@@ -38,9 +32,7 @@ export class QuangHasAtLeastOneRoleDirective implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.authStore
-      .select(
-        QuangKeycloakSelectors.selectHasAtLeastOneRole(this.quangHasAtLeastOneRole)
-      )
+      .select(QuangKeycloakSelectors.selectHasAtLeastOneRole(this.quangHasAtLeastOneRole))
       .pipe(distinctUntilChanged(), takeUntil(this.onDestroy$))
       .subscribe((hasRole) => {
         if (hasRole) {

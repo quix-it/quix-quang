@@ -1,23 +1,31 @@
-<section class="container-fluid" id="infinite">
+<section
+  class="container-fluid"
+  id="infinite"
+>
   <div class="row">
     <div class="col">
       <ks-title [title]="'ngx Infinite scroll'"></ks-title>
     </div>
   </div>
   <div class="row mb-3">
-    <div class="col-6" id="wrapper">
+    <div
+      class="col-6"
+      id="wrapper"
+    >
       <div
-        infiniteScroll
+        [infiniteScrollDisabled]="stop"
         [infiniteScrollDistance]="0.5"
         [infiniteScrollThrottle]="300"
-        [infiniteScrollDisabled]="stop"
-        (scrolled)="onScroll()">
+        (scrolled)="onScroll()"
+        infiniteScroll
+      >
         <quang-card *ngFor="let c of cards">
           <h5 cardHeader>{{ 'Card ' + c }}</h5>
           <div cardBody>
             <img
+              [alt]="c"
               [src]="'https://picsum.photos/500/500?number=' + c"
-              [alt]="c" />
+            />
           </div>
         </quang-card>
       </div>
@@ -26,7 +34,10 @@
       <div class="mb-3">
         <quang-card-header>
           <h4 cardHeader>HTML/TS</h4>
-          <div cardBody class="mb-3">
+          <div
+            cardBody
+            class="mb-3"
+          >
             <pre class="html">{{ 'lib.infinity.html' | transloco }}</pre>
             <pre class="ts">{{ 'lib.infinity.code' | transloco }}</pre>
           </div>

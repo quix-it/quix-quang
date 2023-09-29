@@ -3,8 +3,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 @Component({
   selector: 'quang-card-image',
   templateUrl: './card-image.component.html',
-  styles: [
-  ],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuangCardImageComponent {

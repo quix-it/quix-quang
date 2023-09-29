@@ -1,5 +1,7 @@
 import { Injectable, Optional } from '@angular/core'
+
 import { QuangMapConfig } from '../map.config'
+
 /**
  * service decorator
  */
@@ -22,9 +24,7 @@ export class QuangGoogleMapService {
    * constructor
    * @param config module config
    */
-  constructor (
-  @Optional() config: QuangMapConfig
-  ) {
+  constructor(@Optional() config: QuangMapConfig) {
     if (config?.googleKey) {
       this.key = config.googleKey
     } else if (this._window().quangConfig?.googleKey) {
@@ -37,7 +37,7 @@ export class QuangGoogleMapService {
   /**
    * adds the script to load the Google map library
    */
-  addMapScript (): void {
+  addMapScript(): void {
     const s = window.document.createElement('script')
     s.id = 'google-map-script'
     s.type = 'text/javascript'

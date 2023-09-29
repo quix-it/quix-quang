@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
 
 import { QuangAutocompleteStringAsyncComponent } from './autocomplete-strg-async.component'
 
@@ -9,8 +9,7 @@ describe('AutocompleteStrgAsyncComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [QuangAutocompleteStringAsyncComponent]
-    })
-      .compileComponents()
+    }).compileComponents()
   }))
 
   beforeEach(() => {

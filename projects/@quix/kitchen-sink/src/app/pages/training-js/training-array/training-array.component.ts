@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormArray, FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup } from '@angular/forms'
 
 @Component({
   selector: 'ks-training-array',
@@ -17,7 +17,7 @@ export class TrainingArrayComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.group.controls['array'].valueChanges.subscribe((array) => {
+    this.group.controls.array.valueChanges.subscribe((array) => {
       try {
         this._array = JSON.parse(array)
       } catch (e) {
@@ -113,7 +113,7 @@ export class TrainingArrayComponent implements OnInit {
   demoFill(): void {
     // for
     console.time('for')
-    const tmp = []
+    const tmp: string[] = []
     for (let i = 0; i < this._array.length; i++) {
       tmp.push('fillValue')
     }
@@ -129,7 +129,7 @@ export class TrainingArrayComponent implements OnInit {
     // for
     console.time('for')
     const tmp: string[] = []
-    const recursive = (list: any) => {
+    const recursive = (list: any): void => {
       for (let i = 0; i < list.length; i++) {
         if (Array.isArray(list[i])) {
           recursive(list[i])
@@ -169,10 +169,7 @@ export class TrainingArrayComponent implements OnInit {
     console.timeEnd('for')
     // join
     console.time('flatMap')
-    this._methodResult = this._array.flatMap((v: string) => [
-      v,
-      v.toUpperCase()
-    ])
+    this._methodResult = this._array.flatMap((v: string) => [v, v.toUpperCase()])
     console.timeEnd('flatMap')
   }
 
@@ -192,9 +189,7 @@ export class TrainingArrayComponent implements OnInit {
     console.timeEnd('for')
     // find
     console.time('find')
-    this._methodResult = this._array.find(
-      (v: { fish: string; name: string }) => v.name === 'Nemo'
-    )
+    this._methodResult = this._array.find((v: { fish: string; name: string }) => v.name === 'Nemo')
     console.timeEnd('find')
   }
 
@@ -212,9 +207,7 @@ export class TrainingArrayComponent implements OnInit {
     console.timeEnd('for')
     // find
     console.time('findIndex')
-    this._methodResult = this._array.findIndex(
-      (v: { fish: string; name: string }) => v.name === 'Nemo'
-    )
+    this._methodResult = this._array.findIndex((v: { fish: string; name: string }) => v.name === 'Nemo')
     console.timeEnd('findIndex')
   }
 
@@ -229,9 +222,7 @@ export class TrainingArrayComponent implements OnInit {
     console.timeEnd('for')
     // every
     console.time('every')
-    this._methodResult = this._array.every(
-      (v: { fish: string; name: string }) => v.name.includes('Nemo')
-    )
+    this._methodResult = this._array.every((v: { fish: string; name: string }) => v.name.includes('Nemo'))
     console.timeEnd('every')
   }
 
@@ -246,9 +237,7 @@ export class TrainingArrayComponent implements OnInit {
     console.timeEnd('for')
     // every
     console.time('some')
-    this._methodResult = this._array.some((v: { fish: string; name: string }) =>
-      v.name.includes('Nemo')
-    )
+    this._methodResult = this._array.some((v: { fish: string; name: string }) => v.name.includes('Nemo'))
     console.timeEnd('some')
   }
 
@@ -269,9 +258,8 @@ export class TrainingArrayComponent implements OnInit {
     console.timeEnd('for')
     // sort
     console.time('sort')
-    this._methodResult = [...this._array].sort(
-      (a: { fish: string; name: string }, b: { fish: string; name: string }) =>
-        a.name.localeCompare(b.name, 'it')
+    this._methodResult = [...this._array].sort((a: { fish: string; name: string }, b: { fish: string; name: string }) =>
+      a.name.localeCompare(b.name, 'it')
     )
     console.timeEnd('sort')
   }
@@ -279,7 +267,7 @@ export class TrainingArrayComponent implements OnInit {
   demoFilter(): void {
     // for
     console.time('for')
-    const tmp = []
+    const tmp: number[] = []
     for (let i = 0; i < this._array.length; i++) {
       this._array[i].name.includes('e') && tmp.push(this._array[i])
     }
@@ -287,16 +275,14 @@ export class TrainingArrayComponent implements OnInit {
     console.timeEnd('for')
     // reduce
     console.time('filter')
-    this._methodResult = this._array.filter(
-      (v: { fish: string; name: string }) => v.name.includes('e')
-    )
+    this._methodResult = this._array.filter((v: { fish: string; name: string }) => v.name.includes('e'))
     console.timeEnd('filter')
   }
 
   demoReduce(): void {
     // for
     console.time('for')
-    const tmp: { [key: string]: string[] } = {}
+    const tmp: Record<string, string[]> = {}
     for (let i = 0; i < this._array.length; i++) {
       if (!tmp[this._array[i].name.charAt(0)]) {
         tmp[this._array[i].name.charAt(0)] = []
@@ -308,10 +294,7 @@ export class TrainingArrayComponent implements OnInit {
     // reduce
     console.time('reduce')
     this._methodResult = this._array.reduce(
-      (
-        acc: { [key: string]: Array<{ fish: string; name: string }> },
-        v: { fish: string; name: string }
-      ) => {
+      (acc: Record<string, Array<{ fish: string; name: string }>>, v: { fish: string; name: string }) => {
         if (!acc[v.name.charAt(0)]) {
           acc[v.name.charAt(0)] = []
         }
@@ -352,9 +335,7 @@ export class TrainingArrayComponent implements OnInit {
     console.timeEnd('for')
     // map
     console.time('map')
-    this._methodResult = this._array.map(
-      (v: { fish: string; name: string }, i: number) => ({ ...v, position: i })
-    )
+    this._methodResult = this._array.map((v: { fish: string; name: string }, i: number) => ({ ...v, position: i }))
     console.timeEnd('map')
   }
 

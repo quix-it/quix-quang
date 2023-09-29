@@ -1,4 +1,5 @@
 import { createSelector } from '@ngrx/store'
+
 import { QuangKeycloakState } from '../../keycloak-module.reducer'
 import { selectQuangKeycloak } from '../../keycloak-module.selectors'
 
@@ -7,8 +8,7 @@ import { selectQuangKeycloak } from '../../keycloak-module.selectors'
  */
 export const selectIsAuthenticated = createSelector(
   selectQuangKeycloak,
-  (state: QuangKeycloakState): boolean =>
-    state?.quangKeycloakUserState?.isAuthenticated
+  (state: QuangKeycloakState): boolean => state?.quangKeycloakUserState?.isAuthenticated
 )
 /**
  * Selector to retrieve the status of the user data

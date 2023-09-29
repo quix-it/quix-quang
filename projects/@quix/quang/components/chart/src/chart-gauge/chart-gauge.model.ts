@@ -7,7 +7,7 @@ export class ChartGauge {
    * @param name
    * @param value
    */
-  constructor (
+  constructor(
     /**
      *
      */

@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core'
-import { QuangInputUrlComponent } from './input-url.component'
 import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
+
 import { TranslocoModule } from '@ngneat/transloco'
+
+import { QuangInputUrlComponent } from './input-url.component'
 
 @NgModule({
   declarations: [QuangInputUrlComponent],

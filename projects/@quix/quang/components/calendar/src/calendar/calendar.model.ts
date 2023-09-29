@@ -8,7 +8,7 @@ export class QuangCalendarEvent {
    * @param date define event date
    * @param allDay define event allday
    */
-  constructor (
+  constructor(
     /**
      * event title
      */
@@ -21,6 +21,5 @@ export class QuangCalendarEvent {
      * event allDay
      */
     public allDay?: boolean
-  ) {
-  }
+  ) {}
 }

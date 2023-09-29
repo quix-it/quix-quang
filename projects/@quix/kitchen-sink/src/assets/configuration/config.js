@@ -1,5 +1,4 @@
 ;(function () {
-  'use strict'
   const DOMAIN = ''
   const API_DOMAIN = ''
   const VERSION = '999.9.9-SNAPSHOT'

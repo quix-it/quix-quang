@@ -9,39 +9,59 @@
       <quang-card-header>
         <h3 cardHeader>Demo</h3>
         <div cardBody>
-          <button class="btn btn-outline-success" (click)="addArray1()">
+          <button
+            (click)="addArray1()"
+            class="btn btn-outline-success"
+          >
             Aggiungi input array1
           </button>
-          <button class="btn btn-outline-danger ml-1" (click)="removeArray1()">
+          <button
+            (click)="removeArray1()"
+            class="btn btn-outline-danger ml-1"
+          >
             Rimuovi input array1
           </button>
-          <form [formGroup]="group" class="mt-3">
+          <form
+            [formGroup]="group"
+            class="mt-3"
+          >
             <ng-container formArrayName="array1">
               <div
+                *ngFor="let input of array1.controls; let i = index"
                 class="mb-3"
-                *ngFor="let input of array1.controls; let i = index">
+              >
                 <label [htmlFor]="'array1 ' + i"> Array1 text {{ i }} </label>
                 <input
-                  type="text"
-                  [id]="'array1 ' + i"
                   [formControlName]="i"
-                  class="form-control" />
+                  [id]="'array1 ' + i"
+                  class="form-control"
+                  type="text"
+                />
               </div>
             </ng-container>
-            <button class="btn btn-outline-success ml-1" (click)="addArray2()">
+            <button
+              (click)="addArray2()"
+              class="btn btn-outline-success ml-1"
+            >
               Aggiungi input array2
             </button>
             <button
+              (click)="removeArray2()"
               class="btn btn-outline-danger ml-1"
-              (click)="removeArray2()">
+            >
               Rimuovi input array2
             </button>
             <ng-container formArrayName="array2">
               <div
+                *ngFor="let input of array2.controls; let i = index"
                 class="mb-3"
-                *ngFor="let input of array2.controls; let i = index">
+              >
                 <label [htmlFor]="'array2 ' + i"> Array2 text {{ i }} </label>
-                <input type="text" [id]="'array2 ' + i" class="form-control" />
+                <input
+                  [id]="'array2 ' + i"
+                  class="form-control"
+                  type="text"
+                />
               </div>
             </ng-container>
           </form>

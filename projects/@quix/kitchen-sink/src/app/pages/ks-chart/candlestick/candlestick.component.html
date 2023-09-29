@@ -18,11 +18,12 @@
         >
         <div cardBody>
           <quang-chart-candlestick
-            [id]="'test'"
-            [height]="'50vh'"
             [chartData]="data"
             [colors]="['#debac0', '#3e885b']"
-            (chartClick)="onCLick($event)"></quang-chart-candlestick>
+            [height]="'50vh'"
+            [id]="'test'"
+            (chartClick)="onCLick($event)"
+          ></quang-chart-candlestick>
         </div>
       </quang-card-action-header>
     </div>

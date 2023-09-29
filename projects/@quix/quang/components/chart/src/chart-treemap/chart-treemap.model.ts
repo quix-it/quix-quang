@@ -21,11 +21,11 @@ export class ChartTreemap {
    * @param value chart value
    * @param color chart color
    */
-  constructor (name: string, value: number, color?: string) {
+  constructor(name: string, value: number, color?: string) {
     this.name = name
     this.value = value
     if (color) {
-      this.itemStyle = { color: color }
+      this.itemStyle = { color }
     }
   }
 }

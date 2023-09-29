@@ -1,11 +1,13 @@
 import { ActionReducerMap } from '@ngrx/store'
-import { ToastsState } from './toast/store/reducers/toast.reducer'
-import { OfflineState } from './offline/store/reducers/offline.reducer'
-import { QuangLoaderState } from './loader/store/reducers/loader.reducer'
+
 import { QUANGDIALOG_KEY } from './dialog.selectors'
-import { ToastReducers } from './toast/store/reducers'
-import { OfflineReducers } from './offline/store/reducers'
+
 import { LoaderReducers } from './loader/store/reducers'
+import { QuangLoaderState } from './loader/store/reducers/loader.reducer'
+import { OfflineReducers } from './offline/store/reducers'
+import { OfflineState } from './offline/store/reducers/offline.reducer'
+import { ToastReducers } from './toast/store/reducers'
+import { ToastsState } from './toast/store/reducers/toast.reducer'
 
 /**
  * interface that defines the state of the module

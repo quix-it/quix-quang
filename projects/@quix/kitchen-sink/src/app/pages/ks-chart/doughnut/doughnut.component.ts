@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+
 import { ChartDoughnut } from '@quix/quang/components/chart'
 
 @Component({

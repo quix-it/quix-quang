@@ -10,7 +10,7 @@ export class OsmapMarker {
    * @param src define marker image source
    * @param data define marker data
    */
-  constructor (
+  constructor(
     /**
      * longitude
      */
@@ -30,6 +30,6 @@ export class OsmapMarker {
     /**
      * marker data
      */
-    public data?: {}
+    public data?: Record<string, unknown>
   ) {}
 }
