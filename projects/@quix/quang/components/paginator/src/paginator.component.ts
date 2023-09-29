@@ -112,10 +112,8 @@ export class QuangPaginatorComponent {
    * @param event
    */
   onChangePage(event: { page: number; itemsPerPage: number }): void {
-    if (event.page !== this._page) {
-      this._page = event.page
-      this.whenPageChange.emit(this._page)
-    }
+    this._page = event.page
+    this.whenPageChange.emit(this._page)
   }
 
   /**
@@ -127,6 +125,8 @@ export class QuangPaginatorComponent {
     this.whenSizeChange.emit(this._pageSize)
     if (this._page > 1) {
       this.goToFirstPage()
+    } else {
+      this.whenPageChange.emit(this._page)
     }
   }
 

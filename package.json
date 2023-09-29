@@ -1,6 +1,6 @@
 {
   "name": "@quix/projects",
-  "version": "15.2.0",
+  "version": "15.2.0-1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "release:install": "npm ci --ignore-script",
     "start:ks": "ng serve kitchen-sink",
-    "cleanup": "rm -r dist",
+    "cleanup": "rm -rf dist",
     "publish:quang": "npm run cleanup && npm run build:quang:prod && cd dist/quang && npm publish",
     "build:quang": "ng build quang",
     "build:quang:prod": "ng build quang --configuration production",
@@ -57,8 +57,8 @@
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
     "html5-qrcode": "^2.3.8",
-    "keycloak-angular": "^13.1.0",
-    "keycloak-js": "18.0.1",
+    "keycloak-angular": "^13.0.0",
+    "keycloak-js": "^20.0.5",
     "ngx-bootstrap": "^10.3.0",
     "ngx-echarts": "^15.0.3",
     "ngx-file-drop": "^15.0.0",

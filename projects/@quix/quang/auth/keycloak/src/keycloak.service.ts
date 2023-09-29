@@ -2,6 +2,7 @@ import { Injectable, Optional } from '@angular/core'
 
 import { Store } from '@ngrx/store'
 import { KeycloakOptions, KeycloakService } from 'keycloak-angular'
+import { KeycloakProfile, KeycloakTokenParsed } from 'keycloak-js'
 import { Observable, from, of } from 'rxjs'
 
 import { QuangKeycloakActions } from './store/actions'
@@ -54,7 +55,7 @@ export class QuangKeycloakService {
   /**
    * starts the authentication flow
    */
-  startAuth(): Observable<any> {
+  startAuth(): Observable<boolean> {
     if (this.authConfig) {
       return from(this.keyCloak.init(this.authConfig))
     } else {
@@ -76,7 +77,7 @@ export class QuangKeycloakService {
   /**
    * retrieves the information relating to the logged in user
    */
-  getUserInfo(): Observable<any> {
+  getUserInfo(): Observable<KeycloakProfile> {
     return from(this.keyCloak.loadUserProfile())
   }
 
@@ -84,7 +85,7 @@ export class QuangKeycloakService {
    * retrieves the information relating to the logged in user and saves them in the store
    */
   getUserInfoAndDispatch(): void {
-    from(this.keyCloak.loadUserProfile()).subscribe((user: any) => {
+    from(this.keyCloak.loadUserProfile()).subscribe((user: KeycloakProfile) => {
       this.store.dispatch(QuangKeycloakActions.userInfoLogin({ user }))
     })
   }
@@ -106,7 +107,7 @@ export class QuangKeycloakService {
   /**
    * Login method, to be used if you are not using the authentication flow with effects
    */
-  login(): Observable<any> {
+  login(): Observable<void> {
     return from(this.keyCloak.login())
   }
 
@@ -114,7 +115,7 @@ export class QuangKeycloakService {
    * method to log out, is triggered by the effects
    * @param redirectUri
    */
-  logout(redirectUri?: string): Observable<any> {
+  logout(redirectUri?: string): Observable<void> {
     if (redirectUri) {
       return from(this.keyCloak.logout(redirectUri))
     } else {
@@ -144,5 +145,9 @@ export class QuangKeycloakService {
 
   getRefreshToken(): string | undefined {
     return this.keyCloak.getKeycloakInstance().refreshToken
+  }
+
+  getParsedToken(): KeycloakTokenParsed | undefined {
+    return this.keyCloak.getKeycloakInstance().tokenParsed
   }
 }
