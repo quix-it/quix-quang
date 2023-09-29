@@ -13,6 +13,7 @@ import {
   ViewChildren
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -81,11 +82,11 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
   /**
    * Defines the key of the value that will be used as the label for the input
    */
-  @Input() labelValue: string | null = null
+  @Input() labelValue: string = ''
   /**
    * Defines the key of the value that will be returned as the value of the input
    */
-  @Input() returnValue: string | null = null
+  @Input() returnValue: string = ''
   /**
    * Array of additional classes to the input field
    */
@@ -129,21 +130,19 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
+  onTouched: any = () => {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged: any = () => {}
 
   /**
    * constructor
    * @param renderer html access
    * @param control cva access
    */
-  constructor (
+  constructor(
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
@@ -153,7 +152,7 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
   /**
    * Check if the help message is required and create the key
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
@@ -166,7 +165,7 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
         this.input?.forEach((item) => {
@@ -181,7 +180,7 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
    * Add focus to the input field if the need comes after component initialization
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.autofocus?.currentValue && this.input) {
       this.input.get(0)?.nativeElement.focus()
     }
@@ -190,14 +189,14 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any): void {
+  registerOnChange(fn: any): void {
     this.onChanged = fn
   }
 
@@ -206,7 +205,7 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler (e: Event): void {
+  onChangedHandler(e: Event): void {
     this._value = (e.target as HTMLInputElement).value
     this.onTouched()
     this.onChanged(this._value)
@@ -216,7 +215,7 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
    * Standard definition to create a control value accessor
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
-  writeValue (value: string | number): void {
+  writeValue(value: string | number): void {
     this._value = value
   }
 
@@ -224,7 +223,7 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  setDisabledState (isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
     setTimeout(() => {
       this.input?.forEach((item) => {
@@ -239,17 +238,19 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          this._requiredValue = this.control.errors[error].requiredValue
-          this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+  observeValidate(): void {
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            this._requiredValue = this.control.errors[error].requiredValue
+            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+          }
         }
-      }
-    })
+      })
   }
 }

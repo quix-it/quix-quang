@@ -1,7 +1,10 @@
 import { createSelector } from '@ngrx/store'
-import { QuangDialogState } from '../../../dialog.reducer'
-import { selectQuangDialog } from '../../../dialog.selectors'
+
 import { QuangToast } from '../../toast.model'
+
+import { selectQuangDialog } from '../../../dialog.selectors'
+
+import { QuangDialogState } from '../../../dialog.reducer'
 import { ToastsState } from '../reducers/toast.reducer'
 
 /**
@@ -16,5 +19,5 @@ export const selectToastState = createSelector(
  */
 export const selectToast = createSelector(
   selectQuangDialog,
-  (state: QuangDialogState): QuangToast => state.toastState?.toastData
+  (state: QuangDialogState): QuangToast | null => state.toastState?.toastData
 )

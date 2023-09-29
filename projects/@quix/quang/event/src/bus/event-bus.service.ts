@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+
 import { Observable, Subject } from 'rxjs'
 
 /**
@@ -54,7 +55,7 @@ export class QuangEventBusService {
   /**
    * event bus headers
    */
-  headers: object
+  headers?: object
   /**
    * event bus configuration
    */
@@ -73,10 +74,10 @@ export class QuangEventBusService {
    * @param headers
    * @param options
    */
-  openSocket (url: string, address: string, headers?: object, options?: QuangBusEventOptions): Observable<any> {
+  openSocket(url: string, address: string, headers?: object, options?: QuangBusEventOptions): Observable<any> {
     this.headers = headers
     this.address = address
-    this.eb = new EventBus(url, options || this.options)
+    this.eb = new EventBus(url, options ?? this.options)
     this.eb.enableReconnect(true)
     this.onOpen()
     this.onReconnect()
@@ -87,7 +88,7 @@ export class QuangEventBusService {
    * send message on event bus socket
    * @param message
    */
-  sendMessage (message: string): void {
+  sendMessage(message: string): void {
     this.eb.send(this.address, message, (e, m) => {
       if (e) {
         console.error(e)
@@ -98,13 +99,12 @@ export class QuangEventBusService {
   /**
    * close the event bus socket
    */
-  closeSocket (): void {
+  closeSocket(): void {
     this.bus.complete()
     if (this.eb) {
       try {
         this.eb.unregisterHandler(this.address, this.headers)
       } catch (e) {
-
       } finally {
         this.eb.close()
       }
@@ -116,7 +116,7 @@ export class QuangEventBusService {
    * and listens to the messages
    * @private
    */
-  private onOpen (): void {
+  private onOpen(): void {
     this.eb.onopen = () => {
       console.log('Socket opened')
       this.bus.next('socketInit')
@@ -130,7 +130,7 @@ export class QuangEventBusService {
    * if it is not a json it does the next of the response as it is
    * @private
    */
-  private onMessage (): void {
+  private onMessage(): void {
     this.eb.registerHandler(this.address, (e, m) => {
       if (e) {
         this.onError(e)
@@ -149,7 +149,7 @@ export class QuangEventBusService {
    * @param error
    * @private
    */
-  private onError (error: Error): void {
+  private onError(error: Error): void {
     this.bus.error(error)
     console.error(error)
   }
@@ -158,6 +158,5 @@ export class QuangEventBusService {
    * to do if necessary
    * @private
    */
-  private onReconnect (): void {
-  }
+  private onReconnect(): void {}
 }

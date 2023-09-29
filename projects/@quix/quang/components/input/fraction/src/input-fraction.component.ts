@@ -12,6 +12,7 @@ import {
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -134,14 +135,12 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched: any = () => {
-  }
+  onTouched: any = () => {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged: any = () => {
-  }
+  onChanged: any = () => {}
 
   @ViewChild('inputInteger', { static: true }) inputInteger: ElementRef<HTMLInputElement> | undefined
   @ViewChild('inputFraction', { static: true }) inputFraction: ElementRef<HTMLInputElement> | undefined
@@ -151,7 +150,7 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * @param renderer html access
    * @param control cva access
    */
-  constructor (
+  constructor(
     private readonly renderer: Renderer2,
     @Self() @Optional() public control: NgControl
   ) {
@@ -162,7 +161,7 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * After rendering the component, it checks if the input field must have focus
    * and activates the monitoring of the validation of the entered values
    */
-  ngAfterViewInit (): void {
+  ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.autofocus) {
         this.inputInteger?.nativeElement.focus()
@@ -174,7 +173,7 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
   /**
    * create the key for the help message
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
     }
@@ -187,7 +186,7 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * Add focus to the input field if the need comes after component initialization
    * @param changes component changes
    */
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.autofocus?.currentValue && this.inputInteger) {
       this.inputInteger.nativeElement.focus()
     }
@@ -196,14 +195,14 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnTouched (fn: any): void {
+  registerOnTouched(fn: any): void {
     this.onTouched = fn
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  registerOnChange (fn: any): void {
+  registerOnChange(fn: any): void {
     this.onChanged = fn
   }
 
@@ -211,7 +210,7 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * When the CVA is initialized as control it initializes the internal states
    * @param value
    */
-  writeValue (value: number): void {
+  writeValue(value: number): void {
     if (!value) {
       this._value = 0
     } else {
@@ -223,31 +222,30 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
   /**
    * Set the input values to display the fraction
    */
-  setInput (): void {
-    this.renderer.setProperty(this.inputInteger?.nativeElement,
+  setInput(): void {
+    if (this._value === null) return
+    this.renderer.setProperty(this.inputInteger?.nativeElement, 'value', Math.floor(this._value).toString())
+    this.renderer.setProperty(
+      this.inputFraction?.nativeElement,
       'value',
-      Math
-        .floor((this._value))
-        .toString())
-    this.renderer.setProperty(this.inputFraction?.nativeElement,
-      'value',
-      ((this._value) - Math
-        .floor((this._value)))
-        .toFixed(3)
-        .replace('0.', ''))
+      (this._value - Math.floor(this._value)).toFixed(3).replace('0.', '')
+    )
   }
 
-  checkMaxMin (): void {
-    this.setDisabledState((this._value) > this.max && (this._value) >= this.min)
+  checkMaxMin(): void {
+    if (this._value === null) return
+    this.setDisabledState(this._value > this.max && this._value >= this.min)
   }
 
   /**
    * Calculate the integer part of the fraction
    * @param e
    */
-  writeValueInteger (e: Event): void {
-    (this._value) -= Math.floor(this._value);
-    (this._value) += Math.floor(parseInt((e.target as HTMLInputElement).value))
+  writeValueInteger(e: Event): void {
+    if (this._value !== null) {
+      this._value -= Math.floor(this._value)
+      this._value += Math.floor(parseInt((e.target as HTMLInputElement).value))
+    }
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -256,9 +254,11 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * Calculate the decimal part of the fraction
    * @param e
    */
-  writeValueFraction (e: Event): void {
-    (this._value) -= Math.floor(this._value % 1);
-    (this._value) += parseFloat(`0.${(e.target as HTMLInputElement).value}`)
+  writeValueFraction(e: Event): void {
+    if (this._value !== null) {
+      this._value -= Math.floor(this._value % 1)
+      this._value += parseFloat(`0.${(e.target as HTMLInputElement).value}`)
+    }
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -267,9 +267,9 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * Event triggered by the add integer button,
    * validates the status and starts the flow of the cva
    */
-  addInteger (): void {
-    if ((this._value) < this.max && (this._value) >= this.min) {
-      (this._value) += this.stepInteger
+  addInteger(): void {
+    if (this._value !== null && this._value < this.max && this._value >= this.min) {
+      this._value += this.stepInteger
     }
     this.setInput()
     this.onTouched()
@@ -280,10 +280,10 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * Event triggered by the add decimal button,
    * validates the status and starts the flow of the cva
    */
-  addFraction (): void {
-    if ((this._value) < this.max && (this._value) >= this.min) {
-      const tmp = (this._value) += this.stepFraction
-      this._value = parseFloat((tmp.toFixed(3)))
+  addFraction(): void {
+    if (this._value !== null && this._value < this.max && this._value >= this.min) {
+      const tmp = (this._value += this.stepFraction)
+      this._value = parseFloat(tmp.toFixed(3))
     }
     this.setInput()
     this.onTouched()
@@ -294,9 +294,9 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * Event triggered by the remove integer button,
    * validates the status and starts the flow of the cva
    */
-  removeInteger (): void {
-    if ((this._value) <= this.max && (this._value) > this.min) {
-      (this._value) -= this.stepInteger
+  removeInteger(): void {
+    if (this._value !== null && this._value <= this.max && this._value > this.min) {
+      this._value -= this.stepInteger
     }
     this.setInput()
     this.onTouched()
@@ -307,10 +307,10 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * Event triggered by the add integer button,
    * validates the status and starts the flow of the cva
    */
-  removeFraction (): void {
-    if ((this._value) <= this.max && (this._value) > this.min) {
-      const tmp = (this._value) -= this.stepFraction
-      this._value = parseFloat((tmp.toFixed(3)))
+  removeFraction(): void {
+    if (this._value !== null && this._value <= this.max && this._value > this.min) {
+      const tmp = (this._value -= this.stepFraction)
+      this._value = parseFloat(tmp.toFixed(3))
     }
     this.setInput()
     this.onTouched()
@@ -321,7 +321,7 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  setDisabledState (isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.inputInteger?.nativeElement, 'disabled', isDisabled)
     this.renderer.setProperty(this.inputFraction?.nativeElement, 'disabled', isDisabled)
     this._disabled = isDisabled
@@ -333,21 +333,23 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
-  observeValidate (): void {
-    this.control?.statusChanges?.pipe(
-      delay(0),
-      filter(() => !!this.control.dirty)
-    ).subscribe(() => {
-      if (this.control.invalid && this.errorMessage) {
-        for (const error in this.control.errors) {
-          if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
+  observeValidate(): void {
+    this.control?.statusChanges
+      ?.pipe(
+        delay(0),
+        filter(() => !!this.control.dirty)
+      )
+      .subscribe(() => {
+        if (this.control.invalid && this.errorMessage) {
+          for (const error in this.control.errors) {
+            if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
+              if (this.control.errors[error]) {
+                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+                this._requiredValue = this.control.errors[error].requiredValue
+              }
             }
           }
         }
-      }
-    })
+      })
   }
 }

@@ -1,9 +1,13 @@
 import { Component, ElementRef, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core'
-import { Observable, Subscription } from 'rxjs'
+
 import { Store } from '@ngrx/store'
+import { Observable, Subscription } from 'rxjs'
+
+import { QuangLoaderSelectors } from '../store/selectors'
+
 import { QuangDialogConfig } from '../../dialog.config'
 import { QuangDialogStateModule } from '../../dialog.reducer'
-import { QuangLoaderSelectors } from '../store/selectors'
+
 /**
  * loader component decorator
  */
@@ -35,14 +39,14 @@ export class QuangLoaderComponent implements OnInit, OnDestroy {
   /**
    * wrapper for module configuration
    */
-  configModule: QuangDialogConfig = new QuangDialogConfig(false)
+  configModule?: QuangDialogConfig = new QuangDialogConfig(false)
 
   /**
    * constructor
    * @param store store access
    * @param config module config
    */
-  constructor (
+  constructor(
     private readonly store: Store<QuangDialogStateModule>,
     @Optional() config?: QuangDialogConfig
   ) {
@@ -52,14 +56,14 @@ export class QuangLoaderComponent implements OnInit, OnDestroy {
   /**
    * init observer
    */
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.observeLoader()
   }
 
   /**
    * if we are in a development environment it traces the changes in the loader state
    */
-  observeLoader (): void {
+  observeLoader(): void {
     if (!this.configModule?.production) {
       this.loaderSubscription$ = this.loader$.subscribe((loaderNumber) => {
         this.activeLoader = loaderNumber
@@ -70,7 +74,7 @@ export class QuangLoaderComponent implements OnInit, OnDestroy {
   /**
    * unsubscribe the observable
    */
-  ngOnDestroy (): void {
+  ngOnDestroy(): void {
     if (this.loaderSubscription$) {
       this.loaderSubscription$.unsubscribe()
     }

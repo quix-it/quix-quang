@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core'
-import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects'
+
 import { Store } from '@ngrx/store'
 import { map, mergeMap } from 'rxjs/operators'
 
 import { QuangOpenIdConnectService } from '../../oidc.service'
-import { userLogin } from '../actions/oidc.actions'
+
+import { userLogin, userNotAuthenticated } from '../actions/oidc.actions'
+
+import { Actions, ROOT_EFFECTS_INIT, createEffect, ofType } from '@ngrx/effects'
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +28,7 @@ export class QuangLoginEffects {
               this.quangAuthService.startRefreshToken()
               return userLogin()
             }
+            return userNotAuthenticated()
           })
         )
       )

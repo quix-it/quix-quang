@@ -4,6 +4,8 @@ import { createAction, props } from '@ngrx/store'
  * The user has completed the login procedure
  */
 export const userLogin = createAction('[QUANG AUTH] user login')
+
+export const userNotAuthenticated = createAction('[QUANG AUTH] user not authenticated')
 /**
  * The user asks to log out
  */

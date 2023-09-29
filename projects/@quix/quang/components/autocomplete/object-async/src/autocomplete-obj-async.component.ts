@@ -14,9 +14,11 @@ import {
   ViewChild
 } from '@angular/core'
 import { NgControl } from '@angular/forms'
+
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
 import { Observable, Observer, of } from 'rxjs'
 import { debounceTime, delay, filter, map, switchMap } from 'rxjs/operators'
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
+
 import { QuangAutocompleteAsyncService } from './autocomplete-async.service'
 
 /**
@@ -30,9 +32,7 @@ import { QuangAutocompleteAsyncService } from './autocomplete-async.service'
 /**
  * autocomplete object async component
  */
-export class QuangAutocompleteObjectAsyncComponent
-  implements OnInit, AfterViewInit, OnChanges
-{
+export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewInit, OnChanges {
   /**
    * The label to display on the input field
    */
@@ -130,13 +130,13 @@ export class QuangAutocompleteObjectAsyncComponent
   /**
    * Target object inside the response
    */
-  @Input() targetObject: string = null
+  @Input() targetObject: string | null = null
   /**
    * Defines if position adaptable *default = true
    */
   @Input() adaptivePosition = true
 
-  @Output() onSelectValue: EventEmitter<string> = new EventEmitter<string>()
+  @Output() selectedValue: EventEmitter<string> = new EventEmitter<string>()
   /**
    * The value of the input
    */
@@ -167,6 +167,7 @@ export class QuangAutocompleteObjectAsyncComponent
    */
   @ViewChild('input', { static: true })
   input: ElementRef<HTMLInputElement> | null = null
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -220,9 +221,7 @@ export class QuangAutocompleteObjectAsyncComponent
       map((r) => {
         const targetData = this.targetObject ? r[this.targetObject] : r
         return (targetData || []).filter((s: any) =>
-          s[this.searchBy]
-            .toLowerCase()
-            .includes(this._searchValue.toLowerCase())
+          s[this.searchBy].toLowerCase().includes(this._searchValue.toLowerCase())
         )
       })
     )
@@ -290,12 +289,8 @@ export class QuangAutocompleteObjectAsyncComponent
     this.onTouched()
     this.onChanged(this._value)
     if (this._value) {
-      this.renderer.setProperty(
-        this.input?.nativeElement,
-        'value',
-        e.item[this.searchBy]
-      )
-      this.onSelectValue.emit(e.item[this.searchBy])
+      this.renderer.setProperty(this.input?.nativeElement, 'value', e.item[this.searchBy])
+      this.selectedValue.emit(e.item[this.searchBy])
     }
   }
 
