@@ -1,4 +1,1 @@
-export * from './object'
-export * from './object-async'
-export * from './string'
-export * from './string-async'
+export const QUIX_COMPONENTS_SDK = '@quix/quang/components/autocomplete'

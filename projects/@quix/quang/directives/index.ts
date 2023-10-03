@@ -1,2 +1,1 @@
-export * from './download'
-export * from './image-src'
+export const QUIX_COMPONENTS_SDK = '@quix/quang/directives'

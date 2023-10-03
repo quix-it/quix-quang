@@ -1,2 +1,1 @@
-export * from './editor'
-export * from './view'
+export const QUIX_COMPONENTS_SDK = '@quix/quang/components/wysiwyg'
