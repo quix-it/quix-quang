@@ -28,7 +28,6 @@
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [htmlFor]="id"
-    (click)="changeValue()"
     *ngIf="label"
     class="form-check-label"
   >
