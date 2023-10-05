@@ -69,10 +69,6 @@ export class QuangToggleComponent implements ControlValueAccessor, OnInit, After
    */
   @Input() tabIndex: number = 0
   /**
-   * set default start value in select option
-   */
-  @Input() defaultValue: boolean = false
-  /**
    * set toggle direction. default = column
    */
   @Input() direction: 'row' | 'reverse-row' | 'column' = 'column'
@@ -83,7 +79,7 @@ export class QuangToggleComponent implements ControlValueAccessor, OnInit, After
   /**
    * The value of the input
    */
-  _value: boolean = false
+  _value: boolean | null = null
   /**
    * the status of the success message
    */
@@ -136,10 +132,6 @@ export class QuangToggleComponent implements ControlValueAccessor, OnInit, After
     if (this.successMessage) {
       this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
-    if (this.defaultValue) {
-      this.writeValue(this.defaultValue)
-      this.onChanged(this._value)
-    }
   }
 
   /**
@@ -190,7 +182,7 @@ export class QuangToggleComponent implements ControlValueAccessor, OnInit, After
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
   writeValue(value: any): void {
-    this._value = value
+    this._value = value || null
     if (this.input) this.input.checked = value
   }
 
