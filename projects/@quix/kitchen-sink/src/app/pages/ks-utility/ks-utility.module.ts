@@ -5,7 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 
 import { QuangCardsModule } from '@quix/quang/components/cards'
-import { QuangInputDateModule, QuangInputFileModule, QuangInputTextModule } from '@quix/quang/components/input'
+import { QuangInputDateModule } from '@quix/quang/components/input/date'
+import { QuangInputFileModule } from '@quix/quang/components/input/file'
+import { QuangInputTextModule } from '@quix/quang/components/input/text'
 
 import { SharedModule } from '../../shared/shared.module'
 import { KsUtilityRoutingModule } from './ks-utility-routing.module'

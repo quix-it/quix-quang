@@ -5,7 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 
 import { QuangCardsModule } from '@quix/quang/components/cards'
-import { QuangInputCheckboxModule, QuangInputEmailModule, QuangInputTextModule } from '@quix/quang/components/input'
+import { QuangInputCheckboxModule } from '@quix/quang/components/input/checkbox'
+import { QuangInputEmailModule } from '@quix/quang/components/input/email'
+import { QuangInputTextModule } from '@quix/quang/components/input/text'
 
 import { SharedModule } from '../../shared/shared.module'
 import { TrainingFormRoutingModule } from './training-form-routing.module'

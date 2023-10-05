@@ -5,40 +5,36 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 import { QuillModule } from 'ngx-quill'
 
-import {
-  QuangAutocompleteObjAsyncModule,
-  QuangAutocompleteObjModule,
-  QuangAutocompleteStrgAsyncModule,
-  QuangAutocompleteStrgModule
-} from '@quix/quang/components/autocomplete'
+import { QuangAutocompleteObjModule } from '@quix/quang/components/autocomplete/object'
+import { QuangAutocompleteObjAsyncModule } from '@quix/quang/components/autocomplete/object-async'
+import { QuangAutocompleteStrgModule } from '@quix/quang/components/autocomplete/string'
+import { QuangAutocompleteStrgAsyncModule } from '@quix/quang/components/autocomplete/string-async'
 import { QuangCardsModule } from '@quix/quang/components/cards'
 import { QuangDatalistModule } from '@quix/quang/components/datalist'
-import {
-  QuangInputCheckboxModule,
-  QuangInputColorModule,
-  QuangInputEmailModule,
-  QuangInputFileModule,
-  QuangInputFractionModule,
-  QuangInputNumberModule,
-  QuangInputPasswordModule,
-  QuangInputRadioModule,
-  QuangInputSearchModule,
-  QuangInputTelModule,
-  QuangInputTextModule,
-  QuangInputUrlModule,
-  QuangTextAreaModule
-} from '@quix/quang/components/input'
+import { QuangInputCheckboxModule } from '@quix/quang/components/input/checkbox'
+import { QuangInputColorModule } from '@quix/quang/components/input/color'
+import { QuangInputEmailModule } from '@quix/quang/components/input/email'
+import { QuangInputFileModule } from '@quix/quang/components/input/file'
+import { QuangInputFractionModule } from '@quix/quang/components/input/fraction'
+import { QuangInputNumberModule } from '@quix/quang/components/input/number'
+import { QuangInputPasswordModule } from '@quix/quang/components/input/password'
+import { QuangInputRadioModule } from '@quix/quang/components/input/radio'
+import { QuangInputSearchModule } from '@quix/quang/components/input/search'
+import { QuangInputTelModule } from '@quix/quang/components/input/tel'
+import { QuangInputTextModule } from '@quix/quang/components/input/text'
+import { QuangTextAreaModule } from '@quix/quang/components/input/text-area'
+import { QuangInputUrlModule } from '@quix/quang/components/input/url'
 import { QuangPaginatorModule, QuangPaginatorService } from '@quix/quang/components/paginator'
-import {
-  QuangMultiSelectObjModule,
-  QuangMultiSelectStrgModule,
-  QuangSelectObjModule,
-  QuangSelectStrgModule
-} from '@quix/quang/components/select'
+import { QuangMultiSelectObjModule } from '@quix/quang/components/select/multi-select-obj'
+import { QuangMultiSelectStrgModule } from '@quix/quang/components/select/multi-select-strg'
+import { QuangSelectObjModule } from '@quix/quang/components/select/select-obj'
+import { QuangSelectStrgModule } from '@quix/quang/components/select/select-strg'
 import { QuangSliderModule } from '@quix/quang/components/slider'
 import { QuangToggleModule } from '@quix/quang/components/toggle'
-import { QuangWysiwygEditorModule, QuangWysiwygViewModule } from '@quix/quang/components/wysiwyg'
-import { QuangDownloadModule, QuangImageSrcModule } from '@quix/quang/directives'
+import { QuangWysiwygEditorModule } from '@quix/quang/components/wysiwyg/editor'
+import { QuangWysiwygViewModule } from '@quix/quang/components/wysiwyg/view'
+import { QuangDownloadModule } from '@quix/quang/directives/download'
+import { QuangImageSrcModule } from '@quix/quang/directives/image-src'
 
 import { SharedModule } from '../../shared/shared.module'
 import { KsComponentsRoutingModule } from './ks-components-routing.module'

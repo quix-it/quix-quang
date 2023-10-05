@@ -16,7 +16,9 @@ import SwiperCore, { Pagination } from 'swiper'
 import { SwiperModule } from 'swiper/angular'
 
 import { QuangCardsModule } from '@quix/quang/components/cards'
-import { QuangInputDateModule, QuangInputDateRangeModule, QuangInputNumberModule } from '@quix/quang/components/input'
+import { QuangInputDateModule } from '@quix/quang/components/input/date'
+import { QuangInputDateRangeModule } from '@quix/quang/components/input/date-range'
+import { QuangInputNumberModule } from '@quix/quang/components/input/number'
 
 import { SharedModule } from '../../shared/shared.module'
 import { TrainingLibRoutingModule } from './training-lib-routing.module'

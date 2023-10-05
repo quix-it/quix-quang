@@ -5,12 +5,10 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 
 import { QuangCardsModule } from '@quix/quang/components/cards'
-import {
-  QuangInputDateModule,
-  QuangInputDateRangeModule,
-  QuangInputDateTimeModule,
-  QuangInputTimeModule
-} from '@quix/quang/components/input'
+import { QuangInputDateModule } from '@quix/quang/components/input/date'
+import { QuangInputDateRangeModule } from '@quix/quang/components/input/date-range'
+import { QuangInputDateTimeModule } from '@quix/quang/components/input/date-time'
+import { QuangInputTimeModule } from '@quix/quang/components/input/time'
 
 import { SharedModule } from '../../shared/shared.module'
 import { KsDateRoutingModule } from './ks-date-routing.module'

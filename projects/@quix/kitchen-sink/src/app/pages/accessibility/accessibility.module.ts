@@ -5,13 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
 
 import { QuangCardsModule } from '@quix/quang/components/cards'
-import {
-  QuangInputCheckboxModule,
-  QuangInputDateModule,
-  QuangInputEmailModule,
-  QuangInputTelModule,
-  QuangInputTextModule
-} from '@quix/quang/components/input'
+import { QuangInputCheckboxModule } from '@quix/quang/components/input/checkbox'
+import { QuangInputDateModule } from '@quix/quang/components/input/date'
+import { QuangInputEmailModule } from '@quix/quang/components/input/email'
+import { QuangInputTelModule } from '@quix/quang/components/input/tel'
+import { QuangInputTextModule } from '@quix/quang/components/input/text'
 import { QuangPaginatorModule } from '@quix/quang/components/paginator'
 
 import { SharedModule } from '../../shared/shared.module'

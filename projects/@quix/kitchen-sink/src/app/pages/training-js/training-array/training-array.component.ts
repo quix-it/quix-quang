@@ -244,7 +244,7 @@ export class TrainingArrayComponent implements OnInit {
   demoSort(): void {
     // for
     console.time('for')
-    const tmp = [...this._array]
+    const tmp: any[] = [...this._array]
     for (let i = 0; i < tmp.length; i++) {
       for (let j = 0; j < tmp.length; j++) {
         if (tmp[j].name.localeCompare(tmp[j + 1]?.name, 'it') >= 0) {
@@ -327,7 +327,7 @@ export class TrainingArrayComponent implements OnInit {
   demoMap(): void {
     // for
     console.time('for')
-    const tmp = []
+    const tmp: any[] = []
     for (let i = 0; i < this._array.length; i++) {
       tmp.push({ ...this._array[i], position: i })
     }
@@ -356,7 +356,7 @@ export class TrainingArrayComponent implements OnInit {
     ]
     // for
     console.time('for')
-    const tmp = []
+    const tmp: any[] = []
     for (let i = 0; i < this._array.length; i++) {
       tmp.push(this._array[i])
     }
@@ -378,7 +378,7 @@ export class TrainingArrayComponent implements OnInit {
   demoSlice(): void {
     // for
     console.time('for')
-    const tmp = []
+    const tmp: any[] = []
     for (let i = 0; i < 3; i++) {
       tmp.push(this._array[i])
     }
@@ -393,7 +393,7 @@ export class TrainingArrayComponent implements OnInit {
   demoSplice(): void {
     // for
     console.time('for')
-    const tmp = []
+    const tmp: any[] = []
     for (let i = 0; i < 3; i++) {
       if (i !== 3) {
         tmp.push(this._array[i])
@@ -410,7 +410,7 @@ export class TrainingArrayComponent implements OnInit {
   demoReverse(): void {
     // for
     console.time('for')
-    const tmp = []
+    const tmp: any[] = []
     for (let i = this._array.length - 1; i >= 0; i--) {
       tmp.push(this._array[i])
     }
@@ -425,7 +425,7 @@ export class TrainingArrayComponent implements OnInit {
   demoCopyWithin(): void {
     // for
     console.time('for')
-    const tmp = []
+    const tmp: any[] = []
     for (let i = 0; i < 1; i++) {
       tmp.push(this._array[i])
     }
