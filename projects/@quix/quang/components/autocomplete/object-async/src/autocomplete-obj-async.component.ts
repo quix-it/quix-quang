@@ -161,13 +161,17 @@ export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewI
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
-  suggestions$: Observable<any> | null = null
+  /**
+   * set disable state
+   */
+  _isDisabled: boolean = false
   /**
    * The html input element
    */
   @ViewChild('input', { static: true })
   input: ElementRef<HTMLInputElement> | null = null
 
+  suggestions$: Observable<any> | null = null
   /**
    * Standard definition to create a control value accessor
    */
@@ -320,6 +324,7 @@ export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewI
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
+    this._isDisabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

@@ -139,6 +139,10 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    */
   _searchValue: string = ''
   /**
+   * set disable state
+   */
+  _isDisabled: boolean = false
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true })
@@ -254,6 +258,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
+    this._isDisabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

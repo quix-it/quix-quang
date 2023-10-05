@@ -131,6 +131,10 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
    */
   _requiredValue: any = ''
   /**
+   * set disable state
+   */
+  _isDisabled: boolean = false
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true })
@@ -243,6 +247,7 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
+    this._isDisabled = isDisabled
     this.renderer?.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 
