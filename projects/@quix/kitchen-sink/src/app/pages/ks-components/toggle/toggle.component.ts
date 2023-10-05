@@ -23,6 +23,6 @@ export class ToggleComponent {
   ]
 
   group: FormGroup = new FormGroup({
-    toggle: new FormControl(null, Validators.required)
+    toggle: new FormControl(false, Validators.required)
   })
 }
