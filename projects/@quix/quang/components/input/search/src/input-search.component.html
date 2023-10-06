@@ -3,7 +3,7 @@
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-search'"
     *ngIf="label"
     class="form-label"
   >
@@ -12,9 +12,9 @@
   </label>
   <input
     [attr.aria-autocomplete]="'inline'"
-    [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+    [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-search-help' : ''"
     [attr.aria-disabled]="_disabled"
-    [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+    [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-search-error' : ''"
     [attr.aria-invalid]="control?.invalid && _errorMessage ? true : false"
     [attr.aria-label]="ariaLabel | transloco"
     [attr.aria-placeholder]="placeholder | transloco"
@@ -24,7 +24,8 @@
     [class.form-control-sm]="size === 'sm'"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [id]="id"
+    [disabled]="_disabled"
+    [id]="id + '-search'"
     [maxLength]="max"
     [minLength]="min"
     [ngClass]="customClass"
@@ -45,7 +46,7 @@
     {{ _successMessage | transloco }}
   </div>
   <div
-    [id]="id + '-error'"
+    [id]="id + '-search-error'"
     aria-live="polite"
     class="invalid-feedback"
   >
@@ -53,7 +54,7 @@
   </div>
   <small
     [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
-    [id]="id + '-help'"
+    [id]="id + '-search-help'"
     *ngIf="helpMessage"
     aria-live="assertive"
     class="form-text text-muted"

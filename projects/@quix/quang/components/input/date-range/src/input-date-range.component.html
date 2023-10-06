@@ -3,7 +3,7 @@
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-date-range'"
     *ngIf="label"
     class="form-label"
   >
@@ -24,7 +24,7 @@
       [class.is-invalid]="control.invalid && control?.dirty && errorMessage"
       [class.is-valid]="control.valid && successMessage"
       [datesDisabled]="disabledDates"
-      [id]="id"
+      [id]="id + '-date-range'"
       [isDisabled]="_disabled"
       [maxDate]="maxDate"
       [minDate]="minDate"
@@ -67,7 +67,7 @@
   </div>
   <small
     [hidden]="control?.dirty && ((control.valid && successMessage) || (control.invalid && errorMessage))"
-    [id]="id + 'Help'"
+    [id]="id + '-date-range-help'"
     *ngIf="helpMessage"
     class="form-text text-muted"
   >

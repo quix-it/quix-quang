@@ -145,6 +145,8 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
    */
   onChanged: any = () => {}
 
+  _disabled: boolean = false
+
   /**
    * constructor
    * @param renderer html access
@@ -239,6 +241,7 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
+    this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

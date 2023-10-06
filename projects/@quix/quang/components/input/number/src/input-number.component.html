@@ -3,7 +3,7 @@
     [attr.aria-label]="ariaLabel"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-number'"
     *ngIf="label"
     class="form-label"
   >
@@ -17,7 +17,8 @@
     [class.form-control-sm]="size === 'sm'"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [id]="id"
+    [disabled]="_disabled"
+    [id]="id + '-number'"
     [max]="max"
     [min]="min"
     [ngClass]="customClass"
@@ -43,7 +44,7 @@
   </div>
   <small
     [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
-    [id]="id + 'Help'"
+    [id]="id + '-number-help'"
     *ngIf="helpMessage"
     class="form-text text-muted"
   >

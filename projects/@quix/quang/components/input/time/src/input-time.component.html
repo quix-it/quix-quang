@@ -3,7 +3,7 @@
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-time'"
     *ngIf="label"
     class="form-label"
   >
@@ -18,7 +18,7 @@
     [disabled]="_disabled"
     [hoursPlaceholder]="hoursPlaceholder | transloco"
     [hourStep]="hourStep"
-    [id]="id"
+    [id]="id + '-time'"
     [max]="maxTime"
     [min]="minTime"
     [minutesPlaceholder]="minutesPlaceholder | transloco"
@@ -38,7 +38,7 @@
   ></timepicker>
   <small
     [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
-    [id]="id + 'Help'"
+    [id]="id + '-time-help'"
     *ngIf="helpMessage"
     class="form-text text-muted"
   >

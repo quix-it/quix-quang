@@ -6,7 +6,7 @@
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-file'"
     *ngIf="label"
     class="form-label"
   >
@@ -19,6 +19,7 @@
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [disabled]="_disabled"
     [dropZoneLabel]="_dropMessage | transloco"
+    [id]="id + '-file'"
     [multiple]="multiple"
     (blur)="onTouched()"
     (onFileDrop)="onChangedHandler($event)"
@@ -71,7 +72,7 @@
     {{ _successMessage | transloco }}
   </div>
   <div
-    [id]="id + '-error'"
+    [id]="id + '-file-error'"
     aria-live="polite"
     class="invalid-feedback"
   >
@@ -79,7 +80,7 @@
   </div>
   <small
     [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
-    [id]="id + '-help'"
+    [id]="id + '-file-help'"
     *ngIf="helpMessage"
     aria-live="assertive"
     class="form-text text-muted"

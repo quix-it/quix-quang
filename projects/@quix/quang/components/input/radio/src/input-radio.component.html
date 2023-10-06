@@ -3,7 +3,7 @@
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-radio'"
     *ngIf="label"
     class="form-label"
   >
@@ -18,9 +18,9 @@
     >
       <input
         [attr.aria-checked]="_value === radio[returnValue]"
-        [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+        [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-radio-help' : ''"
         [attr.aria-disabled]="_disabled"
-        [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+        [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-radio-error' : ''"
         [attr.aria-invalid]="control.invalid"
         [attr.aria-labelledby]="label | transloco"
         [autocomplete]="autocomplete"
@@ -28,7 +28,7 @@
         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
         [class.is-valid]="control?.valid && control?.dirty && successMessage"
         [disabled]="_disabled"
-        [id]="id + radio[labelValue]"
+        [id]="id + '-radio-' + radio[labelValue]"
         [name]="groupName"
         [ngClass]="customClass"
         [tabIndex]="0"
@@ -42,7 +42,7 @@
       />
       <label
         [attr.aria-label]="ariaLabel | transloco"
-        [htmlFor]="id + radio[labelValue]"
+        [htmlFor]="id + '-radio-' + radio[labelValue]"
         class="form-check-label"
       >
         {{ radio[labelValue] | transloco }}
@@ -59,7 +59,7 @@
     {{ _successMessage | transloco }}
   </div>
   <div
-    [id]="id + '-error'"
+    [id]="id + '-radio-error'"
     [ngStyle]="{
       display: control?.invalid && control?.dirty && errorMessage ? 'block' : 'none'
     }"
@@ -71,7 +71,7 @@
   <small
     [attr.aria-describedby]="id"
     [hidden]="control?.dirty && ((control.valid && successMessage) || (control.invalid && errorMessage))"
-    [id]="id + '-help'"
+    [id]="id + '-radio-help'"
     *ngIf="helpMessage"
     aria-live="assertive"
     class="form-text text-muted"

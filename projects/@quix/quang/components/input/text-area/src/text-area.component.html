@@ -3,7 +3,7 @@
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-area'"
     *ngIf="label"
     class="form-label"
   >
@@ -18,7 +18,8 @@
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [cols]="cols"
-    [id]="id"
+    [disabled]="_disabled"
+    [id]="id + '-area'"
     [maxLength]="max"
     [minLength]="min"
     [ngClass]="customClass"
@@ -42,7 +43,7 @@
   </div>
 
   <div
-    [id]="id + '-error'"
+    [id]="id + '-area-error'"
     aria-live="polite"
     class="invalid-feedback"
   >
@@ -51,7 +52,7 @@
 
   <small
     [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
-    [id]="id + '-help'"
+    [id]="id + '-area-help'"
     *ngIf="helpMessage"
     aria-live="assertive"
     class="form-text text-muted"

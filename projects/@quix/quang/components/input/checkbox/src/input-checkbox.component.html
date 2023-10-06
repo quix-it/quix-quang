@@ -12,8 +12,8 @@
     [checked]="_value"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [id]="id"
-    [name]="id"
+    [id]="id + '-checkbox'"
+    [name]="id + '-checkbox'"
     [ngClass]="customClass"
     [tabIndex]="tabIndex"
     (blur)="onTouched()"
@@ -27,7 +27,7 @@
     [class.cursor-default]="control.disabled"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-checkbox'"
     *ngIf="label"
     class="form-check-label"
   >
@@ -41,7 +41,7 @@
     {{ _successMessage | transloco }}
   </div>
   <div
-    [id]="id + '-error'"
+    [id]="id + '-checkbox-error'"
     aria-live="polite"
     class="invalid-feedback"
   >
@@ -50,7 +50,7 @@
   <small
     [attr.aria-describedby]="id"
     [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
-    [id]="id + '-help'"
+    [id]="id + '-checkbox-help'"
     *ngIf="helpMessage"
     aria-live="assertive"
     class="form-text text-muted"

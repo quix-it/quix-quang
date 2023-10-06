@@ -3,7 +3,7 @@
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-email'"
     *ngIf="label"
     class="form-label"
   >
@@ -24,7 +24,7 @@
     [class.form-control-sm]="size === 'sm'"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [id]="id"
+    [id]="id + '-email'"
     [maxLength]="max"
     [minLength]="min"
     [ngClass]="customClass"
@@ -53,7 +53,7 @@
   </div>
   <small
     [hidden]="control?.dirty && ((control.valid && successMessage) || (control.invalid && errorMessage))"
-    [id]="id + '-help'"
+    [id]="id + '-email-help'"
     *ngIf="helpMessage"
     aria-live="assertive"
     class="form-text text-muted"

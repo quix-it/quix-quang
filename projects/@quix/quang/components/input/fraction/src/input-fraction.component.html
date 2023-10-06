@@ -3,7 +3,7 @@
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [htmlFor]="id"
+    [htmlFor]="id + '-fraction'"
     *ngIf="label"
     class="form-label"
   >
@@ -32,7 +32,7 @@
       [autocomplete]="autocomplete"
       [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
       [class.is-valid]="control?.valid && control?.dirty && successMessage"
-      [id]="id + 'dec'"
+      [id]="id + '-fraction-dec'"
       [ngClass]="customClass"
       [readOnly]="readonly"
       [step]="stepInteger"
@@ -68,16 +68,17 @@
     </div>
     <input
       [attr.aria-autocomplete]="autocomplete"
-      [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+      [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-fraction-help' : ''"
       [attr.aria-disabled]="_disabled"
-      [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+      [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-fraction-error' : ''"
       [attr.aria-invalid]="control.invalid"
       [attr.aria-label]="ariaLabel | transloco"
       [attr.aria-readonly]="readonly"
       [autocomplete]="autocomplete"
       [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
       [class.is-valid]="control?.valid && control?.dirty && successMessage"
-      [id]="id + 'int'"
+      [disabled]="_disabled || readonly"
+      [id]="id + '-fraction-int'"
       [ngClass]="customClass"
       [readOnly]="readonly"
       [step]="stepFraction"
@@ -113,7 +114,7 @@
   </div>
   <small
     [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
-    [id]="id + '-help'"
+    [id]="id + '-fraction-help'"
     *ngIf="helpMessage"
     aria-live="assertive"
     class="form-text text-muted"

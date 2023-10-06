@@ -139,6 +139,8 @@ export class QuangTextAreaComponent implements ControlValueAccessor, AfterViewIn
    */
   onChanged: any = () => {}
 
+  _disabled: boolean = false
+
   /**
    * The html input element
    */
@@ -241,6 +243,7 @@ export class QuangTextAreaComponent implements ControlValueAccessor, AfterViewIn
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
+    this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 
