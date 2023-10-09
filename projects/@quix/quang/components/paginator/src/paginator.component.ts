@@ -68,7 +68,7 @@ export class QuangPaginatorComponent {
   /**
    * if value true add elements label near pages
    */
-  @Input() showTotalElementsCount: boolean = false
+  @Input() showTotalElementsCount: boolean = true
   /**
    * Raises an event when the page index changes
    */
