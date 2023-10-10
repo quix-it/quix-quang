@@ -1,4 +1,9 @@
-quang-wysiwyg-editor {
+.wysiwyg-editor {
+  .form-control {
+    border: unset !important;
+    padding: unset !important;
+  }
+
   quill-editor {
     .ql-disabled {
       background-color: #f8f8f8;
