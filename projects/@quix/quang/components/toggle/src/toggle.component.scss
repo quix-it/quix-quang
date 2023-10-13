@@ -8,11 +8,15 @@
 
   input {
     margin-left: unset;
+
+    width: 3em;
+    height: 1.5em;
   }
 }
 
 .direction-row {
   flex-direction: row;
+
   .form-label {
     margin-right: 0.5rem;
   }
@@ -21,6 +25,7 @@
 .direction-reverse-row {
   flex-direction: row-reverse;
   justify-content: start;
+
   input {
     margin-right: 0.5rem;
   }
