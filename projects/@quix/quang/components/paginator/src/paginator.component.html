@@ -37,7 +37,7 @@
     </select>
   </div>
   <div class="pagination-label text-center">
-    {{ 'quangPaginator.pageRange' | transloco: { page: _page, amountPages: _totalPages } }}
+    {{ 'quangPaginator.pageRange' | transloco: { page: page, amountPages: _totalPages } }}
   </div>
   <pagination
     [attr.aria-label]="'page index'"
@@ -47,11 +47,11 @@
     [customNextTemplate]="nextTemplate"
     [customPreviousTemplate]="prevTemplate"
     [itemsPerPage]="_pageSize"
+    [ngModel]="page"
     [tabIndex]="isAccessible ? 0 : tabIndex + 1"
     [totalItems]="totalItems"
     (numPages)="getNumPages($event)"
     (pageChanged)="onChangePage($event)"
-    [(ngModel)]="_page"
     #quangPagination
     id="quangPaginator"
   ></pagination>

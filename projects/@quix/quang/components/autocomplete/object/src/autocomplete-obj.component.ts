@@ -82,10 +82,19 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * The key of the value to be searched
    */
   @Input() searchBy: string = ''
+  _dataList: any[] = []
   /**
    * The list of options where to search for the selected one
    */
-  @Input() dataList: any[] = []
+  @Input() set dataList(val: any[]) {
+    this._dataList = val
+    this.writeValue(this._value)
+  }
+
+  get dataList(): any[] {
+    return this._dataList
+  }
+
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -247,6 +256,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * @param value
    */
   writeValue(value: any): void {
+    this._value = value
     if (this.dataList?.find((item) => item[this.returnValue] === value)) {
       this._searchValue = this.dataList?.find((item) => item[this.returnValue] === value)[this.searchBy]
     }

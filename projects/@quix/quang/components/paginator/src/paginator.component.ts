@@ -1,13 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  Renderer2,
-  ViewChild
-} from '@angular/core'
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core'
 
 /**
  * paginator component decorator
@@ -47,21 +38,6 @@ export class QuangPaginatorComponent {
    */
   @Input() sizeList: number[] = []
   /**
-   * Page size
-   */
-  @Input() set pageSize(val: number) {
-    this._pageSize = val
-  }
-
-  get pageSize(): number {
-    return this._pageSize
-  }
-
-  /**
-   * Page index
-   */
-  @Input() pageIndex: number = 1
-  /**
    * if value true set all elements at same tabIndex of quang-paginator (best practise set to 0 for accessibility)
    */
   @Input() isAccessible: boolean = false
@@ -88,11 +64,7 @@ export class QuangPaginatorComponent {
   /**
    * Page index state
    */
-  _page: number = 1
-  /**
-   * page size state
-   */
-  _pageSize: number = 0
+  @Input() page?: number
   /**
    * number of pages
    */
@@ -102,18 +74,31 @@ export class QuangPaginatorComponent {
    * constructor
    * @param renderer html access
    */
-  constructor(
-    private readonly renderer: Renderer2,
-    private readonly changeDetectionRef: ChangeDetectorRef
-  ) {}
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
+
+  /**
+   * page size state
+   */
+  _pageSize: number
+
+  get pageSize(): number {
+    return this._pageSize
+  }
+
+  /**
+   * Page size
+   */
+  @Input() set pageSize(val: number) {
+    this._pageSize = val
+  }
 
   /**
    * When the page index changes, it saves the state and issues the event
    * @param event
    */
   onChangePage(event: { page: number; itemsPerPage: number }): void {
-    this._page = event.page
-    this.whenPageChange.emit(this._page)
+    this.page = event.page
+    this.whenPageChange.emit(this.page)
   }
 
   /**
@@ -123,10 +108,10 @@ export class QuangPaginatorComponent {
   onChangeSize(event: any): void {
     this._pageSize = parseInt(event.target.value)
     this.whenSizeChange.emit(this._pageSize)
-    if (this._page > 1) {
+    if (!this.page || this.page > 1) {
       this.goToFirstPage()
     } else {
-      this.whenPageChange.emit(this._page)
+      this.whenPageChange.emit(this.page)
     }
   }
 
@@ -134,12 +119,12 @@ export class QuangPaginatorComponent {
    * Go to the first page of the pager
    */
   goToFirstPage(): void {
-    this._page = 1
-    this.changeDetectionRef.detectChanges()
+    this.page = 1
+    this.changeDetectorRef.detectChanges()
   }
 
   getNumPages(n: number): void {
     this._totalPages = n
-    this.changeDetectionRef.detectChanges()
+    this.changeDetectorRef.detectChanges()
   }
 }
