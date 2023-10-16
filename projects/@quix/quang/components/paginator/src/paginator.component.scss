@@ -15,7 +15,7 @@
     justify-content: end;
   }
 
-  #pageSize {
+  .page-size {
     display: inline-block;
     margin-bottom: 0.5rem;
     order: 2;
@@ -26,21 +26,25 @@
   }
 }
 
-::ng-deep #quangPaginator {
+::ng-deep .quang-paginator {
   .pagination {
     margin-bottom: 0.5rem;
+
     li {
       &.pagination-page {
         display: none;
       }
+
       &.page-item.disabled .page-link {
         color: #c0ccda;
       }
+
       &.disabled {
         svg {
           opacity: 30%;
         }
       }
+
       .page-link {
         color: #000;
         border-radius: 50%;
@@ -49,13 +53,16 @@
         gap: 1.5rem;
         padding: 0.25rem;
         background-color: transparent;
+
         &:focus {
           box-shadow: none;
           background-color: unset;
         }
+
         &:hover {
           background-color: #eff2f7;
         }
+
         svg {
           vertical-align: bottom;
           width: 30px;
@@ -72,5 +79,6 @@
   color: #0000008a;
   font-size: 0.75rem;
 }
+
 //   }
 // }

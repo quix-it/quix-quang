@@ -19,12 +19,12 @@
     </label>
     <select
       [attr.aria-label]="'page size'"
+      [id]="id + '-quang-page-size'"
       [tabIndex]="tabIndex"
       (change)="onChangeSize($event)"
       #input
       autocomplete="off"
-      class="form-select"
-      id="pageSize"
+      class="form-select page-size"
       name="pageSize"
     >
       <option
@@ -46,6 +46,7 @@
     [customLastTemplate]="lastTemplate"
     [customNextTemplate]="nextTemplate"
     [customPreviousTemplate]="prevTemplate"
+    [id]="id + '-quang-paginator'"
     [itemsPerPage]="_pageSize"
     [ngModel]="page"
     [tabIndex]="isAccessible ? 0 : tabIndex + 1"
@@ -53,7 +54,7 @@
     (numPages)="getNumPages($event)"
     (pageChanged)="onChangePage($event)"
     #quangPagination
-    id="quangPaginator"
+    class="quang-paginator"
   ></pagination>
 </div>
 
