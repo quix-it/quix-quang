@@ -120,7 +120,6 @@ export class QuangPaginatorComponent {
    */
   goToFirstPage(): void {
     this.page = 1
-    this.whenPageChange.emit(this.page)
     this.changeDetectorRef.detectChanges()
   }
 

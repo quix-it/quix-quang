@@ -130,14 +130,6 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
    * Define disabled state
    */
   _disabled: boolean = false
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
 
   /**
    * constructor
@@ -150,6 +142,16 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Create the key for the help and drop message
@@ -191,26 +193,38 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
    * it extracts the data of the selected file and starts the flow of the cva
    * @param files
    */
-  onChangedHandler(files: NgxFileDropEntry[]): void {
-    if (this.multiple) {
-      files.forEach((f) => {
-        if (f.fileEntry.isFile) {
-          const fileEntry = f.fileEntry as FileSystemFileEntry
-          fileEntry.file((file: File) => {
-            this._values = [...this._values, file]
-            this.onChanged(this._values)
+  async onChangedHandler(files: NgxFileDropEntry[]): Promise<void> {
+    const targetCount = files.length
+    await new Promise<void>((resolve) => {
+      if (this.multiple) {
+        let count = files.filter((x) => !x.fileEntry.isFile)?.length ?? 0
+        files.forEach((f) => {
+          if (f.fileEntry.isFile) {
+            const fileEntry = f.fileEntry as FileSystemFileEntry
+            fileEntry.file((file: File) => {
+              count++
+              this._values = [...this._values, file]
+              if (count >= targetCount) {
+                resolve()
+              }
+            })
+          }
+        })
+      } else {
+        const file = files[0]
+        if (file.fileEntry.isFile) {
+          const fileEntry = file.fileEntry as FileSystemFileEntry
+          fileEntry.file((f: File) => {
+            this._value = f
+            resolve()
           })
         }
-      })
-    } else {
-      const file = files[0]
-      if (file.fileEntry.isFile) {
-        const fileEntry = file.fileEntry as FileSystemFileEntry
-        fileEntry.file((f: File) => {
-          this._value = f
-          this.onChanged(this._value)
-        })
       }
+    })
+    if (this.multiple) {
+      this.onChanged(this._values)
+    } else {
+      this.onChanged(this._value)
     }
     this.onTouched()
   }
