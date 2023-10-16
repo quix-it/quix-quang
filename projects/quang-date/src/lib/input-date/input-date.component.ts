@@ -22,13 +22,6 @@ import {
 } from "ngx-bootstrap/datepicker";
 import { delay, filter } from "rxjs/operators";
 
-const defaultConfig = {
-  containerClass: "theme-default",
-  isAnimated: true,
-  adaptivePosition: true,
-  returnFocusToInput: true,
-};
-
 /**
  * input date component decorator
  */
@@ -139,31 +132,14 @@ export class InputDateComponent
    * and how to help the user fill it in
    */
   @Input() autocomplete: string = "off";
-
-  /**
-   * Contains the component configurations
-   */
-  private _config: Partial<BsDatepickerConfig> = defaultConfig;
-
-  public get config(): Partial<BsDatepickerConfig> {
-    return this._config;
-  }
-
-  @Input()
-  public set config(value: Partial<BsDatepickerConfig>) {
-    this._config = { ...defaultConfig, ...value };
-  }
-
   /**
    * The value of the input
    */
   _value: any;
-
   /**
    * the status of the success message
    */
   _successMessage: string = "";
-
   /**
    * the status of the error message
    */
@@ -186,24 +162,12 @@ export class InputDateComponent
   @ViewChild("input", { static: true }) input:
     | ElementRef<HTMLInputElement>
     | undefined;
-
   @ViewChild("inputBtn", { static: true }) inputBtn:
     | ElementRef<HTMLButtonElement>
     | undefined;
-
   @ViewChild("drp", { static: true }) datePicker:
     | BsDatepickerInlineDirective
     | undefined;
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {};
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {};
 
   /**
    * constructor
@@ -220,6 +184,43 @@ export class InputDateComponent
   ) {
     this.control.valueAccessor = this;
   }
+
+  /**
+   * Contains the component configurations
+   */
+  private _config: Partial<BsDatepickerConfig> = {
+    containerClass: "theme-default",
+    isAnimated: true,
+    adaptivePosition: true,
+    returnFocusToInput: true,
+  };
+
+  public get config(): Partial<BsDatepickerConfig> {
+    return this._config;
+  }
+
+  @Input()
+  public set config(value: Partial<BsDatepickerConfig>) {
+    this._config = {
+      ...{
+        containerClass: "theme-default",
+        isAnimated: true,
+        adaptivePosition: true,
+        returnFocusToInput: true,
+      },
+      ...value,
+    };
+  }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {};
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {};
 
   /**
    * init locale
@@ -294,8 +295,12 @@ export class InputDateComponent
     } else if (this.returnISODate) {
       this.onChanged(date);
     } else {
-      this.onChanged(format(date, "dd-MM-yyyy"));
+      this.onChanged(format(date, this.fixedDateFnsFormat(this.dateFormat)));
     }
+  }
+
+  fixedDateFnsFormat(date: string): string {
+    return date.replace("DD", "dd").replace("YYYY", "yyyy");
   }
 
   /**
@@ -312,7 +317,9 @@ export class InputDateComponent
       this.renderer.setProperty(
         this.input.nativeElement,
         "value",
-        value ? format(this._value, "dd-MM-yyyy") : value
+        this._value
+          ? format(this._value, this.fixedDateFnsFormat(this.dateFormat))
+          : this._value
       );
   }
 
@@ -356,12 +363,12 @@ export class InputDateComponent
                 if (this.dateFormat) {
                   this._requiredValue = format(
                     new Date(this.control.errors.dateBetween.requiredValue[0]),
-                    this.dateFormat
+                    this.fixedDateFnsFormat(this.dateFormat)
                   );
                   this._requiredValue += " - ";
                   this._requiredValue += format(
                     new Date(this.control.errors.dateBetween.requiredValue[1]),
-                    this.dateFormat
+                    this.fixedDateFnsFormat(this.dateFormat)
                   );
                 } else {
                   this._requiredValue =
