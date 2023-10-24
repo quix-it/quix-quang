@@ -289,9 +289,6 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
     } else {
       this._value = value
     }
-    if (this._value) {
-      console.log('input date writeValue', this._value, format(this._value, this.fixedDateFnsFormat(this.dateFormat)))
-    }
     if (this.input) {
       this.renderer.setProperty(
         this.input.nativeElement,
