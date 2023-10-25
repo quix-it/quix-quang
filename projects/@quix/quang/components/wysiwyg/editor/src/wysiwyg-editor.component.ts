@@ -88,7 +88,7 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
   /**
    * Defines whether the return value of the field must be in text or html format
    */
-  @Input() returnHtml: boolean = false
+  @Input() returnHtml: boolean = true
   /**
    * Lists toolbar
    */
@@ -192,16 +192,6 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
   modules: Record<string, any> = {}
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * constructor
    * @param renderer html access
    * @param elementRef
@@ -214,6 +204,16 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
