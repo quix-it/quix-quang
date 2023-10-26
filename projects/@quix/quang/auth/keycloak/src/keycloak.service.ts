@@ -23,10 +23,6 @@ export class QuangKeycloakService {
    * keycloak wrapper configuration
    */
   public authConfig: KeycloakOptions
-  /**
-   * window access
-   */
-  _window = (): any => window
 
   /**
    * constructor
@@ -53,6 +49,11 @@ export class QuangKeycloakService {
   }
 
   /**
+   * window access
+   */
+  _window = (): any => window
+
+  /**
    * starts the authentication flow
    */
   startAuth(): Observable<boolean> {
@@ -70,6 +71,8 @@ export class QuangKeycloakService {
     from(this.keyCloak.init(this.authConfig)).subscribe((isAuthenticated) => {
       if (isAuthenticated) {
         this.store.dispatch(QuangKeycloakActions.userLogin())
+      } else {
+        this.store.dispatch(QuangKeycloakActions.userNotLogin())
       }
     })
   }
@@ -107,8 +110,8 @@ export class QuangKeycloakService {
   /**
    * Login method, to be used if you are not using the authentication flow with effects
    */
-  login(): Observable<void> {
-    return from(this.keyCloak.login())
+  login(redirectUri?: string): Observable<void> {
+    return from(this.keyCloak.login({ redirectUri }))
   }
 
   /**

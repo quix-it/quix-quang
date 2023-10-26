@@ -118,7 +118,6 @@ export class QuangEventBusService {
    */
   private onOpen(): void {
     this.eb.onopen = () => {
-      console.log('Socket opened')
       this.bus.next('socketInit')
       this.onMessage()
     }

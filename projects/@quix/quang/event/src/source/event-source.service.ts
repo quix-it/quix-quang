@@ -14,14 +14,14 @@ import { Subject } from 'rxjs'
  */
 export class QuangEventSourceService {
   /**
+   * the subject that outputs the returned values
+   */
+  events = new Subject<any>()
+  /**
    * event source wrapper
    * @private
    */
   private evs: EventSource
-  /**
-   * the subject that outputs the returned values
-   */
-  events = new Subject<any>()
 
   /**
    * method to initialize and observe the eventSource message
@@ -58,6 +58,14 @@ export class QuangEventSourceService {
   }
 
   /**
+   * close the event source channel
+   */
+  closeEventSource(): void {
+    this.events.complete()
+    this.evs.close()
+  }
+
+  /**
    * management of the channel opening event,
    * logs that the anal has been opened and sends in the observable that the channel has been opened
    * @private
@@ -65,7 +73,6 @@ export class QuangEventSourceService {
   private onOpen(): void {
     this.evs.onopen = () => {
       this.events.next('eventSourceInit')
-      console.log('EventSource link opened')
     }
   }
 
@@ -94,13 +101,5 @@ export class QuangEventSourceService {
       this.events.error(e)
       console.error(e)
     }
-  }
-
-  /**
-   * close the event source channel
-   */
-  closeEventSource(): void {
-    this.events.complete()
-    this.evs.close()
   }
 }

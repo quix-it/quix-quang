@@ -17,7 +17,7 @@ export interface QuangKeycloakUserState {
   /**
    * define is user is authenticated
    */
-  isAuthenticated: boolean
+  isAuthenticated: boolean | null
   /**
    * define user data
    */
@@ -27,11 +27,12 @@ export interface QuangKeycloakUserState {
    */
   roles: any[]
 }
+
 /**
  * initial state of authentication store
  */
 const initialValue: QuangKeycloakUserState = {
-  isAuthenticated: false,
+  isAuthenticated: null,
   user: null,
   roles: []
 }
@@ -48,6 +49,7 @@ const reducer = createReducer(
   on(userRolesLogin, (state, action) => ({ ...state, roles: action.roles })),
   on(userRolesLogout, (state) => ({ ...state, roles: [] }))
 )
+
 /**
  * defines the name of the state reducer
  */

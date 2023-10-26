@@ -8,7 +8,7 @@ import { selectQuangKeycloak } from '../../keycloak-module.selectors'
  */
 export const selectIsAuthenticated = createSelector(
   selectQuangKeycloak,
-  (state: QuangKeycloakState): boolean => state?.quangKeycloakUserState?.isAuthenticated
+  (state: QuangKeycloakState): boolean | null => state?.quangKeycloakUserState?.isAuthenticated
 )
 /**
  * Selector to retrieve the status of the user data
