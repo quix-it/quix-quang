@@ -23,7 +23,7 @@
     [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
     [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
     [attr.aria-label]="'ariaLabel' | transloco"
-    [attr.checked]="_value"
+    [checked]="_value"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
     [disabled]="_disabled"
