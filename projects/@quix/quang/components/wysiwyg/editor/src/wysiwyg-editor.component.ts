@@ -187,6 +187,10 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
    */
   _toolbar: any[] = []
   /**
+   * Define disabled state
+   */
+  _disabled: boolean = false
+  /**
    * The status of the modules
    */
   modules: Record<string, any> = {}
@@ -338,6 +342,7 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
    */
   setDisabledState(isDisabled: boolean): void {
     this.input?.setDisabledState(isDisabled)
+    this._disabled = isDisabled
   }
 
   /**

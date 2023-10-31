@@ -11,8 +11,10 @@
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
   <quill-editor
+    [attr.aria-disabled]="_disabled"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [disabled]="_disabled"
     [format]="returnHtml ? 'html' : 'text'"
     [id]="id + '-wysiwyg-editor'"
     [maxLength]="max"
