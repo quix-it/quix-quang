@@ -22,4 +22,12 @@ export class TextEditorComponent {
       Validators.maxLength(500)
     ])
   })
+
+  groupHtmlView: FormGroup = new FormGroup({
+    text: new FormControl('<p><strong style="color: rgb(0, 0, 200);"><em><u>Provaaaaaa</u></em></strong></p>', [
+      Validators.required,
+      Validators.minLength(0),
+      Validators.maxLength(500)
+    ])
+  })
 }

@@ -104,7 +104,7 @@
     "code": "groupResize: FormGroup = new FormGroup({\n    text: new FormControl(\n      '',\n      [Validators.required, Validators.minLength(0), Validators.maxLength(500)]\n    )\n})"
   },
   "texteditor": {
-    "html": "",
+    "html": "<form [formGroup]=\"group\"> \n<quang-wysiwyg-editor \n[autofocus]=\"true\" \n[errorMessage]=\"true\" \n[formName]=\"'form'\" \n[helpMessage]=\"true\" \n[id]=\"'texteditor id'\" \n[label]=\"'form.texteditor.label'\" \n[max]=\"500\" \n[min]=\"0\" \n[placeholder]=\"'form.texteditor.ph'\" \n[successMessage]=\"true\" \n[tabIndex]=\"2\" \nformControlName=\"text\" \n></quang-wysiwyg-editor></form>",
     "code": "group: FormGroup = new FormGroup({\n    text: new FormControl(\n      '',\n      [Validators.required, Validators.minLength(0), Validators.maxLength(500)]\n    )\n})"
   },
   "texteditor-bars": {

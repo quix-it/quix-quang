@@ -146,4 +146,55 @@
       </quang-card-header>
     </div>
   </div>
+
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Formato HTML con View</h3>
+        <div cardBody>
+          <form [formGroup]="groupHtmlView">
+            <quang-wysiwyg-editor
+              [alignBar]="true"
+              [emojiBar]="true"
+              [errorMessage]="true"
+              [fontBar]="true"
+              [formName]="'form'"
+              [headerBar]="true"
+              [helpMessage]="true"
+              [id]="'texteditor-html id'"
+              [indentBar]="true"
+              [label]="'form.texteditor.label'"
+              [listBar]="true"
+              [max]="500"
+              [mediaBar]="true"
+              [min]="0"
+              [placeholder]="'form.texteditor.ph'"
+              [returnHtml]="false"
+              [sizeBar]="true"
+              [successMessage]="true"
+              [tabIndex]="3"
+              [textStyleBar]="true"
+              [textTypeBar]="true"
+              formControlName="text"
+            ></quang-wysiwyg-editor>
+          </form>
+          <dl>
+            <quang-wysiwyg-view
+              [html]="groupHtmlView.controls.text.value"
+              label="Value:"
+            ></quang-wysiwyg-view>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.texteditor-html.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.texteditor-html.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
 </section>

@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core'
-import { SafeHtml } from '@angular/platform-browser'
 
 @Component({
   selector: 'quang-wysiwyg-view',
@@ -7,5 +6,6 @@ import { SafeHtml } from '@angular/platform-browser'
   styleUrls: ['./wysiwyg-view.component.scss']
 })
 export class QuangWysiwygViewComponent {
-  @Input() html: SafeHtml | undefined
+  @Input() html: string
+  @Input() label: string
 }

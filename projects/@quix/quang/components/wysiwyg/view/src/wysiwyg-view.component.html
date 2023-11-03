@@ -1,6 +1,14 @@
-<div class="ql-container ql-snow">
-  <div
-    [innerHTML]="html"
-    class="ql-editor"
-  ></div>
+<div class="mb-3">
+  <label
+    [attr.aria-label]="label"
+    *ngIf="label"
+    class="form-label m-0"
+  >
+    {{ label | transloco }}
+  </label>
+  <quill-view-html
+    [content]="html"
+    class="ql-snow"
+  >
+  </quill-view-html>
 </div>
