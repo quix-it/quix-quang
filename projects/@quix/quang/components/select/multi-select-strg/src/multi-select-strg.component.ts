@@ -21,7 +21,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-multi-select-strg',
   templateUrl: './multi-select-strg.component.html',
-  styleUrls: ['./multi-select-strg.component.scss']
+  styleUrls: ['../../multi-select-base/multi-select-base.scss']
 })
 /**
  * multi select string component
@@ -61,10 +61,6 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    * Number of visible options
    */
   @Input() rowVisible: number = 0
-  /**
-   * the list of selectable options
-   */
-  @Input() list: string[] = []
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -119,7 +115,6 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    * set disable state
    */
   _disabled: boolean = false
-
   /**
    * The html input element
    */
@@ -135,6 +130,25 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
     @Self() @Optional() public control: NgControl
   ) {
     this.control.valueAccessor = this
+  }
+
+  _list: string[] = []
+
+  get list(): string[] {
+    return this._list
+  }
+
+  /**
+   * the list of selectable options
+   */
+  @Input() set list(data: string[]) {
+    if (data && this._list.toString() !== data.toString()) {
+      this._list = data
+      this._value = []
+      this.control.control?.getRawValue()?.forEach((x: any) => {
+        this.onSelectItem(x)
+      })
+    }
   }
 
   /**

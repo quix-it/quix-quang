@@ -35,6 +35,7 @@
       <ul class="m-0 p-0">
         <li
           [class.m-0]="last"
+          (click)="onSelectItem(item)"
           *ngFor="let item of list; let i = index; let last = last"
           class="item"
         >
@@ -49,14 +50,12 @@
             [ngClass]="customClass"
             [tabIndex]="tabIndex"
             (blur)="onTouched()"
-            (input)="onSelectItem(item)"
             #inputCheckbox
             class="form-check-input checkbox"
             type="checkbox"
           />
           <label
             [attr.aria-label]="ariaLabel | transloco"
-            [htmlFor]="item + '-checkbox'"
             *ngIf="label"
             class="form-check-label checkbox-label ms-3 w-100"
           >

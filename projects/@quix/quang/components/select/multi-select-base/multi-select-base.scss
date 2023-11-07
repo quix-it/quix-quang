@@ -12,6 +12,7 @@ button {
 .option-list {
   width: 100%;
   height: fit-content;
+
   .item {
     list-style-type: none;
     margin-bottom: 0.25rem !important;
@@ -19,18 +20,23 @@ button {
     align-items: center;
     padding: 0.3rem 1rem;
     height: 100%;
+
     .checkbox-label {
       vertical-align: bottom;
+
       &:hover {
         cursor: pointer;
       }
     }
+
     .checkbox {
       width: 20px;
       height: 18px;
       min-height: unset;
       margin: 0;
+      pointer-events: none;
     }
+
     &:hover {
       cursor: pointer;
       background-color: #f0f0f0;
@@ -51,6 +57,7 @@ button {
     max-width: unset;
     margin-top: 0 !important;
   }
+
   .popover-content {
     width: 100%;
     max-height: 200px;

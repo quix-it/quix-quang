@@ -21,7 +21,7 @@ import { delay, filter } from 'rxjs/operators'
 @Component({
   selector: 'quang-multi-select-obj',
   templateUrl: './multi-select-obj.component.html',
-  styleUrls: ['./multi-select-obj.component.scss']
+  styleUrls: ['../../multi-select-base/multi-select-base.scss']
 })
 /**
  * multi elect object component
@@ -57,10 +57,6 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * this input field should be displayed in a focused state or not
    */
   @Input() autofocus: boolean = false
-  /**
-   * the list of selectable options
-   */
-  @Input() list: Array<Record<string, any>> = []
   /**
    * Defines if the option labels are to be translated
    */
@@ -127,20 +123,10 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * disabled state
    */
   _disabled: boolean = false
-
   /**
    * The html inp ut element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
-  /**
-   * Standard definition to create a cont rol value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
 
   /**
    * constructor
@@ -153,6 +139,35 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   ) {
     this.control.valueAccessor = this
   }
+
+  _list: Array<Record<string, any>> = []
+
+  get list(): Array<Record<string, any>> {
+    return this._list
+  }
+
+  /**
+   * the list of selectable options
+   */
+  @Input() set list(data: Array<Record<string, any>>) {
+    if (data && this._list.toString() !== data.toString()) {
+      this._list = data
+      this._value = []
+      this.control.control?.getRawValue()?.forEach((x: any) => {
+        this.onSelectItem(x)
+      })
+    }
+  }
+
+  /**
+   * Standard definition to create a cont rol value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
