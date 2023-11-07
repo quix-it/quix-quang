@@ -6,12 +6,10 @@ import {
   OnChanges,
   OnInit,
   Optional,
-  QueryList,
   Renderer2,
   Self,
   SimpleChanges,
-  ViewChild,
-  ViewChildren
+  ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
@@ -100,7 +98,7 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
   /**
    * The value of the input
    */
-  _value: string[] = []
+  _value: any[] = []
   /**
    * the status of the success message
    */
@@ -118,10 +116,14 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    */
   _requiredValue: any = ''
   /**
+   * set disable state
+   */
+  _disabled: boolean = false
+
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
-  @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>> | undefined
 
   /**
    * constructor
@@ -199,12 +201,35 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    * its value is retrieved from the html element and the status change is signaled to the form
    * @param e
    */
-  onChangedHandler(e: Event): void {
-    if (this.options) {
-      this._value = this.options.filter((o) => o.nativeElement.selected).map((o) => o.nativeElement.value)
+  onChangedHandler(): void {
+    this.onChanged(this._value.map((x) => x))
+  }
+
+  onSelectItem(itemCode: string | number): void {
+    if (itemCode) {
+      const listItem = this.list.find((x) => x === itemCode)
+      if (listItem) {
+        if (this._value?.includes(listItem)) {
+          this._value = this._value?.filter((x) => x !== listItem)
+        } else {
+          this._value?.push(listItem)
+        }
+        if (this._value?.length > 1) {
+          const valueMap = new Map()
+          this.list.forEach((x, i) => {
+            valueMap.set(x, i)
+          })
+          this._value?.sort((a, b) => {
+            return valueMap.get(a) - valueMap.get(b)
+          })
+        }
+        this.onChangedHandler()
+      }
     }
-    this.onTouched()
-    this.onChanged(this._value)
+  }
+
+  getSelected(item: any): boolean {
+    return !!this._value?.includes(item)
   }
 
   /**
@@ -212,7 +237,11 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
   writeValue(value: any): void {
-    this._value = value
+    if (value) {
+      value.forEach((x) => {
+        this.onSelectItem(x)
+      })
+    }
     this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
 
@@ -222,6 +251,7 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    */
   setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
+    this._disabled = isDisabled || this.readonly
   }
 
   /**

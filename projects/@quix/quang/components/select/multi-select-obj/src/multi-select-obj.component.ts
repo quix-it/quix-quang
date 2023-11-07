@@ -100,7 +100,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    */
   @Input() size: 'lg' | 'sm' | null = null
   /**
-   * Defines whether the input field is in a read-only state
+   * Defines whether the input field is in a read-only stat e
    */
   @Input() readonly: boolean = false
   /**
@@ -108,19 +108,19 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    */
   _value: any[] = []
   /**
-   * the status of the success message
+   * the sta tus of the success message
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
+   * th e status of the error message
    */
   _errorMessage: string = ''
   /**
-   * the status of the help message
+   * the status of the help mess age
    */
   _helpMessage: string = ''
   /**
-   * Contains the value required by a validation when it fails
+   * Contains t he value required by a validation whe n it fails
    */
   _requiredValue: any = ''
   /**
@@ -129,13 +129,11 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   _disabled: boolean = false
 
   /**
-   * The html input element
+   * The html inp ut element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
-<<<<<<< HEAD
-  // @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>> | undefined // TODO CHECK
   /**
-   * Standard definition to create a control value accessor
+   * Standard definition to create a cont rol value accessor
    */
   onTouched: any = () => {}
 
@@ -143,13 +141,10 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * Standard definition to create a control value accessor
    */
   onChanged: any = () => {}
-=======
-  @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>> | undefined
->>>>>>> c041af82a37c8154d2b35c7c92cdbaa0af5a6dc7
 
   /**
    * constructor
-   * @param renderer html access
+   * @param renderer html ac cess
    * @param control cva access
    */
   constructor(
@@ -160,21 +155,11 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   }
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * Check if the help message is required and create the key
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.control?.name}.h elp`
     }
     if (this.successMessage) {
       this._successMessage = `${this.formName}.${this.control?.name}.valid`
@@ -183,7 +168,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
 
   /**
    * After rendering the component, it checks if the input field must have focus
-   * and activates the monitoring of the validation of the entered values
+   * and activates the monitoring of the validation of the entered val ues
    */
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -195,8 +180,8 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   }
 
   /**
-   * Add focus to the input field if the need comes after component initialization
-   * @param changes component changes
+   * Add focus t o the input field if the need comes after component initialization
+   *  @param changes component changes
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.autofocus?.currentValue && this.input) {
@@ -205,7 +190,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   }
 
   /**
-   * Standard definition to create a control value accessor
+   * Standard definition to create a  control value accessor
    */
   registerOnTouched(fn: any): void {
     this.onTouched = fn
@@ -229,7 +214,6 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   /**
    * add/remove items from list
    * @param item
-   * @param i
    */
   onSelectItem(itemCode: string | number): void {
     if (itemCode) {
@@ -240,7 +224,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
         } else {
           this._value?.push(listItem)
         }
-        if (this._value?.length > 0) {
+        if (this._value?.length > 1) {
           const valueMap = new Map()
           this.list.forEach((x, i) => {
             valueMap.set(x[this.returnValue], i)
@@ -260,11 +244,10 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
 
   /**
    * Standard definition to create a control value accessor
-   * When the value of the input field from the form is set, the value of the input html tag is changed
+   * When the value of the input field from the form is set, the value of the input html tag is cha nged
    */
   writeValue(value: any): void {
     if (value) {
-      // this._value = this.list?.filter((x) => value?.some((y) => y === x[this.returnValue]))
       value.forEach((x) => {
         this.onSelectItem(x)
       })
@@ -274,15 +257,11 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
 
   /**
    * Standard definition to create a control value accessor
-   * When the input field from the form is disabled, the html input tag is defined as disabled
+   * When the input field from the form is disabled, the html input tag is de fined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-<<<<<<< HEAD
-    this._disabled = isDisabled
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
-=======
+    this._disabled = isDisabled || this.readonly
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
->>>>>>> c041af82a37c8154d2b35c7c92cdbaa0af5a6dc7
   }
 
   /**
