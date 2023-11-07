@@ -73,6 +73,10 @@ export class QuangToggleComponent implements ControlValueAccessor, OnInit, After
    */
   @Input() direction: 'row' | 'reverse-row' | 'column' = 'column'
   /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: HTMLInputElement | undefined
@@ -100,15 +104,6 @@ export class QuangToggleComponent implements ControlValueAccessor, OnInit, After
    * the status of disable
    */
   _disabled: boolean = false
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
 
   /**
    * constructor
@@ -121,6 +116,16 @@ export class QuangToggleComponent implements ControlValueAccessor, OnInit, After
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * create the key for the help message
@@ -191,8 +196,8 @@ export class QuangToggleComponent implements ControlValueAccessor, OnInit, After
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this._disabled = isDisabled
-    this.renderer.setProperty(this.input, 'disabled', isDisabled)
+    this._disabled = isDisabled || this.readonly
+    this.renderer.setProperty(this.input, 'disabled', isDisabled || this.readonly)
   }
 
   /**

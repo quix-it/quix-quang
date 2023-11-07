@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Optional, Self, ViewChild } from '@angular/core'
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Optional,
+  Renderer2,
+  Self,
+  ViewChild
+} from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { delay, filter } from 'rxjs/operators'
@@ -73,6 +83,10 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    * Disable element
    */
   @Input() disabled: boolean = false
+  /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
 
   /**
    * The value of the input
@@ -98,6 +112,18 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
+
+  /**
+   * constructor
+   * @param control cva access
+   */
+  constructor(
+    @Self() @Optional() public control: NgControl,
+    private readonly renderer: Renderer2
+  ) {
+    this.control.valueAccessor = this
+  }
+
   /**
    * Standard definition to create a control value accessor
    */
@@ -107,14 +133,6 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    * Standard definition to create a control value accessor
    */
   onChanged: any = () => {}
-
-  /**
-   * constructor
-   * @param control cva access
-   */
-  constructor(@Self() @Optional() public control: NgControl) {
-    this.control.valueAccessor = this
-  }
 
   /**
    * Check if the help message is required and create the key
@@ -173,9 +191,9 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    * Standard definition to create a control value accessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
-  // setDisabledState (isDisabled: boolean): void {
-  //   this.input?.nativeElement.setDisabledState(isDisabled)
-  // }
+  setDisabledState(isDisabled: boolean): void {
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
+  }
 
   /**
    * When the input field changes,

@@ -73,6 +73,10 @@ export class DatalistComponent implements ControlValueAccessor, AfterViewInit, O
    */
   @Input() tabIndex: number = 0
   /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
+  /**
    * Adds bootstrap classes to the input that define the size of the field,
    * if not specified the field is displayed with standard size
    */
@@ -106,15 +110,6 @@ export class DatalistComponent implements ControlValueAccessor, AfterViewInit, O
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
 
   /**
    * constructor
@@ -127,6 +122,16 @@ export class DatalistComponent implements ControlValueAccessor, AfterViewInit, O
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
@@ -208,7 +213,7 @@ export class DatalistComponent implements ControlValueAccessor, AfterViewInit, O
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**

@@ -91,6 +91,10 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
    * set default start value in select option
    */
   @Input() defaultValue: string = ''
+  /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
 
   /**
    * The value of the input
@@ -116,15 +120,6 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
 
   /**
    * constructor
@@ -137,6 +132,16 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
@@ -225,7 +230,7 @@ export class SelectStrgComponent implements ControlValueAccessor, AfterViewInit,
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**

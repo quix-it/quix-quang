@@ -130,16 +130,6 @@ export class QuangInputUrlComponent implements OnInit, OnChanges, AfterViewInit 
    */
   _disabled: boolean = false
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * The html input element
    */
   @ViewChild('input', { static: true })
@@ -156,6 +146,16 @@ export class QuangInputUrlComponent implements OnInit, OnChanges, AfterViewInit 
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * create the key for the help message
@@ -234,8 +234,8 @@ export class QuangInputUrlComponent implements OnInit, OnChanges, AfterViewInit 
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this._disabled = isDisabled
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this._disabled = isDisabled || this.readonly
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**

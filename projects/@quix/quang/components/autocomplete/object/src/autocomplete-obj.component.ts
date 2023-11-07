@@ -82,19 +82,6 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * The key of the value to be searched
    */
   @Input() searchBy: string = ''
-  _dataList: any[] = []
-  /**
-   * The list of options where to search for the selected one
-   */
-  @Input() set dataList(val: any[]) {
-    this._dataList = val
-    this.writeValue(this._value)
-  }
-
-  get dataList(): any[] {
-    return this._dataList
-  }
-
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -122,7 +109,6 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * Defines if position adaptable *default = true
    */
   @Input() adaptivePosition = true
-
   /**
    * The value of the input
    */
@@ -158,16 +144,6 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   input: ElementRef<HTMLInputElement> | null = null
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * constructor
    * @param renderer html access
    * @param control cva access
@@ -178,6 +154,30 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   ) {
     this.control.valueAccessor = this
   }
+
+  _dataList: any[] = []
+
+  get dataList(): any[] {
+    return this._dataList
+  }
+
+  /**
+   * The list of options where to search for the selected one
+   */
+  @Input() set dataList(val: any[]) {
+    this._dataList = val
+    this.writeValue(this._value)
+  }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
@@ -268,7 +268,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this._isDisabled = isDisabled
+    this._isDisabled = isDisabled || this.readonly
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

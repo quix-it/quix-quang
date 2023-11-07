@@ -131,15 +131,6 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
    */
   _disabled: boolean = false
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched() {}
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged(value: string) {}
-
-  /**
    * The html input element
    */
   @ViewChild('input', { static: true })
@@ -156,6 +147,16 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched() {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged(value: string) {}
 
   /**
    * Check if the help message is required and create the key
@@ -235,7 +236,7 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
     this._disabled = isDisabled
   }
 

@@ -136,15 +136,6 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
   @ViewChild('input', { static: true })
   input: ElementRef<HTMLInputElement> | null = null
 
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
   _disabled: boolean = false
 
   /**
@@ -158,6 +149,16 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * create the key for the help message
@@ -242,7 +243,7 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
    */
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**

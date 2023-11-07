@@ -141,16 +141,6 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
   input: ElementRef<HTMLInputElement> | null = null
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * constructor
    * @param renderer html access
    * @param control cva access
@@ -161,6 +151,16 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
@@ -247,7 +247,7 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this._isDisabled = isDisabled
+    this._isDisabled = isDisabled || this.readonly
     this.renderer?.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

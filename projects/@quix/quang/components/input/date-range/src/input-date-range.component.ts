@@ -130,6 +130,10 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
    */
   @Input() autocomplete: string = 'off'
   /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
+  /**
    * Contains the component configurations
    */
   config: Partial<BsDatepickerConfig> | undefined = undefined
@@ -165,16 +169,6 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
   @ViewChild('input', { static: true }) inputBtn: ElementRef<HTMLButtonElement> | undefined
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * constructor
    * @param locale
    * @param control cva access
@@ -190,6 +184,16 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    *  init locale
@@ -312,8 +316,8 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
-    this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
+    this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled || this.readonly)
     this._disabled = isDisabled
   }
 

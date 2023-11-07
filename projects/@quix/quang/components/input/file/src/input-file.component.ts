@@ -83,6 +83,10 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
    */
   @Input() acceptFileType: string = ''
   /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
+  /**
    * Event that emits when the file being dragged is above the input field
    */
   @Output() whenDragOver: EventEmitter<any> = new EventEmitter<any>()
@@ -251,7 +255,7 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this._disabled = isDisabled
+    this._disabled = isDisabled || this.readonly
   }
 
   /**

@@ -123,6 +123,10 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
    */
   @Input() allowEmptyTime: boolean = true
   /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
+  /**
    * The value of the input
    */
   _value: any
@@ -152,16 +156,6 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
   @ViewChild('input', { static: true }) input: TimepickerComponent | undefined
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * constructor
    * @param renderer html access
    * @param localeService locale utility
@@ -176,6 +170,16 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * init locale
@@ -241,7 +245,7 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this._disabled = isDisabled
+    this._disabled = isDisabled || this.readonly
   }
 
   /**
