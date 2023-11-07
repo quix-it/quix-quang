@@ -6,12 +6,10 @@ import {
   OnChanges,
   OnInit,
   Optional,
-  QueryList,
   Renderer2,
   Self,
   SimpleChanges,
-  ViewChild,
-  ViewChildren
+  ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
@@ -104,7 +102,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   /**
    * The value of the input
    */
-  _value: string[] = []
+  _value: any[] = []
   /**
    * the status of the success message
    */
@@ -121,12 +119,16 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
+  /**
+   * disabled state
+   */
+  _disabled: boolean = false
 
   /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
-  @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>> | undefined
+  // @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>> | undefined // TODO CHECK
   /**
    * Standard definition to create a control value accessor
    */
@@ -201,16 +203,41 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   /**
    * When the input changes,
    * its value is retrieved from the html element and the status change is signaled to the form
-   * @param e
    */
-  onChangedHandler(e: Event): void {
-    if (this.options) {
-      this._value = this.options
-        .filter((o) => o.nativeElement.selected)
-        .map((o) => this.list[o.nativeElement.index - 1][this.returnValue])
+  onChangedHandler(): void {
+    this.onChanged(this._value.map((x) => x[this.returnValue]))
+  }
+
+  /**
+   * add/remove items from list
+   * @param item
+   * @param i
+   */
+  onSelectItem(itemCode: string | number): void {
+    if (itemCode) {
+      const listItem = this.list.find((x) => x[this.returnValue] === itemCode)
+      if (listItem) {
+        if (this._value?.some((x) => x[this.returnValue] === listItem[this.returnValue])) {
+          this._value = this._value?.filter((x) => x[this.returnValue] !== listItem[this.returnValue])
+        } else {
+          this._value?.push(listItem)
+        }
+        if (this._value?.length > 0) {
+          const valueMap = new Map()
+          this.list.forEach((x, i) => {
+            valueMap.set(x[this.returnValue], i)
+          })
+          this._value.sort((a, b) => {
+            return valueMap.get(a[this.returnValue]) - valueMap.get(b[this.returnValue])
+          })
+        }
+        this.onChangedHandler()
+      }
     }
-    this.onTouched()
-    this.onChanged(this._value)
+  }
+
+  getSelected(item: Record<string, any>): boolean {
+    return this._value.some((x) => x[this.returnValue] === item[this.returnValue])
   }
 
   /**
@@ -218,7 +245,12 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * When the value of the input field from the form is set, the value of the input html tag is changed
    */
   writeValue(value: any): void {
-    this._value = value
+    if (value) {
+      // this._value = this.list?.filter((x) => value?.some((y) => y === x[this.returnValue]))
+      value.forEach((x) => {
+        this.onSelectItem(x)
+      })
+    }
     this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
 
@@ -227,6 +259,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
+    this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

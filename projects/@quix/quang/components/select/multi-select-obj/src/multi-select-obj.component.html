@@ -1,4 +1,4 @@
-<div class="mb-3">
+<div class="mb-3 position-relative">
   <label
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
@@ -10,35 +10,64 @@
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <select
+  <button
+    [adaptivePosition]="true"
     [attr.aria-label]="ariaLabel | transloco"
     [class.form-select-lg]="size === 'lg'"
     [class.form-select-sm]="size === 'sm'"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
     [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [disabled]="_disabled"
     [id]="id"
     [ngClass]="customClass"
-    [size]="rowVisible"
+    [popover]="!_disabled ? optionList : undefined"
     [tabIndex]="tabIndex"
-    (blur)="onTouched()"
-    (input)="onChangedHandler($event)"
     #input
     class="form-select"
-    multiple
+    placement="bottom"
   >
-    <option
-      [ngValue]="null"
-      *ngIf="nullOption"
-    ></option>
-    <option
-      [selected]="_value?.includes(item[returnValue])"
-      [value]="item[returnValue]"
-      *ngFor="let item of list"
-      #options
-    >
-      {{ translateValue ? (item[labelValue] | transloco) : item[labelValue] }}
-    </option>
-  </select>
+    <div class="content">
+      <ng-container *ngFor="let val of _value; let last = last">
+        {{ val[labelValue] }}{{ !last ? ', ' : '' }}
+      </ng-container>
+    </div>
+  </button>
+  <ng-template #optionList>
+    <div class="option-list">
+      <ul class="m-0 p-0">
+        <li
+          [class.m-0]="last"
+          *ngFor="let item of list; let i = index; let last = last"
+          class="item"
+        >
+          <input
+            [attr.aria-checked]="getSelected(item)"
+            [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+            [attr.aria-label]="'ariaLabel' | transloco"
+            [checked]="getSelected(item)"
+            [disabled]="_disabled"
+            [id]="item[returnValue] + '-checkbox'"
+            [name]="item[returnValue] + '-checkbox'"
+            [ngClass]="customClass"
+            [tabIndex]="tabIndex"
+            (blur)="onTouched()"
+            (input)="onSelectItem(item[returnValue])"
+            #inputCheckbox
+            class="form-check-input checkbox"
+            type="checkbox"
+          />
+          <label
+            [attr.aria-label]="ariaLabel | transloco"
+            [htmlFor]="item[returnValue] + '-checkbox'"
+            *ngIf="label"
+            class="form-check-label checkbox-label ms-3 w-100"
+          >
+            {{ translateValue ? (item[labelValue] | transloco) : item[labelValue] }}
+          </label>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
   <div
     aria-live="assertive"
     class="valid-feedback"
