@@ -129,18 +129,7 @@ export class QuangTextAreaComponent implements ControlValueAccessor, AfterViewIn
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
   _disabled: boolean = false
-
   /**
    * The html input element
    */
@@ -162,6 +151,16 @@ export class QuangTextAreaComponent implements ControlValueAccessor, AfterViewIn
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Checks if focus is required when displaying the input field.
@@ -244,7 +243,7 @@ export class QuangTextAreaComponent implements ControlValueAccessor, AfterViewIn
    */
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**

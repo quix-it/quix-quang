@@ -94,6 +94,10 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    */
   @Input() translateValue: boolean = false
   /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
+  /**
    * The value of the input
    */
   _value: string[] = []
@@ -118,15 +122,6 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
   @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>> | undefined
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
 
   /**
    * constructor
@@ -139,6 +134,16 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
@@ -216,7 +221,7 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**

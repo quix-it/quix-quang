@@ -341,8 +341,8 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.input?.setDisabledState(isDisabled)
-    this._disabled = isDisabled
+    this.input?.setDisabledState(isDisabled || this.readonly)
+    this._disabled = isDisabled || this.readonly
   }
 
   /**

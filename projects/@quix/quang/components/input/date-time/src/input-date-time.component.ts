@@ -164,6 +164,10 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * and how to help the user fill it in
    */
   @Input() autocomplete: string = 'off'
+  /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
 
   /**
    * Contains the component configurations
@@ -221,16 +225,6 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   @ViewChild('timepicker', { static: true }) timePicker: TimepickerComponent | undefined
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * constructor
    * @param renderer html access
    * @param localeService locale utility
@@ -247,6 +241,16 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * chek style
@@ -328,8 +332,8 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
-    this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
+    this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled || this.readonly)
     this._disabled = isDisabled
   }
 

@@ -132,16 +132,6 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * the status of the disabled
    */
   _disabled: boolean = false
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
   @ViewChild('inputInteger', { static: true }) inputInteger: ElementRef<HTMLInputElement> | undefined
   @ViewChild('inputFraction', { static: true }) inputFraction: ElementRef<HTMLInputElement> | undefined
 
@@ -156,6 +146,16 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * After rendering the component, it checks if the input field must have focus
@@ -322,8 +322,8 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this.renderer.setProperty(this.inputInteger?.nativeElement, 'disabled', isDisabled)
-    this.renderer.setProperty(this.inputFraction?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.inputInteger?.nativeElement, 'disabled', isDisabled || this.readonly)
+    this.renderer.setProperty(this.inputFraction?.nativeElement, 'disabled', isDisabled || this.readonly)
     this._disabled = isDisabled
   }
 

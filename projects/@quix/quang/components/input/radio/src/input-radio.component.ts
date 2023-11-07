@@ -101,6 +101,10 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
    * Defines if the radio buttons are to be shown in a row or column
    */
   @Input() direction: 'row' | 'column' = 'row'
+  /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
 
   /**
    * The value of the input
@@ -127,15 +131,6 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
    */
   _disabled: boolean = false
   @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>> | null = null
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
 
   /**
    * constructor
@@ -148,6 +143,16 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
@@ -227,7 +232,7 @@ export class QuangInputRadioComponent implements ControlValueAccessor, OnInit, O
     this._disabled = isDisabled
     setTimeout(() => {
       this.input?.forEach((item) => {
-        this.renderer.setProperty(item.nativeElement, 'disabled', isDisabled)
+        this.renderer.setProperty(item.nativeElement, 'disabled', isDisabled || this.readonly)
       })
     }, 0)
   }

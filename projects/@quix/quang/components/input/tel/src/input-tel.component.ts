@@ -145,16 +145,6 @@ export class QuangInputTelComponent implements OnInit, OnChanges, AfterViewInit 
   input: ElementRef<HTMLInputElement> | null = null
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * constructor
    * @param renderer html access
    * @param control cva access
@@ -165,6 +155,16 @@ export class QuangInputTelComponent implements OnInit, OnChanges, AfterViewInit 
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * create the key for the help message
@@ -244,7 +244,7 @@ export class QuangInputTelComponent implements OnInit, OnChanges, AfterViewInit 
    */
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**

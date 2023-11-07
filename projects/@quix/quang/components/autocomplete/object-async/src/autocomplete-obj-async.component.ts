@@ -172,15 +172,6 @@ export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewI
   input: ElementRef<HTMLInputElement> | null = null
 
   suggestions$: Observable<any> | null = null
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
 
   /**
    * constructor
@@ -195,6 +186,16 @@ export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewI
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Creates the observable that returns the list of selectable options,
@@ -324,7 +325,7 @@ export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewI
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState(isDisabled: boolean): void {
-    this._isDisabled = isDisabled
+    this._isDisabled = isDisabled || this.readonly
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

@@ -130,16 +130,6 @@ export class QuangInputSearchComponent implements ControlValueAccessor, AfterVie
    */
   _disabled: boolean = false
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
@@ -155,6 +145,16 @@ export class QuangInputSearchComponent implements ControlValueAccessor, AfterVie
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * create the key for the help message
@@ -235,7 +235,7 @@ export class QuangInputSearchComponent implements ControlValueAccessor, AfterVie
    */
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**

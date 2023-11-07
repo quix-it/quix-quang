@@ -128,6 +128,10 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
    * and how to help the user fill it in
    */
   @Input() autocomplete: string = 'off'
+  /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
 
   /**
    * Contains the component configurations
@@ -168,16 +172,6 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
   @ViewChild('inputBtn') inputBtn: ElementRef<HTMLButtonElement> | undefined
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * constructor
    * @param renderer html access
    * @param localeService locale utility
@@ -193,6 +187,16 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * init locale
@@ -310,10 +314,10 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
   setDisabledState(isDisabled: boolean): void {
     if (this.renderer) {
       if (this.input) {
-        this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+        this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
       }
       if (this.inputBtn) {
-        this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled)
+        this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled || this.readonly)
       }
     }
     this._disabled = isDisabled

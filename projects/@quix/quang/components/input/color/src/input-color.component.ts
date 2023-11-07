@@ -117,15 +117,6 @@ export class QuangInputColorComponent implements OnInit, ControlValueAccessor, A
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement> | undefined
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
 
   /**
    * constructor
@@ -138,6 +129,16 @@ export class QuangInputColorComponent implements OnInit, ControlValueAccessor, A
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
@@ -214,7 +215,7 @@ export class QuangInputColorComponent implements OnInit, ControlValueAccessor, A
    */
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**

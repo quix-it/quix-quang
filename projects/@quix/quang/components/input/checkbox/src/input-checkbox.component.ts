@@ -83,6 +83,10 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
    * set default start value in select option
    */
   @Input() defaultValue: any
+  /**
+   * Defines whether the input field is in a read-only state
+   */
+  @Input() readonly: boolean = false
 
   /**
    * The value of the input
@@ -115,16 +119,6 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
   input: ElementRef<HTMLInputElement> | null = null
 
   /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
-
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
-
-  /**
    * constructor
    * @param renderer html access
    * @param control cva access
@@ -135,6 +129,16 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
   ) {
     this.control.valueAccessor = this
   }
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onTouched: any = () => {}
+
+  /**
+   * Standard definition to create a control value accessor
+   */
+  onChanged: any = () => {}
 
   /**
    * Check if the help message is required and create the key
@@ -215,7 +219,7 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
    */
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
-    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
+    this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
   /**
