@@ -62,11 +62,11 @@ export class QuangInputPasswordComponent implements ControlValueAccessor, OnInit
   /**
    * Defines the minimum length of the input field
    */
-  @Input() min: number = 0
+  @Input() min: number = -1
   /**
    * Defines the maximum length of the input field
    */
-  @Input() max: number = 0
+  @Input() max: number = -1
   /**
    * Defines the validation pattern of the input field
    */

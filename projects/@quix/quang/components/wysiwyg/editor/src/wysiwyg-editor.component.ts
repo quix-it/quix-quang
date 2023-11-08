@@ -70,11 +70,11 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
   /**
    * Defines the minimum length of the input field
    */
-  @Input() min: number = 0
+  @Input() min: number = -1
   /**
    * Defines the maximum length of the input field
    */
-  @Input() max: number = 0
+  @Input() max: number = -1
   /**
    * Determine the arialabel tag for accessibility,
    * If not specified, it takes 'input' concatenated to the label by default
