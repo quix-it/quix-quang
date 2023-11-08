@@ -76,11 +76,11 @@ export class QuangInputFractionComponent implements OnInit, ControlValueAccessor
   /**
    * Defines the minimum value of the input field
    */
-  @Input() min: number = -1
+  @Input() min: number = 0
   /**
    * Defines the maximum value of the input field
    */
-  @Input() max: number = -1
+  @Input() max: number = 0
   /**
    * The classes that define the style of the add button
    */

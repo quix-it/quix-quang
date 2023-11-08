@@ -1,14 +1,11 @@
-import { registerLocaleData } from '@angular/common'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
-import localeitIT from '@angular/common/locales/it'
-import { LOCALE_ID, NgModule } from '@angular/core'
+import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { StoreModule } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
-import { defineLocale, enGbLocale, itLocale } from 'ngx-bootstrap/chronos'
 
 import { QuangKeycloakModule } from '@quix/quang/auth/keycloak'
 import { QuangCardsModule } from '@quix/quang/components/cards'
@@ -30,16 +27,6 @@ import { EffectsModule } from '@ngrx/effects'
 
 import { environment } from '../environments/environment'
 import { appReducers } from './store/app.reducer'
-
-registerLocaleData(localeitIT)
-
-defineLocale('it', itLocale)
-defineLocale('it-it', itLocale)
-defineLocale('en-us', enGbLocale)
-defineLocale('en', enGbLocale)
-// function _window (): any {
-//   return window
-// }
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -67,7 +54,6 @@ defineLocale('en', enGbLocale)
     AccessibilityModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'it-it' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: QuangLoaderInterceptor,

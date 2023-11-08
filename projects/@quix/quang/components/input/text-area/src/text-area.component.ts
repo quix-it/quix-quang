@@ -54,14 +54,6 @@ export class QuangTextAreaComponent implements ControlValueAccessor, AfterViewIn
    */
   @Input() helpMessage: boolean = false
   /**
-   * Defines the minimum length of the input field
-   */
-  @Input() min: number = -1
-  /**
-   * Defines the maximum length of the input field
-   */
-  @Input() max: number = -1
-  /**
    * Indicates whether, when the page is opened,
    * this input field should be displayed in a focused state or not
    */

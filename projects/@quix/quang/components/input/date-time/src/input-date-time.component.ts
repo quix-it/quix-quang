@@ -237,7 +237,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     private readonly localeService: BsLocaleService,
     private readonly changeDetectorRef: ChangeDetectorRef,
     @Self() @Optional() public control: NgControl,
-    @Inject(LOCALE_ID) public locale: string
+    @Inject(LOCALE_ID) @Optional() public locale: string
   ) {
     this.control.valueAccessor = this
   }

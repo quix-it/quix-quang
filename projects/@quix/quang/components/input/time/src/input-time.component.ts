@@ -165,7 +165,7 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
   constructor(
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
-    @Inject(LOCALE_ID) public locale: string,
+    @Inject(LOCALE_ID) @Optional() public locale: string,
     @Self() @Optional() public control: NgControl
   ) {
     this.control.valueAccessor = this

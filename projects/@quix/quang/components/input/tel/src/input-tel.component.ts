@@ -91,14 +91,6 @@ export class QuangInputTelComponent implements OnInit, OnChanges, AfterViewInit 
    */
   @Input() customClass: string[] = []
   /**
-   * defines the minimum length of the input field
-   */
-  @Input() min: number = 0
-  /**
-   * defines the maximum length of the input field
-   */
-  @Input() max: number = 0
-  /**
    * Adds bootstrap classes to the input that define the size of the field,
    * if not specified the field is displayed with standard size
    */

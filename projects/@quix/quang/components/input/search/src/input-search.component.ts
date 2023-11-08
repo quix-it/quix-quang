@@ -62,14 +62,6 @@ export class QuangInputSearchComponent implements ControlValueAccessor, AfterVie
    */
   @Input() successMessage: boolean = false
   /**
-   * Defines the minimum length of the input field
-   */
-  @Input() min: number = -1
-  /**
-   * Defines the maximum length of the input field
-   */
-  @Input() max: number = -1
-  /**
    * Defines the validation pattern of the input field
    */
   @Input() pattern: string = ''

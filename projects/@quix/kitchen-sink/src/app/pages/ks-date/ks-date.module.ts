@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 
-import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco'
+import { TranslocoModule } from '@ngneat/transloco'
 
 import { QuangCardsModule } from '@quix/quang/components/cards'
 import { QuangInputDateModule } from '@quix/quang/components/input/date'
@@ -31,7 +31,6 @@ import { TimeComponent } from './time/time.component'
     QuangInputDateRangeModule,
     QuangInputDateTimeModule,
     QuangInputTimeModule
-  ],
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'date' }]
+  ]
 })
 export class KsDateModule {}

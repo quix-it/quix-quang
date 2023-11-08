@@ -176,7 +176,7 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
    * @param localeService locale utility
    */
   constructor(
-    @Inject(LOCALE_ID) public locale: string,
+    @Inject(LOCALE_ID) @Optional() public locale: string,
     @Self() @Optional() public control: NgControl,
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
