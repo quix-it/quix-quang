@@ -299,8 +299,16 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     }, 0)
     this.observeValidate()
     this.control.control?.markAsPristine()
-    if (this._valueDate) this.onBsValueChange(this._valueDate)
-    if (this._valueTime) this.onBsValueChange(this._valueTime)
+    if (this._valueDate) {
+      setTimeout(() => {
+        this.onBsValueChange(this._valueDate)
+      })
+    }
+    if (this._valueTime) {
+      setTimeout(() => {
+        this.onBsValueChange(this._valueTime)
+      })
+    }
   }
 
   /**

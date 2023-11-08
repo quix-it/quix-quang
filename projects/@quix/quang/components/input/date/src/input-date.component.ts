@@ -236,7 +236,9 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
     this.observeValidate()
     this.control.control?.markAsPristine()
     if (this._value) {
-      this.onBsValueChange(this._value)
+      setTimeout(() => {
+        this.onBsValueChange(this._value)
+      })
     }
   }
 
