@@ -20,9 +20,11 @@
     [disabled]="_disabled"
     [id]="id"
     [ngClass]="customClass"
+    [outsideClick]="true"
     [popover]="!_disabled ? optionList : undefined"
     [tabIndex]="tabIndex"
     #input
+    #pop="bs-popover"
     class="form-select"
     placement="bottom"
   >
@@ -33,7 +35,10 @@
     </div>
   </button>
   <ng-template #optionList>
-    <div class="option-list">
+    <div
+      (mouseleave)="pop.hide()"
+      class="option-list"
+    >
       <ul class="m-0 p-0">
         <li
           [class.m-0]="last"
