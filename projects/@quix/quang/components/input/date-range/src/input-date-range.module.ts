@@ -1,15 +1,21 @@
 import { CommonModule } from '@angular/common'
-import { NgModule } from '@angular/core'
+import { Inject, LOCALE_ID, NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 
 import { TranslocoModule } from '@ngneat/transloco'
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
+import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker'
 
 import { QuangInputDateRangeComponent } from './input-date-range.component'
+
+import { localeSetup } from '../../date-common/locale-setup'
 
 @NgModule({
   declarations: [QuangInputDateRangeComponent],
   imports: [CommonModule, BsDatepickerModule.forRoot(), TranslocoModule, FormsModule],
   exports: [QuangInputDateRangeComponent]
 })
-export class QuangInputDateRangeModule {}
+export class QuangInputDateRangeModule {
+  constructor(@Inject(LOCALE_ID) locale: string, localeService: BsLocaleService) {
+    localeSetup(locale, localeService)
+  }
+}
