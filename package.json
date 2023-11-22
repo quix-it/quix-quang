@@ -19,8 +19,6 @@
     "husky:start": "husky install",
     "prepare": "husky install",
     "sync-version": "sync-json -v --property version --source package.json projects/@quix/quang/package.json",
-    "version": "npm run sync-version && git add -A && npm run build:quang && cd dist/quang && npm publish",
-    "postversion": "git push && git push --tags",
     "publish:prerelease": "npm version prerelease -m \"build(prerelease): version %s\"",
     "publish:patch": "npm version patch -m \"build(patch): version %s\"",
     "publish:minor": "npm version minor -m \"build(minor): version %s\"",
