@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component({
@@ -6,14 +6,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
   templateUrl: './autocomplete-obj.component.html',
   styles: []
 })
-export class AutocompleteObjComponent {
-  list = [
-    { key: 1, name: 'Dark Phoenix' },
-    { key: 2, name: 'Ultron' },
-    { key: 3, name: 'Galactus' },
-    { key: 4, name: 'Thanos' },
-    { key: 5, name: 'Juggernaut' }
-  ]
+export class AutocompleteObjComponent implements OnInit {
+  list: any[] = []
 
   group: FormGroup = new FormGroup({
     key: new FormControl('', [Validators.required])
@@ -21,5 +15,20 @@ export class AutocompleteObjComponent {
 
   onReset(): void {
     this.group.reset()
+  }
+
+  ngOnInit() {
+    this.group.controls.key.valueChanges.subscribe((value) => {
+      console.log(value)
+    })
+    setTimeout(() => {
+      this.list = [
+        { key: 1, name: 'Dark Phoenix' },
+        { key: 2, name: 'Ultron' },
+        { key: 3, name: 'Galactus' },
+        { key: 4, name: 'Thanos' },
+        { key: 5, name: 'Juggernaut' }
+      ]
+    }, 5000)
   }
 }
