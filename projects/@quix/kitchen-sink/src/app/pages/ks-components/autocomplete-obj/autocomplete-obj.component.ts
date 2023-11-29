@@ -18,4 +18,8 @@ export class AutocompleteObjComponent {
   group: FormGroup = new FormGroup({
     key: new FormControl('', [Validators.required])
   })
+
+  onReset(): void {
+    this.group.reset()
+  }
 }

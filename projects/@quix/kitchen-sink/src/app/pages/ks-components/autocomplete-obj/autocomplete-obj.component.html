@@ -24,7 +24,6 @@
               [formName]="'form'"
               [helpMessage]="true"
               [id]="'test'"
-              [readonly]="true"
               [returnValue]="'key'"
               [searchBy]="'name'"
               [successMessage]="true"
@@ -32,6 +31,12 @@
               formControlName="key"
             ></quang-autocomplete-obj>
           </form>
+          <button
+            (click)="onReset()"
+            class="btn btn-primary"
+          >
+            RESET
+          </button>
           <dl>
             <dt>Value:</dt>
             <dd>{{ group.controls['key'].value }}</dd>
