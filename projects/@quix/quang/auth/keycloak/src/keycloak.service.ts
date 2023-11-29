@@ -80,8 +80,15 @@ export class QuangKeycloakService {
   /**
    * retrieves the information relating to the logged in user
    */
-  getUserInfo(): Observable<KeycloakProfile> {
+  getUserProfile(): Observable<KeycloakProfile> {
     return from(this.keyCloak.loadUserProfile())
+  }
+
+  /**
+   * get the mapped data inside the userInfo object from Keycloak JS Instance
+   */
+  getUserInfo() {
+    return this.keyCloak.getKeycloakInstance().userInfo
   }
 
   /**

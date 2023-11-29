@@ -69,7 +69,7 @@ export class QuangKeycloakEffects {
     this.actions$.pipe(
       ofType(userLogin),
       mergeMap((action) =>
-        this.quangKeycloakService.getUserInfo().pipe(
+        this.quangKeycloakService.getUserProfile().pipe(
           map((user: any) => {
             return userInfoLogin({ user })
           })
