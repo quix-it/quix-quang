@@ -212,7 +212,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
-    if (changes.dataList.currentValue !== changes.dataList.previousValue) {
+    if (changes.dataList?.currentValue !== changes.dataList?.previousValue) {
       this.writeValue(this._value)
     }
   }
