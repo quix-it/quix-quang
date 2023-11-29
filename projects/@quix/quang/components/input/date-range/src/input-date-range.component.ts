@@ -219,7 +219,9 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
       this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
     if (this._value) {
-      this.onBsValueChange(this._value)
+      setTimeout(() => {
+        this.onBsValueChange(this._value)
+      })
     }
   }
 

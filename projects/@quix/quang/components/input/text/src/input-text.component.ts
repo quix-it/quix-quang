@@ -98,6 +98,8 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
    */
   @Input() defaultValue: string = ''
 
+  @Input() errorMap: Record<string, string>
+
   /**
    * The value of the input
    */
@@ -253,7 +255,10 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
               } else {
                 this._requiredValue = this.control.errors[error].requiredValue
               }
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
+              this._errorMessage =
+                this.errorMap?.[error] !== undefined
+                  ? this.errorMap[error]
+                  : `${this.formName}.${this.control?.name}.${error}`
             }
           }
         }

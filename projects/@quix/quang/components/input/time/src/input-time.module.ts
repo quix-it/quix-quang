@@ -6,9 +6,9 @@ import { TranslocoModule } from '@ngneat/transloco'
 import { BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { TimepickerModule } from 'ngx-bootstrap/timepicker'
 
-import { QuangInputTimeComponent } from './input-time.component'
+import { localeSetup } from '@quix/quang/components/input/date-common'
 
-import { localeSetup } from '../../date-common/locale-setup'
+import { QuangInputTimeComponent } from './input-time.component'
 
 @NgModule({
   declarations: [QuangInputTimeComponent],

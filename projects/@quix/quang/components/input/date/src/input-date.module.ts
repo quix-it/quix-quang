@@ -5,9 +5,9 @@ import { FormsModule } from '@angular/forms'
 import { TranslocoModule } from '@ngneat/transloco'
 import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker'
 
-import { QuangInputDateComponent } from './input-date.component'
+import { localeSetup } from '@quix/quang/components/input/date-common'
 
-import { localeSetup } from '../../date-common/locale-setup'
+import { QuangInputDateComponent } from './input-date.component'
 
 @NgModule({
   declarations: [QuangInputDateComponent],

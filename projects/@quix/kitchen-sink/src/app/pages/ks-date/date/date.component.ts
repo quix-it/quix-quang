@@ -14,7 +14,7 @@ export class DateComponent {
   date = '2020-02-28T00:00:00.000Z'
 
   group: FormGroup = new FormGroup({
-    date: new FormControl(undefined, Validators.required)
+    date: new FormControl(new Date(), Validators.required)
   })
 
   groupMinMax: FormGroup = new FormGroup({
