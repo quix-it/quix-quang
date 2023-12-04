@@ -144,6 +144,10 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    */
   _isDisabled: boolean = false
   /**
+   * focus
+   */
+  _isFocused: boolean = false
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true })
@@ -173,6 +177,10 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   @Input() set dataList(val: any[]) {
     this._dataList = val
     this.writeValue(this._value)
+    if (this._isFocused) {
+      this.input?.nativeElement.click()
+    }
+    console.log(this._dataList)
   }
 
   /**
@@ -188,6 +196,14 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   /**
    * Check if the help message is required and create the key
    */
+  onFocus(e: any): void {
+    if (e) this._isFocused = true
+  }
+
+  onFocusOut(e: any): void {
+    if (e) this._isFocused = false
+  }
+
   ngOnInit(): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
