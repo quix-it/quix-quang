@@ -265,6 +265,7 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
   onChangeInput(e: Event): void {
     this._value = (e.target as HTMLInputElement).value
     if (!this._value) this.onChangedHandler(null)
+    this.searchTextDebouncer.next(this._value)
   }
 
   /**
