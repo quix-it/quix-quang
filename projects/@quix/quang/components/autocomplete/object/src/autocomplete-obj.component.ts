@@ -2,10 +2,12 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Optional,
+  Output,
   Renderer2,
   Self,
   SimpleChanges,
@@ -14,7 +16,8 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
-import { delay, filter } from 'rxjs/operators'
+import { Subject } from 'rxjs'
+import { debounceTime, delay, distinctUntilChanged, filter } from 'rxjs/operators'
 
 /**
  * autocomplete object component decorator
@@ -109,6 +112,9 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * Defines if position adaptable *default = true
    */
   @Input() adaptivePosition = true
+  @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>()
+  @Input() searchTextDebounceTime = 0
+  searchTextDebouncer: Subject<string> = new Subject<string>()
   /**
    * The value of the input
    */
@@ -189,6 +195,11 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
     if (this.successMessage) {
       this._successMessage = `${this.formName}.${this.control?.name}.valid`
     }
+    this.searchTextDebouncer
+      .pipe(debounceTime(this.searchTextDebounceTime ?? 0), distinctUntilChanged())
+      .subscribe((value) => {
+        this.searchTextChange.emit(value)
+      })
   }
 
   /**
@@ -212,7 +223,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
-    if (changes.dataList?.currentValue !== changes.dataList?.previousValue) {
+    if (changes._dataList?.currentValue !== changes._dataList?.previousValue) {
       this.writeValue(this._value)
     }
   }
@@ -248,6 +259,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   onChangeInput(e: Event): void {
     this._searchValue = (e.target as HTMLInputElement).value
     if (!this._searchValue) this.onChangedHandler(null)
+    this.searchTextDebouncer.next(this._searchValue)
   }
 
   /**
@@ -258,9 +270,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   writeValue(value: any): void {
     this._value = value
     if (this.dataList?.find((item) => item[this.returnValue] === value)) {
-      this._searchValue = this.dataList?.find((item) => item[this.returnValue] === value)[this.searchBy]
-    } else {
-      this._searchValue = ''
+      this._searchValue = this._dataList?.find((item) => item[this.returnValue] === value)[this.searchBy]
     }
     this.renderer.setProperty(this.input?.nativeElement, 'value', this._searchValue)
   }

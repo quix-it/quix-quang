@@ -31,4 +31,16 @@ export class AutocompleteObjComponent implements OnInit {
       ]
     }, 5000)
   }
+
+  searchTextChange($event: string) {
+    console.log('searchTextChange', $event)
+    setTimeout(() => {
+      this.list = [
+        { key: 1, name: 'Dark Phoenix' },
+        { key: 2, name: 'Ultron' },
+        { key: 3, name: 'Galactus' },
+        { key: 4, name: $event + 'ciao' }
+      ]
+    }, 1000)
+  }
 }

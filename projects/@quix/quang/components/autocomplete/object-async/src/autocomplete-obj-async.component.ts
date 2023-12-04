@@ -22,7 +22,7 @@ import { debounceTime, delay, filter, map, switchMap } from 'rxjs/operators'
 import { QuangAutocompleteAsyncService } from './autocomplete-async.service'
 
 /**
- * autocomplete object async component decorator
+ * @deprecated use instead quang-autocomplete-obj with async handling from the parent
  */
 @Component({
   selector: 'quang-autocomplete-obj-async',
@@ -185,6 +185,9 @@ export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewI
     @Self() @Optional() public control: NgControl
   ) {
     this.control.valueAccessor = this
+    console.error(
+      'component quang-autocomplete-obj-async is deprecated use instead quang-autocomplete-obj with async handling from the parent'
+    )
   }
 
   /**
