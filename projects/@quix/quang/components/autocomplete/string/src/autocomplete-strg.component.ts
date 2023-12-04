@@ -2,10 +2,12 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Optional,
+  Output,
   Renderer2,
   Self,
   SimpleChanges,
@@ -14,7 +16,8 @@ import {
 import { NgControl } from '@angular/forms'
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
-import { delay, filter } from 'rxjs/operators'
+import { Subject } from 'rxjs'
+import { debounceTime, delay, distinctUntilChanged, filter } from 'rxjs/operators'
 
 /**
  * autocomplete string component decorator
@@ -71,10 +74,6 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
    */
   @Input() tabIndex: number = 0
   /**
-   * The list of options where to search for the selected one
-   */
-  @Input() dataList: string[] = []
-  /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
    */
@@ -109,7 +108,10 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
    * Defines if position adaptable *default = true
    */
   @Input() adaptivePosition = true
+  @Input() searchTextDebounceTime = 0
+  @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>()
 
+  searchTextDebouncer: Subject<string> = new Subject<string>()
   /**
    * The value of the input
    */
@@ -135,6 +137,10 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
    */
   _isDisabled: boolean = false
   /**
+   * focus
+   */
+  _isFocused: boolean = false
+  /**
    * The html input element
    */
   @ViewChild('input', { static: true })
@@ -150,6 +156,20 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
     @Self() @Optional() public control: NgControl
   ) {
     this.control.valueAccessor = this
+  }
+
+  _dataList: any[] = []
+
+  get dataList(): any[] {
+    return this._dataList
+  }
+
+  @Input() set dataList(val: any[]) {
+    this._dataList = val
+    this.writeValue(this._value)
+    if (this._isFocused) {
+      this.input?.nativeElement.click()
+    }
   }
 
   /**
@@ -176,6 +196,11 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
       this.writeValue(this.defaultValue)
       this.onChanged(this._value)
     }
+    this.searchTextDebouncer
+      .pipe(debounceTime(this.searchTextDebounceTime ?? 0), distinctUntilChanged())
+      .subscribe((value) => {
+        this.searchTextChange.emit(value)
+      })
   }
 
   /**
@@ -199,6 +224,14 @@ export class QuangAutocompleteStringComponent implements OnInit, AfterViewInit, 
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
+  }
+
+  onFocus(e: any): void {
+    if (e) this._isFocused = true
+  }
+
+  onFocusOut(e: any): void {
+    if (e) this._isFocused = false
   }
 
   /**

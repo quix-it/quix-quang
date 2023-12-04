@@ -33,7 +33,8 @@
     [typeaheadOptionsInScrollableView]="18"
     [typeaheadOptionsLimit]="optionLimit ?? 100"
     [typeaheadScrollable]="true"
-    (blur)="onTouched()"
+    (blur)="onTouched(); onFocusOut($event)"
+    (focus)="onFocus($event)"
     (input)="onChangeInput($event)"
     (typeaheadOnSelect)="onChangedHandler($event)"
     #input

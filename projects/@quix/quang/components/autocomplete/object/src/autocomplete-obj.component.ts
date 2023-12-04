@@ -180,7 +180,6 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
     if (this._isFocused) {
       this.input?.nativeElement.click()
     }
-    console.log(this._dataList)
   }
 
   /**
@@ -196,14 +195,6 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   /**
    * Check if the help message is required and create the key
    */
-  onFocus(e: any): void {
-    if (e) this._isFocused = true
-  }
-
-  onFocusOut(e: any): void {
-    if (e) this._isFocused = false
-  }
-
   ngOnInit(): void {
     if (this.helpMessage) {
       this._helpMessage = `${this.formName}.${this.control?.name}.help`
@@ -242,6 +233,14 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
     if (changes._dataList?.currentValue !== changes._dataList?.previousValue) {
       this.writeValue(this._value)
     }
+  }
+
+  onFocus(e: any): void {
+    if (e) this._isFocused = true
+  }
+
+  onFocusOut(e: any): void {
+    if (e) this._isFocused = false
   }
 
   /**
