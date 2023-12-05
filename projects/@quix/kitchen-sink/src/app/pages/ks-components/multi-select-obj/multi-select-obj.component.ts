@@ -37,4 +37,8 @@ export class MultiSelectObjComponent implements OnInit {
       ]
     }, 3000)
   }
+
+  reset(): void {
+    this.group.reset({ items: [] })
+  }
 }

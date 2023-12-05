@@ -262,10 +262,12 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * When the value of the input field from the form is set, the value of the input html tag is cha nged
    */
   writeValue(value: any): void {
-    if (value) {
+    if (value?.length) {
       value.forEach((x) => {
         this.onSelectItem(x)
       })
+    } else {
+      this._value = value
     }
     this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
