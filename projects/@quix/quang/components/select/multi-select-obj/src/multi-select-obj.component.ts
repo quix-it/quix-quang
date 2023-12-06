@@ -234,7 +234,6 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
     if (itemCode) {
       const listItem = this.list.find((x) => x[this.returnValue] === itemCode)
       if (listItem) {
-        console.log(listItem)
         if (this._value?.some((x) => x[this.returnValue] === listItem[this.returnValue])) {
           this._value = this._value?.filter((x) => x[this.returnValue] !== listItem[this.returnValue])
         } else {
