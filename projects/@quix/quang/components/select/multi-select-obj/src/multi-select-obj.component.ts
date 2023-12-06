@@ -234,23 +234,28 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
     if (itemCode) {
       const listItem = this.list.find((x) => x[this.returnValue] === itemCode)
       if (listItem) {
+        console.log(listItem)
         if (this._value?.some((x) => x[this.returnValue] === listItem[this.returnValue])) {
           this._value = this._value?.filter((x) => x[this.returnValue] !== listItem[this.returnValue])
         } else {
           this._value?.push(listItem)
         }
-        if (this._value?.length > 1) {
-          const valueMap = new Map()
-          this.list.forEach((x, i) => {
-            valueMap.set(x[this.returnValue], i)
-          })
-          this._value.sort((a, b) => {
-            return valueMap.get(a[this.returnValue]) - valueMap.get(b[this.returnValue])
-          })
-        }
-        this.onChangedHandler()
+        this.sortSelectedItems()
       }
     }
+  }
+
+  sortSelectedItems(): void {
+    if (this._value?.length > 1) {
+      const valueMap = new Map()
+      this.list.forEach((x, i) => {
+        valueMap.set(x[this.returnValue], i)
+      })
+      this._value.sort((a, b) => {
+        return valueMap.get(a[this.returnValue]) - valueMap.get(b[this.returnValue])
+      })
+    }
+    this.onChangedHandler()
   }
 
   getSelected(item: Record<string, any>): boolean {
@@ -263,9 +268,12 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    */
   writeValue(value: any): void {
     if (value?.length) {
-      value.forEach((x) => {
-        this.onSelectItem(x)
+      this._value = []
+      value.forEach((val) => {
+        const listItem = this.list.find((x) => x[this.returnValue] === val)
+        if (listItem) this._value.push(listItem)
       })
+      this.onChangedHandler()
     } else {
       this._value = value
     }
