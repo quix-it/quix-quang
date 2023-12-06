@@ -286,6 +286,8 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
     this._value = value
     if (this.dataList?.find((item) => item[this.returnValue] === value)) {
       this._searchValue = this._dataList?.find((item) => item[this.returnValue] === value)[this.searchBy]
+    } else {
+      this._searchValue = ''
     }
     this.renderer.setProperty(this.input?.nativeElement, 'value', this._searchValue)
   }
