@@ -176,7 +176,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    */
   @Input() set dataList(val: any[]) {
     this._dataList = val
-    this.writeValue(this._value)
+    this.writeValue(this._value ?? [])
     if (this._isFocused) {
       this.input?.nativeElement.click()
     }
@@ -283,10 +283,12 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * @param value
    */
   writeValue(value: any): void {
-    console.log(value)
     this._value = value
     if (this.dataList?.find((item) => item[this.returnValue] === value)) {
       this._searchValue = this._dataList?.find((item) => item[this.returnValue] === value)[this.searchBy]
+    }
+    if (!value) {
+      this._searchValue = ''
     }
     this.renderer.setProperty(this.input?.nativeElement, 'value', this._searchValue)
   }
