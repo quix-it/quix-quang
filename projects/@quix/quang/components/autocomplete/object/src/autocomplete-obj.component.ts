@@ -176,7 +176,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    */
   @Input() set dataList(val: any[]) {
     this._dataList = val
-    this.writeValue(this._value ?? [])
+    this.writeValue(this._dataList ?? [])
     if (this._isFocused) {
       this.input?.nativeElement.click()
     }
@@ -229,9 +229,6 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
-    }
-    if (changes._dataList?.currentValue !== changes._dataList?.previousValue) {
-      this.writeValue(this._value)
     }
   }
 
