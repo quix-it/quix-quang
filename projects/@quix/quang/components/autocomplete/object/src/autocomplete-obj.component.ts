@@ -283,6 +283,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * @param value
    */
   writeValue(value: any): void {
+    console.log(value)
     this._value = value
     if (this.dataList?.find((item) => item[this.returnValue] === value)) {
       this._searchValue = this._dataList?.find((item) => item[this.returnValue] === value)[this.searchBy]
@@ -307,6 +308,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    * If there is an error with a specific required value it is passed to the translation pipe
    * to allow for the creation of custom messages
    */
+
   observeValidate(): void {
     this.control?.statusChanges
       ?.pipe(
