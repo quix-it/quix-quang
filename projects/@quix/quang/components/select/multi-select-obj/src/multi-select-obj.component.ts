@@ -152,10 +152,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   @Input() set list(data: Array<Record<string, any>>) {
     if (data && this._list.toString() !== data.toString()) {
       this._list = data
-      this._value = []
-      this.control.control?.getRawValue()?.forEach((x: any) => {
-        this.onSelectItem(x)
-      })
+      this.sortSelectedItems()
     }
   }
 
@@ -223,7 +220,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * its value is retrieved from the html element and the status change is signaled to the form
    */
   onChangedHandler(): void {
-    this.onChanged(this._value.map((x) => x[this.returnValue]))
+    this.onChanged(this._value)
   }
 
   /**
@@ -231,16 +228,14 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * @param item
    */
   onSelectItem(itemCode: string | number): void {
+    console.log('itemCode', itemCode)
     if (itemCode) {
-      const listItem = this.list.find((x) => x[this.returnValue] === itemCode)
-      if (listItem) {
-        if (this._value?.some((x) => x[this.returnValue] === listItem[this.returnValue])) {
-          this._value = this._value?.filter((x) => x[this.returnValue] !== listItem[this.returnValue])
-        } else {
-          this._value?.push(listItem)
-        }
-        this.sortSelectedItems()
+      if (this._value.find((x) => x === itemCode)) {
+        this._value = this._value?.filter((x) => x !== itemCode)
+      } else {
+        this._value?.push(itemCode)
       }
+      this.sortSelectedItems()
     }
   }
 
@@ -251,14 +246,14 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
         valueMap.set(x[this.returnValue], i)
       })
       this._value.sort((a, b) => {
-        return valueMap.get(a[this.returnValue]) - valueMap.get(b[this.returnValue])
+        return valueMap.get(a) - valueMap.get(b)
       })
     }
     this.onChangedHandler()
   }
 
   getSelected(item: Record<string, any>): boolean {
-    return this._value.some((x) => x[this.returnValue] === item[this.returnValue])
+    return this._value.some((x) => x === item[this.returnValue])
   }
 
   /**
@@ -266,15 +261,12 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * When the value of the input field from the form is set, the value of the input html tag is cha nged
    */
   writeValue(value: any): void {
+    console.log('writeValue', value)
     if (value?.length) {
-      this._value = []
-      value.forEach((val) => {
-        const listItem = this.list.find((x) => x[this.returnValue] === val)
-        if (listItem) this._value.push(listItem)
-      })
+      this._value = [...value]
       this.onChangedHandler()
     } else {
-      this._value = value
+      this._value = []
     }
     this.renderer.setProperty(this.input?.nativeElement, 'value', value)
   }
@@ -310,5 +302,13 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
           }
         }
       })
+  }
+
+  getListText(val: string | number) {
+    const value = this.list.find((x) => x[this.returnValue] === val)
+    if (value) {
+      return value[this.labelValue]
+    }
+    return ''
   }
 }

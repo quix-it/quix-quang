@@ -10,10 +10,15 @@ export class MultiSelectObjComponent implements OnInit {
   list: any[] = []
 
   group: FormGroup = new FormGroup({
-    items: new FormControl([1, 2], Validators.required)
+    items: new FormControl(null, Validators.required)
   })
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.group.patchValue({
+        items: [3, 2]
+      })
+    }, 1000)
     setTimeout(() => {
       this.list = [
         { value: 1, text: 'Item 1' },

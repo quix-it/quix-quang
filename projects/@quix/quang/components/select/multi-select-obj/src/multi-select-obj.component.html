@@ -31,7 +31,7 @@
   >
     <div class="content">
       <ng-container *ngFor="let val of _value; let last = last">
-        {{ val[labelValue] }}{{ !last ? ', ' : '' }}
+        {{ getListText(val) }}{{ !last ? ', ' : '' }}
       </ng-container>
     </div>
   </button>
