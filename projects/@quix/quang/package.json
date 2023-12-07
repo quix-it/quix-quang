@@ -1,6 +1,6 @@
 {
   "name": "@quix/quang",
-  "version": "15.4.3-2",
+  "version": "15.4.3-3",
   "peerDependencies": {
     "@angular/common": "^15.2.9",
     "@angular/core": "^15.2.9",
