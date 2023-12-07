@@ -33,6 +33,13 @@
             >
             </quang-multi-select-strg>
           </form>
+          <button
+            (click)="reset()"
+            class="btn btn-primary"
+            type="button"
+          >
+            RESET
+          </button>
           <dl>
             <dt>Value:</dt>
             <dd>{{ group.controls.items.value }}</dd>
