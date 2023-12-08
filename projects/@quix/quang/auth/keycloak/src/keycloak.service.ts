@@ -12,9 +12,7 @@ import { QuangKeycloakConfig } from './keycloak.config'
 /**
  * service decorator
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 /**
  * utility for keycloak management
  */

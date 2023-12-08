@@ -35,7 +35,7 @@ export class QuangKeycloakModule {
   static forRoot(config?: QuangKeycloakConfig): ModuleWithProviders<QuangKeycloakModule> {
     return {
       ngModule: QuangKeycloakModule,
-      providers: [{ provide: QuangKeycloakConfig, useValue: config }]
+      providers: [{ provide: QuangKeycloakConfig, useValue: config }, KeycloakService, QuangKeycloakService]
     }
   }
 }
