@@ -10,7 +10,7 @@ export class AutocompleteObjComponent implements OnInit {
   list: any[] = []
 
   group: FormGroup = new FormGroup({
-    key: new FormControl('', [Validators.required])
+    key: new FormControl(1, [Validators.required])
   })
 
   onReset(): void {

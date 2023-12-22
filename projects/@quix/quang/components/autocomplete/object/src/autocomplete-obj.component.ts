@@ -176,7 +176,7 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    */
   @Input() set dataList(val: any[]) {
     this._dataList = val
-    this.writeValue(this._dataList ?? [])
+    if (!this._searchValue) this.writeValue(this._value ?? null)
     if (this._isFocused) {
       this.input?.nativeElement.click()
     }
