@@ -74,10 +74,6 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    */
   @Input() tabIndex: number = 0
   /**
-   * The minimum number of characters to search
-   */
-  @Input() startAfter: number = 0
-  /**
    * The key of the value to be returned as the value of the cva
    */
   @Input() returnValue: string = ''

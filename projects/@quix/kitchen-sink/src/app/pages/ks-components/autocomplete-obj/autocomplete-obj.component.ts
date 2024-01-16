@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
@@ -10,17 +11,16 @@ export class AutocompleteObjComponent implements OnInit {
   list: any[] = []
 
   group: FormGroup = new FormGroup({
-    key: new FormControl(1, [Validators.required])
+    key: new FormControl(null, [Validators.required])
   })
+
+  constructor(private readonly http: HttpClient) {}
 
   onReset(): void {
     this.group.reset()
   }
 
-  ngOnInit() {
-    this.group.controls.key.valueChanges.subscribe((value) => {
-      console.log(value)
-    })
+  ngOnInit(): void {
     setTimeout(() => {
       this.list = [
         { key: 1, name: 'Dark Phoenix' },
@@ -29,18 +29,19 @@ export class AutocompleteObjComponent implements OnInit {
         { key: 4, name: 'Thanos' },
         { key: 5, name: 'Juggernaut' }
       ]
-    }, 5000)
+    }, 500)
   }
 
-  searchTextChange($event: string) {
-    console.log('searchTextChange', $event)
+  searchTextChange($event: string): void {
     setTimeout(() => {
       this.list = [
-        { key: 1, name: 'Dark Phoenix' },
-        { key: 2, name: 'Ultron' },
+        { key: 1, name: 'Dark Phoenixaaaa' },
+        { key: 2, name: 'Ultronaaaaa' },
         { key: 3, name: 'Galactus' },
-        { key: 4, name: $event + 'ciao' }
-      ]
-    }, 1000)
+        { key: 4, name: 'Thanos' },
+        { key: 5, name: 'Juggernaut' }
+        // { key: 6, name: $event + 'ciao' }
+      ].filter((x) => x.name.toLowerCase().includes($event.toLowerCase()))
+    }, 500)
   }
 }
