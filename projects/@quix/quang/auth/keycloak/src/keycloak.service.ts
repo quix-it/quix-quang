@@ -127,7 +127,8 @@ export class QuangKeycloakService {
     if (redirectUri) {
       return from(this.keyCloak.logout(redirectUri))
     } else {
-      throw new Error('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')
+      console.log('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')
+      return from(this.keyCloak.logout())
     }
   }
 
