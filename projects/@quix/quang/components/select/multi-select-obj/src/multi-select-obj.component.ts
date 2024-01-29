@@ -228,7 +228,6 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * @param item
    */
   onSelectItem(itemCode: string | number): void {
-    console.log('itemCode', itemCode)
     if (itemCode) {
       if (this._value.find((x) => x === itemCode)) {
         this._value = this._value?.filter((x) => x !== itemCode)
@@ -261,7 +260,6 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * When the value of the input field from the form is set, the value of the input html tag is cha nged
    */
   writeValue(value: any): void {
-    console.log('writeValue', value)
     if (value?.length) {
       this._value = [...value]
       this.onChangedHandler()
