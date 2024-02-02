@@ -30,7 +30,7 @@
     type="button"
   >
     <div class="content">
-      <ng-container *ngFor="let val of _value; let last = last"> {{ val }}{{ !last ? ', ' : '' }} </ng-container>
+      <ng-container *ngFor="let val of _value; let last = last"> {{ val }}{{ !last ? ', ' : '' }}</ng-container>
     </div>
   </button>
   <ng-template #optionList>
@@ -57,7 +57,7 @@
             [tabIndex]="tabIndex"
             (blur)="onTouched()"
             #inputCheckbox
-            class="form-check-input checkbox"
+            class="checkbox"
             type="checkbox"
           />
           <label
