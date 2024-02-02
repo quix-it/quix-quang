@@ -35,10 +35,6 @@
         display: none;
       }
 
-      &.page-item.disabled .page-link {
-        color: #c0ccda;
-      }
-
       &.disabled {
         svg {
           opacity: 30%;
@@ -46,7 +42,6 @@
       }
 
       .page-link {
-        color: #000;
         border-radius: 50%;
         padding: 0.375rem;
         border: none;
@@ -57,10 +52,6 @@
         &:focus {
           box-shadow: none;
           background-color: unset;
-        }
-
-        &:hover {
-          background-color: #eff2f7;
         }
 
         svg {
@@ -76,7 +67,6 @@
 .pagination-label {
   margin: 0;
   margin-bottom: 1rem;
-  color: #0000008a;
   font-size: 0.75rem;
 }
 
