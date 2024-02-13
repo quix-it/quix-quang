@@ -220,7 +220,7 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
   }
 
   onSelectItem(itemCode: string | number): void {
-    if (itemCode) {
+    if (itemCode !== null && itemCode !== undefined) {
       const listItem = this.list.find((x) => x === itemCode)
       if (listItem) {
         if (this._value?.includes(listItem)) {

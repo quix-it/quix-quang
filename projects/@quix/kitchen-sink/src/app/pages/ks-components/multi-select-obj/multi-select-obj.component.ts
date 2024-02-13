@@ -21,23 +21,11 @@ export class MultiSelectObjComponent implements OnInit {
     }, 1000)
     setTimeout(() => {
       this.list = [
+        { value: 0, text: 'Item 0' },
         { value: 1, text: 'Item 1' },
         { value: 2, text: 'Item 2' },
         { value: 3, text: 'Item 3' },
         { value: 4, text: 'Item 4' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
-        { value: 5, text: 'Item 5' },
         { value: 5, text: 'Item 5' }
       ]
     }, 3000)

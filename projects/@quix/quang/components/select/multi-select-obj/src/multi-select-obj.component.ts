@@ -228,7 +228,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * @param item
    */
   onSelectItem(itemCode: string | number): void {
-    if (itemCode) {
+    if (itemCode !== null && itemCode !== undefined) {
       if (this._value.find((x) => x === itemCode)) {
         this._value = this._value?.filter((x) => x !== itemCode)
       } else {
