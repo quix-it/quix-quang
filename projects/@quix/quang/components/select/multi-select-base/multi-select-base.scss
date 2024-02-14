@@ -51,8 +51,8 @@ button {
   white-space: nowrap;
 }
 
-:host::ng-deep {
-  .popover {
+.multi-select-popover {
+  &.popover {
     width: 100%;
     max-width: unset;
     margin-top: 0 !important;
