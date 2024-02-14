@@ -3,5 +3,8 @@
   "dest": "../../../dist/quang",
   "lib": {
     "entryFile": "index.ts"
-  }
+  },
+  "assets": [
+    "./sass/**"
+  ]
 }
