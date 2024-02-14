@@ -53,7 +53,7 @@
   }
 }
 
-.multi-select-popover {
+:host::ng-deep.multi-select-popover {
   &.popover {
     width: 100%;
     max-width: unset;
