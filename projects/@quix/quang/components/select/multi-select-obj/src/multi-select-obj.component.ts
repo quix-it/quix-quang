@@ -13,6 +13,7 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
+import { BehaviorSubject } from 'rxjs'
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -123,10 +124,14 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    * disabled state
    */
   _disabled: boolean = false
+
+  _showOptions$ = new BehaviorSubject<boolean>(false)
+
   /**
    * The html inp ut element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
+  optionHideTimeout: any
 
   /**
    * constructor
@@ -308,5 +313,30 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
       return value[this.labelValue]
     }
     return ''
+  }
+
+  changeOptionsVisibility(skipTimeout = false) {
+    if (this._showOptions$.value) {
+      this.hideOptionVisibility(skipTimeout)
+    } else {
+      this.showOptionVisibility()
+    }
+  }
+
+  showOptionVisibility() {
+    if (this.optionHideTimeout) {
+      clearTimeout(this.optionHideTimeout)
+      this.optionHideTimeout = null
+    }
+    this._showOptions$.next(true)
+  }
+
+  hideOptionVisibility(skipTimeout = false) {
+    this.optionHideTimeout = setTimeout(
+      () => {
+        this._showOptions$.next(false)
+      },
+      skipTimeout ? 0 : 200
+    )
   }
 }

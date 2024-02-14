@@ -13,6 +13,7 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
+import { BehaviorSubject } from 'rxjs'
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -119,6 +120,8 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
+  _showOptions$ = new BehaviorSubject<boolean>(false)
+  optionHideTimeout: any
 
   /**
    * constructor
@@ -292,5 +295,30 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
           }
         }
       })
+  }
+
+  changeOptionsVisibility(skipTimeout = false) {
+    if (this._showOptions$.value) {
+      this.hideOptionVisibility(skipTimeout)
+    } else {
+      this.showOptionVisibility()
+    }
+  }
+
+  showOptionVisibility() {
+    if (this.optionHideTimeout) {
+      clearTimeout(this.optionHideTimeout)
+      this.optionHideTimeout = null
+    }
+    this._showOptions$.next(true)
+  }
+
+  hideOptionVisibility(skipTimeout = false) {
+    this.optionHideTimeout = setTimeout(
+      () => {
+        this._showOptions$.next(false)
+      },
+      skipTimeout ? 0 : 200
+    )
   }
 }
