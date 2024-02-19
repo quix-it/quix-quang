@@ -28,4 +28,7 @@
     width: 15px;
     height: 15px;
   }
+  .input-group-append .btn {
+    min-width: unset !important;
+  }
 }
