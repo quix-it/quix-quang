@@ -1,4 +1,4 @@
-<div class="mb-3 position-relative">
+<div class="mb-3 position-relative multi-select-container">
   <label
     [attr.aria-label]="ariaLabel | transloco"
     [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
@@ -10,32 +10,32 @@
     {{ label | transloco }}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <button
-    [adaptivePosition]="true"
-    [attr.aria-label]="ariaLabel | transloco"
-    [class.form-select-lg]="size === 'lg'"
-    [class.form-select-sm]="size === 'sm'"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
-    [disabled]="_disabled"
-    [id]="id"
-    [ngClass]="customClass"
-    [outsideClick]="true"
-    [popover]="!_disabled ? optionList : undefined"
-    [tabIndex]="tabIndex"
-    #input
-    #pop="bs-popover"
-    class="form-select"
-    placement="bottom"
-    type="button"
-  >
-    <div class="content">
-      <ng-container *ngFor="let val of _value; let last = last"> {{ val }}{{ !last ? ', ' : '' }}</ng-container>
-    </div>
-  </button>
-  <ng-template #optionList>
+
+  <div class="option-list-container">
+    <button
+      [attr.aria-label]="ariaLabel | transloco"
+      [class.form-select-lg]="size === 'lg'"
+      [class.form-select-sm]="size === 'sm'"
+      [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+      [class.is-valid]="control?.valid && control?.dirty && successMessage"
+      [disabled]="_disabled"
+      [id]="id"
+      [ngClass]="customClass"
+      [tabIndex]="tabIndex"
+      (click)="changeOptionsVisibility(true)"
+      (mouseleave)="hideOptionVisibility()"
+      #input
+      class="form-select"
+      type="button"
+    >
+      <div class="content">
+        <ng-container *ngFor="let val of _value; let last = last"> {{ val }}{{ !last ? ', ' : '' }} </ng-container>
+      </div>
+    </button>
     <div
-      (mouseleave)="pop.hide()"
+      (mouseenter)="showOptionVisibility()"
+      (mouseleave)="hideOptionVisibility()"
+      *ngIf="_showOptions$ | async"
       class="option-list"
     >
       <ul class="m-0 p-0">
@@ -70,8 +70,7 @@
         </li>
       </ul>
     </div>
-  </ng-template>
-
+  </div>
   <div
     aria-live="assertive"
     class="valid-feedback"

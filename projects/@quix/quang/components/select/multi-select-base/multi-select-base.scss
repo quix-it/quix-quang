@@ -9,9 +9,22 @@ button {
   height: 38px;
 }
 
+.option-list-container {
+  position: relative;
+}
+
 .option-list {
   width: 100%;
   height: fit-content;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+  background-color: var(--bs-body-bg);
+  border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+  overflow: auto;
+  max-height: 200px;
+  padding: 0.5rem 0;
 
   .item {
     list-style-type: none;
@@ -49,23 +62,4 @@ button {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-}
-
-:host::ng-deep {
-  .popover {
-    width: 100%;
-    max-width: unset;
-    margin-top: 0 !important;
-    overflow: auto !important;
-  }
-
-  .popover-content {
-    width: 100%;
-    max-height: 200px;
-    padding: 0.5rem 0;
-  }
-
-  .popover.bottom .arrow {
-    display: none !important;
-  }
 }
