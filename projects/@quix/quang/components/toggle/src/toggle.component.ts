@@ -177,6 +177,7 @@ export class QuangToggleComponent implements ControlValueAccessor, OnInit, After
    * @param e
    */
   onChangedHandler(e: Event): void {
+    if (this._disabled || this.readonly) return
     this._value = (e.target as HTMLInputElement).checked
     this.onTouched()
     this.onChanged(this._value)
