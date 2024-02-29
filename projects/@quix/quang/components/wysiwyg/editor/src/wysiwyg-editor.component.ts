@@ -281,6 +281,10 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
     this.observeValidate()
   }
 
+  public forceFocus() {
+    this.input?.editorElem.focus()
+  }
+
   /**
    * check if the input field should have focus when the page is rendered
    * @param editor
