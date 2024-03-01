@@ -201,6 +201,10 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
     this.control.valueAccessor = this
   }
 
+  public get quillNativeInstance() {
+    return this.input?.quillEditor
+  }
+
   /**
    * Standard definition to create a control value accessor
    */
