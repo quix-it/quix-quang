@@ -15,6 +15,7 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { ContentChange, QuillEditorComponent } from 'ngx-quill'
+import { BehaviorSubject } from 'rxjs'
 import { delay, filter } from 'rxjs/operators'
 
 /**
@@ -186,6 +187,7 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
    * The status of the modules
    */
   modules: Record<string, any> = {}
+  public quillNativeInstance$ = new BehaviorSubject<QuillEditorComponent | null>(null)
 
   /**
    * constructor
@@ -199,10 +201,6 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
     @Self() @Optional() public control: NgControl
   ) {
     this.control.valueAccessor = this
-  }
-
-  public get quillNativeInstance() {
-    return this.input?.quillEditor
   }
 
   /**
@@ -294,6 +292,7 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
    * @param editor
    */
   checkFocus(editor: any): void {
+    this.quillNativeInstance$.next(editor)
     if (this.autofocus) {
       editor.focus()
     }
