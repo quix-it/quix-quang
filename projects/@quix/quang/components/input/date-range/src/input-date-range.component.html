@@ -40,30 +40,27 @@
       class="form-control"
       type="text"
     />
-    <div class="input-group-append">
-      <button
-        [ngClass]="buttonClass"
-        [ngStyle]="{ 'pointer-event': _disabled ? 'none' : null }"
-        [tabIndex]="tabIndex"
-        (click)="drp.toggle()"
-        #inputBtn
-        aria-label="calendar-button"
-        class="btn"
-        type="button"
-      >
-        <ng-content select="[calendarIcon]"></ng-content>
-      </button>
-    </div>
-
-    <div class="valid-feedback">
-      {{ _successMessage | transloco }}
-    </div>
-    <div
-      [attr.aria-errormessage]="errorMessageKey | transloco"
-      class="invalid-feedback"
+    <button
+      [ngClass]="buttonClass"
+      [ngStyle]="{ 'pointer-event': _disabled ? 'none' : null }"
+      [tabIndex]="tabIndex"
+      (click)="drp.toggle()"
+      #inputBtn
+      aria-label="calendar-button"
+      class="btn"
+      type="button"
     >
-      {{ errorMessageKey | transloco }}
-    </div>
+      <ng-content select="[calendarIcon]"></ng-content>
+    </button>
+  </div>
+  <div class="valid-feedback">
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [attr.aria-errormessage]="errorMessageKey | transloco"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco }}
   </div>
   <small
     [hidden]="

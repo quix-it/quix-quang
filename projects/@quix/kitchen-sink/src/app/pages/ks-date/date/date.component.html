@@ -4,7 +4,7 @@
       <ks-title [title]="'Quang input date'"></ks-title>
     </div>
     <div class="col text-right">
-      <h3>@quix/quang: ^11.0.0</h3>
+      <h3>quix/quang: ^11.0.0</h3>
     </div>
   </div>
   <div class="row mb-3">
@@ -17,24 +17,28 @@
           >Configurazioni</a
         >
         <div cardBody>
-          <button
-            (click)="fillDate()"
-            class="btn btn-primary"
-          >
-            fill
-          </button>
-          <button
-            (click)="disableForm()"
-            class="btn btn-primary"
-          >
-            disable
-          </button>
-          <button
-            (click)="enableForm()"
-            class="btn btn-primary"
-          >
-            enable
-          </button>
+          <div class="d-flex gap-1">
+            <button
+              (click)="fillDate()"
+              class="btn btn-primary"
+            >
+              fill
+            </button>
+            <div class="input-group">
+              <button
+                (click)="enableForm()"
+                class="btn btn-primary"
+              >
+                enable
+              </button>
+              <button
+                (click)="disableForm()"
+                class="btn btn-secondary"
+              >
+                disable
+              </button>
+            </div>
+          </div>
           <form [formGroup]="group">
             <quang-input-date
               [autocomplete]="'off'"

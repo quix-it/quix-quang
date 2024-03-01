@@ -270,7 +270,7 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
         }
         break
       default:
-        this.requiredValue = errorData.requiredValue
+        this.requiredValue = errorData?.requiredValue
     }
   }
 

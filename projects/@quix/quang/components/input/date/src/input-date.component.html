@@ -41,32 +41,27 @@
       class="form-control"
       type="text"
     />
-    <div
+    <button
+      [ngClass]="buttonClass"
+      [tabindex]="tabIndex"
+      (click)="_disabled ? null : drp.toggle()"
       *ngIf="!_disabled"
-      class="input-group-append"
+      #inputBtn
+      aria-label="calendar-button"
+      class="btn"
+      type="button"
     >
-      <button
-        [ngClass]="buttonClass"
-        [tabindex]="tabIndex"
-        (click)="_disabled ? null : drp.toggle()"
-        #inputBtn
-        aria-label="calendar-button"
-        class="btn"
-        type="button"
-      >
-        <ng-content select="[calendarIcon]"></ng-content>
-      </button>
-    </div>
-
-    <div class="valid-feedback">
-      {{ _successMessage | transloco }}
-    </div>
-    <div
-      [attr.aria-errormessage]="errorMessageKey"
-      class="invalid-feedback"
-    >
-      {{ errorMessageKey | transloco }}
-    </div>
+      <ng-content select="[calendarIcon]"></ng-content>
+    </button>
+  </div>
+  <div class="valid-feedback">
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [attr.aria-errormessage]="errorMessageKey"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco }}
   </div>
   <small
     [hidden]="
