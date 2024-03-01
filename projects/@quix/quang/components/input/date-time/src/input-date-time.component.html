@@ -3,8 +3,8 @@
     <div class="mb-3">
       <label
         [attr.aria-label]="ariaLabel"
-        [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-        [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+        [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+        [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
         [htmlFor]="id + '-date-time'"
         *ngIf="label"
         class="form-label"
@@ -23,8 +23,8 @@
           [autofocus]="autofocus"
           [bsConfig]="config"
           [bsValue]="_valueDate"
-          [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-          [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+          [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+          [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
           [datesDisabled]="disabledDates"
           [daysDisabled]="disabledDaysOfTheWeek"
           [disabled]="_disabled"
@@ -77,8 +77,8 @@
         <timepicker
           [arrowkeys]="true"
           [attr.aria-label]="ariaLabel + ' time' | transloco"
-          [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-          [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+          [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+          [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
           [disabled]="_disabled"
           [hoursPlaceholder]="hoursPlaceholder | transloco"
           [hourStep]="hourStep"
@@ -104,7 +104,10 @@
   </div>
 
   <small
-    [hidden]="ngControl?.dirty && ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
     [id]="id + '-date-time'"
     *ngIf="helpMessage"
     class="form-text text-muted"

@@ -1,8 +1,8 @@
 <div class="mb-3">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-    [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [htmlFor]="id"
     *ngIf="label"
     class="form-label"
@@ -14,8 +14,8 @@
     [attr.aria-label]="ariaLabel | transloco"
     [class.form-select-lg]="size === 'lg'"
     [class.form-select-sm]="size === 'sm'"
-    [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-    [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [id]="id"
     [ngClass]="customClass"
     [tabIndex]="tabIndex"
@@ -50,7 +50,10 @@
     {{ errorMessageKey | transloco: { requiredValue } }}
   </div>
   <small
-    [hidden]="ngControl?.dirty && ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
     [id]="id + '-help'"
     *ngIf="helpMessage"
     aria-live="assertive"

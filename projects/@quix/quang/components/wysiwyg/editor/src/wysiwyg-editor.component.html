@@ -1,8 +1,8 @@
 <div class="mb-3 wysiwyg-editor">
   <label
     [attr.aria-label]="ariaLabel"
-    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
-    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [htmlFor]="id + '-wysiwyg-editor'"
     *ngIf="label"
     class="form-label"
@@ -14,8 +14,8 @@
     [attr.aria-disabled]="_disabled"
     [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
     [attr.aria-invalid]="errorMessage && ngControl?.invalid ? true : false"
-    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
-    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [disabled]="_disabled"
     [format]="returnHtml ? 'html' : 'text'"
     [id]="id + '-wysiwyg-editor'"
@@ -43,9 +43,13 @@
   </div>
   <small
     [attr.aria-hidden]="
-      ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
     "
-    [hidden]="ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
     [id]="id + 'Help'"
     *ngIf="helpMessage"
     class="form-text text-muted"

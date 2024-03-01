@@ -299,7 +299,7 @@ export class QuangAutocompleteStringAsyncComponent implements OnInit, AfterViewI
     this.ngControl?.statusChanges
       ?.pipe(
         delay(0),
-        filter(() => !!this.ngControl?.dirty)
+        filter(() => !!(this.ngControl?.dirty ?? this.ngControl?.touched))
       )
       .subscribe(() => {
         if (this.ngControl?.invalid && this.errorMessage) {

@@ -1,8 +1,8 @@
 <div class="mb-3 d-flex flex-column custom-radio">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
-    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [htmlFor]="id + '-radio'"
     *ngIf="label"
     class="form-label"
@@ -25,8 +25,8 @@
         [attr.aria-labelledby]="label | transloco"
         [autocomplete]="autocomplete"
         [checked]="radio[returnValue]?.toString() === _value?.toString()"
-        [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
-        [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+        [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+        [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
         [disabled]="_disabled"
         [id]="id + '-radio-' + radio[labelValue]"
         [name]="groupName"
@@ -51,7 +51,7 @@
   </div>
   <div
     [ngStyle]="{
-      display: ngControl?.valid && ngControl?.dirty && successMessage ? 'block' : 'none'
+      display: ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage ? 'block' : 'none'
     }"
     aria-live="assertive"
     class="valid-feedback"
@@ -61,7 +61,7 @@
   <div
     [id]="id + '-radio-error'"
     [ngStyle]="{
-      display: ngControl?.invalid && ngControl?.dirty && errorMessage ? 'block' : 'none'
+      display: ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage ? 'block' : 'none'
     }"
     aria-live="polite"
     class="invalid-feedback"
@@ -71,9 +71,13 @@
   <small
     [attr.aria-describedby]="id"
     [attr.aria-hidden]="
-      ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
     "
-    [hidden]="ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
     [id]="id + '-radio-help'"
     *ngIf="helpMessage"
     aria-live="assertive"

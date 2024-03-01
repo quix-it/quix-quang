@@ -1,8 +1,8 @@
 <div class="mb-3">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
-    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [htmlFor]="id + '-area'"
     *ngIf="label"
     class="form-label"
@@ -17,8 +17,8 @@
     [autofocus]="autofocus"
     [cdkAutosizeMaxRows]="rows"
     [cdkAutosizeMinRows]="0"
-    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
-    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [cols]="cols"
     [disabled]="_disabled"
     [id]="id + '-area'"
@@ -52,9 +52,13 @@
 
   <small
     [attr.aria-hidden]="
-      ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
     "
-    [hidden]="ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
     [id]="id + '-area-help'"
     *ngIf="helpMessage"
     aria-live="assertive"

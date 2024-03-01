@@ -1,8 +1,8 @@
 <div class="mb-3">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
-    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [htmlFor]="id + '-time'"
     *ngIf="label"
     class="form-label"
@@ -15,8 +15,8 @@
     [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
     [attr.aria-invalid]="errorMessage && ngControl?.invalid ? true : false"
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
-    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [disabled]="_disabled"
     [hoursPlaceholder]="hoursPlaceholder | transloco"
     [hourStep]="hourStep"
@@ -40,9 +40,13 @@
   ></timepicker>
   <small
     [attr.aria-hidden]="
-      ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
     "
-    [hidden]="ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
     [id]="id + '-time-help'"
     *ngIf="helpMessage"
     class="form-text text-muted"

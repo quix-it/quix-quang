@@ -10,8 +10,8 @@
     [attr.aria-invalid]="ngControl?.invalid && errorMessageKey ? true : false"
     [attr.aria-label]="'ariaLabel' | transloco"
     [checked]="_value"
-    [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-    [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [id]="id + '-checkbox'"
     [name]="id + '-checkbox'"
     [ngClass]="customClass"
@@ -25,8 +25,8 @@
   <label
     [attr.aria-label]="ariaLabel | transloco"
     [class.cursor-default]="ngControl?.disabled"
-    [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-    [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [htmlFor]="id + '-checkbox'"
     *ngIf="label"
     class="form-check-label"
@@ -49,7 +49,10 @@
   </div>
   <small
     [attr.aria-describedby]="id"
-    [hidden]="ngControl?.dirty && ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
     [id]="id + '-checkbox-help'"
     *ngIf="helpMessage"
     aria-live="assertive"

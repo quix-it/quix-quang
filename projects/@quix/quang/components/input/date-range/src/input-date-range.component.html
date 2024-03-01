@@ -1,8 +1,8 @@
 <div class="mb-3 input-date-range">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-    [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [htmlFor]="id + '-date-range'"
     *ngIf="label"
     class="form-label"
@@ -21,7 +21,7 @@
       [autofocus]="autofocus"
       [bsConfig]="config"
       [bsValue]="_value"
-      [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
+      [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
       [class.is-valid]="ngControl?.valid && successMessage"
       [datesDisabled]="disabledDates"
       [id]="id + '-date-range'"
@@ -66,7 +66,10 @@
     </div>
   </div>
   <small
-    [hidden]="ngControl?.dirty && ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
     [id]="id + '-date-range-help'"
     *ngIf="helpMessage"
     class="form-text text-muted"

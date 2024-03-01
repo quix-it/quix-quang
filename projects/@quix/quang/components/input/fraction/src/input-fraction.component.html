@@ -1,8 +1,8 @@
 <div class="mb-3">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-    [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [htmlFor]="id + '-fraction'"
     *ngIf="label"
     class="form-label"
@@ -30,8 +30,8 @@
       [attr.aria-label]="ariaLabel | transloco"
       [attr.aria-readonly]="readonly"
       [autocomplete]="autocomplete"
-      [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-      [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+      [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+      [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
       [id]="id + '-fraction-dec'"
       [ngClass]="customClass"
       [readOnly]="readonly"
@@ -75,8 +75,8 @@
       [attr.aria-label]="ariaLabel | transloco"
       [attr.aria-readonly]="readonly"
       [autocomplete]="autocomplete"
-      [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-      [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+      [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+      [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
       [disabled]="_disabled || readonly"
       [id]="id + '-fraction-int'"
       [ngClass]="customClass"
@@ -113,7 +113,10 @@
     </div>
   </div>
   <small
-    [hidden]="ngControl?.dirty && ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
     [id]="id + '-fraction-help'"
     *ngIf="helpMessage"
     aria-live="assertive"

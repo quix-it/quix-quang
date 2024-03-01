@@ -1,8 +1,8 @@
 <div class="mb-3">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
-    [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [htmlFor]="id + '-url'"
     *ngIf="label"
     class="form-label"
@@ -22,8 +22,8 @@
     [autocomplete]="autocomplete"
     [class.form-control-lg]="size === 'lg'"
     [class.form-control-sm]="size === 'sm'"
-    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
-    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [disabled]="_disabled"
     [id]="id + '-url'"
     [ngClass]="customClass"
@@ -52,9 +52,13 @@
   </div>
   <small
     [attr.aria-hidden]="
-      ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
     "
-    [hidden]="ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
     [id]="id + '-url-help'"
     *ngIf="helpMessage"
     aria-live="assertive"
