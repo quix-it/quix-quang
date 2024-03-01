@@ -14,6 +14,7 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { ContentChange, QuillEditorComponent } from 'ngx-quill'
+import { BehaviorSubject } from 'rxjs'
 
 /**
  * text editor component decorator
@@ -176,6 +177,7 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
    * The status of the modules
    */
   modules: Record<string, any> = {}
+  public quillNativeInstance$ = new BehaviorSubject<QuillEditorComponent | null>(null)
 
   @Input() errorMap: Record<string, string>
 
@@ -291,6 +293,7 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
    * @param editor
    */
   checkFocus(editor: any): void {
+    this.quillNativeInstance$.next(editor)
     if (this.autofocus) {
       editor.focus()
     }
