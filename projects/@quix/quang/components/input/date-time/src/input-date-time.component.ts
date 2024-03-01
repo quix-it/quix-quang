@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  DoCheck,
   ElementRef,
   Inject,
   Input,
@@ -18,7 +19,6 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { TimepickerComponent } from 'ngx-bootstrap/timepicker'
-import { delay, filter } from 'rxjs/operators'
 
 /**
  * input date time component decorator
@@ -31,7 +31,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input date time component
  */
-export class InputDateTimeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
+export class InputDateTimeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges, DoCheck {
   /**
    * Html id of input
    */
@@ -195,17 +195,9 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
   /**
    * internal status disabled
    */
@@ -224,11 +216,17 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
 
   @ViewChild('timepicker', { static: true }) timePicker: TimepickerComponent | undefined
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param renderer html access
    * @param localeService locale utility
-   * @param control cva access
+   * @param ngControl cva access
    * @param locale actual locale
    */
 
@@ -236,10 +234,10 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    @Self() @Optional() public control: NgControl,
-    @Inject(LOCALE_ID) @Optional() public locale: string
+    @Inject(LOCALE_ID) @Optional() public locale: string,
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   /**
@@ -267,23 +265,15 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
       rangeInputFormat: this.dateFormat,
       showWeekNumbers: this.showWeekNumbers
     }
-    if (this.label) {
-      if (this.showSelector) {
-        this._margin = '.3rem'
-      } else {
-        this._margin = '2rem'
-      }
-    } else {
-      this._margin = '0'
-    }
+    this._margin = this.label ? (this.showSelector ? '.3rem' : '2rem') : '0'
     if (this.locale) {
       this.localeService.use(this.locale)
     }
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
   }
 
@@ -297,8 +287,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
         this.input?.nativeElement.focus()
       }
     }, 0)
-    this.observeValidate()
-    this.control.control?.markAsPristine()
+    this.ngControl?.control?.markAsPristine()
     if (this._valueDate) {
       setTimeout(() => {
         this.onBsValueChange(this._valueDate)
@@ -319,6 +308,16 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
     if (changes.autofocus && this.input) {
       this.input.nativeElement.focus()
     }
+  }
+
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   /**
@@ -351,8 +350,8 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
       if ((this._valueTime && this._valueDate) !== null) this.onChanged(null)
     } else if (date.toString() === 'Invalid Date') {
       this.onChanged(null)
-      this.control.control?.setErrors({ invalidDate: true })
-      this.control.control?.markAsDirty()
+      this.ngControl?.control?.setErrors({ invalidDate: true })
+      this.ngControl?.control?.markAsDirty()
     } else {
       this.onChanged(date)
       this._valueTime = new Date(date)
@@ -383,29 +382,5 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
       this.renderer.setValue([this.timePicker?.hours, this.timePicker?.minutes], value)
     }
     this.changeDetectorRef.detectChanges()
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
-          }
-        }
-      })
   }
 }

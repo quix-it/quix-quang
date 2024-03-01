@@ -1,6 +1,6 @@
 import {
-  AfterViewInit,
   Component,
+  DoCheck,
   Inject,
   Input,
   LOCALE_ID,
@@ -14,7 +14,6 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { TimepickerComponent, TimepickerConfig } from 'ngx-bootstrap/timepicker'
-import { delay, filter } from 'rxjs/operators'
 
 export function getTimepickerConfig(): TimepickerConfig {
   return Object.assign(new TimepickerConfig(), {
@@ -34,7 +33,7 @@ export function getTimepickerConfig(): TimepickerConfig {
 /**
  * input time component
  */
-export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewInit, OnInit {
+export class QuangInputTimeComponent implements ControlValueAccessor, OnInit, DoCheck {
   /**
    * Html id of input
    */
@@ -135,17 +134,9 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
   /**
    * internal status disabled
    */
@@ -155,20 +146,26 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
    */
   @ViewChild('input', { static: true }) input: TimepickerComponent | undefined
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param renderer html access
    * @param localeService locale utility
    * @param locale actual locale
-   * @param control cva access
+   * @param ngControl cva access
    */
   constructor(
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
     @Inject(LOCALE_ID) @Optional() public locale: string,
-    @Self() @Optional() public control: NgControl
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   /**
@@ -190,16 +187,18 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
       this.localeService.use(this.locale)
     }
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
   }
 
-  /**
-   * After rendering the component, it checks if the input field must have focus
-   * and activates the monitoring of the validation of the entered values
-   */
-  ngAfterViewInit(): void {
-    this.observeValidate()
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   /**
@@ -230,11 +229,7 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
    * @param value
    */
   writeValue(value: any): void {
-    if (value) {
-      this._value = new Date(value)
-    } else {
-      this._value = value
-    }
+    this._value = value ? new Date(value) : value
     if (this.input) {
       this.renderer.setValue([this.input.hours, this.input.minutes], value)
     }
@@ -246,30 +241,5 @@ export class QuangInputTimeComponent implements ControlValueAccessor, AfterViewI
    */
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled || this.readonly
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        }
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            this._requiredValue = this.control.errors[error].requiredValue
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-          }
-        }
-      })
   }
 }

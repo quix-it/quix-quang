@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  DoCheck,
   ElementRef,
   Input,
   OnChanges,
@@ -13,8 +14,6 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
-import { delay, filter } from 'rxjs/operators'
-
 /**
  * input text component decorator
  */
@@ -26,7 +25,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input text component
  */
-export class QuangInputTextComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnInit {
+export class QuangInputTextComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnInit, DoCheck {
   /**
    * Html id of input
    */
@@ -98,8 +97,6 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
    */
   @Input() defaultValue: string = ''
 
-  @Input() errorMap: Record<string, string>
-
   /**
    * The value of the input
    */
@@ -109,17 +106,9 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
   /**
    * Define disabled state
    */
@@ -130,37 +119,43 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
   @ViewChild('input', { static: true })
   input: ElementRef<HTMLInputElement> | null = null
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param renderer html access
-   * @param control cva access
+   * @param ngControl cva access
    */
   constructor(
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   /**
    * Standard definition to create a control value accessor
    */
-  onTouched() {}
+  onTouched(): void {}
 
   /**
    * Standard definition to create a control value accessor
    */
-  onChanged(value: string) {}
+  onChanged(_value: string): void {}
 
   /**
    * Check if the help message is required and create the key
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
     if (this.defaultValue) {
       this.writeValue(this.defaultValue)
@@ -170,7 +165,6 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
 
   /**
    * Checks if focus is required when displaying the input field.
-   * Start the check on the validation of the field
    */
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -178,7 +172,6 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
         this.input?.nativeElement.focus()
       }
     }, 0)
-    this.observeValidate()
   }
 
   /**
@@ -189,6 +182,16 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
+  }
+
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   /**
@@ -232,36 +235,5 @@ export class QuangInputTextComponent implements ControlValueAccessor, AfterViewI
   setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
     this._disabled = isDisabled
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          if (this.control.errors) {
-            for (const error in this.control.errors) {
-              if (error === 'minlength' || error === 'maxlength') {
-                this._requiredValue = this.control.errors[error].requiredLength
-              } else {
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
-              this._errorMessage =
-                this.errorMap?.[error] !== undefined
-                  ? this.errorMap[error]
-                  : `${this.formName}.${this.control?.name}.${error}`
-            }
-          }
-        }
-      })
   }
 }

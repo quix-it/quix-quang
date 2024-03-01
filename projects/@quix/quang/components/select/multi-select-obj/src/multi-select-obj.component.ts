@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  DoCheck,
   ElementRef,
   Input,
   OnChanges,
@@ -14,7 +15,6 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { BehaviorSubject } from 'rxjs'
-import { delay, filter } from 'rxjs/operators'
 
 /**
  * multi elect object component decorator
@@ -27,7 +27,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * multi elect object component
  */
-export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
+export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges, DoCheck {
   /**
    * The label to display on the input field
    */
@@ -109,17 +109,9 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    */
   _successMessage: string = ''
   /**
-   * th e status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help mess age
    */
   _helpMessage: string = ''
-  /**
-   * Contains t he value required by a validation whe n it fails
-   */
-  _requiredValue: any = ''
   /**
    * disabled state
    */
@@ -133,16 +125,22 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
   optionHideTimeout: any
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param renderer html ac cess
-   * @param control cva access
+   * @param ngControl cva access
    */
   constructor(
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   _list: Array<Record<string, any>> = []
@@ -176,10 +174,10 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.h elp`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.h elp`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
   }
 
@@ -193,7 +191,6 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
         this.input?.nativeElement.focus()
       }
     }, 0)
-    this.observeValidate()
   }
 
   /**
@@ -204,6 +201,16 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
+  }
+
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   /**
@@ -283,31 +290,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
   }
 
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          if (this.control.errors) {
-            for (const error in this.control.errors) {
-              this._requiredValue = this.control.errors[error].requiredValue
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-            }
-          }
-        }
-      })
-  }
-
-  getListText(val: string | number) {
+  getListText(val: string | number): string {
     const value = this.list.find((x) => x[this.returnValue] === val)
     if (value) {
       return value[this.labelValue]
@@ -315,7 +298,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
     return ''
   }
 
-  changeOptionsVisibility(skipTimeout = false) {
+  changeOptionsVisibility(skipTimeout = false): void {
     if (this._showOptions$.value) {
       this.hideOptionVisibility(skipTimeout)
     } else {
@@ -323,7 +306,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
     }
   }
 
-  showOptionVisibility() {
+  showOptionVisibility(): void {
     if (this.optionHideTimeout) {
       clearTimeout(this.optionHideTimeout)
       this.optionHideTimeout = null
@@ -331,7 +314,7 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
     this._showOptions$.next(true)
   }
 
-  hideOptionVisibility(skipTimeout = false) {
+  hideOptionVisibility(skipTimeout = false): void {
     this.optionHideTimeout = setTimeout(
       () => {
         this._showOptions$.next(false)

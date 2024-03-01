@@ -3,14 +3,14 @@
     <div class="mb-3">
       <label
         [attr.aria-label]="ariaLabel"
-        [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-        [class.is-valid]="control?.valid && control?.dirty && successMessage"
+        [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
+        [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
         [htmlFor]="id + '-date-time'"
         *ngIf="label"
         class="form-label"
       >
         {{ label | transloco }}
-        <span [hidden]="!control?.errors?.['required']">*</span>
+        <span [hidden]="!ngControl?.errors?.['required']">*</span>
       </label>
       <div
         [class.input-group-lg]="size === 'lg'"
@@ -23,8 +23,8 @@
           [autofocus]="autofocus"
           [bsConfig]="config"
           [bsValue]="_valueDate"
-          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-          [class.is-valid]="control?.valid && control?.dirty && successMessage"
+          [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
+          [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
           [datesDisabled]="disabledDates"
           [daysDisabled]="disabledDaysOfTheWeek"
           [disabled]="_disabled"
@@ -61,10 +61,10 @@
         </div>
 
         <div
-          [attr.aria-errormessage]="_errorMessage"
+          [attr.aria-errormessage]="errorMessageKey"
           class="invalid-feedback"
         >
-          {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
+          {{ errorMessageKey | transloco: { requiredValue } }}
         </div>
       </div>
     </div>
@@ -77,8 +77,8 @@
         <timepicker
           [arrowkeys]="true"
           [attr.aria-label]="ariaLabel + ' time' | transloco"
-          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-          [class.is-valid]="control?.valid && control?.dirty && successMessage"
+          [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
+          [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
           [disabled]="_disabled"
           [hoursPlaceholder]="hoursPlaceholder | transloco"
           [hourStep]="hourStep"
@@ -104,7 +104,7 @@
   </div>
 
   <small
-    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [hidden]="ngControl?.dirty && ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))"
     [id]="id + '-date-time'"
     *ngIf="helpMessage"
     class="form-text text-muted"

@@ -36,6 +36,23 @@
             <dt>Value:</dt>
             <dd>{{ group.controls['text'].value }}</dd>
           </dl>
+          <dl>
+            <dt>Errors:</dt>
+            <dd>{{ group.controls['text'].errors | json }}</dd>
+          </dl>
+          <dl>
+            <dt>Status:</dt>
+            <dd>
+              {{
+                {
+                  status: group.controls['text'].status,
+                  dirty: group.controls['text'].dirty,
+                  touched: group.controls['text'].touched,
+                  pristine: group.controls['text'].pristine
+                } | json
+              }}
+            </dd>
+          </dl>
         </div>
       </quang-card-action-header>
     </div>

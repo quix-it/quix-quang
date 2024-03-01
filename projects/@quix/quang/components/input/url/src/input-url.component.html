@@ -1,29 +1,30 @@
 <div class="mb-3">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && ngControl?.dirty && errorMessage"
+    [class.is-valid]="ngControl?.valid && ngControl?.dirty && successMessage"
     [htmlFor]="id + '-url'"
     *ngIf="label"
     class="form-label"
   >
     {{ label | transloco }}
-    <span [hidden]="!control?.errors?.required">*</span>
+    <span [hidden]="!ngControl?.errors?.required">*</span>
   </label>
   <input
     [attr.aria-autocomplete]="'inline'"
     [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-url-help' : ''"
     [attr.aria-disabled]="_disabled"
-    [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-url-error' : ''"
-    [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
+    [attr.aria-invalid]="errorMessage && ngControl?.invalid ? true : false"
     [attr.aria-label]="ariaLabel | transloco"
     [attr.aria-placeholder]="placeholder | transloco"
     [attr.aria-readonly]="readonly"
     [autocomplete]="autocomplete"
     [class.form-control-lg]="size === 'lg'"
     [class.form-control-sm]="size === 'sm'"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
+    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
+    [disabled]="_disabled"
     [id]="id + '-url'"
     [ngClass]="customClass"
     [pattern]="pattern"
@@ -47,10 +48,13 @@
     aria-live="polite"
     class="invalid-feedback"
   >
-    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
+    {{ errorMessageKey | transloco: { requiredValue } }}
   </div>
   <small
-    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [attr.aria-hidden]="
+      ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
+    [hidden]="ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))"
     [id]="id + '-url-help'"
     *ngIf="helpMessage"
     aria-live="assertive"

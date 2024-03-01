@@ -171,20 +171,20 @@ export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewI
   @ViewChild('input', { static: true })
   input: ElementRef<HTMLInputElement> | null = null
 
-  suggestions$: Observable<any> | null = null
+  suggestions$: Observable<string[]> = of([])
 
   /**
    * constructor
    * @param renderer html access
    * @param autocompleteService
-   * @param control cva access
+   * @param ngControl cva access
    */
   constructor(
     private readonly renderer: Renderer2,
     private readonly autocompleteService: QuangAutocompleteAsyncService,
-    @Self() @Optional() public control: NgControl
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
     console.error(
       'component quang-autocomplete-obj-async is deprecated use instead quang-autocomplete-obj with async handling from the parent'
     )
@@ -234,10 +234,10 @@ export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewI
       })
     )
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
   }
 
@@ -339,17 +339,17 @@ export class QuangAutocompleteObjectAsyncComponent implements OnInit, AfterViewI
    * to allow for the creation of custom messages
    */
   observeValidate(): void {
-    this.control?.statusChanges
+    this.ngControl?.statusChanges
       ?.pipe(
         delay(0),
-        filter(() => !!this.control.dirty)
+        filter(() => !!this.ngControl?.dirty)
       )
       .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
+        if (this.ngControl?.invalid && this.errorMessage) {
+          for (const error in this.ngControl.errors) {
+            if (this.ngControl.errors[error]) {
+              this._errorMessage = `${this.formName}.${this.ngControl?.name}.${error}`
+              this._requiredValue = this.ngControl.errors[error].requiredValue
             }
           }
         }

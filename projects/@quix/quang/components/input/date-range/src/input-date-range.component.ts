@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  DoCheck,
   ElementRef,
   Inject,
   Input,
@@ -18,7 +19,6 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { format, isDate, isValid } from 'date-fns'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
-import { delay, filter } from 'rxjs/operators'
 
 /**
  * input date range component decorator
@@ -31,7 +31,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input date range component
  */
-export class QuangInputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
+export class QuangInputDateRangeComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges, DoCheck {
   /**
    * Html id of input
    */
@@ -146,17 +146,9 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
   /**
    * internal status disabled
    */
@@ -168,21 +160,27 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
 
   @ViewChild('input', { static: true }) inputBtn: ElementRef<HTMLButtonElement> | undefined
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param locale
-   * @param control cva access
+   * @param ngControl cva access
    * @param renderer html access
    * @param localeService locale utility
    */
   constructor(
     @Inject(LOCALE_ID) @Optional() public locale: string,
-    @Self() @Optional() public control: NgControl,
     private readonly renderer: Renderer2,
     private readonly localeService: BsLocaleService,
-    private readonly cd: ChangeDetectorRef
+    private readonly cd: ChangeDetectorRef,
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   /**
@@ -200,7 +198,6 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
    *  chek hel message and create key
    */
   ngOnInit(): void {
-    this.observeValidate()
     this.config = {
       containerClass: 'theme-default',
       isAnimated: true,
@@ -213,10 +210,10 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
       this.localeService.use(this.locale)
     }
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
     if (this._value) {
       setTimeout(() => {
@@ -235,7 +232,7 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
         this.input?.nativeElement.focus()
       }
     }, 0)
-    this.control.control?.markAsPristine()
+    this.ngControl?.control?.markAsPristine()
     if (this._value?.length) this.onBsValueChange(this._value)
   }
 
@@ -247,6 +244,16 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
+  }
+
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   /**
@@ -280,8 +287,8 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
     ) {
       this.onChanged([])
       this.cd.markForCheck()
-      this.control.control?.setErrors({ invalidDateRange: true })
-      this.control.control?.markAsDirty()
+      this.ngControl?.control?.setErrors({ invalidDateRange: true })
+      this.ngControl?.control?.markAsDirty()
     } else if (this.returnISODate) {
       this.onChanged(dates)
     } else {
@@ -297,16 +304,12 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
   writeValue(value: any): void {
     const x = value?.toString().split(' - ')
     if (Array.isArray(x) && x.length === 2) value = [new Date(x[0]), new Date(x[1])]
-    if (Array.isArray(value) && !this.returnISODate) {
-      this._value = value.map((d: any) => new Date(d))
-    } else {
-      this._value = value
-    }
+    this._value = Array.isArray(value) && !this.returnISODate ? value.map((d: any) => new Date(d)) : value
     if (this.input && value) {
       let dates = ''
-      value.forEach((d) => {
+      value.forEach(() => {
         const date = format(value, 'dd-MM-yyyy')
-        dates = dates + date
+        dates += date
       })
       this.renderer.setProperty(this.input.nativeElement, 'value', dates)
     }
@@ -321,29 +324,5 @@ export class QuangInputDateRangeComponent implements ControlValueAccessor, OnIni
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
     this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled || this.readonly)
     this._disabled = isDisabled
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
-          }
-        }
-      })
   }
 }

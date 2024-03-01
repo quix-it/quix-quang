@@ -1,20 +1,18 @@
 import {
-  AfterViewInit,
   Component,
+  DoCheck,
   ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Optional,
   Output,
-  Renderer2,
   Self,
   ViewChild
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { FileSystemFileEntry, NgxFileDropComponent, NgxFileDropEntry } from 'ngx-file-drop'
-import { delay, filter } from 'rxjs/operators'
 
 /**
  * input file component decorator
@@ -27,7 +25,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input file component
  */
-export class QuangInputFileComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+export class QuangInputFileComponent implements ControlValueAccessor, OnInit, DoCheck {
   /**
    * Html id of input
    */
@@ -115,10 +113,6 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
@@ -127,24 +121,23 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
    */
   _dropMessage: string = ''
   /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
-  /**
    * Define disabled state
    */
   _disabled: boolean = false
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param renderer html access
-   * @param control cva access
+   * @param ngControl cva access
    */
-  constructor(
-    private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl
-  ) {
-    this.control.valueAccessor = this
+  constructor(@Self() @Optional() public ngControl?: NgControl) {
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   /**
@@ -162,20 +155,22 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
-    this._dropMessage = `${this.formName}.${this.control?.name}.drop`
+    this._dropMessage = `${this.formName}.${this.ngControl?.name}.drop`
   }
 
-  /**
-   * After rendering the component, it checks if the input field must have focus
-   * and activates the monitoring of the validation of the entered values
-   */
-  ngAfterViewInit(): void {
-    this.observeValidate()
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   /**
@@ -240,11 +235,7 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
    */
   writeValue(value: File | File[]): void {
     if (this.multiple) {
-      if (value) {
-        this._values = value as File[]
-      } else {
-        this._values = []
-      }
+      this._values = value ? (value as File[]) : []
     } else {
       this._value = value as File
     }
@@ -275,30 +266,6 @@ export class QuangInputFileComponent implements ControlValueAccessor, OnInit, Af
     this._values.splice(index, 1)
     this.onTouched()
     this.onChanged(this._values)
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
-          }
-        }
-      })
   }
 
   /**

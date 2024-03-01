@@ -1,22 +1,24 @@
 <div class="mb-3">
   <label
-    [attr.aria-label]="ariaLabel"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
+    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
     [htmlFor]="id + '-number'"
     *ngIf="label"
     class="form-label"
   >
     {{ label | transloco }}
-    <span [hidden]="!control?.errors?.required">*</span></label
+    <span [hidden]="!ngControl?.errors?.required">*</span></label
   >
   <input
-    [attr.aria-label]="ariaLabel"
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
+    [attr.aria-invalid]="errorMessage && ngControl?.invalid ? true : false"
+    [attr.aria-label]="ariaLabel | transloco"
     [autocomplete]="autocomplete"
     [class.form-control-lg]="size === 'lg'"
     [class.form-control-sm]="size === 'sm'"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && ngControl?.dirty"
+    [class.is-valid]="successMessage && ngControl?.valid && ngControl?.dirty"
     [disabled]="_disabled"
     [id]="id + '-number'"
     [max]="max"
@@ -37,13 +39,16 @@
     {{ _successMessage | transloco }}
   </div>
   <div
-    [attr.aria-errormessage]="errorMessage && _errorMessage ? _errorMessage : ''"
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? (errorMessageKey | transloco) : ''"
     class="invalid-feedback"
   >
-    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
+    {{ errorMessageKey | transloco: { requiredValue } }}
   </div>
   <small
-    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [attr.aria-hidden]="
+      ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
+    [hidden]="ngControl?.dirty && ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))"
     [id]="id + '-number-help'"
     *ngIf="helpMessage"
     class="form-text text-muted"
