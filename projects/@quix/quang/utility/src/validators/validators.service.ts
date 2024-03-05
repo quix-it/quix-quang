@@ -147,18 +147,18 @@ export class QuangValidatorsService {
 
   /**
    * Check if the past date is between the past two
-   * @param startDate
-   * @param endDate
+   * @param start
+   * @param end
    */
-  dateBetween(startDate: Date, endDate: Date) {
+  dateBetween(start: Date, end: Date) {
     return (control: AbstractControl): Record<string, any> | null => {
       if (
         !isWithinInterval(new Date(control.value), {
-          start: startDate,
-          end: endDate
+          start,
+          end
         })
       ) {
-        return { dateBetween: { requiredValue: [startDate, endDate] } }
+        return { dateBetween: { requiredValue: [start, end] } }
       }
       return null
     }

@@ -1,9 +1,9 @@
 <div class="mb-3 input-date">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
-    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
-    [htmlFor]="id + '-date'"
+    [class.is-invalid]="isInvalid()"
+    [class.is-valid]="isValid()"
+    [for]="id"
     *ngIf="label"
     class="form-label"
   >
@@ -13,29 +13,27 @@
   <div
     [class.input-group-lg]="size === 'lg'"
     [class.input-group-sm]="size === 'sm'"
-    class="input-group"
+    class="input-group has-validation"
   >
     <input
-      [attr.aria-disabled]="_disabled"
+      [attr.aria-disabled]="isDisabled"
       [attr.aria-label]="ariaLabel | transloco"
       [autocomplete]="autocomplete"
-      [bsConfig]="config"
-      [bsValue]="_value"
-      [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
-      [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+      [bsConfig]="bsConfig"
+      [class.is-invalid]="isInvalid()"
+      [class.is-valid]="isValid()"
       [datesDisabled]="disabledDates"
       [daysDisabled]="disabledDaysOfTheWeek"
-      [id]="id + '-date'"
-      [isDisabled]="_disabled"
+      [formControl]="$any(ngControl?.control)"
+      [id]="id"
+      [isDisabled]="isDisabled"
       [maxDate]="maxDate"
       [minDate]="minDate"
       [ngClass]="customClass"
       [placeholder]="placeholder | transloco"
       [placement]="placement"
       [tabIndex]="tabIndex"
-      (blur)="onTouched()"
-      (bsValueChange)="onBsValueChange($event)"
-      #drp="bsDatepicker"
+      #datePicker="bsDatepicker"
       #input
       bsDatepicker
       class="form-control"
@@ -44,8 +42,8 @@
     <button
       [ngClass]="buttonClass"
       [tabindex]="tabIndex"
-      (click)="_disabled ? null : drp.toggle()"
-      *ngIf="!_disabled"
+      (click)="isDisabled ? null : datePicker.toggle()"
+      *ngIf="!isDisabled"
       #inputBtn
       aria-label="calendar-button"
       class="btn"
@@ -53,25 +51,26 @@
     >
       <ng-content select="[calendarIcon]"></ng-content>
     </button>
-  </div>
-  <div class="valid-feedback">
-    {{ _successMessage | transloco }}
-  </div>
-  <div
-    [attr.aria-errormessage]="errorMessageKey"
-    class="invalid-feedback"
-  >
-    {{ errorMessageKey | transloco }}
+    <div
+      *ngIf="isValid()"
+      class="valid-feedback"
+    >
+      {{ successMessageKey | transloco }}
+    </div>
+    <div
+      [attr.aria-errormessage]="errorMessageKey"
+      *ngIf="isInvalid()"
+      class="invalid-feedback"
+    >
+      {{ errorMessageKey | transloco }}
+    </div>
   </div>
   <small
-    [hidden]="
-      (ngControl?.dirty || ngControl?.touched) &&
-      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
-    "
+    [hidden]="isValid() || isInvalid()"
     [id]="id + '-date-help'"
     *ngIf="helpMessage"
     class="form-text text-muted"
   >
-    {{ _helpMessage | transloco }}
+    {{ helpMessageKey | transloco }}
   </small>
 </div>
