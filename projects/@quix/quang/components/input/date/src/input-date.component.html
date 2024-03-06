@@ -16,7 +16,7 @@
     class="input-group has-validation"
   >
     <input
-      [attr.aria-disabled]="isDisabled"
+      [attr.aria-disabled]="ngControl?.disabled"
       [attr.aria-label]="ariaLabel | transloco"
       [autocomplete]="autocomplete"
       [bsConfig]="bsConfig"
@@ -24,17 +24,20 @@
       [class.is-valid]="isValid()"
       [datesDisabled]="disabledDates"
       [daysDisabled]="disabledDaysOfTheWeek"
-      [formControl]="$any(ngControl?.control)"
+      [formControl]="internalDateControl"
       [id]="id"
-      [isDisabled]="isDisabled"
+      [isDisabled]="ngControl?.disabled ?? false"
       [maxDate]="maxDate"
       [minDate]="minDate"
       [ngClass]="customClass"
       [placeholder]="placeholder | transloco"
       [placement]="placement"
+      [readonly]="readonly"
       [tabIndex]="tabIndex"
-      #datePicker="bsDatepicker"
-      #input
+      (blue)="onTouched()"
+      (click)="handleDatePickerInputClick($event)"
+      #datePickerDirective="bsDatepicker"
+      #datePickerInput
       bsDatepicker
       class="form-control"
       type="text"
@@ -42,9 +45,8 @@
     <button
       [ngClass]="buttonClass"
       [tabindex]="tabIndex"
-      (click)="isDisabled ? null : datePicker.toggle()"
-      *ngIf="!isDisabled"
-      #inputBtn
+      (click)="ngControl?.disabled ? null : datePickerDirective.toggle()"
+      *ngIf="!ngControl?.disabled"
       aria-label="calendar-button"
       class="btn"
       type="button"

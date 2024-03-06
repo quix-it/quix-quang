@@ -4,18 +4,19 @@ import {
   DoCheck,
   ElementRef,
   Inject,
+  Injector,
   Input,
   LOCALE_ID,
   OnChanges,
   OnInit,
-  Optional,
-  Self,
+  Renderer2,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  forwardRef
 } from '@angular/core'
-import { NgControl } from '@angular/forms'
+import { ControlValueAccessor, FormControl, FormControlName, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms'
 
-import { formatDate } from 'ngx-bootstrap/chronos'
+import { format } from 'date-fns'
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
 
 let nextUniqueId = 0
@@ -23,9 +24,16 @@ let nextUniqueId = 0
 @Component({
   selector: 'quang-input-date',
   templateUrl: './input-date.component.html',
-  styleUrls: ['./input-date.component.scss']
+  styleUrls: ['./input-date.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => QuangInputDateComponent),
+      multi: true
+    }
+  ]
 })
-export class QuangInputDateComponent implements OnInit, AfterViewInit, OnChanges, DoCheck {
+export class QuangInputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges, DoCheck {
   protected _uid = `quang-input-date-${nextUniqueId++}`
 
   @Input()
@@ -56,14 +64,18 @@ export class QuangInputDateComponent implements OnInit, AfterViewInit, OnChanges
 
   @Input() autofocus: boolean = false
 
-  @Input() returnISODate: boolean = false
   @Input() showWeekNumbers: boolean = false
-  @Input() dateFormat: string = ''
+  /**
+   * @see https://valor-software.com/ngx-bootstrap/old/10.3.0/#/components/datepicker?tab=overview#format
+   * @default ISO_8601
+   */
+  @Input() dateInputFormat: string = ''
+  /** @see https://date-fns.org/v3.3.1/docs/format */
+  @Input() dateRenderFormat: string = 'dd/MM/yyyy'
   @Input() minDate?: Date
   @Input() maxDate?: Date
   @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = []
   @Input() disabledDates: Date[] = []
-  @Input() minView: 'year' | 'month' | 'day' = 'year'
 
   @Input() buttonClass: string[] = []
   @Input() tabIndex: number = 0
@@ -75,53 +87,55 @@ export class QuangInputDateComponent implements OnInit, AfterViewInit, OnChanges
 
   bsConfig?: Partial<BsDatepickerConfig>
 
-  isDisabled = false
-  @ViewChild('input') input: ElementRef<HTMLInputElement> | undefined
+  @ViewChild('datePickerInput', { static: true }) datePickerInput?: ElementRef<HTMLInputElement>
+  internalDateControl = new FormControl()
+  ngControl?: FormControlName
 
-  @ViewChild('inputBtn') inputBtn: ElementRef<HTMLButtonElement> | undefined
+  public onChange: (value: Date | null) => void
+  public onTouched: () => void
 
   constructor(
     private readonly localeService: BsLocaleService,
+    private readonly renderer: Renderer2,
     @Inject(LOCALE_ID) public locale: string,
-    @Self() @Optional() public ngControl?: NgControl
+    private readonly injector: Injector
   ) {
-    if (this.ngControl)
-      this.ngControl.valueAccessor = {
-        writeValue(): void {},
-        registerOnChange(): void {},
-        registerOnTouched(): void {}
-      }
     // Force setter to be called in case id was not specified.
     // eslint-disable-next-line no-self-assign
     this.id = this.id
   }
 
   ngOnInit(): void {
+    const ngControl = this.injector.get(NgControl)
+    if (ngControl instanceof FormControlName) this.ngControl = ngControl
+
+    this.internalDateControl.valueChanges.subscribe((date: Date | string) => {
+      // ngx-bootstrap might give us a string "Invalid date"
+      // if it does, ignore it and save null instead
+      const updatedValue = typeof date === 'string' || isNaN(date.getTime()) ? null : date
+
+      this.writeValue(updatedValue)
+      this.onChange(updatedValue)
+    })
     this.bsConfig = {
       containerClass: 'theme-default',
       isAnimated: true,
       adaptivePosition: true,
       returnFocusToInput: true,
-      dateInputFormat: this.dateFormat,
+      dateInputFormat: this.dateInputFormat,
       showWeekNumbers: this.showWeekNumbers
     }
-    if (this.locale) {
-      this.localeService.use(this.locale)
-    }
-    if (this.helpMessage) {
-      this.helpMessageKey = `${this.formName}.${this.ngControl?.name}.help`
-    }
-    if (this.successMessage) {
-      this.successMessageKey = `${this.formName}.${this.ngControl?.name}.valid`
-    }
+    if (this.locale) this.localeService.use(this.locale)
+    if (this.helpMessage) this.helpMessageKey = `${this.formName}.${this.ngControl?.name}.help`
+    if (this.successMessage) this.successMessageKey = `${this.formName}.${this.ngControl?.name}.valid`
   }
 
   ngAfterViewInit(): void {
-    if (this.autofocus) this.input?.nativeElement.focus()
+    if (this.autofocus) this.datePickerInput?.nativeElement.focus()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.autofocus?.currentValue) this.input?.nativeElement.focus()
+    if (changes.autofocus?.currentValue) this.datePickerInput?.nativeElement.focus()
   }
 
   ngDoCheck(): void {
@@ -137,9 +151,9 @@ export class QuangInputDateComponent implements OnInit, AfterViewInit, OnChanges
       case 'dateBetween':
         {
           let [dateStart, dateEnd] = errorData.dateBetween?.requiredValue ?? []
-          if (this.dateFormat && dateStart && dateEnd) {
-            dateStart = formatDate(new Date(dateStart), this.dateFormat)
-            dateEnd = formatDate(new Date(dateEnd), this.dateFormat)
+          if (dateStart && dateEnd) {
+            dateStart = format(new Date(dateStart), this.dateRenderFormat)
+            dateEnd = format(new Date(dateEnd), this.dateRenderFormat)
           }
           this.requiredValue = `${dateStart} - ${dateEnd}`
         }
@@ -167,5 +181,27 @@ export class QuangInputDateComponent implements OnInit, AfterViewInit, OnChanges
 
   isInvalid(): boolean {
     return !!(this.errorMessage && this.ngControl?.invalid && (this.ngControl?.dirty ?? this.ngControl?.touched))
+  }
+
+  public writeValue(updatedValue: Date | null): void {
+    this.internalDateControl.setValue(updatedValue, { emitEvent: false })
+    // override ngx-bootstraps "Invalid date" string on the native input and override standard formatting
+    const valueToWrite = updatedValue === null ? '' : format(updatedValue, this.dateRenderFormat)
+    this.renderer.setProperty(this.datePickerInput?.nativeElement, 'value', valueToWrite)
+  }
+
+  public registerOnChange(fn: (value: Date | null) => void): void {
+    this.onChange = fn
+  }
+
+  public registerOnTouched(fn: () => void): void {
+    this.onTouched = fn
+  }
+
+  handleDatePickerInputClick($event: MouseEvent): void {
+    if (!this.ngControl?.disabled) return
+    $event.preventDefault()
+    $event.stopPropagation()
+    $event.stopImmediatePropagation()
   }
 }
