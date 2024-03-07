@@ -18,12 +18,20 @@
         >
         <div cardBody>
           <div class="d-flex gap-1">
-            <button
-              (click)="fillDate()"
-              class="btn btn-primary"
-            >
-              fill
-            </button>
+            <div class="input-group">
+              <button
+                (click)="fillDate()"
+                class="btn btn-primary"
+              >
+                fill
+              </button>
+              <button
+                (click)="fillDate(true)"
+                class="btn btn-secondary"
+              >
+                fill as string
+              </button>
+            </div>
             <div class="input-group">
               <button
                 (click)="enableForm()"

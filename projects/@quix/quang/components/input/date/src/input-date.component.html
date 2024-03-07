@@ -34,7 +34,8 @@
       [placement]="placement"
       [readonly]="readonly"
       [tabIndex]="tabIndex"
-      (blue)="onTouched()"
+      (blur)="onTouched()"
+      (change)="onInputChange($event)"
       (click)="handleDatePickerInputClick($event)"
       #datePickerDirective="bsDatepicker"
       #datePickerInput

@@ -16,8 +16,8 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, FormControl, FormControlName, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms'
 
-import { format } from 'date-fns'
-import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
+import { format, isValid, parse } from 'date-fns'
+import { BsDatepickerConfig, BsDatepickerInputDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
 
 let nextUniqueId = 0
 
@@ -70,7 +70,10 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
    * @default ISO_8601
    */
   @Input() dateInputFormat: string = ''
-  /** @see https://date-fns.org/v3.3.1/docs/format */
+  /**
+   * @see https://date-fns.org/v3.3.1/docs/format
+   * @default 'dd/MM/yyyy'
+   */
   @Input() dateRenderFormat: string = 'dd/MM/yyyy'
   @Input() minDate?: Date
   @Input() maxDate?: Date
@@ -87,8 +90,9 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
 
   bsConfig?: Partial<BsDatepickerConfig>
 
+  @ViewChild(BsDatepickerInputDirective, { static: true }) datePickerInputDirective?: BsDatepickerInputDirective
   @ViewChild('datePickerInput', { static: true }) datePickerInput?: ElementRef<HTMLInputElement>
-  internalDateControl = new FormControl()
+  internalDateControl = new FormControl<Date | null>(null)
   ngControl?: FormControlName
 
   public onChange: (value: Date | null) => void
@@ -109,10 +113,14 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
     const ngControl = this.injector.get(NgControl)
     if (ngControl instanceof FormControlName) this.ngControl = ngControl
 
-    this.internalDateControl.valueChanges.subscribe((date: Date | string) => {
-      // ngx-bootstrap might give us a string "Invalid date"
-      // if it does, ignore it and save null instead
-      const updatedValue = typeof date === 'string' || isNaN(date.getTime()) ? null : date
+    // override ngx-bootstrap hooks to prevent input element writes
+    if (this.datePickerInputDirective) {
+      this.datePickerInputDirective.onChange = () => {}
+      this.datePickerInputDirective._setInputValue = () => {}
+    }
+
+    this.internalDateControl.valueChanges.subscribe((date?: Date | null) => {
+      const updatedValue = typeof date === 'string' || date === undefined || !isValid(date) ? null : date
 
       this.writeValue(updatedValue)
       this.onChange(updatedValue)
@@ -183,11 +191,21 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
     return !!(this.errorMessage && this.ngControl?.invalid && (this.ngControl?.dirty ?? this.ngControl?.touched))
   }
 
-  public writeValue(updatedValue: Date | null): void {
-    this.internalDateControl.setValue(updatedValue, { emitEvent: false })
-    // override ngx-bootstraps "Invalid date" string on the native input and override standard formatting
+  onInputChange(event: Event): void {
+    if (!event.target) return
+    const inputValue = (event.target as HTMLInputElement).value
+    const parsedDate = parse(inputValue, this.dateRenderFormat, new Date())
+    if (isValid(parsedDate)) this.internalDateControl.patchValue(parsedDate)
+    else this.internalDateControl.patchValue(null)
+  }
+
+  public writeValue(updatedValue: Date | string | null): void {
     const valueToWrite = updatedValue === null ? '' : format(updatedValue, this.dateRenderFormat)
     this.renderer.setProperty(this.datePickerInput?.nativeElement, 'value', valueToWrite)
+    // sending only dates to ngx-bootstrap control
+    this.internalDateControl.setValue(typeof updatedValue === 'string' ? new Date(updatedValue) : updatedValue, {
+      emitEvent: typeof updatedValue === 'string'
+    })
   }
 
   public registerOnChange(fn: (value: Date | null) => void): void {

@@ -14,19 +14,15 @@ export class DateComponent {
   date = new Date('2020-02-28')
 
   group = new FormGroup({
-    date: new FormControl<Date | null>(null, Validators.required)
+    date: new FormControl<Date | string | null>(null, Validators.required)
   })
 
   groupMinMax = new FormGroup({
     date: new FormControl(null, Validators.required)
   })
 
-  groupISO = new FormGroup({
-    date: new FormControl(null, Validators.required)
-  })
-
-  fillDate(): void {
-    this.group.patchValue({ date: this.date })
+  fillDate(string = false): void {
+    this.group.patchValue({ date: string ? '2024-02-19T15:04:46.000Z' : this.date })
   }
 
   disableForm(): void {
