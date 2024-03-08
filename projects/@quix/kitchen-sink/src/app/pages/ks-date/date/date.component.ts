@@ -11,7 +11,8 @@ import { addYears } from 'date-fns'
 export class DateComponent {
   minDate: Date = new Date()
   maxDate: Date = addYears(new Date(), 1)
-  date = new Date('2020-02-28')
+
+  dateStringControl = new FormControl('', { nonNullable: true })
 
   group = new FormGroup({
     date: new FormControl<Date | string | null>(null, Validators.required)
@@ -22,7 +23,14 @@ export class DateComponent {
   })
 
   fillDate(string = false): void {
-    this.group.patchValue({ date: string ? '2024-02-19T15:04:46.000Z' : this.date })
+    const date = this.dateStringControl.value.length
+      ? string
+        ? this.dateStringControl.value
+        : new Date(this.dateStringControl.value)
+      : string
+      ? new Date().toISOString()
+      : new Date()
+    this.group.patchValue({ date })
   }
 
   disableForm(): void {

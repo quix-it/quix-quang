@@ -17,8 +17,13 @@
           >Configurazioni</a
         >
         <div cardBody>
-          <div class="d-flex gap-1">
+          <div class="d-flex justify-between gap-1">
             <div class="input-group">
+              <input
+                [formControl]="dateStringControl"
+                class="form-control"
+                type="text"
+              />
               <button
                 (click)="fillDate()"
                 class="btn btn-primary"
@@ -32,7 +37,7 @@
                 fill as string
               </button>
             </div>
-            <div class="input-group">
+            <div class="input-group justify-content-end">
               <button
                 (click)="enableForm()"
                 class="btn btn-primary"
