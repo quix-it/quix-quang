@@ -204,7 +204,7 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
     this.renderer.setProperty(this.datePickerInput?.nativeElement, 'value', valueToWrite)
     // sending only dates to ngx-bootstrap control
     this.internalDateControl.setValue(typeof updatedValue === 'string' ? new Date(updatedValue) : updatedValue, {
-      emitEvent: typeof updatedValue === 'string'
+      emitEvent: false
     })
   }
 
