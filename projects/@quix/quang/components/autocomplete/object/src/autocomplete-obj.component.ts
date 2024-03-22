@@ -26,7 +26,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
 @Component({
   selector: 'quang-autocomplete-obj',
   templateUrl: './autocomplete-obj.component.html',
-  styles: ['']
+  styleUrls: ['autocomplete-obj.component.scss']
 })
 /**
  * autocomplete object component
