@@ -20,7 +20,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 @Component({
   selector: 'quang-input-text',
   templateUrl: './input-text.component.html',
-  styles: []
+  styleUrls: ['./input-text.component.scss']
 })
 /**
  * input text component
