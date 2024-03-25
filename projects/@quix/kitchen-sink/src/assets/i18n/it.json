@@ -1,0 +1,15 @@
+{
+  "offline": {
+    "msg": "Sei offline!"
+  },
+  "quangPaginator": {
+    "size": "Rows per page",
+    "firstPage": "First page",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "lastPage": "Last page",
+    "pageRangeNoResults": "No results",
+    "pageRange": "{{page}} di {{amountPages}}",
+    "totalItems": "Elements:"
+  }
+}

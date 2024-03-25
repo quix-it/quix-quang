@@ -1,0 +1,10 @@
+<div
+  [hidden]="(loader$ | async) === 0"
+  #loader
+  class="loader-wrapper"
+>
+  <ng-content
+    class="loader"
+    select="[loader]"
+  ></ng-content>
+</div>

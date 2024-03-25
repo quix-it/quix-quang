@@ -1,0 +1,229 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Date fns'"></ks-title>
+    </div>
+    <div class="col text-right"></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Add days</h3>
+        <div cardBody>
+          {{ today }}
+          <div>
+            <form
+              [formGroup]="group"
+              (submit)="addDay()"
+            >
+              <quang-input-number
+                [autocomplete]="'off'"
+                [autofocus]="true"
+                [formName]="'form'"
+                [id]="'days'"
+                [max]="50"
+                [min]="0"
+                [placeholder]="'add days...'"
+                [step]="1"
+                [tabIndex]="1"
+                formControlName="number"
+              >
+              </quang-input-number>
+              <button
+                class="btn btn-secondary"
+                type="submit"
+              >
+                Add days
+              </button>
+              <dl>
+                <dt>result:</dt>
+                <dd>{{ dayResult }}</dd>
+              </dl>
+            </form>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.date.addDay.html' | transloco }}</pre>
+          <pre class="ts">{{ 'lib.date.addDay.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Add months</h3>
+        <div cardBody>
+          {{ today }}
+          <div>
+            <form
+              [formGroup]="group"
+              (submit)="addMonth()"
+            >
+              <quang-input-number
+                [autocomplete]="'off'"
+                [autofocus]="true"
+                [formName]="'form'"
+                [id]="'months'"
+                [max]="50"
+                [min]="0"
+                [placeholder]="'add months...'"
+                [step]="1"
+                [tabIndex]="1"
+                formControlName="number"
+              >
+              </quang-input-number>
+              <button
+                class="btn btn-secondary"
+                type="submit"
+              >
+                Add months
+              </button>
+              <dl>
+                <dt>result:</dt>
+                <dd>{{ monthResult }}</dd>
+              </dl>
+            </form>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.date.addMonth.html' | transloco }}</pre>
+          <pre class="ts">{{ 'lib.date.addMonth.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Add years</h3>
+        <div cardBody>
+          {{ today }}
+          <div>
+            <form
+              [formGroup]="group"
+              (submit)="addYear()"
+            >
+              <quang-input-number
+                [autocomplete]="'off'"
+                [autofocus]="true"
+                [formName]="'form'"
+                [id]="'years'"
+                [max]="50"
+                [min]="0"
+                [placeholder]="'number'"
+                [step]="1"
+                [tabIndex]="1"
+                formControlName="number"
+              >
+              </quang-input-number>
+              <button
+                class="btn btn-secondary"
+                type="submit"
+              >
+                Add years
+              </button>
+              <dl>
+                <dt>result:</dt>
+                <dd>{{ yearResult }}</dd>
+              </dl>
+            </form>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.date.addYear.html' | transloco }}</pre>
+          <pre class="ts">{{ 'lib.date.addYear.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Distance between 2 dates</h3>
+        <div cardBody>
+          {{ today }}
+          <div>
+            <form
+              [formGroup]="group"
+              (submit)="datesDistance()"
+            >
+              <quang-input-date-range
+                [autocomplete]="'off'"
+                [autofocus]="true"
+                [buttonClass]="['btn', 'btn-outline-secondary']"
+                [dateFormat]="'YYYY-MM-DD'"
+                [formName]="'form'"
+                [id]="'dates'"
+                [placeholder]="'insert dates'"
+                [tabIndex]="1"
+                formControlName="dateRange"
+              >
+                <i
+                  calendarIcon
+                  class="fas fa-calendar-alt"
+                ></i>
+              </quang-input-date-range>
+              <button
+                class="btn btn-outline-primary"
+                type="submit"
+              >
+                Calculate distance
+              </button>
+              <dl>
+                <dt>Value:</dt>
+                <dd>{{ distance }}</dd>
+              </dl>
+            </form>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.date.distance.html' | transloco }}</pre>
+          <pre class="ts">{{ 'lib.date.distance.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li>
+              <a
+                href="https://date-fns.org/"
+                target="_blank"
+                >Date fns</a
+              >
+            </li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

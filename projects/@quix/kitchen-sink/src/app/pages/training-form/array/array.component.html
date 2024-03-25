@@ -1,0 +1,54 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Form array'"></ks-title>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <button
+            (click)="addControl()"
+            class="btn btn-outline-success"
+          >
+            Aggiungi input
+          </button>
+          <button
+            (click)="removeControl()"
+            class="btn btn-outline-danger ml-1"
+          >
+            Rimuovi input
+          </button>
+          <form [formGroup]="group">
+            <ng-container formArrayName="array">
+              <div
+                *ngFor="let input of array.controls; let i = index"
+                class="mb-3"
+              >
+                <label [htmlFor]="'text' + i">Text {{ i }}</label>
+                <input
+                  [formControlName]="i"
+                  [id]="'text' + i"
+                  class="form-control"
+                  type="text"
+                />
+              </div>
+            </ng-container>
+          </form>
+          value: {{ group.value?.array | json }}
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'form.array.html' | transloco }}</pre>
+          <pre class="ts">{{ 'form.array.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

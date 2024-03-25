@@ -1,0 +1,99 @@
+<div class="mb-3 position-relative multi-select-container">
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
+    <span [hidden]="!ngControl?.errors?.required">*</span>
+  </label>
+
+  <div class="option-list-container">
+    <button
+      [attr.aria-label]="ariaLabel | transloco"
+      [class.form-select-lg]="size === 'lg'"
+      [class.form-select-sm]="size === 'sm'"
+      [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+      [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+      [disabled]="_disabled"
+      [id]="id"
+      [ngClass]="customClass"
+      [tabIndex]="tabIndex"
+      (click)="changeOptionsVisibility(true)"
+      (mouseleave)="hideOptionVisibility()"
+      #input
+      class="form-select"
+      type="button"
+    >
+      <div class="content">
+        <ng-container *ngFor="let val of _value; let last = last"> {{ val }}{{ !last ? ', ' : '' }} </ng-container>
+      </div>
+    </button>
+    <div
+      (mouseenter)="showOptionVisibility()"
+      (mouseleave)="hideOptionVisibility()"
+      *ngIf="_showOptions$ | async"
+      class="option-list"
+    >
+      <ul class="m-0 p-0">
+        <li
+          [class.m-0]="last"
+          (click)="onSelectItem(item)"
+          *ngFor="let item of list; let i = index; let last = last"
+          class="item"
+        >
+          <input
+            [attr.aria-checked]="getSelected(item)"
+            [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+            [attr.aria-label]="'ariaLabel' | transloco"
+            [checked]="getSelected(item)"
+            [disabled]="_disabled"
+            [id]="item + '-checkbox'"
+            [name]="item + '-checkbox'"
+            [ngClass]="customClass"
+            [tabIndex]="tabIndex"
+            (blur)="onTouched()"
+            #inputCheckbox
+            class="checkbox"
+            type="checkbox"
+          />
+          <label
+            [attr.aria-label]="ariaLabel | transloco"
+            *ngIf="label"
+            class="form-check-label checkbox-label ms-3 w-100"
+          >
+            {{ translateValue ? (item | transloco) : item }}
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [id]="id + '-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco: { requiredValue } }}
+  </div>
+  <small
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
+    [id]="id + '-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
+  </small>
+</div>

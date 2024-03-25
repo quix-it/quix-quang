@@ -1,0 +1,176 @@
+<section
+  class="container-fluid"
+  id="dd"
+>
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Drag & drop'"></ks-title>
+    </div>
+    <div class="col text-right"></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <div
+            cdkDrag
+            class="example-box"
+          >
+            Drag me around
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.dd.demo' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Zona di movimento</h3>
+        <div cardBody>
+          <div class="example-boundary">
+            <div
+              cdkDrag
+              cdkDragBoundary=".example-boundary"
+              class="example-box"
+            >
+              I can only be dragged within the container
+            </div>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.dd.zone' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Liste</h3>
+        <div cardBody>
+          <div class="example-container mb-3">
+            <h4>Da fare</h4>
+            <div
+              [cdkDropListConnectedTo]="[doneList]"
+              [cdkDropListData]="todo"
+              (cdkDropListDropped)="dropConnection($event)"
+              #todoList="cdkDropList"
+              cdkDropList
+              class="example-list"
+            >
+              <div
+                *ngFor="let item of todo"
+                cdkDrag
+                class="example-box-list"
+              >
+                {{ item }}
+              </div>
+            </div>
+          </div>
+          <div class="example-container">
+            <h4>Fatti</h4>
+            <div
+              [cdkDropListConnectedTo]="[todoList]"
+              [cdkDropListData]="done"
+              (cdkDropListDropped)="dropConnection($event)"
+              #doneList="cdkDropList"
+              cdkDropList
+              class="example-list"
+            >
+              <div
+                *ngFor="let item of done"
+                cdkDrag
+                class="example-box-list"
+              >
+                {{ item }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.dd.listHtml' | transloco }}</pre>
+          <pre class="ts">{{ 'lib.dd.listCode' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Matrice</h3>
+        <div cardBody>
+          <button
+            (click)="addRow()"
+            class="btn btn-outline-success"
+            type="button"
+          >
+            Aggiungi riga
+          </button>
+          <div class="example-matrix">
+            <div *ngFor="let r of row; let i = index">
+              <div
+                [cdkDropListConnectedTo]="connectedTo"
+                [cdkDropListData]="r.value"
+                [id]="r.id"
+                (cdkDropListDropped)="dropConnection($event)"
+                cdkDropList
+                cdkDropListOrientation="horizontal"
+                class="list"
+              >
+                <div
+                  *ngFor="let item of r.value; let y = index"
+                  cdkDrag
+                  class="box"
+                >
+                  {{ 'index ' + getIndex(i, y) }} - {{ item }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.dd.matrixHtml' | transloco }}</pre>
+          <pre class="ts">{{ 'lib.dd.matrixCode' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <a
+            href="https://material.angular.io/cdk/drag-drop/overview"
+            target="_blank"
+            >Material drag & drop</a
+          >
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

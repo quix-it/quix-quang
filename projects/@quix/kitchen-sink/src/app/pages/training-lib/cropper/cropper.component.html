@@ -1,0 +1,74 @@
+<section
+  class="container-fluid"
+  id="swiper"
+>
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Image cropper'"></ks-title>
+    </div>
+    <div class="col text-right"></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <div class="mb-3">
+            <label
+              class="form-label"
+              for="input-file"
+              >Seleziona l'immagine</label
+            >
+            <input
+              (change)="fileChangeEvent($event)"
+              class="form-control"
+              id="input-file"
+              type="file"
+            />
+          </div>
+          <image-cropper
+            [aspectRatio]="4 / 4"
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            (cropperReady)="cropperReady()"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (loadImageFailed)="loadImageFailed()"
+            format="png"
+          ></image-cropper>
+          <img
+            [src]="croppedImage"
+            alt=""
+          />
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML</h3>
+        <div cardBody>
+          <pre class="html">{{ 'lib.cropper.html' | transloco }}</pre>
+          <pre class="ts">{{ 'lib.cropper.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li>
+              <a
+                href="https://www.npmjs.com/package/ngx-image-cropper"
+                target="_blank"
+                >Ngx image cropper</a
+              >
+            </li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

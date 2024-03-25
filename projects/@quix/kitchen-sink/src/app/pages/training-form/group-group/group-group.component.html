@@ -1,0 +1,84 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Form group'"></ks-title>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <form [formGroup]="group">
+            <div class="mb-3">
+              <label for="name">Nome</label>
+              <input
+                class="form-control"
+                formControlName="name"
+                id="name"
+                type="text"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="surname">Cognome</label>
+              <input
+                class="form-control"
+                formControlName="surname"
+                id="surname"
+                type="text"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="age">Età</label>
+              <input
+                class="form-control"
+                formControlName="age"
+                id="age"
+                type="number"
+              />
+            </div>
+            <ng-container formGroupName="locale">
+              <div class="mb-3">
+                <label for="address">Indirizzo</label>
+                <input
+                  class="form-control"
+                  formControlName="address"
+                  id="address"
+                  type="text"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="city">Città</label>
+                <input
+                  class="form-control"
+                  formControlName="city"
+                  id="city"
+                  type="text"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="country">Nazione</label>
+                <input
+                  class="form-control"
+                  formControlName="country"
+                  id="country"
+                  type="text"
+                />
+              </div>
+            </ng-container>
+          </form>
+          value: {{ group.value | json }}
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'form.group-group.html' | transloco }}</pre>
+          <pre class="ts">{{ 'form.group-group.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

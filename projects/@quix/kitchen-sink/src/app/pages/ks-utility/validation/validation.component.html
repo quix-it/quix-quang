@@ -1,0 +1,166 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quix validators service'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>File (img.jpg)</h3>
+        <div cardBody>
+          <form [formGroup]="fileForm">
+            <quang-input-file
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [buttonLabel]="'form.file.button.label'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'file id'"
+              [label]="'form.file.label'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="file"
+            >
+              <i
+                class="fas fa-upload"
+                uploadIcon
+              ></i>
+            </quang-input-file>
+          </form>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.validation.file.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Date max min</h3>
+        <div cardBody>
+          <form [formGroup]="dateForm">
+            <div class="mb-3">
+              <quang-input-date
+                [buttonClass]="['btn', 'btn-outline-dark']"
+                [errorMessage]="true"
+                [formName]="'form'"
+                [id]="'mm'"
+                [successMessage]="true"
+                formControlName="date"
+              >
+                <i
+                  calendarIcon
+                  class="fas fa-calendar"
+                ></i>
+              </quang-input-date>
+            </div>
+          </form>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.validation.date.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Date between</h3>
+        <div cardBody>
+          <form [formGroup]="betweenForm">
+            <div class="mb-3">
+              <quang-input-date
+                [buttonClass]="['btn', 'btn-outline-dark']"
+                [errorMessage]="true"
+                [formName]="'form'"
+                [id]="'mm'"
+                [successMessage]="true"
+                formControlName="date"
+              >
+                <i
+                  calendarIcon
+                  class="fas fa-calendar"
+                ></i>
+              </quang-input-date>
+            </div>
+          </form>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.validation.date-between.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Fiscal code</h3>
+        <div cardBody>
+          <form [formGroup]="fiscalForm">
+            <quang-input-text
+              [errorMessage]="true"
+              [formName]="'form'"
+              [id]="'fiscal-code'"
+              [label]="'Codice fiscale'"
+              formControlName="code"
+            ></quang-input-text>
+          </form>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.validation.fiscal.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Vat number</h3>
+        <div cardBody>
+          <form [formGroup]="vatForm">
+            <quang-input-text
+              [errorMessage]="true"
+              [formName]="'form'"
+              [id]="'vat-number'"
+              [label]="'Partita iva'"
+              formControlName="code"
+            ></quang-input-text>
+          </form>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.validation.vat.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

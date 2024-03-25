@@ -1,0 +1,12 @@
+<div
+  [attr.aria-describedby]="ariaLabel | transloco"
+  [autoResize]="true"
+  [id]="id"
+  [ngStyle]="{ height: height }"
+  [options]="chartOption"
+  [tabIndex]="tabIndex"
+  (chartClick)="onChartClick($event)"
+  aria-live="off"
+  echarts
+  role="graphics-document"
+></div>

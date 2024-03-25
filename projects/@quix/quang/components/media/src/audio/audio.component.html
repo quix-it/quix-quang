@@ -1,0 +1,15 @@
+<audio
+  [autoplay]="autoplay"
+  [controls]="controls"
+  [id]="id"
+  [muted]="muted"
+  (ended)="whenAudioFinish.emit()"
+  (pause)="whenAudioPause.emit()"
+  (play)="whenAudioStart.emit()"
+>
+  <source
+    [src]="src"
+    [type]="type"
+  />
+  Your browser does not support the audio element.
+</audio>

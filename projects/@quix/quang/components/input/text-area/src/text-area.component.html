@@ -1,0 +1,69 @@
+<div class="mb-3">
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
+    [htmlFor]="id + '-area'"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
+    <span [hidden]="!ngControl?.errors?.required">*</span>
+  </label>
+  <textarea
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
+    [attr.aria-invalid]="errorMessage && ngControl?.invalid ? true : false"
+    [attr.aria-label]="ariaLabel | transloco"
+    [autofocus]="autofocus"
+    [cdkAutosizeMaxRows]="rows"
+    [cdkAutosizeMinRows]="0"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
+    [cols]="cols"
+    [disabled]="_disabled"
+    [id]="id + '-area'"
+    [ngClass]="customClass"
+    [ngStyle]="{ resize: resizeMode }"
+    [placeholder]="placeholder | transloco"
+    [readOnly]="readonly"
+    [rows]="rows"
+    [tabIndex]="tabIndex"
+    (blur)="onTouched()"
+    (input)="onChangedHandler($event)"
+    #autosize="cdkTextareaAutosize"
+    #input
+    cdkTextareaAutosize
+    class="form-control"
+  ></textarea>
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
+    {{ _successMessage | transloco }}
+  </div>
+
+  <div
+    [id]="id + '-area-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco: { requiredValue } }}
+  </div>
+
+  <small
+    [attr.aria-hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
+    [id]="id + '-area-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
+  </small>
+</div>

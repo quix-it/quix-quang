@@ -1,0 +1,120 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang keycloak directive'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Autenticato</h3>
+        <div cardBody>
+          <h6>Indica se l'utente è stato autenticato</h6>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ user | async | json }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'keycloak.selector.is' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Utente</h3>
+        <div cardBody>
+          <h6>Indica se l'utente ha delle info</h6>
+          <dl>
+            <dt>Value:</dt>
+            {{ is | async | json }}
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'keycloak.selector.user' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Ruoli</h3>
+        <div cardBody>
+          <h6>Indica i rouli dell'utente</h6>
+          <dl>
+            <dt>Value:</dt>
+            {{ roles | async | json }}
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'keycloak.selector.role' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Tutti i ruoli</h3>
+        <div cardBody>
+          <h6>Indica se l'utente possiede tutti i ruoli</h6>
+          <dl>
+            <dt>Value:</dt>
+            {{ all | async | json }}
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'keycloak.selector.all' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Almeno un ruolo</h3>
+        <div cardBody>
+          <h6>Indica se l'utente possiede almeno un ruolo</h6>
+          <dl>
+            <dt>Value:</dt>
+            {{ until | async | json }}
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'keycloak.selector.until' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

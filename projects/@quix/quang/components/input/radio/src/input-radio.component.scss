@@ -1,0 +1,13 @@
+.custom-radio {
+  .form-check-label {
+    cursor: pointer;
+  }
+  .form-check-input {
+    cursor: pointer;
+  }
+  .custom-row-radio {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}

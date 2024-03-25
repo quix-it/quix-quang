@@ -1,0 +1,67 @@
+<div class="mb-3">
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
+    <span [hidden]="!ngControl?.errors?.required">*</span>
+  </label>
+  <input
+    [adaptivePosition]="adaptivePosition"
+    [attr.aria-label]="ariaLabel | transloco"
+    [autocomplete]="autocomplete"
+    [autofocus]="autofocus"
+    [class.form-control-lg]="size === 'lg'"
+    [class.form-control-sm]="size === 'sm'"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+    [disabled]="_isDisabled"
+    [id]="id"
+    [isAnimated]="true"
+    [name]="id"
+    [ngClass]="customClass"
+    [ngModel]="_value"
+    [placeholder]="placeholder | transloco"
+    [readOnly]="readonly"
+    [tabIndex]="tabIndex"
+    [typeahead]="dataList"
+    [typeaheadMinLength]="startAfter"
+    [typeaheadOptionsInScrollableView]="18"
+    [typeaheadOptionsLimit]="optionLimit ?? 100"
+    [typeaheadScrollable]="true"
+    (blur)="onTouched(); onFocusOut($event)"
+    (focus)="onFocus($event)"
+    (input)="onChangeInput($event)"
+    (typeaheadOnSelect)="onChangedHandler($event)"
+    #input
+    class="form-control"
+  />
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [id]="id + '-error'"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco: { requiredValue } }}
+  </div>
+  <small
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
+    [id]="id + '-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
+  </small>
+</div>

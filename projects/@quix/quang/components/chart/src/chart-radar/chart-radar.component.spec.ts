@@ -1,0 +1,24 @@
+import { ComponentFixture, TestBed, async } from '@angular/core/testing'
+
+import { ChartRadarComponent } from './chart-radar.component'
+
+describe('ChartRadarComponent', () => {
+  let component: ChartRadarComponent
+  let fixture: ComponentFixture<ChartRadarComponent>
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ChartRadarComponent]
+    }).compileComponents()
+  }))
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ChartRadarComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
+
+  it('should create', () => {
+    expect(component).toBeTruthy()
+  })
+})

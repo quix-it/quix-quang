@@ -1,0 +1,65 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Form array group'"></ks-title>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <button
+            (click)="addGroup()"
+            class="btn btn-outline-success"
+          >
+            Aggiungi gruppo
+          </button>
+          <button
+            (click)="removeGroup()"
+            class="btn btn-outline-danger ml-1"
+          >
+            Rimuovi gruppo
+          </button>
+          <form [formGroup]="group">
+            <ng-container formArrayName="array">
+              <div
+                [formGroupName]="i"
+                *ngFor="let input of array.controls; let i = index"
+              >
+                <div class="mb-3">
+                  <label [htmlFor]="'name' + i">Nome {{ i }}</label>
+                  <input
+                    [id]="'name' + i"
+                    class="form-control"
+                    formControlName="name"
+                    type="text"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label [htmlFor]="'surname' + i">Cognome {{ i }}</label>
+                  <input
+                    [id]="'surname' + i"
+                    class="form-control"
+                    formControlName="surname"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </ng-container>
+          </form>
+          value: {{ group.value?.array | json }}
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'form.array-group.html' | transloco }}</pre>
+          <pre class="ts">{{ 'form.array-group.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+{
+  "for": {
+    "html": "<div class=\"mb-1 border-1 border-secondary border p-3\"\n               *ngFor=\"let item of items; trackBy:trackItem; let i = index; let f = first; let l = last; let o = odd; let e = even\">\n            {{item.value}}\n            <mat-chip-list>\n              <mat-chip *ngIf=\"f\">First</mat-chip>\n              <mat-chip *ngIf=\"l\">Last</mat-chip>\n              <mat-chip *ngIf=\"o\">Odd</mat-chip>\n              <mat-chip *ngIf=\"e\">Even</mat-chip>\n            </mat-chip-list>\n          </div>",
+    "ts": "items: Array<{ id: number, value: string }> = Array(30)\n    .fill('')\n    .map((e, i) => ({ id: i, value: `Value${i}` }))\n\n  trackItem (index: number, item: { id: number, value: string }): number {\n    return item.id\n  }"
+  },
+  "for-obj": {
+    "html": "<div class=\"mb-1 border-1 border-secondary border p-3\"\n               *ngFor=\"let obj of objects | keyvalue; trackBy:trackItem; let i = index; let f = first; let l = last; let o = odd; let e = even\">\n            {{obj.value.value}}\n            <mat-chip-list>\n              <mat-chip *ngIf=\"f\">First</mat-chip>\n              <mat-chip *ngIf=\"l\">Last</mat-chip>\n              <mat-chip *ngIf=\"o\">Odd</mat-chip>\n              <mat-chip *ngIf=\"e\">Even</mat-chip>\n            </mat-chip-list>\n          </div>",
+    "ts": "objects: { [key: string]: string } = Array(30)\n    .fill('')\n    .reduce((o, e, i) => {\n      o[i] = { id: i, value: `Value${i}` }\n      return o\n    }, {})"
+  },
+  "win-scroll": {
+    "ts": "@HostListener('window:scroll', ['$event'])\n  onScroll (e: any): void {\n    this.winHostListener = this.getYPosition(e)\n  }\n\n  scrollSubscription$: Subscription = fromEvent(window, 'scroll')\n    .subscribe((e: Event) => {\n      this.winFromEvent = this.getYPosition(e)\n    })\n\n  constructor (private readonly renderer2: Renderer2) {\n  }\n\n  ngOnInit (): void {\n    this.renderer2.listen('window', 'scroll', (e) => {\n      this.winRederer = this.getYPosition(e)\n    })\n  }\n\n  getYPosition (e: any): number {\n    return (e.target.scrollingElement as Element).scrollTop\n  }\n\n  ngOnDestroy (): void {\n    this.scrollSubscription$.unsubscribe()\n  }"
+  },
+  "div-scroll": {
+    "ts": " ngAfterViewInit (): void {\n    this.scrollerSubscription$ = fromEvent(this.scrollDiv?.nativeElement as any, 'scroll')\n      .subscribe((e) => {\n        this.elFromEvent = this.getDivYPosition(e)\n      })\n    this.renderer2.listen(this.scrollDiv?.nativeElement, 'scroll', (e) => {\n      this.elRederer = this.getDivYPosition(e)\n    })\n  }\n getDivYPosition (e: any): number {\n    return (e.target as Element).scrollTop\n  }\n  scroll50 (): void {\n    this.scrollDiv?.nativeElement.scrollTo({ top: this.elFromEvent + 50 })\n  }"
+  },
+  "intersection": {
+    "html": "<div id=\"image-wrapper\"\n               class=\"border border-3 border-secondary\"\n               #imageContainer>\n            <img src=\"/kitchen-sink/assets/images/lazy/default-placeholder.png\"\n                 [attr.data-src]=\"img + i\"\n                 #image\n                 [alt]=\"'image' + i\" *ngFor=\"let img of images; let i = index\">\n          </div>",
+    "ts": " @ViewChild('imageContainer') container: ElementRef<HTMLDivElement> | null = null\n  @ViewChildren('image') imageItem: QueryList<HTMLImageElement> | [] = []\n  observer: IntersectionObserver | null = null\n  images: string[] = Array(30).fill('https://picsum.photos/500/500?number=')\n\n  ngAfterViewInit (): void {\n    this.observer = new IntersectionObserver(this.changeSrc, {\n      root: this.container?.nativeElement as Element,\n      rootMargin: '16px',\n      threshold: 0.5\n    })\n    setTimeout(() => {\n      this.imageItem.forEach((image: any) => {\n        this.observer?.observe(image.nativeElement)\n      })\n    }, 0)\n  }\n\n  changeSrc (entries: any, observer: any): void {\n    entries.forEach((entry: any) => {\n      if (entry.isIntersecting) {\n        entry.target.src = entry.target.dataset.src\n        observer?.unobserve(entry.target)\n      }\n    })\n  }"
+  }
+}

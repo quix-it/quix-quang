@@ -1,0 +1,64 @@
+<div class="mb-3">
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+    [htmlFor]="id + '-email'"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
+    <span [hidden]="!ngControl?.errors?.required">*</span>
+  </label>
+  <input
+    [attr.aria-autocomplete]="'inline'"
+    [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+    [attr.aria-disabled]="_disabled"
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-error' : ''"
+    [attr.aria-invalid]="ngControl?.invalid && errorMessageKey ? true : false"
+    [attr.aria-label]="ariaLabel | transloco"
+    [attr.aria-placeholder]="placeholder | transloco"
+    [attr.aria-readonly]="readonly"
+    [autocomplete]="autocomplete"
+    [class.form-control-lg]="size === 'lg'"
+    [class.form-control-sm]="size === 'sm'"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+    [id]="id + '-email'"
+    [ngClass]="customClass"
+    [pattern]="pattern"
+    [placeholder]="placeholder | transloco"
+    [readOnly]="readonly"
+    [tabIndex]="tabIndex"
+    (blur)="onTouched()"
+    (input)="onChangedHandler($event)"
+    #input
+    class="form-control"
+    type="email"
+  />
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [id]="id + '-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco: { requiredValue } }}
+  </div>
+  <small
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
+    [id]="id + '-email-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
+  </small>
+</div>

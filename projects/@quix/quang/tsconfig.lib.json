@@ -1,0 +1,16 @@
+{
+  "angularCompilerOptions": {
+    "enableResourceInlining": true,
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true
+  },
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "outDir": "../../../out-tsc/lib",
+    "types": []
+  },
+  "exclude": ["**/*.spec.ts", "**/*.stories.*"],
+  "extends": "../../../tsconfig.json"
+}

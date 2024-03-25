@@ -1,0 +1,49 @@
+<div
+  [id]="id"
+  [ngClass]="customClass"
+  #wrapper
+  class="wrapper-360"
+>
+  <div
+    [style.background-image]="imageUrl"
+    [style.height]="height"
+    (mousedown)="mouseDown($event)"
+    (mousemove)="mouseMove($event)"
+    (mouseup)="mouseUp($event)"
+  ></div>
+  <div class="command">
+    <button
+      [hidden]="play"
+      (click)="rotator('-')"
+      class="btn btn-secondary"
+    >
+      <ng-content select="[previousIcon]"></ng-content>
+    </button>
+    <button
+      (click)="togglePlay()"
+      *ngIf="play"
+      class="btn btn-primary"
+    >
+      <ng-content select="[stopIcon]"></ng-content>
+    </button>
+    <button
+      (click)="togglePlay()"
+      *ngIf="!play"
+      class="btn btn-primary"
+    >
+      <ng-content select="[playIcon]"></ng-content>
+    </button>
+    <button
+      [hidden]="play"
+      (click)="rotator('+')"
+      class="btn btn-secondary"
+    >
+      <ng-content select="[nextIcon]"></ng-content>
+    </button>
+  </div>
+  <div
+    [style.background]="getUrl(img)"
+    *ngFor="let img of images"
+    class="preload"
+  ></div>
+</div>

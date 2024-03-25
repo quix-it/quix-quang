@@ -1,0 +1,88 @@
+<div class="mb-3 d-flex flex-column custom-radio">
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
+    [htmlFor]="id + '-radio'"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
+    <span [hidden]="!ngControl?.errors?.['required']">*</span>
+  </label>
+  <div [ngClass]="{ 'custom-row-radio': direction === 'row' }">
+    <div
+      [class.form-check-inline]="inline"
+      *ngFor="let radio of radioList; let index = index"
+      class="form-check"
+    >
+      <input
+        [attr.aria-checked]="_value === radio[returnValue]"
+        [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-radio-help' : ''"
+        [attr.aria-disabled]="_disabled"
+        [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
+        [attr.aria-invalid]="errorMessage && ngControl?.invalid ? true : false"
+        [attr.aria-labelledby]="label | transloco"
+        [autocomplete]="autocomplete"
+        [checked]="radio[returnValue]?.toString() === _value?.toString()"
+        [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+        [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
+        [disabled]="_disabled"
+        [id]="id + '-radio-' + radio[labelValue]"
+        [name]="groupName"
+        [ngClass]="customClass"
+        [tabIndex]="0"
+        [value]="radio[returnValue]"
+        (blur)="onTouched()"
+        (input)="onChangedHandler($event)"
+        #input
+        class="form-check-input"
+        role="radio"
+        type="radio"
+      />
+      <label
+        [attr.aria-label]="ariaLabel | transloco"
+        [htmlFor]="id + '-radio-' + radio[labelValue]"
+        class="form-check-label"
+      >
+        {{ radio[labelValue] | transloco }}
+      </label>
+    </div>
+  </div>
+  <div
+    [ngStyle]="{
+      display: ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage ? 'block' : 'none'
+    }"
+    aria-live="assertive"
+    class="valid-feedback"
+  >
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [id]="id + '-radio-error'"
+    [ngStyle]="{
+      display: ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage ? 'block' : 'none'
+    }"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco: { requiredValue } }}
+  </div>
+  <small
+    [attr.aria-describedby]="id"
+    [attr.aria-hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
+    [id]="id + '-radio-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
+  </small>
+</div>

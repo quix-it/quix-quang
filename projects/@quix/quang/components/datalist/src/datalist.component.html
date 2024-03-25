@@ -1,0 +1,62 @@
+<div class="mb-3">
+  <label
+    [attr.aria-label]="ariaLabel | transloco"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+    [htmlFor]="id"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
+    <span [hidden]="!ngControl?.errors?.required">*</span>
+  </label>
+  <input
+    [attr.aria-label]="ariaLabel | transloco"
+    [attr.list]="id + 'list'"
+    [class.form-control-lg]="size === 'lg'"
+    [class.form-control-sm]="size === 'sm'"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+    [id]="id"
+    [name]="id"
+    [ngClass]="customClass"
+    [tabIndex]="tabIndex"
+    (blur)="onTouched()"
+    (input)="onChangedHandler($event)"
+    #input
+    class="form-control"
+  />
+  <datalist [id]="id + 'list'">
+    <option
+      [selected]="item === _value"
+      [value]="item"
+      *ngFor="let item of list"
+    >
+      {{ translateValue ? (item | transloco) : item }}
+    </option>
+  </datalist>
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [id]="id + '-error'"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco: { requiredValue } }}
+  </div>
+  <small
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
+    [id]="id + '-help'"
+    *ngIf="helpMessage"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
+  </small>
+</div>

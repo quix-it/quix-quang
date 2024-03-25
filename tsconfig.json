@@ -1,94 +1,36 @@
 {
+  "angularCompilerOptions": {
+    "allowEmptyCodegenFiles": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "fullTemplateTypeCheck": true,
+    "importHelpers": true,
+    "strictInjectionParameters": true,
+    "strictTemplates": true
+  },
   "compileOnSave": false,
   "compilerOptions": {
-    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "module": "esnext",
+    "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "skipLibCheck": true,
-    "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": ["google.maps", "googlemaps"],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["ES2022", "dom"],
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "outDir": "./dist/out-tsc",
     "paths": {
-      "quang": [
-        "dist/quang/quang",
-        "dist/quang",
-      ],
-      "quang-auth": [
-        "dist/quang-auth/quang-auth",
-        "dist/quang-auth"
-      ],
-      "quang-keycloak": [
-        "dist/quang-keycloak/quang-keycloak",
-        "dist/quang-keycloak"
-      ],
-      "quang-core": [
-        "dist/quang-core/quang-core",
-        "dist/quang-core"
-      ],
-      "quang-calendar": [
-        "dist/quang-calendar/quang-calendar",
-        "dist/quang-calendar"
-      ],
-      "quang-date": [
-        "dist/quang-date/quang-date",
-        "dist/quang-date"
-      ],
-      "quang-chart": [
-        "dist/quang-chart/quang-chart",
-        "dist/quang-chart"
-      ],
-      "quang-event": [
-        "dist/quang-event/quang-event",
-        "dist/quang-event"
-      ],
-      "quang-media": [
-        "dist/quang-media/quang-media",
-        "dist/quang-media"
-      ],
-      "quang-map": [
-        "dist/quang-map/quang-map",
-        "dist/quang-map"
-      ],
-      "quang-components": [
-        "dist/quang-components/quang-components",
-        "dist/quang-components"
-      ],
-      "qunag-dialog": [
-        "dist/qunag-dialog/qunag-dialog",
-        "dist/qunag-dialog"
-      ],
-      "quang-dialog": [
-        "dist/quang-dialog/quang-dialog",
-        "dist/quang-dialog"
-      ],
-      "quang-utility": [
-        "dist/quang-utility/quang-utility",
-        "dist/quang-utility"
-      ]
-    }
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "enableIvy": false,
-    "allowEmptyCodegenFiles": false,
-    "strictInjectionParameters": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "importHelpers": true
+      "@quix/quang": ["projects/@quix/quang"],
+      "@quix/quang/*": ["projects/@quix/quang/*"]
+    },
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "ES2022",
+    "useDefineForClassFields": false
   }
 }

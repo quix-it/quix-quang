@@ -1,0 +1,110 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang input datetime'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/InputDateTimeComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <form [formGroup]="group">
+            <quang-input-date-time
+              [autocomplete]="'off'"
+              [autofocus]="true"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-time id'"
+              [label]="'form.date-time.label'"
+              [placeholder]="'form.date-time.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="datetime"
+              hoursPlaceholder="00"
+              minutesPlaceholder="00"
+              secondsPlaceholder="00"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
+            </quang-input-date-time>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls['datetime'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'date.date-time.html' | transloco }}</pre>
+          <pre class="ts">{{ 'date.date-time.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Min-Max</h3>
+        <div cardBody>
+          <form [formGroup]="groupMinMax">
+            <quang-input-date-time
+              [autocomplete]="'off'"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-time id'"
+              [label]="'form.date-time.label'"
+              [maxDate]="maxDate"
+              [minDate]="minDate"
+              [placeholder]="'form.date-time.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="datetime"
+              hoursPlaceholder="00"
+              minutesPlaceholder="00"
+              secondsPlaceholder="00"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
+            </quang-input-date-time>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ groupMinMax.controls['datetime'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'date.date-time-min-max.html' | transloco }}</pre>
+          <pre class="ts">{{ 'date.date-time-min-max.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

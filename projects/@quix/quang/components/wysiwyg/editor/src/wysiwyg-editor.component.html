@@ -1,0 +1,59 @@
+<div class="mb-3 wysiwyg-editor">
+  <label
+    [attr.aria-label]="ariaLabel"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
+    [htmlFor]="id + '-wysiwyg-editor'"
+    *ngIf="label"
+    class="form-label"
+  >
+    {{ label | transloco }}
+    <span [hidden]="!ngControl?.errors?.required">*</span>
+  </label>
+  <quill-editor
+    [attr.aria-disabled]="_disabled"
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
+    [attr.aria-invalid]="errorMessage && ngControl?.invalid ? true : false"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
+    [disabled]="_disabled"
+    [format]="returnHtml ? 'html' : 'text'"
+    [id]="id + '-wysiwyg-editor'"
+    [modules]="modules"
+    [ngClass]="customClass"
+    [ngModel]="_value"
+    [placeholder]="placeholder | transloco"
+    [preserveWhitespace]="preserveWhitespace"
+    [readOnly]="readonly"
+    [sanitize]="sanitize"
+    (onBlur)="emitBlur()"
+    (onContentChanged)="onChangedHandler($event)"
+    (onEditorCreated)="checkFocus($event)"
+    #input
+    class="form-control"
+  ></quill-editor>
+  <div class="valid-feedback">
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco: { requiredValue } }}
+  </div>
+  <small
+    [attr.aria-hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
+    [id]="id + 'Help'"
+    *ngIf="helpMessage"
+    class="form-text text-muted"
+  >
+    {{ _helpMessage | transloco }}
+  </small>
+</div>

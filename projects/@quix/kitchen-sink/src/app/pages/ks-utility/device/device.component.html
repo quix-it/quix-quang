@@ -1,0 +1,96 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang device service'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <!--      <h3>@quix/quang: ^13.0.0</h3>-->
+      <h3>Next feature</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Screen orientation</h3>
+        <div cardBody>
+          <dl>
+            <dt>Screen orientation</dt>
+            <dd>{{ screenOrientation }}</dd>
+            <dt>Screen orientation event</dt>
+            <dd>{{ screen | json }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.device-orientation.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Vibrate</h3>
+        <div cardBody>
+          <button
+            (click)="vibrate()"
+            class="btn btn-outline-primary"
+            type="button"
+          >
+            Vibrate
+          </button>
+          <button
+            (click)="vibratePattern()"
+            class="btn btn-outline-primary ms-3"
+            type="button"
+          >
+            Vibrate pattern
+          </button>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.device-vibrate.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Lock</h3>
+        <div cardBody>
+          <button
+            (click)="lockScreen()"
+            class="btn btn-outline-danger"
+            type="button"
+          >
+            Lock screen
+          </button>
+          <button
+            (click)="unlockScreen()"
+            class="btn btn-outline-success ms-3"
+            type="button"
+          >
+            Unlock screen
+          </button>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'utility.device-lock.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

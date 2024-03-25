@@ -1,0 +1,56 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Excel'"></ks-title>
+    </div>
+    <div class="col text-right"></div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <button
+            (click)="create()"
+            class="btn btn-outline-success"
+          >
+            Crea excel
+          </button>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'lib.excel.js' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Approfondimenti</h3>
+        <div cardBody>
+          <ul>
+            <li>
+              <a
+                href="https://www.ngdevelop.tech/export-to-excel-in-angular-6/"
+                target="_blank"
+                >Tutorial</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.npmjs.com/package/exceljs"
+                target="_blank"
+                >exceljs</a
+              >
+            </li>
+          </ul>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

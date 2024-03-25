@@ -1,0 +1,143 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang input date'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/InputDateComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <div class="d-flex justify-between gap-1">
+            <div class="input-group">
+              <input
+                [formControl]="dateStringControl"
+                class="form-control"
+                type="text"
+              />
+              <button
+                (click)="fillDate()"
+                class="btn btn-primary"
+              >
+                fill
+              </button>
+              <button
+                (click)="fillDate(true)"
+                class="btn btn-secondary"
+              >
+                fill as string
+              </button>
+            </div>
+            <div class="input-group justify-content-end">
+              <button
+                (click)="enableForm()"
+                class="btn btn-primary"
+              >
+                enable
+              </button>
+              <button
+                (click)="disableForm()"
+                class="btn btn-secondary"
+              >
+                disable
+              </button>
+            </div>
+          </div>
+          <form [formGroup]="group">
+            <quang-input-date
+              [autocomplete]="'off'"
+              [autofocus]="true"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateRenderFormat]="'dd-MM-yyyy'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date id'"
+              [label]="'form.date.label'"
+              [placeholder]="'form.date.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="date"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
+            </quang-input-date>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls.date.value }}</dd>
+          </dl>
+          <dl>
+            <dt>toJson:</dt>
+            <dd>{{ group.controls.date.value | json }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'date.date.html' | transloco }}</pre>
+          <pre class="ts">{{ 'date.date.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Min-Max</h3>
+        <div cardBody>
+          <form [formGroup]="groupMinMax">
+            <quang-input-date
+              [autocomplete]="'off'"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateRenderFormat]="'yyyy-MM-dd'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-min-max id'"
+              [label]="'form.date.label'"
+              [maxDate]="maxDate"
+              [minDate]="minDate"
+              [placeholder]="'form.date.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="date"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
+            </quang-input-date>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ groupMinMax.controls['date'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'date.date-min-max.html' | transloco }}</pre>
+          <pre class="ts">{{ 'date.date-min-max.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

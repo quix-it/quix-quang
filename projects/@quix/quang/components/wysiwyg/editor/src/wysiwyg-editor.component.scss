@@ -1,0 +1,43 @@
+.wysiwyg-editor {
+  .form-control {
+    border: unset !important;
+    padding: unset !important;
+  }
+
+  quill-editor {
+    .ql-disabled {
+      background-color: #f8f8f8;
+      pointer-events: none;
+
+      &:hover,
+      p:hover,
+      br:hover,
+      .ql-editor:hover {
+        cursor: default;
+      }
+
+      .ql-editor.ql-blank::before {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  [disabled] {
+    .ql-toolbar.ql-snow,
+    .textarea-emoji-control {
+      opacity: 0.7;
+      pointer-events: none;
+
+      button:hover,
+      button:focus,
+      .ql-picker:hover,
+      .ql-picker-label:hover,
+      .ql-picker:focus,
+      .ql-picker-label:focus,
+      .ql-stroke,
+      .ql-fill {
+        cursor: default;
+      }
+    }
+  }
+}

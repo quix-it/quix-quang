@@ -1,0 +1,28 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Planets'"></ks-title>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <ks-planets-form (whenGetPlanets)="store.dispatch(PlanetActions.getPlanets())"></ks-planets-form>
+          <ks-planets-list [planets]="planets$ | async"></ks-planets-list>
+        </div>
+      </quang-card-header>
+    </div>
+
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'html' | transloco }}</pre>
+          <pre class="ts">{{ 'ts' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

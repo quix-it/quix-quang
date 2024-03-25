@@ -1,0 +1,20 @@
+{
+  "card": {
+    "html": "<quang-card>\n        <h3 cardHeader>Header</h3>\n        <div cardBody>Dody</div>\n        <div cardFooter>Footer</div>\n      </quang-card>"
+  },
+  "card-action": {
+    "html": "<quang-card-action>\n        <h3 cardHeader>Header</h3>\n        <button\n          cardAction\n        class=\"btn btn-link btn-sm\">Azione</button>\n        <div cardBody>Body</div>\n        <div cardFooter>Footer</div>\n      </quang-card-action>"
+  },
+  "card-action-header": {
+    "html": "<quang-card-action-header>\n        <h3 cardHeader>Header</h3>\n        <button\n          cardAction\n        class=\"btn btn-link btn-sm\">\n          Azione\n        </button>\n        <div cardBody>Body</div>\n      </quang-card-action-header>"
+  },
+  "card-header": {
+    "html": "<quang-card-header>\n        <h3 cardHeader>Header</h3>\n        <div cardBody>Dody</div>\n      </quang-card-header>"
+  },
+  "card-simple": {
+    "html": "<quang-card-simple>\n        <div cardBody>Body</div>\n      </quang-card-simple>"
+  },
+  "image": {
+    "html": "<quang-card-image\n        [src]=\"'https://picsum.photos/800/200'\"\n        [alt]=\"'test'\">\n        <div cardBody>Body</div>\n      </quang-card-image>"
+  }
+}

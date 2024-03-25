@@ -1,0 +1,60 @@
+<div
+  [id]="id"
+  class="mb-3"
+>
+  <div
+    [hidden]="!_cameraId"
+    id="wrapper-reader"
+  ></div>
+  <div
+    [hidden]="_cameraId"
+    id="wrapper-devices"
+  >
+    <div class="mb-3">
+      <label
+        [attr.aria-label]="ariaLabel | transloco"
+        [class.is-invalid]="_errorMessage"
+        [htmlFor]="id"
+        *ngIf="label"
+        class="form-label"
+      >
+        {{ label | transloco }}
+      </label>
+      <select
+        [attr.aria-autocomplete]="autocomplete"
+        [attr.aria-describedby]="id + '-help'"
+        [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+        [attr.aria-label]="ariaLabel | transloco"
+        [class.is-invalid]="_errorMessage"
+        [id]="id + '-selector'"
+        [tabindex]="tabIndex"
+        (change)="startReader()"
+        [(ngModel)]="_cameraId"
+        class="form-select"
+        id="devices-select"
+      >
+        <option
+          [ngValue]="d.id"
+          *ngFor="let d of _devices"
+        >
+          {{ d.label }}
+        </option>
+      </select>
+      <div
+        [id]="id + '-error'"
+        aria-live="polite"
+        class="invalid-feedback"
+      >
+        {{ errorMessage | transloco }}
+      </div>
+      <small
+        [hidden]="_errorMessage"
+        [id]="id + '-help'"
+        aria-live="assertive"
+        class="form-text text-muted"
+      >
+        {{ 'quang-code-reader.helper' | transloco }}
+      </small>
+    </div>
+  </div>
+</div>

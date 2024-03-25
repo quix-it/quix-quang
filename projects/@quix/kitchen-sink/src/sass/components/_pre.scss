@@ -1,0 +1,10 @@
+pre {
+  padding: 0.5rem;
+  &.ts {
+    background: $blue-200;
+  }
+
+  &.html {
+    background: $orange-200;
+  }
+}

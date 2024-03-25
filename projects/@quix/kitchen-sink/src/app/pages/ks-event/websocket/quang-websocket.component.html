@@ -1,0 +1,37 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang WebSocket Example'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^12.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <button
+            (click)="getMessages()"
+            class="btn btn-primary my-3"
+          >
+            Chiama server
+          </button>
+          <dl>
+            <dt class="mb-2">Messages:</dt>
+            <dd *ngFor="let msg of msgs">{{ msg }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>TS</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'event.websocket.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

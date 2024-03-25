@@ -1,0 +1,148 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang input date range'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/InputDateRangeComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <form [formGroup]="group">
+            <quang-input-date-range
+              [autocomplete]="'off'"
+              [autofocus]="true"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-range id'"
+              [label]="'form.date-range.label'"
+              [placeholder]="'form.date-range.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="dateRange"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
+            </quang-input-date-range>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls['dateRange'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'date.date-range.html' | transloco }}</pre>
+          <pre class="ts">{{ 'date.date-range.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Min-Max</h3>
+        <div cardBody>
+          <form [formGroup]="groupMinMax">
+            <quang-input-date-range
+              [autocomplete]="'off'"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-range id'"
+              [label]="'form.date-range.label'"
+              [maxDate]="maxDate"
+              [minDate]="minDate"
+              [placeholder]="'form.date-range.ph'"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="dateRange"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
+            </quang-input-date-range>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ groupMinMax.controls['dateRange'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'date.date-range-min-max.html' | transloco }}</pre>
+          <pre class="ts">{{ 'date.date-range-min-max.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Formato ISO</h3>
+        <div cardBody>
+          <form [formGroup]="groupISO">
+            <quang-input-date-range
+              [autocomplete]="'off'"
+              [buttonClass]="['btn', 'btn-outline-secondary']"
+              [dateFormat]="'YYYY-MM-DD'"
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'date-range id'"
+              [label]="'form.date-range.label'"
+              [placeholder]="'form.date-range.ph'"
+              [returnISODate]="true"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="dateRange"
+            >
+              <i
+                calendarIcon
+                class="fas fa-calendar-alt"
+              ></i>
+            </quang-input-date-range>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ groupISO.controls['dateRange'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'date.date-range-iso.html' | transloco }}</pre>
+          <pre class="ts">{{ 'date.date-range-iso.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

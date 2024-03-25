@@ -1,0 +1,92 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang slider'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-action-header>
+        <h3 cardHeader>Demo</h3>
+        <a
+          cardAction
+          href="https://rd.quix.it/quang/components/SliderComponent.html"
+          >Configurazioni</a
+        >
+        <div cardBody>
+          <form [formGroup]="group">
+            <quang-slider
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'slider-id'"
+              [interval]="10"
+              [label]="'form.slider.label'"
+              [maxValue]="100"
+              [minValue]="0"
+              [successMessage]="true"
+              [tabIndex]="1"
+              formControlName="slider"
+            >
+            </quang-slider>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ group.controls['slider'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-action-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.slider.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.slider.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Vertical</h3>
+        <div cardBody>
+          <form [formGroup]="groupVert">
+            <quang-slider
+              [errorMessage]="true"
+              [formName]="'form'"
+              [helpMessage]="true"
+              [id]="'slider id'"
+              [interval]="10"
+              [label]="'form.slider.label'"
+              [maxValue]="100"
+              [minValue]="0"
+              [successMessage]="true"
+              [tabIndex]="1"
+              [vertical]="true"
+              formControlName="slider"
+            >
+            </quang-slider>
+          </form>
+          <dl>
+            <dt>Value:</dt>
+            <dd>{{ groupVert.controls['slider'].value }}</dd>
+          </dl>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'core.slider-vert.html' | transloco }}</pre>
+          <pre class="ts">{{ 'core.slider-vert.code' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

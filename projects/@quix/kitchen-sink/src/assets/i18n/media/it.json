@@ -1,0 +1,29 @@
+{
+  "picture": {
+    "html": "<quang-picture\n            [id]=\"'test'\"\n            [alt]=\"'test'\"\n            [responsiveList]=\"responsiveList\"\n          ></quang-picture>",
+    "code": " responsiveList = [\n    new QuixPicture(1200, 'https://picsum.photos/1600/2400'),\n    new QuixPicture(992, 'https://picsum.photos/800/1200'),\n    new QuixPicture(768, 'https://picsum.photos/400/600'),\n    new QuixPicture(415, 'https://picsum.photos/200/300'),\n    new QuixPicture(0, 'https://picsum.photos/100/150'),\n  ]"
+  },
+  "video": {
+    "html": "<quang-video\n            [id]=\"'test'\"\n            [src]=\"'assets/video/deadpool1.mp4'\"\n            [type]=\"'video/mp4'\"\n            [autoplay]=\"false\"\n            [loop]=\"true\"\n            [viewControl]=\"true\"\n          ></quang-video>",
+    "code": "",
+    "htmlFull": "<quang-video\n            #quangVideo\n            [id]=\"'test'\"\n            [src]=\"'assets/video/deadpool1.mp4'\"\n            [type]=\"'video/mp4'\"\n            [autoplay]=\"false\"\n            [loop]=\"true\"\n            [viewControl]=\"true\"\n          ></quang-video>",
+    "codeFull": "@ViewChild('quangVideo', { static: true }) video: QuangVideo | null = null\n\n  full (): void {\n    this.video?.toFullScreen()\n  }"
+  },
+  "three": {
+    "html": "<quang-three-sixty-image\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [images]=\"list\"\n            [timeRotation]=\"150\"\n          >\n            <i nextIcon class=\"fas fa-forward\"></i>\n            <i previousIcon class=\"fas fa-backward\"></i>\n            <i stopIcon class=\"fas fa-stop\"></i>\n            <i playIcon class=\"fas fa-play\"></i>\n          </quang-three-sixty-image>",
+    "code": "list: string[] = [\n    'assets/images/360/KOCCA_360_1.jpg',\n    'assets/images/360/KOCCA_360_2.jpg',\n    'assets/images/360/KOCCA_360_3.jpg',\n    'assets/images/360/KOCCA_360_4.jpg',\n    'assets/images/360/KOCCA_360_5.jpg',\n    'assets/images/360/KOCCA_360_6.jpg',\n    'assets/images/360/KOCCA_360_7.jpg',\n    'assets/images/360/KOCCA_360_8.jpg',\n  ]"
+  },
+  "audio": {
+    "html": "<quang-audio\n            [id]=\"'test'\"\n            [src]=\"'/kitchen-sink/assets/audios/audio.mp3'\"\n            [type]=\"'audio/mpeg'\"\n          ></quang-audio>"
+  },
+  "code": {
+    "qr-html": "<quang-code-reader\n            [id]=\"'reader'\"\n            [formats]=\"qrCodeFormat\"\n            (whenFindCode)=\"logCode($event)\"\n          ></quang-code-reader>",
+    "qr-ts": "qrCodeFormat = [\n    Html5QrcodeSupportedFormats.QR_CODE\n  ]",
+    "bar-html": "<quang-code-reader\n            [id]=\"'reader'\"\n            [formats]=\"barCodeFormat\"\n            (whenFindCode)=\"logCode($event)\"\n          ></quang-code-reader>",
+    "bar-ts": "barCodeFormat = [\n    Html5QrcodeSupportedFormats.EAN_13,\n    Html5QrcodeSupportedFormats.EAN_8\n  ]"
+  },
+  "webcam": {
+    "html": "<quang-webcam\n            [photoHeight]=\"200\"\n            [photoWidth]=\"200\"\n            #quangWebcam\n            (whenCameraReady)=\"checkWebcamStatus($event)\"\n            (whenPhotoReady)=\"checkWebcamPhoto($event)\"\n            (whenVideoReady)=\"checkWebcamVideo($event)\"\n          ></quang-webcam>",
+    "ts": "@ViewChild('quangWebcam', { static: true }) webcam: QuangWebcam | null = null\n  @ViewChild('video', { static: true }) video:\n    | ElementRef<HTMLVideoElement>\n    | undefined = undefined\n  ready: boolean = false\n  photo: string | undefined = undefined\n  videoFile: SafeResourceUrl = ''\n  constructor(private readonly sanitizer: DomSanitizer) {}\n\n  start(): void {\n    this.webcam?.startDevice()\n  }\n\n  pause(): void {\n    this.webcam?.pauseDevice()\n  }\n\n  checkWebcamStatus(s: boolean): void {\n    this.ready = s\n  }\n\n  checkWebcamPhoto(s: string | undefined): void {\n    this.photo = s\n  }\n\n  checkWebcamVideo(v: Blob | MediaSource): void {\n    this.videoFile = this.sanitizer.bypassSecurityTrustResourceUrl(\n      URL.createObjectURL(v)\n    )\n  }\n\n  takePhoto(): void {\n    this.webcam?.takePhoto()\n  }\n\n  takeVideo(): void {\n    this.webcam?.startRecordVideo()\n    setTimeout(() => {\n      this.webcam?.stopRecordVideo()\n    }, 10000)\n  }"
+  }
+}

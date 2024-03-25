@@ -1,0 +1,93 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Form sync validator'"></ks-title>
+      <p>in questo esempio se un campo input contiene "mario" il form non è valido</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Demo</h3>
+        <div cardBody>
+          <form
+            [formGroup]="group"
+            (submit)="save()"
+          >
+            <div class="row">
+              <div class="col">
+                <quang-input-text
+                  [ariaLabel]="'form.form.firstName.form.label'"
+                  [autocomplete]="'off'"
+                  [autofocus]="true"
+                  [errorMessage]="true"
+                  [formName]="'form.sync-validator'"
+                  [id]="'firstName id'"
+                  [label]="'form.sync-validator.form.firstName.label'"
+                  [placeholder]="'form.sync-validator.form.firstName.ph'"
+                  [successMessage]="true"
+                  formControlName="firstName"
+                ></quang-input-text>
+                <quang-input-text
+                  [ariaLabel]="'form.sync-validator.form.lastName.label'"
+                  [autocomplete]="'off'"
+                  [autofocus]="true"
+                  [errorMessage]="true"
+                  [formName]="'form.sync-validator'"
+                  [id]="'lastName id'"
+                  [label]="'form.sync-validator.form.lastName.label'"
+                  [placeholder]="'form.sync-validator.form.lastName.ph'"
+                  [successMessage]="true"
+                  formControlName="lastName"
+                ></quang-input-text>
+                <quang-input-email
+                  [ariaLabel]="'form.sync-validator.form.email.label'"
+                  [autocomplete]="'off'"
+                  [autofocus]="true"
+                  [errorMessage]="true"
+                  [formName]="'form.sync-validator'"
+                  [id]="'email id'"
+                  [label]="'form.sync-validator.form.email.label'"
+                  [placeholder]="'form.sync-validator.form.email.ph'"
+                  [successMessage]="true"
+                  formControlName="email"
+                ></quang-input-email>
+                <div class="row">
+                  <div class="col-6">
+                    <quang-input-checkbox
+                      [ariaLabel]="'form.sync-validator.form.checkbox.label'"
+                      [autofocus]="true"
+                      [errorMessage]="true"
+                      [formName]="'form.sync-validator'"
+                      [id]="'consent id'"
+                      [label]="'form.sync-validator.form.checkbox.label'"
+                      [successMessage]="true"
+                      formControlName="checkbox"
+                    ></quang-input-checkbox>
+                  </div>
+                  <div class="col-6 text-end">
+                    <button
+                      class="btn btn-primary"
+                      type="submit"
+                    >
+                      Salva
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>HTML/TS</h3>
+        <div cardBody>
+          <pre class="html">{{ 'form.sync-validator.html' | transloco }}</pre>
+          <pre class="ts">{{ 'form.sync-validator.ts' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,69 @@
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 333333;
+  background: $gray-700;
+
+  h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: flicker 1s ease-in-out infinite alternate;
+    color: #fff;
+    letter-spacing: 0.5rem;
+    border: 0.125em solid currentColor;
+    padding: 0.25em 1.25em;
+    border-radius: 0.25em;
+    :before {
+      content: '';
+      position: absolute;
+      top: 120%;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
+      filter: blur(2em);
+    }
+  }
+}
+
+@keyframes flicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px $pink-500,
+      0 0 80px $pink-500,
+      0 0 90px $pink-500,
+      0 0 100px $pink-500,
+      0 0 150px $pink-500;
+    box-shadow:
+      inset 0 0 4px #fff,
+      0 0 4px #fff,
+      inset 0 0 11px #fff,
+      0 0 11px #fff,
+      inset 0 0 19px #fff,
+      0 0 19px #fff,
+      inset 0 0 40px $pink-500,
+      0 0 40px $pink-500,
+      inset 0 0 80px $pink-500,
+      0 0 80px $pink-500,
+      inset 0 0 90px $pink-500,
+      0 0 90px $pink-500,
+      inset 0 0 100px $pink-500,
+      0 0 100px $pink-500,
+      inset 0 0 150px $pink-500,
+      0 0 150px $pink-500;
+  }
+}

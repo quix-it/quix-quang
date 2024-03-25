@@ -1,0 +1,44 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang keycloak directive'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Autenticato</h3>
+        <div cardBody>
+          <p>
+            *assicurarsi di aver inserito la direttiva *quangIsAuthenticated perché potrebbe creare conflitto con una
+            chiamata api che richiede autenticazione
+          </p>
+          <pre class="html">{{ 'keycloak.directive.is' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <quang-card-header>
+          <h3 cardHeader>Almeno un ruolo</h3>
+          <div cardBody>
+            <pre class="html">{{ 'keycloak.directive.until' | transloco }}</pre>
+          </div>
+        </quang-card-header>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <quang-card-header>
+        <h3 cardHeader>Tutti i ruoli</h3>
+        <div cardBody>
+          <pre class="html">{{ 'keycloak.directive.all' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>

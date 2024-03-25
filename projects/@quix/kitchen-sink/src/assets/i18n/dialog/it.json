@@ -1,0 +1,33 @@
+{
+  "skeleton": {
+    "html": " <quang-skeleton\n          [id]=\"'skeleton'\"\n          ></quang-skeleton>",
+    "scss": ".quang-skeleton {\n  height: 300px;\n  background-image: linear-gradient(\n      90deg,\n      rgba(lightgrey, 0) 0,\n      rgba(lightgrey, .8) 50%,\n      rgba(lightgrey, 0) 100%\n  );\n  animation-duration: 1.5s;\n}"
+  },
+  "toast": {
+    "html": "<quang-toast></quang-toast>",
+    "code": "    this.toastService.openToast(new QuixToast(\n      'success',\n      'Title Example',\n      'bottom-right',\n      5000,\n      'text example',\n      null,\n      new Date(),\n      'dd/MM/yyyy'\n    ))"
+  },
+  "loader": {
+    "html": "<quang-loader>\n  <div loader>\n    <h1>Quake kitchen sink</h1>\n  </div>\n</quang-loader>",
+    "code": "{provide: HTTP_INTERCEPTORS, useClass: QuixLoaderInterceptor, multi: true},"
+  },
+  "modal": {
+    "html": "<div class=\"modal-header\">\n  <h4 class=\"modal-title pull-left\">{ {title} }</h4>\n  <button type=\"button\"\n          class=\"btn-close close pull-right\"\n          aria-label=\"Close\"\n          (click)=\"close()\">\n    <span aria-hidden=\"true\" class=\"visually-hidden\">&times;</span>\n  </button>\n</div>\n<div class=\"modal-body\">\n  { {param} }\n</div>\n<div class=\"modal-footer\">\n  <button type=\"button\"\n          class=\"btn btn-primary\"\n          (click)=\"save()\">\n    salva\n  </button>\n  <button type=\"button\" class=\"btn btn-default\"\n          (click)=\"close()\">\n    Chiudi\n  </button>\n</div>",
+    "code": "merge(\n      this.modalService.onShownEvent(),\n      this.modalService.onShowEvent(),\n      this.modalService.onHiddenEvent(),\n      this.modalService.onHideEvent()\n    ).subscribe(v => {\n      this.event.push(v)\n    })\n    this.modalService.openModal(\n      this.modalExample,\n      'Modal title',\n      'lg',\n      { param: 'initial value' })\n  }",
+    "modalCode": "export class ExampleComponent {\n  @Input() title: string = ''\n  @Input() param: string = ''\n\n  constructor (\n    public readonly modalRef: BsModalRef,\n    private readonly modalService: BsModalService\n  ) {}\n\n  close (): void {\n    this.modalService.onHide.emit('close')\n    this.modalRef.hide()\n  }\n\n  save (): void {\n    this.modalService.onHide.emit('return value')\n    this.modalRef.hide()\n  }\n}"
+  },
+  "snackbar": {
+    "code": "constructor (\n    private readonly snackbarService: QuixSnackbarService\n  ) { }\n\n  openSnackbar (): void {\n    this.snackbarService.openSnackbar(\n      'Testo di esempio',\n      5000,\n      'Alert',\n      () => {alert('action function')}\n    )\n  }"
+  },
+  "offline": {
+    "code": " constructor(\n    private readonly offlineService: QuixOfflineService\n  ) { }\n\n  ngOnInit(): void {\n    this.offlineService.observeOffline()\n  }"
+  },
+  "notification": {
+    "code": "sendNotification (): void {\n    this.notificationService.requestPermission().subscribe((p) => {\n      if (p) {\n        this.notificationService.sendNotification(new QuixNotification(\n          this.noteForm.controls.title.value,\n          this.noteForm.controls.body.value,\n          'https://picsum.photos/800/1200'\n        ))\n      }\n    })\n  }"
+  },
+  "bottom": {
+    "html": "<h4>Titolo</h4>\n{{data?.param}}\n<div class=\"row\">\n  <div class=\"col text-right\">\n    <button class=\"btn btn-outline-primary mr-3\"\n    (click)=\"save()\">\n      Save\n    </button>\n    <button class=\"btn btn-outline-secondary\"\n    (click)=\"close()\">\n      Close\n    </button>\n  </div>\n</div>",
+    "bottomCode": "constructor (\n    private readonly bottomSheetRef: MatBottomSheetRef<BottomSheetExampleComponent>,\n    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { [key: string]: any }\n  ) { }\n\n  close (): void {\n    this.bottomSheetRef.dismiss()\n  }\n\n  save (): void {\n    this.bottomSheetRef.dismiss('Valore di ritorno')\n  }",
+    "code": "constructor (\n    private readonly bottomSheetService: QuixBottomSheetService\n  ) { }\n\n  openBottom (): void {\n    this.events = []\n    this.bottomSheetService.openBottomSheet(this.bottomSheet, { param: 'Custom param' })\n    merge(\n      this.bottomSheetService.onDismiss(),\n      this.bottomSheetService.onOpen(),\n      this.bottomSheetService.onBackdropClick(),\n    ).subscribe(v => {\n      this.events.push(v)\n    })\n  }"
+  }
+}

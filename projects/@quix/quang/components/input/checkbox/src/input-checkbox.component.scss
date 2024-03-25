@@ -1,0 +1,19 @@
+.form-check {
+  .form-check-label {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  small {
+    display: block;
+  }
+}
+
+.cursor-default:hover {
+  cursor: default !important;
+}
+
+.form-check-input {
+  cursor: pointer;
+}

@@ -1,0 +1,63 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <ks-title [title]="'Quang auth config'"></ks-title>
+    </div>
+    <div class="col text-right">
+      <h3>@quix/quang: ^11.0.0</h3>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <h4>config project</h4>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Modulo</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'auth.config.project.module' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+      <div class="mt-3"></div>
+      <quang-card-header>
+        <h3 cardHeader>Effetti</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'auth.config.project.effect' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Config</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'auth.config.project.config' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <h4>config product</h4>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Modulo</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'auth.config.product.module' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+      <div class="mt-3"></div>
+      <quang-card-header>
+        <h3 cardHeader>Effetti</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'auth.config.product.effect' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+    <div class="col-6">
+      <quang-card-header>
+        <h3 cardHeader>Config</h3>
+        <div cardBody>
+          <pre class="ts">{{ 'auth.config.product.config' | transloco }}</pre>
+        </div>
+      </quang-card-header>
+    </div>
+  </div>
+</section>
