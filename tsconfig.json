@@ -16,10 +16,10 @@
     "moduleResolution": "node",
     "paths": {
       "@quix/quang": [
-        "projects//quang"
+        "./projects/quang"
       ],
       "@quix/quang/*": [
-        "projects/quang/*"
+        "./projects/quang/*"
       ]
     },
     "importHelpers": true,

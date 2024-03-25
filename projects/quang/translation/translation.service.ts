@@ -1,12 +1,14 @@
 import { Injectable, inject } from '@angular/core'
 
-import { AVAILABLE_LANGS } from './translation.module'
+import { TranslocoService } from '@ngneat/transloco'
+
+import { AVAILABLE_LANGS, DEFAULT_LANG } from './translation.module'
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuangTranslationService {
-  private readonly translocoService: TranslocoService
+  private readonly translocoService: TranslocoService = inject(TranslocoService)
 
   private readonly availableLangs = inject(AVAILABLE_LANGS)
   private readonly defaultLang = inject(DEFAULT_LANG)

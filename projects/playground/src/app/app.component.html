@@ -1,3 +1,9 @@
 <h1>Welcome to {{ title }}!</h1>
-
+<form [formGroup]="testForm">
+  <quang-input
+    formControlName="testInput"
+    typeSig="text"
+  ></quang-input>
+</form>
+{{ testForm.getRawValue() | json }}
 <router-outlet />

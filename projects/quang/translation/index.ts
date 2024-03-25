@@ -1,2 +1,3 @@
 export * from './translation.module'
-export * from './quang-translation-loader.service'
+export * from './translation-loader.service'
+export * from './translation.service'

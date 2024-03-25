@@ -1,10 +1,16 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core'
+import { InjectionToken, ModuleWithProviders, NgModule, Provider } from '@angular/core'
 
-import { TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TranslocoModule, translocoConfig } from '@ngneat/transloco'
+import { TranslocoModule, provideTransloco } from '@ngneat/transloco'
 
-import { QuangTranslationLoaderService } from './quang-translation-loader.service'
+import { QuangTranslationLoaderService } from './translation-loader.service'
 
 let forRootInstances = 0
+
+export interface TranslationConfig {
+  availableLangs: string[]
+  defaultLang: string
+  fallbackLang: string
+}
 
 export const AVAILABLE_LANGS = new InjectionToken<string[]>('AVAILABLE_LANGS')
 export const DEFAULT_LANG = new InjectionToken<string>('DEFAULT_LANG')
@@ -15,15 +21,9 @@ export const FALLBACK_LANG = new InjectionToken<string>('FALLBACK_LANG')
   imports: [TranslocoModule]
 })
 export class QuangTranslationModule {
-  static forRoot({
-    availableLangs,
-    defaultLang,
-    fallbackLang
-  }: {
-    availableLangs: string[]
-    defaultLang: string
-    fallbackLang: string
-  }): ModuleWithProviders<QuangTranslationModule> {
+  providers: Provider[] = []
+
+  static forRoot(config: TranslationConfig): ModuleWithProviders<QuangTranslationModule> {
     forRootInstances++
     if (forRootInstances > 1) {
       throw new Error(
@@ -33,12 +33,12 @@ export class QuangTranslationModule {
     return {
       ngModule: QuangTranslationModule,
       providers: [
-        {
-          provide: TRANSLOCO_CONFIG,
-          useValue: translocoConfig({
-            availableLangs: availableLangs,
-            defaultLang: defaultLang,
-            fallbackLang: fallbackLang,
+        QuangTranslationLoaderService,
+        provideTransloco({
+          config: {
+            availableLangs: config.availableLangs,
+            defaultLang: config.defaultLang,
+            fallbackLang: config.fallbackLang,
             reRenderOnLangChange: true,
             prodMode: true,
             failedRetries: 1,
@@ -47,24 +47,20 @@ export class QuangTranslationModule {
               useFallbackTranslation: true,
               allowEmpty: false
             }
-          })
-        },
-        QuangTranslationLoaderService,
-        {
-          provide: TRANSLOCO_LOADER,
-          useClass: QuangTranslationLoaderService
-        },
+          },
+          loader: QuangTranslationLoaderService
+        }),
         {
           provide: AVAILABLE_LANGS,
-          useValue: availableLangs
+          useValue: config.availableLangs
         },
         {
           provide: DEFAULT_LANG,
-          useValue: defaultLang
+          useValue: config.defaultLang
         },
         {
           provide: FALLBACK_LANG,
-          useValue: fallbackLang
+          useValue: config.fallbackLang
         }
       ]
     }
