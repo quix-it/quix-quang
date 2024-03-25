@@ -3,7 +3,8 @@
   "version": "17.0.0",
   "peerDependencies": {
     "@angular/common": "^17.3.0",
-    "@angular/core": "^17.3.0"
+    "@angular/core": "^17.3.0",
+    "@ngneat/transloco": "^6.0.4"
   },
   "dependencies": {
     "tslib": "^2.3.0"

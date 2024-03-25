@@ -15,8 +15,11 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "paths": {
-      "quang": [
-        "./dist/quang"
+      "@quix/quang": [
+        "projects//quang"
+      ],
+      "@quix/quang/*": [
+        "projects/quang/*"
       ]
     },
     "importHelpers": true,
