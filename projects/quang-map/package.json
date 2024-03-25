@@ -1,0 +1,10 @@
+{
+  "name": "@quix/quang-map",
+    "version": "11.0.16",
+  "devDependencies": {
+    "@types/googlemaps": "^3.39.13",
+    "@types/google.maps": "^3.45.6",
+    "@types/ol":"^6.5.3",
+    "ol": "^6.6.1"
+  }
+}

@@ -1,0 +1,45 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <textarea class="form-control"
+            [id]="id"
+            [placeholder]="placeholder | transloco"
+            [ngStyle]="{'resize': resizeMode}"
+            [maxLength]="max"
+            [minLength]="min"
+            [readOnly]="readonly"
+            [autofocus]="autofocus"
+            [rows]="rows"
+            [cols]="cols"
+            [attr.aria-label]="ariaLabel"
+            [tabIndex]="tabIndex"
+            cdkTextareaAutosize
+            [cdkAutosizeMinRows]="0"
+            [cdkAutosizeMaxRows]="rows"
+            [ngClass]="customClass"
+            [class.is-valid]="control?.valid && control?.dirty && successMessage"
+            [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+            (input)="onChangedHandler($event)"
+            (blur)="onTouched()"
+            #input
+            #autosize="cdkTextareaAutosize"
+  ></textarea>
+  <div class="valid-feedback">
+    {{_successMessage | transloco}}
+  </div>
+
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  </div>
+
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>

@@ -1,0 +1,28 @@
+<div class="carouselWrapper"
+     [id]="id"
+     [style.height]="height">
+  <carousel
+    [isAnimated]="true"
+    [noPause]="noPause"
+    [noWrap]="noLoop"
+    [interval]="interval"
+    [showIndicators]="showIndicators"
+    (activeSlideChange)="onSlideEvent($event)">
+    <slide *ngFor="let slide of slides; let i = index"
+           [style.height]="height">
+      <quix-picture
+        [id]="'slide' + i"
+        [responsiveList]="slide.responsiveList"
+        [alt]="slide.alt"
+      ></quix-picture>
+      <div class="carousel-caption d-none d-md-block">
+        <h3 *ngIf="title">
+          {{slide.title}}
+        </h3>
+        <p *ngIf="subTitle">
+          {{slide.subTitle}}
+        </p>
+      </div>
+    </slide>
+  </carousel>
+</div>

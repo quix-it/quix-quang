@@ -1,0 +1,49 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <input [ngModel]="_searchValue"
+         [id]="id"
+         [name]="id"
+         [typeahead]="suggestions$"
+         [typeaheadAsync]="true"
+         class="form-control"
+         [readOnly]="readonly"
+         [autofocus]="autofocus"
+         [attr.aria-label]="ariaLabel | transloco"
+         [tabIndex]="tabIndex"
+         [autocomplete]="autocomplete"
+         [isAnimated]="true"
+         [adaptivePosition]="true"
+         [typeaheadOptionField]="searchBy"
+         [typeaheadScrollable]="true"
+         [typeaheadOptionsInScrollableView]="18"
+         [typeaheadMinLength]="startAfter"
+         [placeholder]="placeholder | transloco"
+         [typeaheadOptionsLimit]="optionLimit"
+         [ngClass]="customClass"
+         (typeaheadOnSelect)="onSelectHandler($event)"
+         (input)="onChangedHandler($event)"
+         (blur)="onTouched()"
+         [class.is-valid]="control?.valid && control?.dirty && successMessage"
+         [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+         [class.form-control-lg]="size === 'lg'"
+         [class.form-control-sm]="size === 'sm'"
+         #input
+  >
+  <div class="valid-feedback">
+    {{_successMessage | transloco}}
+  </div>
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>

@@ -1,0 +1,16 @@
+{
+  "name": "@quix/quang",
+    "version": "11.0.16",
+  "peerDependencies": {
+    "@angular/cdk": "^11.2.1",
+    "@angular/material": "^11.2.1",
+    "bootstrap": "^4.6.0",
+    "ngx-bootstrap": "^6.2.0",
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@ngneat/transloco": "^2.20.0",
+    "@ngrx/effects": "^11.0.1",
+    "@ngrx/schematics": "^11.0.1",
+    "@ngrx/store": "^11.0.1",
+    "@ngrx/store-devtools": "^11.0.1"
+  }
+}

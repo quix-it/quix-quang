@@ -1,0 +1,25 @@
+## 11.0.0
+
+* Quang first official release for Angular 11
+
+## 11.0.1
+
+* fixed problem with echarts dependencies
+* added possibility to specify in the configuration of quang-keycloak if you are in an Ionic environment
+
+## 11.0.8
+* update all component to fix various bug
+
+## 11.0.13
+* fix date components
+* fix keycloak roles functions
+
+## 11.0.14
+* fix accessibility for input-checkbox, input-radio, input-date, input-range-date, input-date-time, quang-paginator
+
+## 11.0.15
+* fix all modules
+* fix accessibility in input password
+
+## 11.0.16
+* fix autocomplete-obj-async api call

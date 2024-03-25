@@ -1,0 +1,41 @@
+<div class="form-group">
+  <label [htmlFor]="id"
+         [attr.aria-label]="ariaLabel"
+         *ngIf="label">
+    {{label | transloco}}
+    <span [hidden]="!control?.errors?.required">*</span>
+  </label>
+  <select class="form-control"
+          [id]="id"
+          [ngClass]="customClass"
+          [class.is-valid]="control?.valid && control?.dirty && successMessage"
+          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
+          [attr.aria-label]="ariaLabel"
+          (input)="onChangedHandler($event)"
+          (blur)="onTouched()"
+          [class.form-control-lg]="size === 'lg'"
+          [class.form-control-sm]="size === 'sm'"
+          [tabIndex]="tabIndex"
+          #input
+  >
+    <option [ngValue]="null"
+            *ngIf="nullOption"></option>
+    <option *ngFor="let item of list"
+            [value]="item[returnValue]"
+            [selected]="item[returnValue] === _value">
+      {{translateValue ? (item[labelValue] | transloco) : item[labelValue] }}
+    </option>
+  </select>
+  <div class="valid-feedback">
+    {{_successMessage | transloco}}
+  </div>
+  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
+  </div>
+  <small [id]="id + 'Help'"
+         class="form-text text-muted"
+         [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
+         *ngIf="helpMessage">
+    {{_helpMessage | transloco}}
+  </small>
+</div>

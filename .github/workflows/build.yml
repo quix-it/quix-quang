@@ -1,0 +1,139 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - develop
+      - quang11
+    tags:
+      - '**'
+
+env:
+  BUILD_ARTIFACTS: true
+
+  STAGING_GCLOUD_BUCKET: ${{ secrets.STAGING_GCLOUD_BUCKET }}
+
+  MAVEN_QUIX_RW_USERNAME: ${{ secrets.NEXUS_QUIX_RW_USERNAME }}
+  MAVEN_QUIX_RW_PASSWORD: ${{ secrets.NEXUS_QUIX_RW_PASSWORD }}
+
+  DOCKER_REGISTRY: docker.quix.it
+  DOCKER_USERNAME: ${{ secrets.NEXUS_QUIX_RW_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.NEXUS_QUIX_RW_PASSWORD }}
+
+jobs:
+
+  init:
+    runs-on: [ self-hosted, linux ]
+    outputs:
+      repository_name: ${{ steps.info.outputs.repository_name }}
+      revision: ${{ steps.info.outputs.revision }}
+      is_tag: ${{ steps.info.outputs.is_tag }}
+      build_artifacts: ${{ env.BUILD_ARTIFACTS }}
+
+    steps:
+      - name: Get git info
+        uses: quix-it/gha-git-info@v1
+        id: info
+
+  build:
+
+    runs-on: [ self-hosted, linux, gcp ]
+    container:
+      image: supportquix/angular:11
+    needs: init
+
+    steps:
+
+      - name: Clean up workspace
+        uses: quix-it/gha-clean-workspace@v1
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build documentation
+        run: |
+          npm ci
+          npx compodoc -p tsconfig.json projects
+          
+      - name: Save artifacts - documentation
+        if: ${{ needs.init.outputs.build_artifacts == 'true' || needs.init.outputs.is_tag == 'true' }}
+        uses: quix-it/gha-staging-artifacts-gcs@v1
+        with:
+          name: docs
+          direction: put
+          path: ./documentation
+
+      - name: Slack Notification
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+  docker-build:
+
+    runs-on: [ self-hosted, linux, gcp ]
+    container:
+      image: docker:latest
+    needs: [ init, build ]
+    if: ${{ needs.init.outputs.build_artifacts == 'true' || needs.init.outputs.is_tag == 'true' }}
+
+    steps:
+
+      - name: Clean up workspace
+        uses: quix-it/gha-clean-workspace@v1
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore artifacts - documentation
+        uses: quix-it/gha-staging-artifacts-gcs@v1
+        with:
+          name: docs
+          direction: get
+          path: ./documentation
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to docker registry
+        uses: docker/login-action@v1 
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
+
+      - name: Docker build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: docker/Dockerfile
+          push: true
+          tags: ${{ env.DOCKER_REGISTRY }}/${{ needs.init.outputs.repository_name }}:${{ needs.init.outputs.revision }}
+
+      - name: Slack Notification
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+  update-test-environment:
+    
+    runs-on: [ self-hosted, linux ]
+    needs: [ init, docker-build ]
+
+    steps:
+
+      - name: Raise update event in test environment
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_GHA_PAT }}
+          repository: quix-it/quix-quake-rd-environment
+          event-type: update
+          client-payload: '{"QUANG_VERSION": "${{ needs.init.outputs.revision }}"}'

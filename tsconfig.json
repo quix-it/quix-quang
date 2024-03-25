@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "moduleResolution": "node",
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -9,30 +10,81 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
     "importHelpers": true,
+    "skipLibCheck": true,
     "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
+    "types": ["google.maps", "googlemaps"],
     "lib": [
       "es2018",
       "dom"
     ],
     "paths": {
-      "quix-core-components": [
-        "dist/quix-core-components"
+      "quang": [
+        "dist/quang/quang",
+        "dist/quang"
       ],
-      "quix-core-components/*": [
-        "dist/quix-core-components/*"
+      "quang-auth": [
+        "dist/quang-auth/quang-auth",
+        "dist/quang-auth"
       ],
-      "quix-core-authentication": [
-        "dist/quix-core-authentication"
+      "quang-keycloak": [
+        "dist/quang-keycloak/quang-keycloak",
+        "dist/quang-keycloak"
       ],
-      "quix-core-authentication/*": [
-        "dist/quix-core-authentication/*"
+      "quang-core": [
+        "dist/quang-core/quang-core",
+        "dist/quang-core"
+      ],
+      "quang-calendar": [
+        "dist/quang-calendar/quang-calendar",
+        "dist/quang-calendar"
+      ],
+      "quang-date": [
+        "dist/quang-date/quang-date",
+        "dist/quang-date"
+      ],
+      "quang-chart": [
+        "dist/quang-chart/quang-chart",
+        "dist/quang-chart"
+      ],
+      "quang-event": [
+        "dist/quang-event/quang-event",
+        "dist/quang-event"
+      ],
+      "quang-image": [
+        "dist/quang-image/quang-image",
+        "dist/quang-image"
+      ],
+      "quang-map": [
+        "dist/quang-map/quang-map",
+        "dist/quang-map"
+      ],
+      "quang-components": [
+        "dist/quang-components/quang-components",
+        "dist/quang-components"
+      ],
+      "quang-dialog": [
+        "dist/quang-dialog/quang-dialog",
+        "dist/quang-dialog"
+      ],
+      "quang-utility": [
+        "dist/quang-utility/quang-utility",
+        "dist/quang-utility"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "enableIvy": false,
+    "allowEmptyCodegenFiles": false,
+    "strictInjectionParameters": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "importHelpers": true
   }
 }
