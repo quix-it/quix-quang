@@ -1,8 +1,0 @@
-{
-  "google": {
-    "html": "<quang-google-map\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [defaultCenter]=\"[44.6584095,10.8889166]\"\n            [defaultZoom]=\"15\"\n          ></quang-google-map>"
-  },
-  "os": {
-    "html": "<quang-osmap\n            [id]=\"'test'\"\n            [height]=\"'50vh'\"\n            [defaultZoom]=\"15\"\n            [defaultCenter]=\"[10.8889166,44.6584095]\"\n            [minZoom]=\"\"\n          ></quang-osmap>"
-  }
-}
