@@ -1,6 +1,6 @@
 const prettierConfigStandard = require('prettier-config-standard')
 
-/** @type {import("prettier").Config} */
+/** @type {import('prettier').Config} */
 const config = {
   ...prettierConfigStandard,
   plugins: ['prettier-plugin-organize-attributes', '@trivago/prettier-plugin-sort-imports'],
@@ -20,6 +20,11 @@ const config = {
     '^@awesome-cordova-plugins/(.*)$',
     '<THIRD_PARTY_MODULES>',
     '^@quix/(.*)$',
+    '^@environment(.*)$',
+    '^@api(.*)$',
+    '^@shared/(.*)$',
+    '^@core/(.*)$',
+    '^@store/(.*)$',
     '(.*)module(.*)',
     '(.*)service(.*)',
     '((.*)component(.*))|((.*)page(.*))',

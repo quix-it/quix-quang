@@ -23,10 +23,8 @@
         "plugin:prettier/recommended"
       ],
       "rules": {
-        "@typescript-eslint/explicit-function-return-type": [
-          "off"
-        ],
-        "@typescript-eslint/prefer-nullish-coalescing": "warn",
+        "@typescript-eslint/no-non-null-assertion": "warn",
+        "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
