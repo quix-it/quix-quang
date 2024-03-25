@@ -4,7 +4,7 @@
       <ks-title [title]="'Quang input date'"></ks-title>
     </div>
     <div class="col text-right">
-      <h3>@quix/quang: ^11.0.0</h3>
+      <h3>quix/quang: ^11.0.0</h3>
     </div>
   </div>
   <div class="row mb-3">
@@ -17,37 +17,53 @@
           >Configurazioni</a
         >
         <div cardBody>
-          <button
-            (click)="fillDate()"
-            class="btn btn-primary"
-          >
-            fill
-          </button>
-          <button
-            (click)="disableForm()"
-            class="btn btn-primary"
-          >
-            disable
-          </button>
-          <button
-            (click)="enableForm()"
-            class="btn btn-primary"
-          >
-            enable
-          </button>
+          <div class="d-flex justify-between gap-1">
+            <div class="input-group">
+              <input
+                [formControl]="dateStringControl"
+                class="form-control"
+                type="text"
+              />
+              <button
+                (click)="fillDate()"
+                class="btn btn-primary"
+              >
+                fill
+              </button>
+              <button
+                (click)="fillDate(true)"
+                class="btn btn-secondary"
+              >
+                fill as string
+              </button>
+            </div>
+            <div class="input-group justify-content-end">
+              <button
+                (click)="enableForm()"
+                class="btn btn-primary"
+              >
+                enable
+              </button>
+              <button
+                (click)="disableForm()"
+                class="btn btn-secondary"
+              >
+                disable
+              </button>
+            </div>
+          </div>
           <form [formGroup]="group">
             <quang-input-date
               [autocomplete]="'off'"
               [autofocus]="true"
               [buttonClass]="['btn', 'btn-outline-secondary']"
-              [dateFormat]="'DD-MM-YYYY'"
+              [dateRenderFormat]="'dd-MM-yyyy'"
               [errorMessage]="true"
               [formName]="'form'"
               [helpMessage]="true"
               [id]="'date id'"
               [label]="'form.date.label'"
               [placeholder]="'form.date.ph'"
-              [returnISODate]="true"
               [successMessage]="true"
               [tabIndex]="1"
               formControlName="date"
@@ -60,7 +76,11 @@
           </form>
           <dl>
             <dt>Value:</dt>
-            <dd>{{ group.controls['date'].value }}</dd>
+            <dd>{{ group.controls.date.value }}</dd>
+          </dl>
+          <dl>
+            <dt>toJson:</dt>
+            <dd>{{ group.controls.date.value | json }}</dd>
           </dl>
         </div>
       </quang-card-action-header>
@@ -84,7 +104,7 @@
             <quang-input-date
               [autocomplete]="'off'"
               [buttonClass]="['btn', 'btn-outline-secondary']"
-              [dateFormat]="'YYYY-MM-DD'"
+              [dateRenderFormat]="'yyyy-MM-dd'"
               [errorMessage]="true"
               [formName]="'form'"
               [helpMessage]="true"
@@ -116,50 +136,6 @@
         <div cardBody>
           <pre class="html">{{ 'date.date-min-max.html' | transloco }}</pre>
           <pre class="ts">{{ 'date.date-min-max.code' | transloco }}</pre>
-        </div>
-      </quang-card-header>
-    </div>
-  </div>
-  <div class="row mb-3">
-    <div class="col-6">
-      <quang-card-header>
-        <h3 cardHeader>Formato ISO</h3>
-        <div cardBody>
-          <form [formGroup]="groupISO">
-            <quang-input-date
-              [autocomplete]="'off'"
-              [buttonClass]="['btn', 'btn-outline-secondary']"
-              [dateFormat]="'YYYY-MM-DD'"
-              [errorMessage]="true"
-              [formName]="'form'"
-              [helpMessage]="true"
-              [id]="'date-iso id'"
-              [label]="'form.date.label'"
-              [placeholder]="'form.date.ph'"
-              [returnISODate]="true"
-              [successMessage]="true"
-              [tabIndex]="1"
-              formControlName="date"
-            >
-              <i
-                calendarIcon
-                class="fas fa-calendar-alt"
-              ></i>
-            </quang-input-date>
-          </form>
-          <dl>
-            <dt>Value:</dt>
-            <dd>{{ groupISO.controls['date'].value }}</dd>
-          </dl>
-        </div>
-      </quang-card-header>
-    </div>
-    <div class="col-6">
-      <quang-card-header>
-        <h3 cardHeader>HTML/TS</h3>
-        <div cardBody>
-          <pre class="html">{{ 'date.date-iso.html' | transloco }}</pre>
-          <pre class="ts">{{ 'date.date-iso.code' | transloco }}</pre>
         </div>
       </quang-card-header>
     </div>

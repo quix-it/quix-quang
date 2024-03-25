@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  DoCheck,
   ElementRef,
   EventEmitter,
   Input,
@@ -17,7 +18,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
 import { Subject } from 'rxjs'
-import { debounceTime, delay, distinctUntilChanged, filter } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
 
 /**
  * autocomplete object component decorator
@@ -25,12 +26,14 @@ import { debounceTime, delay, distinctUntilChanged, filter } from 'rxjs/operator
 @Component({
   selector: 'quang-autocomplete-obj',
   templateUrl: './autocomplete-obj.component.html',
-  styles: ['']
+  styleUrls: ['autocomplete-obj.component.scss']
 })
 /**
  * autocomplete object component
  */
-export class QuangAutocompleteObjectComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
+export class QuangAutocompleteObjectComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges, DoCheck
+{
   /**
    * The label to display on the input field
    */
@@ -120,17 +123,9 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
   /**
    * The state of the lookup value
    */
@@ -149,16 +144,22 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   @ViewChild('input', { static: true })
   input: ElementRef<HTMLInputElement> | null = null
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param renderer html access
-   * @param control cva access
+   * @param ngControl cva access
    */
   constructor(
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   _dataList: any[] = []
@@ -193,10 +194,10 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
     this.searchTextDebouncer
       .pipe(debounceTime(this.searchTextDebounceTime ?? 0), distinctUntilChanged())
@@ -215,7 +216,6 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
         this.input?.nativeElement.focus()
       }
     }, 0)
-    this.observeValidate()
   }
 
   /**
@@ -226,6 +226,16 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
+  }
+
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   onFocus(e: any): void {
@@ -293,30 +303,5 @@ export class QuangAutocompleteObjectComponent implements ControlValueAccessor, O
   setDisabledState(isDisabled: boolean): void {
     this._isDisabled = isDisabled || this.readonly
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
-          }
-        }
-      })
   }
 }

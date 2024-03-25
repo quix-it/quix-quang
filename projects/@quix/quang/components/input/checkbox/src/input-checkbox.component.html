@@ -6,12 +6,12 @@
     [attr.aria-checked]="_value"
     [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
     [attr.aria-disabled]="_disabled"
-    [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
-    [attr.aria-invalid]="control.invalid && _errorMessage ? true : false"
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-error' : ''"
+    [attr.aria-invalid]="ngControl?.invalid && errorMessageKey ? true : false"
     [attr.aria-label]="'ariaLabel' | transloco"
     [checked]="_value"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [id]="id + '-checkbox'"
     [name]="id + '-checkbox'"
     [ngClass]="customClass"
@@ -24,15 +24,15 @@
   />
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.cursor-default]="control.disabled"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.cursor-default]="ngControl?.disabled"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [htmlFor]="id + '-checkbox'"
     *ngIf="label"
     class="form-check-label"
   >
     {{ label | transloco }}
-    <span [hidden]="!control?.errors?.['required']">*</span>
+    <span [hidden]="!ngControl?.errors?.['required']">*</span>
   </label>
   <div
     aria-live="assertive"
@@ -45,11 +45,14 @@
     aria-live="polite"
     class="invalid-feedback"
   >
-    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
+    {{ errorMessageKey | transloco: { requiredValue } }}
   </div>
   <small
     [attr.aria-describedby]="id"
-    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
     [id]="id + '-checkbox-help'"
     *ngIf="helpMessage"
     aria-live="assertive"

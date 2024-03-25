@@ -5,7 +5,8 @@
     "esModuleInterop": true,
     "fullTemplateTypeCheck": true,
     "importHelpers": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "strictTemplates": true
   },
   "compileOnSave": false,
   "compilerOptions": {

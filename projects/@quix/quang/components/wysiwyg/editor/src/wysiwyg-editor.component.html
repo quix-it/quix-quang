@@ -1,19 +1,21 @@
 <div class="mb-3 wysiwyg-editor">
   <label
     [attr.aria-label]="ariaLabel"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [htmlFor]="id + '-wysiwyg-editor'"
     *ngIf="label"
     class="form-label"
   >
     {{ label | transloco }}
-    <span [hidden]="!control?.errors?.required">*</span>
+    <span [hidden]="!ngControl?.errors?.required">*</span>
   </label>
   <quill-editor
     [attr.aria-disabled]="_disabled"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
+    [attr.aria-invalid]="errorMessage && ngControl?.invalid ? true : false"
+    [class.is-invalid]="errorMessage && ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)"
+    [class.is-valid]="successMessage && ngControl?.valid && (ngControl?.dirty || ngControl?.touched)"
     [disabled]="_disabled"
     [format]="returnHtml ? 'html' : 'text'"
     [id]="id + '-wysiwyg-editor'"
@@ -34,13 +36,20 @@
     {{ _successMessage | transloco }}
   </div>
   <div
-    [attr.aria-errormessage]="_errorMessage"
+    [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-text-error' : ''"
     class="invalid-feedback"
   >
-    {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
+    {{ errorMessageKey | transloco: { requiredValue } }}
   </div>
   <small
-    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [attr.aria-hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((successMessage && ngControl?.valid) || (errorMessage && ngControl?.invalid))
+    "
     [id]="id + 'Help'"
     *ngIf="helpMessage"
     class="form-text text-muted"

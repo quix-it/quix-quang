@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  DoCheck,
   ElementRef,
   Input,
   OnChanges,
@@ -13,8 +14,6 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
-import { delay, filter } from 'rxjs/operators'
-
 /**
  * input checkbox component decorator
  */
@@ -26,7 +25,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input checkbox component
  */
-export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges {
+export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnChanges, DoCheck {
   /**
    * Html id of input
    */
@@ -97,17 +96,9 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
   /**
    * Define disabled state
    */
@@ -118,16 +109,22 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
   @ViewChild('input', { static: true })
   input: ElementRef<HTMLInputElement> | null = null
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param renderer html access
-   * @param control cva access
+   * @param ngControl cva access
    */
   constructor(
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   /**
@@ -145,10 +142,10 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
     if (this.defaultValue) {
       this.writeValue(this.defaultValue)
@@ -166,7 +163,6 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
         this.input?.nativeElement.focus()
       }
     }, 0)
-    this.observeValidate()
   }
 
   /**
@@ -177,6 +173,16 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
     if (changes.autofocus?.currentValue && this.input) {
       this.input.nativeElement.focus()
     }
+  }
+
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   /**
@@ -220,27 +226,5 @@ export class QuangInputCheckboxComponent implements OnInit, ControlValueAccessor
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            this._requiredValue = this.control.errors[error].requiredValue
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-          }
-        }
-      })
   }
 }

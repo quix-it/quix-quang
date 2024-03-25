@@ -1,13 +1,12 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
+  DoCheck,
   EventEmitter,
   Input,
   OnInit,
   Optional,
   Output,
-  Renderer2,
   Self,
   ViewChild,
   ViewEncapsulation
@@ -16,7 +15,6 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 import { ContentChange, QuillEditorComponent } from 'ngx-quill'
 import { BehaviorSubject } from 'rxjs'
-import { delay, filter } from 'rxjs/operators'
 
 /**
  * text editor component decorator
@@ -30,7 +28,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * text editor component
  */
-export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterViewInit, OnInit {
+export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterViewInit, OnInit, DoCheck {
   /**
    * The label to display on the input field
    */
@@ -164,17 +162,9 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
   /**
    * The status of the toolbar
    */
@@ -189,18 +179,20 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
   modules: Record<string, any> = {}
   public quillNativeInstance$ = new BehaviorSubject<QuillEditorComponent | null>(null)
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param renderer html access
    * @param elementRef
-   * @param control cva access
+   * @param ngControl cva access
    */
-  constructor(
-    private readonly renderer: Renderer2,
-    private readonly elementRef: ElementRef,
-    @Self() @Optional() public control: NgControl
-  ) {
-    this.control.valueAccessor = this
+  constructor(@Self() @Optional() public ngControl?: NgControl) {
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   /**
@@ -219,7 +211,7 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
     if (this.listBar) {
       this._toolbar.push([{ list: 'ordered' }, { list: 'bullet' }])
@@ -280,10 +272,19 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
         this.input?.editorElem.focus()
       }
     }, 0)
-    this.observeValidate()
   }
 
-  public forceFocus() {
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
+  }
+
+  public forceFocus(): void {
     this.input?.editorElem.focus()
   }
 
@@ -342,33 +343,5 @@ export class QuangWysiwygEditorComponent implements ControlValueAccessor, AfterV
   setDisabledState(isDisabled: boolean): void {
     this.input?.setDisabledState(isDisabled || this.readonly)
     this._disabled = isDisabled || this.readonly
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.valid && this.successMessage) {
-          this._successMessage = `${this.formName}.${this.control?.name}.valid`
-        } else if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (Object.prototype?.hasOwnProperty?.call(this.control.errors?.error, '')) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
-            }
-          }
-        }
-      })
   }
 }

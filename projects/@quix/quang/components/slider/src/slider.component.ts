@@ -1,17 +1,5 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  Optional,
-  Renderer2,
-  Self,
-  ViewChild
-} from '@angular/core'
+import { Component, DoCheck, ElementRef, Input, OnInit, Optional, Renderer2, Self, ViewChild } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
-
-import { delay, filter } from 'rxjs/operators'
 
 /**
  * slider component decorator
@@ -24,7 +12,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * slider component
  */
-export class QuangSliderComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+export class QuangSliderComponent implements ControlValueAccessor, OnInit, DoCheck {
   /**
    * The label to display on the input field
    */
@@ -97,31 +85,29 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
   /**
    * The html input element
    */
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
-   * @param control cva access
+   * @param ngControl cva access
    */
   constructor(
-    @Self() @Optional() public control: NgControl,
-    private readonly renderer: Renderer2
+    private readonly renderer: Renderer2,
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   /**
@@ -139,19 +125,21 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
     if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
   }
 
-  /**
-   * After rendering the component, it checks if the input field must have focus
-   * and activates the monitoring of the validation of the entered values
-   */
-  ngAfterViewInit(): void {
-    this.observeValidate()
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   /**
@@ -193,31 +181,5 @@ export class QuangSliderComponent implements ControlValueAccessor, OnInit, After
    */
   setDisabledState(isDisabled: boolean): void {
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (Object.prototype.hasOwnProperty.call(this.control.errors.error, '')) {
-              if (this.control.errors[error]) {
-                this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-                this._requiredValue = this.control.errors[error].requiredValue
-              }
-            }
-          }
-        }
-      })
   }
 }

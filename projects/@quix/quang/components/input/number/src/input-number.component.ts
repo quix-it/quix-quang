@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  DoCheck,
   ElementRef,
   Input,
   OnChanges,
@@ -13,8 +14,6 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
-import { delay, filter } from 'rxjs/operators'
-
 /**
  * input number component decorator
  */
@@ -26,7 +25,7 @@ import { delay, filter } from 'rxjs/operators'
 /**
  * input number component
  */
-export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit {
+export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit, DoCheck {
   /**
    * The label to display on the input field
    */
@@ -119,17 +118,9 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
    */
   _successMessage: string = ''
   /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
    * the status of the help message
    */
   _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
   /**
    * The html input element
    */
@@ -138,16 +129,22 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
 
   _disabled: boolean = false
 
+  @Input() errorMap: Record<string, string>
+
+  errorMessageKey: string = ''
+
+  requiredValue: string = ''
+
   /**
    * constructor
    * @param renderer html access
-   * @param control cva access
+   * @param ngControl cva access
    */
   constructor(
     private readonly renderer: Renderer2,
-    @Self() @Optional() public control: NgControl
+    @Self() @Optional() public ngControl?: NgControl
   ) {
-    this.control.valueAccessor = this
+    if (this.ngControl) this.ngControl.valueAccessor = this
   }
 
   /**
@@ -165,10 +162,10 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
    */
   ngOnInit(): void {
     if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
+      this._helpMessage = `${this.formName}.${this.ngControl?.name}.help`
     }
-    if (this.control.valid && this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
+    if (this.successMessage) {
+      this._successMessage = `${this.formName}.${this.ngControl?.name}.valid`
     }
     if (this.defaultValue) {
       this.writeValue(this.defaultValue)
@@ -186,7 +183,16 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
         this.input?.nativeElement.focus()
       }
     }, 0)
-    this.observeValidate()
+  }
+
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    this.requiredValue =
+      this.ngControl?.errors?.[errorKey]?.[
+        errorKey === 'minlength' || errorKey === 'maxlength' ? 'requiredLength' : 'requiredValue'
+      ]
   }
 
   /**
@@ -219,11 +225,9 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
    * @param e
    */
   onChangedHandler(e: Event): void {
-    if (isNaN((e.target as HTMLInputElement).valueAsNumber)) {
-      this._value = null
-    } else {
-      this._value = (e.target as HTMLInputElement).valueAsNumber
-    }
+    this._value = isNaN((e.target as HTMLInputElement).valueAsNumber)
+      ? null
+      : (e.target as HTMLInputElement).valueAsNumber
     this.onTouched()
     this.onChanged(this._value)
   }
@@ -244,31 +248,5 @@ export class QuangInputNumberComponent implements ControlValueAccessor, OnInit, 
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (error === 'min' || error === 'max') {
-              this._requiredValue = this.control.errors[error][error]
-            } else {
-              this._requiredValue = this.control.errors[error].requiredValue
-            }
-            this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-          }
-        }
-      })
   }
 }

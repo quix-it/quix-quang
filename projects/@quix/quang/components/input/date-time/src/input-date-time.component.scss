@@ -1,34 +1,4 @@
-.inputWrapper {
-  margin-bottom: 1rem;
-
-  .dateTimeWrapper {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: flex-end;
-    justify-content: flex-start;
-    flex-basis: 100%;
-
-    .form-group {
-      margin-bottom: 0;
-
-      &:nth-child(1) {
-        flex-basis: 100%;
-      }
-
-      &:nth-child(2) {
-        margin-left: 1rem;
-      }
-    }
-    .timepicker-margin {
-      margin-bottom: calc(1rem - 1px);
-    }
-  }
-
-  img[calendarIcon] {
-    width: 15px;
-    height: 15px;
-  }
-  .input-group-append .btn {
-    min-width: unset !important;
-  }
+img[calendarIcon] {
+  width: 15px;
+  height: 15px;
 }

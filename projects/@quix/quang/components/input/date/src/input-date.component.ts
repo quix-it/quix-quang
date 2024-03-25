@@ -1,368 +1,219 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
+  DoCheck,
   ElementRef,
   Inject,
+  Injector,
   Input,
   LOCALE_ID,
   OnChanges,
   OnInit,
-  Optional,
   Renderer2,
-  Self,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  forwardRef
 } from '@angular/core'
-import { ControlValueAccessor, NgControl } from '@angular/forms'
+import { ControlValueAccessor, FormControl, FormControlName, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms'
 
-import { format } from 'date-fns'
-import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker'
-import { delay, filter } from 'rxjs/operators'
+import { format, isValid, parse } from 'date-fns'
+import { BsDatepickerConfig, BsDatepickerInputDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
 
-/**
- * input date component decorator
- */
+let nextUniqueId = 0
+
 @Component({
   selector: 'quang-input-date',
   templateUrl: './input-date.component.html',
-  styleUrls: ['./input-date.component.scss']
+  styleUrls: ['./input-date.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => QuangInputDateComponent),
+      multi: true
+    }
+  ]
 })
-/**
- * input date component
- */
-export class QuangInputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges {
-  /**
-   * Html id of input
-   */
-  @Input() id: string = ''
-  /**
-   * The label to display on the input field
-   */
+export class QuangInputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges, DoCheck {
   @Input() label: string = ''
-  /**
-   * The placeholder of the input field
-   */
+  @Input() ariaLabel: string = `Input ${this.label}`
   @Input() placeholder: string = ''
-  /**
-   * Defines if you want to display the help message for the user
-   */
+  @Input() formName: string = ''
   @Input() helpMessage: boolean = false
-  /**
-   * Defines if you want to display the error message for the user
-   */
-  @Input() errorMessage: boolean = false
-  /**
-   * Defines if you want to display the success message for the user
-   */
   @Input() successMessage: boolean = false
-  /**
-   * Indicates whether, when the page is opened,
-   * this input field should be displayed in a focused state or not
-   */
+  @Input() errorMessage: boolean = false
+  @Input() errorMap: Record<string, string>
+  helpMessageKey: string = ''
+  successMessageKey: string = ''
+  errorMessageKey: string = ''
+  requiredValue: string = ''
   @Input() autofocus: boolean = false
-  /**
-   * defines if the selected date must return in ISO ISO 8601 format
-   */
-  @Input() returnISODate: boolean = false
-  /**
-   * defines you want to see the week numbers in the selector
-   */
   @Input() showWeekNumbers: boolean = false
   /**
-   * defines the format of the return date
+   * @see https://valor-software.com/ngx-bootstrap/old/10.3.0/#/components/datepicker?tab=overview#format
+   * @default ISO_8601
    */
-  @Input() dateFormat: string = ''
+  @Input() dateInputFormat: string = ''
   /**
-   * defines the minimum selectable date
+   * @see https://date-fns.org/v3.3.1/docs/format
+   * @default 'dd/MM/yyyy'
    */
-  @Input() minDate: Date | undefined = undefined
-  /**
-   * defines the maximum selectable date
-   */
-  @Input() maxDate: Date | undefined = undefined
-  /**
-   * defines which days of the week to disable from the selection
-   */
+  @Input() dateRenderFormat: string = 'dd/MM/yyyy'
+  @Input() minDate?: Date
+  @Input() maxDate?: Date
   @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = []
-  /**
-   * the list of dates that cannot be selected in the calendar
-   */
   @Input() disabledDates: Date[] = []
-  /**
-   * defines the starting view
-   */
-  @Input() minView: 'year' | 'month' | 'day' = 'year'
-  /**
-   * Determine the arialabel tag for accessibility,
-   * If not specified, it takes 'input' concatenated to the label by default
-   */
-  @Input() ariaLabel: string = `Input ${this.label}`
-  /**
-   * Defines the class of the selector open button
-   */
   @Input() buttonClass: string[] = []
-  /**
-   * Indicate the position in the page navigation flow with the tab key
-   */
   @Input() tabIndex: number = 0
-  /**
-   * The name of the form, this input is used to create keys for error, validation or help messages.
-   * It will be the first key element generated
-   */
-  @Input() formName: string = ''
-  /**
-   * Adds css classes to the component
-   */
   @Input() customClass: string[] = []
-  /**
-   * Defines where to place the date selector in response to the input field
-   */
   @Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom'
-  /**
-   * Define the size of the input field following the bootstrap css rules
-   */
   @Input() size: 'sm' | 'lg' | null = null
-  /**
-   * Defines the autocomplete tag to indicate to the browser what type of field it is
-   * and how to help the user fill it in
-   */
-  @Input() autocomplete: string = 'off'
-  /**
-   * Defines whether the input field is in a read-only state
-   */
-  @Input() readonly: boolean = false
+  @Input() autocomplete = 'off'
+  @Input() readonly = false
+  bsConfig?: Partial<BsDatepickerConfig>
+  @ViewChild(BsDatepickerInputDirective, { static: true }) datePickerInputDirective?: BsDatepickerInputDirective
+  @ViewChild('datePickerInput', { static: true }) datePickerInput?: ElementRef<HTMLInputElement>
+  internalDateControl = new FormControl<Date | null>(null)
+  ngControl?: FormControlName
+  public onChange: (value: Date | null) => void
+  public onTouched: () => void
+  protected _uid = `quang-input-date-${nextUniqueId++}`
 
-  /**
-   * Contains the component configurations
-   */
-  config: Partial<BsDatepickerConfig> | undefined = undefined
+  protected _id: string = ''
 
-  /**
-   * The value of the input
-   */
-  _value: any
-
-  /**
-   * the status of the success message
-   */
-  _successMessage: string = ''
-
-  /**
-   * the status of the error message
-   */
-  _errorMessage: string = ''
-  /**
-   * the status of the help message
-   */
-  _helpMessage: string = ''
-  /**
-   * Contains the value required by a validation when it fails
-   */
-  _requiredValue: any = ''
-  /**
-   * internal status disabled
-   */
-  _disabled: boolean = false
-  /**
-   * The html input element
-   */
-  @ViewChild('input') input: ElementRef<HTMLInputElement> | undefined
-
-  @ViewChild('inputBtn') inputBtn: ElementRef<HTMLButtonElement> | undefined
-
-  /**
-   * constructor
-   * @param renderer html access
-   * @param localeService locale utility
-   * @param locale actual locale
-   * @param control cva access
-   */
-  constructor(
-    private readonly renderer: Renderer2,
-    private readonly localeService: BsLocaleService,
-    private readonly changeDetectorRef: ChangeDetectorRef,
-    @Inject(LOCALE_ID) public locale: string,
-    @Self() @Optional() public control: NgControl
-  ) {
-    this.control.valueAccessor = this
+  @Input()
+  public get id(): string {
+    return this._id
   }
 
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onTouched: any = () => {}
+  public set id(value: string) {
+    this._id = value || this._uid
+  }
 
-  /**
-   * Standard definition to create a control value accessor
-   */
-  onChanged: any = () => {}
+  constructor(
+    private readonly localeService: BsLocaleService,
+    private readonly renderer: Renderer2,
+    @Inject(LOCALE_ID) public locale: string,
+    private readonly injector: Injector
+  ) {
+    // Force setter to be called in case id was not specified.
+    // eslint-disable-next-line no-self-assign
+    this.id = this.id
+  }
 
-  /**
-   * init locale
-   * check help message and init the key
-   */
   ngOnInit(): void {
-    this.config = {
+    const ngControl = this.injector.get(NgControl)
+    if (ngControl instanceof FormControlName) this.ngControl = ngControl
+
+    // override ngx-bootstrap hooks to prevent input element writes
+    if (this.datePickerInputDirective) {
+      this.datePickerInputDirective.onChange = () => {}
+      this.datePickerInputDirective._setInputValue = () => {}
+    }
+
+    this.internalDateControl.valueChanges.subscribe((date?: Date | null) => {
+      const updatedValue = typeof date === 'string' || date === undefined || !isValid(date) ? null : date
+
+      this.writeValue(updatedValue)
+      this.onChange(updatedValue)
+    })
+    this.bsConfig = {
       containerClass: 'theme-default',
       isAnimated: true,
       adaptivePosition: true,
       returnFocusToInput: true,
-      dateInputFormat: this.dateFormat,
-      rangeInputFormat: this.dateFormat,
+      dateInputFormat: this.dateInputFormat,
       showWeekNumbers: this.showWeekNumbers
     }
-    if (this.locale) {
-      this.localeService.use(this.locale)
-    }
-    if (this.helpMessage) {
-      this._helpMessage = `${this.formName}.${this.control?.name}.help`
-    }
-    if (this.successMessage) {
-      this._successMessage = `${this.formName}.${this.control?.name}.valid`
-    }
+    if (this.locale) this.localeService.use(this.locale)
+    if (this.helpMessage) this.helpMessageKey = `${this.formName}.${this.ngControl?.name}.help`
+    if (this.successMessage) this.successMessageKey = `${this.formName}.${this.ngControl?.name}.valid`
   }
 
-  /**
-   * After rendering the component, it checks if the input field must have focus
-   * and activates the monitoring of the validation of the entered values
-   */
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.autofocus) {
-        this.input?.nativeElement.focus()
-      }
-    }, 0)
-    this.observeValidate()
-    this.control.control?.markAsPristine()
-    if (this._value) {
-      setTimeout(() => {
-        this.onBsValueChange(this._value)
-      })
-    }
+    if (this.autofocus) this.datePickerInput?.nativeElement.focus()
   }
 
-  /**
-   * Add focus to the input field if the need comes after component initialization
-   * @param changes component changes
-   */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.autofocus?.currentValue && this.input) {
-      this.input.nativeElement.focus()
+    if (changes.autofocus?.currentValue) this.datePickerInput?.nativeElement.focus()
+  }
+
+  ngDoCheck(): void {
+    if (!this.errorMessage || this.ngControl?.valid) return
+    const errorKey = Object.keys(this.ngControl?.errors ?? {})[0]
+    this.errorMessageKey = this.errorMap?.[errorKey] ?? `${this.formName}.${this.ngControl?.name}.${errorKey}`
+    const errorData = this.ngControl?.errors?.[errorKey]
+    switch (errorKey) {
+      case 'minlength':
+      case 'maxlength':
+        this.requiredValue = errorData.requiredLength
+        break
+      case 'dateBetween':
+        {
+          let [dateStart, dateEnd] = errorData.dateBetween?.requiredValue ?? []
+          if (dateStart && dateEnd) {
+            dateStart = format(new Date(dateStart), this.dateRenderFormat)
+            dateEnd = format(new Date(dateEnd), this.dateRenderFormat)
+          }
+          this.requiredValue = `${dateStart} - ${dateEnd}`
+        }
+        break
+      case 'bsDate':
+        if (errorData.invalid)
+          this.errorMessageKey = this.errorMap?.invalidDate ?? `${this.formName}.${this.ngControl?.name}.invalidDate`
+        if (errorData.minDate) {
+          this.errorMessageKey = this.errorMap?.minDate ?? `${this.formName}.${this.ngControl?.name}.minDate`
+          this.requiredValue = errorData.minDate
+        }
+        if (errorData.maxDate) {
+          this.errorMessageKey = this.errorMap?.maxDate ?? `${this.formName}.${this.ngControl?.name}.maxDate`
+          this.requiredValue = errorData.maxDate
+        }
+        break
+      default:
+        this.requiredValue = errorData?.requiredValue
     }
   }
 
-  /**
-   * Standard definition to create a control value accessor
-   */
-  registerOnTouched(fn: any): void {
+  isValid(): boolean {
+    return !!(this.successMessage && this.ngControl?.valid && (this.ngControl?.dirty ?? this.ngControl?.touched))
+  }
+
+  isInvalid(): boolean {
+    return !!(this.errorMessage && this.ngControl?.invalid && (this.ngControl?.dirty ?? this.ngControl?.touched))
+  }
+
+  onInputChange(event: Event): void {
+    if (!event.target) return
+    const inputValue = (event.target as HTMLInputElement).value
+    const parsedDate = parse(inputValue, this.dateRenderFormat, new Date())
+    if (isValid(parsedDate)) this.internalDateControl.patchValue(parsedDate)
+    else this.internalDateControl.patchValue(null)
+  }
+
+  public writeValue(updatedValue: Date | string | null | undefined): void {
+    const valueToWrite = !updatedValue ? '' : format(updatedValue, this.dateRenderFormat)
+    this.renderer.setProperty(this.datePickerInput?.nativeElement, 'value', valueToWrite)
+    // sending only dates to ngx-bootstrap control
+    this.internalDateControl.setValue(
+      typeof updatedValue === 'string' ? new Date(updatedValue) : updatedValue ?? null,
+      {
+        emitEvent: false
+      }
+    )
+  }
+
+  public registerOnChange(fn: (value: Date | null) => void): void {
+    this.onChange = fn
+  }
+
+  public registerOnTouched(fn: () => void): void {
     this.onTouched = fn
   }
 
-  /**
-   * Standard definition to create a control value accessor
-   */
-  registerOnChange(fn: any): void {
-    this.onChanged = fn
-  }
-
-  /**
-   * method triggered when the date selection changes, it triggers the native events of the cva
-   * @param date
-   */
-  onBsValueChange(date: Date | undefined): void {
-    this.onTouched()
-    if (!date) {
-      this.onChanged(null)
-    } else if (date.toString() === 'Invalid Date') {
-      this.onChanged(null)
-      this.control.control?.setErrors({ invalidDate: true })
-      this.control.control?.markAsDirty()
-    } else if (this.returnISODate) {
-      this.onChanged(date)
-    } else {
-      this.onChanged(format(date, this.fixedDateFnsFormat(this.dateFormat)))
-    }
-  }
-
-  /**
-   * When the form is initialized it saves the data in the component state
-   * @param value
-   */
-  writeValue(value: any): void {
-    if (value && typeof value === 'string') {
-      this._value = new Date(value)
-    } else {
-      this._value = value
-    }
-    if (this.input) {
-      this.renderer.setProperty(
-        this.input.nativeElement,
-        'value',
-        this._value ? format(this._value, this.fixedDateFnsFormat(this.dateFormat)) : this._value
-      )
-    }
-    this.changeDetectorRef.detectChanges()
-  }
-
-  fixedDateFnsFormat(date: string): string {
-    return date.replace('DD', 'dd').replace('YYYY', 'yyyy')
-  }
-
-  /**
-   * Standard definition to create a control value accessor
-   * When the input field from the form is disabled, the html input tag is defined as disabled
-   */
-  setDisabledState(isDisabled: boolean): void {
-    if (this.renderer) {
-      if (this.input) {
-        this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled || this.readonly)
-      }
-      if (this.inputBtn) {
-        this.renderer.setProperty(this.inputBtn?.nativeElement, 'disabled', isDisabled || this.readonly)
-      }
-    }
-    this._disabled = isDisabled
-  }
-
-  /**
-   * When the input field changes,
-   * the validation status is retrieved and the success message or error messages displayed.
-   * If there is an error with a specific required value it is passed to the translation pipe
-   * to allow for the creation of custom messages
-   */
-  observeValidate(): void {
-    this.control?.statusChanges
-      ?.pipe(
-        delay(0),
-        filter(() => !!this.control.dirty)
-      )
-      .subscribe(() => {
-        if (this.control.invalid && this.errorMessage) {
-          for (const error in this.control.errors) {
-            if (this.control.errors[error]) {
-              this._errorMessage = `${this.formName}.${this.control?.name}.${error}`
-              this._requiredValue = this.control.errors[error].requiredValue
-              if (error === 'dateBetween') {
-                if (this.dateFormat) {
-                  this._requiredValue = format(
-                    new Date(this.control.errors.dateBetween.requiredValue[0]),
-                    this.fixedDateFnsFormat(this.dateFormat)
-                  )
-                  this._requiredValue += ' - '
-                  this._requiredValue += format(
-                    new Date(this.control.errors.dateBetween.requiredValue[1]),
-                    this.fixedDateFnsFormat(this.dateFormat)
-                  )
-                } else {
-                  this._requiredValue = this.control.errors.dateBetween.requiredValue[0]
-                  this._requiredValue += ' - '
-                  this._requiredValue += this.control.errors.dateBetween.requiredValue[1]
-                }
-              }
-            }
-          }
-        }
-      })
+  handleDatePickerInputClick($event: MouseEvent): void {
+    if (!this.ngControl?.disabled) return
+    $event.preventDefault()
+    $event.stopPropagation()
+    $event.stopImmediatePropagation()
   }
 }

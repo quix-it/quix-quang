@@ -1,17 +1,17 @@
-<div class="inputWrapper">
-  <div class="dateTimeWrapper">
-    <div class="mb-3">
-      <label
-        [attr.aria-label]="ariaLabel"
-        [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-        [class.is-valid]="control?.valid && control?.dirty && successMessage"
-        [htmlFor]="id + '-date-time'"
-        *ngIf="label"
-        class="form-label"
-      >
-        {{ label | transloco }}
-        <span [hidden]="!control?.errors?.['required']">*</span>
-      </label>
+<div class="d-flex">
+  <div class="mb-3">
+    <label
+      [attr.aria-label]="ariaLabel"
+      [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+      [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+      [htmlFor]="id + '-date-time'"
+      *ngIf="label"
+      class="form-label"
+    >
+      {{ label | transloco }}
+      <span [hidden]="!ngControl?.errors?.['required']">*</span>
+    </label>
+    <div class="d-flex gap-1">
       <div
         [class.input-group-lg]="size === 'lg'"
         [class.input-group-sm]="size === 'sm'"
@@ -23,8 +23,8 @@
           [autofocus]="autofocus"
           [bsConfig]="config"
           [bsValue]="_valueDate"
-          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-          [class.is-valid]="control?.valid && control?.dirty && successMessage"
+          [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+          [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
           [datesDisabled]="disabledDates"
           [daysDisabled]="disabledDaysOfTheWeek"
           [disabled]="_disabled"
@@ -43,72 +43,63 @@
           class="form-control"
           type="text"
         />
-        <div class="input-group-append">
-          <button
-            [ngClass]="buttonClass"
-            [tabIndex]="tabIndex"
-            (click)="_disabled ? null : drp.toggle()"
-            #inputBtn
-            aria-label="calendar-button"
-            class="btn"
-            type="button"
-          >
-            <ng-content select="[calendarIcon]"></ng-content>
-          </button>
-        </div>
-        <div class="valid-feedback">
-          {{ _successMessage | transloco }}
-        </div>
-
-        <div
-          [attr.aria-errormessage]="_errorMessage"
-          class="invalid-feedback"
-        >
-          {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
-        </div>
-      </div>
-    </div>
-    <div class="timepicker-margin">
-      <div
-        [class.input-group-lg]="size === 'lg'"
-        [class.input-group-sm]="size === 'sm'"
-        class="input-group"
-      >
-        <timepicker
-          [arrowkeys]="true"
-          [attr.aria-label]="ariaLabel + ' time' | transloco"
-          [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-          [class.is-valid]="control?.valid && control?.dirty && successMessage"
-          [disabled]="_disabled"
-          [hoursPlaceholder]="hoursPlaceholder | transloco"
-          [hourStep]="hourStep"
-          [id]="id + '-date-time-picker'"
-          [max]="maxTime"
-          [min]="minTime"
-          [minutesPlaceholder]="minutesPlaceholder | transloco"
-          [minuteStep]="minuteStep"
-          [mousewheel]="true"
-          [ngClass]="customClass"
-          [secondsPlaceholder]="secondsPlaceholder | transloco"
-          [secondsStep]="secondStep"
-          [showMeridian]="showMeridianButton"
-          [showSeconds]="showSecond"
-          [showSpinners]="showSelector"
+        <button
+          [ngClass]="buttonClass"
           [tabIndex]="tabIndex"
-          (blur)="onTouched()"
-          (ngModelChange)="onChangeTime($event)"
-          [(ngModel)]="_valueTime"
-        ></timepicker>
+          (click)="_disabled ? null : drp.toggle()"
+          #inputBtn
+          aria-label="calendar-button"
+          class="btn"
+          type="button"
+        >
+          <ng-content select="[calendarIcon]"></ng-content>
+        </button>
       </div>
+      <timepicker
+        [arrowkeys]="true"
+        [attr.aria-label]="ariaLabel + ' time' | transloco"
+        [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+        [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
+        [disabled]="_disabled"
+        [hoursPlaceholder]="hoursPlaceholder | transloco"
+        [hourStep]="hourStep"
+        [id]="id + '-date-time-picker'"
+        [max]="maxTime"
+        [min]="minTime"
+        [minutesPlaceholder]="minutesPlaceholder | transloco"
+        [minuteStep]="minuteStep"
+        [mousewheel]="true"
+        [ngClass]="customClass"
+        [secondsPlaceholder]="secondsPlaceholder | transloco"
+        [secondsStep]="secondStep"
+        [showMeridian]="showMeridianButton"
+        [showSeconds]="showSecond"
+        [showSpinners]="showSelector"
+        [tabIndex]="tabIndex"
+        (blur)="onTouched()"
+        (ngModelChange)="onChangeTime($event)"
+        [(ngModel)]="_valueTime"
+      ></timepicker>
     </div>
+    <div class="valid-feedback">
+      {{ _successMessage | transloco }}
+    </div>
+    <div
+      [attr.aria-errormessage]="errorMessageKey"
+      class="invalid-feedback"
+    >
+      {{ errorMessageKey | transloco: { requiredValue } }}
+    </div>
+    <small
+      [hidden]="
+        (ngControl?.dirty || ngControl?.touched) &&
+        ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+      "
+      [id]="id + '-date-time'"
+      *ngIf="helpMessage"
+      class="form-text text-muted"
+    >
+      {{ _helpMessage | transloco }}
+    </small>
   </div>
-
-  <small
-    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
-    [id]="id + '-date-time'"
-    *ngIf="helpMessage"
-    class="form-text text-muted"
-  >
-    {{ _helpMessage | transloco }}
-  </small>
 </div>

@@ -1,37 +1,35 @@
 <div class="mb-3">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [htmlFor]="id + '-fraction'"
     *ngIf="label"
     class="form-label"
   >
     {{ label | transloco }}
-    <span [hidden]="!control?.errors?.required">*</span>
+    <span [hidden]="!ngControl?.errors?.required">*</span>
   </label>
   <div class="input-group">
-    <div class="input-group-prepend">
-      <button
-        [disabled]="_disabled || readonly"
-        [ngClass]="addButtonClass"
-        (click)="addInteger()"
-        type="button"
-      >
-        <ng-content select="[addIntegerIcon]"></ng-content>
-      </button>
-    </div>
+    <button
+      [disabled]="_disabled || readonly"
+      [ngClass]="addButtonClass"
+      (click)="addInteger()"
+      type="button"
+    >
+      <ng-content select="[addIntegerIcon]"></ng-content>
+    </button>
     <input
       [attr.aria-autocomplete]="'inline'"
       [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
       [attr.aria-disabled]="_disabled"
-      [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
-      [attr.aria-invalid]="control.invalid"
+      [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-error' : ''"
+      [attr.aria-invalid]="ngControl?.invalid"
       [attr.aria-label]="ariaLabel | transloco"
       [attr.aria-readonly]="readonly"
       [autocomplete]="autocomplete"
-      [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-      [class.is-valid]="control?.valid && control?.dirty && successMessage"
+      [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+      [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
       [id]="id + '-fraction-dec'"
       [ngClass]="customClass"
       [readOnly]="readonly"
@@ -43,40 +41,34 @@
       class="form-control text-right"
       type="text"
     />
-    <div class="input-group-append">
-      <button
-        [disabled]="_disabled || readonly"
-        [ngClass]="removeButtonClass"
-        (click)="removeInteger()"
-        type="button"
-      >
-        <ng-content select="[removeIntegerIcon]"></ng-content>
-      </button>
-    </div>
-    <div class="input-group-append">
-      <span class="input-group-text">,</span>
-    </div>
-    <div class="input-group-append">
-      <button
-        [disabled]="_disabled || readonly"
-        [ngClass]="addButtonClass"
-        (click)="addFraction()"
-        type="button"
-      >
-        <ng-content select="[addFractionIcon]"></ng-content>
-      </button>
-    </div>
+    <button
+      [disabled]="_disabled || readonly"
+      [ngClass]="removeButtonClass"
+      (click)="removeInteger()"
+      type="button"
+    >
+      <ng-content select="[removeIntegerIcon]"></ng-content>
+    </button>
+    <span class="input-group-text">,</span>
+    <button
+      [disabled]="_disabled || readonly"
+      [ngClass]="addButtonClass"
+      (click)="addFraction()"
+      type="button"
+    >
+      <ng-content select="[addFractionIcon]"></ng-content>
+    </button>
     <input
       [attr.aria-autocomplete]="autocomplete"
       [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-fraction-help' : ''"
       [attr.aria-disabled]="_disabled"
-      [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-fraction-error' : ''"
-      [attr.aria-invalid]="control.invalid"
+      [attr.aria-errormessage]="errorMessage && errorMessageKey ? id + '-fraction-error' : ''"
+      [attr.aria-invalid]="ngControl?.invalid"
       [attr.aria-label]="ariaLabel | transloco"
       [attr.aria-readonly]="readonly"
       [autocomplete]="autocomplete"
-      [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-      [class.is-valid]="control?.valid && control?.dirty && successMessage"
+      [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+      [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
       [disabled]="_disabled || readonly"
       [id]="id + '-fraction-int'"
       [ngClass]="customClass"
@@ -88,32 +80,33 @@
       class="form-control"
       type="text"
     />
-    <div class="input-group-append">
-      <button
-        [disabled]="_disabled || readonly"
-        [ngClass]="removeButtonClass"
-        (click)="removeFraction()"
-        type="button"
-      >
-        <ng-content select="[removeFractionIcon]"></ng-content>
-      </button>
-    </div>
-    <div
-      aria-live="assertive"
-      class="valid-feedback"
+    <button
+      [disabled]="_disabled || readonly"
+      [ngClass]="removeButtonClass"
+      (click)="removeFraction()"
+      type="button"
     >
-      {{ _successMessage | transloco }}
-    </div>
-    <div
-      [id]="id + '-error'"
-      aria-live="polite"
-      class="invalid-feedback"
-    >
-      {{ _errorMessage | transloco: { requiredValue: _requiredValue } }}
-    </div>
+      <ng-content select="[removeFractionIcon]"></ng-content>
+    </button>
+  </div>
+  <div
+    aria-live="assertive"
+    class="valid-feedback"
+  >
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [id]="id + '-error'"
+    aria-live="polite"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco: { requiredValue } }}
   </div>
   <small
-    [hidden]="control?.dirty && ((control?.valid && successMessage) || (control?.invalid && errorMessage))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
     [id]="id + '-fraction-help'"
     *ngIf="helpMessage"
     aria-live="assertive"

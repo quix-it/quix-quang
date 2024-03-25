@@ -1,14 +1,14 @@
 <div class="mb-3 input-date-range">
   <label
     [attr.aria-label]="ariaLabel | transloco"
-    [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-    [class.is-valid]="control?.valid && control?.dirty && successMessage"
+    [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+    [class.is-valid]="ngControl?.valid && (ngControl?.dirty || ngControl?.touched) && successMessage"
     [htmlFor]="id + '-date-range'"
     *ngIf="label"
     class="form-label"
   >
     {{ label | transloco }}
-    <span [hidden]="!control?.errors?.['required']">*</span>
+    <span [hidden]="!ngControl?.errors?.['required']">*</span>
   </label>
   <div
     [class.input-group-lg]="size === 'lg'"
@@ -21,8 +21,8 @@
       [autofocus]="autofocus"
       [bsConfig]="config"
       [bsValue]="_value"
-      [class.is-invalid]="control.invalid && control?.dirty && errorMessage"
-      [class.is-valid]="control.valid && successMessage"
+      [class.is-invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched) && errorMessage"
+      [class.is-valid]="ngControl?.valid && successMessage"
       [datesDisabled]="disabledDates"
       [id]="id + '-date-range'"
       [isDisabled]="_disabled"
@@ -40,33 +40,33 @@
       class="form-control"
       type="text"
     />
-    <div class="input-group-append">
-      <button
-        [ngClass]="buttonClass"
-        [ngStyle]="{ 'pointer-event': _disabled ? 'none' : null }"
-        [tabIndex]="tabIndex"
-        (click)="drp.toggle()"
-        #inputBtn
-        aria-label="calendar-button"
-        class="btn"
-        type="button"
-      >
-        <ng-content select="[calendarIcon]"></ng-content>
-      </button>
-    </div>
-
-    <div class="valid-feedback">
-      {{ _successMessage | transloco }}
-    </div>
-    <div
-      [attr.aria-errormessage]="_errorMessage | transloco"
-      class="invalid-feedback"
+    <button
+      [ngClass]="buttonClass"
+      [ngStyle]="{ 'pointer-event': _disabled ? 'none' : null }"
+      [tabIndex]="tabIndex"
+      (click)="drp.toggle()"
+      #inputBtn
+      aria-label="calendar-button"
+      class="btn"
+      type="button"
     >
-      {{ _errorMessage | transloco }}
-    </div>
+      <ng-content select="[calendarIcon]"></ng-content>
+    </button>
+  </div>
+  <div class="valid-feedback">
+    {{ _successMessage | transloco }}
+  </div>
+  <div
+    [attr.aria-errormessage]="errorMessageKey | transloco"
+    class="invalid-feedback"
+  >
+    {{ errorMessageKey | transloco }}
   </div>
   <small
-    [hidden]="control?.dirty && ((control.valid && successMessage) || (control.invalid && errorMessage))"
+    [hidden]="
+      (ngControl?.dirty || ngControl?.touched) &&
+      ((ngControl?.valid && successMessage) || (ngControl?.invalid && errorMessage))
+    "
     [id]="id + '-date-range-help'"
     *ngIf="helpMessage"
     class="form-text text-muted"

@@ -1,18 +1,18 @@
 .paginatorContainer {
   display: flex;
-  justify-content: end;
-  align-items: end;
+  justify-content: flex-end;
+  align-items: flex-end;
   flex-wrap: wrap;
   @media (min-width: 576px) {
     flex-wrap: nowrap;
-    justify-content: end;
+    justify-content: flex-end;
     order: 2;
   }
   @media screen and (min-width: 768px) {
-    justify-content: end;
+    justify-content: flex-end;
   }
   @media screen and (max-width: 767px) {
-    justify-content: end;
+    justify-content: flex-end;
   }
 
   .page-size {
@@ -69,6 +69,3 @@
   margin-bottom: 1rem;
   font-size: 0.75rem;
 }
-
-//   }
-// }
