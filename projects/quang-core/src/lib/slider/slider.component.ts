@@ -15,7 +15,7 @@ import { MatSlider, MatSliderChange } from '@angular/material/slider'
  * slider component decorator
  */
 @Component({
-  selector: 'quix-slider',
+  selector: 'quang-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
@@ -101,7 +101,7 @@ export class SliderComponent implements ControlValueAccessor, OnInit, AfterViewI
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: MatSlider|undefined
+  @ViewChild('input', { static: true }) input: MatSlider | undefined
   /**
    * Standard definition to create a control value accessor
    */

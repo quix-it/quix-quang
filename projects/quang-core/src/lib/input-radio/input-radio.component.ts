@@ -19,7 +19,7 @@ import { delay, filter } from 'rxjs/operators'
  * input radio component decorator
  */
 @Component({
-  selector: 'quix-input-radio',
+  selector: 'quang-input-radio',
   templateUrl: './input-radio.component.html',
   styleUrls: ['./input-radio.component.scss']
 })
@@ -117,8 +117,9 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    */
   _requiredValue: any = ''
   /**
-   * input element
+   * Define disabled state
    */
+  _disabled: boolean = false
   @ViewChildren('input') input: QueryList<ElementRef<HTMLInputElement>> | null = null
   /**
    * Standard definition to create a control value accessor
@@ -219,6 +220,7 @@ export class InputRadioComponent implements ControlValueAccessor, OnInit, OnChan
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
+    this._disabled = isDisabled
     setTimeout(() => {
       this.input?.forEach((item) => {
         this.renderer.setProperty(item.nativeElement, 'disabled', isDisabled)

@@ -1,14 +1,16 @@
 import {
   AfterViewInit,
   Component,
-  OnDestroy
+  ElementRef,
+  OnDestroy,
+  ViewChild
 } from '@angular/core'
-import { QuixToast } from './toast.model'
-import { Observable, of, Subscription } from 'rxjs'
-import { ToastsState } from './toast-store/toast.reducer'
-import { select, Store } from '@ngrx/store'
-import { selectToast } from './toast-store/toast.selector'
-import { delay, take } from 'rxjs/operators'
+import { QuangToast } from './toast.model'
+import { delay, Observable, of, Subscription } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { ToastSelectors } from './toast-store/selectors'
+import { QuangDialogStateModule } from '../quang-dialog.reducers'
+import { take } from 'rxjs/operators'
 
 /**
  * toast component decorator
@@ -21,28 +23,32 @@ import { delay, take } from 'rxjs/operators'
 /**
  * toast component
  */
-export class QuixToastComponent implements AfterViewInit, OnDestroy {
+export class QuangToastComponent implements AfterViewInit, OnDestroy {
   /**
    * toast wrapper
    */
-  data: QuixToast | null = null
+  data: QuangToast | null = null
   /**
    * observable for toast state
    * @private
    */
-  private readonly toastState$: Observable<any> = this.store.pipe(select(selectToast))
+  private readonly toastState$: Observable<QuangToast> = this.store.select(ToastSelectors.selectToast)
   /**
    * subscription to a toast state
    * @private
    */
   private subscription: Subscription = new Subscription()
+  /**
+   * html element
+   */
+  @ViewChild('toastDom', { static: false }) toastDom: ElementRef | null = null
 
   /**
    * constructor
    * @param store store access
    */
   constructor (
-    private readonly store: Store<any>
+    private readonly store: Store<QuangDialogStateModule>
   ) {
   }
 
@@ -57,15 +63,19 @@ export class QuixToastComponent implements AfterViewInit, OnDestroy {
    * observe the change of state of the toast saved in the store
    */
   observeToasts (): void {
-    this.subscription = this.toastState$.subscribe((data: ToastsState) => {
-        if (data.toastData) {
-          this.data = data.toastData
-          this.open()
+    this.subscription = this.toastState$.subscribe((t: QuangToast) => {
+      if (t) {
+        this.data = t
+        if (this.data.timing) {
+          setTimeout(() => {
+            this.close()
+          }, this.data.timing)
         }
-      },
-      () => {
-        alert('Error on toast lifecycle')
-      })
+      }
+    },
+    () => {
+      alert('Error on toast lifecycle')
+    })
   }
 
   /**

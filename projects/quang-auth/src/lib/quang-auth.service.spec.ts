@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { QuangAuthService } from './quang-auth.service';
+import { QuangAuthService } from './quang-auth.service'
 
 describe('QuangAuthService', () => {
-  let service: QuangAuthService;
+  let service: QuangAuthService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(QuangAuthService);
-  });
+    TestBed.configureTestingModule({})
+    service = TestBed.inject(QuangAuthService)
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    expect(service).toBeTruthy()
+  })
+})

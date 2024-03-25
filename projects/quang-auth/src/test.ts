@@ -7,10 +7,10 @@ import {
  * Standard definition for require
  */
 declare const require: {
-  context (path: string, deep?: boolean, filter?: RegExp): {
-    keys (): string[];
-    <T> (id: string): T;
-  };
+  context: (path: string, deep?: boolean, filter?: RegExp) => {
+    keys: () => string[]
+    <T> (id: string): T
+  }
 }
 /**
  * First, initialize the Angular testing environment.
@@ -18,7 +18,9 @@ declare const require: {
 
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
+  platformBrowserDynamicTesting(), {
+    teardown: { destroyAfterEach: false }
+  }
 )
 /**
  * Then we find all the tests.

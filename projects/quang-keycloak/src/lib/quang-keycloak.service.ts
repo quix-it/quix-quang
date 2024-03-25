@@ -2,14 +2,9 @@ import { Injectable, Optional } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { from, Observable, of } from 'rxjs'
 import { KeycloakService } from 'keycloak-angular'
-import {
-  userInfoLogin,
-  userInfoLogout,
-  userLogin,
-  userLogout,
-  userRolesLogin, userRolesLogout
-} from './quang-keycloak-store/quang-keycloak.action'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
+import { QuangKeycloakActions } from './quang-keycloak-store/actions'
+
 /**
  * service decorator
  */
@@ -38,14 +33,14 @@ export class QuangKeycloakService {
   constructor (
     @Optional() config: QuangKeycloakConfig,
     private readonly keyCloak: KeycloakService,
-    private readonly store : Store<any>,
+    private readonly store: Store<any>
   ) {
     if (this._window().keycloakConfig) {
       this.authConfig = this._window().keycloakConfig
+      this.authConfig.enableLogging = !config?.production
     } else if (config?.keycloakConfig) {
       this.authConfig = config.keycloakConfig
-    } else {
-      alert('[AUTH KEYCLOAK SERVICE] No auth config')
+      this.authConfig.enableLogging = !config?.production
     }
     if (config?.ionicApplication) {
       this.authConfig.initOptions.silentCheckSsoRedirectUri = `${window.location.origin}/assets/static/silent-check-sso.html`
@@ -59,7 +54,11 @@ export class QuangKeycloakService {
    * starts the authentication flow
    */
   startAuth (): Observable<any> {
-    return from(this.keyCloak.init(this.authConfig))
+    if(this.authConfig) {
+      return from(this.keyCloak.init(this.authConfig))
+    } else {
+      return of(false)
+    }
   }
 
   /**
@@ -68,7 +67,7 @@ export class QuangKeycloakService {
   startAuthAndDispatch (): void {
     from(this.keyCloak.init(this.authConfig)).subscribe(isAuthenticated => {
       if (isAuthenticated) {
-        this.store.dispatch(userLogin())
+        this.store.dispatch(QuangKeycloakActions.userLogin())
       }
     })
   }
@@ -85,7 +84,7 @@ export class QuangKeycloakService {
    */
   getUserInfoAndDispatch (): void {
     from(this.keyCloak.loadUserProfile()).subscribe((user: any) => {
-      this.store.dispatch(userInfoLogin({ user: user }))
+      this.store.dispatch(QuangKeycloakActions.userInfoLogin({ user: user }))
     })
   }
 
@@ -100,7 +99,11 @@ export class QuangKeycloakService {
    * retrieves the user's roles and saves them in the store
    */
   getUserRolesAndDispatch (): void {
-      this.store.dispatch(userRolesLogin({ roles: this.keyCloak.getUserRoles(true) }))
+      this.store.dispatch(
+      QuangKeycloakActions.userRolesLogin(
+        { roles: this.keyCloak.getUserRoles(true) }
+      )
+    )
   }
 
   /**
@@ -129,12 +132,20 @@ export class QuangKeycloakService {
   logoutAndDispatch (redirectUri?: string): void {
     if (redirectUri) {
       from(this.keyCloak.logout(redirectUri)).subscribe(() => {
-        this.store.dispatch(userLogout({ redirectUri: redirectUri }))
-        this.store.dispatch(userInfoLogout())
-        this.store.dispatch(userRolesLogout())
+        this.store.dispatch(QuangKeycloakActions.userLogout({ redirectUri: redirectUri }))
+        this.store.dispatch(QuangKeycloakActions.userInfoLogout())
+        this.store.dispatch(QuangKeycloakActions.userRolesLogout())
       })
     } else {
       alert('[AUTH KEYCLOAK SERVICE] No logout redirectUri config')
     }
+  }
+
+  getToken(): Observable<string> {
+    return from(this.keyCloak.getToken())
+  }
+
+  getRefreshToken(): string {
+    return this.keyCloak.getKeycloakInstance().refreshToken
   }
 }

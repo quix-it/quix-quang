@@ -13,9 +13,9 @@ import { EChartsOption } from 'echarts'
  * chart pie component decorator
  */
 @Component({
-  selector: 'quix-chart-pie',
+  selector: 'quang-chart-pie',
   templateUrl: './chart-pie.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

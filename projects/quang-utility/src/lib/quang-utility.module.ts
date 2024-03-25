@@ -1,21 +1,18 @@
-import { NgModule } from '@angular/core';
-import { QuixStorageService } from './quix-storage-service/quix-storage.service'
+import { NgModule } from '@angular/core'
+import { QuangStorageService } from './quang-storage-service/quang-storage.service'
 import { NgxWebstorageModule } from 'ngx-webstorage'
-import { QuixValidatorsService } from './quix-validators/quix-validators.service'
-import { QuixLayoutService } from './quix-layout/quix-layout.service'
-
-
-
+import { QuangValidatorsService } from './quang-validators/quang-validators.service'
+import { QuangLayoutService } from './quang-layout/quang-layout.service'
 
 @NgModule({
   declarations: [],
   imports: [
-    NgxWebstorageModule.forRoot(),
+    NgxWebstorageModule.forRoot()
   ],
-  providers:[
-    QuixStorageService,
-    QuixValidatorsService,
-    QuixLayoutService
+  providers: [
+    QuangStorageService,
+    QuangValidatorsService,
+    QuangLayoutService
   ],
   exports: []
 })

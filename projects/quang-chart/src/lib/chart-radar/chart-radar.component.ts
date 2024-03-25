@@ -14,9 +14,9 @@ import { EChartsOption } from 'echarts'
  * chart radar component decorator
  */
 @Component({
-  selector: 'quix-chart-radar',
+  selector: 'quang-chart-radar',
   templateUrl: './chart-radar.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
@@ -67,7 +67,7 @@ export class ChartRadarComponent implements OnChanges {
    */
   chartOption: EChartsOption = {
     radar: {},
-    series: [{type: 'radar', data:[]}]
+    series: [{ type: 'radar', data: [] }]
   }
 
   /**

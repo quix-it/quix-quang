@@ -3,81 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "quix-core-components": {
-      "projectType": "library",
-      "root": "projects/quix-core-components",
-      "sourceRoot": "projects/quix-core-components/src",
-      "prefix": "quix",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/quix-core-components/tsconfig.lib.json",
-            "project": "projects/quix-core-components/ng-package.json",
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/quix-core-components/src/test.ts",
-            "tsConfig": "projects/quix-core-components/tsconfig.spec.json",
-            "karmaConfig": "projects/quix-core-components/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/quix-core-components/tsconfig.lib.json",
-              "projects/quix-core-components/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "quix-core-authentication": {
-      "projectType": "library",
-      "root": "projects/quix-core-authentication",
-      "sourceRoot": "projects/quix-core-authentication/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/quix-core-authentication/tsconfig.lib.json",
-            "project": "projects/quix-core-authentication/ng-package.json",
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/quix-core-authentication/src/test.ts",
-            "tsConfig": "projects/quix-core-authentication/tsconfig.spec.json",
-            "karmaConfig": "projects/quix-core-authentication/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/quix-core-authentication/tsconfig.lib.json",
-              "projects/quix-core-authentication/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "quang": {
       "projectType": "library",
       "root": "projects/quang",
       "sourceRoot": "projects/quang/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -100,24 +30,43 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang/tsconfig.lib.json",
-              "projects/quang/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang/**/*.ts",
+              "projects/quang/**/*.html"
             ]
           }
         }
+      }
+    },
+    "storybook": {
+      "builder": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "angular-cli:build",
+        "port": 6006
+      },
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              "./quix-design-system/styles.scss"
+            ]
+          }
+        }
+      }
+    },
+    "build-storybook": {
+      "builder": "@storybook/angular:build-storybook",
+      "options": {
+        "browserTarget": "angular-cli:build"
       }
     },
     "quang-auth": {
       "projectType": "library",
       "root": "projects/quang-auth",
       "sourceRoot": "projects/quang-auth/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -140,14 +89,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-auth/tsconfig.lib.json",
-              "projects/quang-auth/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-auth/**/*.ts",
+              "projects/quang-auth/**/*.html"
             ]
           }
         }
@@ -157,7 +103,7 @@
       "projectType": "library",
       "root": "projects/quang-keycloak",
       "sourceRoot": "projects/quang-keycloak/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -180,14 +126,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-keycloak/tsconfig.lib.json",
-              "projects/quang-keycloak/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-keycloak/**/*.ts",
+              "projects/quang-keycloak/**/*.html"
             ]
           }
         }
@@ -197,7 +140,7 @@
       "projectType": "library",
       "root": "projects/quang-core",
       "sourceRoot": "projects/quang-core/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -220,14 +163,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-core/tsconfig.lib.json",
-              "projects/quang-core/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-core/**/*.ts",
+              "projects/quang-core/**/*.html"
             ]
           }
         }
@@ -237,7 +177,7 @@
       "projectType": "library",
       "root": "projects/quang-calendar",
       "sourceRoot": "projects/quang-calendar/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -260,14 +200,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-calendar/tsconfig.lib.json",
-              "projects/quang-calendar/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-calendar/**/*.ts",
+              "projects/quang-calendar/**/*.html"
             ]
           }
         }
@@ -277,7 +214,7 @@
       "projectType": "library",
       "root": "projects/quang-date",
       "sourceRoot": "projects/quang-date/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -300,14 +237,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-date/tsconfig.lib.json",
-              "projects/quang-date/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-date/**/*.ts",
+              "projects/quang-date/**/*.html"
             ]
           }
         }
@@ -317,7 +251,7 @@
       "projectType": "library",
       "root": "projects/quang-chart",
       "sourceRoot": "projects/quang-chart/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -340,14 +274,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-chart/tsconfig.lib.json",
-              "projects/quang-chart/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-chart/**/*.ts",
+              "projects/quang-chart/**/*.html"
             ]
           }
         }
@@ -357,7 +288,7 @@
       "projectType": "library",
       "root": "projects/quang-event",
       "sourceRoot": "projects/quang-event/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -380,54 +311,48 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-event/tsconfig.lib.json",
-              "projects/quang-event/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-event/**/*.ts",
+              "projects/quang-event/**/*.html"
             ]
           }
         }
       }
     },
-    "quang-image": {
+    "quang-media": {
       "projectType": "library",
-      "root": "projects/quang-image",
-      "sourceRoot": "projects/quang-image/src",
-      "prefix": "lib",
+      "root": "projects/quang-media",
+      "sourceRoot": "projects/quang-media/src",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/quang-image/tsconfig.lib.json",
-            "project": "projects/quang-image/ng-package.json"
+            "tsConfig": "projects/quang-media/tsconfig.lib.json",
+            "project": "projects/quang-media/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/quang-image/tsconfig.lib.prod.json"
+              "tsConfig": "projects/quang-media/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/quang-image/src/test.ts",
-            "tsConfig": "projects/quang-image/tsconfig.spec.json",
-            "karmaConfig": "projects/quang-image/karma.conf.js"
+            "main": "projects/quang-media/src/test.ts",
+            "tsConfig": "projects/quang-media/tsconfig.spec.json",
+            "karmaConfig": "projects/quang-media/karma.conf.js"
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-image/tsconfig.lib.json",
-              "projects/quang-image/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-media/**/*.ts",
+              "projects/quang-media/**/*.html"
             ]
           }
         }
@@ -437,7 +362,7 @@
       "projectType": "library",
       "root": "projects/quang-map",
       "sourceRoot": "projects/quang-map/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -460,14 +385,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-map/tsconfig.lib.json",
-              "projects/quang-map/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-map/**/*.ts",
+              "projects/quang-map/**/*.html"
             ]
           }
         }
@@ -477,7 +399,7 @@
       "projectType": "library",
       "root": "projects/quang-components",
       "sourceRoot": "projects/quang-components/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -500,14 +422,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-components/tsconfig.lib.json",
-              "projects/quang-components/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-components/**/*.ts",
+              "projects/quang-components/**/*.html"
             ]
           }
         }
@@ -515,9 +434,15 @@
     },
     "quang-dialog": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "inlineStyle": true
+        }
+      },
       "root": "projects/quang-dialog",
       "sourceRoot": "projects/quang-dialog/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -540,14 +465,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-dialog/tsconfig.lib.json",
-              "projects/quang-dialog/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-dialog/**/*.ts",
+              "projects/quang-dialog/**/*.html"
             ]
           }
         }
@@ -557,7 +479,7 @@
       "projectType": "library",
       "root": "projects/quang-utility",
       "sourceRoot": "projects/quang-utility/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -580,22 +502,20 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/quang-utility/tsconfig.lib.json",
-              "projects/quang-utility/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/quang-utility/**/*.ts",
+              "projects/quang-utility/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "quix-core-components",
+  "defaultProject": "quang",
   "cli": {
-    "analytics": "4c69ff4f-b242-4742-a667-c15cf0e09a78"
+    "analytics": "4c69ff4f-b242-4742-a667-c15cf0e09a78",
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }

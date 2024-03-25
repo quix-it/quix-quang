@@ -14,9 +14,9 @@ import { ChartBar } from './chart-bar.model'
  * chart bar component decorator
  */
 @Component({
-  selector: 'quix-chart-bar',
+  selector: 'quang-chart-bar',
   templateUrl: './chart-bar.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

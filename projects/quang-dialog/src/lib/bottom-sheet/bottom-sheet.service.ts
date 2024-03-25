@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet'
+import { MatBottomSheet } from '@angular/material/bottom-sheet'
 import { Observable } from 'rxjs'
 
 /**
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs'
 /**
  * utility for bottom sheet management
  */
-export class QuixBottomSheetService {
+export class QuangBottomSheetService {
   /**
    * bottom sheet reference
    */

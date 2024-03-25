@@ -13,9 +13,9 @@ import { EChartsOption } from 'echarts'
  * chart treemap component decorator
  */
 @Component({
-  selector: 'quix-chart-treemap',
+  selector: 'quang-chart-treemap',
   templateUrl: './chart-treemap.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

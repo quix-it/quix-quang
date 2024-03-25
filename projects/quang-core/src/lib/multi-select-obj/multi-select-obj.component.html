@@ -1,22 +1,23 @@
-<div class="form-group">
+<div class="mb-3">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel"
+         class="form-label"
+         [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
   </label>
-  <select class="custom-select"
+  <select class="form-select"
           multiple
           [size]="rowVisible"
           [id]="id"
           [ngClass]="customClass"
           [class.is-valid]="control?.valid && control?.dirty && successMessage"
           [class.is-invalid]="control?.invalid && control?.dirty && errorMessage"
-          [attr.aria-label]="ariaLabel"
+          [attr.aria-label]="ariaLabel | transloco"
           (input)="onChangedHandler($event)"
           (blur)="onTouched()"
-          [class.form-control-lg]="size === 'lg'"
-          [class.form-control-sm]="size === 'sm'"
+          [class.form-select-lg]="size === 'lg'"
+          [class.form-select-sm]="size === 'sm'"
           [tabIndex]="tabIndex"
           #input
   >
@@ -30,13 +31,17 @@
       {{translateValue ? (item[labelValue] | transloco) : item[labelValue] }}
     </option>
   </select>
-  <div class="valid-feedback">
+  <div class="valid-feedback"
+       aria-live="assertive">
     {{_successMessage | transloco}}
   </div>
-  <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+  <div class="invalid-feedback"
+       aria-live="polite"
+       [id]="id + '-error'">
     {{_errorMessage | transloco: {requiredValue: _requiredValue} }}
   </div>
-  <small [id]="id + 'Help'"
+  <small [id]="id + '-help'"
+         aria-live="assertive"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">

@@ -18,7 +18,7 @@ import { delay, filter } from 'rxjs/operators'
  * multi elect object component decorator
  */
 @Component({
-  selector: 'quix-multi-select-obj',
+  selector: 'quang-multi-select-obj',
   templateUrl: './multi-select-obj.component.html',
   styleUrls: ['./multi-select-obj.component.scss']
 })
@@ -122,11 +122,8 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement>|undefined
-  /**
-   * QueryList options
-   */
-  @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>>|undefined
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
+  @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>> | undefined
   /**
    * Standard definition to create a control value accessor
    */
@@ -153,7 +150,6 @@ export class MultiSelectObjComponent implements ControlValueAccessor, AfterViewI
 
   /**
    * Check if the help message is required and create the key
-   * check if is valid
    */
   ngOnInit (): void {
     if (this.helpMessage) {

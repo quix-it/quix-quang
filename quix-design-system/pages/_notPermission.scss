@@ -1,0 +1,6 @@
+#notPermission {
+  min-height: calc(100vh - #{$header-height} - #{$footer-height});
+  h1 {
+    color: $blue-400;
+  }
+}

@@ -15,13 +15,13 @@ import { NgControl } from '@angular/forms'
 import { Observable, Observer, of } from 'rxjs'
 import { debounceTime, delay, filter, map, switchMap } from 'rxjs/operators'
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead'
-import { QuixAutocompleteAsyncService } from '../autocomplete-service/quix-autocomplete-async.service'
+import { QuangAutocompleteAsyncService } from '../autocomplete-service/quang-autocomplete-async.service'
 
 /**
  * autocomplete string async component decorator
  */
 @Component({
-  selector: 'quix-autocomplete-strg-async',
+  selector: 'quang-autocomplete-strg-async',
   templateUrl: './autocomplete-strg-async.component.html',
   styles: ['']
 })
@@ -136,9 +136,6 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
-  /**
-   * suggestions for user
-   */
   suggestions$: Observable<any> = new Observable<any>()
   /**
    * The html input element
@@ -164,7 +161,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
    */
   constructor (
     private readonly renderer: Renderer2,
-    private readonly autocompleteService: QuixAutocompleteAsyncService,
+    private readonly autocompleteService: QuangAutocompleteAsyncService,
     @Self() @Optional() public control: NgControl
   ) {
     this.control.valueAccessor = this
@@ -176,7 +173,7 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
    * Check if the help message is required and create the key
    */
   ngOnInit (): void {
-    let prev:string = ''
+    let prev: string = ''
     this.suggestions$ = new Observable((observer: Observer<string>) => {
       observer.next(this._value)
     }).pipe(
@@ -186,13 +183,17 @@ export class AutocompleteStrgAsyncComponent implements OnInit, AfterViewInit, On
         prev = query
         if (query) {
           if (this.restApi) {
-            return this.autocompleteService.getRestList(this.baseUrl, this.apiUrl, query).pipe(
+            return this.autocompleteService
+              .getRestList(this.baseUrl, this.apiUrl, query)
+              .pipe(
+                map((data: any) => data || [])
+              )
+          }
+          return this.autocompleteService
+            .getList(this.baseUrl, this.apiUrl, query, this.apiParamName)
+            .pipe(
               map((data: any) => data || [])
             )
-          }
-          return this.autocompleteService.getList(this.baseUrl, this.apiUrl, query, this.apiParamName).pipe(
-            map((data: any) => data || [])
-          )
         }
         return of([])
       }),

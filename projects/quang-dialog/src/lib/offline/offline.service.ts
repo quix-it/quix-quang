@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core'
 import { fromEvent, merge, Observable, of } from 'rxjs'
 import { mapTo } from 'rxjs/operators'
-import { QuixSnackbarService } from '../snackbar/quix-snackbar.service'
-import { select, Store } from '@ngrx/store'
-import { offline, online } from './offline-store/offline.action'
-import { selectLine } from './offline-store/offline.selector'
+import { QuangSnackbarService } from '../snackbar/quang-snackbar.service'
+import { Store } from '@ngrx/store'
 import { TranslocoService } from '@ngneat/transloco'
+import { QuangDialogStateModule } from '../quang-dialog.reducers'
+import { OfflineActions } from './offline-store/actions'
+import { OfflineSelectors } from './offline-store/selectors'
 
 /**
  * service decorator
@@ -16,7 +17,7 @@ import { TranslocoService } from '@ngneat/transloco'
 /**
  * utility for offline management
  */
-export class QuixOfflineService {
+export class QuangOfflineService {
   /**
    * message that notifies the user of the lack of connection
    */
@@ -24,14 +25,14 @@ export class QuixOfflineService {
 
   /**
    * constructor
-   * @param quixSnackbar
+   * @param quangSnackbar
    * @param translate
    * @param store
    */
   constructor (
-    private readonly quixSnackbar: QuixSnackbarService,
+    private readonly quangSnackbar: QuangSnackbarService,
     private readonly translate: TranslocoService,
-    private readonly store: Store<any>
+    private readonly store: Store<QuangDialogStateModule>
   ) {
   }
 
@@ -55,12 +56,12 @@ export class QuixOfflineService {
     this.getLabel()
     this.getConnectionObserver().subscribe((connection: boolean) => {
       if (!connection) {
-        this.store.dispatch(offline())
-        this.quixSnackbar.openSnackbar(this.offlineLabel)
+        this.store.dispatch(OfflineActions.offline())
+        this.quangSnackbar.openSnackbar(this.offlineLabel)
       } else {
-        this.store.dispatch(online())
-        if (this.quixSnackbar.snackBar) {
-          this.quixSnackbar.closeSnackbar()
+        this.store.dispatch(OfflineActions.online())
+        if (this.quangSnackbar.snackBar) {
+          this.quangSnackbar.closeSnackbar()
         }
       }
     })
@@ -80,6 +81,6 @@ export class QuixOfflineService {
    * convenience method of having lost the connection without knowing the selector name of ngRx
    */
   observeLine (): Observable<any> {
-    return this.store.pipe(select(selectLine))
+    return this.store.select(OfflineSelectors.selectLine)
   }
 }

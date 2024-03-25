@@ -18,7 +18,7 @@ import * as olProj from 'ol/proj'
  * open street map component decorator
  */
 @Component({
-  selector: 'quix-osmap',
+  selector: 'quang-osmap',
   templateUrl: './osmap.component.html',
   styles: ['']
 })
@@ -62,14 +62,6 @@ export class OpenStreetMapComponent implements OnChanges, AfterViewInit {
    * Enable the click on the map
    */
   @Input() enableClick: boolean = false
-  /**
-   * the list of markers to be drawn on the map
-   */
-  // @Input() markers: Array<OsmapMarker> = []
-  /**
-   * Click event on the marker
-   */
-  // @Output() markerClick: EventEmitter<any> = new EventEmitter<any>()
   /**
    * The html element in which the map will be created
    */

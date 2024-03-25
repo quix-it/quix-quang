@@ -1,8 +1,11 @@
 import { ActionReducerMap } from '@ngrx/store'
-import { toastReducer, ToastsState } from './toast/toast-store/toast.reducer'
-import { offlineReducer, OfflineState } from './offline/offline-store/offline.reducer'
-import { loaderReducer, LoaderState } from './loader/loader-store/loader.reducer'
+import { ToastsState } from './toast/toast-store/reducers/toast.reducers'
+import { OfflineState } from './offline/offline-store/reducers/offline.reducer'
+import { LoaderState } from './loader/loader-store/reducers/loader.reducers'
 import { QUANGDIALOG_KEY } from './quang-dialog.selector'
+import { ToastReducers } from './toast/toast-store/reducers'
+import { OfflineReducers } from './offline/offline-store/reducers'
+import { LoaderReducers } from './loader/loader-store/reducers'
 
 /**
  * interface that defines the state of the module
@@ -11,11 +14,11 @@ export interface QuangDialogState {
   /**
    * toast state
    */
-  toastState: ToastsState,
+  toastState: ToastsState
   /**
    * offline state
    */
-  offlineState: OfflineState,
+  offlineState: OfflineState
   /**
    * loader state
    */
@@ -29,14 +32,14 @@ export interface QuangDialogStateModule {
   /**
    * link key to state definition
    */
-  [QUANGDIALOG_KEY]: QuangDialogState;
+  [QUANGDIALOG_KEY]: QuangDialogState
 }
 
 /**
  * definition of the reducer map
  */
 export const quangDialogReducers: ActionReducerMap<QuangDialogState> = {
-  toastState: toastReducer,
-  offlineState: offlineReducer,
-  loaderState: loaderReducer
+  toastState: ToastReducers.toastReducers,
+  offlineState: OfflineReducers.offlineReducer,
+  loaderState: LoaderReducers.loaderReducers
 }

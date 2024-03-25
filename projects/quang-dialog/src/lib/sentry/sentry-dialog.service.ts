@@ -14,10 +14,10 @@ export class SentryDialogService implements ErrorHandler {
    * Custom error handler for sentry
    * @param error http error
    */
-  handleError (error: any) {
+  handleError (error: any): void {
     console.error(error)
     if (/Loading chunk [\d]+ failed/.test(error.message)) {
-      window.location.reload();
+      window.location.reload()
     }
     if (error?.name === 'HttpErrorResponse') {
       if (error?.status === 400 || error?.status === 404 || error?.status === 415) {

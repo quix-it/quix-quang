@@ -14,9 +14,9 @@ import { ChartArea } from './chart-area.model'
  * chart area component decorator
  */
 @Component({
-  selector: 'quix-chart-area',
+  selector: 'quang-chart-area',
   templateUrl: './chart-area.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

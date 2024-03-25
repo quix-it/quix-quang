@@ -1,7 +1,7 @@
 /**
  * calendar event
  */
-export class QuixCalendarEvent {
+export class QuangCalendarEvent {
   /**
    * calendar event constructor
    * @param title define event title

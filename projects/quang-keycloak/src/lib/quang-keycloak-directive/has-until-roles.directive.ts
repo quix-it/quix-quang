@@ -1,9 +1,10 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core'
+import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
 import { Subject } from 'rxjs'
-import { select, Store } from '@ngrx/store'
+import { Store } from '@ngrx/store'
 
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
-import { selectHasUntilRoles } from '../quang-keycloak-store/quang-keycloak.selector'
+import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators'
+import { QuangKeycloakSelectors } from '../quang-keycloak-store/selectors'
+
 /**
  * directive decorator
  */
@@ -13,7 +14,7 @@ import { selectHasUntilRoles } from '../quang-keycloak-store/quang-keycloak.sele
 /**
  * has until role directive
  */
-export class HasUntilRolesDirective {
+export class HasUntilRolesDirective implements OnInit, OnDestroy {
   /**
    * list that defines the possibility of displaying the element if you have at least one role among those in input
    */
@@ -22,7 +23,7 @@ export class HasUntilRolesDirective {
    * subject of convenience to turn off the subscription to the observable
    * @private
    */
-  private destroy$ = new Subject()
+  private readonly destroy$ = new Subject()
 
   /**
    * constructor
@@ -42,23 +43,25 @@ export class HasUntilRolesDirective {
    * if he has them he displays the element otherwise he does not render them
    */
   ngOnInit (): void {
-    this.authStore.pipe(
-      select(selectHasUntilRoles, { rolesId: this.quangHasUntilRoles }),
-      distinctUntilChanged(),
-      takeUntil(this.destroy$)
-    ).subscribe(hasRole => {
-      if (hasRole) {
-        this.view.createEmbeddedView(this.template)
-      } else {
-        this.view.clear()
-      }
-    })
-
+    this.authStore
+      .select(QuangKeycloakSelectors.selectHasUntilRoles(this.quangHasUntilRoles))
+    .pipe(
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(hasRole => {
+        if (hasRole) {
+          this.view.createEmbeddedView(this.template)
+        } else {
+          this.view.clear()
+        }
+      })
   }
+
   /**
    * unsubscribe the observable
    */
   ngOnDestroy (): void {
-    this.destroy$.next()
+    this.destroy$.next('')
   }
 }

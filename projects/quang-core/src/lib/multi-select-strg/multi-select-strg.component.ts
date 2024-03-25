@@ -16,7 +16,7 @@ import { delay, filter } from 'rxjs/operators'
  * multi select string component decorator
  */
 @Component({
-  selector: 'quix-multi-select-strg',
+  selector: 'quang-multi-select-strg',
   templateUrl: './multi-select-strg.component.html',
   styleUrls: ['./multi-select-strg.component.scss']
 })
@@ -61,7 +61,7 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
   /**
    * the list of selectable options
    */
-  @Input() list: Array<string | number> = []
+  @Input() list: Array<string> = []
   /**
    * The name of the form, this input is used to create keys for error, validation or help messages.
    * It will be the first key element generated
@@ -111,11 +111,8 @@ export class MultiSelectStrgComponent implements ControlValueAccessor, AfterView
   /**
    * The html input element
    */
-  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement>|undefined
-  /**
-   * QueryList options
-   */
-  @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>>|undefined
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLSelectElement> | undefined
+  @ViewChildren('options') options: QueryList<ElementRef<HTMLOptionElement>> | undefined
   /**
    * Standard definition to create a control value accessor
    */

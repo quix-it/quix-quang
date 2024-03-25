@@ -26,7 +26,7 @@
     "paths": {
       "quang": [
         "dist/quang/quang",
-        "dist/quang"
+        "dist/quang",
       ],
       "quang-auth": [
         "dist/quang-auth/quang-auth",
@@ -56,9 +56,9 @@
         "dist/quang-event/quang-event",
         "dist/quang-event"
       ],
-      "quang-image": [
-        "dist/quang-image/quang-image",
-        "dist/quang-image"
+      "quang-media": [
+        "dist/quang-media/quang-media",
+        "dist/quang-media"
       ],
       "quang-map": [
         "dist/quang-map/quang-map",
@@ -67,6 +67,10 @@
       "quang-components": [
         "dist/quang-components/quang-components",
         "dist/quang-components"
+      ],
+      "qunag-dialog": [
+        "dist/qunag-dialog/qunag-dialog",
+        "dist/qunag-dialog"
       ],
       "quang-dialog": [
         "dist/quang-dialog/quang-dialog",

@@ -5,23 +5,22 @@ import { CommonModule } from '@angular/common'
 import { HasUntilRolesDirective } from './quang-auth-directive/has-until-roles.directive'
 import { StoreModule } from '@ngrx/store'
 import { QUANGAUTH_KEY } from './quang-auth-module.selector'
-import { quangAuthReducer } from './quang-auth-module.reducer'
+
 import { QuangAuthService } from './quang-auth.service'
-import { OAuthModule } from 'angular-oauth2-oidc'
 import { QuangAuthConfig } from './quang-auth.config'
+import { IsNotAuthenticatedDirective } from './quang-auth-directive/is-not-authenticated.directive'
+import { quangAuthReducer } from './quang-auth-module.reducer'
 
 @NgModule({
   declarations: [
     HasRolesDirective,
     HasUntilRolesDirective,
     IsAuthenticatedDirective,
+    IsNotAuthenticatedDirective
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature(QUANGAUTH_KEY, quangAuthReducer),
-    OAuthModule.forRoot({
-      resourceServer: window['oidcApiConfig']
-    })
+    StoreModule.forFeature(QUANGAUTH_KEY, quangAuthReducer)
   ],
   providers: [
     QuangAuthService
@@ -29,11 +28,12 @@ import { QuangAuthConfig } from './quang-auth.config'
   exports: [
     HasRolesDirective,
     HasUntilRolesDirective,
-    IsAuthenticatedDirective
+    IsAuthenticatedDirective,
+    IsNotAuthenticatedDirective
   ]
 })
 export class QuangAuthModule {
-  static forRoot (config?: QuangAuthConfig): ModuleWithProviders<any> {
+  static forRoot (config?: QuangAuthConfig): ModuleWithProviders<QuangAuthModule> {
     return {
       ngModule: QuangAuthModule,
       providers: [

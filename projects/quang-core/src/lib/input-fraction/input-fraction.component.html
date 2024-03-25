@@ -1,6 +1,7 @@
-<div class="form-group">
+<div class="mb-3">
   <label [htmlFor]="id"
-         [attr.aria-label]="ariaLabel"
+         class="form-label"
+         [attr.aria-label]="ariaLabel | transloco"
          *ngIf="label">
     {{label | transloco}}
     <span [hidden]="!control?.errors?.required">*</span>
@@ -19,7 +20,7 @@
            [id]="id + 'dec'"
            [step]="stepInteger"
            [readOnly]="readonly"
-           [attr.aria-label]="ariaLabel"
+           [attr.aria-label]="ariaLabel | transloco"
            [tabIndex]="tabIndex"
            [ngClass]="customClass"
            [class.is-valid]="control?.valid && control?.dirty && successMessage"
@@ -27,6 +28,12 @@
            (input)="writeValueInteger($event)"
            (blur)="onTouched()"
            [autocomplete]="autocomplete"
+           [attr.aria-disabled]="_disabled"
+           [attr.aria-autocomplete]="'inline'"
+           [attr.aria-readonly]="readonly"
+           [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+           [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+           [attr.aria-invalid]="control.invalid"
            #inputInteger>
     <div class="input-group-append">
       <button type="button"
@@ -51,7 +58,7 @@
            class="form-control"
            [id]="id + 'int'"
            [step]="stepFraction"
-           [attr.aria-label]="ariaLabel"
+           [attr.aria-label]="ariaLabel | transloco"
            [readOnly]="readonly"
            [ngClass]="customClass"
            [class.is-valid]="control?.valid && control?.dirty && successMessage"
@@ -59,6 +66,12 @@
            (input)="writeValueFraction($event)"
            (blur)="onTouched()"
            [autocomplete]="autocomplete"
+           [attr.aria-disabled]="_disabled"
+           [attr.aria-autocomplete]="autocomplete"
+           [attr.aria-readonly]="readonly"
+           [attr.aria-describedby]="helpMessage && _helpMessage ? id + '-help' : ''"
+           [attr.aria-errormessage]="errorMessage && _errorMessage ? id + '-error' : ''"
+           [attr.aria-invalid]="control.invalid"
            #inputFraction
     >
     <div class="input-group-append">
@@ -69,14 +82,18 @@
         <ng-content select="[removeFractionIcon]"></ng-content>
       </button>
     </div>
-    <div class="valid-feedback">
+    <div class="valid-feedback"
+       aria-live="assertive">
       {{_successMessage | transloco}}
     </div>
-    <div class="invalid-feedback" [attr.aria-errormessage]="_errorMessage">
+    <div class="invalid-feedback"
+       aria-live="polite"
+       [id]="id + '-error'">
       {{_errorMessage | transloco: { requiredValue: _requiredValue } }}
     </div>
   </div>
-  <small [id]="id + 'Help'"
+  <small [id]="id + '-help'"
+         aria-live="assertive"
          class="form-text text-muted"
          [hidden]="control?.dirty && (control?.valid && successMessage || control?.invalid && errorMessage)"
          *ngIf="helpMessage">

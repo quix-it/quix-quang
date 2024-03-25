@@ -18,9 +18,9 @@ import { delay, filter } from 'rxjs/operators'
  * input color component decorator
  */
 @Component({
-  selector: 'quix-input-color',
+  selector: 'quang-input-color',
   templateUrl: './input-color.component.html',
-  styles: ['']
+  styles: []
 })
 /**
  * input color component
@@ -108,6 +108,10 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
    * Contains the value required by a validation when it fails
    */
   _requiredValue: any = ''
+  /**
+   * Define disabled state
+   */
+  _disabled: boolean = false
   /**
    * The html input element
    */
@@ -210,6 +214,7 @@ export class InputColorComponent implements OnInit, ControlValueAccessor, AfterV
    * When the input field from the form is disabled, the html input tag is defined as disabled
    */
   setDisabledState (isDisabled: boolean): void {
+    this._disabled = isDisabled
     this.renderer.setProperty(this.input?.nativeElement, 'disabled', isDisabled)
   }
 

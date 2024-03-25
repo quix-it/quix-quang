@@ -1,14 +1,12 @@
 import { Injectable, Optional } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { from, Observable } from 'rxjs'
-import {
-  userInfoLogin, userInfoLogout,
-  userLogin,
-  userLogout,
-  userRolesLogout
-} from './quang-auth-store/quang-auth.action'
 import { QuangAuthConfig } from './quang-auth.config'
 import { OAuthService } from 'angular-oauth2-oidc'
+import { QuangAuthModuleState } from './quang-auth-module.reducer'
+import { QuangAuthSelectors } from './quang-auth-store/selectors'
+import { map } from 'rxjs/operators'
+import { QuangAuthActions } from './quang-auth-store/actions'
 
 /**
  * service decorator
@@ -31,7 +29,7 @@ export class QuangAuthService {
   /**
    * window access
    */
-  private _window = (): any => window
+  private readonly _window = (): any => window
 
   /**
    * constructor
@@ -40,9 +38,9 @@ export class QuangAuthService {
    * @param store store access
    */
   constructor (
-    @Optional() config: QuangAuthConfig,
+  @Optional() config: QuangAuthConfig,
     private readonly oauthService: OAuthService,
-    private readonly store: Store<any>,
+    private readonly store: Store<QuangAuthModuleState>
   ) {
     if (config) {
       this.config = config
@@ -79,7 +77,7 @@ export class QuangAuthService {
     from(this.oauthService.loadDiscoveryDocumentAndLogin()).subscribe(isAuthenticated => {
       if (isAuthenticated) {
         this.oauthService.setupAutomaticSilentRefresh()
-        this.store.dispatch(userLogin())
+        this.store.dispatch(QuangAuthActions.userLogin())
       }
     })
   }
@@ -92,9 +90,13 @@ export class QuangAuthService {
     from(this.oauthService.loadDiscoveryDocumentAndTryLogin()).subscribe(isAuthenticated => {
       if (isAuthenticated) {
         this.oauthService.setupAutomaticSilentRefresh()
-        this.store.dispatch(userLogin())
+        this.store.dispatch(QuangAuthActions.userLogin())
       }
     })
+  }
+
+  isAuthenticated (): boolean {
+    return !!this.oauthService.getIdentityClaims()
   }
 
   /**
@@ -109,7 +111,7 @@ export class QuangAuthService {
    */
   getUserInfoAndDispatch (): void {
     from(this.oauthService.loadUserProfile()).subscribe((user: any) => {
-      this.store.dispatch(userInfoLogin({ user: user }))
+      this.store.dispatch(QuangAuthActions.userInfoLogin({ user: user }))
     })
   }
 
@@ -138,22 +140,22 @@ export class QuangAuthService {
    * log out and dispatch the actions to delete the user from the store
    */
   logoutAndDispatch (): void {
-    this.store.dispatch(userLogout())
-    this.store.dispatch(userInfoLogout())
-    this.store.dispatch(userRolesLogout())
+    this.store.dispatch(QuangAuthActions.userLogout())
+    this.store.dispatch(QuangAuthActions.userInfoLogout())
+    this.store.dispatch(QuangAuthActions.userRolesLogout())
     this.oauthService.stopAutomaticRefresh()
     this.oauthService.logOut()
   }
 
   /**
-   * get the id token
+   * returns the current token id
    */
   getIdToken (): string {
     return this.oauthService.getIdToken()
   }
 
   /**
-   * get the id token
+   * returns the current access token
    */
   getAccessToken (): string {
     return this.oauthService.getAccessToken()

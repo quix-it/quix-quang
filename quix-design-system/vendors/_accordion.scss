@@ -1,0 +1,32 @@
+accordion {
+  accordion-group {
+    .panel-heading {
+      background-color: $white;
+
+      .panel-title {
+        button {
+          font-weight: $font-weight-bold;
+
+          i {
+            transition: transform .3s ease-out;
+          }
+        }
+      }
+    }
+
+    &.panel-open {
+      .panel-heading {
+        .panel-title {
+          button {
+            color: $primary;
+
+            i {
+              @include rotate(180)
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

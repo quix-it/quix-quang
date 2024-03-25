@@ -1,29 +1,36 @@
 import { NgModule } from '@angular/core'
-import { QuixCardComponent } from './quix-card/quix-card.component'
-import { QuixCardActionComponent } from './quix-card-action/quix-card-action.component'
-import { QuixCardSimpleComponent } from './quix-card-simple/quix-card-simple.component'
+import { CardComponent } from './card/card.component'
+import { CardActionComponent } from './card-action/card-action.component'
+import { CardSimpleComponent } from './card-simple/card-simple.component'
 import { CommonModule } from '@angular/common'
-import { QuixCardHeaderComponent } from './quix-card-header/quix-card-header.component'
-import { QuixCardActionHeaderComponent } from './quix-card-action-header/quix-card-action-header.component'
-
+import { CardHeaderComponent } from './card-header/card-header.component'
+import { CardActionHeaderComponent } from './card-action-header/card-action-header.component'
+import { CardImageComponent } from './card-image/card-image.component'
+import { TranslocoModule } from '@ngneat/transloco'
+import { CardFooterComponent } from './card-footer/card-footer.component'
 
 @NgModule({
   declarations: [
-    QuixCardComponent,
-    QuixCardActionComponent,
-    QuixCardActionHeaderComponent,
-    QuixCardSimpleComponent,
-    QuixCardHeaderComponent
+    CardComponent,
+    CardActionComponent,
+    CardActionHeaderComponent,
+    CardSimpleComponent,
+    CardHeaderComponent,
+    CardImageComponent,
+    CardFooterComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    TranslocoModule
   ],
   exports: [
-    QuixCardComponent,
-    QuixCardActionComponent,
-    QuixCardActionHeaderComponent,
-    QuixCardSimpleComponent,
-    QuixCardHeaderComponent
+    CardComponent,
+    CardActionComponent,
+    CardActionHeaderComponent,
+    CardSimpleComponent,
+    CardHeaderComponent,
+    CardImageComponent,
+    CardFooterComponent
   ]
 })
 export class QuangComponentsModule {}

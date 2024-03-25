@@ -1,8 +1,8 @@
 import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
 import { Subject } from 'rxjs'
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators'
-import { select, Store } from '@ngrx/store'
-import { selectHasRoles } from '../quang-auth-store/quang-auth.selector'
+import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators'
+import { Store } from '@ngrx/store'
+import { selectHasRoles, selectUserRoles } from '../quang-auth-store/selectors/quang-auth.selectors'
 
 /**
  * directive decorator
@@ -22,7 +22,7 @@ export class HasRolesDirective implements OnInit, OnDestroy {
    * subject of convenience to turn off the subscription to the observable
    * @private
    */
-  private destroy$ = new Subject()
+  private readonly destroy$ = new Subject()
 
   /**
    * constructor
@@ -41,22 +41,26 @@ export class HasRolesDirective implements OnInit, OnDestroy {
    * Check if the user in the store has the required roles and define whether to render or not
    */
   ngOnInit (): void {
-    this.authStore.pipe(
-      select(selectHasRoles, { rolesId: this.quangHasRoles }),
-      distinctUntilChanged(),
-      takeUntil(this.destroy$)
-    ).subscribe(hasRole => {
-      if (hasRole) {
-        this.view.createEmbeddedView(this.template)
-      } else {
-        this.view.clear()
-      }
-    })
+    this.authStore
+      .select(selectHasRoles(this.quangHasRoles))
+      .pipe(
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(hasRole => {
+        if (hasRole) {
+          this.view.createEmbeddedView(this.template)
+        } else {
+          this.view.clear()
+        }
+      })
   }
+
   /**
    * unsubscribe the observable
    */
   ngOnDestroy (): void {
-    this.destroy$.next()
+    this.destroy$.next('')
+    this.destroy$.complete()
   }
 }

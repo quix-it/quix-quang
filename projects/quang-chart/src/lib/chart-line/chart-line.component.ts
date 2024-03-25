@@ -14,9 +14,9 @@ import { EChartsOption } from 'echarts'
  * chart line component decorator
  */
 @Component({
-  selector: 'quix-chart-line',
+  selector: 'quang-chart-line',
   templateUrl: './chart-line.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
@@ -92,9 +92,9 @@ export class ChartLineComponent implements OnChanges {
         data: changes.chartData?.currentValue.category
       }
       this.chartOption.series = changes.chartData?.currentValue.series.map((s: any) => ({
-          data: s,
-          type: 'line'
-        })
+        data: s,
+        type: 'line'
+      })
       )
     }
     if (changes.grid?.currentValue) {

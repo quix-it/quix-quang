@@ -14,9 +14,9 @@ import { EChartsOption } from 'echarts'
  * chart doughnut component decorator
  */
 @Component({
-  selector: 'quix-chart-doughnut',
+  selector: 'quang-chart-doughnut',
   templateUrl: './chart-doughnut.component.html',
-  styles: [''],
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**

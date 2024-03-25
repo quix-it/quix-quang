@@ -9,12 +9,14 @@ import { quangKeycloakReducer } from './quang-keycloak-module.reducer'
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular'
 import { QuangKeycloakService } from './quang-keycloak.service'
 import { QuangKeycloakConfig } from './quang-keycloak.config'
+import { IsNotAuthenticatedDirective } from './quang-keycloak-directive/is-not-authenticated.directive'
 
 @NgModule({
   declarations: [
     HasRolesDirective,
     HasUntilRolesDirective,
-    IsAuthenticatedDirective
+    IsAuthenticatedDirective,
+    IsNotAuthenticatedDirective
   ],
   imports: [
     CommonModule,
@@ -24,15 +26,16 @@ import { QuangKeycloakConfig } from './quang-keycloak.config'
   exports: [
     HasRolesDirective,
     HasUntilRolesDirective,
-    IsAuthenticatedDirective
+    IsAuthenticatedDirective,
+    IsNotAuthenticatedDirective
   ],
   providers: [
     KeycloakService,
-    QuangKeycloakService,
+    QuangKeycloakService
   ]
 })
 export class QuangKeycloakModule {
-  static forRoot (config?: QuangKeycloakConfig): ModuleWithProviders<any> {
+  static forRoot (config?: QuangKeycloakConfig): ModuleWithProviders<QuangKeycloakModule> {
     return {
       ngModule: QuangKeycloakModule,
       providers: [

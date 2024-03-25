@@ -16,6 +16,7 @@ export class ChartRadar {
   public lineStyle?: {
     color: string
   }
+
   /**
    * chart symbol aspect
    */
@@ -25,12 +26,6 @@ export class ChartRadar {
    */
   public symbol: string = 'none'
 
-  /**
-   * constructor
-   * @param value
-   * @param name
-   * @param color
-   */
   constructor (value: number[], name?: string, color?: string) {
     this.value = value
     this.name = name

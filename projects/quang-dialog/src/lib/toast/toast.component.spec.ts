@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
-import { QuixToastComponent } from './toast.component'
+import { QuangToastComponent } from './toast.component'
 
-describe('QuixToastComponent', () => {
-  let component: QuixToastComponent
-  let fixture: ComponentFixture<QuixToastComponent>
+describe('QuangToastComponent', () => {
+  let component: QuangToastComponent
+  let fixture: ComponentFixture<QuangToastComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [QuixToastComponent]
+      declarations: [QuangToastComponent]
     })
       .compileComponents()
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QuixToastComponent)
+    fixture = TestBed.createComponent(QuangToastComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
