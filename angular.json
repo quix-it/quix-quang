@@ -36,7 +36,7 @@
       "projectType": "library",
       "root": "projects/quang",
       "sourceRoot": "projects/quang/src",
-      "prefix": "lib",
+      "prefix": "quang",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -59,7 +59,7 @@
       "projectType": "application",
       "root": "projects/playground",
       "sourceRoot": "projects/playground/src",
-      "prefix": "app",
+      "prefix": "playground",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
