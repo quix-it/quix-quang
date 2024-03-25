@@ -34,36 +34,19 @@ let nextUniqueId = 0
   ]
 })
 export class QuangInputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnChanges, DoCheck {
-  protected _uid = `quang-input-date-${nextUniqueId++}`
-
-  @Input()
-  public get id(): string {
-    return this._id
-  }
-
-  public set id(value: string) {
-    this._id = value || this._uid
-  }
-
-  protected _id: string = ''
-
   @Input() label: string = ''
   @Input() ariaLabel: string = `Input ${this.label}`
   @Input() placeholder: string = ''
-
   @Input() formName: string = ''
   @Input() helpMessage: boolean = false
   @Input() successMessage: boolean = false
   @Input() errorMessage: boolean = false
   @Input() errorMap: Record<string, string>
-
   helpMessageKey: string = ''
   successMessageKey: string = ''
   errorMessageKey: string = ''
   requiredValue: string = ''
-
   @Input() autofocus: boolean = false
-
   @Input() showWeekNumbers: boolean = false
   /**
    * @see https://valor-software.com/ngx-bootstrap/old/10.3.0/#/components/datepicker?tab=overview#format
@@ -79,7 +62,6 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
   @Input() maxDate?: Date
   @Input() disabledDaysOfTheWeek: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> = []
   @Input() disabledDates: Date[] = []
-
   @Input() buttonClass: string[] = []
   @Input() tabIndex: number = 0
   @Input() customClass: string[] = []
@@ -87,16 +69,25 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
   @Input() size: 'sm' | 'lg' | null = null
   @Input() autocomplete = 'off'
   @Input() readonly = false
-
   bsConfig?: Partial<BsDatepickerConfig>
-
   @ViewChild(BsDatepickerInputDirective, { static: true }) datePickerInputDirective?: BsDatepickerInputDirective
   @ViewChild('datePickerInput', { static: true }) datePickerInput?: ElementRef<HTMLInputElement>
   internalDateControl = new FormControl<Date | null>(null)
   ngControl?: FormControlName
-
   public onChange: (value: Date | null) => void
   public onTouched: () => void
+  protected _uid = `quang-input-date-${nextUniqueId++}`
+
+  protected _id: string = ''
+
+  @Input()
+  public get id(): string {
+    return this._id
+  }
+
+  public set id(value: string) {
+    this._id = value || this._uid
+  }
 
   constructor(
     private readonly localeService: BsLocaleService,
@@ -199,13 +190,16 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
     else this.internalDateControl.patchValue(null)
   }
 
-  public writeValue(updatedValue: Date | string | null): void {
-    const valueToWrite = updatedValue === null ? '' : format(updatedValue, this.dateRenderFormat)
+  public writeValue(updatedValue: Date | string | null | undefined): void {
+    const valueToWrite = !updatedValue ? '' : format(updatedValue, this.dateRenderFormat)
     this.renderer.setProperty(this.datePickerInput?.nativeElement, 'value', valueToWrite)
     // sending only dates to ngx-bootstrap control
-    this.internalDateControl.setValue(typeof updatedValue === 'string' ? new Date(updatedValue) : updatedValue, {
-      emitEvent: false
-    })
+    this.internalDateControl.setValue(
+      typeof updatedValue === 'string' ? new Date(updatedValue) : updatedValue ?? null,
+      {
+        emitEvent: false
+      }
+    )
   }
 
   public registerOnChange(fn: (value: Date | null) => void): void {
