@@ -5,7 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "watch": "ng build --watch --configuration development",
+    "husky:start": "husky install",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +26,7 @@
   "devDependencies": {
     "@angular/cli": "^17.3.1",
     "@angular/compiler-cli": "^17.3.0",
+    "husky": "^9.0.11",
     "typescript": "~5.4.2"
   }
 }
