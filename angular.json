@@ -3,5 +3,28 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "quang": {
+      "projectType": "library",
+      "root": "projects/quang",
+      "sourceRoot": "projects/quang/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/quang/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/quang/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/quang/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    }
   }
 }
