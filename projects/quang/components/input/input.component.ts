@@ -118,8 +118,6 @@ export class QuangInputComponent implements ControlValueAccessor, AfterViewInit 
   ngAfterViewInit(): void {
     this._ngControl = this._injector.get(NgControl)
 
-    console.log('this._ngControl', this._ngControl.control)
-
     this._ngControl.control?.statusChanges.subscribe(() => {
       this.checkFormErrors()
     })
