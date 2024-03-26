@@ -1,9 +1,19 @@
 <h1>Welcome to {{ title }}!</h1>
 <form [formGroup]="testForm">
   <quang-input
+    [errorMapSig]="[
+      {
+        error: 'required',
+        message: 'Campo obbligatorio'
+      }
+    ]"
     formControlName="testInput"
+    labelSig="label test"
+    successMessageSig="tutto bello!"
     typeSig="text"
   ></quang-input>
 </form>
-{{ testForm.getRawValue() | json }}
+<button (click)="changeFormEnabled()">change form enabled {{ testForm.enabled }}</button>
+<button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
+{{ testForm.getRawValue() | json }} valid? {{ testForm.valid }}
 <router-outlet />

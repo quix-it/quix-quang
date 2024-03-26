@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
-import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { RouterOutlet } from '@angular/router'
 
 import { QuangInputComponent } from '@quix/quang/components/input'
@@ -22,4 +22,22 @@ export class AppComponent {
   testForm = this.formBuilder.group({
     testInput: this.formBuilder.control<string>('')
   })
+
+  changeFormEnabled() {
+    if (this.testForm.enabled) this.testForm.disable()
+    else this.testForm.enable()
+  }
+
+  getIsRequiredInput() {
+    return this.testForm.controls.testInput.hasValidator(Validators.required)
+  }
+
+  changeFormInputRequired() {
+    if (this.getIsRequiredInput()) {
+      this.testForm.controls.testInput.removeValidators(Validators.required)
+    } else {
+      this.testForm.controls.testInput.addValidators(Validators.required)
+    }
+    this.testForm.controls.testInput.updateValueAndValidity()
+  }
 }

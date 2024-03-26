@@ -1,0 +1,26 @@
+{
+  "httpErrorModal": {
+    "ok": "Ok"
+  },
+  "httpError": {
+    "403": {
+      "title": "Accesso negato",
+      "errorMessage": "L'utente non ha il permesso di accedere a questa risorsa, per maggiori informazioni contattare l'amministratore di sistema"
+    },
+    "404": {
+      "title": "Risorsa non disponibile",
+      "errorMessage": "La risorsa richiesta non è al momento disponibile, per maggiori informazioni contattare l'amministratore di sistema"
+    }
+  },
+  "button": {
+    "home": "Torna alla home"
+  },
+  "quangPaginator": {
+    "size": "Dimensione pagina",
+    "nextPage": "Pagina successiva",
+    "previousPage": "Pagina precedente",
+    "firstPage": "Prima pagina",
+    "lastPage": "Ultima pagina",
+    "itemPerPage": "Elementi per pagina"
+  }
+}

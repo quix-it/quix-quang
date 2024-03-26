@@ -1,0 +1,26 @@
+{
+  "httpErrorModal": {
+    "ok": "Ok"
+  },
+  "httpError": {
+    "403": {
+      "title": "Access denied",
+      "errorMessage": "The user does not have permission to access this resource, for more information contact the system administrator"
+    },
+    "404": {
+      "title": "Resource not available",
+      "errorMessage": "The requested resource is not available at the moment, for more information contact the system administrator"
+    }
+  },
+  "button": {
+    "home": "Back to home"
+  },
+  "quangPaginator": {
+    "size": "Page size",
+    "nextPage": "Next Page",
+    "previousPage": "Previous page",
+    "firstPage": "First page",
+    "lastPage": "Last page",
+    "itemPerPage": "Items per page"
+  }
+}

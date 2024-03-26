@@ -3,20 +3,18 @@
   class="mb-3"
 >
   <label
-    [class.is-invalid]="_showErrorsSig()"
-    [class.is-valid]="_showSuccessSig()"
     [htmlFor]="_customIdSig()"
     *ngIf="labelSig()"
     class="form-label"
   >
     {{ labelSig() | transloco }}
-    <span [hidden]="_requiredSig()">*</span>
+    <span [hidden]="!_isRequiredSig()">*</span>
   </label>
   <input
     [autocomplete]="'off'"
     [class.is-invalid]="_showErrorsSig()"
     [class.is-valid]="_showSuccessSig()"
-    [disabled]="_isControlDisabledSig()"
+    [disabled]="_isaDisabledSig()"
     [id]="_customIdSig()"
     [ngClass]="classSig()"
     [placeholder]="placeholderSig() | transloco"
@@ -28,10 +26,7 @@
     (input)="onChangedHandler($event)"
     class="form-control"
   />
-  <div
-    aria-live="assertive"
-    class="valid-feedback"
-  >
+  <div class="valid-feedback">
     {{ successMessageSig() | transloco }}
   </div>
   <div class="invalid-feedback">
