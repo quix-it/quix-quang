@@ -22,5 +22,12 @@
     "firstPage": "Prima pagina",
     "lastPage": "Ultima pagina",
     "itemPerPage": "Elementi per pagina"
+  },
+  "form": {
+    "errors": {
+      "required": "Questo campo è obbligatorio",
+      "minLength": "Lunghezza minima di {{requiredLength}} caratteri",
+      "maxLength": "Lunghezza massima di {{requiredLength}} caratteri"
+    }
   }
 }

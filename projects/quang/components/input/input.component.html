@@ -1,43 +1,43 @@
 <div
-  *ngIf="typeSig()"
+  *ngIf="componentType()"
   class="mb-3"
 >
   <label
-    [htmlFor]="_customIdSig()"
-    *ngIf="labelSig()"
+    [htmlFor]="componentId()"
+    *ngIf="componentLabel()"
     class="form-label"
   >
-    {{ labelSig() | transloco }}
-    <span [hidden]="!_isRequiredSig()">*</span>
+    {{ componentLabel() | transloco }}
+    <span [hidden]="!_isRequired()">*</span>
   </label>
   <input
     [autocomplete]="'off'"
-    [class.is-invalid]="_showErrorsSig()"
-    [class.is-valid]="_showSuccessSig()"
-    [disabled]="_isaDisabledSig()"
-    [id]="_customIdSig()"
-    [ngClass]="classSig()"
-    [placeholder]="placeholderSig() | transloco"
-    [readOnly]="readonlySig()"
-    [tabIndex]="tabIndexSig()"
-    [type]="typeSig()"
-    [value]="_valueSig()"
+    [class.is-invalid]="_showErrors()"
+    [class.is-valid]="_showSuccess()"
+    [disabled]="_isaDisabled()"
+    [id]="componentId()"
+    [ngClass]="componentClass()"
+    [placeholder]="componentPlaceholder() | transloco"
+    [readOnly]="isReadonly()"
+    [tabIndex]="componentTabIndex()"
+    [type]="componentType()"
+    [value]="_value()"
     (blur)="onBlurHandler()"
     (input)="onChangedHandler($event)"
     class="form-control"
   />
   <div class="valid-feedback">
-    {{ successMessageSig() | transloco }}
+    {{ successMessage() | transloco }}
   </div>
   <div class="invalid-feedback">
-    {{ _currentErrorMessageSig() }}
+    {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
   </div>
   <small
-    [hidden]="_showSuccessSig() || _showErrorsSig()"
-    *ngIf="helpMessageSig()"
+    [hidden]="_showSuccess() || _showErrors()"
+    *ngIf="helpMessage()"
     aria-live="assertive"
     class="form-text text-muted"
   >
-    {{ helpMessageSig() | transloco }}
+    {{ helpMessage() | transloco }}
   </small>
 </div>

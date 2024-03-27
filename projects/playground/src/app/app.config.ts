@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     importProvidersFrom(
       QuangTranslationModule.forRoot({
-        availableLangs: ['it'],
+        availableLangs: ['it', 'en'],
         defaultLang: 'it',
         fallbackLang: 'it'
       })

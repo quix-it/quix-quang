@@ -22,5 +22,12 @@
     "firstPage": "First page",
     "lastPage": "Last page",
     "itemPerPage": "Items per page"
+  },
+  "form": {
+    "errors": {
+      "required": "This field is required",
+      "minLength": "This field must be at least {{requiredLength}} characters long",
+      "maxLength": "This field must be at most {{requiredLength}} characters long"
+    }
   }
 }

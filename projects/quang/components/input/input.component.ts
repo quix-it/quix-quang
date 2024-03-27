@@ -1,16 +1,19 @@
 import { NgClass, NgIf } from '@angular/common'
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   Injector,
   computed,
+  effect,
   forwardRef,
   inject,
   input,
   signal
 } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, Validators } from '@angular/forms'
+
+import { interval } from 'rxjs'
 
 import { QuangTranslationModule } from '@quix/quang/translation'
 
@@ -31,29 +34,28 @@ import { baseRandomId } from '../makeId'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangInputComponent implements ControlValueAccessor, AfterViewInit {
+export class QuangInputComponent implements ControlValueAccessor {
   //region Input signals
-  customIdSig = input<string>(baseRandomId)
-  readonlySig = input<boolean>(false)
-  tabIndexSig = input<number>(0)
-  classSig = input<string | string[]>('')
-  labelSig = input<string>('')
-  placeholderSig = input<string>('')
-  errorMapSig = input<{ error?: string; message?: string }[]>([])
-  successMessageSig = input<string>('')
-  helpMessageSig = input<string>('')
-  typeSig = input.required<string>()
+  componentId = input<string>(baseRandomId)
+  isReadonly = input<boolean>(false)
+  componentTabIndex = input<number>(0)
+  componentClass = input<string | string[]>('')
+  componentLabel = input<string>('')
+  componentPlaceholder = input<string>('')
+  errorMap = input<{ error: string; message: string }[]>([])
+  successMessage = input<string>('')
+  helpMessage = input<string>('')
+  componentType = input.required<string>()
   //endregion
 
   //region Computed signals
-  _customIdSig = computed(() => 'quang-' + this.customIdSig())
-  _showSuccessSig = computed(() => this.successMessageSig() && this._isValidSig() && this._isTouchedSig())
-  _showErrorsSig = computed(() => this.errorMapSig().length > 0 && !this._isValidSig() && this._isTouchedSig())
-  _currentErrorMessageSig = computed(() =>
+  _showSuccess = computed(() => this.successMessage() && this._isValid() && this._isTouched())
+  _showErrors = computed(() => this.errorMap().length > 0 && !this._isValid() && this._isTouched())
+  /*_currentErrorMessageSig = computed(() =>
     this._showErrorsSig()
       ? this.errorMapSig().find((error) => error.error === Object.keys(this._ngControl?.errors ?? {})[0])?.message
       : ''
-  )
+  )*/ // <- questo non funziona come pensavo
   /*_showSuccessSig = computed(() => this.successMessageSig() && this._ngControl?.control?.valid && this._isTouchedSig()) // <- questo funziona in parte
         console.log(
         'check _showSuccessSig',
@@ -67,24 +69,35 @@ export class QuangInputComponent implements ControlValueAccessor, AfterViewInit 
   //endregion
 
   //region Private Signals
-  _valueSig = signal<string | number>('')
-  _isRequiredSig = signal<boolean>(false)
-  _isaDisabledSig = signal<boolean>(false)
-  _isTouchedSig = signal<boolean>(false)
-  _isValidSig = signal<boolean>(false)
-
+  _value = signal<string | number>('')
+  _isRequired = signal<boolean>(false)
+  _isaDisabled = signal<boolean>(false)
+  _isTouched = signal<boolean>(false)
+  _isValid = signal<boolean>(false)
+  _currentErrorMessage = signal<string>('')
+  _currentErrorMessageExtraData = signal<{}>({})
   //endregion
 
   //region Private properties
-  _ngControl?: NgControl
-  _injector = inject(Injector)
+  _ngControl = signal<NgControl | null>(null)
+  _ngControlEffect = effect(() => {
+    console.log(`Changed the value of ${this._ngControl()}`)
+  })
+  _injector = signal<Injector>(inject(Injector))
+  _takeUntilDestroyed = signal(takeUntilDestroyed())
   //endregion
+
+  data$ = interval(1000)
 
   onChange?: (value: string) => void
   onTouched?: () => void
 
   writeValue(val: string | number): void {
-    this._valueSig.set(val)
+    this._value.set(val)
+    //TODO refactor
+    setTimeout(() => {
+      this.setupFormControl()
+    })
   }
 
   public registerOnChange(fn: (value: string) => void): void {
@@ -93,14 +106,14 @@ export class QuangInputComponent implements ControlValueAccessor, AfterViewInit 
 
   public registerOnTouched(fn: () => void): void {
     this.onTouched = () => {
-      this._isTouchedSig.set(true)
+      this._isTouched.set(true)
       fn()
     }
   }
 
   onChangedHandler($event: Event) {
     const inputElement = $event.target as HTMLInputElement
-    this._valueSig.set(inputElement.value)
+    this._value.set(inputElement.value)
 
     if (this.onChange) {
       this.onChange(inputElement.value)
@@ -115,33 +128,37 @@ export class QuangInputComponent implements ControlValueAccessor, AfterViewInit 
     }
   }
 
-  ngAfterViewInit(): void {
-    this._ngControl = this._injector.get(NgControl)
+  setupFormControl() {
+    console.log('setupFormControl')
+    this._ngControl.set(this._injector().get(NgControl))
 
-    this._ngControl.control?.statusChanges.subscribe(() => {
-      this.checkFormErrors()
-    })
+    this._ngControl()
+      ?.control?.statusChanges.pipe(this._takeUntilDestroyed())
+      .subscribe(() => {
+        this.checkFormErrors()
+      })
 
     this.checkFormErrors()
   }
 
   setDisabledState(isDisabled: boolean) {
-    this._isaDisabledSig.set(isDisabled)
+    this._isaDisabled.set(isDisabled)
   }
 
   checkFormErrors() {
-    const errors = this._ngControl?.control?.errors
-    if (errors) {
-      this._isValidSig.set(false)
-    } else {
-      this._isValidSig.set(true)
-      this._isRequiredSig.set(false)
-      return
+    this._isValid.set(this._ngControl()?.control?.valid ?? false)
+    const controlErrors = this._ngControl()?.control?.errors
+    if (controlErrors) {
+      const targetErrorKey = Object.keys(controlErrors)[0]
+      this._currentErrorMessage.set(
+        this.errorMap().find((error) => error.error.toLowerCase() === targetErrorKey.toLowerCase())?.message ?? ''
+      )
+      this._currentErrorMessageExtraData.set(controlErrors[targetErrorKey])
     }
-    if (errors[Validators.required.name]) {
-      this._isRequiredSig.set(true)
+    if (controlErrors?.[Validators.required.name]) {
+      this._isRequired.set(true)
     } else {
-      this._isRequiredSig.set(false)
+      this._isRequired.set(false)
     }
   }
 }
