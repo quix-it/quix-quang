@@ -1,5 +1,6 @@
 import { NgClass, NgIf } from '@angular/common'
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   Injector,
@@ -11,9 +12,9 @@ import {
   signal
 } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl, Validators } from '@angular/forms'
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl, Validators } from '@angular/forms'
 
-import { interval } from 'rxjs'
+import { Subscription } from 'rxjs'
 
 import { QuangTranslationModule } from '@quix/quang/translation'
 
@@ -34,7 +35,7 @@ import { baseRandomId } from '../makeId'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangInputComponent implements ControlValueAccessor {
+export class QuangInputComponent implements ControlValueAccessor, AfterViewInit {
   //region Input signals
   componentId = input<string>(baseRandomId)
   isReadonly = input<boolean>(false)
@@ -46,6 +47,7 @@ export class QuangInputComponent implements ControlValueAccessor {
   successMessage = input<string>('')
   helpMessage = input<string>('')
   componentType = input.required<string>()
+  formControl = input<FormControl>()
   //endregion
 
   //region Computed signals
@@ -76,28 +78,33 @@ export class QuangInputComponent implements ControlValueAccessor {
   _isValid = signal<boolean>(false)
   _currentErrorMessage = signal<string>('')
   _currentErrorMessageExtraData = signal<{}>({})
+
+  _formControlEffect = effect(
+    () => {
+      if (this.formControl()) {
+        this.setupFormControl()
+      }
+    },
+    { allowSignalWrites: true }
+  )
   //endregion
 
   //region Private properties
   _ngControl = signal<NgControl | null>(null)
-  _ngControlEffect = effect(() => {
-    console.log(`Changed the value of ${this._ngControl()}`)
-  })
   _injector = signal<Injector>(inject(Injector))
   _takeUntilDestroyed = signal(takeUntilDestroyed())
+  _statusChange$?: Subscription
   //endregion
-
-  data$ = interval(1000)
 
   onChange?: (value: string) => void
   onTouched?: () => void
 
+  ngAfterViewInit(): void {
+    this.setupFormControl()
+  }
+
   writeValue(val: string | number): void {
     this._value.set(val)
-    //TODO refactor
-    setTimeout(() => {
-      this.setupFormControl()
-    })
   }
 
   public registerOnChange(fn: (value: string) => void): void {
@@ -129,14 +136,20 @@ export class QuangInputComponent implements ControlValueAccessor {
   }
 
   setupFormControl() {
-    console.log('setupFormControl')
+    if (this._statusChange$) {
+      this._statusChange$.unsubscribe()
+    }
+
     this._ngControl.set(this._injector().get(NgControl))
 
-    this._ngControl()
+    this._statusChange$ = this._ngControl()
       ?.control?.statusChanges.pipe(this._takeUntilDestroyed())
       .subscribe(() => {
         this.checkFormErrors()
       })
+
+    this._isTouched.set(this._ngControl()?.touched ?? false)
+    this._isaDisabled.set(this._ngControl()?.disabled ?? false)
 
     this.checkFormErrors()
   }

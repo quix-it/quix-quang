@@ -1,0 +1,18 @@
+<form
+  [formGroup]="testForm()"
+  *ngIf="showInput()"
+>
+  <quang-input
+    [errorMap]="errors()"
+    [formControl]="testForm().controls.testInput"
+    componentLabel="form.label.input"
+    componentType="text"
+    successMessage="tutto bello!"
+  ></quang-input>
+</form>
+<button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
+<button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
+{{ testForm().getRawValue() | json }} valid? {{ testForm().valid }}
+<button (click)="changeVisibility()">change visibility</button>
+<button (click)="recreateForm()">recreate form</button>
+<button (click)="setFormValues()">set form</button>

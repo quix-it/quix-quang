@@ -1,21 +1,6 @@
-<h1>Welcome to {{ title }}!</h1>
-<form
-  [formGroup]="testForm()"
-  *ngIf="showInput()"
->
-  <quang-input
-    [errorMap]="errors()"
-    componentLabel="label test"
-    componentType="text"
-    formControlName="testInput"
-    successMessage="tutto bello!"
-  ></quang-input>
-</form>
-<button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
-<button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
-{{ testForm().getRawValue() | json }} valid? {{ testForm().valid }}
+<h1>{{ 'welcomeMessage' | transloco: { title: title() } }}</h1>
+
 <button (click)="changeLanguage('it')">IT LANG</button>
 <button (click)="changeLanguage('en')">EN LANG</button>
-<button (click)="changeVisibility()">change visibility</button>
-<button (click)="recreateForm()">recreate form</button>
+
 <router-outlet />
