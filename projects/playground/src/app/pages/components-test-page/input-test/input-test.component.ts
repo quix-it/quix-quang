@@ -1,18 +1,23 @@
-import { JsonPipe, NgIf } from '@angular/common'
+import { JsonPipe, NgForOf, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
-import { QuangInputComponent } from '@quix/quang/components/input'
+import { TranslocoPipe } from '@ngneat/transloco'
+
+import { InputType, QuangInputComponent } from '@quix/quang/components/input'
 
 @Component({
   selector: 'playground-input-test',
   standalone: true,
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangInputComponent, NgIf],
+  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangInputComponent, NgIf, NgForOf, TranslocoPipe],
   templateUrl: './input-test.component.html',
   styleUrl: './input-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputTestComponent {
+  inputTypes = signal<string[]>(['text', 'textarea', 'password', 'email', 'number', 'url', 'search', 'tel', 'color'])
+  inputType = signal<InputType>('text')
+
   formBuilder = signal(inject(NonNullableFormBuilder))
 
   errors = signal([

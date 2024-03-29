@@ -10,22 +10,40 @@
     {{ componentLabel() | transloco }}
     <span [hidden]="!_isRequired()">*</span>
   </label>
-  <input
-    [autocomplete]="'off'"
-    [class.is-invalid]="_showErrors()"
-    [class.is-valid]="_showSuccess()"
-    [disabled]="_isaDisabled()"
-    [id]="componentId()"
-    [ngClass]="componentClass()"
-    [placeholder]="componentPlaceholder() | transloco"
-    [readOnly]="isReadonly()"
-    [tabIndex]="componentTabIndex()"
-    [type]="componentType()"
-    [value]="_value()"
-    (blur)="onBlurHandler()"
-    (input)="onChangedHandler($event)"
-    class="form-control"
-  />
+  <ng-container *ngIf="componentType() !== 'textarea'">
+    <input
+      [autocomplete]="'off'"
+      [class.is-invalid]="_showErrors()"
+      [class.is-valid]="_showSuccess()"
+      [disabled]="_isaDisabled()"
+      [id]="componentId()"
+      [ngClass]="componentClass()"
+      [placeholder]="componentPlaceholder() | transloco"
+      [readOnly]="isReadonly()"
+      [tabIndex]="componentTabIndex()"
+      [type]="componentType()"
+      [value]="_value()"
+      (blur)="onBlurHandler()"
+      (input)="onChangedHandler($event)"
+      class="form-control"
+    />
+  </ng-container>
+  <ng-container *ngIf="componentType() === 'textarea'">
+    <textarea
+      [class.is-invalid]="_showErrors()"
+      [class.is-valid]="_showSuccess()"
+      [disabled]="_isaDisabled()"
+      [id]="componentId()"
+      [ngClass]="componentClass()"
+      [placeholder]="componentPlaceholder() | transloco"
+      [readOnly]="isReadonly()"
+      [tabIndex]="componentTabIndex()"
+      [value]="_value()"
+      (blur)="onBlurHandler()"
+      (input)="onChangedHandler($event)"
+      class="form-control"
+    ></textarea>
+  </ng-container>
   <div class="valid-feedback">
     {{ successMessage() | transloco }}
   </div>

@@ -1,12 +1,13 @@
+<h3>{{ 'title.components.input' | transloco }}</h3>
 <form
   [formGroup]="testForm()"
   *ngIf="showInput()"
 >
   <quang-input
+    [componentType]="inputType()"
     [errorMap]="errors()"
     [formControl]="testForm().controls.testInput"
     componentLabel="form.label.input"
-    componentType="text"
     successMessage="tutto bello!"
   ></quang-input>
 </form>
@@ -16,3 +17,11 @@
 <button (click)="changeVisibility()">change visibility</button>
 <button (click)="recreateForm()">recreate form</button>
 <button (click)="setFormValues()">set form</button>
+<select [(ngModel)]="inputType">
+  <option
+    [value]="type"
+    *ngFor="let type of inputTypes()"
+  >
+    {{ type }}
+  </option>
+</select>
