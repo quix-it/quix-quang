@@ -86,12 +86,16 @@ export class QuangBaseComponent implements ControlValueAccessor {
     }
   }
 
-  onChangedHandler($event: Event) {
+  onChangedEventHandler($event: Event) {
     const inputElement = $event.target as HTMLInputElement
-    this._value.set(inputElement.value)
+    this.onChangedHandler(inputElement.value)
+  }
+
+  onChangedHandler(value: string) {
+    this._value.set(value)
 
     if (this.onChange) {
-      this.onChange(inputElement.value)
+      this.onChange(value)
     }
 
     this.onBlurHandler()

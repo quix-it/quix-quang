@@ -24,7 +24,7 @@
       [type]="componentType()"
       [value]="_value()"
       (blur)="onBlurHandler()"
-      (input)="onChangedHandler($event)"
+      (input)="onChangedEventHandler($event)"
       class="form-control"
     />
   </ng-container>
@@ -40,7 +40,7 @@
       [tabIndex]="componentTabIndex()"
       [value]="_value()"
       (blur)="onBlurHandler()"
-      (input)="onChangedHandler($event)"
+      (input)="onChangedEventHandler($event)"
       class="form-control"
     ></textarea>
   </ng-container>

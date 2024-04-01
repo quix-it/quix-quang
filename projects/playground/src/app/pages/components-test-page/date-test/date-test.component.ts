@@ -1,5 +1,5 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
-import { Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -18,11 +18,12 @@ import { QuangInputComponent } from '@quix/quang/components/input'
     NgIf,
     NgForOf,
     TranslocoPipe,
+    QuangDateComponent,
     QuangDateComponent
   ],
   templateUrl: './date-test.component.html',
-  styleUrl: './date-test.component.scss'
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './date-test.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateTestComponent {
   formBuilder = signal(inject(NonNullableFormBuilder))

@@ -1,5 +1,5 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
-import { Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -11,8 +11,8 @@ import { InputType, QuangInputComponent } from '@quix/quang/components/input'
   standalone: true,
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangInputComponent, NgIf, NgForOf, TranslocoPipe],
   templateUrl: './input-test.component.html',
-  styleUrl: './input-test.component.scss'
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './input-test.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputTestComponent {
   inputTypes = signal<string[]>(['text', 'textarea', 'password', 'email', 'number', 'url', 'search', 'tel', 'color'])
