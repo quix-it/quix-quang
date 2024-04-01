@@ -4,20 +4,27 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { InputType, QuangInputComponent } from '@quix/quang/components/input'
+import { QuangDateComponent } from '@quix/quang/components/date/date.component'
+import { QuangInputComponent } from '@quix/quang/components/input'
 
 @Component({
-  selector: 'playground-input-test',
+  selector: 'playground-date-test',
   standalone: true,
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangInputComponent, NgIf, NgForOf, TranslocoPipe],
-  templateUrl: './input-test.component.html',
-  styleUrl: './input-test.component.scss'
+  imports: [
+    FormsModule,
+    JsonPipe,
+    ReactiveFormsModule,
+    QuangInputComponent,
+    NgIf,
+    NgForOf,
+    TranslocoPipe,
+    QuangDateComponent
+  ],
+  templateUrl: './date-test.component.html',
+  styleUrl: './date-test.component.scss'
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputTestComponent {
-  inputTypes = signal<string[]>(['text', 'textarea', 'password', 'email', 'number', 'url', 'search', 'tel', 'color'])
-  inputType = signal<InputType>('text')
-
+export class DateTestComponent {
   formBuilder = signal(inject(NonNullableFormBuilder))
 
   errors = signal([
@@ -37,11 +44,7 @@ export class InputTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('no pirrone!', [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(30)
-      ])
+      testInput: this.formBuilder().control<string>('no pirrone!', [Validators.required])
     })
   )
   showInput = signal(true)
@@ -71,11 +74,7 @@ export class InputTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('no pirrone rigenerato!', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(30)
-        ])
+        testInput: this.formBuilder().control<string>('no pirrone rigenerato!', [Validators.required])
       })
     )
   }
