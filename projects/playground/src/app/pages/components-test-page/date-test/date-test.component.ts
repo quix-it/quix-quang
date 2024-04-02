@@ -45,7 +45,7 @@ export class DateTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('no pirrone!', [Validators.required])
+      testInput: this.formBuilder().control<Date>(new Date(), [Validators.required])
     })
   )
   showInput = signal(true)
@@ -75,14 +75,16 @@ export class DateTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('no pirrone rigenerato!', [Validators.required])
+        testInput: this.formBuilder().control<Date>(new Date(), [Validators.required])
       })
     )
   }
 
   setFormValues() {
+    const targetDate = new Date()
+    targetDate.setMonth(0)
     this.testForm().patchValue({
-      testInput: 'ciao!'
+      testInput: targetDate
     })
   }
 }
