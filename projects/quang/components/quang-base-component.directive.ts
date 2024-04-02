@@ -8,7 +8,6 @@ import { baseRandomId } from './makeId'
 
 @Directive()
 export class QuangBaseComponent implements ControlValueAccessor {
-  //region Input signals
   componentId = input<string>(baseRandomId)
   isReadonly = input<boolean>(false)
   componentTabIndex = input<number>(0)
@@ -19,11 +18,7 @@ export class QuangBaseComponent implements ControlValueAccessor {
   successMessage = input<string>('')
   helpMessage = input<string>('')
   formControl = input<FormControl>()
-  //endregion
 
-  //region Computed signals
-  _showSuccess = computed(() => this.successMessage() && this._isValid() && this._isTouched())
-  _showErrors = computed(() => this.errorMap().length > 0 && !this._isValid() && this._isTouched())
   /*_currentErrorMessageSig = computed(() =>
     this._showErrorsSig()
       ? this.errorMapSig().find((error) => error.error === Object.keys(this._ngControl?.errors ?? {})[0])?.message
@@ -39,26 +34,23 @@ export class QuangBaseComponent implements ControlValueAccessor {
   //_isControlInteractedSig = computed(() => this._ngControl?.dirty || this._ngControl?.touched) // <- questo non funziona
   //_requiredSig = computed(() => this._ngControl?.control?.hasValidator(Validators.required)) // <- questo non funziona
   // _isControlDisabledSig = computed(() => this._ngControl?.control?.disabled) // <- questo non funziona
-  //endregion
 
-  //region Private Signals
-  _value = signal<string | number>('')
+  _value = signal<any>('')
   _isRequired = signal<boolean>(false)
   _isaDisabled = signal<boolean>(false)
   _isTouched = signal<boolean>(false)
   _isValid = signal<boolean>(false)
+  _showSuccess = computed(() => this.successMessage() && this._isValid() && this._isTouched())
+  _showErrors = computed(() => this.errorMap().length > 0 && !this._isValid() && this._isTouched())
   _currentErrorMessage = signal<string>('')
   _currentErrorMessageExtraData = signal<{}>({})
-  //endregion
 
-  //region Private properties
   _ngControl = signal<NgControl | null>(null)
   _injector = signal<Injector>(inject(Injector))
   _takeUntilDestroyed = signal(takeUntilDestroyed())
   _statusChange$?: Subscription
-  //endregion
 
-  onChange?: (value: string) => void
+  onChange?: (value: any) => void
   onTouched?: () => void
 
   constructor() {
@@ -71,15 +63,15 @@ export class QuangBaseComponent implements ControlValueAccessor {
       })
   }
 
-  writeValue(val: string | number): void {
-    this._value.set(val)
-  }
-
-  public registerOnChange(fn: (value: string) => void): void {
+  registerOnChange(fn: (value: any) => void): void {
     this.onChange = fn
   }
 
-  public registerOnTouched(fn: () => void): void {
+  writeValue(val: any): void {
+    this._value.set(val)
+  }
+
+  registerOnTouched(fn: () => void): void {
     this.onTouched = () => {
       this._isTouched.set(true)
       fn()
@@ -91,7 +83,7 @@ export class QuangBaseComponent implements ControlValueAccessor {
     this.onChangedHandler(inputElement.value)
   }
 
-  onChangedHandler(value: string) {
+  onChangedHandler(value: any) {
     this._value.set(value)
 
     if (this.onChange) {

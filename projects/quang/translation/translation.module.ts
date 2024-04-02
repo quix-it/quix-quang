@@ -3,6 +3,7 @@ import { InjectionToken, ModuleWithProviders, NgModule, Provider } from '@angula
 import { TranslocoModule, provideTransloco } from '@ngneat/transloco'
 
 import { QuangTranslationLoaderService } from './translation-loader.service'
+import { QuangTranslationService } from './translation.service'
 
 let forRootInstances = 0
 
@@ -34,6 +35,7 @@ export class QuangTranslationModule {
       ngModule: QuangTranslationModule,
       providers: [
         QuangTranslationLoaderService,
+        QuangTranslationService,
         provideTransloco({
           config: {
             availableLangs: config.availableLangs,

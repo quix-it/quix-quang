@@ -4,7 +4,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { QuangDateComponent } from '@quix/quang/components/date/date.component'
+import { QuangDateComponent } from '@quix/quang/components/date'
 import { QuangInputComponent } from '@quix/quang/components/input'
 
 @Component({

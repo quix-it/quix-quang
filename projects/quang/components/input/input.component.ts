@@ -25,4 +25,10 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
 })
 export class QuangInputComponent extends QuangBaseComponent {
   componentType = input.required<InputType>()
+
+  override onChange?: (value: string | number) => void
+
+  override writeValue(val: string | number) {
+    super.writeValue(val)
+  }
 }
