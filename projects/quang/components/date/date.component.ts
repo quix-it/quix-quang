@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Optional,
   computed,
   effect,
   forwardRef,
@@ -15,6 +16,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 import AirDatepicker from 'air-datepicker'
+import { format } from 'date-fns'
 
 import { QuangBaseComponent } from '../quang-base-component.directive'
 import { CalendarPickerComponent } from './calendar-picker/calendar-picker.component'
@@ -38,22 +40,28 @@ import { QuangTranslationService } from '../../translation'
 })
 export class QuangDateComponent extends QuangBaseComponent {
   /**
+   * Format to use to show on the input field.
+   * The format is based on the standard {@link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table}
+   * The default value is dd/MM/yyyy
+   */
+  dateFormat = input<string>('dd/MM/yyyy')
+  /**
    * value used to join the rendering inside a multiple selection date
    */
   multipleDateJoinCharacter = input<string>(', ')
-  calendarClasses = input<string>('')
   /**
    * Calendar locale, if not provided the component will try to use the one provided in {@link QuangTranslationService}
    * if the language is not set in {@link QuangTranslationService} it will use the browser language
    * Use this parameter only to override default behavior
    */
   activeLanguageOverride = input<string | undefined>(undefined)
+  calendarClasses = input<string>('')
 
   _inputForDate = viewChild<ElementRef>('inputForDate')
   _dateContainer = signal<ElementRef | undefined>(undefined)
 
   override onChange?: (value: Date | Date[]) => void
-  _quangTranslationService = inject(QuangTranslationService)
+  @Optional() _quangTranslationService = inject(QuangTranslationService)
   _quangTranslationActiveLang = signal<string | undefined>(undefined)
 
   _activeLanguage = computed(() => {
@@ -76,6 +84,7 @@ export class QuangDateComponent extends QuangBaseComponent {
         autoClose: true,
         classes: this.calendarClasses(),
         container: this._dateContainer()?.nativeElement,
+        dateFormat: this.dateFormat(),
         locale: await import(
           `./calendar-locales/locale-${this._activeLanguage() ? this._activeLanguage()?.toLowerCase() : 'en'}.ts`
         ).then((module) => module.default),
@@ -107,5 +116,9 @@ export class QuangDateComponent extends QuangBaseComponent {
 
   override onChangedHandler(val: string) {
     super.onChangedHandler(val)
+  }
+
+  override writeValue(val: Date): void {
+    this._value.set(format(val, this.dateFormat()))
   }
 }
