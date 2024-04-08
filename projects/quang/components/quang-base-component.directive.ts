@@ -40,8 +40,10 @@ export class QuangBaseComponent implements ControlValueAccessor {
   _isaDisabled = signal<boolean>(false)
   _isTouched = signal<boolean>(false)
   _isValid = signal<boolean>(false)
-  _showSuccess = computed(() => this.successMessage() && this._isValid() && this._isTouched())
-  _showErrors = computed(() => this.errorMap().length > 0 && !this._isValid() && this._isTouched())
+  _showSuccess = computed(() => this.successMessage() && this._isValid() && this._isTouched() && !this._isaDisabled())
+  _showErrors = computed(
+    () => this.errorMap().length > 0 && !this._isValid() && this._isTouched() && !this._isaDisabled()
+  )
   _currentErrorMessage = signal<string>('')
   _currentErrorMessageExtraData = signal<{}>({})
 
