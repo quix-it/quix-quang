@@ -113,9 +113,15 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
     this.internalDateControl.valueChanges.subscribe((date?: Date | null) => {
       const updatedValue =
         typeof date === 'string' || date === undefined || !isValid(date) ? null : date ? startOfDay(date) : null
-
-      this.writeValue(updatedValue)
-      this.onChange(updatedValue)
+      if (updatedValue) {
+        const userTimezoneOffset = new Date(updatedValue).getTimezoneOffset() * 60000
+        const formattedDate = new Date(new Date(updatedValue).getTime() - userTimezoneOffset)
+        this.writeValue(formattedDate)
+        this.onChange(formattedDate)
+      } else {
+        this.writeValue(updatedValue)
+        this.onChange(updatedValue)
+      }
     })
     this.bsConfig = {
       containerClass: 'theme-default',
@@ -194,17 +200,16 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
   public writeValue(updatedValue: Date | string | null | undefined): void {
     const valueToWrite = !updatedValue ? '' : format(updatedValue, this.dateRenderFormat)
     this.renderer.setProperty(this.datePickerInput?.nativeElement, 'value', valueToWrite)
-    // sending only dates to ngx-bootstrap control
-    this.internalDateControl.setValue(
-      typeof updatedValue === 'string'
-        ? startOfDay(new Date(updatedValue))
-        : updatedValue
-        ? startOfDay(updatedValue)
-        : null,
-      {
+    if (updatedValue) {
+      updatedValue = startOfDay(updatedValue)
+      const userTimezoneOffset = new Date(updatedValue).getTimezoneOffset() * 60000
+      const formattedDate = new Date(new Date(updatedValue).getTime() - userTimezoneOffset)
+      this.internalDateControl.patchValue(formattedDate, { emitEvent: false })
+    } else {
+      this.internalDateControl.setValue(null, {
         emitEvent: false
-      }
-    )
+      })
+    }
   }
 
   public registerOnChange(fn: (value: Date | null) => void): void {
