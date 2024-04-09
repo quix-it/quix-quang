@@ -28,24 +28,23 @@ import { QuangInputComponent } from '@quix/quang/components/input'
 export class DateTestComponent {
   formBuilder = signal(inject(NonNullableFormBuilder))
 
+  isReadonly = signal(false)
+  dateFormat = signal('dd/MM/yyyy')
+
   errors = signal([
     {
       error: Validators.required.name,
       message: 'form.errors.required'
-    },
-    {
-      error: Validators.minLength.name,
-      message: 'form.errors.minLength'
-    },
-    {
-      error: Validators.maxLength.name,
-      message: 'form.errors.maxLength'
     }
+    /*{
+      error: 'invalidDate',
+      message: 'form.errors.invalidDate'
+    }*/
   ])
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<Date>(new Date(), [Validators.required])
+      testInput: this.formBuilder().control<Date | string>(new Date().toISOString(), [Validators.required])
     })
   )
   showInput = signal(true)
@@ -75,7 +74,7 @@ export class DateTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<Date>(new Date(), [Validators.required])
+        testInput: this.formBuilder().control<Date | string>(new Date(), [Validators.required])
       })
     )
   }
@@ -86,5 +85,21 @@ export class DateTestComponent {
     this.testForm().patchValue({
       testInput: targetDate
     })
+  }
+
+  checkCurrentFormValueAndValidity() {
+    console.log('Current form value:', this.testForm().value)
+    console.log('Current form value json:', JSON.stringify(this.testForm().value))
+    console.log('Current form validity:', this.testForm().valid)
+  }
+
+  changeData() {
+    console.log('changeData')
+    this.isReadonly.set(!this.isReadonly())
+    this.dateFormat.set('yyyy/MM/dd')
+  }
+
+  setReadonly() {
+    this.isReadonly.set(!this.isReadonly())
   }
 }

@@ -1,5 +1,6 @@
 import { NgClass, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, effect, forwardRef, input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
+import { toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -23,23 +24,15 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangInputComponent extends QuangBaseComponent {
+export class QuangInputComponent extends QuangBaseComponent<string | number> {
   componentType = input.required<InputType>()
 
-  _componentTypeEffect = effect(
-    () => {
-      if (this.componentType()) {
+  constructor() {
+    super()
+    toObservable(this.componentType)
+      .pipe(this._takeUntilDestroyed())
+      .subscribe(() => {
         this.setupFormControl()
-      }
-    },
-    {
-      allowSignalWrites: true
-    }
-  )
-
-  override onChange?: (value: string | number) => void
-
-  override writeValue(val: string | number) {
-    super.writeValue(val)
+      })
   }
 }

@@ -17,6 +17,7 @@ import { InputType, QuangInputComponent } from '@quix/quang/components/input'
 export class InputTestComponent {
   inputTypes = signal<string[]>(['text', 'textarea', 'password', 'email', 'number', 'url', 'search', 'tel', 'color'])
   inputType = signal<InputType>('text')
+  isReadonly = signal<boolean>(false)
 
   formBuilder = signal(inject(NonNullableFormBuilder))
 
@@ -84,5 +85,14 @@ export class InputTestComponent {
     this.testForm().patchValue({
       testInput: 'ciao!'
     })
+  }
+
+  checkCurrentFormValueAndValidity() {
+    console.log('Current form value:', this.testForm().value)
+    console.log('Current form validity:', this.testForm().valid)
+  }
+
+  setReadonly() {
+    this.isReadonly.set(!this.isReadonly())
   }
 }

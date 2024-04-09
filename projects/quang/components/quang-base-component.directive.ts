@@ -1,4 +1,4 @@
-import { Directive, Injector, computed, inject, input, signal } from '@angular/core'
+import { AfterViewInit, Directive, Injector, computed, inject, input, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angular/forms'
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs'
 import { baseRandomId } from './makeId'
 
 @Directive()
-export class QuangBaseComponent implements ControlValueAccessor {
+export abstract class QuangBaseComponent<T = any> implements ControlValueAccessor, AfterViewInit {
   componentId = input<string>(baseRandomId)
   isReadonly = input<boolean>(false)
   componentTabIndex = input<number>(0)
@@ -35,7 +35,7 @@ export class QuangBaseComponent implements ControlValueAccessor {
   //_requiredSig = computed(() => this._ngControl?.control?.hasValidator(Validators.required)) // <- questo non funziona
   // _isControlDisabledSig = computed(() => this._ngControl?.control?.disabled) // <- questo non funziona
 
-  _value = signal<any>('')
+  _value = signal<T | null>(null)
   _isRequired = signal<boolean>(false)
   _isaDisabled = signal<boolean>(false)
   _isTouched = signal<boolean>(false)
@@ -52,10 +52,10 @@ export class QuangBaseComponent implements ControlValueAccessor {
   _takeUntilDestroyed = signal(takeUntilDestroyed())
   _statusChange$?: Subscription
 
-  onChange?: (value: any) => void
+  onChange?: (value: T) => void
   onTouched?: () => void
 
-  constructor() {
+  protected constructor() {
     toObservable(this.formControl)
       .pipe(this._takeUntilDestroyed())
       .subscribe((form) => {
@@ -65,11 +65,11 @@ export class QuangBaseComponent implements ControlValueAccessor {
       })
   }
 
-  registerOnChange(fn: (value: any) => void): void {
+  registerOnChange(fn: (value: T) => void): void {
     this.onChange = fn
   }
 
-  writeValue(val: any): void {
+  writeValue(val: T): void {
     this._value.set(val)
   }
 
@@ -82,17 +82,19 @@ export class QuangBaseComponent implements ControlValueAccessor {
 
   onChangedEventHandler($event: Event) {
     const inputElement = $event.target as HTMLInputElement
-    this.onChangedHandler(inputElement.value)
+    this.onChangedHandler(inputElement.value as T)
   }
 
-  onChangedHandler(value: any) {
+  onChangedHandler(value: T) {
     this._value.set(value)
 
     if (this.onChange) {
       this.onChange(value)
     }
 
-    this.onBlurHandler()
+    if (this.onTouched) {
+      this.onTouched()
+    }
   }
 
   onBlurHandler() {
@@ -127,17 +129,27 @@ export class QuangBaseComponent implements ControlValueAccessor {
   checkFormErrors() {
     this._isValid.set(this._ngControl()?.control?.valid ?? false)
     const controlErrors = this._ngControl()?.control?.errors
+
     if (controlErrors) {
-      const targetErrorKey = Object.keys(controlErrors)[0]
-      this._currentErrorMessage.set(
-        this.errorMap().find((error) => error.error.toLowerCase() === targetErrorKey.toLowerCase())?.message ?? ''
+      const targetError = this.errorMap().find((error) =>
+        Object.keys(controlErrors).find((targetError) => error.error.toLowerCase() === targetError.toLowerCase())
       )
-      this._currentErrorMessageExtraData.set(controlErrors[targetErrorKey])
+      if (targetError) {
+        this._currentErrorMessage.set(targetError.message ?? '')
+        this._currentErrorMessageExtraData.set(targetError.error)
+      } else {
+        this._currentErrorMessage.set('')
+        this._currentErrorMessageExtraData.set({})
+      }
     }
     if (controlErrors?.[Validators.required.name]) {
       this._isRequired.set(true)
     } else {
       this._isRequired.set(false)
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.setupFormControl()
   }
 }

@@ -6,17 +6,19 @@
   <quang-input
     [componentType]="inputType()"
     [errorMap]="errors()"
-    [formControl]="testForm().controls.testInput"
+    [isReadonly]="isReadonly()"
     componentLabel="form.label.input"
+    formControlName="testInput"
     successMessage="tutto bello!"
   ></quang-input>
 </form>
 <button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
 <button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
-{{ testForm().getRawValue() | json }} valid? {{ testForm().valid }}
 <button (click)="changeVisibility()">change visibility</button>
 <button (click)="recreateForm()">recreate form</button>
 <button (click)="setFormValues()">set form</button>
+<button (click)="checkCurrentFormValueAndValidity()">check current form value and validity</button>
+<button (click)="setReadonly()">current readonly: {{ isReadonly() }}</button>
 <select [(ngModel)]="inputType">
   <option
     [value]="type"

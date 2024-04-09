@@ -15,8 +15,8 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
-import AirDatepicker from 'air-datepicker'
-import { format } from 'date-fns'
+import AirDatepicker, { AirDatepickerDate, AirDatepickerOptions } from 'air-datepicker'
+import { format, isValid, parse, startOfDay } from 'date-fns'
 
 import { QuangBaseComponent } from '../quang-base-component.directive'
 import { CalendarPickerComponent } from './calendar-picker/calendar-picker.component'
@@ -38,17 +38,19 @@ import { QuangTranslationService } from '../../translation'
   imports: [TranslocoPipe, NgIf, NgClass, CalendarPickerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangDateComponent extends QuangBaseComponent {
+export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | string | null> {
   /**
    * Format to use to show on the input field.
    * The format is based on the standard {@link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table}
-   * The default value is dd/MM/yyyy
+   * Default: dd/MM/yyyy
+   * @default dd/MM/yyyy
    */
   dateFormat = input<string>('dd/MM/yyyy')
   /**
    * Format to use to show on the time inside the input field.
    * The format is based on the standard {@link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table}
-   * The default value is HH:mm
+   * Default: HH:mm
+   * @default HH:mm
    */
   timeFormat = input<string>('HH:mm')
   /**
@@ -62,13 +64,20 @@ export class QuangDateComponent extends QuangBaseComponent {
    */
   activeLanguageOverride = input<string | undefined>(undefined)
   /**
-   * If true the calendar will appear as a modal window with slightly enlarged dimensions.
-   */
-  isMobile = input<boolean>(false)
-  /**
    * If true enable the timepicker inside the calendar
    */
   timepicker = input<boolean>(false)
+  /**
+   * If true the component will offset the time to have midnight in UTC and not in the current locale
+   * @example in italy Thu Apr 18 2024 00:00:00 GMT+0200 will become Thu Apr 18 2024 02:00:00 GMT+0200 to have 2024-04-18T00:00:00.000Z
+   * Default: true
+   * @default true
+   */
+  offsetUTCTime = input<boolean>(true)
+  /**
+   * The message to show inside the input if the date is invalid
+   */
+  invalidDateMessage = input<string>('')
   showOnlyTimepicker = input<boolean>(false)
   minHour = input<number>(0)
   maxHour = input<number>(24)
@@ -82,34 +91,43 @@ export class QuangDateComponent extends QuangBaseComponent {
   _inputForDate = viewChild<ElementRef>('inputForDate')
   _dateContainer = signal<ElementRef | undefined>(undefined)
 
-  override onChange?: (value: Date | Date[]) => void
-  @Optional() _quangTranslationService = inject(QuangTranslationService)
+  @Optional() _quangTranslationService = signal<QuangTranslationService | undefined>(inject(QuangTranslationService))
   _quangTranslationActiveLang = signal<string | undefined>(undefined)
 
   _activeLanguage = computed(() => {
     if (this.activeLanguageOverride()) {
       return this.activeLanguageOverride()
     } else {
-      if (this._quangTranslationService) {
+      if (this._quangTranslationService()) {
         return this._quangTranslationActiveLang()
       } else {
         return navigator.language
       }
     }
   })
+  _startValue = signal<Date | Date[] | string | undefined | null>(undefined)
+  _airDatepickerInstance = signal<AirDatepicker | undefined>(undefined)
+
   /**
    * the actual date calendar is based on {@link https://air-datepicker.com/docs}
    */
   _generateAirDatepickerEffect = effect(async () => {
-    console.log('_generateAirDatepickerEffect')
     if (this._inputForDate()?.nativeElement && this._dateContainer()?.nativeElement) {
-      new AirDatepicker(this._inputForDate()?.nativeElement, {
+      let targetDate: AirDatepickerDate[] | undefined
+      const startValueDate = this._startValue()
+      if (Array.isArray(startValueDate)) {
+        targetDate = startValueDate
+      } else if (startValueDate) {
+        targetDate = [startValueDate]
+      }
+
+      const airDatepickerOpts: AirDatepickerOptions<HTMLInputElement> = {
         autoClose: true,
         classes: this.calendarClasses(),
         container: this._dateContainer()?.nativeElement,
         dateFormat: this.dateFormat(),
         inline: this.showInline(),
-        isMobile: this.isMobile(),
+        isMobile: false,
         timepicker: this.timepicker(),
         onlyTimepicker: this.showOnlyTimepicker(),
         timeFormat: this.timeFormat(),
@@ -119,6 +137,8 @@ export class QuangDateComponent extends QuangBaseComponent {
         maxMinutes: this.maxMinute(),
         minDate: this.minDate(),
         maxDate: this.maxDate(),
+        selectedDates: targetDate,
+        toggleSelected: false,
         locale: await import(
           `./calendar-locales/locale-${this._activeLanguage() ? this._activeLanguage()?.toLowerCase() : 'en'}.ts`
         ).then((module) => module.default),
@@ -131,20 +151,42 @@ export class QuangDateComponent extends QuangBaseComponent {
           }
           this.onChangedHandler(targetString)
           if (this.onChange) {
-            this.onChange(date)
+            if (this.offsetUTCTime()) {
+              if (Array.isArray(date)) {
+                const utcDateArray = date.map((d) => this.dateToUtc(d))
+                this.onChange(utcDateArray)
+              } else {
+                this.onChange(this.dateToUtc(date))
+              }
+            } else {
+              this.onChange(date)
+            }
+          }
+        },
+        onHide: (isAnimationComplete: boolean) => {
+          if (isAnimationComplete) {
+            this.validateDate()
           }
         }
-      })
+      }
+
+      if (this._airDatepickerInstance()) {
+        this._airDatepickerInstance()?.update(airDatepickerOpts)
+      } else {
+        this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
+      }
     }
   })
 
+  valueFormat = computed(() => this.dateFormat() + (this.timepicker() ? ' ' + this.timeFormat() : ''))
+
   constructor() {
     super()
-    if (this._quangTranslationService) {
-      this._quangTranslationService.activeLang.subscribe((lang) => {
+    if (this._quangTranslationService()) {
+      this._quangTranslationService()?.activeLang.subscribe((lang) => {
         this._quangTranslationActiveLang.set(lang)
       })
-      this._quangTranslationActiveLang.set(this._quangTranslationService.getActiveLang())
+      this._quangTranslationActiveLang.set(this._quangTranslationService()?.getActiveLang())
     }
   }
 
@@ -152,7 +194,61 @@ export class QuangDateComponent extends QuangBaseComponent {
     super.onChangedHandler(val)
   }
 
-  override writeValue(val: Date): void {
-    this._value.set(format(val, this.dateFormat()))
+  override writeValue(val?: Date | Date[] | string | null): void {
+    this._startValue.set(val)
+    let targetDate: string | null = null
+    if (val && Array.isArray(val)) {
+      targetDate = val
+        .map((x) => (this.offsetUTCTime() ? this.dateToUtc(startOfDay(x)) : startOfDay(x)))
+        .map((x) => format(x, this.valueFormat()))
+        .join(this.multipleDateJoinCharacter())
+    } else if (val) {
+      targetDate = format(this.offsetUTCTime() ? this.dateToUtc(startOfDay(val)) : startOfDay(val), this.valueFormat())
+    }
+    this._value.set(targetDate)
+  }
+
+  openDatePicker() {
+    if (this._inputForDate()?.nativeElement) {
+      this._inputForDate()?.nativeElement.focus()
+    }
+  }
+
+  interceptInputInteraction($event: Event) {
+    if (this.isReadonly()) {
+      $event.stopPropagation()
+      $event.stopImmediatePropagation()
+      $event.preventDefault()
+    }
+  }
+
+  private dateToUtc(date: Date): Date {
+    // convert to UTC time removing the timezone
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+  }
+
+  private validateDate() {
+    const targetValue = this._value()
+    let dateValid = false
+    if (Array.isArray(targetValue)) {
+      dateValid = targetValue.every((x) => isValid(parse(x.toString(), this.valueFormat(), new Date())))
+    } else if (targetValue) {
+      dateValid = isValid(parse(targetValue.toString(), this.valueFormat(), new Date()))
+    }
+    let errors = this._ngControl()?.control?.errors ?? null
+    if (!dateValid) {
+      this._value.set(
+        this._quangTranslationService()
+          ? this._quangTranslationService()!.translate(this.invalidDateMessage())
+          : this.invalidDateMessage()
+      )
+      errors = {
+        ...errors,
+        invalidDate: true
+      }
+    } else if (errors) {
+      delete errors['invalidDate']
+    }
+    this._ngControl()?.control?.setErrors(errors)
   }
 }

@@ -19,10 +19,11 @@
     [tabIndex]="componentTabIndex()"
     [value]="_value()"
     (blur)="onBlurHandler()"
+    (focus)="interceptInputInteraction($event)"
     (input)="onChangedEventHandler($event)"
     #inputForDate
     class="form-control"
-    type="text"
+    type="search"
   />
   <div class="valid-feedback">
     {{ successMessage() | transloco }}
