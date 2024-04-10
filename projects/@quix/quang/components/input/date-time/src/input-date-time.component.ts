@@ -17,6 +17,7 @@ import {
 } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
+import { setSeconds } from 'date-fns'
 import { BsDatepickerConfig, BsDatepickerInlineDirective, BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { TimepickerComponent } from 'ngx-bootstrap/timepicker'
 
@@ -361,7 +362,7 @@ export class InputDateTimeComponent implements ControlValueAccessor, OnInit, Aft
   onChangeTime(date: any): void {
     this.onTouched()
     if (date) {
-      this.onChanged(date)
+      this.onChanged(this.showSecond ? date : setSeconds(date, 0))
     }
   }
 

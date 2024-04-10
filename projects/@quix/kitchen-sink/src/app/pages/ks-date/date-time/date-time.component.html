@@ -46,6 +46,10 @@
             <dt>Value:</dt>
             <dd>{{ group.controls['datetime'].value }}</dd>
           </dl>
+          <dl>
+            <dt>toJson:</dt>
+            <dd>{{ group.controls.datetime.value | json }}</dd>
+          </dl>
         </div>
       </quang-card-action-header>
     </div>
