@@ -1,0 +1,52 @@
+.label-top {
+  flex-direction: column;
+}
+
+.label-bottom {
+  flex-direction: column-reverse;
+}
+
+.label-right {
+  flex-direction: row-reverse;
+}
+
+.label-left {
+  flex-direction: row;
+}
+
+.toggle-wrapper {
+  padding-left: unset;
+  display: flex;
+
+  label {
+    display: block;
+  }
+
+  input {
+    margin-left: unset;
+
+    width: 3em;
+    height: 1.5em;
+  }
+}
+
+.direction-row {
+  flex-direction: row;
+
+  .form-label {
+    margin-right: 0.5rem;
+  }
+}
+
+.direction-reverse-row {
+  flex-direction: row-reverse;
+  justify-content: start;
+
+  input {
+    margin-right: 0.5rem;
+  }
+}
+
+.direction-column {
+  flex-direction: column;
+}

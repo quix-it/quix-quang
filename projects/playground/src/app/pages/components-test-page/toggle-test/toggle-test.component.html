@@ -1,0 +1,21 @@
+<h3>{{ 'title.components.input' | transloco }}</h3>
+<form
+  [formGroup]="testForm()"
+  *ngIf="showInput()"
+>
+  <quang-toggle
+    [errorMap]="errors()"
+    [isReadonly]="isReadonly()"
+    componentLabel="form.label.input"
+    formControlName="testInput"
+    labelPosition="top"
+    successMessage="tutto bello!"
+  ></quang-toggle>
+</form>
+<button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
+<button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
+<button (click)="changeVisibility()">change visibility</button>
+<button (click)="recreateForm()">recreate form</button>
+<button (click)="setFormValues()">set form</button>
+<button (click)="checkCurrentFormValueAndValidity()">check current form value and validity</button>
+<button (click)="setReadonly()">current readonly: {{ isReadonly() }}</button>
