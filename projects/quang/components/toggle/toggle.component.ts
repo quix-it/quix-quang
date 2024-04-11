@@ -1,11 +1,10 @@
 import { NgClass, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { QuangBaseComponent } from '../quang-base-component.directive'
+import { QuangBaseComponent } from '@quix/quang/components/shared'
 
 export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
 
@@ -26,6 +25,7 @@ export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
 })
 export class QuangToggleComponent extends QuangBaseComponent<boolean> {
   labelPosition = input<LabelPosition>('top')
+
   constructor() {
     super()
   }

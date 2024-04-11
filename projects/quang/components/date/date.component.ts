@@ -18,10 +18,10 @@ import { TranslocoPipe } from '@ngneat/transloco'
 import AirDatepicker, { AirDatepickerDate, AirDatepickerOptions } from 'air-datepicker'
 import { format, isValid, parse, startOfDay } from 'date-fns'
 
-import { QuangBaseComponent } from '../quang-base-component.directive'
-import { CalendarPickerComponent } from './calendar-picker/calendar-picker.component'
+import { QuangBaseComponent } from '@quix/quang/components/shared'
+import { QuangTranslationService } from '@quix/quang/translation'
 
-import { QuangTranslationService } from '../../translation'
+import { CalendarPickerComponent } from './calendar-picker/calendar-picker.component'
 
 @Component({
   selector: 'quang-date',

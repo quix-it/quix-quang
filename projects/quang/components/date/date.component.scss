@@ -1,16 +1,20 @@
+@import '../shared/sass/input-search';
+
 :host {
   display: block;
 
   .input-date-container {
     display: flex;
+
     input {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+
       &::-webkit-search-cancel-button {
         -webkit-appearance: none;
         height: 0.75rem;
         width: 0.75rem;
-        background-image: url('./clear.svg');
+        background-image: url('../shared/images/clear.svg');
         cursor: pointer;
       }
     }
