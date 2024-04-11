@@ -9,9 +9,15 @@
     [formControl]="testForm().controls.testInput"
     [isReadonly]="isReadonly()"
     [timepicker]="true"
+    buttonClass=""
     componentLabel="form.label.input"
     successMessage="tutto bello!"
-  ></quang-date>
+  >
+    <img
+      calendarIcon
+      src="./assets/icons/svg/calendar.svg"
+    />
+  </quang-date>
 </form>
 <button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
 <button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>

@@ -7,24 +7,36 @@
     {{ componentLabel() | transloco }}
     <span [hidden]="!_isRequired()">*</span>
   </label>
-  <input
-    [autocomplete]="'off'"
-    [class.is-invalid]="_showErrors()"
-    [class.is-valid]="_showSuccess()"
-    [disabled]="_isaDisabled()"
-    [id]="componentId()"
-    [ngClass]="componentClass()"
-    [placeholder]="componentPlaceholder() | transloco"
-    [readOnly]="isReadonly()"
-    [tabIndex]="componentTabIndex()"
-    [value]="_value()"
-    (blur)="onBlurHandler()"
-    (focus)="interceptInputInteraction($event)"
-    (input)="onChangedEventHandler($event)"
-    #inputForDate
-    class="form-control"
-    type="search"
-  />
+  <div class="input-date-container">
+    <input
+      [autocomplete]="'off'"
+      [class.is-invalid]="_showErrors()"
+      [class.is-valid]="_showSuccess()"
+      [disabled]="_isaDisabled()"
+      [id]="componentId()"
+      [ngClass]="componentClass()"
+      [placeholder]="componentPlaceholder() | transloco"
+      [readOnly]="isReadonly()"
+      [tabIndex]="componentTabIndex()"
+      [value]="_value()"
+      (blur)="onBlurHandler()"
+      (focus)="interceptInputInteraction($event)"
+      (input)="onChangedEventHandler($event)"
+      #inputForDate
+      class="form-control"
+      type="search"
+    />
+    <button
+      [ngClass]="buttonClass"
+      (click)="_ngControl()?.disabled ? null : openDatePicker()"
+      *ngIf="!_ngControl()?.disabled"
+      aria-label="calendar-button"
+      class="btn btn-outline-calendar"
+      type="button"
+    >
+      <ng-content select="[calendarIcon]"></ng-content>
+    </button>
+  </div>
   <div class="valid-feedback">
     {{ successMessage() | transloco }}
   </div>

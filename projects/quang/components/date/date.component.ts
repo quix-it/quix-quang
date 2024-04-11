@@ -87,6 +87,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   maxDate = input<Date | undefined>(undefined)
   showInline = input<boolean>(false)
   calendarClasses = input<string>('')
+  buttonClass = input<string>('')
 
   _inputForDate = viewChild<ElementRef>('inputForDate')
   _dateContainer = signal<ElementRef | undefined>(undefined)
