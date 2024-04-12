@@ -1,0 +1,12 @@
+@if (_showLoader()) {
+  <div class="loader-container">
+    @if (!ref?.children?.length) {
+      <span class="loader"></span>
+      <span class="loader-extra loader-extra-background"></span>
+      <span class="loader-extra"></span>
+    }
+    <div #ref>
+      <ng-content></ng-content>
+    </div>
+  </div>
+}
