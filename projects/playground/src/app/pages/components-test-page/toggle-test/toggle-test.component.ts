@@ -4,12 +4,12 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { QuangToggleComponent } from '@quix/quang/components/toggle/toggle.component'
+import { QuangCheckboxComponent } from '@quix/quang/components/checkbox/checkbox.component'
 
 @Component({
   selector: 'playground-toggle-test',
   standalone: true,
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangToggleComponent, NgIf, NgForOf, TranslocoPipe],
+  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangCheckboxComponent, NgIf, NgForOf, TranslocoPipe],
   templateUrl: './toggle-test.component.html',
   styleUrl: './toggle-test.component.scss'
 })
@@ -35,11 +35,8 @@ export class ToggleTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('no pirrone!', [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(30)
-      ])
+      toggle: this.formBuilder().control<boolean>(true, [Validators.required]),
+      checkbox: this.formBuilder().control<boolean>(false, [Validators.required])
     })
   )
   showInput = signal(true)
@@ -50,16 +47,19 @@ export class ToggleTestComponent {
   }
 
   getIsRequiredInput() {
-    return this.testForm().controls.testInput.hasValidator(Validators.required)
+    return this.testForm().controls.toggle.hasValidator(Validators.required)
   }
 
   changeFormInputRequired() {
     if (this.getIsRequiredInput()) {
-      this.testForm().controls.testInput.removeValidators(Validators.required)
+      this.testForm().controls.toggle.removeValidators(Validators.required)
+      this.testForm().controls.checkbox.removeValidators(Validators.required)
     } else {
-      this.testForm().controls.testInput.addValidators(Validators.required)
+      this.testForm().controls.toggle.addValidators(Validators.required)
+      this.testForm().controls.checkbox.addValidators(Validators.required)
     }
-    this.testForm().controls.testInput.updateValueAndValidity()
+    this.testForm().controls.toggle.updateValueAndValidity()
+    this.testForm().controls.checkbox.updateValueAndValidity()
   }
 
   changeVisibility() {
@@ -69,18 +69,16 @@ export class ToggleTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('no pirrone rigenerato!', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(30)
-        ])
+        toggle: this.formBuilder().control<boolean>(false, [Validators.required]),
+        checkbox: this.formBuilder().control<boolean>(false, [Validators.required])
       })
     )
   }
 
   setFormValues() {
     this.testForm().patchValue({
-      testInput: 'ciao!'
+      toggle: true,
+      checkbox: true
     })
   }
 

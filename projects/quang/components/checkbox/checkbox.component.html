@@ -1,9 +1,11 @@
 <div
+  [class.form-switch]="checkType() === 'toggle'"
   [class.label-bottom]="labelPosition() === 'bottom'"
   [class.label-left]="labelPosition() === 'left'"
   [class.label-right]="labelPosition() === 'right'"
   [class.label-top]="labelPosition() === 'top'"
-  class="mb-3 toggle-wrapper form-check form-switch"
+  [class.toggle-wrapper]="checkType() === 'toggle'"
+  class="mb-3 form-check"
 >
   <label
     [htmlFor]="componentId()"

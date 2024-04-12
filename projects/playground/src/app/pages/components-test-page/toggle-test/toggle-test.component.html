@@ -3,14 +3,25 @@
   [formGroup]="testForm()"
   *ngIf="showInput()"
 >
-  <quang-toggle
+  <quang-checkbox
     [errorMap]="errors()"
     [isReadonly]="isReadonly()"
+    checkType="toggle"
     componentLabel="form.label.input"
-    formControlName="testInput"
+    formControlName="toggle"
     labelPosition="top"
     successMessage="tutto bello!"
-  ></quang-toggle>
+  ></quang-checkbox>
+
+  <quang-checkbox
+    [errorMap]="errors()"
+    [isReadonly]="isReadonly()"
+    checkType="checkbox"
+    componentLabel="form.label.input"
+    formControlName="checkbox"
+    labelPosition="top"
+    successMessage="tutto bello!"
+  ></quang-checkbox>
 </form>
 <button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
 <button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>

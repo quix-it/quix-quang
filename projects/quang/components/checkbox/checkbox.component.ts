@@ -9,22 +9,23 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
 export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
 
 @Component({
-  selector: 'quang-toggle',
+  selector: 'quang-checkbox',
   standalone: true,
-  templateUrl: './toggle.component.html',
-  styleUrl: './toggle.component.scss',
+  templateUrl: './checkbox.component.html',
+  styleUrl: './checkbox.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => QuangToggleComponent),
+      useExisting: forwardRef(() => QuangCheckboxComponent),
       multi: true
     }
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangToggleComponent extends QuangBaseComponent<boolean> {
+export class QuangCheckboxComponent extends QuangBaseComponent<boolean> {
   labelPosition = input<LabelPosition>('top')
+  checkType = input.required<'checkbox' | 'toggle'>()
 
   constructor() {
     super()
