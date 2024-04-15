@@ -1,13 +1,27 @@
 .label-top {
+  display: flex;
   flex-direction: column;
+  input {
+    margin: unset;
+    float: unset;
+  }
 }
 
 .label-bottom {
+  display: flex;
   flex-direction: column-reverse;
+  input {
+    margin: unset;
+    float: unset;
+  }
 }
 
 .label-right {
   flex-direction: row-reverse;
+  justify-content: start;
+  label {
+    margin-left: 0.5rem;
+  }
 }
 
 .label-left {
@@ -15,8 +29,8 @@
 }
 
 .toggle-wrapper {
-  padding-left: unset;
   display: flex;
+  padding-left: unset;
 
   label {
     display: block;
