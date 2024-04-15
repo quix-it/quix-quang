@@ -1,0 +1,9 @@
+input {
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    height: 0.75rem;
+    width: 0.75rem;
+    background-image: url('../images/clear.svg');
+    cursor: pointer;
+  }
+}
