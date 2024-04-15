@@ -16,12 +16,11 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 import AirDatepicker, { AirDatepickerDate, AirDatepickerOptions } from 'air-datepicker'
+import 'air-datepicker/air-datepicker.css'
 import { format, isValid, parse, startOfDay } from 'date-fns'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 import { QuangTranslationService } from '@quix/quang/translation'
-
-import { CalendarPickerComponent } from './calendar-picker/calendar-picker.component'
 
 @Component({
   selector: 'quang-date',
@@ -35,7 +34,7 @@ import { CalendarPickerComponent } from './calendar-picker/calendar-picker.compo
       multi: true
     }
   ],
-  imports: [TranslocoPipe, NgIf, NgClass, CalendarPickerComponent],
+  imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | string | null> {
@@ -90,7 +89,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   buttonClass = input<string>('')
 
   _inputForDate = viewChild<ElementRef>('inputForDate')
-  _dateContainer = signal<ElementRef | undefined>(undefined)
+  _dateContainer = viewChild<ElementRef>('inputDateContainer')
 
   @Optional() _quangTranslationService = signal<QuangTranslationService | undefined>(inject(QuangTranslationService))
   _quangTranslationActiveLang = signal<string | undefined>(undefined)
