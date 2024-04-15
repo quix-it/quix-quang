@@ -37,12 +37,12 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   _value = signal<T | null>(null)
   _isRequired = signal<boolean>(false)
-  _isaDisabled = signal<boolean>(false)
+  _isDisabled = signal<boolean>(false)
   _isTouched = signal<boolean>(false)
   _isValid = signal<boolean>(false)
-  _showSuccess = computed(() => this.successMessage() && this._isValid() && this._isTouched() && !this._isaDisabled())
+  _showSuccess = computed(() => this.successMessage() && this._isValid() && this._isTouched() && !this._isDisabled())
   _showErrors = computed(
-    () => this.errorMap().length > 0 && !this._isValid() && this._isTouched() && !this._isaDisabled()
+    () => this.errorMap().length > 0 && !this._isValid() && this._isTouched() && !this._isDisabled()
   )
   _currentErrorMessage = signal<string>('')
   _currentErrorMessageExtraData = signal<{}>({})
@@ -117,13 +117,13 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
       })
 
     this._isTouched.set(this._ngControl()?.touched ?? false)
-    this._isaDisabled.set(this._ngControl()?.disabled ?? false)
+    this._isDisabled.set(this._ngControl()?.disabled ?? false)
 
     this.checkFormErrors()
   }
 
   setDisabledState(isDisabled: boolean) {
-    this._isaDisabled.set(isDisabled)
+    this._isDisabled.set(isDisabled)
   }
 
   checkFormErrors() {

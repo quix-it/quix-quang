@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common'
 import { ChangeDetectorRef, Component, ModuleWithProviders, OnInit, input, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
@@ -8,7 +9,7 @@ let forRootInstances = 0
 @Component({
   selector: 'quang-loader',
   standalone: true,
-  imports: [],
+  imports: [NgIf],
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss'
 })
