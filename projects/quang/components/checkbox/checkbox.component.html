@@ -19,11 +19,12 @@
   <input
     [class.is-invalid]="_showErrors()"
     [class.is-valid]="_showSuccess()"
-    [disabled]="_isaDisabled()"
+    [disabled]="_isDisabled()"
     [id]="componentId()"
     [ngClass]="componentClass()"
     [placeholder]="componentPlaceholder() | transloco"
     [readOnly]="isReadonly()"
+    [tabIndex]="componentTabIndex()"
     [tabIndex]="componentTabIndex()"
     [value]="_value()"
     (blur)="onBlurHandler()"
