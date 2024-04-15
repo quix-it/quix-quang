@@ -1,12 +1,10 @@
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 
-import { delay } from 'rxjs'
+import { delay, of } from 'rxjs'
 
-import { QuangLoaderInterceptor } from '@quix/quang/components/loader/loader-interceptor.service'
 import { QuangLoaderComponent } from '@quix/quang/components/loader/loader.component'
-import { QuangLoaderService } from '@quix/quang/components/loader/loader.service'
 import { QuangTranslationModule, QuangTranslationService } from '@quix/quang/translation'
 
 @Component({
@@ -15,14 +13,6 @@ import { QuangTranslationModule, QuangTranslationService } from '@quix/quang/tra
   imports: [RouterOutlet, QuangTranslationModule, QuangLoaderComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [
-    QuangLoaderService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: QuangLoaderInterceptor,
-      multi: true
-    }
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
@@ -37,6 +27,7 @@ export class AppComponent {
   }
 
   showLoader() {
+    // for (let i = 0; i < 20; i++) {
     this.http
       .get('https://jsonplaceholder.typicode.com/todos/1')
       .pipe(delay(500))
@@ -44,4 +35,5 @@ export class AppComponent {
         console.log('call', x)
       })
   }
+  // }
 }
