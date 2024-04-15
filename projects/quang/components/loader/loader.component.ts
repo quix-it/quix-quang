@@ -18,22 +18,26 @@ export class QuangLoaderComponent implements OnInit {
   _loadingCount = signal<number>(0)
   _showLoader = signal<boolean>(false)
   _hideTimeout = signal<any | undefined>(undefined)
+  hideTimeout: any | undefined = undefined
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
 
   constructor(
     private readonly loaderService: QuangLoaderService,
     private readonly changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) {
+    this.onLoading()
+  }
 
   ngOnInit(): void {
-    this.onLoading()
+    // this.onLoading()
   }
 
   onLoading(): void {
     toObservable(this.loaderService._isLoading)
       .pipe(this._takeUntilDestroyed())
       .subscribe((isLoading) => {
+        console.log(isLoading, this._showLoader())
         if (isLoading) {
           this._loadingCount.update((count) => count++)
         } else {
@@ -51,7 +55,7 @@ export class QuangLoaderComponent implements OnInit {
         } else {
           this._loadingCount.set(0)
           clearTimeout(this._hideTimeout())
-          this._hideTimeout().set(
+          this._hideTimeout.set(
             setTimeout(() => {
               this._showLoader.set(false)
               // this.changeDetectorRef.detectChanges() // TODO check if need
