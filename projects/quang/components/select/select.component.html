@@ -48,7 +48,8 @@
             [ngClass]="componentClass()"
             [tabIndex]="componentTabIndex()"
             (blur)="onBlurHandler()"
-            (click)="$event.stopPropagation(); onSelectItem(item)"
+            (input)="onSelectItem(item)"
+            (selectionchange)="test(item)"
             #inputCheckbox
             class="form-check"
             type="checkbox"

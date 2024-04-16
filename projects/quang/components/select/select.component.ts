@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, forwardRef, input, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit, forwardRef, input, signal } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -8,7 +8,7 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
 
 export interface SelectOption {
   label: string
-  value: string | number
+  value: string | number | null
 }
 
 @Component({
@@ -26,7 +26,10 @@ export interface SelectOption {
   imports: [TranslocoPipe, NgIf, NgFor, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangSelectComponent extends QuangBaseComponent<string | number | string[] | number[]> {
+export class QuangSelectComponent
+  extends QuangBaseComponent<string | number | string[] | number[] | null>
+  implements OnInit
+{
   inputMode = input<'single' | 'multiple'>('single')
   inputArray = input.required<SelectOption[]>()
   translateValue = input<boolean>(true)
@@ -38,6 +41,10 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
 
   constructor() {
     super()
+  }
+
+  ngOnInit(): void {
+    if (this.nullOption()) this.inputArray().unshift({ label: '', value: null })
   }
 
   changeOptionsVisibility(skipTimeout = false): void {
@@ -75,6 +82,10 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
     return ''
   }
 
+  test(input: any): void {
+    console.log(input)
+  }
+
   onSelectItem(item: SelectOption): void {
     if (item !== null && item !== undefined) {
       if (this.inputMode() === 'single') {
@@ -82,17 +93,19 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
         this._selectedItems.set([item])
         this.hideOptionVisibility()
       } else {
-        this._selectedItems.update((selectedItems) => {
-          if (this._selectedItems().some((x) => x.value === item.value)) {
-            return selectedItems.filter((x) => x.value !== item.value)
-          } else {
-            return [...selectedItems, item]
-          }
-        })
+        if (item !== null) {
+          this._selectedItems.update((selectedItems) => {
+            if (this._selectedItems().some((x) => x.value === item.value)) {
+              return selectedItems.filter((x) => x.value !== item.value)
+            } else {
+              return [...selectedItems, item]
+            }
+          })
+        }
         this._value.set(this._selectedItems().map((x) => x.value) as string[] | number[])
         this.sortSelectedItems()
       }
-      console.log(this._value())
+      this.onChangedHandler(this._value())
     }
   }
 

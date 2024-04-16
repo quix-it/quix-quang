@@ -131,11 +131,8 @@ export class SelectTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('', [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(30)
-      ])
+      testInput: this.formBuilder().control<string>('', [Validators.required]),
+      testInputMultiple: this.formBuilder().control<number[]>([], [Validators.required])
     })
   )
   showInput = signal(true)
@@ -165,11 +162,8 @@ export class SelectTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('no pirrone rigenerato!', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(30)
-        ])
+        testInput: this.formBuilder().control<string>(this.stringList[2].value as string, [Validators.required]),
+        testInputMultiple: this.formBuilder().control<number[]>([1, 2], [Validators.required])
       })
     )
   }

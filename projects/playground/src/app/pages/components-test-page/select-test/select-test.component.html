@@ -12,6 +12,15 @@
     inputMode="single"
     successMessage="tutto bello!"
   ></quang-select>
+  <quang-select
+    [errorMap]="errors()"
+    [inputArray]="numberList"
+    [isReadonly]="isReadonly()"
+    componentLabel="form.label.input"
+    formControlName="testInputMultiple"
+    inputMode="multiple"
+    successMessage="tutto bello!"
+  ></quang-select>
   {{ testForm().value | json }}
 </form>
 <button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
