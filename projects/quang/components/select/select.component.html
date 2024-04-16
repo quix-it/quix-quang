@@ -8,89 +8,61 @@
     <span [hidden]="!_isRequired()">*</span>
   </label>
   <div class="option-list-container">
-    <!-- [class.form-select-lg]="size === 'lg'"
-      [class.form-select-sm]="size === 'sm'" -->
-    <ng-container *ngIf="inputMode() === 'multiple'">
-      <button
-        [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap.length"
-        [class.is-valid]="_ngControl()?.valid && (_ngControl()?.dirty || _ngControl()?.touched) && successMessage"
-        [disabled]="_isDisabled()"
-        [id]="componentId()"
-        [ngClass]="componentClass()"
-        [tabIndex]="componentTabIndex()"
-        (click)="changeOptionsVisibility(true)"
-        (mouseleave)="hideOptionVisibility()"
-        #input
-        class="form-select"
-        type="button"
-      >
-        <div class="content">
-          <ng-container *ngFor="let val of _list(); let last = last">
-            {{ getListText(val.label) }}{{ !last ? ', ' : '' }}
-          </ng-container>
-        </div>
-      </button>
-
-      <div
-        (mouseenter)="showOptionVisibility()"
-        (mouseleave)="hideOptionVisibility()"
-        *ngIf="_showOptions()"
-        class="option-list"
-      >
-        <ul class="m-0 p-0">
-          <li
-            [class.m-0]="last"
-            (click)="onSelectItem(item?.value)"
-            *ngFor="let item of inputArray(); let i = index; let last = last"
-            class="item"
-          >
-            <input
-              [checked]="getSelected(item)"
-              [disabled]="_isDisabled()"
-              [id]="item.value + '-checkbox'"
-              [name]="item.value + '-checkbox'"
-              [ngClass]="componentClass()"
-              [tabIndex]="componentTabIndex()"
-              (blur)="onBlurHandler()"
-              #inputCheckbox
-              class="checkbox"
-              type="checkbox"
-            />
-            <label
-              *ngIf="componentLabel()"
-              class="form-check-label checkbox-label ms-3 w-100"
-            >
-              {{ translateValue() ? (item.label | transloco) : item.label }}
-            </label>
-          </li>
-        </ul>
+    <button
+      [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap.length"
+      [class.is-valid]="_ngControl()?.valid && (_ngControl()?.dirty || _ngControl()?.touched) && successMessage"
+      [disabled]="_isDisabled()"
+      [id]="componentId()"
+      [ngClass]="componentClass()"
+      [tabIndex]="componentTabIndex()"
+      (click)="changeOptionsVisibility(true)"
+      (mouseleave)="hideOptionVisibility()"
+      #input
+      class="form-select"
+      type="button"
+    >
+      <div class="content">
+        <ng-container *ngFor="let val of _selectedItems(); let last = last">
+          {{ getListText(val) }}{{ !last ? ', ' : '' }}
+        </ng-container>
       </div>
-    </ng-container>
-    <ng-container *ngIf="inputMode() === 'single'">
-      <select
-        [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap.length"
-        [class.is-valid]="_ngControl()?.valid && (_ngControl()?.dirty || _ngControl()?.touched) && successMessage"
-        [id]="componentId()"
-        [ngClass]="componentClass()"
-        [tabIndex]="componentTabIndex()"
-        (blur)="onBlurHandler()"
-        (input)="onChangedHandler(returnSelectedValue($event))"
-        #input
-        class="form-select"
-      >
-        <option
-          [value]="null"
-          *ngIf="nullOption()"
-        ></option>
-        <option
-          [selected]="item?.value === _value()"
-          [value]="item.value"
-          *ngFor="let item of inputArray()"
+    </button>
+
+    <div
+      (mouseenter)="showOptionVisibility()"
+      (mouseleave)="hideOptionVisibility()"
+      *ngIf="_showOptions()"
+      class="option-list"
+    >
+      <ul>
+        <li
+          [class.m-0]="last"
+          *ngFor="let item of inputArray(); let i = index; let last = last"
+          class="item"
         >
-          {{ translateValue() ? (item?.label | transloco) : item?.label }}
-        </option>
-      </select>
-    </ng-container>
+          <input
+            [checked]="getSelected(item)"
+            [disabled]="_isDisabled()"
+            [id]="item.value + '-checkbox'"
+            [name]="item.value + '-checkbox'"
+            [ngClass]="componentClass()"
+            [tabIndex]="componentTabIndex()"
+            (blur)="onBlurHandler()"
+            (click)="$event.stopPropagation(); onSelectItem(item)"
+            #inputCheckbox
+            class="form-check"
+            type="checkbox"
+          />
+          <label
+            [for]="item.value + '-checkbox'"
+            *ngIf="componentLabel()"
+            class="form-check-label checkbox-label ms-3 w-100"
+          >
+            {{ translateValue() ? (item.label | transloco) : item.label }}
+          </label>
+        </li>
+      </ul>
+    </div>
   </div>
   <div class="valid-feedback">
     {{ successMessage() | transloco }}

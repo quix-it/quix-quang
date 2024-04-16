@@ -34,7 +34,7 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
 
   _showOptions = signal<boolean>(false)
   _optionHideTimeout = signal<any | undefined>(undefined)
-  _list = signal<SelectOption[]>([])
+  _selectedItems = signal<SelectOption[]>([])
 
   constructor() {
     super()
@@ -62,45 +62,55 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
         () => {
           this._showOptions.set(false)
         },
-        skipTimeout ? 0 : 200
+        skipTimeout ? 0 : 50
       )
     )
   }
 
-  getListText(val: string | number): string {
-    const value = this._list().find((x) => x.value === val)
+  getListText(val: SelectOption): string {
+    const value = this._selectedItems().find((x) => x.value === val.value)
     if (value) {
       return value.label
     }
     return ''
   }
 
-  onSelectItem(itemCode?: string | number): void {
-    // if (itemCode !== null && itemCode !== undefined) {
-    //   if (this._value.find((x) => x === itemCode)) {
-    //     this._value = this._value?.filter((x) => x !== itemCode)
-    //   } else {
-    //     this._list()?.push(itemCode)
-    //   }
-    //   this.sortSelectedItems()
-    // }
+  onSelectItem(item: SelectOption): void {
+    if (item !== null && item !== undefined) {
+      if (this.inputMode() === 'single') {
+        this._value.set(item.value)
+        this._selectedItems.set([item])
+        this.hideOptionVisibility()
+      } else {
+        this._selectedItems.update((selectedItems) => {
+          if (this._selectedItems().some((x) => x.value === item.value)) {
+            return selectedItems.filter((x) => x.value !== item.value)
+          } else {
+            return [...selectedItems, item]
+          }
+        })
+        this._value.set(this._selectedItems().map((x) => x.value) as string[] | number[])
+        this.sortSelectedItems()
+      }
+      console.log(this._value())
+    }
   }
 
   sortSelectedItems(): void {
-    // if (this._value?.length > 1) {
-    //   const valueMap = new Map()
-    //   this._list().forEach((x, i) => {
-    //     valueMap.set(x.value, i)
-    //   })
-    //   this._list().sort((a, b) => {
-    //     return valueMap.get(a) - valueMap.get(b)
-    //   })
-    // }
-    // this._value.set(this._list()?.map((x) => x.value))
+    if (this._selectedItems()?.length > 1) {
+      if (this._selectedItems()[0].label === '') {
+        this._selectedItems().shift()
+      }
+      this._selectedItems.set(
+        this._selectedItems().sort((a, b) => {
+          return a.label.localeCompare(b.label)
+        })
+      )
+    }
   }
 
   getSelected(item: SelectOption): boolean {
-    return this._list().some((x) => x.value === item.value)
+    return this._selectedItems().some((x) => x.value === item.value)
   }
 
   returnSelectedValue(event: any): string | number {

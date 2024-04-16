@@ -12,6 +12,7 @@
     inputMode="single"
     successMessage="tutto bello!"
   ></quang-select>
+  {{ testForm().value | json }}
 </form>
 <button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
 <button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>

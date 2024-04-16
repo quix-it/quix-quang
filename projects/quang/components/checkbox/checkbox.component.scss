@@ -21,11 +21,17 @@
   justify-content: start;
   label {
     margin-left: 0.5rem;
+    margin-bottom: 0;
+    align-self: center;
   }
 }
 
 .label-left {
   flex-direction: row;
+  label {
+    margin-bottom: 0;
+    align-self: center;
+  }
 }
 
 .toggle-wrapper {

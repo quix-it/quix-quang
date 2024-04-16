@@ -11,6 +11,7 @@
     formControlName="testInput"
     successMessage="tutto bello!"
   ></quang-input>
+  {{ testForm().value | json }}
 </form>
 <button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
 <button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
