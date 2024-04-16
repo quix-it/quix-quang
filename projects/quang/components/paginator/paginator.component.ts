@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf } from '@angular/common'
-import { ChangeDetectorRef, Component, OnInit, input, signal } from '@angular/core'
+import { Component, OnInit, computed, input, output, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
@@ -12,46 +12,52 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss'
 })
-export class PaginatorComponent extends QuangBaseComponent<{ page: number; pageSize: number }> implements OnInit {
+export class QuangPaginatorComponent extends QuangBaseComponent<{ page: number; pageSize: number }> implements OnInit {
   page = input.required<number>()
   pageSize = input.required<number>()
   sizeList = input.required<number[]>()
-  totalItems = input<number>(0)
+  totalItems = input.required<number>()
   showTotalElementsCount = input<boolean>(true)
 
-  _currentPage = signal<number>(0)
+  _currentPage = signal<number>(1)
   _pageSize = signal<number>(0)
-  _totalPages = signal<number>(0)
+  _totalPages = computed(() => Math.ceil(this.totalItems() / this._pageSize()))
 
-  constructor(private readonly changeDetectorRef: ChangeDetectorRef) {
+  changePage = output<number>()
+  changeSize = output<number>()
+
+  constructor() {
     super()
   }
 
   ngOnInit(): void {
     this._currentPage.set(this.page())
     this._pageSize.set(this.pageSize())
-    this._totalPages.set(Math.ceil(this.totalItems() / this._pageSize()))
   }
 
   onChangeSize(event: any): void {
     this._pageSize.set(parseInt(event.target.value))
+    this.goToFirstPage()
+    this.changeSize.emit(this._pageSize())
   }
 
   goToNextPage(): void {
     this._currentPage.update((page) => page + 1)
+    this.changePage.emit(this._currentPage())
   }
 
   goToPreviousPage(): void {
     this._currentPage.update((page) => page - 1)
+    this.changePage.emit(this._currentPage())
   }
 
   goToFirstPage(): void {
     this._currentPage.set(1)
-    // this.changeDetectorRef.detectChanges()
+    this.changePage.emit(this._currentPage())
   }
 
   goToLastPage(): void {
     this._currentPage.set(this._totalPages())
-    // this.changeDetectorRef.detectChanges()
+    this.changePage.emit(this._currentPage())
   }
 }

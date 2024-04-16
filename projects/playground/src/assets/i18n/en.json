@@ -14,5 +14,10 @@
       "minLength": "This field must be at least {{requiredLength}} characters long",
       "maxLength": "This field must be at most {{requiredLength}} characters long"
     }
+  },
+  "quangPaginator": {
+    "totalItems": "Total Items",
+    "size": "Size",
+    "pageRange": "{{page}} of {{amountPages}}"
   }
 }

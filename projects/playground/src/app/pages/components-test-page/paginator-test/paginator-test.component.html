@@ -1,0 +1,12 @@
+<h3>paginator</h3>
+<form [formGroup]="testForm()">
+  <quang-paginator
+    [page]="testForm().controls.page.value"
+    [pageSize]="testForm().controls.pageSize.value"
+    [sizeList]="sizeList"
+    [totalItems]="30"
+    (changePage)="onChangePage($event)"
+    (changeSize)="onChangePageSize($event)"
+  ></quang-paginator>
+</form>
+{{ testForm().value | json }}

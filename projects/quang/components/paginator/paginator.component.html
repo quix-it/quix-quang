@@ -41,6 +41,7 @@
     <ul>
       <li>
         <button
+          [disabled]="_currentPage() <= 1"
           (click)="goToFirstPage()"
           class="page-link"
           type="button"
@@ -57,6 +58,7 @@
       </li>
       <li>
         <button
+          [disabled]="_currentPage() <= 1"
           (click)="goToPreviousPage()"
           class="page-link"
           type="button"
@@ -73,6 +75,7 @@
       </li>
       <li>
         <button
+          [disabled]="_currentPage() >= _totalPages()"
           (click)="goToNextPage()"
           class="page-link"
           type="button"
@@ -89,6 +92,7 @@
       </li>
       <li>
         <button
+          [disabled]="_currentPage() >= _totalPages()"
           (click)="goToLastPage()"
           class="page-link"
           type="button"
