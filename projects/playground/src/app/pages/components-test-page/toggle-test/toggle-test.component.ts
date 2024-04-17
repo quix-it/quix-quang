@@ -1,5 +1,5 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
-import { Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -11,7 +11,8 @@ import { QuangCheckboxComponent } from '@quix/quang/components/checkbox/checkbox
   standalone: true,
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangCheckboxComponent, NgIf, NgForOf, TranslocoPipe],
   templateUrl: './toggle-test.component.html',
-  styleUrl: './toggle-test.component.scss'
+  styleUrl: './toggle-test.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleTestComponent {
   isReadonly = signal<boolean>(false)

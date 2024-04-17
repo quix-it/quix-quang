@@ -3,7 +3,7 @@ import { Component, OnInit, computed, input, output, signal } from '@angular/cor
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { QuangBaseComponent } from '@quix/quang/components/shared'
+import { baseRandomId } from '../shared'
 
 @Component({
   selector: 'quang-paginator',
@@ -12,7 +12,10 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss'
 })
-export class QuangPaginatorComponent extends QuangBaseComponent<{ page: number; pageSize: number }> implements OnInit {
+export class QuangPaginatorComponent implements OnInit {
+  componentId = input<string>(baseRandomId)
+  componentTabIndex = input<number>(0)
+  componentClass = input<string | string[]>('')
   page = input.required<number>()
   pageSize = input.required<number>()
   sizeList = input.required<number[]>()
@@ -25,10 +28,6 @@ export class QuangPaginatorComponent extends QuangBaseComponent<{ page: number; 
 
   changePage = output<number>()
   changeSize = output<number>()
-
-  constructor() {
-    super()
-  }
 
   ngOnInit(): void {
     this._currentPage.set(this.page())

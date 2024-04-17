@@ -5,20 +5,20 @@
 >
   <quang-select
     [errorMap]="errors()"
-    [inputArray]="stringList"
     [isReadonly]="isReadonly()"
+    [selectOptions]="stringList"
     componentLabel="form.label.input"
     formControlName="testInput"
-    inputMode="single"
+    selectionMode="single"
     successMessage="tutto bello!"
   ></quang-select>
   <quang-select
     [errorMap]="errors()"
-    [inputArray]="numberList"
     [isReadonly]="isReadonly()"
+    [selectOptions]="numberList"
     componentLabel="form.label.input"
     formControlName="testInputMultiple"
-    inputMode="multiple"
+    selectionMode="multiple"
     successMessage="tutto bello!"
   ></quang-select>
   {{ testForm().value | json }}

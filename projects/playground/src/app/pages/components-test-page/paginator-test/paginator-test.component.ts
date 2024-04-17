@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common'
-import { Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 import { QuangPaginatorComponent } from '@quix/quang/components/paginator'
@@ -9,7 +9,8 @@ import { QuangPaginatorComponent } from '@quix/quang/components/paginator'
   standalone: true,
   imports: [QuangPaginatorComponent, FormsModule, ReactiveFormsModule, JsonPipe],
   templateUrl: './paginator-test.component.html',
-  styleUrl: './paginator-test.component.scss'
+  styleUrl: './paginator-test.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorTestComponent {
   formBuilder = signal(inject(NonNullableFormBuilder))

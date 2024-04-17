@@ -1,5 +1,5 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
-import { Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -11,7 +11,8 @@ import { QuangSelectComponent, SelectOption } from '@quix/quang/components/selec
   standalone: true,
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, NgForOf, TranslocoPipe, QuangSelectComponent],
   templateUrl: './select-test.component.html',
-  styleUrl: './select-test.component.scss'
+  styleUrl: './select-test.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectTestComponent {
   isReadonly = signal<boolean>(false)
@@ -170,7 +171,8 @@ export class SelectTestComponent {
 
   setFormValues() {
     this.testForm().patchValue({
-      testInput: 'ciao!'
+      testInput: 'min',
+      testInputMultiple: [3, 4]
     })
   }
 

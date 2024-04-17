@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, OnInit, forwardRef, input, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, effect, forwardRef, input, signal } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -26,25 +26,56 @@ export interface SelectOption {
   imports: [TranslocoPipe, NgIf, NgFor, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangSelectComponent
-  extends QuangBaseComponent<string | number | string[] | number[] | null>
-  implements OnInit
-{
-  inputMode = input<'single' | 'multiple'>('single')
-  inputArray = input.required<SelectOption[]>()
+export class QuangSelectComponent extends QuangBaseComponent<string | number | string[] | number[] | null> {
+  selectionMode = input<'single' | 'multiple'>('single')
+  /**
+   * Set the mode to make the selection list disappear
+   * Default: 'leave'
+   * @default 'leave'
+   */
+  hideMode = input<'leave' | 'click'>('leave')
+  selectOptions = input.required<SelectOption[]>()
+  /**
+   * Set the max height of the selection list before scrolling.
+   * Default: 18rem
+   * @default 18rem
+   */
+  selectionMaxHeight = input<string>('')
+
+  _selectOptions = signal<SelectOption[]>([])
+
   translateValue = input<boolean>(true)
   nullOption = input<boolean>(true)
+  _inputArrayChange = effect(
+    () => {
+      if (this.nullOption() && !this.selectOptions().find((x) => x.value === null)) {
+        const nullValue: SelectOption[] = [{ label: '', value: null }]
+        this._selectOptions.set(nullValue.concat(this.selectOptions()))
+      } else if (!this.nullOption() && this.selectOptions().find((x) => x.value === null)) {
+        this._selectOptions.set(this.selectOptions())
+      }
+    },
+    {
+      allowSignalWrites: true
+    }
+  )
 
   _showOptions = signal<boolean>(false)
   _optionHideTimeout = signal<any | undefined>(undefined)
-  _selectedItems = signal<SelectOption[]>([])
+
+  _selectedItems = computed(() => {
+    const targetValue = this._value()
+    return this.selectOptions().filter((x) => {
+      if (Array.isArray(targetValue)) {
+        return targetValue.some((k) => k === x.value)
+      } else {
+        return targetValue === x.value
+      }
+    })
+  })
 
   constructor() {
     super()
-  }
-
-  ngOnInit(): void {
-    if (this.nullOption()) this.inputArray().unshift({ label: '', value: null })
   }
 
   changeOptionsVisibility(skipTimeout = false): void {
@@ -64,6 +95,9 @@ export class QuangSelectComponent
   }
 
   hideOptionVisibility(skipTimeout = false): void {
+    if (this._optionHideTimeout()) {
+      clearTimeout(this._optionHideTimeout())
+    }
     this._optionHideTimeout.set(
       setTimeout(
         () => {
@@ -74,59 +108,28 @@ export class QuangSelectComponent
     )
   }
 
-  getListText(val: SelectOption): string {
-    const value = this._selectedItems().find((x) => x.value === val.value)
-    if (value) {
-      return value.label
-    }
-    return ''
-  }
-
-  test(input: any): void {
-    console.log(input)
-  }
-
-  onSelectItem(item: SelectOption): void {
-    if (item !== null && item !== undefined) {
-      if (this.inputMode() === 'single') {
-        this._value.set(item.value)
-        this._selectedItems.set([item])
-        this.hideOptionVisibility()
-      } else {
-        if (item !== null) {
-          this._selectedItems.update((selectedItems) => {
-            if (this._selectedItems().some((x) => x.value === item.value)) {
-              return selectedItems.filter((x) => x.value !== item.value)
-            } else {
-              return [...selectedItems, item]
-            }
-          })
+  onSelectItem(item: SelectOption | null): void {
+    if (this.selectionMode() === 'single') {
+      this.onChangedHandler(item?.value ?? null)
+      // this._selectedItems.set([item])
+      this.hideOptionVisibility()
+    } else {
+      let values: string[] | number[] | null = this._value() as string[] | number[] | null
+      if (values) {
+        if (values.some((x) => x === item?.value)) {
+          this.onChangedHandler(values.filter((x) => x !== item?.value) as string[] | number[])
+        } else if (item) {
+          this.onChangedHandler([...values, item.value] as string[] | number[])
+        } else {
+          this.onChangedHandler([...values] as string[] | number[])
         }
-        this._value.set(this._selectedItems().map((x) => x.value) as string[] | number[])
-        this.sortSelectedItems()
+      } else {
+        this.onChangedHandler(null)
       }
-      this.onChangedHandler(this._value())
-    }
-  }
-
-  sortSelectedItems(): void {
-    if (this._selectedItems()?.length > 1) {
-      if (this._selectedItems()[0].label === '') {
-        this._selectedItems().shift()
-      }
-      this._selectedItems.set(
-        this._selectedItems().sort((a, b) => {
-          return a.label.localeCompare(b.label)
-        })
-      )
     }
   }
 
   getSelected(item: SelectOption): boolean {
     return this._selectedItems().some((x) => x.value === item.value)
-  }
-
-  returnSelectedValue(event: any): string | number {
-    return event?.target?.value ?? (typeof this.inputArray()[0].value === 'string' ? '' : 0)
   }
 }

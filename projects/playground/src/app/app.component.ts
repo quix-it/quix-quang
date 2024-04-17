@@ -3,16 +3,15 @@ import { HttpClient } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 
+import { TranslocoPipe } from '@ngneat/transloco'
 import { delay } from 'rxjs'
 
-import { QuangLoaderComponent } from '@quix/quang/components/loader/loader.component'
-import { QuangModalComponent } from '@quix/quang/components/modal'
-import { QuangTranslationModule, QuangTranslationService } from '@quix/quang/translation'
+import { QuangTranslationService } from '@quix/quang/translation'
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, QuangTranslationModule, QuangLoaderComponent, QuangModalComponent, NgIf],
+  imports: [RouterOutlet, NgIf, TranslocoPipe],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -39,6 +38,7 @@ export class AppComponent {
         console.log('call', x)
       })
   }
+
   // }
 
   openModal(): void {

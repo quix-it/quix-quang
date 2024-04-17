@@ -15,7 +15,7 @@ import { QuangLoaderService } from './loader.service'
 })
 export class QuangLoaderComponent {
   disableDelay = input<number>(500)
-  minimunDelay = input<number>(200)
+  minimumDelay = input<number>(200)
 
   _loadingCount = signal<number>(0)
   _showLoader = computed(() => {

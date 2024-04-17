@@ -9,8 +9,8 @@
   </label>
   <div class="option-list-container">
     <button
-      [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap.length"
-      [class.is-valid]="_ngControl()?.valid && (_ngControl()?.dirty || _ngControl()?.touched) && successMessage"
+      [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap().length"
+      [class.is-valid]="_ngControl()?.valid && (_ngControl()?.dirty || _ngControl()?.touched) && successMessage()"
       [disabled]="_isDisabled()"
       [id]="componentId()"
       [ngClass]="componentClass()"
@@ -23,21 +23,20 @@
     >
       <div class="content">
         <ng-container *ngFor="let val of _selectedItems(); let last = last">
-          {{ getListText(val) }}{{ !last ? ', ' : '' }}
+          {{ val.label }}{{ !last ? ', ' : '' }}
         </ng-container>
       </div>
     </button>
 
     <div
       (mouseenter)="showOptionVisibility()"
-      (mouseleave)="hideOptionVisibility()"
       *ngIf="_showOptions()"
       class="option-list"
     >
       <ul>
         <li
           [class.m-0]="last"
-          *ngFor="let item of inputArray(); let i = index; let last = last"
+          *ngFor="let item of selectOptions(); let i = index; let last = last"
           class="item"
         >
           <input
@@ -49,7 +48,6 @@
             [tabIndex]="componentTabIndex()"
             (blur)="onBlurHandler()"
             (input)="onSelectItem(item)"
-            (selectionchange)="test(item)"
             #inputCheckbox
             class="form-check"
             type="checkbox"

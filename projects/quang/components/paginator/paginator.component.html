@@ -23,6 +23,7 @@
       #input
       autocomplete="off"
       class="form-select page-size"
+      id="pageSize"
       name="pageSize"
     >
       <!-- [ngValue]="pageSize()" -->
@@ -110,21 +111,21 @@
     </ul>
   </div>
   <!-- <pagination
-    [boundaryLinks]="true"
-    [customFirstTemplate]="firstTemplate"
-    [customLastTemplate]="lastTemplate"
-    [customNextTemplate]="nextTemplate"
-    [customPreviousTemplate]="prevTemplate"
-    [id]="id + '-quang-paginator'"
-    [itemsPerPage]="_pageSize"
-    [ngModel]="page"
-    [tabIndex]="isAccessible ? 0 : tabIndex + 1"
-    [totalItems]="totalItems"
-    (numPages)="getNumPages($event)"
-    (pageChanged)="onChangePage($event)"
-    #quangPagination
-    class="quang-paginator"
-  ></pagination> -->
+      [boundaryLinks]="true"
+      [customFirstTemplate]="firstTemplate"
+      [customLastTemplate]="lastTemplate"
+      [customNextTemplate]="nextTemplate"
+      [customPreviousTemplate]="prevTemplate"
+      [id]="id + '-quang-paginator'"
+      [itemsPerPage]="_pageSize"
+      [ngModel]="page"
+      [tabIndex]="isAccessible ? 0 : tabIndex + 1"
+      [totalItems]="totalItems"
+      (numPages)="getNumPages($event)"
+      (pageChanged)="onChangePage($event)"
+      #quangPagination
+      class="quang-paginator"
+    ></pagination> -->
 </div>
 
 <ng-template

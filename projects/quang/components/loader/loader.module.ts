@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ModuleWithProviders, NgModule } from '@angular/core'
 
-import { QuangLoaderComponent, QuangLoaderInterceptor, QuangLoaderService } from '@quix/quang/components/loader'
+import { QuangLoaderInterceptor, QuangLoaderService } from '@quix/quang/components/loader'
 
 let forRootInstances = 0
 
