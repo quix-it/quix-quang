@@ -22,6 +22,7 @@ export class AppComponent {
 
   quangTranslationService = signal(inject(QuangTranslationService))
   showModal = signal(false)
+  content = signal('content')
 
   constructor(private http: HttpClient) {}
 
@@ -48,5 +49,9 @@ export class AppComponent {
     setTimeout(() => {
       this.showModal.set(false)
     }, 400)
+  }
+
+  btnAction(): void {
+    this.content.update((content) => content + '!!!')
   }
 }

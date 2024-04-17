@@ -38,7 +38,7 @@ export class InputTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('no pirrone!', [
+      testInput: this.formBuilder().control<string>('sì pirrone!', [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(30)
@@ -72,7 +72,7 @@ export class InputTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('no pirrone rigenerato!', [
+        testInput: this.formBuilder().control<string>('sì pirrone rigenerato!', [
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(30)
