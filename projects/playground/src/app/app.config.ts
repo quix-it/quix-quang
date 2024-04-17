@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([loaderInterceptor])),
+    provideHttpClient(), // TODO httpinterceptor
     importProvidersFrom([
       QuangTranslationModule.forRoot({
         availableLangs: ['it', 'en'],

@@ -18,12 +18,12 @@ export class QuangLoaderModule {
     return {
       ngModule: QuangLoaderModule,
       providers: [
-        QuangLoaderService
-        // {
-        //   provide: HTTP_INTERCEPTORS,
-        //   useClass: QuangLoaderInterceptor,
-        //   multi: true
-        // }
+        QuangLoaderService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: QuangLoaderInterceptor,
+          multi: true
+        }
       ]
     }
   }
