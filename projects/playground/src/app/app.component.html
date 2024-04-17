@@ -3,5 +3,36 @@
 <button (click)="changeLanguage('it')">IT LANG</button>
 <button (click)="changeLanguage('en')">EN LANG</button>
 <button (click)="showLoader()">LOADER</button>
+<button (click)="openModal()">MODAL</button>
 <quang-loader></quang-loader>
+<quang-modal
+  (backdropClick)="closeModal()"
+  *ngIf="showModal()"
+  animation="right"
+  position="right"
+>
+  <ng-container header>
+    <h2>{{ title() | transloco }}</h2>
+    <button
+      (click)="closeModal()"
+      type="button"
+    >
+      X
+    </button>
+  </ng-container>
+  <ng-container body>
+    <h3>content</h3>
+  </ng-container>
+  <ng-container footer>
+    <div>
+      <button
+        (click)="closeModal()"
+        type="button"
+      >
+        CLOSE
+      </button>
+      <button type="button">ACTION</button>
+    </div>
+  </ng-container>
+</quang-modal>
 <router-outlet />

@@ -2,7 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations'
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay'
 import { CdkPortal, PortalModule } from '@angular/cdk/portal'
 import { NgStyle } from '@angular/common'
-import { AfterViewInit, Component, OnDestroy, ViewChild, input, output } from '@angular/core'
+import { AfterViewInit, Component, OnDestroy, ViewChild, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 @Component({
@@ -25,6 +25,8 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
   animation = input.required<'right' | 'left' | 'center' | 'top' | 'bottom'>()
   height = input<string>('100vh')
   width = input<string>('700vw')
+
+  _takeUntilDestroyed = signal(takeUntilDestroyed())
 
   private overlayConfig?: OverlayConfig
   private overlayRef: any
@@ -51,7 +53,7 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
     this.overlayRef = this.overlay.create(this.overlayConfig)
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntilDestroyed())
+      .pipe(this._takeUntilDestroyed())
       .subscribe(() => {
         this.backdropClick.emit()
       })
