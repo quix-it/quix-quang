@@ -41,6 +41,7 @@
         >
           <input
             [checked]="getSelected(item)"
+            [class.d-none]="selectionMode() === 'single'"
             [disabled]="_isDisabled()"
             [id]="item.value + '-checkbox'"
             [name]="item.value + '-checkbox'"
@@ -53,9 +54,10 @@
             type="checkbox"
           />
           <label
+            [class.ms-3]="selectionMode() === 'multiple'"
             [for]="item.value + '-checkbox'"
             *ngIf="componentLabel()"
-            class="form-check-label checkbox-label ms-3 w-100"
+            class="form-check-label checkbox-label w-100"
           >
             {{ translateValue() ? (item.label | transloco) : item.label }}
           </label>
