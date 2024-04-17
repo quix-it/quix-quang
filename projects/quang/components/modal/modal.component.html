@@ -1,0 +1,19 @@
+<ng-template cdkPortal>
+  <div
+    [ngStyle]="{
+      '--sdc-modal-panel-width': width,
+      '--sdc-modal-panel-height': height
+    }"
+    class="dialog"
+  >
+    <div class="dialog__header">
+      <ng-content select="[header]"></ng-content>
+    </div>
+    <div class="dialog__body">
+      <ng-content select="[body]"></ng-content>
+    </div>
+    <div class="dialog__footer">
+      <ng-content select="[footer]"></ng-content>
+    </div>
+  </div>
+</ng-template>

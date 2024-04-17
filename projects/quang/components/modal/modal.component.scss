@@ -1,0 +1,25 @@
+.dialog {
+  background-color: var(--bs-body-bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: var(--sdc-modal-panel-width);
+  height: var(--sdc-modal-panel-height);
+  padding: 0 1rem;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__body {
+    flex: 1;
+    overflow: auto;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
