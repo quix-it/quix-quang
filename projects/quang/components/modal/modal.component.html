@@ -4,9 +4,11 @@
       '--sdc-modal-panel-width': width(),
       '--sdc-modal-panel-height': height()
     }"
+    [@slideInOut]
     class="dialog"
   >
     <div class="dialog__header">
+      {{ isOpen() }}
       <ng-content select="[header]"></ng-content>
     </div>
     <div class="dialog__body">

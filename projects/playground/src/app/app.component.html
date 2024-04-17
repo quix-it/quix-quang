@@ -5,41 +5,41 @@
 <button (click)="showLoader()">LOADER</button>
 <button (click)="openModal()">MODAL</button>
 <!--<quang-loader></quang-loader>-->
-<!--<quang-modal
-        (backdropClick)="closeModal()"
-        *ngIf="showModal()"
-        animation="right"
-        position="right"
+<quang-modal
+  (backdropClick)="closeModal()"
+  *ngIf="showModal()"
+  animation="top"
+  position="right"
 >
-    <ng-container header>
-        <div class="d-flex justify-content-between mt-2">
-            <h2>{{ title() | transloco }}</h2>
-            <button
-                    (click)="closeModal()"
-                    type="button"
-            >
-                X
-            </button>
-        </div>
-    </ng-container>
-    <ng-container body>
-        <h3>{{ content() }}</h3>
-    </ng-container>
-    <ng-container footer>
-        <div class="mb-3">
-            <button
-                    (click)="closeModal()"
-                    type="button"
-            >
-                CLOSE
-            </button>
-            <button
-                    (click)="btnAction()"
-                    type="button"
-            >
-                ACTION
-            </button>
-        </div>
-    </ng-container>
-</quang-modal>-->
+  <ng-container header>
+    <div class="d-flex justify-content-between mt-2">
+      <h2>{{ title() | transloco }}</h2>
+      <button
+        (click)="closeModal()"
+        type="button"
+      >
+        X
+      </button>
+    </div>
+  </ng-container>
+  <ng-container body>
+    <h3>{{ content() }}</h3>
+  </ng-container>
+  <ng-container footer>
+    <div class="mb-3">
+      <button
+        (click)="closeModal()"
+        type="button"
+      >
+        CLOSE
+      </button>
+      <button
+        (click)="btnAction()"
+        type="button"
+      >
+        ACTION
+      </button>
+    </div>
+  </ng-container>
+</quang-modal>
 <router-outlet />
