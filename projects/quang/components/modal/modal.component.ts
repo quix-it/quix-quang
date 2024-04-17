@@ -24,8 +24,6 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
   height = input<string>('100vh')
   width = input<string>('70vw')
 
-  isOpen = signal<boolean>(true)
-
   _takeUntilDestroyed = signal(takeUntilDestroyed())
 
   private overlayConfig?: OverlayConfig
@@ -55,10 +53,7 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
       .backdropClick()
       .pipe(this._takeUntilDestroyed())
       .subscribe(() => {
-        this.isOpen.set(false)
-        setTimeout(() => {
-          this.backdropClick.emit()
-        }, 200)
+        this.backdropClick.emit()
       })
     this.overlayRef?.attach(this.portal)
     // this.animationState = 'visible'
