@@ -1,11 +1,60 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
-import { Inject, Injectable, Optional } from '@angular/core'
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpHandlerFn,
+  HttpInterceptor,
+  HttpInterceptorFn,
+  HttpRequest
+} from '@angular/common/http'
+import { Inject, Injectable, Optional, inject } from '@angular/core'
 
 import { Observable, finalize } from 'rxjs'
 
 import { QuangLoaderService } from './loader.service'
 
 import { EXCLUDED_URL, METHOD_TYPE, UrlData, isMethodType } from './loader-config'
+
+export const excludedUrlByMethod = new Map<METHOD_TYPE, Set<string>>([
+  ['GET', new Set()],
+  ['PUT', new Set()],
+  ['DELETE', new Set()],
+  ['POST', new Set()],
+  ['PATCH', new Set()]
+])
+
+export const loaderInterceptor: HttpInterceptorFn = (
+  request: HttpRequest<any>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<any>> => {
+  console.log('request', request)
+  const loaderService = inject(QuangLoaderService)
+
+  if (!isMethodType(request.method)) {
+    return next(request)
+  }
+
+  if (
+    Array.from(excludedUrlByMethod.get(request.method) ?? []).some((urlData) =>
+      request.url.match(urlData.replace(/\//g, '\\/'))
+    )
+  ) {
+    return next(request)
+  }
+
+  loaderService.show()
+
+  return next(request).pipe(
+    finalize(() => {
+      loaderService.hide()
+    })
+  )
+}
+
+export function addExcludedUrls(urlData: UrlData[]) {
+  for (const url of urlData) {
+    excludedUrlByMethod.get(url.method ?? 'GET')?.add(url.url)
+  }
+}
 
 @Injectable()
 export class QuangLoaderInterceptor implements HttpInterceptor {

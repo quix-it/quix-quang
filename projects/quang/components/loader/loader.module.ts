@@ -6,10 +6,7 @@ import { QuangLoaderService } from './loader.service'
 
 let forRootInstances = 0
 
-@NgModule({
-  exports: [],
-  imports: []
-})
+@NgModule({})
 export class QuangLoaderModule {
   static forRoot(): ModuleWithProviders<QuangLoaderModule> {
     forRootInstances++
@@ -21,12 +18,12 @@ export class QuangLoaderModule {
     return {
       ngModule: QuangLoaderModule,
       providers: [
-        QuangLoaderService,
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: QuangLoaderInterceptor,
-          multi: true
-        }
+        QuangLoaderService
+        // {
+        //   provide: HTTP_INTERCEPTORS,
+        //   useClass: QuangLoaderInterceptor,
+        //   multi: true
+        // }
       ]
     }
   }
