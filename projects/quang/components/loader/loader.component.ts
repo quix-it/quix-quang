@@ -54,15 +54,15 @@ export class QuangLoaderComponent {
   // })
 
   onLoading(): void {
-    toObservable(this.loaderService._isLoading)
+    toObservable(this.loaderService.isLoading)
       .pipe(this._takeUntilDestroyed(), skip(1))
       .subscribe((isLoading) => {
         console.log(isLoading, this._showLoader(), this._loadingCount())
-        if (isLoading) {
+        /*if (isLoading) {
           this._loadingCount.update((count) => count + 1)
         } else {
           this._loadingCount.update((count) => count - 1)
-        }
+        }*/
       })
 
     // this.loaderService._isLoading
