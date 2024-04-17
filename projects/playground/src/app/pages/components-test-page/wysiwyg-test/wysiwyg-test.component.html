@@ -1,0 +1,20 @@
+<h3>{{ 'title.components.wysiwyg' | transloco }}</h3>
+<form
+  [formGroup]="testForm()"
+  *ngIf="showInput()"
+>
+  <quang-wysiwyg
+    [errorMap]="errors()"
+    [isReadonly]="isReadonly()"
+    componentLabel="form.label.input"
+    formControlName="testInput"
+    successMessage="tutto bello!"
+  ></quang-wysiwyg>
+</form>
+<button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
+<button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
+<button (click)="changeVisibility()">change visibility</button>
+<button (click)="recreateForm()">recreate form</button>
+<button (click)="setFormValues()">set form</button>
+<button (click)="checkCurrentFormValueAndValidity()">check current form value and validity</button>
+<button (click)="setReadonly()">current readonly: {{ isReadonly() }}</button>
