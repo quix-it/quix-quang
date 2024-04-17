@@ -25,6 +25,7 @@ export class QuangLoaderInterceptor implements HttpInterceptor {
   ) {
     this.addExcludedUrls(defaultExcludedUrls ?? [])
   }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('request', request)
     if (!isMethodType(request.method)) {

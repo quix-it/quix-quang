@@ -4,13 +4,13 @@ import { Injectable, signal } from '@angular/core'
   providedIn: 'root'
 })
 export class QuangLoaderService {
-  public _isLoading = signal<boolean>(false)
+  public isLoading = signal<boolean>(false)
 
   show(): void {
-    this._isLoading.set(true)
+    this.isLoading.set(true)
   }
 
   hide(): void {
-    this._isLoading.set(false)
+    this.isLoading.set(false)
   }
 }

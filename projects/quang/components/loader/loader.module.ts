@@ -1,11 +1,15 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ModuleWithProviders, NgModule } from '@angular/core'
 
-import { QuangLoaderInterceptor, QuangLoaderService } from '@quix/quang/components/loader'
+import { QuangLoaderInterceptor } from './loader-interceptor.service'
+import { QuangLoaderService } from './loader.service'
 
 let forRootInstances = 0
 
-@NgModule({})
+@NgModule({
+  exports: [],
+  imports: []
+})
 export class QuangLoaderModule {
   static forRoot(): ModuleWithProviders<QuangLoaderModule> {
     forRootInstances++

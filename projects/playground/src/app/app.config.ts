@@ -10,12 +10,13 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
-    importProvidersFrom(
+    importProvidersFrom([
       QuangTranslationModule.forRoot({
         availableLangs: ['it', 'en'],
         defaultLang: 'it',
         fallbackLang: 'it'
       })
-    )
+      // QuangLoaderModule.forRoot()
+    ])
   ]
 }
