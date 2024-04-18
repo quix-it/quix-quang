@@ -18,12 +18,11 @@
       [readOnly]="isReadonly()"
       [tabIndex]="componentTabIndex()"
       [value]="_value()"
-      (blur)="onBlurHandler()"
-      (input)="onChangedEventHandler($event)"
       #inputForWysiwyg
       class="form-control"
     ></textarea>
   </div>
+  {{ getText | json }}
   <div class="valid-feedback">
     {{ successMessage() | transloco }}
   </div>

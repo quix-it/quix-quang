@@ -87,7 +87,6 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   onChangedHandler(value: T) {
     this._value.set(value)
-
     if (this.onChange) {
       this.onChange(value)
     }

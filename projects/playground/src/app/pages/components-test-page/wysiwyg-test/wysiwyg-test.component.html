@@ -11,7 +11,7 @@
     successMessage="tutto bello!"
   ></quang-wysiwyg>
 </form>
-<pre>{{ testForm().value | json }}</pre>
+<pre>{{ testForm().controls.testInput.value }}</pre>
 <button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
 <button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
 <button (click)="changeVisibility()">change visibility</button>

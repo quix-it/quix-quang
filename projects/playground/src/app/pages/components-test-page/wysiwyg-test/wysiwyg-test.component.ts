@@ -36,11 +36,7 @@ export class WysiwygTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('no pirrone!', [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(30)
-      ])
+      testInput: this.formBuilder().control<string>('sì pirrone!', [Validators.required])
     })
   )
   showInput = signal(true)
@@ -70,19 +66,13 @@ export class WysiwygTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('no pirrone rigenerato!', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(30)
-        ])
+        testInput: this.formBuilder().control<string>('sì pirrone rigenerato!', [Validators.required])
       })
     )
   }
 
   setFormValues() {
-    this.testForm().patchValue({
-      testInput: 'ciao!'
-    })
+    this.testForm().controls.testInput.patchValue('ciao!')
   }
 
   checkCurrentFormValueAndValidity() {
@@ -92,5 +82,11 @@ export class WysiwygTestComponent {
 
   setReadonly() {
     this.isReadonly.set(!this.isReadonly())
+  }
+
+  constructor() {
+    this.testForm().controls.testInput.valueChanges.subscribe((res) => {
+      console.log(res)
+    })
   }
 }
