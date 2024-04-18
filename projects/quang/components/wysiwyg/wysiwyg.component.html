@@ -22,7 +22,7 @@
       class="form-control"
     ></textarea>
   </div>
-  {{ getText | json }}
+  {{ _value() | json }}
   <div class="valid-feedback">
     {{ successMessage() | transloco }}
   </div>

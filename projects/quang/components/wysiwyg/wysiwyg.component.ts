@@ -128,28 +128,13 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     minHeight: '200px'
   }
   editor?: SunEditor
-  test = computed(() => {
-    return this._value()
-  })
-
-  get getText(): string {
-    return this.editor?.getText() ?? ''
-  }
 
   constructor() {
     super()
-    toObservable(this.test)
-      .pipe(this._takeUntilDestroyed())
-      .subscribe((res) => {
-        // console.log(res)
-        if (this.editor && typeof res === 'string') {
-          // this.editor.setContents(res)
-        }
-      })
   }
 
   override ngAfterViewInit(): void {
-    this.editor = sunEditor.create(this._inputForWysiwyg()?.nativeElement!, this.sunEditorOptions)
+    this.editor = sunEditor.create(this._inputForWysiwyg()?.nativeElement, this.sunEditorOptions)
     this.registerEvents()
     this.setupFormControl()
   }
