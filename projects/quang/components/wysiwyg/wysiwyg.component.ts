@@ -4,13 +4,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  computed,
-  effect,
   forwardRef,
   signal,
   viewChild
 } from '@angular/core'
-import { toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -156,7 +153,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
   }
 
   override writeValue(val: string): void {
-    this._value.set(val)
+    super.writeValue(val)
     if (this.editor) {
       this.editor.setContents(val)
     }
