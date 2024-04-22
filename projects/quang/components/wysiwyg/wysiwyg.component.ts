@@ -2,9 +2,12 @@ import { JsonPipe, NgClass, NgIf } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
+  effect,
   forwardRef,
+  inject,
   signal,
   viewChild
 } from '@angular/core'
@@ -37,125 +40,76 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
 export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit {
   _inputForWysiwyg = viewChild<ElementRef>('inputForWysiwyg')
   _sunEditorWysiwygInstance = signal<SunEditor | undefined>(undefined)
+  changeDetectorRef = signal(inject(ChangeDetectorRef))
 
   /**
    * the actual date wysiwyg is based on {@link https://github.com/JiHong88/SunEditor}
    */
-  // _generateSunEditorWysiwygEffect = effect(async () => {
-  //   if (this._inputForWysiwyg()?.nativeElement) {
-  //     const sunEditorOptions: SunEditorOptions = {
-  //       plugins: plugins,
-  //       buttonList: [
-  //         [
-  //           'font',
-  //           'fontSize',
-  //           'formatBlock',
-  //           'paragraphStyle',
-  //           'blockquote',
-  //           'bold',
-  //           'underline',
-  //           'italic',
-  //           'strike',
-  //           'fontColor',
-  //           'hiliteColor',
-  //           'textStyle',
-  //           'removeFormat',
-  //           'align',
-  //           'list',
-  //           'table',
-  //           'link',
-  //           'image',
-  //           'fullScreen',
-  //           'showBlocks',
-  //           'codeView'
-  //         ]
-  //         // /*['undo', 'redo'],*/
-  //         // ['font', 'fontSize', 'formatBlock'],
-  //         // ['paragraphStyle', 'blockquote'],
-  //         // ['bold', 'underline', 'italic', 'strike' /*'subscript', 'superscript'*/],
-  //         // ['fontColor', 'hiliteColor', 'textStyle'],
-  //         // ['removeFormat'], // Line break
-  //         // /*['outdent', 'indent'],*/
-  //         // ['align', /*'horizontalRule',*/ 'list' /*'lineHeight'*/],
-  //         // ['table', 'link', 'image' /* 'video', 'audio' */ /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
-  //         // /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
-  //         // ['fullScreen', 'showBlocks', 'codeView']
-  //         // // ['preview', 'print']
-  //         // /** ['dir', 'dir_ltr', 'dir_rtl'] */ // "dir": Toggle text direction, "dir_ltr": Right to Left, "dir_rtl": Left to Right
-  //       ],
-  //       minHeight: '200px'
-  //     }
+  _generateSunEditorWysiwygEffect = effect(
+    async () => {
+      if (this._inputForWysiwyg()?.nativeElement) {
+        const sunEditorOptions: SunEditorOptions = {
+          plugins: plugins,
+          buttonList: [
+            [
+              'font',
+              'fontSize',
+              'formatBlock',
+              'paragraphStyle',
+              'blockquote',
+              'bold',
+              'underline',
+              'italic',
+              'strike',
+              'fontColor',
+              'hiliteColor',
+              'textStyle',
+              'removeFormat',
+              'align',
+              'list',
+              'table',
+              'link',
+              'image',
+              'fullScreen',
+              'showBlocks'
+            ]
+          ],
+          minHeight: '200px'
+        }
 
-  //     if (this._sunEditorWysiwygInstance()) {
-  //       this._sunEditorWysiwygInstance()?.setOptions(sunEditorOptions)
-  //     }
-  //     // } else {
+        if (this._sunEditorWysiwygInstance()) {
+          this._sunEditorWysiwygInstance()?.setOptions(sunEditorOptions)
+        } else {
+          this._sunEditorWysiwygInstance.set(sunEditor.create(this._inputForWysiwyg()?.nativeElement, sunEditorOptions))
+        }
 
-  //     // }
-  //   }
-  // })
-
-  sunEditorOptions: SunEditorOptions = {
-    plugins: plugins,
-    buttonList: [
-      [
-        'font',
-        'fontSize',
-        'formatBlock',
-        'paragraphStyle',
-        'blockquote',
-        'bold',
-        'underline',
-        'italic',
-        'strike',
-        'fontColor',
-        'hiliteColor',
-        'textStyle',
-        'removeFormat',
-        'align',
-        'list',
-        'table',
-        'link',
-        'image',
-        'fullScreen',
-        'showBlocks',
-        'codeView'
-      ]
-    ],
-    minHeight: '200px'
-  }
-  editor?: SunEditor
+        this.registerEvents()
+      }
+    },
+    {
+      allowSignalWrites: true
+    }
+  )
 
   constructor() {
     super()
   }
 
-  override ngAfterViewInit(): void {
-    this.editor = sunEditor.create(this._inputForWysiwyg()?.nativeElement, this.sunEditorOptions)
-    this.registerEvents()
-    this.setupFormControl()
-  }
-
   registerEvents(): void {
-    if (this.editor) {
-      this.editor.onInput = (e) => {
-        this.onChangedEventHandler(e)
+    const sunEditor = this._sunEditorWysiwygInstance()
+    if (sunEditor) {
+      sunEditor.onChange = (contents, core) => {
+        this.onChangedHandler(contents)
+        this.changeDetectorRef().markForCheck()
       }
-      this.editor.onBlur = () => {
+      sunEditor.onBlur = () => {
         this.onBlurHandler()
       }
     }
   }
 
-  override onChangedEventHandler($event: Event): void {
-    const inputElement = $event.target as HTMLInputElement
-    this.onChangedHandler(inputElement.textContent as string)
-  }
-
   override writeValue(val: string): void {
     super.writeValue(val)
-    if (this.editor) {
-      this.editor.setContents(val)
-    }
+    this._sunEditorWysiwygInstance()?.setContents(val)
   }
 }
