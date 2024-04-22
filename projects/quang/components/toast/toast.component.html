@@ -1,7 +1,7 @@
 <div
-  [class.hide]="!type()"
-  [class.show]="type()"
-  [class.show]="type()"
+  [class.hide]="!_showToast()"
+  [class.show]="_showToast()"
+  [class.show]="_showToast()"
   [ngClass]="position()"
   aria-atomic="true"
   aria-live="assertive"
