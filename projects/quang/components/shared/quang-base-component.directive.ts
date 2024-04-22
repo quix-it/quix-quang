@@ -4,11 +4,11 @@ import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angul
 
 import { Subscription } from 'rxjs'
 
-import { baseRandomId } from './makeId'
+import { makeId } from './makeId'
 
 @Directive()
 export abstract class QuangBaseComponent<T = any> implements ControlValueAccessor, AfterViewInit {
-  componentId = input<string>(baseRandomId)
+  componentId = input<string>(makeId(10))
   isReadonly = input<boolean>(false)
   componentTabIndex = input<number>(0)
   componentClass = input<string | string[]>('')

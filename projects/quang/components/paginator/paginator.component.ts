@@ -3,7 +3,7 @@ import { Component, OnInit, computed, input, output, signal } from '@angular/cor
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { baseRandomId } from '../shared'
+import { makeId } from '../shared'
 
 @Component({
   selector: 'quang-paginator',
@@ -13,7 +13,7 @@ import { baseRandomId } from '../shared'
   styleUrl: './paginator.component.scss'
 })
 export class QuangPaginatorComponent implements OnInit {
-  componentId = input<string>(baseRandomId)
+  componentId = input<string>(makeId(10))
   componentTabIndex = input<number>(0)
   componentClass = input<string | string[]>('')
   page = input.required<number>()
