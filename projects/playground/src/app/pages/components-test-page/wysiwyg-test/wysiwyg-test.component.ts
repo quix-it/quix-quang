@@ -1,5 +1,5 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -18,6 +18,8 @@ export class WysiwygTestComponent {
   isReadonly = signal<boolean>(false)
 
   formBuilder = signal(inject(NonNullableFormBuilder))
+
+  changeDetectorRef = inject(ChangeDetectorRef)
 
   errors = signal([
     {
@@ -87,6 +89,10 @@ export class WysiwygTestComponent {
   constructor() {
     this.testForm().controls.testInput.valueChanges.subscribe((res) => {
       console.log(res)
+    })
+    this.testForm().valueChanges.subscribe((res) => {
+      console.log(res)
+      this.changeDetectorRef.detectChanges()
     })
   }
 }
