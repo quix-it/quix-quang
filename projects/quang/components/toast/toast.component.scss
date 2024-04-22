@@ -1,0 +1,65 @@
+.toast {
+  position: fixed;
+  min-width: 200px;
+  z-index: 999999;
+
+  &.top-left {
+    top: 2rem;
+    left: 1rem;
+  }
+
+  &.top-right {
+    top: 2rem;
+    right: 1rem;
+  }
+
+  &.bottom-left {
+    bottom: 2rem;
+    left: 1rem;
+  }
+
+  &.bottom-right {
+    bottom: 2rem;
+    right: 1rem;
+  }
+
+  &.center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.top-center {
+    top: 2rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &.bottom-center {
+    bottom: 2rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .toast-header {
+    .rounded {
+      height: 1.125rem;
+      width: 1.125rem;
+      display: inline-block;
+      &.success {
+        background: #28a745;
+      }
+
+      &.warning {
+        background: #ffc107;
+      }
+
+      &.error {
+        background: #dc3545;
+      }
+    }
+  }
+  small {
+    margin-left: 1rem;
+  }
+}

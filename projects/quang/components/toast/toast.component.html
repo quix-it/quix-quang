@@ -1,0 +1,31 @@
+<div
+  [class.hide]="!type()"
+  [class.show]="type()"
+  [class.show]="type()"
+  [ngClass]="position()"
+  aria-atomic="true"
+  aria-live="assertive"
+  class="toast fade"
+  role="alert"
+>
+  <div class="toast-header">
+    <span
+      [ngClass]="type()"
+      class="rounded me-2"
+    ></span>
+    <strong class="me-auto">{{ title() | transloco }}</strong>
+    <small>{{ date() | date: dateFormat() }}</small>
+    <button
+      (click)="close()"
+      aria-label="Close"
+      class="me-2 mb-1 btn-close"
+      data-dismiss="toast"
+      type="button"
+    >
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="toast-body">
+    {{ text() | transloco: { textValue: textValue() } }}
+  </div>
+</div>
