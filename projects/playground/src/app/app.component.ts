@@ -6,9 +6,9 @@ import { RouterOutlet } from '@angular/router'
 import { TranslocoPipe } from '@ngneat/transloco'
 import { delay } from 'rxjs'
 
-import { QuangModalComponent } from '@quix/quang/components/modal'
-import { QuangToastComponent } from '@quix/quang/components/toast'
-import { QuangToastService } from '@quix/quang/components/toast/toast.service'
+import { QuangModalComponent } from '@quix/quang/overlay/modal'
+import { QuangToastComponent } from '@quix/quang/overlay/toast'
+import { QuangToastService } from '@quix/quang/overlay/toast/toast.service'
 import { QuangTranslationService } from '@quix/quang/translation'
 
 @Component({

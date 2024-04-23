@@ -8,11 +8,11 @@ errore.
 Appartengono a questi:
 
 * autocomplete
-* checkbox (modificabile la posizione)
+* checkbox / toggle (modificabile la posizione)
 * date
 * input
 * select
-* toggle (modificabile la posizione)
+* wysiwyg
 
 Gli altri componenti presenti hanno uno stile basato sempre su bootstrap, ma non hanno una struttura specifica che li
 accomuna.
