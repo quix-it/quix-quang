@@ -18,7 +18,6 @@ export class QuangToastComponent {
   readonly _showToast = this.toastService().showToast
   readonly _currentToast = this.toastService().currentToast
   close(): void {
-    console.log('close')
     this.toastService().closeToast()
   }
 }
