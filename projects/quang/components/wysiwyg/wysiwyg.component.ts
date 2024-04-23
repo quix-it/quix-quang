@@ -8,6 +8,7 @@ import {
   effect,
   forwardRef,
   inject,
+  input,
   signal,
   viewChild
 } from '@angular/core'
@@ -39,6 +40,29 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
 })
 export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit {
   _inputForWysiwyg = viewChild<ElementRef>('inputForWysiwyg')
+
+  minHeight = input<string>('200px')
+  font = input<boolean>(true)
+  fontSize = input<boolean>(true)
+  formatBlock = input<boolean>(true)
+  paragraphStyle = input<boolean>(true)
+  blockquote = input<boolean>(true)
+  bold = input<boolean>(true)
+  underline = input<boolean>(true)
+  italic = input<boolean>(true)
+  strike = input<boolean>(true)
+  fontColor = input<boolean>(true)
+  hiliteColor = input<boolean>(true)
+  textStyle = input<boolean>(true)
+  removeFormat = input<boolean>(true)
+  align = input<boolean>(true)
+  list = input<boolean>(true)
+  table = input<boolean>(true)
+  link = input<boolean>(true)
+  image = input<boolean>(true)
+  fullScreen = input<boolean>(true)
+  showBlocks = input<boolean>(true)
+
   _sunEditorWysiwygInstance = signal<SunEditor | undefined>(undefined)
   changeDetectorRef = signal(inject(ChangeDetectorRef))
 
@@ -50,31 +74,8 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
       if (this._inputForWysiwyg()?.nativeElement) {
         const sunEditorOptions: SunEditorOptions = {
           plugins: plugins,
-          buttonList: [
-            [
-              'font',
-              'fontSize',
-              'formatBlock',
-              'paragraphStyle',
-              'blockquote',
-              'bold',
-              'underline',
-              'italic',
-              'strike',
-              'fontColor',
-              'hiliteColor',
-              'textStyle',
-              'removeFormat',
-              'align',
-              'list',
-              'table',
-              'link',
-              'image',
-              'fullScreen',
-              'showBlocks'
-            ]
-          ],
-          minHeight: '200px'
+          buttonList: [this.getButtonList()],
+          minHeight: this.minHeight()
         }
 
         if (this._sunEditorWysiwygInstance()) {
@@ -111,5 +112,70 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
   override writeValue(val: string): void {
     super.writeValue(val)
     this._sunEditorWysiwygInstance()?.setContents(val)
+  }
+
+  getButtonList(): string[] {
+    const buttonList: string[] = []
+    if (this.font()) {
+      buttonList.push('font')
+    }
+    if (this.fontSize()) {
+      buttonList.push('fontSize')
+    }
+    if (this.formatBlock()) {
+      buttonList.push('formatBlock')
+    }
+    if (this.paragraphStyle()) {
+      buttonList.push('paragraphStyle')
+    }
+    if (this.blockquote()) {
+      buttonList.push('blockquote')
+    }
+    if (this.bold()) {
+      buttonList.push('bold')
+    }
+    if (this.underline()) {
+      buttonList.push('underline')
+    }
+    if (this.italic()) {
+      buttonList.push('italic')
+    }
+    if (this.strike()) {
+      buttonList.push('strike')
+    }
+    if (this.fontColor()) {
+      buttonList.push('fontColor')
+    }
+    if (this.hiliteColor()) {
+      buttonList.push('hiliteColor')
+    }
+    if (this.textStyle()) {
+      buttonList.push('textStyle')
+    }
+    if (this.removeFormat()) {
+      buttonList.push('removeFormat')
+    }
+    if (this.align()) {
+      buttonList.push('align')
+    }
+    if (this.list()) {
+      buttonList.push('list')
+    }
+    if (this.table()) {
+      buttonList.push('table')
+    }
+    if (this.link()) {
+      buttonList.push('link')
+    }
+    if (this.image()) {
+      buttonList.push('image')
+    }
+    if (this.fullScreen()) {
+      buttonList.push('fullScreen')
+    }
+    if (this.showBlocks()) {
+      buttonList.push('showBlocks')
+    }
+    return buttonList
   }
 }

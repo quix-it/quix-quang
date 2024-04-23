@@ -7,6 +7,11 @@
     display: flex;
   }
 
+  input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
   .btn-outline-calendar {
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-left: 0;
