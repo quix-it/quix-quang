@@ -1,8 +1,8 @@
 import { NgIf } from '@angular/common'
-import { Component, computed, input, signal } from '@angular/core'
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
+import { Component, input, signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
-import { skip } from 'rxjs'
+import { BehaviorSubject } from 'rxjs'
 
 import { QuangLoaderService } from './loader.service'
 
@@ -17,10 +17,12 @@ export class QuangLoaderComponent {
   disableDelay = input<number>(500)
   minimumDelay = input<number>(200)
 
-  _loadingCount = signal<number>(0)
-  _showLoader = computed(() => {
+  _loadingCount$ = new BehaviorSubject<number | null>(null)
+  _showLoader = signal<boolean>(false)
+
+  /*_showLoader$ = computed(() => {
     return this._loadingCount() > 0
-  })
+  })*/
   _hideTimeout = signal<any | undefined>(undefined)
   hideTimeout: any | undefined = undefined
 
@@ -28,6 +30,7 @@ export class QuangLoaderComponent {
 
   constructor(private readonly loaderService: QuangLoaderService) {
     this.onLoading()
+    console.log('ciaoni')
   }
 
   // effect(() => {
@@ -54,17 +57,48 @@ export class QuangLoaderComponent {
   // })
 
   onLoading(): void {
-    toObservable(this.loaderService.isLoading)
-      .pipe(this._takeUntilDestroyed(), skip(1))
-      .subscribe((isLoading) => {
-        console.log(isLoading, this._showLoader(), this._loadingCount())
-        if (isLoading) {
-          this._loadingCount.update((count) => count + 1)
+    this.loaderService.isLoading$.pipe(this._takeUntilDestroyed()).subscribe((_isLoading) => {
+      console.log('_isLoading', _isLoading)
+      if (_isLoading === null) {
+        return
+      }
+      const isLoading: boolean = _isLoading as boolean
+      console.log('isLoading', isLoading)
+      /*console.log(isLoading, this._showLoader(), this._loadingCount())*/
+      if (isLoading) {
+        this._loadingCount$.next((this._loadingCount$.value ?? 0) + 1)
+      } else {
+        if ((this._loadingCount$.value ?? 0) > 0) {
+          this._loadingCount$.next((this._loadingCount$.value ?? 0) - 1)
         } else {
-          this._loadingCount.update((count) => count - 1)
+          this._loadingCount$.next(0)
         }
-      })
+      }
+    })
 
-    // this.loaderService._isLoading
+    this._loadingCount$.pipe(this._takeUntilDestroyed()).subscribe((_loadingCount) => {
+      console.log('_loadingCount', _loadingCount)
+      if (_loadingCount === null) {
+        return
+      }
+      const loadingCount: number = _loadingCount as number
+      if (loadingCount > 0) {
+        console.log('QUELLO CHE VUOI')
+        if (this._hideTimeout()) {
+          clearTimeout(this._hideTimeout())
+          this._hideTimeout.set(undefined)
+        }
+        if (!this._showLoader()) {
+          this._showLoader.set(true)
+        }
+      } else {
+        clearTimeout(this._hideTimeout())
+        this._hideTimeout.set(
+          setTimeout(() => {
+            this._showLoader.set(false)
+          }, this.disableDelay())
+        )
+      }
+    })
   }
 }

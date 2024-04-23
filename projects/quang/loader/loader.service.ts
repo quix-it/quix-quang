@@ -1,16 +1,20 @@
-import { Injectable, signal } from '@angular/core'
+import { Injectable } from '@angular/core'
+
+import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuangLoaderService {
-  public isLoading = signal<boolean>(false)
+  public isLoading$ = new BehaviorSubject<boolean | null>(null)
 
   show(): void {
-    this.isLoading.set(true)
+    this.isLoading$.next(true)
+    // this.isLoading.set(true)
   }
 
   hide(): void {
-    this.isLoading.set(false)
+    this.isLoading$.next(false)
+    // this.isLoading.set(false)
   }
 }

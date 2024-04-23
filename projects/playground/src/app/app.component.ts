@@ -6,6 +6,7 @@ import { RouterOutlet } from '@angular/router'
 import { TranslocoPipe } from '@ngneat/transloco'
 import { delay } from 'rxjs'
 
+import { QuangLoaderComponent } from '@quix/quang/loader'
 import { QuangModalComponent } from '@quix/quang/overlay/modal'
 import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
 import { QuangToastComponent } from '@quix/quang/overlay/toast'
@@ -23,7 +24,8 @@ import { QuangTranslationService } from '@quix/quang/translation'
     QuangModalComponent,
     QuangToastComponent,
     QuangTooltipDirective,
-    QuangPopoverDirective
+    QuangPopoverDirective,
+    QuangLoaderComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

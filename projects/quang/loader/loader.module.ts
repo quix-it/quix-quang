@@ -1,14 +1,18 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http'
+import { provideHttpClient, withInterceptors } from '@angular/common/http'
 import { ModuleWithProviders, NgModule } from '@angular/core'
 
-import { QuangLoaderInterceptor } from './loader-interceptor.service'
-import { QuangLoaderService } from './loader.service'
+import { quangLoaderInterceptor } from './loader-interceptor.service'
+
+import { EXCLUDED_URL, UrlData } from './loader-config'
 
 let forRootInstances = 0
 
-@NgModule({})
+@NgModule({
+  imports: [],
+  exports: []
+})
 export class QuangLoaderModule {
-  static forRoot(): ModuleWithProviders<QuangLoaderModule> {
+  static forRoot(urlData: UrlData[]): ModuleWithProviders<QuangLoaderModule> {
     forRootInstances++
     if (forRootInstances > 1) {
       throw new Error(
@@ -18,12 +22,11 @@ export class QuangLoaderModule {
     return {
       ngModule: QuangLoaderModule,
       providers: [
-        QuangLoaderService,
         {
-          provide: HTTP_INTERCEPTORS,
-          useClass: QuangLoaderInterceptor,
-          multi: true
-        }
+          provide: EXCLUDED_URL,
+          useValue: urlData
+        },
+        provideHttpClient(withInterceptors([quangLoaderInterceptor]))
       ]
     }
   }
