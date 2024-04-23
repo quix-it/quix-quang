@@ -15,6 +15,7 @@
     </button>
     <p class="text-muted m-0">With QuangTooltip</p>
   </div>
+  <div [quangPopover]="popoverTest">POPOVER TEST</div>
 </div>
 <!--<quang-loader></quang-loader>-->
 <quang-toast></quang-toast>
@@ -56,3 +57,7 @@
   </ng-container>
 </quang-modal>
 <router-outlet />
+
+<ng-template #popoverTest>
+  <p>test works!</p>
+</ng-template>
