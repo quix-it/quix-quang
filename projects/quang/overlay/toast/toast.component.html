@@ -14,9 +14,10 @@
       class="rounded me-2"
     ></span>
     <strong class="me-auto">{{ _currentToast()?.title | transloco }}</strong>
-    <small>{{ _currentToast()?.date | date: _currentToast()?.dateFormat }}</small>
+    <small *ngIf="_currentToast()?.date">{{ _currentToast()?.date ?? '' | date: _currentToast()?.dateFormat }}</small>
     <button
       (click)="close()"
+      *ngIf="_currentToast()?.showCloseButton"
       aria-label="Close"
       class="me-2 mb-1 btn-close"
       data-dismiss="toast"
@@ -25,7 +26,10 @@
       <span aria-hidden="true"></span>
     </button>
   </div>
-  <div class="toast-body">
+  <div
+    *ngIf="_currentToast()?.text"
+    class="toast-body"
+  >
     {{ _currentToast()?.text | transloco: { textValue: _currentToast()?.textValue } }}
   </div>
 </div>
