@@ -1,11 +1,22 @@
 import { HttpHandlerFn, HttpRequest } from '@angular/common/http'
-import { inject } from '@angular/core'
+import { InjectionToken, inject } from '@angular/core'
 
 import { finalize } from 'rxjs'
 
 import { QuangLoaderService } from './loader.service'
 
-import { EXCLUDED_URL, METHOD_TYPE, UrlData, isMethodType } from './loader-config'
+export const EXCLUDED_URL = new InjectionToken<UrlData[]>('EXCLUDED_URL')
+
+export type METHOD_TYPE = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+
+export function isMethodType(value: string): value is METHOD_TYPE {
+  return value === 'GET' || value === 'POST' || value === 'PUT' || value === 'DELETE' || value === 'PATCH'
+}
+
+export interface UrlData {
+  url: string
+  method: METHOD_TYPE
+}
 
 export function quangLoaderInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn) {
   const excludedUrlByMethod = getExcludedUrlsByMethod(inject(EXCLUDED_URL))

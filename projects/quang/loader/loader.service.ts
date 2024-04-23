@@ -10,11 +10,9 @@ export class QuangLoaderService {
 
   show(): void {
     this.isLoading$.next(true)
-    // this.isLoading.set(true)
   }
 
   hide(): void {
     this.isLoading$.next(false)
-    // this.isLoading.set(false)
   }
 }

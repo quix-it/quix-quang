@@ -1,6 +1,6 @@
 import { OverlayModule } from '@angular/cdk/overlay'
 import { DatePipe, NgClass, NgIf } from '@angular/common'
-import { Component, effect, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
@@ -11,7 +11,8 @@ import { QuangToastService } from './toast.service'
   standalone: true,
   imports: [OverlayModule, NgClass, TranslocoPipe, DatePipe, NgIf],
   templateUrl: './toast.component.html',
-  styleUrl: './toast.component.scss'
+  styleUrl: './toast.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuangToastComponent {
   toastService = signal(inject(QuangToastService))

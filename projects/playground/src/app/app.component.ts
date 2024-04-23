@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { RouterOutlet } from '@angular/router'
 
 import { TranslocoPipe } from '@ngneat/transloco'
-import { delay } from 'rxjs'
 
 import { QuangLoaderComponent } from '@quix/quang/loader'
 import { QuangModalComponent } from '@quix/quang/overlay/modal'
@@ -46,16 +45,12 @@ export class AppComponent {
   }
 
   showLoader() {
-    // for (let i = 0; i < 20; i++) {
-    this.http
-      .get('https://jsonplaceholder.typicode.com/todos/1')
-      .pipe(delay(500))
-      .subscribe((x) => {
+    for (let i = 0; i < 20; i++) {
+      this.http.get('https://jsonplaceholder.typicode.com/todos/1').subscribe((x) => {
         console.log('call', x)
       })
+    }
   }
-
-  // }
 
   openModal(): void {
     this.showModal.set(true)

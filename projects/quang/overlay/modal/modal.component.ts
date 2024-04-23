@@ -1,7 +1,16 @@
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay'
 import { CdkPortal, PortalModule } from '@angular/cdk/portal'
 import { NgStyle } from '@angular/common'
-import { AfterViewInit, Component, OnDestroy, ViewChild, input, output, signal } from '@angular/core'
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  ViewChild,
+  input,
+  output,
+  signal
+} from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 @Component({
@@ -9,7 +18,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
   standalone: true,
   imports: [PortalModule, NgStyle],
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss'
+  styleUrl: './modal.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
   // animations: [trigger('slideInOut', [transition(':enter', fromRightToLeft), transition(':leave', fromLeftToRight)])]
 })
 export class QuangModalComponent implements AfterViewInit, OnDestroy {

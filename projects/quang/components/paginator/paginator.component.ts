@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf } from '@angular/common'
-import { Component, OnInit, computed, input, output, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit, computed, input, output, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
@@ -10,7 +10,8 @@ import { makeId } from '../shared'
   standalone: true,
   imports: [TranslocoPipe, NgIf, NgFor, NgClass],
   templateUrl: './paginator.component.html',
-  styleUrl: './paginator.component.scss'
+  styleUrl: './paginator.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuangPaginatorComponent implements OnInit {
   componentId = input<string>(makeId(10))

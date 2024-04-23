@@ -1,9 +1,7 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http'
 import { ModuleWithProviders, NgModule } from '@angular/core'
 
-import { quangLoaderInterceptor } from './loader-interceptor.service'
-
-import { EXCLUDED_URL, UrlData } from './loader-config'
+import { EXCLUDED_URL, UrlData, quangLoaderInterceptor } from './loader-interceptor'
 
 let forRootInstances = 0
 

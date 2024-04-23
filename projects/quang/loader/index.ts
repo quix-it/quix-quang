@@ -1,5 +1,4 @@
-export * from './loader-config'
-export * from './loader-interceptor.service'
+export * from './loader-interceptor'
 export * from './loader.component'
 export * from './loader.service'
 export * from './loader.module'
