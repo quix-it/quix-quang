@@ -1,33 +1,24 @@
 import { ConnectedPosition, Overlay, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay'
-import { ComponentPortal } from '@angular/cdk/portal'
-import { Directive, ElementRef, HostListener, Input, InputSignal, OnInit, inject, input, signal } from '@angular/core'
-
-import { QuangTooltipComponent } from './tooltip.component'
+import { Directive, ElementRef, HostListener, OnInit, TemplateRef, inject, input, signal } from '@angular/core'
 
 @Directive({
-  selector: '[quangTooltip]',
-  standalone: true,
-  providers: [Overlay, OverlayPositionBuilder]
+  selector: '[quangPopover]',
+  providers: [],
+  standalone: true
 })
-export class QuangTooltipDirective implements OnInit {
-  @HostListener('mouseenter') show() {
-    if (this.showTimeout) clearTimeout(this.showTimeout)
-    this.showTimeout = setTimeout(() => {
-      const tooltipPortal = new ComponentPortal(QuangTooltipComponent)
-      const createdOverlay = this.overlayRef()
-      if (createdOverlay) {
-        const tooltipRef = createdOverlay.attach(tooltipPortal)
-        tooltipRef.instance.text = this.text
-      }
-    }, 500)
-  }
-  @HostListener('mouseleave') hide() {
-    if (this.showTimeout) clearTimeout(this.showTimeout)
-    this.overlayRef()?.detach()
+export class QuangPopoverDirective implements OnInit {
+  @HostListener('click') onClick(): void {
+    if (this.showMethod() === 'click') this.attachOverlay()
   }
 
+  @HostListener('hover') onHover(): void {
+    if (this.showMethod() === 'hover') this.attachOverlay()
+  }
+
+  showMethod = input<'click' | 'hover'>('click')
+  popoverContent = input.required<TemplateRef<any>>({ alias: 'quangPopover' })
+
   showTimeout: any
-  text = input.required<string>({ alias: 'quangTooltip' })
   quangTooltipPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
 
   private top = signal<ConnectedPosition>({
@@ -73,6 +64,13 @@ export class QuangTooltipDirective implements OnInit {
       .flexibleConnectedTo(this.elementRef())
       .withPositions(this.getPositions())
     this.overlayRef.set(this.overlay().create({ positionStrategy }))
+  }
+
+  attachOverlay(): void {
+    const createdOverlay = this.overlayRef()
+    if (createdOverlay) {
+      this.overlayRef()?.attach(this.popoverContent())
+    }
   }
 
   getPositions(): ConnectedPosition[] {
