@@ -14,28 +14,11 @@ import { QuangToastService } from './toast.service'
   styleUrl: './toast.component.scss'
 })
 export class QuangToastComponent {
-  type = input<'success' | 'warning' | 'error'>()
-  title = input<string>('')
-  position = input<
-    'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'center' | 'top-center' | 'bottom-center'
-  >('bottom-right')
-  timing = input<number>()
-  text = input<string>('')
-  textValue = input<string>('')
-  date = input<Date>()
-  dateFormat = input<string>()
-
   toastService = signal(inject(QuangToastService))
   readonly _showToast = this.toastService().showToast
-
+  readonly _currentToast = this.toastService().currentToast
   close(): void {
+    console.log('close')
     this.toastService().closeToast()
-  }
-
-  open(): void {
-    if (this._showToast())
-      setTimeout(() => {
-        this.close()
-      }, this.timing())
   }
 }

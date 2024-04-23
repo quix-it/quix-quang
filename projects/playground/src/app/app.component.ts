@@ -58,4 +58,8 @@ export class AppComponent {
   btnAction(): void {
     this.content.update((content) => content + '!!!')
   }
+
+  openToast(): void {
+    this.quangToast().openToast('success', 'Hello world!', 'bottom-right', 5000, 'test-toast')
+  }
 }

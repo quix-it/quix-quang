@@ -2,7 +2,7 @@
   [class.hide]="!_showToast()"
   [class.show]="_showToast()"
   [class.show]="_showToast()"
-  [ngClass]="position()"
+  [ngClass]="_currentToast()?.position"
   aria-atomic="true"
   aria-live="assertive"
   class="toast fade"
@@ -10,11 +10,11 @@
 >
   <div class="toast-header">
     <span
-      [ngClass]="type()"
+      [ngClass]="_currentToast()?.type"
       class="rounded me-2"
     ></span>
-    <strong class="me-auto">{{ title() | transloco }}</strong>
-    <small>{{ date() | date: dateFormat() }}</small>
+    <strong class="me-auto">{{ _currentToast()?.title | transloco }}</strong>
+    <small>{{ _currentToast()?.date | date: _currentToast()?.dateFormat }}</small>
     <button
       (click)="close()"
       aria-label="Close"
@@ -26,6 +26,6 @@
     </button>
   </div>
   <div class="toast-body">
-    {{ text() | transloco: { textValue: textValue() } }}
+    {{ _currentToast()?.text | transloco: { textValue: _currentToast()?.textValue } }}
   </div>
 </div>

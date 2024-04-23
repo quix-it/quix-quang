@@ -58,6 +58,11 @@
         background: #dc3545;
       }
     }
+    button {
+      &:focus {
+        box-shadow: unset;
+      }
+    }
   }
   small {
     margin-left: 1rem;
