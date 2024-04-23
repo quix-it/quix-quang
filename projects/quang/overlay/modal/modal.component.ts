@@ -1,26 +1,23 @@
-import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay'
 import { CdkPortal, PortalModule } from '@angular/cdk/portal'
 import { NgStyle } from '@angular/common'
 import { AfterViewInit, Component, OnDestroy, ViewChild, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
-import { fromLeftToRight, fromRightToLeft } from './animations'
-
 @Component({
   selector: 'quang-modal',
   standalone: true,
   imports: [PortalModule, NgStyle],
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss',
-  animations: [trigger('slideInOut', [transition(':enter', fromRightToLeft), transition(':leave', fromLeftToRight)])]
+  styleUrl: './modal.component.scss'
+  // animations: [trigger('slideInOut', [transition(':enter', fromRightToLeft), transition(':leave', fromLeftToRight)])]
 })
 export class QuangModalComponent implements AfterViewInit, OnDestroy {
   @ViewChild(CdkPortal) public readonly portal?: CdkPortal
 
   backdropClick = output<void>()
   position = input.required<'right' | 'left' | 'center'>()
-  animation = input.required<'right' | 'left' | 'center' | 'top' | 'bottom'>()
+  // animation = input.required<'right' | 'left' | 'center' | 'top' | 'bottom'>()
   height = input<string>('100vh')
   width = input<string>('70vw')
 
