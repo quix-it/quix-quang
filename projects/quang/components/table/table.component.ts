@@ -1,38 +1,55 @@
 import { NgClass, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
-import { toObservable } from '@angular/core/rxjs-interop'
-import { NG_VALUE_ACCESSOR } from '@angular/forms'
+import { ChangeDetectionStrategy, Component, TemplateRef } from '@angular/core'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { QuangBaseComponent } from '@quix/quang/components/shared'
+export interface TableHeader {
+  text: string
+  sort?: SortCol
+}
 
-export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 'url' | 'search' | 'tel' | 'color'
+export interface TableConfiguration<T> {
+  headers: TableHeader[]
+  rows: TableRow<T>[]
+}
+
+export interface TableCell {
+  renderer?: TemplateRef<any>
+  payload?: any
+  text?: string
+  css?: string[]
+}
+
+export interface TableRow<T> {
+  payload?: T
+  rowId?: string | number
+  css?: string[]
+  cellData: TableCell[]
+}
+
+export enum SortTable {
+  DEFAULT,
+  ASC,
+  DESC
+}
+
+export interface SortCol {
+  key: string
+  sort: SortTable
+}
 
 @Component({
-  selector: 'quang-input',
+  selector: 'quang-table',
   standalone: true,
-  templateUrl: './input.component.html',
-  styleUrl: './input.component.scss',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => QuangInputComponent),
-      multi: true
-    }
-  ],
+  templateUrl: './table.component.html',
+  styleUrl: './table.component.scss',
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangInputComponent extends QuangBaseComponent<string | number> {
-  componentType = input.required<InputType>()
-
-  constructor() {
-    super()
-    toObservable(this.componentType)
-      .pipe(this._takeUntilDestroyed())
-      .subscribe(() => {
-        this.setupFormControl()
-      })
-  }
+export class QuangTableComponent {
+  /*@Input() clickableRow: boolean = false
+  @Input() stickyTable: boolean = true
+  @Input() sortableTable: boolean = false
+  @Output() clickedRow: EventEmitter<any> = new EventEmitter<any>()
+  @Output() sortChanged: EventEmitter<SortCol> = new EventEmitter<SortCol>()*/
 }
