@@ -18,6 +18,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.3.0",
+    "@angular/cdk": "^17.3.1",
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
     "@angular/core": "^17.3.0",
@@ -42,7 +43,6 @@
     "@angular-eslint/schematics": "^17.3.0",
     "@angular-eslint/template-parser": "^17.3.0",
     "@angular/cli": "^17.3.1",
-    "@angular/cdk": "^17.3.1",
     "@angular/compiler-cli": "^17.3.0",
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",

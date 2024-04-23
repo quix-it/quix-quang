@@ -9,12 +9,13 @@ import { delay } from 'rxjs'
 import { QuangModalComponent } from '@quix/quang/overlay/modal'
 import { QuangToastComponent } from '@quix/quang/overlay/toast'
 import { QuangToastService } from '@quix/quang/overlay/toast/toast.service'
+import { QuangTooltipDirective } from '@quix/quang/overlay/tooltip'
 import { QuangTranslationService } from '@quix/quang/translation'
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIf, TranslocoPipe, QuangModalComponent, QuangToastComponent],
+  imports: [RouterOutlet, NgIf, TranslocoPipe, QuangModalComponent, QuangToastComponent, QuangTooltipDirective],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

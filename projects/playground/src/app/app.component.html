@@ -1,10 +1,21 @@
 <h1>{{ 'welcomeMessage' | transloco: { title: title() } }}</h1>
-
-<button (click)="changeLanguage('it')">IT LANG</button>
-<button (click)="changeLanguage('en')">EN LANG</button>
-<button (click)="showLoader()">LOADER</button>
-<button (click)="openModal()">MODAL</button>
-<button (click)="openToast()">TOAST</button>
+<div class="d-flex">
+  <button (click)="changeLanguage('it')">IT LANG</button>
+  <button (click)="changeLanguage('en')">EN LANG</button>
+  <button (click)="showLoader()">LOADER</button>
+  <button (click)="openModal()">MODAL</button>
+  <div>
+    <button
+      [quangTooltip]="title()"
+      (click)="openToast()"
+      class="w-100"
+      quangTooltipPosition="top"
+    >
+      TOAST
+    </button>
+    <p class="text-muted m-0">With QuangTooltip</p>
+  </div>
+</div>
 <!--<quang-loader></quang-loader>-->
 <quang-toast></quang-toast>
 <quang-modal
