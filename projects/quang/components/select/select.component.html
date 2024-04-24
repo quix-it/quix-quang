@@ -21,49 +21,29 @@
       class="form-select"
       type="button"
     >
-      <div class="content">
+      <div
+        *ngIf="_selectedItems()?.length"
+        class="content"
+      >
         <ng-container *ngFor="let val of _selectedItems(); let last = last">
           {{ val.label }}{{ !last ? ', ' : '' }}
         </ng-container>
       </div>
     </button>
 
-    <div
-      (mouseenter)="showOptionVisibility()"
-      *ngIf="_showOptions()"
-      class="option-list"
-    >
-      <ul>
-        <li
-          [class.m-0]="last"
-          *ngFor="let item of selectOptions(); let i = index; let last = last"
-          class="item"
-        >
-          <input
-            [checked]="getSelected(item)"
-            [class.d-none]="selectionMode() === 'single'"
-            [disabled]="_isDisabled()"
-            [id]="item.value + '-checkbox'"
-            [name]="item.value + '-checkbox'"
-            [ngClass]="componentClass()"
-            [tabIndex]="componentTabIndex()"
-            (blur)="onBlurHandler()"
-            (input)="onSelectItem(item)"
-            #inputCheckbox
-            class="form-check"
-            type="checkbox"
-          />
-          <label
-            [class.ms-3]="selectionMode() === 'multiple'"
-            [for]="item.value + '-checkbox'"
-            *ngIf="componentLabel()"
-            class="form-check-label checkbox-label w-100"
-          >
-            {{ translateValue() ? (item.label | transloco) : item.label }}
-          </label>
-        </li>
-      </ul>
-    </div>
+    <quang-option-list
+      [_isDisabled]="_isDisabled()"
+      [_value]="_value()"
+      [componentClass]="componentClass()"
+      [componentLabel]="componentLabel()"
+      [componentTabIndex]="componentTabIndex()"
+      [optionListMaxHeight]="optionListMaxHeight()"
+      [selectionMode]="selectionMode()"
+      [selectOptions]="selectOptions()"
+      [translateValue]="translateValue()"
+      (blurHandler)="onBlurHandler()"
+      (changedHandler)="onChangedHandler($event)"
+    ></quang-option-list>
   </div>
   <div class="valid-feedback">
     {{ successMessage() | transloco }}

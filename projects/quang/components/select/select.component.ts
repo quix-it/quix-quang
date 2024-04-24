@@ -1,15 +1,10 @@
-import { NgClass, NgFor, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, effect, forwardRef, input, signal } from '@angular/core'
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
+import { ChangeDetectionStrategy, Component, effect, forwardRef, input, signal } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { QuangBaseComponent } from '@quix/quang/components/shared'
-
-export interface SelectOption {
-  label: string
-  value: string | number | null
-}
+import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@quix/quang/components/shared'
 
 @Component({
   selector: 'quang-select',
@@ -21,13 +16,18 @@ export interface SelectOption {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => QuangSelectComponent),
       multi: true
+    },
+    {
+      provide: QuangOptionListComponent,
+      multi: false
     }
   ],
-  imports: [TranslocoPipe, NgIf, NgFor, NgClass],
+  imports: [TranslocoPipe, NgIf, NgFor, NgClass, NgStyle, QuangOptionListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuangSelectComponent extends QuangBaseComponent<string | number | string[] | number[] | null> {
   selectionMode = input<'single' | 'multiple'>('single')
+  optionListMaxHeight = input<string>('200px')
   /**
    * Set the mode to make the selection list disappear
    * Default: 'leave'
@@ -43,6 +43,8 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
   selectionMaxHeight = input<string>('')
 
   _selectOptions = signal<SelectOption[]>([])
+  _showOptions = signal<boolean>(false)
+  _selectedItems = this.optionListComponent._selectedItems
 
   translateValue = input<boolean>(true)
   nullOption = input<boolean>(true)
@@ -60,21 +62,7 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
     }
   )
 
-  _showOptions = signal<boolean>(false)
-  _optionHideTimeout = signal<any | undefined>(undefined)
-
-  _selectedItems = computed(() => {
-    const targetValue = this._value()
-    return this.selectOptions().filter((x) => {
-      if (Array.isArray(targetValue)) {
-        return targetValue.some((k) => k === x.value)
-      } else {
-        return targetValue === x.value
-      }
-    })
-  })
-
-  constructor() {
+  constructor(private readonly optionListComponent: QuangOptionListComponent) {
     super()
   }
 
@@ -84,52 +72,14 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
     } else {
       this.showOptionVisibility()
     }
+    console.log(this.selectOptions())
   }
 
   showOptionVisibility(): void {
-    if (this._optionHideTimeout()) {
-      clearTimeout(this._optionHideTimeout())
-      this._optionHideTimeout.set(null)
-    }
-    this._showOptions.set(true)
+    this.optionListComponent.showOptionVisibility()
   }
 
-  hideOptionVisibility(skipTimeout = false): void {
-    if (this._optionHideTimeout()) {
-      clearTimeout(this._optionHideTimeout())
-    }
-    this._optionHideTimeout.set(
-      setTimeout(
-        () => {
-          this._showOptions.set(false)
-        },
-        skipTimeout ? 0 : 50
-      )
-    )
-  }
-
-  onSelectItem(item: SelectOption | null): void {
-    if (this.selectionMode() === 'single') {
-      this.onChangedHandler(item?.value ?? null)
-      // this._selectedItems.set([item])
-      this.hideOptionVisibility()
-    } else {
-      let values: string[] | number[] | null = this._value() as string[] | number[] | null
-      if (values) {
-        if (values.some((x) => x === item?.value)) {
-          this.onChangedHandler(values.filter((x) => x !== item?.value) as string[] | number[])
-        } else if (item) {
-          this.onChangedHandler([...values, item.value] as string[] | number[])
-        } else {
-          this.onChangedHandler([...values] as string[] | number[])
-        }
-      } else {
-        this.onChangedHandler(null)
-      }
-    }
-  }
-
-  getSelected(item: SelectOption): boolean {
-    return this._selectedItems().some((x) => x.value === item.value)
+  hideOptionVisibility(): void {
+    this.optionListComponent.hideOptionVisibility()
   }
 }

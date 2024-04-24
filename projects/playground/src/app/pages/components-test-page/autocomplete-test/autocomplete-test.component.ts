@@ -1,24 +1,23 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { QuangSelectComponent } from '@quix/quang/components/select'
-import { QuangOptionListComponent, SelectOption } from '@quix/quang/components/shared'
+import { QuangAutocompleteComponent } from '@quix/quang/components/autocomplete/autocomplete.component'
+import { SelectOption } from '@quix/quang/components/shared'
 
 @Component({
-  selector: 'playground-select-test',
+  selector: 'playground-autocomplete-test',
   standalone: true,
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, NgForOf, TranslocoPipe, QuangSelectComponent],
-  templateUrl: './select-test.component.html',
-  styleUrl: './select-test.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, NgForOf, TranslocoPipe, QuangAutocompleteComponent],
+  templateUrl: './autocomplete-test.component.html',
+  styleUrl: './autocomplete-test.component.scss'
 })
-export class SelectTestComponent {
+export class AutocompleteTestComponent {
   isReadonly = signal<boolean>(false)
 
-  stringList: SelectOption[] = [
+  stringList = [
     {
       code: 'required',
       description: 'This field is required.'
@@ -66,7 +65,7 @@ export class SelectTestComponent {
     })
   )
 
-  numberList: SelectOption[] = [
+  numberList = [
     {
       code: 1,
       description: 'This field is required.'

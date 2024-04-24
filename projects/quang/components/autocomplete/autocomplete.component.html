@@ -1,1 +1,53 @@
-<p>autocomplete works!</p>
+<div class="mb-3">
+  <label
+    [htmlFor]="componentId()"
+    *ngIf="componentLabel()"
+    class="form-label"
+  >
+    {{ componentLabel() | transloco }}
+    <span [hidden]="!_isRequired()">*</span>
+  </label>
+  <input
+    [class.is-invalid]="_showErrors()"
+    [class.is-valid]="_showSuccess()"
+    [disabled]="_isDisabled()"
+    [id]="componentId()"
+    [ngClass]="componentClass()"
+    [placeholder]="componentPlaceholder() | transloco"
+    [readOnly]="isReadonly()"
+    [tabIndex]="componentTabIndex()"
+    [value]="_value()"
+    (blur)="onBlurHandler()"
+    (input)="onChangedEventHandler($event)"
+    autocomplete="off"
+    class="form-control"
+    type="text"
+  />
+  <quang-option-list
+    [_isDisabled]="_isDisabled()"
+    [_value]="_value()"
+    [componentClass]="componentClass()"
+    [componentLabel]="componentLabel()"
+    [componentTabIndex]="componentTabIndex()"
+    [optionListMaxHeight]="optionListMaxHeight()"
+    [selectOptions]="selectOptions()"
+    [translateValue]="translateValue()"
+    (blurHandler)="onBlurHandler()"
+    (changedHandler)="onChangedHandler($event)"
+    selectionMode="single"
+  ></quang-option-list>
+  <div class="valid-feedback">
+    {{ successMessage() | transloco }}
+  </div>
+  <div class="invalid-feedback">
+    {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
+  </div>
+  <small
+    [hidden]="_showSuccess() || _showErrors()"
+    *ngIf="helpMessage()"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ helpMessage() | transloco }}
+  </small>
+</div>

@@ -1,0 +1,37 @@
+<div
+  [ngStyle]="{ 'max-height': optionListMaxHeight() }"
+  (mouseenter)="showOptionVisibility()"
+  *ngIf="_showOptions()"
+  class="option-list"
+>
+  <ul>
+    <li
+      [class.m-0]="last"
+      *ngFor="let item of selectOptions(); let i = index; let last = last"
+      class="item"
+    >
+      <input
+        [checked]="getSelected(item)"
+        [class.d-none]="selectionMode() === 'single'"
+        [disabled]="_isDisabled()"
+        [id]="item.value + '-checkbox'"
+        [name]="item.value + '-checkbox'"
+        [ngClass]="componentClass()"
+        [tabIndex]="componentTabIndex()"
+        (blur)="onBlurHandler($event)"
+        (input)="onSelectItem(item)"
+        #inputCheckbox
+        class="form-check"
+        type="checkbox"
+      />
+      <label
+        [class.ms-3]="selectionMode() === 'multiple'"
+        [for]="item.value + '-checkbox'"
+        *ngIf="componentLabel()"
+        class="form-check-label checkbox-label w-100"
+      >
+        {{ translateValue() ? (item.label | transloco) : item.label }}
+      </label>
+    </li>
+  </ul>
+</div>
