@@ -15,9 +15,16 @@
     </button>
     <p class="text-muted m-0">With QuangTooltip</p>
   </div>
-  <div [quangPopover]="popoverTest">POPOVER TEST</div>
+  <div
+    [quangPopover]="popoverTest"
+    showMethod="click"
+  >
+    POPOVER TEST
+  </div>
 </div>
-<quang-loader></quang-loader>
+<quang-loader>
+  <h1>test</h1>
+</quang-loader>
 <quang-toast></quang-toast>
 <quang-modal
   (backdropClick)="closeModal()"

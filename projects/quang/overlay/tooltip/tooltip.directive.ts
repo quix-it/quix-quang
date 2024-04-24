@@ -1,13 +1,12 @@
 import { ConnectedPosition, Overlay, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay'
 import { ComponentPortal } from '@angular/cdk/portal'
-import { Directive, ElementRef, HostListener, Input, InputSignal, OnInit, inject, input, signal } from '@angular/core'
+import { Directive, ElementRef, HostListener, OnInit, inject, input, signal } from '@angular/core'
 
 import { QuangTooltipComponent } from './tooltip.component'
 
 @Directive({
   selector: '[quangTooltip]',
-  standalone: true,
-  providers: [Overlay, OverlayPositionBuilder]
+  standalone: true
 })
 export class QuangTooltipDirective implements OnInit {
   @HostListener('mouseenter') show() {
