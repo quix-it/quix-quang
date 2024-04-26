@@ -1,3 +1,128 @@
 :host {
   display: block;
 }
+.table-responsive {
+  overflow: initial;
+
+  .fake-table-header {
+    height: 0;
+    overflow: hidden;
+    line-height: 0;
+    visibility: hidden;
+
+    th {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .table-header-container {
+    overflow-x: hidden;
+    z-index: 1;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    font-size: 16px;
+    overflow-y: auto;
+    margin-bottom: unset;
+
+    .btn-icon {
+      svg {
+        font-size: 1.5rem;
+      }
+    }
+
+    thead {
+      text-transform: uppercase;
+
+      th {
+        padding: 1rem 0.5rem;
+        // box-shadow: 0 -3px 0 $primary inset;
+        // border-bottom: unset;
+        z-index: 999;
+        --bs-border-width: 3px;
+      }
+    }
+
+    tbody {
+      .status-1 {
+        font-style: italic;
+      }
+
+      tr {
+        // border-bottom: 1px solid $tdBorder;
+
+        &.hover-table:hover {
+          cursor: pointer;
+          filter: brightness(90%);
+        }
+
+        &.selectedRow {
+          border-left: 5px solid var(--bs-success);
+
+          &:hover {
+            cursor: pointer;
+            filter: brightness(90%);
+            border-left: 5px solid var(--bs-success);
+          }
+        }
+
+        td {
+          padding: 1rem 0.5rem;
+          font-weight: 300;
+          vertical-align: middle;
+
+          img {
+            width: 30px;
+            height: 30px;
+          }
+
+          .img-pop {
+            position: relative;
+
+            .person-img {
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+            }
+          }
+        }
+
+        .td-btn {
+          min-width: 40px;
+
+          img {
+            width: 30px;
+            height: 30px;
+          }
+        }
+      }
+
+      tr:last-child {
+        border-bottom: transparent;
+      }
+    }
+  }
+
+  &.sticky-table {
+    position: relative;
+
+    .table-header-container {
+      position: sticky;
+      top: var(--table-header-container-top, 0);
+    }
+  }
+}
+
+.thead-fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}

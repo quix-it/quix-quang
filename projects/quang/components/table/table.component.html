@@ -1,0 +1,91 @@
+<div
+  [class.sticky-table]="stickyTable"
+  class="table-responsive"
+>
+  <ng-container *ngIf="tableConfigured.rows?.length">
+    <div
+      (scroll)="tableContainer.scrollLeft = tableHeaderContainer.scrollLeft"
+      #tableHeaderContainer
+      class="table-header-container"
+      id="tableHeaderContainer"
+    >
+      <table
+        #tableHeader
+        id="tableHeader"
+      >
+        <thead>
+          <tr>
+            <ng-container *ngFor="let el of tableConfigured.headers; let i = index">
+              <th class="align-bottom">
+                <div
+                  [class.pointer]="sortableTable"
+                  (click)="sortableTable() ? emitOrderTable(el.text!, el.sort!) : null"
+                  class="d-flex justify-content-between"
+                >
+                  <div class="align-self-end">
+                    {{ el.text | transloco }}
+                  </div>
+                </div>
+              </th>
+            </ng-container>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div
+      (scroll)="tableHeaderContainer.scrollLeft = tableContainer.scrollLeft"
+      #tableContainer
+      class="table-container"
+    >
+      <table
+        class="table"
+        id="table-content"
+      >
+        <thead
+          #fakeTableHeader
+          class="fake-table-header"
+          id="fakeTableHeader"
+        >
+          <tr>
+            <ng-container *ngFor="let el of tableConfigured.headers; let i = index">
+              <th class="align-bottom">
+                <div class="d-flex justify-content-between">
+                  <div class="align-self-end">
+                    {{ el.text | transloco }}
+                  </div>
+                </div>
+              </th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            [class.hover-table]="clickableRow"
+            [ngClass]="row.css!"
+            (click)="clickableRow() ? onClickRow(row) : null"
+            *ngFor="let row of tableConfigured.rows"
+          >
+            <td
+              [ngClass]="cell.css!"
+              *ngFor="let cell of row.cellData"
+            >
+              {{ !cell.renderer ? cell.text : null }}
+              <ng-container
+                [ngTemplateOutlet]="cell.renderer"
+                [ngTemplateOutletContext]="{
+                  $implicit: cell.payload
+                }"
+              ></ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <h6
+    *ngIf="!tableConfigured.rows?.length"
+    class="text-center mt-3"
+  >
+    {{ 'table.noResults' | transloco }}
+  </h6>
+</div>

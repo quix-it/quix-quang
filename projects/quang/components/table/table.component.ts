@@ -1,7 +1,22 @@
-import { NgClass, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, TemplateRef } from '@angular/core'
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
+  input,
+  output,
+  signal
+} from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@ngneat/transloco'
+import { interval } from 'rxjs'
 
 export interface TableHeader {
   text: string
@@ -43,13 +58,104 @@ export interface SortCol {
   standalone: true,
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
-  imports: [TranslocoPipe, NgIf, NgClass],
+  imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangTableComponent {
-  /*@Input() clickableRow: boolean = false
-  @Input() stickyTable: boolean = true
-  @Input() sortableTable: boolean = false
-  @Output() clickedRow: EventEmitter<any> = new EventEmitter<any>()
-  @Output() sortChanged: EventEmitter<SortCol> = new EventEmitter<SortCol>()*/
+export class QuangTableComponent<T> implements AfterViewInit {
+  @ViewChild('tableHeader') set tableHeader(val: ElementRef<HTMLElement>) {
+    this._tableHeader = val
+    this.fixTableHeaderWidth()
+  }
+
+  clickableRow = input<boolean>(false)
+  stickyTable = input<boolean>(true)
+  sortableTable = input<boolean>(false)
+  selectedRaw = output<TableRow<T>>()
+  clickedRow = output<any>()
+  sortChanged = output<SortCol>()
+
+  public sortTable = SortTable
+  theadFixed: boolean = false
+
+  _takeUntilDestroyed = signal(takeUntilDestroyed())
+
+  _tableHeader!: ElementRef<HTMLElement>
+
+  get tableHeader(): ElementRef<HTMLElement> {
+    return this._tableHeader
+  }
+
+  _fakeTableHeader!: ElementRef<HTMLElement>
+
+  get fakeTableHeader(): ElementRef<HTMLElement> {
+    return this._fakeTableHeader
+  }
+
+  @ViewChild('fakeTableHeader') set fakeTableHeader(val: ElementRef<HTMLElement>) {
+    this._fakeTableHeader = val
+    this.fixTableHeaderWidth()
+  }
+
+  _tableConfigured: TableConfiguration<T> = {
+    headers: [],
+    rows: []
+  }
+
+  get tableConfigured(): TableConfiguration<T> {
+    return this._tableConfigured
+  }
+
+  @Input() set tableConfigured(val: TableConfiguration<T>) {
+    this._tableConfigured = val
+    this.fixTableHeaderWidth()
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.fixTableHeaderWidth()
+  }
+
+  ngAfterViewInit(): void {
+    this.fixTableHeaderWidth()
+    interval(500)
+      .pipe(this._takeUntilDestroyed())
+      .subscribe(() => {
+        this.fixTableHeaderWidth()
+      })
+  }
+
+  onClickRow(row: TableRow<T>): void {
+    if (this.clickableRow()) this.emitRow(row)
+  }
+
+  emitRow(row: TableRow<T>): void {
+    this.selectedRaw.emit(row)
+  }
+
+  emitOrderTable(key: string, sort: SortTable): void {
+    const orderCol: SortCol = { key, sort }
+    this.sortChanged.emit(orderCol)
+  }
+
+  fixTableHeaderWidth() {
+    setTimeout(() => {
+      const stickyColumns = this.tableHeader?.nativeElement?.querySelectorAll('th')
+
+      // Copy the column widths from our hidden Primary table header to our Sticky Table header.
+      const ths = this.fakeTableHeader?.nativeElement?.querySelectorAll('th')
+
+      if (stickyColumns && ths) {
+        for (let i = 0; i < ths?.length; i++) {
+          const th = ths[i]
+          // Since the Sticky Table header is expected to be an exact copy of the Primary Table, we know their indices will be the same.
+          stickyColumns[i].style.minWidth = th.offsetWidth + 'px'
+          stickyColumns[i].style.maxWidth = th.offsetWidth + 'px'
+        }
+      }
+    })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.fixTableHeaderWidth()
+  }
 }
