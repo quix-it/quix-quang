@@ -4,7 +4,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { QuangAutocompleteComponent } from '@quix/quang/components/autocomplete/autocomplete.component'
+import { QuangAutocompleteComponent } from '@quix/quang/components/autocomplete'
 import { SelectOption } from '@quix/quang/components/shared'
 
 @Component({
@@ -132,8 +132,7 @@ export class AutocompleteTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('', [Validators.required]),
-      testInputMultiple: this.formBuilder().control<number[]>([], [Validators.required])
+      testInput: this.formBuilder().control<string>('', [Validators.required])
     })
   )
   showInput = signal(true)
@@ -163,16 +162,14 @@ export class AutocompleteTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>(this.stringList[2].value as string, [Validators.required]),
-        testInputMultiple: this.formBuilder().control<number[]>([1, 2], [Validators.required])
+        testInput: this.formBuilder().control<string>(this.stringList[2].value as string, [Validators.required])
       })
     )
   }
 
   setFormValues() {
     this.testForm().patchValue({
-      testInput: 'min',
-      testInputMultiple: [3, 4]
+      testInput: 'min'
     })
   }
 

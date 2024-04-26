@@ -1,4 +1,7 @@
-<div class="mb-3">
+<div
+  (focusout)="hideOptionVisibility()"
+  class="mb-3"
+>
   <label
     [htmlFor]="componentId()"
     *ngIf="componentLabel()"
@@ -16,9 +19,10 @@
     [placeholder]="componentPlaceholder() | transloco"
     [readOnly]="isReadonly()"
     [tabIndex]="componentTabIndex()"
-    [value]="_value()"
+    [value]="_inputValue()"
     (blur)="onBlurHandler()"
-    (input)="onChangedEventHandler($event)"
+    (click)="changeOptionsVisibility(true, $event)"
+    (input)="onChangeInput($event)"
     autocomplete="off"
     class="form-control"
     type="text"
@@ -30,11 +34,13 @@
     [componentLabel]="componentLabel()"
     [componentTabIndex]="componentTabIndex()"
     [optionListMaxHeight]="optionListMaxHeight()"
-    [selectOptions]="selectOptions()"
+    [selectionMode]="selectionMode()"
+    [selectOptions]="_filteredOptions()"
     [translateValue]="translateValue()"
     (blurHandler)="onBlurHandler()"
     (changedHandler)="onChangedHandler($event)"
-    selectionMode="single"
+    (mouseLeaveEmitter)="hideOptionVisibility()"
+    *ngIf="_showOptions()"
   ></quang-option-list>
   <div class="valid-feedback">
     {{ successMessage() | transloco }}
