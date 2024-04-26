@@ -36,6 +36,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   _optionHideTimeout = signal<any | undefined>(undefined)
 
   _inputValue = signal<string>('')
+  _val = computed(() => {
+    return this.selectOptions().find((x) => x.value === this._value())?.label ?? ''
+  })
 
   _filteredOptions = computed<SelectOption[]>(() => {
     const text = this._inputValue()
@@ -78,16 +81,22 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   onChangeInput(value: any): void {
-    of(value)
+    of(value.target?.value)
       .pipe(debounceTime(300))
       .subscribe((val) => {
-        this._inputValue.set(value.target?.value)
+        this._inputValue.set(val)
       })
   }
 
   filterOptions(value: string): SelectOption[] {
     const options = this.selectOptions()
     const text = value.toLowerCase()
-    return options.filter((x) => x.label.toLowerCase().includes(text))
+    console.log(text.split(' '))
+    // return options.filter((x) => x.label.toLowerCase().includes(text))
+    return options.filter((x) => {
+      const labels = x.label.toLowerCase().split(' ')
+      const inputs = value.toLowerCase().split(' ')
+      return inputs.find((input) => labels.some((label) => label.includes(input)))
+    })
   }
 }

@@ -19,7 +19,7 @@
     [placeholder]="componentPlaceholder() | transloco"
     [readOnly]="isReadonly()"
     [tabIndex]="componentTabIndex()"
-    [value]="_inputValue()"
+    [value]="_val()"
     (blur)="onBlurHandler()"
     (click)="changeOptionsVisibility(true, $event)"
     (input)="onChangeInput($event)"
