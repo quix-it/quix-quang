@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
+import { AutocompleteTestComponent } from './autocomplete-test/autocomplete-test.component'
 import { DateTestComponent } from './date-test/date-test.component'
 import { InputTestComponent } from './input-test/input-test.component'
 import { PaginatorTestComponent } from './paginator-test/paginator-test.component'
@@ -16,7 +17,8 @@ import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
     ToggleTestComponent,
     SelectTestComponent,
     PaginatorTestComponent,
-    WysiwygTestComponent
+    WysiwygTestComponent,
+    AutocompleteTestComponent
   ],
   templateUrl: './components-test-page.component.html',
   styleUrl: './components-test-page.component.scss',

@@ -1,6 +1,5 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core'
-import { FormsModule } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
@@ -30,49 +29,12 @@ export class QuangOptionListComponent {
 
   changedHandler = output<any>()
   blurHandler = output<any>()
-
-  _showOptions = signal<boolean>(false)
-  _optionHideTimeout = signal<any | undefined>(undefined)
-
-  _selectedItems = computed(() => {
-    const targetValue = this._value()
-    return this.selectOptions().filter((x) => {
-      if (Array.isArray(targetValue)) {
-        return targetValue.some((k) => k === x.value)
-      } else {
-        return targetValue === x.value
-      }
-    })
-  })
-
-  showOptionVisibility(): void {
-    if (this._optionHideTimeout()) {
-      clearTimeout(this._optionHideTimeout())
-      this._optionHideTimeout.set(null)
-    }
-    this._showOptions.set(true)
-    console.log(this.selectOptions())
-  }
-
-  hideOptionVisibility(skipTimeout = false): void {
-    if (this._optionHideTimeout()) {
-      clearTimeout(this._optionHideTimeout())
-    }
-    this._optionHideTimeout.set(
-      setTimeout(
-        () => {
-          this._showOptions.set(false)
-        },
-        skipTimeout ? 0 : 50
-      )
-    )
-  }
+  mouseLeaveEmitter = output<void>()
 
   onSelectItem(item: SelectOption | null): void {
     if (this.selectionMode() === 'single') {
       this.changedHandler.emit(item?.value ?? null)
-      // this._selectedItems.set([item])
-      this.hideOptionVisibility()
+      this.onMouseLeave()
     } else {
       let values: string[] | number[] | null = this._value() as string[] | number[] | null
       if (values) {
@@ -90,10 +52,17 @@ export class QuangOptionListComponent {
   }
 
   getSelected(item: SelectOption): boolean {
-    return this._selectedItems().some((x) => x.value === item.value)
+    if (this.selectionMode() === 'single') {
+      return this._value() === item.value
+    }
+    return this._value().some((x: number | string | null) => x === item.value)
   }
 
   onBlurHandler(e: any): void {
     this.blurHandler.emit(e)
+  }
+
+  onMouseLeave(): void {
+    this.mouseLeaveEmitter.emit()
   }
 }

@@ -15,8 +15,8 @@
       [id]="componentId()"
       [ngClass]="componentClass()"
       [tabIndex]="componentTabIndex()"
-      (click)="changeOptionsVisibility(true)"
-      (mouseleave)="hideOptionVisibility()"
+      (blur)="onBlurHandler()"
+      (click)="changeOptionsVisibility()"
       #input
       class="form-select"
       type="button"
@@ -43,6 +43,8 @@
       [translateValue]="translateValue()"
       (blurHandler)="onBlurHandler()"
       (changedHandler)="onChangedHandler($event)"
+      (mouseLeaveEmitter)="hideOptionVisibility()"
+      *ngIf="_showOptions()"
     ></quang-option-list>
   </div>
   <div class="valid-feedback">

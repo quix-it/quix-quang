@@ -8,3 +8,21 @@
     padding: 0;
   }
 }
+
+.item {
+  display: flex;
+  background-color: var(--bs-body-bg);
+  z-index: 1;
+  padding: 0 0.5rem;
+  label {
+    padding: 0.5rem 0;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: var(--bs-body-bg);
+    filter: brightness(95%);
+  }
+  *:hover {
+    cursor: pointer;
+  }
+}

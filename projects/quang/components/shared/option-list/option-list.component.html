@@ -1,9 +1,8 @@
 <div
   [ngStyle]="{ 'max-height': optionListMaxHeight() }"
-  (mouseenter)="showOptionVisibility()"
-  *ngIf="_showOptions()"
   class="option-list"
 >
+  <!-- (mouseleave)="onMouseLeave()" -->
   <ul>
     <li
       [class.m-0]="last"

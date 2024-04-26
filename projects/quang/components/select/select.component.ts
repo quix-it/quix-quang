@@ -1,5 +1,15 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import { ChangeDetectionStrategy, Component, effect, forwardRef, input, signal } from '@angular/core'
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  computed,
+  effect,
+  forwardRef,
+  input,
+  signal
+} from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -25,7 +35,18 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
   imports: [TranslocoPipe, NgIf, NgFor, NgClass, NgStyle, QuangOptionListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangSelectComponent extends QuangBaseComponent<string | number | string[] | number[] | null> {
+export class QuangSelectComponent
+  extends QuangBaseComponent<string | number | string[] | number[] | null>
+  implements AfterViewInit
+{
+  @HostListener('focusout', ['$event']) focusOut(event: Event): void {
+    console.log(event)
+    if (event && this._canLeave()) {
+      setTimeout(() => {
+        this.hideOptionVisibility()
+      }, 100)
+    }
+  }
   selectionMode = input<'single' | 'multiple'>('single')
   optionListMaxHeight = input<string>('200px')
   /**
@@ -42,9 +63,31 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
    */
   selectionMaxHeight = input<string>('')
 
+  _canLeave = computed(() => {
+    if (this.selectionMode() === 'single') return true
+    return false
+  })
+
+  _leave = signal<boolean>(true)
+
   _selectOptions = signal<SelectOption[]>([])
   _showOptions = signal<boolean>(false)
-  _selectedItems = this.optionListComponent._selectedItems
+  _optionHideTimeout = signal<any | undefined>(undefined)
+  _selectedItems = computed(() => {
+    if (this._value()) {
+      const targetValue = this._value()
+      return this.selectOptions().filter((x) => {
+        if (Array.isArray(targetValue)) {
+          return targetValue.some((k) => k === x.value)
+        } else {
+          return targetValue === x.value
+        }
+      })
+    }
+    return null
+  })
+
+  QuangSelectComponent = QuangSelectComponent
 
   translateValue = input<boolean>(true)
   nullOption = input<boolean>(true)
@@ -62,7 +105,7 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
     }
   )
 
-  constructor(private readonly optionListComponent: QuangOptionListComponent) {
+  constructor() {
     super()
   }
 
@@ -72,14 +115,33 @@ export class QuangSelectComponent extends QuangBaseComponent<string | number | s
     } else {
       this.showOptionVisibility()
     }
-    console.log(this.selectOptions())
   }
 
   showOptionVisibility(): void {
-    this.optionListComponent.showOptionVisibility()
+    if (this._optionHideTimeout()) {
+      clearTimeout(this._optionHideTimeout())
+      this._optionHideTimeout.set(null)
+    }
+    this._showOptions.set(true)
   }
 
-  hideOptionVisibility(): void {
-    this.optionListComponent.hideOptionVisibility()
+  hideOptionVisibility(skipTimeout = false): void {
+    if (this._optionHideTimeout()) {
+      clearTimeout(this._optionHideTimeout())
+    }
+    this._optionHideTimeout.set(
+      setTimeout(
+        () => {
+          this._showOptions.set(false)
+        },
+        skipTimeout ? 0 : 50
+      )
+    )
+  }
+
+  override onChangedHandler(value: string | number | string[] | number[] | null): void {
+    super.onChangedHandler(value)
+    this._leave.set(false)
+    console.log(this._leave())
   }
 }
