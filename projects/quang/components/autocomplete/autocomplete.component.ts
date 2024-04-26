@@ -37,7 +37,18 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   _inputValue = signal<string>('')
   _val = computed(() => {
-    return this.selectOptions().find((x) => x.value === this._value())?.label ?? ''
+    if (this.selectionMode() === 'single') {
+      return this.selectOptions().find((x) => x.value === this._value())?.label ?? ''
+    }
+    if (this.selectionMode() === 'multiple') {
+      const value = this._value()
+      if (Array.isArray(value))
+        return this.selectOptions()
+          .filter((x: SelectOption) => value.some((v) => v === x.value))
+          .map((x) => x.label)
+          .join(', ')
+    }
+    return ''
   })
 
   _filteredOptions = computed<SelectOption[]>(() => {
@@ -91,8 +102,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   filterOptions(value: string): SelectOption[] {
     const options = this.selectOptions()
     const text = value.toLowerCase()
-    console.log(text.split(' '))
-    // return options.filter((x) => x.label.toLowerCase().includes(text))
     return options.filter((x) => {
       const labels = x.label.toLowerCase().split(' ')
       const inputs = value.toLowerCase().split(' ')
