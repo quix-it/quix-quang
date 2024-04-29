@@ -25,7 +25,7 @@
                   *ngIf="el.sort?.key"
                   class="d-flex justify-content-between"
                 >
-                  <div class="align-self-end d-flex gap-2">
+                  <div class="align-self-end d-flex gap-1">
                     {{ el.text | transloco }}
                     <ng-container
                       [ngTemplateOutlet]="orderBtns"
@@ -55,10 +55,21 @@
         >
           <tr>
             <ng-container *ngFor="let el of tableConfigured.headers; let i = index">
-              <th class="align-bottom">
-                <div class="d-flex justify-content-between">
-                  <div class="align-self-end">
+              <th
+                [class.sort-btn]="sortableTable()"
+                (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
+                class="align-bottom"
+              >
+                <div
+                  *ngIf="el.sort?.key"
+                  class="d-flex justify-content-between"
+                >
+                  <div class="align-self-end d-flex gap-1">
                     {{ el.text | transloco }}
+                    <ng-container
+                      [ngTemplateOutlet]="orderBtns"
+                      [ngTemplateOutletContext]="{ $implicit: el.sort }"
+                    ></ng-container>
                   </div>
                 </div>
               </th>
