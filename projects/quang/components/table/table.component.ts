@@ -72,9 +72,9 @@ export class QuangTableComponent<T> implements AfterViewInit {
   stickyTable = input<boolean>(true)
   sortableTable = input<boolean>(false)
   selectedRaw = output<TableRow<T>>()
-  sortChanged = output<SortCol>()
+  sortChanged = output<SortCol[]>()
 
-  public sortTable = SortTable
+  public SortTable = SortTable
   theadFixed: boolean = false
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
@@ -134,11 +134,6 @@ export class QuangTableComponent<T> implements AfterViewInit {
     return !!this.selectedRows()?.some((x) => x === rowId)
   }
 
-  emitOrderTable(sorting: SortCol): void {
-    const orderCol: SortCol = sorting
-    this.sortChanged.emit(orderCol)
-  }
-
   fixTableHeaderWidth() {
     setTimeout(() => {
       const stickyColumns = this.tableHeader?.nativeElement?.querySelectorAll('th')
@@ -155,6 +150,32 @@ export class QuangTableComponent<T> implements AfterViewInit {
         }
       }
     })
+  }
+
+  onSortColumn(sort: SortCol): void {
+    this.tableConfigured.headers.map((header) => {
+      if (header.sort?.key) {
+        if (header.sort?.key !== sort.key) {
+          header.sort = {
+            ...header.sort,
+            sort: SortTable.DEFAULT
+          }
+        } else {
+          switch (sort.sort) {
+            case SortTable.DEFAULT:
+              header.sort.sort = SortTable.ASC
+              break
+            case SortTable.ASC:
+              header.sort.sort = SortTable.DESC
+              break
+            case SortTable.DESC:
+              header.sort.sort = SortTable.DEFAULT
+              break
+          }
+        }
+      }
+    })
+    this.sortChanged.emit(this.tableConfigured.headers.map((x) => x.sort ?? { key: '', sort: SortTable.DEFAULT }) ?? [])
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -16,15 +16,21 @@
         <thead>
           <tr>
             <ng-container *ngFor="let el of tableConfigured.headers; let i = index">
-              <th class="align-bottom">
+              <th
+                [class.sort-btn]="sortableTable()"
+                (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
+                class="align-bottom"
+              >
                 <div
-                  [class.pointer]="sortableTable()"
-                  (click)="sortableTable() && el?.sort ? emitOrderTable(el.sort!) : null"
                   *ngIf="el.sort?.key"
                   class="d-flex justify-content-between"
                 >
-                  <div class="align-self-end">
+                  <div class="align-self-end d-flex gap-2">
                     {{ el.text | transloco }}
+                    <ng-container
+                      [ngTemplateOutlet]="orderBtns"
+                      [ngTemplateOutletContext]="{ $implicit: el.sort }"
+                    ></ng-container>
                   </div>
                 </div>
               </th>
@@ -92,43 +98,45 @@
   </h6>
 </div>
 
-<div class="d-flex flex-column">
-  <button
-    class="d-flex btn p-0"
-    type="button"
+<ng-template
+  #orderBtns
+  let-order
+>
+  <div
+    [class.sort-asc]="order.sort === SortTable.ASC"
+    [class.sort-default]="order.sort === SortTable.DEFAULT"
+    [class.sort-desc]="order.sort === SortTable.DESC"
+    class="sort-arrows"
   >
     <svg
+      class="arrow-up"
       fill="currentColor"
-      height="24"
+      height="10"
       stroke="currentColor"
-      viewBox="0 -960 960 960"
-      width="24"
+      viewBox="279.5 -600.5 401 201"
+      width="10"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="m280-400 200-200 200 200H280Z"
         fill="currentColor"
         stroke="currentColor"
-      />
+      ></path>
     </svg>
-  </button>
-  <button
-    class="d-flex btn p-0"
-    type="button"
-  >
     <svg
+      class="arrow-down"
       fill="currentColor"
-      height="24"
+      height="10"
       stroke="currentColor"
-      viewBox="0 -960 960 960"
-      width="24"
+      viewBox="279.5 -560.5 401 201"
+      width="10"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M480-360 280-560h400L480-360Z"
         fill="currentColor"
         stroke="currentColor"
-      />
+      ></path>
     </svg>
-  </button>
-</div>
+  </div>
+</ng-template>

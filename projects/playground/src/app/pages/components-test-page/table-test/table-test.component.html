@@ -2,6 +2,7 @@
   [sortableTable]="true"
   [stickyTable]="true"
   [tableConfigured]="tableConfig"
+  (sortChanged)="onChangeSort($event)"
 ></quang-table>
 <!-- 
   [clickableRow]="true"

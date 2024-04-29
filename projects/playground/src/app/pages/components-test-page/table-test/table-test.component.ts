@@ -6,6 +6,7 @@ import { of } from 'rxjs'
 
 import {
   QuangTableComponent,
+  SortCol,
   SortTable,
   TableConfiguration,
   TableRow
@@ -33,7 +34,7 @@ export class TableTestComponent implements AfterViewInit {
         text: 'Name',
         sort: {
           key: 'name',
-          sort: SortTable.ASC
+          sort: SortTable.DEFAULT
         }
       },
       {
@@ -47,14 +48,14 @@ export class TableTestComponent implements AfterViewInit {
         text: 'Gender',
         sort: {
           key: 'gender',
-          sort: SortTable.ASC
+          sort: SortTable.DEFAULT
         }
       },
       {
         text: 'Actions',
         sort: {
           key: 'actions',
-          sort: SortTable.ASC
+          sort: SortTable.DEFAULT
         }
       }
     ],
@@ -251,5 +252,9 @@ export class TableTestComponent implements AfterViewInit {
       }
       this.selectedRows = [...this.selectedRows]
     }
+  }
+
+  onChangeSort(sortCols: SortCol[]): void {
+    console.log(sortCols)
   }
 }
