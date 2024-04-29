@@ -1,18 +1,13 @@
-import {
-  ConnectedPosition,
-  ConnectionPositionPair,
-  Overlay,
-  OverlayPositionBuilder,
-  OverlayRef
-} from '@angular/cdk/overlay'
-import { TemplatePortal } from '@angular/cdk/portal'
+import { ConnectedPosition, Overlay, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay'
+import { ComponentPortal } from '@angular/cdk/portal'
 import {
   Directive,
   ElementRef,
   HostListener,
-  OnInit,
   TemplateRef,
   ViewContainerRef,
+  computed,
+  effect,
   inject,
   input,
   signal
@@ -25,25 +20,12 @@ import { QuangPopoverComponent } from './popover.component'
   selector: '[quangPopover]',
   standalone: true
 })
-export class QuangPopoverDirective implements OnInit {
-  @HostListener('click') onClick(): void {
-    if (this.showMethod() === 'click') this.showHideOverlay()
-  }
-
-  @HostListener('mouseenter') onHover(): void {
-    if (this.showMethod() === 'hover') this.showHideOverlay()
-  }
-
-  @HostListener('mouseleave') onLeave(): void {
-    if (this.showMethod() === 'hover') this.detachOverlay()
-  }
-
+export class QuangPopoverDirective {
   showMethod = input<'click' | 'hover'>('click')
-  popoverContent = input.required<TemplateRef<any>>({ alias: 'quangPopover' })
-
+  popoverContent = input.required<TemplateRef<any> | null>({ alias: 'quangPopover' })
   closeOnClickOutside: boolean = true
   quangPopoverPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
-
+  _takeUntilDestroyed = signal(takeUntilDestroyed())
   private top = signal<ConnectedPosition>({
     originX: 'center',
     originY: 'top',
@@ -51,7 +33,6 @@ export class QuangPopoverDirective implements OnInit {
     overlayY: 'bottom',
     offsetY: -8
   })
-
   private bottom = signal<ConnectedPosition>({
     originX: 'center',
     originY: 'bottom',
@@ -59,7 +40,6 @@ export class QuangPopoverDirective implements OnInit {
     overlayY: 'top',
     offsetY: 8
   })
-
   private left = signal<ConnectedPosition>({
     originX: 'start',
     originY: 'center',
@@ -67,7 +47,6 @@ export class QuangPopoverDirective implements OnInit {
     overlayY: 'center',
     offsetX: -8
   })
-
   private right = signal<ConnectedPosition>({
     originX: 'end',
     originY: 'center',
@@ -75,76 +54,7 @@ export class QuangPopoverDirective implements OnInit {
     overlayY: 'center',
     offsetX: 8
   })
-
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
-
-  private overlayRef = signal<OverlayRef | null>(null)
-
-  private readonly overlay = signal(inject(Overlay))
-  private readonly overlayPositionBuilder = signal(inject(OverlayPositionBuilder))
-  private readonly elementRef = signal(inject(ElementRef))
-  private readonly vcr = signal(inject(ViewContainerRef))
-
-  ngOnInit(): void {
-    if (this.showMethod() === 'click') {
-      this.createOverlayClick()
-    } else {
-      this.createOverlayHover()
-    }
-  }
-
-  createOverlayHover(): void {
-    const positionStrategy = this.overlayPositionBuilder()
-      .flexibleConnectedTo(this.elementRef())
-      .withPositions(this.getPositions())
-    this.overlayRef.set(this.overlay().create({ positionStrategy }))
-  }
-
-  createOverlayClick(): void {
-    const scrollStrategy = this.overlay().scrollStrategies.block()
-    const positionStrategy = this.overlay()
-      .position()
-      .flexibleConnectedTo(this.elementRef())
-      .withPositions([
-        new ConnectionPositionPair({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-      ])
-
-    this.overlayRef.set(
-      this.overlay().create({
-        positionStrategy,
-        scrollStrategy,
-        hasBackdrop: true,
-        backdropClass: ''
-      })
-    )
-
-    const overlayRef = this.overlayRef()
-
-    if (overlayRef)
-      overlayRef
-        .backdropClick()
-        .pipe(this._takeUntilDestroyed())
-        .subscribe(() => {
-          if (this.closeOnClickOutside) {
-            this.detachOverlay()
-          }
-        })
-  }
-
-  attachOverlay(): void {
-    const createdOverlay = this.overlayRef()
-    if (createdOverlay) {
-      const x = 'aagagag'
-      const templatePortal = new TemplatePortal(this.popoverContent(), this.vcr(), x)
-      createdOverlay.attach(templatePortal)
-    }
-  }
-
-  detachOverlay(): void {
-    this.overlayRef()?.detach()
-  }
-
-  getPositions(): ConnectedPosition[] {
+  _tooltipPosition = computed((): ConnectedPosition[] => {
     switch (this.quangPopoverPosition()) {
       case 'top':
         return [this.top(), this.bottom()]
@@ -157,6 +67,59 @@ export class QuangPopoverDirective implements OnInit {
       default:
         return [this.top(), this.bottom()]
     }
+  })
+  private overlayRef = signal<OverlayRef | null>(null)
+  private readonly overlay = signal(inject(Overlay))
+  private readonly overlayPositionBuilder = signal(inject(OverlayPositionBuilder))
+  private readonly elementRef = signal(inject(ElementRef))
+  _overlayRefEffect = effect(
+    () => {
+      const positionStrategy = this.overlayPositionBuilder()
+        .flexibleConnectedTo(this.elementRef())
+        .withPositions(this._tooltipPosition())
+      this.overlayRef.set(
+        this.overlay().create({
+          positionStrategy,
+          hasBackdrop: this.showMethod() === 'click',
+          backdropClass: ''
+        })
+      )
+      this.overlayRef()
+        ?.backdropClick()
+        .pipe(this._takeUntilDestroyed())
+        .subscribe(() => {
+          if (this.closeOnClickOutside) {
+            this.detachOverlay()
+          }
+        })
+    },
+    { allowSignalWrites: true }
+  )
+  private readonly viewContainerRef = signal(inject(ViewContainerRef))
+
+  @HostListener('click') onClick(): void {
+    if (this.showMethod() === 'click') this.showHideOverlay()
+  }
+
+  @HostListener('mouseenter') onHover(): void {
+    if (this.showMethod() === 'hover') this.showHideOverlay()
+  }
+
+  @HostListener('mouseleave') onLeave(): void {
+    if (this.showMethod() === 'hover') this.detachOverlay()
+  }
+
+  attachOverlay(): void {
+    const componentPortal = new ComponentPortal(QuangPopoverComponent)
+    const createdOverlay = this.overlayRef()
+    if (createdOverlay) {
+      const tooltipRef = createdOverlay.attach(componentPortal)
+      tooltipRef.instance.popoverContent = this.popoverContent
+    }
+  }
+
+  detachOverlay(): void {
+    this.overlayRef()?.detach()
   }
 
   showHideOverlay(): void {

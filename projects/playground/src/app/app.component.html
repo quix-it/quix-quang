@@ -23,6 +23,7 @@
   </div>
   <div
     [quangPopover]="popoverTest"
+    quangPopoverPosition="right"
     showMethod="click"
   >
     POPOVER TEST
@@ -72,5 +73,5 @@
 <router-outlet />
 
 <ng-template #popoverTest>
-  <p>test works!</p>
+  <span>test works!</span>
 </ng-template>
