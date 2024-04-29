@@ -5,13 +5,16 @@
 >
   <quang-wysiwyg
     [errorMap]="errors()"
+    [highlightColor]="highlightColor()"
     [isReadonly]="isReadonly()"
+    [minHeight]="wysiwygHeight()"
     componentLabel="form.label.input"
     formControlName="testInput"
     successMessage="tutto bello!"
   ></quang-wysiwyg>
 </form>
 <pre>{{ testForm().value | json }}</pre>
+<pre>{{ testForm().controls.testInput.errors | json }}</pre>
 <button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
 <button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
 <button (click)="changeVisibility()">change visibility</button>
@@ -19,3 +22,5 @@
 <button (click)="setFormValues()">set form</button>
 <button (click)="checkCurrentFormValueAndValidity()">check current form value and validity</button>
 <button (click)="setReadonly()">current readonly: {{ isReadonly() }}</button>
+<button (click)="flipButton()">Flip button</button>
+<button (click)="changeHeight()">Change Height</button>

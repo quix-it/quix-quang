@@ -52,7 +52,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
   italic = input<boolean>(true)
   strike = input<boolean>(true)
   fontColor = input<boolean>(true)
-  hiliteColor = input<boolean>(true)
+  highlightColor = input<boolean>(true)
   textStyle = input<boolean>(true)
   removeFormat = input<boolean>(true)
   align = input<boolean>(true)
@@ -71,6 +71,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
    */
   _generateSunEditorWysiwygEffect = effect(
     async () => {
+      console.log('genero sun')
       if (this._inputForWysiwyg()?.nativeElement) {
         const sunEditorOptions: SunEditorOptions = {
           plugins: plugins,
@@ -146,7 +147,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     if (this.fontColor()) {
       buttonList.push('fontColor')
     }
-    if (this.hiliteColor()) {
+    if (this.highlightColor()) {
       buttonList.push('hiliteColor')
     }
     if (this.textStyle()) {

@@ -19,6 +19,10 @@ export class WysiwygTestComponent {
 
   formBuilder = signal(inject(NonNullableFormBuilder))
 
+  highlightColor = signal(true)
+
+  wysiwygHeight = signal<string>('200px')
+
   errors = signal([
     {
       error: Validators.required.name,
@@ -36,7 +40,11 @@ export class WysiwygTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('sì pirrone!', [Validators.required])
+      testInput: this.formBuilder().control<string>('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(100)
+      ])
     })
   )
   showInput = signal(true)
@@ -82,5 +90,13 @@ export class WysiwygTestComponent {
 
   setReadonly() {
     this.isReadonly.set(!this.isReadonly())
+  }
+
+  flipButton() {
+    this.highlightColor.set(!this.highlightColor())
+  }
+
+  changeHeight() {
+    this.wysiwygHeight.set(Math.random() * 500 + 'px')
   }
 }
