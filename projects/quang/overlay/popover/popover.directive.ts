@@ -21,6 +21,13 @@ import { QuangPopoverComponent } from './popover.component'
   standalone: true
 })
 export class QuangPopoverDirective {
+  /**
+   * The amount of pixels needed for the popover to automatically disappear. If undefined the popover will not disappear on scroll
+   * Default: 100
+   * @default 100
+   */
+  scrollCloseThreshold = input<number | undefined>(100)
+
   showMethod = input<'click' | 'hover'>('click')
   popoverContent = input.required<TemplateRef<any> | null>({ alias: 'quangPopover' })
   closeOnClickOutside: boolean = true
@@ -80,6 +87,9 @@ export class QuangPopoverDirective {
       this.overlayRef.set(
         this.overlay().create({
           positionStrategy,
+          scrollStrategy: this.scrollCloseThreshold()
+            ? this.overlay().scrollStrategies.close({ threshold: this.scrollCloseThreshold() })
+            : this.overlay().scrollStrategies.noop(),
           hasBackdrop: this.showMethod() === 'click',
           backdropClass: ''
         })

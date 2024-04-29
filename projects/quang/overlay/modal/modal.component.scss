@@ -23,3 +23,9 @@
     justify-content: flex-end;
   }
 }
+
+::ng-deep {
+  .cdk-global-scrollblock {
+    overflow-y: auto;
+  }
+}
