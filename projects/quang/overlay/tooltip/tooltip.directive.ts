@@ -1,6 +1,6 @@
 import { ConnectedPosition, Overlay, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay'
 import { ComponentPortal } from '@angular/cdk/portal'
-import { Directive, ElementRef, HostListener, OnInit, inject, input, signal } from '@angular/core'
+import { Directive, ElementRef, HostListener, computed, effect, inject, input, signal } from '@angular/core'
 
 import { QuangTooltipComponent } from './tooltip.component'
 
@@ -8,27 +8,10 @@ import { QuangTooltipComponent } from './tooltip.component'
   selector: '[quangTooltip]',
   standalone: true
 })
-export class QuangTooltipDirective implements OnInit {
-  @HostListener('mouseenter') show() {
-    if (this.showTimeout) clearTimeout(this.showTimeout)
-    this.showTimeout = setTimeout(() => {
-      const tooltipPortal = new ComponentPortal(QuangTooltipComponent)
-      const createdOverlay = this.overlayRef()
-      if (createdOverlay) {
-        const tooltipRef = createdOverlay.attach(tooltipPortal)
-        tooltipRef.instance.text = this.text
-      }
-    }, 500)
-  }
-  @HostListener('mouseleave') hide() {
-    if (this.showTimeout) clearTimeout(this.showTimeout)
-    this.overlayRef()?.detach()
-  }
-
+export class QuangTooltipDirective {
   showTimeout: any
   text = input.required<string>({ alias: 'quangTooltip' })
   quangTooltipPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
-
   private top = signal<ConnectedPosition>({
     originX: 'center',
     originY: 'top',
@@ -36,7 +19,6 @@ export class QuangTooltipDirective implements OnInit {
     overlayY: 'bottom',
     offsetY: -8
   })
-
   private bottom = signal<ConnectedPosition>({
     originX: 'center',
     originY: 'bottom',
@@ -44,7 +26,6 @@ export class QuangTooltipDirective implements OnInit {
     overlayY: 'top',
     offsetY: 8
   })
-
   private left = signal<ConnectedPosition>({
     originX: 'start',
     originY: 'center',
@@ -52,7 +33,6 @@ export class QuangTooltipDirective implements OnInit {
     overlayY: 'center',
     offsetX: -8
   })
-
   private right = signal<ConnectedPosition>({
     originX: 'end',
     originY: 'center',
@@ -60,21 +40,7 @@ export class QuangTooltipDirective implements OnInit {
     overlayY: 'center',
     offsetX: 8
   })
-
-  private overlayRef = signal<OverlayRef | null>(null)
-
-  private readonly overlay = signal(inject(Overlay))
-  private readonly overlayPositionBuilder = signal(inject(OverlayPositionBuilder))
-  private readonly elementRef = signal(inject(ElementRef))
-
-  ngOnInit(): void {
-    const positionStrategy = this.overlayPositionBuilder()
-      .flexibleConnectedTo(this.elementRef())
-      .withPositions(this.getPositions())
-    this.overlayRef.set(this.overlay().create({ positionStrategy }))
-  }
-
-  getPositions(): ConnectedPosition[] {
+  _tooltipPosition = computed((): ConnectedPosition[] => {
     switch (this.quangTooltipPosition()) {
       case 'top':
         return [this.top(), this.bottom()]
@@ -87,5 +53,36 @@ export class QuangTooltipDirective implements OnInit {
       default:
         return [this.top(), this.bottom()]
     }
+  })
+  private overlayRef = signal<OverlayRef | null>(null)
+  private readonly overlay = signal(inject(Overlay))
+  private readonly overlayPositionBuilder = signal(inject(OverlayPositionBuilder))
+  private readonly elementRef = signal(inject(ElementRef))
+  _overlayRefEffect = effect(
+    () => {
+      console.log('_overlayRefEffect')
+      const positionStrategy = this.overlayPositionBuilder()
+        .flexibleConnectedTo(this.elementRef())
+        .withPositions(this._tooltipPosition())
+      this.overlayRef.set(this.overlay().create({ positionStrategy }))
+    },
+    { allowSignalWrites: true }
+  )
+
+  @HostListener('mouseenter') show() {
+    if (this.showTimeout) clearTimeout(this.showTimeout)
+    this.showTimeout = setTimeout(() => {
+      const tooltipPortal = new ComponentPortal(QuangTooltipComponent)
+      const createdOverlay = this.overlayRef()
+      if (createdOverlay) {
+        const tooltipRef = createdOverlay.attach(tooltipPortal)
+        tooltipRef.instance.text = this.text
+      }
+    }, 500)
+  }
+
+  @HostListener('mouseleave') hide() {
+    if (this.showTimeout) clearTimeout(this.showTimeout)
+    this.overlayRef()?.detach()
   }
 }

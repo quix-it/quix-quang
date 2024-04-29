@@ -13,7 +13,13 @@
     >
       TOAST
     </button>
-    <p class="text-muted m-0">With QuangTooltip</p>
+    <p
+      [quangTooltip]="title()"
+      class="text-muted m-0"
+      quangTooltipPosition="bottom"
+    >
+      With QuangTooltip
+    </p>
   </div>
   <div
     [quangPopover]="popoverTest"
