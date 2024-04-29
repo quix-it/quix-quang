@@ -92,3 +92,34 @@
     }
   }
 }
+.sort-arrows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sort-default {
+  opacity: 30%;
+}
+
+.sort-asc {
+  .arrow-up {
+    opacity: 100%;
+  }
+  .arrow-down {
+    display: none;
+  }
+}
+
+.sort-desc {
+  .arrow-up {
+    display: none;
+  }
+  .arrow-down {
+    opacity: 100%;
+  }
+}
+
+.sort-btn:hover {
+  cursor: pointer;
+}
