@@ -10,5 +10,5 @@ import { ChangeDetectionStrategy, Component, TemplateRef, input } from '@angular
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuangPopoverComponent {
-  popoverContent = input<TemplateRef<any> | null>(null)
+  content = input<TemplateRef<any> | null>(null)
 }
