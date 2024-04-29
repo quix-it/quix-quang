@@ -1,13 +1,13 @@
 <quang-table
   [sortableTable]="true"
   [stickyTable]="true"
-  [tableConfigured]="tableConfig"
+  [tableConfigurations]="tableConfig"
   (sortChanged)="onChangeSort($event)"
 ></quang-table>
-<!-- 
+<!--
   [clickableRow]="true"
   [selectedRows]="selectedRows"
-  (selectedRaw)="onClickRow($event)" 
+  (selectedRaw)="onClickRow($event)"
 -->
 <ng-template
   #actions

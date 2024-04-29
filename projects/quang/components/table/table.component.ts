@@ -1,22 +1,21 @@
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common'
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostListener,
-  Input,
-  SimpleChanges,
   TemplateRef,
-  ViewChild,
+  effect,
+  inject,
   input,
   output,
-  signal
+  signal,
+  viewChild
 } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@ngneat/transloco'
-import { interval } from 'rxjs'
+
+import { ResizeObservableService } from '../../device'
 
 export interface TableHeader {
   text: string
@@ -61,68 +60,66 @@ export interface SortCol {
   imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet, NgFor],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangTableComponent<T> implements AfterViewInit {
-  @ViewChild('tableHeader') set tableHeader(val: ElementRef<HTMLElement>) {
-    this._tableHeader = val
-    this.fixTableHeaderWidth()
-  }
-
+export class QuangTableComponent<T> {
   clickableRow = input<boolean>(false)
   selectedRows = input<string[] | number[]>()
   stickyTable = input<boolean>(true)
   sortableTable = input<boolean>(false)
   selectedRaw = output<TableRow<T>>()
   sortChanged = output<SortCol[]>()
-
   public SortTable = SortTable
-  theadFixed: boolean = false
-
   _takeUntilDestroyed = signal(takeUntilDestroyed())
+  _resizeObservableService = signal(inject(ResizeObservableService))
+  _elementRef = signal(inject(ElementRef))
 
-  _tableHeader!: ElementRef<HTMLElement>
+  _elementRefEffect = effect(() => {
+    this._resizeObservableService()
+      .resizeObservable(this._elementRef().nativeElement)
+      .pipe(this._takeUntilDestroyed())
+      .subscribe(() => {
+        this.fixTableHeaderWidth()
+      })
+  })
 
-  get tableHeader(): ElementRef<HTMLElement> {
-    return this._tableHeader
-  }
+  _tableHeader = viewChild<ElementRef>('tableHeader')
 
-  _fakeTableHeader!: ElementRef<HTMLElement>
+  _tableHeaderElement = viewChild<Element>('tableHeader')
 
-  get fakeTableHeader(): ElementRef<HTMLElement> {
-    return this._fakeTableHeader
-  }
+  _tableHeaderEffect = effect(() => {
+    if (this._tableHeader()) {
+      this.fixTableHeaderWidth()
+    }
+  })
 
-  @ViewChild('fakeTableHeader') set fakeTableHeader(val: ElementRef<HTMLElement>) {
-    this._fakeTableHeader = val
-    this.fixTableHeaderWidth()
-  }
+  _fakeTableHeader = viewChild<ElementRef>('fakeTableHeader')
 
-  _tableConfigured: TableConfiguration<T> = {
-    headers: [],
-    rows: []
-  }
+  _fakeTableHeaderEffect = effect(() => {
+    if (this._fakeTableHeader()) {
+      this.fixTableHeaderWidth()
+    }
+  })
 
-  get tableConfigured(): TableConfiguration<T> {
-    return this._tableConfigured
-  }
+  tableConfigurations = input.required<TableConfiguration<T>>()
 
-  @Input() set tableConfigured(val: TableConfiguration<T>) {
-    this._tableConfigured = val
-    this.fixTableHeaderWidth()
-  }
+  effectTableConfigurations = effect(() => {
+    if (this.tableConfigurations()) {
+      this.fixTableHeaderWidth()
+    }
+  })
 
-  @HostListener('window:resize', ['$event'])
+  /*@HostListener('window:resize', ['$event'])
   onResize() {
     this.fixTableHeaderWidth()
-  }
+  }*/
 
-  ngAfterViewInit(): void {
+  /*ngAfterViewInit(): void {
     this.fixTableHeaderWidth()
     interval(500)
       .pipe(this._takeUntilDestroyed())
       .subscribe(() => {
         this.fixTableHeaderWidth()
       })
-  }
+  }*/
 
   onClickRow(row: TableRow<T>): void {
     if (this.clickableRow()) {
@@ -136,10 +133,10 @@ export class QuangTableComponent<T> implements AfterViewInit {
 
   fixTableHeaderWidth() {
     setTimeout(() => {
-      const stickyColumns = this.tableHeader?.nativeElement?.querySelectorAll('th')
+      const stickyColumns = this._tableHeader()?.nativeElement?.querySelectorAll('th')
 
       // Copy the column widths from our hidden Primary table header to our Sticky Table header.
-      const ths = this.fakeTableHeader?.nativeElement?.querySelectorAll('th')
+      const ths = this._fakeTableHeader()?.nativeElement?.querySelectorAll('th')
 
       if (stickyColumns && ths) {
         for (let i = 0; i < ths?.length; i++) {
@@ -153,7 +150,7 @@ export class QuangTableComponent<T> implements AfterViewInit {
   }
 
   onSortColumn(sort: SortCol): void {
-    this.tableConfigured.headers.map((header) => {
+    this.tableConfigurations().headers.map((header) => {
       if (header.sort?.key) {
         if (header.sort?.key !== sort.key) {
           header.sort = {
@@ -175,10 +172,14 @@ export class QuangTableComponent<T> implements AfterViewInit {
         }
       }
     })
-    this.sortChanged.emit(this.tableConfigured.headers.map((x) => x.sort ?? { key: '', sort: SortTable.DEFAULT }) ?? [])
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.fixTableHeaderWidth()
+    this.sortChanged.emit(
+      this.tableConfigurations().headers.map(
+        (x) =>
+          x.sort ?? {
+            key: '',
+            sort: SortTable.DEFAULT
+          }
+      ) ?? []
+    )
   }
 }

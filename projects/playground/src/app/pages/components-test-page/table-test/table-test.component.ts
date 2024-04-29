@@ -66,11 +66,7 @@ export class TableTestComponent implements AfterViewInit {
         }
       },
       {
-        text: 'Actions',
-        sort: {
-          key: 'actions',
-          sort: SortTable.DEFAULT
-        }
+        text: ''
       }
     ],
     rows: []

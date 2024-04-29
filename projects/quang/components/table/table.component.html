@@ -2,7 +2,7 @@
   [class.sticky-table]="stickyTable"
   class="table-responsive"
 >
-  <ng-container *ngIf="tableConfigured.rows?.length">
+  <ng-container *ngIf="tableConfigurations().rows?.length">
     <div
       (scroll)="tableContainer.scrollLeft = tableHeaderContainer.scrollLeft"
       #tableHeaderContainer
@@ -15,7 +15,7 @@
       >
         <thead>
           <tr>
-            <ng-container *ngFor="let el of tableConfigured.headers; let i = index">
+            <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
               <th
                 [class.sort-btn]="sortableTable()"
                 (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
@@ -54,7 +54,7 @@
           id="fakeTableHeader"
         >
           <tr>
-            <ng-container *ngFor="let el of tableConfigured.headers; let i = index">
+            <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
               <th
                 [class.sort-btn]="sortableTable()"
                 (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
@@ -82,7 +82,7 @@
             [class.selectedRow]="row?.rowId ? isSelected(row.rowId!) : null"
             [ngClass]="row.css"
             (click)="clickableRow() ? onClickRow(row) : null"
-            *ngFor="let row of tableConfigured.rows"
+            *ngFor="let row of tableConfigurations().rows"
           >
             <td
               [ngClass]="cell.css!"
@@ -102,7 +102,7 @@
     </div>
   </ng-container>
   <h6
-    *ngIf="!tableConfigured.rows?.length"
+    *ngIf="!tableConfigurations().rows?.length"
     class="text-center mt-3"
   >
     {{ 'table.noResults' | transloco }}
