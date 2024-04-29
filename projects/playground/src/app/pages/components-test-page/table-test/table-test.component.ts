@@ -38,6 +38,20 @@ export class TableTestComponent implements AfterViewInit {
         }
       },
       {
+        text: 'Name2',
+        sort: {
+          key: 'name2',
+          sort: SortTable.DEFAULT
+        }
+      },
+      {
+        text: 'Name3',
+        sort: {
+          key: 'name3',
+          sort: SortTable.DEFAULT
+        }
+      },
+      {
         text: 'Age',
         sort: {
           key: 'age',
@@ -210,6 +224,12 @@ export class TableTestComponent implements AfterViewInit {
               rowId: `person-${person.id}`,
               payload: person,
               cellData: [
+                {
+                  text: person.name
+                },
+                {
+                  text: person.name
+                },
                 {
                   text: person.name
                 },
