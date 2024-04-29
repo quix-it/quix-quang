@@ -76,7 +76,8 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
         const sunEditorOptions: SunEditorOptions = {
           plugins: plugins,
           buttonList: [this.getButtonList()],
-          minHeight: this.minHeight()
+          minHeight: this.minHeight(),
+          width: '100%'
         }
 
         if (this._sunEditorWysiwygInstance()) {

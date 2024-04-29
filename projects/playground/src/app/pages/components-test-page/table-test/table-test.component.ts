@@ -64,7 +64,7 @@ export class TableTestComponent implements AfterViewInit {
 
   readonly people: People[] = [
     {
-      name: 'John Doe',
+      name: 'John Doewegeqwg ewgwgewgeqwgiojeqwiogjewgewiogjiogjew',
       age: 30,
       gender: 'Male',
       id: 1

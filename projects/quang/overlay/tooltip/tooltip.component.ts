@@ -18,6 +18,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core'
   ]
 })
 export class QuangTooltipComponent {
-  text = input<string>('')
+  content = input<string>('')
   quangTooltipPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
 }

@@ -1,5 +1,5 @@
 <h1>{{ 'welcomeMessage' | transloco: { title: title() } }}</h1>
-<div class="d-flex">
+<div class="d-flex flex-wrap">
   <button (click)="changeLanguage('it')">IT LANG</button>
   <button (click)="changeLanguage('en')">EN LANG</button>
   <button (click)="showLoader()">LOADER</button>
@@ -9,14 +9,14 @@
       [quangTooltip]="title()"
       (click)="openToast()"
       class="w-100"
-      quangTooltipPosition="top"
+      overlayPosition="top"
     >
       TOAST
     </button>
     <p
       [quangTooltip]="title()"
       class="text-muted m-0"
-      quangTooltipPosition="bottom"
+      overlayPosition="bottom"
     >
       With QuangTooltip
     </p>
@@ -24,7 +24,7 @@
   <div
     [quangPopover]="popoverTest"
     [scrollCloseThreshold]="undefined"
-    quangPopoverPosition="right"
+    overlayPosition="right"
     showMethod="click"
   >
     POPOVER TEST
