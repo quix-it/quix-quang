@@ -11,8 +11,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('tooltip', [
+      state('*', style({ opacity: 1 })),
       transition(':enter', [style({ opacity: 0 }), animate(200, style({ opacity: 1 }))]),
-      transition(':leave', [animate(300, style({ opacity: 0 }))])
+      transition(':leave', [style({ opacity: 1 }), animate(300, style({ opacity: 0 }))])
     ])
   ]
 })
