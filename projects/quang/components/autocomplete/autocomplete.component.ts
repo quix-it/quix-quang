@@ -27,7 +27,7 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
   ]
 })
 export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | string[] | number[] | null> {
-  selectionMode = input<'single' | 'multiple'>('single')
+  // selectionMode = input<'single' | 'multiple'>('single')
   optionListMaxHeight = input<string>('200px')
   selectOptions = input.required<SelectOption[]>()
   translateValue = input<boolean>(true)
@@ -37,18 +37,18 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   _inputValue = signal<string>('')
   _val = computed(() => {
-    if (this.selectionMode() === 'single') {
-      return this.selectOptions().find((x) => x.value === this._value())?.label ?? ''
-    }
-    if (this.selectionMode() === 'multiple') {
-      const value = this._value()
-      if (Array.isArray(value))
-        return this.selectOptions()
-          .filter((x: SelectOption) => value.some((v) => v === x.value))
-          .map((x) => x.label)
-          .join(', ')
-    }
-    return ''
+    // if (this.selectionMode() === 'single') {
+    return this.selectOptions().find((x) => x.value === this._value())?.label ?? ''
+    // }
+    // if (this.selectionMode() === 'multiple') {
+    //   const value = this._value()
+    //   if (Array.isArray(value))
+    //     return this.selectOptions()
+    //       .filter((x: SelectOption) => value.some((v) => v === x.value))
+    //       .map((x) => x.label)
+    //       .join(', ')
+    // }
+    // return ''
   })
 
   _filteredOptions = computed<SelectOption[]>(() => {
@@ -60,6 +60,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   changeOptionsVisibility(skipTimeout = false, event: Event): void {
+    if (this.isReadonly()) return
     if (this._showOptions()) {
       this._showOptions.set(skipTimeout)
     } else {

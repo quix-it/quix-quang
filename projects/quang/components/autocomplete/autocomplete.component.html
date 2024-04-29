@@ -34,13 +34,13 @@
     [componentLabel]="componentLabel()"
     [componentTabIndex]="componentTabIndex()"
     [optionListMaxHeight]="optionListMaxHeight()"
-    [selectionMode]="selectionMode()"
     [selectOptions]="_filteredOptions()"
     [translateValue]="translateValue()"
     (blurHandler)="onBlurHandler()"
     (changedHandler)="onChangedHandler($event)"
     (mouseLeaveEmitter)="hideOptionVisibility()"
     *ngIf="_showOptions()"
+    selectionMode="single"
   ></quang-option-list>
   <div class="valid-feedback">
     {{ successMessage() | transloco }}

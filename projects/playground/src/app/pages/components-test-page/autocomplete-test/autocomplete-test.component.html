@@ -12,7 +12,7 @@
     selectionMode="single"
     successMessage="tutto bello!"
   ></quang-autocomplete>
-  <quang-autocomplete
+  <!-- <quang-autocomplete
     [errorMap]="errors()"
     [isReadonly]="isReadonly()"
     [selectOptions]="numberList"
@@ -20,7 +20,7 @@
     formControlName="testInputMultiple"
     selectionMode="multiple"
     successMessage="tutto bello!"
-  ></quang-autocomplete>
+  ></quang-autocomplete> -->
   {{ testForm().value | json }}
 </form>
 <button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>

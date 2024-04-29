@@ -110,6 +110,7 @@ export class QuangSelectComponent
   }
 
   changeOptionsVisibility(skipTimeout = false): void {
+    if (this.isReadonly()) return
     if (this._showOptions()) {
       this._showOptions.set(skipTimeout)
     } else {
