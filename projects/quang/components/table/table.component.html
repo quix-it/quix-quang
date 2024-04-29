@@ -18,8 +18,9 @@
             <ng-container *ngFor="let el of tableConfigured.headers; let i = index">
               <th class="align-bottom">
                 <div
-                  [class.pointer]="sortableTable"
-                  (click)="sortableTable() ? emitOrderTable(el.text!, el.sort!) : null"
+                  [class.pointer]="sortableTable()"
+                  (click)="sortableTable() && el?.sort ? emitOrderTable(el.sort!) : null"
+                  *ngIf="el.sort?.key"
                   class="d-flex justify-content-between"
                 >
                   <div class="align-self-end">
@@ -60,8 +61,9 @@
         </thead>
         <tbody>
           <tr
-            [class.hover-table]="clickableRow"
-            [ngClass]="row.css!"
+            [class.hover-table]="clickableRow()"
+            [class.selectedRow]="row?.rowId ? isSelected(row.rowId!) : null"
+            [ngClass]="row.css"
             (click)="clickableRow() ? onClickRow(row) : null"
             *ngFor="let row of tableConfigured.rows"
           >
@@ -71,7 +73,7 @@
             >
               {{ !cell.renderer ? cell.text : null }}
               <ng-container
-                [ngTemplateOutlet]="cell.renderer"
+                [ngTemplateOutlet]="cell?.renderer ?? null"
                 [ngTemplateOutletContext]="{
                   $implicit: cell.payload
                 }"
@@ -88,4 +90,45 @@
   >
     {{ 'table.noResults' | transloco }}
   </h6>
+</div>
+
+<div class="d-flex flex-column">
+  <button
+    class="d-flex btn p-0"
+    type="button"
+  >
+    <svg
+      fill="currentColor"
+      height="24"
+      stroke="currentColor"
+      viewBox="0 -960 960 960"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="m280-400 200-200 200 200H280Z"
+        fill="currentColor"
+        stroke="currentColor"
+      />
+    </svg>
+  </button>
+  <button
+    class="d-flex btn p-0"
+    type="button"
+  >
+    <svg
+      fill="currentColor"
+      height="24"
+      stroke="currentColor"
+      viewBox="0 -960 960 960"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M480-360 280-560h400L480-360Z"
+        fill="currentColor"
+        stroke="currentColor"
+      />
+    </svg>
+  </button>
 </div>

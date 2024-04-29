@@ -19,5 +19,8 @@
     "totalItems": "Totale",
     "size": "Dimensione Pagina",
     "pageRange": "{{page}} di {{amountPages}}"
+  },
+  "table": {
+    "noResults": "Nessun risultato trovato"
   }
 }
