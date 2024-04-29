@@ -8,6 +8,7 @@ import { TranslocoPipe } from '@ngneat/transloco'
 import { QuangLoaderComponent } from '@quix/quang/loader'
 import { QuangModalComponent } from '@quix/quang/overlay/modal'
 import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
+import { QuangPopoverComponent } from '@quix/quang/overlay/popover/popover.component'
 import { QuangToastComponent } from '@quix/quang/overlay/toast'
 import { QuangToastService } from '@quix/quang/overlay/toast/toast.service'
 import { QuangTooltipDirective } from '@quix/quang/overlay/tooltip'
@@ -24,7 +25,8 @@ import { QuangTranslationService } from '@quix/quang/translation'
     QuangToastComponent,
     QuangTooltipDirective,
     QuangPopoverDirective,
-    QuangLoaderComponent
+    QuangLoaderComponent,
+    QuangPopoverComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

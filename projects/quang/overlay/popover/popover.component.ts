@@ -1,11 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common'
+import { ChangeDetectionStrategy, Component, TemplateRef, input } from '@angular/core'
 
 @Component({
   selector: 'quang-popover',
   standalone: true,
-  imports: [],
+  imports: [NgComponentOutlet, NgTemplateOutlet],
   templateUrl: './popover.component.html',
   styleUrl: './popover.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangPopoverComponent {}
+export class QuangPopoverComponent {
+  popoverContent = input<TemplateRef<any> | null>(null)
+}
