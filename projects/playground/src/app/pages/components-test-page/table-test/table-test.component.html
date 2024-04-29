@@ -1,0 +1,31 @@
+<quang-table
+  [sortableTable]="true"
+  [stickyTable]="true"
+  [tableConfigured]="tableConfig"
+></quang-table>
+<!-- 
+  [clickableRow]="true"
+  [selectedRows]="selectedRows"
+  (selectedRaw)="onClickRow($event)" 
+-->
+<ng-template
+  #actions
+  let-person
+>
+  <div class="d-flex justify-content-end">
+    <button
+      (click)="onEditPerson(person.id)"
+      class="btn me-3"
+      type="button"
+    >
+      <img src="./assets/icons/svg/edit.svg" />
+    </button>
+    <button
+      (click)="onDeletePerson(person.id)"
+      class="btn"
+      type="button"
+    >
+      <img src="./assets/icons/svg/trash.svg" />
+    </button>
+  </div>
+</ng-template>

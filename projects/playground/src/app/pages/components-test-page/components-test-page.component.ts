@@ -5,6 +5,7 @@ import { DateTestComponent } from './date-test/date-test.component'
 import { InputTestComponent } from './input-test/input-test.component'
 import { PaginatorTestComponent } from './paginator-test/paginator-test.component'
 import { SelectTestComponent } from './select-test/select-test.component'
+import { TableTestComponent } from './table-test/table-test.component'
 import { ToggleTestComponent } from './toggle-test/toggle-test.component'
 import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
 
@@ -18,7 +19,8 @@ import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
     SelectTestComponent,
     PaginatorTestComponent,
     WysiwygTestComponent,
-    AutocompleteTestComponent
+    AutocompleteTestComponent,
+    TableTestComponent
   ],
   templateUrl: './components-test-page.component.html',
   styleUrl: './components-test-page.component.scss',

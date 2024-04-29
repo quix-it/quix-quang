@@ -1,4 +1,4 @@
-import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -58,7 +58,7 @@ export interface SortCol {
   standalone: true,
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
-  imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet],
+  imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet, NgFor],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuangTableComponent<T> implements AfterViewInit {
@@ -68,10 +68,10 @@ export class QuangTableComponent<T> implements AfterViewInit {
   }
 
   clickableRow = input<boolean>(false)
+  selectedRows = input<string[] | number[]>()
   stickyTable = input<boolean>(true)
   sortableTable = input<boolean>(false)
   selectedRaw = output<TableRow<T>>()
-  clickedRow = output<any>()
   sortChanged = output<SortCol>()
 
   public sortTable = SortTable
@@ -125,15 +125,17 @@ export class QuangTableComponent<T> implements AfterViewInit {
   }
 
   onClickRow(row: TableRow<T>): void {
-    if (this.clickableRow()) this.emitRow(row)
+    if (this.clickableRow()) {
+      this.selectedRaw.emit(row)
+    }
   }
 
-  emitRow(row: TableRow<T>): void {
-    this.selectedRaw.emit(row)
+  isSelected(rowId: string | number): boolean {
+    return !!this.selectedRows()?.some((x) => x === rowId)
   }
 
-  emitOrderTable(key: string, sort: SortTable): void {
-    const orderCol: SortCol = { key, sort }
+  emitOrderTable(sorting: SortCol): void {
+    const orderCol: SortCol = sorting
     this.sortChanged.emit(orderCol)
   }
 
