@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { OverlayModule } from '@angular/cdk/overlay'
-import { ChangeDetectionStrategy, Component, input } from '@angular/core'
+import { ConnectionPositionPair, OverlayModule } from '@angular/cdk/overlay'
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core'
 
 @Component({
   selector: 'quang-tooltip',
@@ -20,4 +20,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core'
 export class QuangTooltipComponent {
   content = input<string>('')
   quangTooltipPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
+  positionPair = signal<ConnectionPositionPair | null>(null)
 }

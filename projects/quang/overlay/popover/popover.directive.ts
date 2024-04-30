@@ -10,6 +10,6 @@ import { QuangPopoverComponent } from './popover.component'
   standalone: true
 })
 export class QuangPopoverDirective extends QuangBaseOverlayDirective<QuangPopoverComponent> {
-  override _targetComponentType = signal<ComponentType<QuangPopoverComponent> | undefined>(QuangPopoverComponent)
+  override targetComponentType = signal<ComponentType<QuangPopoverComponent> | undefined>(QuangPopoverComponent)
   override content = input.required<TemplateRef<any> | null>({ alias: 'quangPopover' })
 }

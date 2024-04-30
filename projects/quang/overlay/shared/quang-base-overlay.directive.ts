@@ -1,11 +1,18 @@
-import { ConnectedPosition, Overlay, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay'
+import {
+  ConnectedOverlayPositionChange,
+  ConnectedPosition,
+  FlexibleConnectedPositionStrategy,
+  Overlay,
+  OverlayPositionBuilder,
+  OverlayRef
+} from '@angular/cdk/overlay'
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal'
-import { Directive, ElementRef, HostListener, ViewContainerRef, computed, inject, input, signal } from '@angular/core'
+import { ComponentRef, Directive, ElementRef, HostListener, computed, inject, input, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 @Directive()
 export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
-  _targetComponentType = signal<ComponentType<T> | undefined>(undefined)
+  targetComponentType = signal<ComponentType<T> | undefined>(undefined)
 
   /**
    * The amount of pixels needed for the popover to automatically disappear. If undefined the popover will not disappear on scroll
@@ -18,7 +25,7 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
   content = input.required<any>()
   closeOnClickOutside: boolean = true
   overlayPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
+  takeUntilDestroyed = signal(takeUntilDestroyed())
   private top = signal<ConnectedPosition>({
     originX: 'center',
     originY: 'top',
@@ -47,7 +54,7 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
     overlayY: 'center',
     offsetX: 8
   })
-  _tooltipPosition = computed((): ConnectedPosition[] => {
+  tooltipPosition = computed((): ConnectedPosition[] => {
     switch (this.overlayPosition()) {
       case 'top':
         return [this.top(), this.bottom()]
@@ -66,7 +73,8 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
   private readonly overlayPositionBuilder = signal(inject(OverlayPositionBuilder))
   private readonly elementRef = signal(inject(ElementRef))
 
-  private readonly viewContainerRef = signal(inject(ViewContainerRef))
+  private positionStrategy = signal<FlexibleConnectedPositionStrategy | undefined>(undefined)
+  private componentOverlayRef = signal<ComponentRef<T> | null>(null)
 
   @HostListener('click') onClick(): void {
     if (this.showMethod() === 'click') this.showHideOverlay()
@@ -81,16 +89,16 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
   }
 
   attachOverlay(): void {
-    const targetComponentType = this._targetComponentType()
+    const targetComponentType = this.targetComponentType()
     if (!targetComponentType) {
       return
     }
-    const positionStrategy = this.overlayPositionBuilder()
-      .flexibleConnectedTo(this.elementRef())
-      .withPositions(this._tooltipPosition())
+    this.positionStrategy.set(
+      this.overlayPositionBuilder().flexibleConnectedTo(this.elementRef()).withPositions(this.tooltipPosition())
+    )
     this.overlayRef.set(
       this.overlay().create({
-        positionStrategy,
+        positionStrategy: this.positionStrategy(),
         scrollStrategy: this.scrollCloseThreshold()
           ? this.overlay().scrollStrategies.close({ threshold: this.scrollCloseThreshold() })
           : this.overlay().scrollStrategies.noop(),
@@ -98,21 +106,29 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
         backdropClass: ''
       })
     )
+
+    const componentPortal = new ComponentPortal(targetComponentType)
+    const createdOverlay = this.overlayRef()
+    if (createdOverlay) {
+      this.componentOverlayRef.set(createdOverlay.attach(componentPortal))
+      ;(this.componentOverlayRef()?.instance as any).content = this.content
+    }
+    this.positionStrategy()
+      ?.positionChanges.pipe(this.takeUntilDestroyed())
+      .subscribe((position) => {
+        const positionRef: ConnectedOverlayPositionChange = position as ConnectedOverlayPositionChange
+        console.log('positionRef.connectionPair', positionRef.connectionPair)
+        console.log('(this.componentOverlayRef()?.instance as any)', this.componentOverlayRef()?.instance as any)
+        ;(this.componentOverlayRef()?.instance as any).positionPair.set(positionRef.connectionPair)
+      })
     this.overlayRef()
       ?.backdropClick()
-      .pipe(this._takeUntilDestroyed())
+      .pipe(this.takeUntilDestroyed())
       .subscribe(() => {
         if (this.closeOnClickOutside) {
           this.detachOverlay()
         }
       })
-
-    const componentPortal = new ComponentPortal(targetComponentType)
-    const createdOverlay = this.overlayRef()
-    if (createdOverlay) {
-      const tooltipRef = createdOverlay.attach(componentPortal)
-      ;(tooltipRef.instance as any).content = this.content
-    }
   }
 
   detachOverlay(): void {
