@@ -29,7 +29,6 @@ export class QuangOptionListComponent {
 
   changedHandler = output<any>()
   blurHandler = output<any>()
-  mouseLeaveEmitter = output<void>()
 
   onSelectItem(item: SelectOption | null): void {
     if (this.selectionMode() === 'single') {

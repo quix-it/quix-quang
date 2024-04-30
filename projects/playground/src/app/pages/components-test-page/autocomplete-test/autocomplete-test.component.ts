@@ -113,6 +113,10 @@ export class AutocompleteTestComponent {
     })
   )
 
+  constructor() {
+    this.onCHangeForm()
+  }
+
   formBuilder = signal(inject(NonNullableFormBuilder))
 
   errors = signal([
@@ -183,5 +187,11 @@ export class AutocompleteTestComponent {
 
   setReadonly() {
     this.isReadonly.set(!this.isReadonly())
+  }
+
+  onCHangeForm(): void {
+    this.testForm().controls.testInput.valueChanges.subscribe((x) => {
+      console.log(x)
+    })
   }
 }

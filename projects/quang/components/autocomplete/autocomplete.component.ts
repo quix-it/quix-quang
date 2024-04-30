@@ -1,5 +1,17 @@
 import { NgClass, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  computed,
+  effect,
+  forwardRef,
+  inject,
+  input,
+  signal
+} from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -28,74 +40,53 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
 })
 export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | string[] | number[] | null> {
   // selectionMode = input<'single' | 'multiple'>('single')
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.hideOptionVisibility()
+    }
+  }
+
+  elementRef = inject(ElementRef)
+
   optionListMaxHeight = input<string>('200px')
   selectOptions = input.required<SelectOption[]>()
   translateValue = input<boolean>(true)
 
-  _showOptions = signal<boolean>(false)
-  _optionHideTimeout = signal<any | undefined>(undefined)
+  _showOptions = signal<boolean | null>(null)
 
-  _inputValue = signal<string>('')
+  _inputValue = signal<string | null>(null)
   inputValue$ = new Subject<string>()
-  _val = computed(() => {
-    // if (this.selectionMode() === 'single') {
-    return this.selectOptions().find((x) => x.value === this._value())?.label ?? ''
-    // }
-    // if (this.selectionMode() === 'multiple') {
-    //   const value = this._value()
-    //   if (Array.isArray(value))
-    //     return this.selectOptions()
-    //       .filter((x: SelectOption) => value.some((v) => v === x.value))
-    //       .map((x) => x.label)
-    //       .join(', ')
-    // }
-    // return ''
-  })
 
   _filteredOptions = computed<SelectOption[]>(() => {
     const text = this._inputValue()
     return text?.length ? this.filterOptions(text) : this.selectOptions()
   })
 
+  changeVisibility = effect(
+    () => {
+      if (!this._showOptions() && this._showOptions() !== null) {
+        this.checkInputValue()
+      }
+    },
+    { allowSignalWrites: true }
+  )
+
+  changeDetectorRef = signal(inject(ChangeDetectorRef))
+
   constructor() {
     super()
     this.inputValue$.pipe(this._takeUntilDestroyed(), debounceTime(300), distinctUntilChanged()).subscribe((value) => {
-      console.log('value', value)
-      this._inputValue.set(value ? (value as string) : '')
+      this._inputValue.set(value as string)
     })
   }
 
-  changeOptionsVisibility(skipTimeout = false, event: Event): void {
-    if (this.isReadonly()) return
-    if (this._showOptions()) {
-      this._showOptions.set(skipTimeout)
-    } else {
-      this.showOptionVisibility()
-    }
-  }
-
   showOptionVisibility(): void {
-    if (this._optionHideTimeout()) {
-      clearTimeout(this._optionHideTimeout())
-      this._optionHideTimeout.set(null)
-    }
     this._showOptions.set(true)
   }
 
-  hideOptionVisibility(skipTimeout = false): void {
-    setTimeout(() => {
-      if (this._optionHideTimeout()) {
-        clearTimeout(this._optionHideTimeout())
-      }
-      this._optionHideTimeout.set(
-        setTimeout(
-          () => {
-            this._showOptions.set(false)
-          },
-          skipTimeout ? 0 : 50
-        )
-      )
-    }, 100)
+  hideOptionVisibility(): void {
+    this._showOptions.set(false)
   }
 
   onChangeInput(value: any): void {
@@ -109,5 +100,26 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       const inputs = value.toLowerCase().split(' ')
       return inputs.find((input) => labels.some((label) => label.includes(input)))
     })
+  }
+
+  override onChangedHandler(value: string | number | string[] | number[] | null): void {
+    super.onChangedHandler(value)
+    this._inputValue.set(this.selectOptions().find((x) => x.value === this._value())?.label ?? '')
+  }
+
+  onValueChange(value: string | number | string[] | number[] | null): void {
+    this.onChangedHandler(value)
+    this.hideOptionVisibility()
+  }
+
+  checkInputValue(): void {
+    const option = this.selectOptions().find((x) => x.label.toLowerCase() === this._inputValue()?.toLowerCase())
+    if (option?.value === this._value()) return
+    if (option) {
+      this.onChangedHandler(option.value)
+    } else {
+      this.onChangedHandler(null)
+    }
+    this.changeDetectorRef().markForCheck()
   }
 }
