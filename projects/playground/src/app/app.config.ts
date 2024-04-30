@@ -1,9 +1,9 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core'
+import { ApplicationConfig } from '@angular/core'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { provideRouter } from '@angular/router'
 
-import { QuangLoaderModule } from '@quix/quang/loader'
-import { QuangTranslationModule } from '@quix/quang/translation'
+import { provideLoader } from '@quix/quang/loader'
+import { provideTranslation } from '@quix/quang/translation'
 
 import { routes } from './app.routes'
 
@@ -12,18 +12,16 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     // provideHttpClient(),
     provideRouter(routes),
-    importProvidersFrom([
-      QuangTranslationModule.forRoot({
-        availableLangs: ['it', 'en'],
-        defaultLang: 'it',
-        fallbackLang: 'it'
-      }),
-      QuangLoaderModule.forRoot([
-        {
-          url: 'assets',
-          method: 'GET'
-        }
-      ])
+    provideTranslation({
+      availableLangs: ['it', 'en'],
+      defaultLang: 'it',
+      fallbackLang: 'it'
+    }),
+    provideLoader([
+      {
+        url: 'assets',
+        method: 'GET'
+      }
     ])
   ]
 }
