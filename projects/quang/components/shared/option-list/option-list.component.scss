@@ -3,6 +3,8 @@
   border-top: 0;
   border-radius: var(--bs-border-radius);
   overflow: auto;
+  position: absolute;
+  z-index: 2;
   ul {
     margin: 0;
     padding: 0;
