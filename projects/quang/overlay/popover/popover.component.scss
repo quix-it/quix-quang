@@ -1,5 +1,4 @@
 :host {
-  --bs-popover-arrow-height: 1rem;
   --bs-popover-border-width: 1px;
   --bs-popover-arrow-width: 0.5rem;
   --bs-popover-arrow-border: var(--bs-border-color);
@@ -8,38 +7,64 @@
 
 .popover-container {
   box-shadow: var(--box-shadow-bg);
-  margin: 1rem;
-  margin-top: 0.7rem;
-  min-width: 50px;
-  max-width: 400px;
   background: var(--bs-body-bg);
-  border: 1px solid var(--bs-border-color);
+  border: var(--bs-popover-border-width) solid var(--bs-border-color);
   pointer-events: none;
   position: relative;
-  min-height: 1rem;
   padding: 1rem;
+
+  &.bottom {
+    &:after,
+    &:before {
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &.top {
+    &:after,
+    &:before {
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) rotate(180deg);
+    }
+  }
+
+  &.end {
+    &:after,
+    &:before {
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%) rotate(270deg);
+    }
+  }
+
+  &.start {
+    &:after,
+    &:before {
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+    }
+  }
 
   &:after,
   &:before {
     content: '';
     display: block;
     position: absolute;
-    bottom: 100%;
     width: 0;
     height: 0;
     border-style: solid;
   }
 
   &:after {
-    left: 50%;
-    transform: translateX(-50%);
     border-color: transparent transparent var(--bs-body-bg) transparent;
     border-width: var(--bs-popover-arrow-width);
   }
 
   &:before {
-    left: 50%;
-    transform: translateX(-50%);
     border-color: transparent transparent var(--bs-border-color) transparent;
     border-width: calc(var(--bs-popover-arrow-width) + 1px);
   }
