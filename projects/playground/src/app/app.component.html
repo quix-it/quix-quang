@@ -16,7 +16,7 @@
     <p
       [quangTooltip]="title()"
       class="text-muted m-0"
-      overlayPosition="bottom"
+      overlayPosition="top"
     >
       With QuangTooltip
     </p>
@@ -24,8 +24,9 @@
   <div
     [quangPopover]="popoverTest"
     [scrollCloseThreshold]="undefined"
-    overlayPosition="right"
+    overlayPosition="top"
     showMethod="click"
+    style="height: fit-content"
   >
     POPOVER TEST
   </div>
