@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, forwardRef, input, signal
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
-import { debounceTime, of } from 'rxjs'
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs'
 
 import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@quix/quang/components/shared'
 
@@ -36,6 +36,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   _optionHideTimeout = signal<any | undefined>(undefined)
 
   _inputValue = signal<string>('')
+  inputValue$ = new Subject<string>()
   _val = computed(() => {
     // if (this.selectionMode() === 'single') {
     return this.selectOptions().find((x) => x.value === this._value())?.label ?? ''
@@ -55,8 +56,13 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     const text = this._inputValue()
     return text?.length ? this.filterOptions(text) : this.selectOptions()
   })
+
   constructor() {
     super()
+    this.inputValue$.pipe(this._takeUntilDestroyed(), debounceTime(500), distinctUntilChanged()).subscribe((value) => {
+      console.log('value', value)
+      this._inputValue.set(value ? (value as string) : '')
+    })
   }
 
   changeOptionsVisibility(skipTimeout = false, event: Event): void {
@@ -93,16 +99,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   onChangeInput(value: any): void {
-    of(value.target?.value)
-      .pipe(debounceTime(300))
-      .subscribe((val) => {
-        this._inputValue.set(val)
-      })
+    this.inputValue$.next(value.target?.value)
   }
 
   filterOptions(value: string): SelectOption[] {
     const options = this.selectOptions()
-    const text = value.toLowerCase()
     return options.filter((x) => {
       const labels = x.label.toLowerCase().split(' ')
       const inputs = value.toLowerCase().split(' ')
