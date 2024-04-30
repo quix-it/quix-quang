@@ -1,5 +1,8 @@
 :host {
   display: block;
+  .option-list-container {
+    position: relative;
+  }
 }
 
 .form-select {
