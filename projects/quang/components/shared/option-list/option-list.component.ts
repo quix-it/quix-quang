@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
@@ -34,7 +34,6 @@ export class QuangOptionListComponent {
   onSelectItem(item: SelectOption | null): void {
     if (this.selectionMode() === 'single') {
       this.changedHandler.emit(item?.value ?? null)
-      this.onMouseLeave()
     } else {
       let values: string[] | number[] | null = this._value() as string[] | number[] | null
       if (values) {
@@ -60,9 +59,5 @@ export class QuangOptionListComponent {
 
   onBlurHandler(e: any): void {
     this.blurHandler.emit(e)
-  }
-
-  onMouseLeave(): void {
-    this.mouseLeaveEmitter.emit()
   }
 }

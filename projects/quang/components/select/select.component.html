@@ -1,4 +1,7 @@
-<div class="mb-3">
+<div
+  (mouseleave)="hideOptionVisibility()"
+  class="mb-3"
+>
   <label
     [htmlFor]="componentId()"
     *ngIf="componentLabel()"
@@ -43,7 +46,6 @@
       [translateValue]="translateValue()"
       (blurHandler)="onBlurHandler()"
       (changedHandler)="onChangedHandler($event)"
-      (mouseLeaveEmitter)="hideOptionVisibility()"
       *ngIf="_showOptions()"
     ></quang-option-list>
   </div>

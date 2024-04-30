@@ -3,7 +3,6 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  HostListener,
   computed,
   effect,
   forwardRef,
@@ -39,14 +38,6 @@ export class QuangSelectComponent
   extends QuangBaseComponent<string | number | string[] | number[] | null>
   implements AfterViewInit
 {
-  @HostListener('focusout', ['$event']) focusOut(event: Event): void {
-    console.log(event)
-    if (event && this._canLeave()) {
-      setTimeout(() => {
-        this.hideOptionVisibility()
-      }, 100)
-    }
-  }
   selectionMode = input<'single' | 'multiple'>('single')
   optionListMaxHeight = input<string>('200px')
   /**
