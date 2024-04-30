@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 @Component({
   selector: 'ks-autocomplete-obj',
   templateUrl: './autocomplete-obj.component.html',
-  styles: []
+  styleUrls: ['./autocomplete-obj.component.scss']
 })
 export class AutocompleteObjComponent implements OnInit {
   list: any[] = []
@@ -23,7 +23,10 @@ export class AutocompleteObjComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.list = [
-        { key: 1, name: 'Dark Phoenix' },
+        {
+          key: 1,
+          name: 'Dark PhoenixDark PhoenixDark PhoenixDark PhoenixDark PhoenixDark PhoenixDark PhoenixDark PhoenixDark PhoenixDark PhoenixDark PhoenixDark PhoenixDark Phoenix'
+        },
         { key: 2, name: 'Ultron' },
         { key: 3, name: 'Galactus' },
         { key: 4, name: 'Thanos' },

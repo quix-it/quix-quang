@@ -1,0 +1,10 @@
+::ng-deep {
+  .dropdown-menu {
+    max-width: 100% !important;
+    .dropdown-item {
+      span {
+        text-wrap: balance;
+      }
+    }
+  }
+}
