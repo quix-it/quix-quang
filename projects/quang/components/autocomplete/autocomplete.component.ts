@@ -1,17 +1,16 @@
 import { NgClass, NgIf } from '@angular/common'
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
   computed,
-  effect,
   forwardRef,
   inject,
   input,
   signal
 } from '@angular/core'
+import { toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -39,46 +38,40 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
   ]
 })
 export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | string[] | number[] | null> {
-  // selectionMode = input<'single' | 'multiple'>('single')
-  @HostListener('document:click', ['$event'])
-  clickout(event: any) {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.hideOptionVisibility()
-    }
-  }
-
   elementRef = inject(ElementRef)
-
   optionListMaxHeight = input<string>('200px')
   selectOptions = input.required<SelectOption[]>()
   translateValue = input<boolean>(true)
-
   _showOptions = signal<boolean | null>(null)
-
   _inputValue = signal<string | null>(null)
   inputValue$ = new Subject<string>()
-
   _filteredOptions = computed<SelectOption[]>(() => {
     const text = this._inputValue()
     return text?.length ? this.filterOptions(text) : this.selectOptions()
   })
 
-  changeVisibility = effect(
-    () => {
-      if (!this._showOptions() && this._showOptions() !== null) {
-        this.checkInputValue()
-      }
-    },
-    { allowSignalWrites: true }
-  )
-
-  changeDetectorRef = signal(inject(ChangeDetectorRef))
+  // changeDetectorRef = signal(inject(ChangeDetectorRef))
 
   constructor() {
     super()
     this.inputValue$.pipe(this._takeUntilDestroyed(), debounceTime(300), distinctUntilChanged()).subscribe((value) => {
       this._inputValue.set(value as string)
     })
+    toObservable(this._showOptions)
+      .pipe(this._takeUntilDestroyed())
+      .subscribe((data) => {
+        if (!data && data !== null) {
+          this.checkInputValue()
+        }
+      })
+  }
+
+  // selectionMode = input<'single' | 'multiple'>('single')
+  @HostListener('document:click', ['$event'])
+  clickOut(event: any) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.hideOptionVisibility()
+    }
   }
 
   showOptionVisibility(): void {
@@ -96,9 +89,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   filterOptions(value: string): SelectOption[] {
     const options = this.selectOptions()
     return options.filter((x) => {
-      const labels = x.label.toLowerCase().split(' ')
-      const inputs = value.toLowerCase().split(' ')
-      return inputs.find((input) => labels.some((label) => label.includes(input)))
+      return x.label.toLowerCase().includes(value.toLowerCase())
     })
   }
 
@@ -120,6 +111,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     } else {
       this.onChangedHandler(null)
     }
-    this.changeDetectorRef().markForCheck()
+    // this.changeDetectorRef().markForCheck()
   }
 }
