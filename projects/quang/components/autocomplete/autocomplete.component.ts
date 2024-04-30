@@ -59,7 +59,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   constructor() {
     super()
-    this.inputValue$.pipe(this._takeUntilDestroyed(), debounceTime(500), distinctUntilChanged()).subscribe((value) => {
+    this.inputValue$.pipe(this._takeUntilDestroyed(), debounceTime(300), distinctUntilChanged()).subscribe((value) => {
       console.log('value', value)
       this._inputValue.set(value ? (value as string) : '')
     })
