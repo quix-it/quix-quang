@@ -5,6 +5,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { TranslocoPipe } from '@ngneat/transloco'
 
 import { QuangWysiwygComponent } from '@quix/quang/components/wysiwyg'
+import { wysiwygRequired } from '@quix/quang/forms'
 
 @Component({
   selector: 'playground-wysiwyg-test',
@@ -43,7 +44,8 @@ export class WysiwygTestComponent {
       testInput: this.formBuilder().control<string>('', [
         Validators.required,
         Validators.minLength(10),
-        Validators.maxLength(100)
+        Validators.maxLength(100),
+        wysiwygRequired()
       ])
     })
   )
