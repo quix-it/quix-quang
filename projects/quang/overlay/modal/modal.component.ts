@@ -28,8 +28,8 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
   backdropClick = output<void>()
   position = input.required<'right' | 'left' | 'center'>()
   // animation = input.required<'right' | 'left' | 'center' | 'top' | 'bottom'>()
-  height = input<string>('100vh')
-  width = input<string>('70vw')
+  height = input<string>('80vh')
+  width = input<string>('80vw')
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
 
