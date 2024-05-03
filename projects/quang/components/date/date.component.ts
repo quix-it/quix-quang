@@ -111,72 +111,77 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   /**
    * the actual date calendar is based on {@link https://air-datepicker.com/docs}
    */
-  _generateAirDatepickerEffect = effect(async () => {
-    if (this._inputForDate()?.nativeElement && this._dateContainer()?.nativeElement) {
-      let targetDate: AirDatepickerDate[] | undefined
-      const startValueDate = this._startValue()
-      if (Array.isArray(startValueDate)) {
-        targetDate = startValueDate
-      } else if (startValueDate) {
-        targetDate = [startValueDate]
-      }
+  _generateAirDatepickerEffect = effect(
+    async () => {
+      if (this._inputForDate()?.nativeElement && this._dateContainer()?.nativeElement) {
+        let targetDate: AirDatepickerDate[] | undefined
+        const startValueDate = this._startValue()
+        if (Array.isArray(startValueDate)) {
+          targetDate = startValueDate
+        } else if (startValueDate) {
+          targetDate = [startValueDate]
+        }
 
-      const airDatepickerOpts: AirDatepickerOptions<HTMLInputElement> = {
-        autoClose: true,
-        classes: this.calendarClasses(),
-        container: this._dateContainer()?.nativeElement,
-        dateFormat: this.dateFormat(),
-        inline: this.showInline(),
-        isMobile: false,
-        timepicker: this.timepicker(),
-        onlyTimepicker: this.showOnlyTimepicker(),
-        timeFormat: this.timeFormat(),
-        minHours: this.minHour(),
-        maxHours: this.maxHour(),
-        minMinutes: this.minMinute(),
-        maxMinutes: this.maxMinute(),
-        minDate: this.minDate(),
-        maxDate: this.maxDate(),
-        selectedDates: targetDate,
-        toggleSelected: false,
-        locale: await import(
-          `./calendar-locales/locale-${this._activeLanguage() ? this._activeLanguage()?.toLowerCase() : 'en'}.ts`
-        ).then((module) => module.default),
-        onSelect: ({ date, formattedDate, datepicker }) => {
-          let targetString = ''
-          if (Array.isArray(formattedDate)) {
-            targetString = formattedDate.join(this.multipleDateJoinCharacter())
-          } else {
-            targetString = formattedDate
-          }
-          this.onChangedHandler(targetString)
-          if (this.onChange) {
-            if (this.offsetUTCTime()) {
-              if (Array.isArray(date)) {
-                const utcDateArray = date.map((d) => this.dateToUtc(d))
-                this.onChange(utcDateArray)
-              } else {
-                this.onChange(this.dateToUtc(date))
-              }
+        const airDatepickerOpts: AirDatepickerOptions<HTMLInputElement> = {
+          autoClose: true,
+          classes: this.calendarClasses(),
+          container: this._dateContainer()?.nativeElement,
+          dateFormat: this.dateFormat(),
+          inline: this.showInline(),
+          isMobile: false,
+          timepicker: this.timepicker(),
+          onlyTimepicker: this.showOnlyTimepicker(),
+          timeFormat: this.timeFormat(),
+          minHours: this.minHour(),
+          maxHours: this.maxHour(),
+          minMinutes: this.minMinute(),
+          maxMinutes: this.maxMinute(),
+          minDate: this.minDate(),
+          maxDate: this.maxDate(),
+          selectedDates: targetDate,
+          toggleSelected: false,
+          locale: await import(
+            `./calendar-locales/locale-${this._activeLanguage() ? this._activeLanguage()?.toLowerCase() : 'en'}.ts`
+          ).then((module) => module.default),
+          onSelect: ({ date, formattedDate, datepicker }) => {
+            let targetString = ''
+            if (Array.isArray(formattedDate)) {
+              targetString = formattedDate.join(this.multipleDateJoinCharacter())
             } else {
-              this.onChange(date)
+              targetString = formattedDate
+            }
+            this.onChangedHandler(targetString)
+            if (this.onChange) {
+              if (this.offsetUTCTime()) {
+                if (Array.isArray(date)) {
+                  const utcDateArray = date.map((d) => this.dateToUtc(d))
+                  this.onChange(utcDateArray)
+                } else {
+                  this.onChange(this.dateToUtc(date))
+                }
+              } else {
+                this.onChange(date)
+              }
+            }
+          },
+          onHide: (isAnimationComplete: boolean) => {
+            if (isAnimationComplete) {
+              this.validateDate()
             }
           }
-        },
-        onHide: (isAnimationComplete: boolean) => {
-          if (isAnimationComplete) {
-            this.validateDate()
-          }
+        }
+
+        if (this._airDatepickerInstance()) {
+          this._airDatepickerInstance()?.update(airDatepickerOpts)
+        } else {
+          this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
         }
       }
-
-      if (this._airDatepickerInstance()) {
-        this._airDatepickerInstance()?.update(airDatepickerOpts)
-      } else {
-        this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
-      }
+    },
+    {
+      allowSignalWrites: true
     }
-  })
+  )
 
   valueFormat = computed(() => this.dateFormat() + (this.timepicker() ? ' ' + this.timeFormat() : ''))
 

@@ -1,14 +1,5 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  forwardRef,
-  input,
-  signal
-} from '@angular/core'
+import { AfterViewInit, ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -39,29 +30,15 @@ export class QuangSelectComponent
   implements AfterViewInit
 {
   selectionMode = input<'single' | 'multiple'>('single')
-  optionListMaxHeight = input<string>('200px')
-  /**
-   * Set the mode to make the selection list disappear
-   * Default: 'leave'
-   * @default 'leave'
-   */
-  hideMode = input<'leave' | 'click'>('leave')
-  selectOptions = input.required<SelectOption[]>()
   /**
    * Set the max height of the selection list before scrolling.
    * Default: 18rem
    * @default 18rem
    */
-  selectionMaxHeight = input<string>('')
+  optionListMaxHeight = input<string>('18rem')
 
-  _canLeave = computed(() => {
-    if (this.selectionMode() === 'single') return true
-    return false
-  })
+  selectOptions = input.required<SelectOption[]>()
 
-  _leave = signal<boolean>(true)
-
-  _selectOptions = signal<SelectOption[]>([])
   _showOptions = signal<boolean>(false)
   _optionHideTimeout = signal<any | undefined>(undefined)
   _selectedItems = computed(() => {
@@ -77,12 +54,20 @@ export class QuangSelectComponent
     }
     return null
   })
-
   QuangSelectComponent = QuangSelectComponent
-
   translateValue = input<boolean>(true)
   nullOption = input<boolean>(true)
-  _inputArrayChange = effect(
+  _selectOptions = computed(() => {
+    if (this.nullOption() && !this.selectOptions().find((x) => x.value === null)) {
+      const nullValue: SelectOption[] = [{ label: '', value: null }]
+      return nullValue.concat(this.selectOptions())
+    } else {
+      return this.selectOptions()
+    }
+  })
+
+  // buon esempio di conversione
+  /*_inputArrayChange = effect(
     () => {
       if (this.nullOption() && !this.selectOptions().find((x) => x.value === null)) {
         const nullValue: SelectOption[] = [{ label: '', value: null }]
@@ -94,7 +79,7 @@ export class QuangSelectComponent
     {
       allowSignalWrites: true
     }
-  )
+  )*/
 
   constructor() {
     super()
@@ -133,7 +118,8 @@ export class QuangSelectComponent
 
   override onChangedHandler(value: string | number | string[] | number[] | null): void {
     super.onChangedHandler(value)
-    this._leave.set(false)
-    console.log(this._leave())
+    if (this.selectionMode() === 'single') {
+      this.hideOptionVisibility()
+    }
   }
 }
