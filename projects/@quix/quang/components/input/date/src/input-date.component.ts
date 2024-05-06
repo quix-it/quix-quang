@@ -69,6 +69,7 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
   @Input() size: 'sm' | 'lg' | null = null
   @Input() autocomplete = 'off'
   @Input() readonly = false
+  @Input() useUTC = true
   bsConfig?: Partial<BsDatepickerConfig>
   @ViewChild(BsDatepickerInputDirective, { static: true }) datePickerInputDirective?: BsDatepickerInputDirective
   @ViewChild('datePickerInput', { static: true }) datePickerInput?: ElementRef<HTMLInputElement>
@@ -111,16 +112,21 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
     }
 
     this.internalDateControl.valueChanges.subscribe((date?: Date | null) => {
-      const updatedValue =
-        typeof date === 'string' || date === undefined || !isValid(date) ? null : date ? startOfDay(date) : null
-      if (updatedValue) {
-        const userTimezoneOffset = new Date(updatedValue).getTimezoneOffset() * 60000
-        const formattedDate = new Date(new Date(updatedValue).getTime() - userTimezoneOffset)
-        this.writeValue(formattedDate)
-        this.onChange(formattedDate)
+      if (this.useUTC) {
+        const updatedValue =
+          typeof date === 'string' || date === undefined || !isValid(date) ? null : date ? startOfDay(date) : null
+        if (updatedValue) {
+          const userTimezoneOffset = new Date(updatedValue).getTimezoneOffset() * 60000
+          const formattedDate = new Date(new Date(updatedValue).getTime() - userTimezoneOffset)
+          this.writeValue(formattedDate)
+          this.onChange(formattedDate)
+        } else {
+          this.writeValue(updatedValue)
+          this.onChange(updatedValue)
+        }
       } else {
-        this.writeValue(updatedValue)
-        this.onChange(updatedValue)
+        this.writeValue(date)
+        this.onChange(date ?? null)
       }
     })
     this.bsConfig = {
@@ -201,10 +207,15 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
     const valueToWrite = !updatedValue ? '' : format(updatedValue, this.dateRenderFormat)
     this.renderer.setProperty(this.datePickerInput?.nativeElement, 'value', valueToWrite)
     if (updatedValue) {
-      updatedValue = startOfDay(updatedValue)
-      const userTimezoneOffset = new Date(updatedValue).getTimezoneOffset() * 60000
-      const formattedDate = new Date(new Date(updatedValue).getTime() - userTimezoneOffset)
-      this.internalDateControl.patchValue(formattedDate, { emitEvent: false })
+      if (this.useUTC) {
+        updatedValue = startOfDay(updatedValue)
+        const userTimezoneOffset = new Date(updatedValue).getTimezoneOffset() * 60000
+        console.log(userTimezoneOffset)
+        const formattedDate = new Date(new Date(updatedValue).getTime() - userTimezoneOffset)
+        this.internalDateControl.patchValue(formattedDate, { emitEvent: false })
+      } else {
+        this.internalDateControl.patchValue(new Date(updatedValue), { emitEvent: false })
+      }
     } else {
       this.internalDateControl.setValue(null, {
         emitEvent: false
