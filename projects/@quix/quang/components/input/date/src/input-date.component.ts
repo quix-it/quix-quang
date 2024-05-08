@@ -234,7 +234,6 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
   }
 
   setDisabledState(isDisabled: boolean): void {
-    console.log(isDisabled)
     this.renderer.setProperty(this.datePickerInput?.nativeElement, 'disabled', isDisabled)
     this._disabled = isDisabled
   }
