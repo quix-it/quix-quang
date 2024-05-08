@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { AfterViewInit, Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { addYears } from 'date-fns'
@@ -8,7 +8,7 @@ import { addYears } from 'date-fns'
   templateUrl: './date.component.html',
   styles: []
 })
-export class DateComponent {
+export class DateComponent implements AfterViewInit {
   minDate: Date = new Date()
   maxDate: Date = addYears(new Date(), 1)
 
@@ -39,5 +39,9 @@ export class DateComponent {
 
   enableForm(): void {
     this.group.enable()
+  }
+
+  ngAfterViewInit(): void {
+    this.group.disable()
   }
 }

@@ -80,6 +80,7 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
   protected _uid = `quang-input-date-${nextUniqueId++}`
 
   protected _id: string = ''
+  protected _disabled: boolean = false
 
   @Input()
   public get id(): string {
@@ -144,6 +145,7 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
 
   ngAfterViewInit(): void {
     if (this.autofocus) this.datePickerInput?.nativeElement.focus()
+    if (this.readonly) this.ngControl?.control.disable()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -229,6 +231,12 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
 
   public registerOnTouched(fn: () => void): void {
     this.onTouched = fn
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    console.log(isDisabled)
+    this.renderer.setProperty(this.datePickerInput?.nativeElement, 'disabled', isDisabled)
+    this._disabled = isDisabled
   }
 
   handleDatePickerInputClick($event: MouseEvent): void {
