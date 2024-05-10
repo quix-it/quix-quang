@@ -15,7 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { ResizeObservableService } from '../../device'
+import { ResizeObservableService } from '@quix/quang/device'
 
 export interface TableHeader {
   text: string

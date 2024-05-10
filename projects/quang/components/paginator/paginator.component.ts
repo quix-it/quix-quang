@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit, computed, input, output, si
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
-import { makeId } from '../shared'
+import { makeId } from '@quix/quang/components/shared'
 
 @Component({
   selector: 'quang-paginator',
