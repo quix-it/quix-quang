@@ -46,6 +46,7 @@
       height: 1.125rem;
       width: 1.125rem;
       display: inline-block;
+
       &.success {
         background: #28a745;
       }
@@ -58,12 +59,14 @@
         background: #dc3545;
       }
     }
+
     button {
       &:focus {
         box-shadow: unset;
       }
     }
   }
+
   small {
     margin-left: 1rem;
   }

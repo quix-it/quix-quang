@@ -70,11 +70,10 @@ export class AppComponent {
 
   openToast(): void {
     this.quangToast().openToast({
-      type: 'success',
+      type: 'warning',
       title: 'Hello world!',
-      position: 'bottom-right',
-      timing: 5000,
-      text: 'Sono un mondo'
+      position: 'bottom-center',
+      timing: 5000
     })
   }
 }
