@@ -16,14 +16,13 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 import AirDatepicker, { AirDatepickerDate, AirDatepickerLocale, AirDatepickerOptions } from 'air-datepicker'
+import en from 'air-datepicker/locale/en'
+import fr from 'air-datepicker/locale/fr'
+import it from 'air-datepicker/locale/it'
 import { format, isValid, parse, startOfDay } from 'date-fns'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 import { QuangTranslationService } from '@quix/quang/translation'
-
-import * as en from './calendar-locales/locale-en'
-import * as fr from './calendar-locales/locale-fr'
-import * as it from './calendar-locales/locale-it'
 
 @Component({
   selector: 'quang-date',
@@ -124,7 +123,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         } else if (startValueDate) {
           targetDate = [startValueDate]
         }
-
         const airDatepickerOpts: AirDatepickerOptions<HTMLInputElement> = {
           autoClose: true,
           classes: this.calendarClasses(),
@@ -258,17 +256,18 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     this._ngControl()?.control?.setErrors(errors)
   }
 
-  getLocale(): Partial<AirDatepickerLocale> | undefined {
-    console.log(this._activeLanguage()?.toLowerCase())
+  getLocale(): Partial<AirDatepickerLocale> {
+    console.log(this._activeLanguage())
     switch (this._activeLanguage()?.toLowerCase()) {
       case 'en':
-        return en.default
+        console.log('gooo')
+        return en
       case 'it':
-        return it.default
+        return it
       case 'fr':
-        return fr.default
+        return fr
       default:
-        return en.default
+        return en
     }
   }
 }
