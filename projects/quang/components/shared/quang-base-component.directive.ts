@@ -130,19 +130,22 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
     if (controlErrors) {
       console.log(controlErrors)
-      const targetError = this.errorMap()?.find((error) => {
-        console.log(error)
-        return (
-          Object.keys(controlErrors)?.find((targetError) => error.error.toLowerCase() === targetError.toLowerCase()) ??
-          []
-        )
-      })
-      if (targetError) {
-        this._currentErrorMessage.set(targetError.message ?? '')
-        this._currentErrorMessageExtraData.set(targetError.error)
-      } else {
-        this._currentErrorMessage.set('')
-        this._currentErrorMessageExtraData.set({})
+      if (this.errorMap()?.length) {
+        const targetError = this.errorMap()?.find((error) => {
+          console.log(error)
+          return (
+            Object.keys(controlErrors)?.find(
+              (targetError) => error.error.toLowerCase() === targetError.toLowerCase()
+            ) ?? []
+          )
+        })
+        if (targetError) {
+          this._currentErrorMessage.set(targetError.message ?? '')
+          this._currentErrorMessageExtraData.set(targetError.error)
+        } else {
+          this._currentErrorMessage.set('')
+          this._currentErrorMessageExtraData.set({})
+        }
       }
     }
     if (controlErrors?.[Validators.required.name]) {
