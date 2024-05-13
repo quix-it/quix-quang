@@ -111,6 +111,5 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     } else {
       this.onChangedHandler(null)
     }
-    // this.changeDetectorRef().markForCheck()
   }
 }

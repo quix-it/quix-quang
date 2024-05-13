@@ -25,7 +25,6 @@
       <label
         [class.ms-3]="selectionMode() === 'multiple'"
         [for]="item.value + '-checkbox'"
-        *ngIf="componentLabel()"
         class="form-check-label checkbox-label w-100"
       >
         {{ translateValue() ? (item.label | transloco) : item.label }}

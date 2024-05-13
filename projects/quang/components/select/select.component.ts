@@ -100,7 +100,6 @@ export class QuangSelectComponent
       this._optionHideTimeout.set(null)
     }
     this._showOptions.set(true)
-    console.log(this.selectOptions())
   }
 
   hideOptionVisibility(skipTimeout = false): void {
