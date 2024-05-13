@@ -16,7 +16,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 import AirDatepicker, { AirDatepickerDate, AirDatepickerLocale, AirDatepickerOptions } from 'air-datepicker'
-import 'air-datepicker/air-datepicker.css'
 import { format, isValid, parse, startOfDay } from 'date-fns'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'

@@ -16,7 +16,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 import sunEditor from 'suneditor'
-import 'suneditor/dist/css/suneditor.min.css'
 import SunEditor from 'suneditor/src/lib/core'
 import { SunEditorOptions } from 'suneditor/src/options'
 import plugins from 'suneditor/src/plugins'
