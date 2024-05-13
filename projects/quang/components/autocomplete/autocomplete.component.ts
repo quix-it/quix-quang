@@ -8,6 +8,7 @@ import {
   forwardRef,
   inject,
   input,
+  output,
   signal
 } from '@angular/core'
 import { toObservable } from '@angular/core/rxjs-interop'
@@ -42,6 +43,10 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   optionListMaxHeight = input<string>('200px')
   selectOptions = input.required<SelectOption[]>()
   translateValue = input<boolean>(true)
+  /**
+   * only emit value without save in ngControl
+   */
+  emitOnly = input<boolean>(false)
   _showOptions = signal<boolean | null>(null)
   _inputValue = signal<string | null>(null)
   inputValue$ = new Subject<string>()
@@ -49,6 +54,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     const text = this._inputValue()
     return text?.length ? this.filterOptions(text) : this.selectOptions()
   })
+  selectedOption = output<string | number | string[] | number[] | null>()
 
   // changeDetectorRef = signal(inject(ChangeDetectorRef))
 
@@ -99,8 +105,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   onValueChange(value: string | number | string[] | number[] | null): void {
-    this.onChangedHandler(value)
-    this.hideOptionVisibility()
+    if (!this.emitOnly()) {
+      this.onChangedHandler(value)
+      this.hideOptionVisibility()
+    }
+    this.selectedOption.emit(value)
   }
 
   checkInputValue(): void {

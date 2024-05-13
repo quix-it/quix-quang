@@ -114,7 +114,7 @@ export class AutocompleteTestComponent {
   )
 
   constructor() {
-    this.onCHangeForm()
+    this.onChangeForm()
   }
 
   formBuilder = signal(inject(NonNullableFormBuilder))
@@ -189,9 +189,12 @@ export class AutocompleteTestComponent {
     this.isReadonly.set(!this.isReadonly())
   }
 
-  onCHangeForm(): void {
-    this.testForm().controls.testInput.valueChanges.subscribe((x) => {
-      console.log(x)
-    })
+  onChangeForm(): void {
+    this.testForm().controls.testInput.valueChanges.subscribe((x) => {})
+  }
+
+  onSelectOption(option: any): void {
+    console.log(option)
+    this.testForm().controls.testInput.patchValue('')
   }
 }
