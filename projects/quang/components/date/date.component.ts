@@ -16,9 +16,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 import AirDatepicker, { AirDatepickerDate, AirDatepickerLocale, AirDatepickerOptions } from 'air-datepicker'
-import en from 'air-datepicker/locale/en'
-import fr from 'air-datepicker/locale/fr'
-import it from 'air-datepicker/locale/it'
+import * as en from 'air-datepicker/locale/en'
+import * as fr from 'air-datepicker/locale/fr'
+import * as it from 'air-datepicker/locale/it'
 import { format, isValid, parse, startOfDay } from 'date-fns'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
@@ -260,14 +260,13 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     console.log(this._activeLanguage())
     switch (this._activeLanguage()?.toLowerCase()) {
       case 'en':
-        console.log('gooo')
-        return en
+        return en.default
       case 'it':
-        return it
+        return it.default
       case 'fr':
-        return fr
+        return fr.default
       default:
-        return en
+        return en.default
     }
   }
 }
