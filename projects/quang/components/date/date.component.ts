@@ -259,6 +259,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   }
 
   getLocale(): Partial<AirDatepickerLocale> | undefined {
+    console.log(this._activeLanguage()?.toLowerCase())
     switch (this._activeLanguage()?.toLowerCase()) {
       case 'en':
         return en.default
