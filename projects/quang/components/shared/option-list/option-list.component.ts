@@ -53,7 +53,7 @@ export class QuangOptionListComponent {
     if (this.selectionMode() === 'single') {
       return this._value() === item.value
     }
-    return this._value().some((x: number | string | null) => x === item.value)
+    return this._value()?.some((x: number | string | null) => x === item?.value)
   }
 
   onBlurHandler(e: any): void {

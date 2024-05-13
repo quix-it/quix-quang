@@ -42,7 +42,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   _isValid = signal<boolean>(false)
   _showSuccess = computed(() => this.successMessage() && this._isValid() && this._isTouched() && !this._isDisabled())
   _showErrors = computed(
-    () => this.errorMap().length > 0 && !this._isValid() && this._isTouched() && !this._isDisabled()
+    () => this.errorMap()?.length > 0 && !this._isValid() && this._isTouched() && !this._isDisabled()
   )
   _currentErrorMessage = signal<string>('')
   _currentErrorMessageExtraData = signal<{}>({})
@@ -130,7 +130,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
     const controlErrors = this._ngControl()?.control?.errors
 
     if (controlErrors) {
-      const targetError = this.errorMap().find((error) =>
+      const targetError = this.errorMap()?.find((error) =>
         Object.keys(controlErrors).find((targetError) => error.error.toLowerCase() === targetError.toLowerCase())
       )
       if (targetError) {
