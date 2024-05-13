@@ -108,11 +108,9 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
     }
 
     this._ngControl.set(this._injector().get(NgControl))
-    console.log(this._ngControl())
     this._statusChange$ = this._ngControl()
       ?.control?.statusChanges.pipe(this._takeUntilDestroyed())
       .subscribe(() => {
-        console.log('qui?')
         this.checkFormErrors()
       })
 
@@ -134,8 +132,9 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
       console.log(controlErrors)
       const targetError = this.errorMap()?.find((error) => {
         console.log(error)
-        return Object.keys(controlErrors)?.find(
-          (targetError) => error.error.toLowerCase() === targetError.toLowerCase()
+        return (
+          Object.keys(controlErrors)?.find((targetError) => error.error.toLowerCase() === targetError.toLowerCase()) ??
+          []
         )
       })
       if (targetError) {

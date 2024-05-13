@@ -25,7 +25,7 @@ export class QuangOptionListComponent {
   componentClass = input<string | string[]>('')
   componentLabel = input<string>('')
   componentTabIndex = input<number>(0)
-  translateValue = input<boolean>(true)
+  translateValue = input<boolean>(false)
 
   changedHandler = output<any>()
   blurHandler = output<any>()
@@ -58,5 +58,6 @@ export class QuangOptionListComponent {
 
   onBlurHandler(e: any): void {
     this.blurHandler.emit(e)
+    console.log(this.selectOptions())
   }
 }
