@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start:playground": "ng serve playground --open",
-    "build:quang": "ng build quang",
+    "build:quang": "ng build --project quang",
     "husky:start": "husky install",
     "prepare": "husky install",
     "sync-version": "sync-json -v --property version --source package.json projects/@quix/quang/package.json",
