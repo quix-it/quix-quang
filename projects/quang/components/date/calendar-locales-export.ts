@@ -1,5 +1,0 @@
-export * from 'air-datepicker/locale/en'
-export * from 'air-datepicker/locale/it'
-export * from 'air-datepicker/locale/fr'
-export * from 'air-datepicker/locale/es'
-export * from 'air-datepicker/locale/de'

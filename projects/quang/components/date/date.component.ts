@@ -15,12 +15,16 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
-import AirDatepicker, { AirDatepickerDate, AirDatepickerOptions } from 'air-datepicker'
+import AirDatepicker, { AirDatepickerDate, AirDatepickerLocale, AirDatepickerOptions } from 'air-datepicker'
 import 'air-datepicker/air-datepicker.css'
 import { format, isValid, parse, startOfDay } from 'date-fns'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 import { QuangTranslationService } from '@quix/quang/translation'
+
+import * as en from './calendar-locales/locale-en'
+import * as fr from './calendar-locales/locale-fr'
+import * as it from './calendar-locales/locale-it'
 
 @Component({
   selector: 'quang-date',
@@ -140,10 +144,8 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
           maxDate: this.maxDate(),
           selectedDates: targetDate,
           toggleSelected: false,
-          locale: await import(
-            `./calendar-locales/locale-${this._activeLanguage() ? this._activeLanguage()?.toLowerCase() : 'en'}.ts`
-          ).then((module) => module.default),
-          onSelect: ({ date, formattedDate, datepicker }) => {
+          locale: this.getLocale(),
+          onSelect: ({ date, formattedDate }) => {
             let targetString = ''
             if (Array.isArray(formattedDate)) {
               targetString = formattedDate.join(this.multipleDateJoinCharacter())
@@ -255,5 +257,18 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       delete errors['invalidDate']
     }
     this._ngControl()?.control?.setErrors(errors)
+  }
+
+  getLocale(): Partial<AirDatepickerLocale> | undefined {
+    switch (this._activeLanguage()?.toLowerCase()) {
+      case 'en':
+        return en.default
+      case 'it':
+        return it.default
+      case 'fr':
+        return fr.default
+      default:
+        return en.default
+    }
   }
 }
