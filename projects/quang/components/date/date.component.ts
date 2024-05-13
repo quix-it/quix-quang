@@ -256,7 +256,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     this._ngControl()?.control?.setErrors(errors)
   }
 
-  getLocale(): Partial<AirDatepickerLocale> {
+  getLocale(): AirDatepickerLocale {
     console.log(this._activeLanguage())
     switch (this._activeLanguage()?.toLowerCase()) {
       case 'en':

@@ -58,6 +58,5 @@ export class QuangOptionListComponent {
 
   onBlurHandler(e: any): void {
     this.blurHandler.emit(e)
-    console.log(this.selectOptions())
   }
 }
