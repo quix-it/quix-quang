@@ -2,6 +2,7 @@
 
 :host {
   display: block;
+  position: relative;
 
   .input-date-container {
     display: flex;
@@ -14,7 +15,6 @@
   }
 
   .btn-outline-calendar {
-    border: var(--bs-border-width) solid var(--bs-border-color);
     border-left: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
