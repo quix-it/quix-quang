@@ -258,16 +258,15 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   }
 
   getLocale(): AirDatepickerLocale {
-    const enn = en as any
     switch (this._activeLanguage()?.toLowerCase()) {
       case 'en':
-        return enn.default
+        return (en as any).default || en
       case 'it':
-        return it
+        return (it as any).default || it
       case 'fr':
-        return fr
+        return (fr as any).default || fr
       default:
-        return en
+        return (en as any).default || en
     }
   }
 }
