@@ -123,7 +123,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         } else if (startValueDate) {
           targetDate = [startValueDate]
         }
-        console.log(this.getLocale())
         const airDatepickerOpts: AirDatepickerOptions<HTMLInputElement> = {
           autoClose: true,
           classes: this.calendarClasses(),
