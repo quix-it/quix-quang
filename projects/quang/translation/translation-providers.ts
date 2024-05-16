@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http'
 import { EnvironmentProviders, InjectionToken, makeEnvironmentProviders } from '@angular/core'
 
 import { provideTransloco } from '@ngneat/transloco'
@@ -17,6 +18,7 @@ export const FALLBACK_LANG = new InjectionToken<string>('FALLBACK_LANG')
 
 export function provideTranslation(config: TranslationConfig): EnvironmentProviders {
   return makeEnvironmentProviders([
+    provideHttpClient(),
     QuangTranslationLoaderService,
     QuangTranslationService,
     provideTransloco({
