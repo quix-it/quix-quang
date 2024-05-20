@@ -1,10 +1,16 @@
+:host {
+  display: block;
+}
 .option-list {
+  --option-list-width: 100%;
+  --option-list-top: 10px;
   border: 1px solid var(--bs-border-color);
   border-top: 0;
   border-radius: var(--bs-border-radius);
   overflow: auto;
-  position: absolute;
-  width: 100%;
+  position: fixed;
+  width: var(--option-list-width);
+  top: var(--option-list-top);
   z-index: 999;
   ul {
     margin: 0;
