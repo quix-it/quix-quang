@@ -21,12 +21,12 @@
                 (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
                 class="align-bottom"
               >
-                <div
-                  *ngIf="el.sort?.key"
-                  class="d-flex justify-content-between"
-                >
-                  <div class="align-self-end d-flex gap-1">
-                    {{ el.text | transloco }}
+                <div class="align-self-end d-flex gap-1">
+                  {{ el.text | transloco }}
+                  <div
+                    *ngIf="el.sort?.key"
+                    class="d-flex justify-content-between"
+                  >
                     <ng-container
                       [ngTemplateOutlet]="orderBtns"
                       [ngTemplateOutletContext]="{ $implicit: el.sort }"
