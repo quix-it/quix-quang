@@ -31,7 +31,7 @@ export class QuangOptionListComponent {
   selectionMode = input<'single' | 'multiple'>('single')
   optionListMaxHeight = input<string>('200px')
   selectOptions = input<SelectOption[]>([])
-  selectButtonRef = input<HTMLButtonElement>()
+  selectButtonRef = input<HTMLButtonElement | HTMLInputElement>()
   _value = input<any>()
   _isDisabled = input<boolean>()
   componentClass = input<string | string[]>('')
