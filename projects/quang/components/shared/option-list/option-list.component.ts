@@ -1,18 +1,8 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  HostListener,
-  inject,
-  input,
-  output,
-  signal
-} from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostListener, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@ngneat/transloco'
-import { map } from 'rxjs'
 
 export interface SelectOption {
   label: string
@@ -29,7 +19,7 @@ export interface SelectOption {
 })
 export class QuangOptionListComponent {
   selectionMode = input<'single' | 'multiple'>('single')
-  optionListMaxHeight = input<string>('200px')
+  optionListMaxHeight = input<string>('201px')
   selectOptions = input<SelectOption[]>([])
   selectButtonRef = input<HTMLButtonElement | HTMLInputElement>()
   _value = input<any>()
