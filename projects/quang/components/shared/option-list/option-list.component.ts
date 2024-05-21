@@ -21,7 +21,7 @@ export class QuangOptionListComponent {
   selectionMode = input<'single' | 'multiple'>('single')
   optionListMaxHeight = input<string>('201px')
   selectOptions = input<SelectOption[]>([])
-  selectButtonRef = input<HTMLButtonElement | HTMLInputElement>()
+  selectButtonRef = input.required<HTMLButtonElement | HTMLInputElement>()
   _value = input<any>()
   _isDisabled = input<boolean>()
   componentClass = input<string | string[]>('')
@@ -35,12 +35,6 @@ export class QuangOptionListComponent {
   blurHandler = output<any>()
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
-
-  @HostListener('window:scroll') changePosition() {
-    this.getOptionListWidth()
-    this.getOptionListTop()
-  }
-
   selectButtonRef$ = toObservable(this.selectButtonRef)
     .pipe(this._takeUntilDestroyed())
     .subscribe(() => {
@@ -51,6 +45,11 @@ export class QuangOptionListComponent {
         this.getOptionListTop()
       })
     })
+
+  @HostListener('window:scroll') changePosition() {
+    this.getOptionListWidth()
+    this.getOptionListTop()
+  }
 
   isScrollable(ele: HTMLElement): string | boolean {
     const hasScrollableContent = ele.scrollHeight > ele.clientHeight
