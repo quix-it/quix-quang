@@ -1,5 +1,6 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostListener, input, output, signal } from '@angular/core'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
@@ -18,17 +19,55 @@ export interface SelectOption {
 })
 export class QuangOptionListComponent {
   selectionMode = input<'single' | 'multiple'>('single')
-  optionListMaxHeight = input<string>('200px')
+  optionListMaxHeight = input<string>('201px')
   selectOptions = input<SelectOption[]>([])
+  selectButtonRef = input<HTMLButtonElement | HTMLInputElement>()
   _value = input<any>()
   _isDisabled = input<boolean>()
   componentClass = input<string | string[]>('')
   componentLabel = input<string>('')
   componentTabIndex = input<number>(0)
   translateValue = input<boolean>(false)
+  elementWidth = signal<string>('0px')
+  elementTop = signal<string>('0px')
 
   changedHandler = output<any>()
   blurHandler = output<any>()
+
+  _takeUntilDestroyed = signal(takeUntilDestroyed())
+
+  @HostListener('window:scroll') changePosition() {
+    this.getOptionListWidth()
+    this.getOptionListTop()
+  }
+
+  selectButtonRef$ = toObservable(this.selectButtonRef)
+    .pipe(this._takeUntilDestroyed())
+    .subscribe(() => {
+      this.getOptionListWidth()
+      this.getOptionListTop()
+      this.getScrollParent(this.selectButtonRef())?.addEventListener('scroll', () => {
+        this.getOptionListWidth()
+        this.getOptionListTop()
+      })
+    })
+
+  isScrollable(ele: HTMLElement): string | boolean {
+    const hasScrollableContent = ele.scrollHeight > ele.clientHeight
+
+    const overflowYStyle = window.getComputedStyle(ele).overflowY
+    const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
+
+    return hasScrollableContent && !isOverflowHidden
+  }
+
+  getScrollParent(node: any): HTMLElement {
+    return !node || node === document.body
+      ? document.body
+      : this.isScrollable(node)
+        ? node
+        : this.getScrollParent(node?.parentNode)
+  }
 
   onSelectItem(item: SelectOption | null): void {
     if (this.selectionMode() === 'single') {
@@ -58,5 +97,15 @@ export class QuangOptionListComponent {
 
   onBlurHandler(e: any): void {
     this.blurHandler.emit(e)
+  }
+
+  getOptionListWidth() {
+    this.elementWidth.set(`${this.selectButtonRef()?.offsetWidth}px`)
+  }
+
+  getOptionListTop() {
+    this.elementTop.set(
+      `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.offsetHeight ?? 0)}px`
+    )
   }
 }

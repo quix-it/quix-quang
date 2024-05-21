@@ -20,7 +20,7 @@
       [tabIndex]="componentTabIndex()"
       (blur)="onBlurHandler()"
       (click)="changeOptionsVisibility()"
-      #input
+      #selectButton
       class="form-select"
       type="button"
     >
@@ -41,6 +41,7 @@
       [componentLabel]="componentLabel()"
       [componentTabIndex]="componentTabIndex()"
       [optionListMaxHeight]="optionListMaxHeight()"
+      [selectButtonRef]="selectButton"
       [selectionMode]="selectionMode()"
       [selectOptions]="selectOptions()"
       [translateValue]="translateValue()"
