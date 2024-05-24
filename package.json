@@ -1,6 +1,6 @@
 {
   "name": "@quix/projects",
-  "version": "15.6.2",
+  "version": "15.6.3",
   "scripts": {
     "ng": "ng",
     "start:ks": "ng serve kitchen-sink --open",
