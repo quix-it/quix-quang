@@ -1,12 +1,13 @@
 {
   "name": "quix-quang",
-  "version": "17.0.0-31",
+  "version": "17.0.0-32",
   "scripts": {
     "ng": "ng",
     "start:playground": "ng serve playground --open",
     "build:quang": "ng build --project quang",
     "husky:start": "husky install",
     "prepare": "husky install",
+    "build-publish": "npm run build:quang && cd dist/quang && npm publish",
     "sync-version": "sync-json -v --property version --source package.json projects/@quix/quang/package.json",
     "version": "npm run sync-version && git add -A && npm run build:quang && cd dist/quang && npm publish",
     "postversion": "git push && git push --tags",
