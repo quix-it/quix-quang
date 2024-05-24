@@ -115,7 +115,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
       })
 
     this._isTouched.set(this._ngControl()?.touched ?? false)
-    this._isDisabled.set(this._ngControl()?.disabled ?? false)
+    this._isDisabled.set(this.isReadonly() || this._ngControl()?.disabled || false)
 
     this.checkFormErrors()
   }
