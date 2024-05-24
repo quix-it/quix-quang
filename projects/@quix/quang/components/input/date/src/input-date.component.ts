@@ -212,7 +212,6 @@ export class QuangInputDateComponent implements ControlValueAccessor, OnInit, Af
       if (this.useUTC) {
         updatedValue = startOfDay(updatedValue)
         const userTimezoneOffset = new Date(updatedValue).getTimezoneOffset() * 60000
-        console.log(userTimezoneOffset)
         const formattedDate = new Date(new Date(updatedValue).getTime() - userTimezoneOffset)
         this.internalDateControl.patchValue(formattedDate, { emitEvent: false })
       } else {
