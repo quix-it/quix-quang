@@ -28,6 +28,7 @@
       />
       <label
         [class.ms-3]="selectionMode() === 'multiple'"
+        [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
         [for]="item.value + '-checkbox'"
         class="form-check-label checkbox-label w-100"
       >

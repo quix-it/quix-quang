@@ -35,4 +35,9 @@
   *:hover {
     cursor: pointer;
   }
+
+  .selected {
+    background-color: var(--bs-body-bg);
+    filter: brightness(95%);
+  }
 }
