@@ -17,6 +17,10 @@
     margin: 0;
     padding: 0;
   }
+  .selected {
+    background-color: var(--bs-body-bg);
+    filter: brightness(95%);
+  }
 }
 
 .item {
@@ -34,10 +38,5 @@
   }
   *:hover {
     cursor: pointer;
-  }
-
-  .selected {
-    background-color: var(--bs-body-bg);
-    filter: brightness(95%);
   }
 }

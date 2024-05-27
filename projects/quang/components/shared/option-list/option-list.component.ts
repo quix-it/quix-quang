@@ -1,5 +1,14 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import { ChangeDetectionStrategy, Component, HostListener, input, output, signal } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  computed,
+  effect,
+  input,
+  output,
+  signal
+} from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -28,6 +37,7 @@ export class QuangOptionListComponent {
   componentLabel = input<string>('')
   componentTabIndex = input<number>(0)
   translateValue = input<boolean>(false)
+  nullOption = input<boolean>(true)
   elementWidth = signal<string>('0px')
   elementTop = signal<string>('0px')
 
@@ -45,6 +55,20 @@ export class QuangOptionListComponent {
         this.getOptionListTop()
       })
     })
+
+  selectOptionss = computed(() => {
+    if (this.nullOption()) {
+      return [
+        {
+          label: '-',
+          value: null
+        },
+        ...this.selectOptions()
+      ]
+    } else {
+      return [...this.selectOptions()]
+    }
+  })
 
   @HostListener('window:scroll') changePosition() {
     this.getOptionListWidth()
