@@ -60,7 +60,7 @@ export class QuangOptionListComponent {
     if (this.nullOption()) {
       return [
         {
-          label: '-',
+          label: '',
           value: null
         },
         ...this.selectOptions()
