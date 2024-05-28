@@ -26,7 +26,7 @@
     </button>
   </div>
   <div
-    *ngIf="_currentToast()?.text"
+    *ngIf="_currentToast()?.text || _currentToast()?.customTemplate"
     class="toast-body"
   >
     {{ _currentToast()?.text | transloco: { textValue: _currentToast()?.textValue } }}
