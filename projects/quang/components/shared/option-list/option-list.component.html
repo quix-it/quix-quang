@@ -9,12 +9,13 @@
   <ul>
     <li
       [class.m-0]="last"
-      *ngFor="let item of selectOptions(); let i = index; let last = last"
+      [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
+      *ngFor="let item of selectOptionss(); let i = index; let last = last"
       class="item"
     >
       <input
         [checked]="getSelected(item)"
-        [class.d-none]="selectionMode() === 'single'"
+        [class.d-none]="selectionMode() === 'single' || !item?.value"
         [disabled]="_isDisabled()"
         [id]="item.value + '-checkbox'"
         [name]="item.value + '-checkbox'"
@@ -27,7 +28,7 @@
         type="checkbox"
       />
       <label
-        [class.ms-3]="selectionMode() === 'multiple'"
+        [class.ms-3]="selectionMode() === 'multiple' && item?.value"
         [for]="item.value + '-checkbox'"
         class="form-check-label checkbox-label w-100"
       >
