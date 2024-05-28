@@ -38,7 +38,7 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
     }
   ]
 })
-export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | string[] | number[] | null> {
+export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | null> {
   elementRef = inject(ElementRef)
   optionListMaxHeight = input<string>('200px')
   selectOptions = input.required<SelectOption[]>()
@@ -54,14 +54,14 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     const text = this._inputValue()
     return text?.length ? this.filterOptions(text) : this.selectOptions()
   })
-  selectedOption = output<string | number | string[] | number[] | null>()
+  selectedOption = output<string | number | null>()
 
   // changeDetectorRef = signal(inject(ChangeDetectorRef))
 
   constructor() {
     super()
     this.inputValue$.pipe(this._takeUntilDestroyed(), debounceTime(300), distinctUntilChanged()).subscribe((value) => {
-      this._inputValue.set(value as string)
+      this._inputValue.set(value?.toString() ?? '')
     })
     toObservable(this._showOptions)
       .pipe(this._takeUntilDestroyed())
@@ -99,12 +99,12 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     })
   }
 
-  override onChangedHandler(value: string | number | string[] | number[] | null): void {
+  override onChangedHandler(value: string | number | null): void {
     super.onChangedHandler(value)
     this._inputValue.set(this.selectOptions().find((x) => x.value === this._value())?.label ?? '')
   }
 
-  onValueChange(value: string | number | string[] | number[] | null): void {
+  onValueChange(value: string | number | null): void {
     if (!this.emitOnly()) {
       this.onChangedHandler(value)
       this.hideOptionVisibility()
@@ -120,5 +120,10 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     } else {
       this.onChangedHandler(null)
     }
+  }
+
+  override writeValue(val: string | number | null): void {
+    this._inputValue.set(val?.toString() ?? '')
+    super.writeValue(val)
   }
 }
