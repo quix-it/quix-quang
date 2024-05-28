@@ -14,12 +14,12 @@
   }
 
   &.bottom-left {
-    bottom: 2rem;
+    bottom: 1rem;
     left: 1rem;
   }
 
   &.bottom-right {
-    bottom: 2rem;
+    bottom: 1rem;
     right: 1rem;
   }
 
@@ -32,13 +32,13 @@
   &.top-center {
     top: 2rem;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
   }
 
   &.bottom-center {
-    bottom: 2rem;
+    bottom: 1rem;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
   }
 
   .toast-header {
