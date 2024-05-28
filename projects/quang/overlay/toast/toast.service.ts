@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core'
+import { Injectable, TemplateRef, signal } from '@angular/core'
 
 export interface ToastData {
   type: 'success' | 'warning' | 'error'
@@ -10,6 +10,7 @@ export interface ToastData {
   showCloseButton?: boolean
   date?: Date
   dateFormat?: string
+  customTemplate?: TemplateRef<any>
 }
 
 @Injectable({

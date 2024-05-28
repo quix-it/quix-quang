@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, inject, signal } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -33,6 +33,7 @@ import { QuangTranslationService } from '@quix/quang/translation'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  @ViewChild('customToast') customToast?: TemplateRef<any>
   title = signal('playground')
 
   quangTranslationService = signal(inject(QuangTranslationService))
@@ -73,7 +74,9 @@ export class AppComponent {
       type: 'warning',
       title: 'Hello world!',
       position: 'bottom-center',
-      timing: 5000
+      text: 'beauty button here',
+      customTemplate: this.customToast,
+      timing: 50000000
     })
   }
 }

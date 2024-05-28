@@ -31,4 +31,5 @@
   >
     {{ _currentToast()?.text | transloco: { textValue: _currentToast()?.textValue } }}
   </div>
+  <ng-container *ngTemplateOutlet="_currentToast()?.customTemplate ?? null"></ng-container>
 </div>
