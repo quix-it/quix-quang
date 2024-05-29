@@ -10,11 +10,13 @@ export interface TranslationConfig {
   availableLangs: string[]
   defaultLang: string
   fallbackLang: string
+  translationsBasePath?: string
 }
 
 export const AVAILABLE_LANGS = new InjectionToken<string[]>('AVAILABLE_LANGS')
 export const DEFAULT_LANG = new InjectionToken<string>('DEFAULT_LANG')
 export const FALLBACK_LANG = new InjectionToken<string>('FALLBACK_LANG')
+export const TRANSLATIONS_BASE_PATH = new InjectionToken<string>('TRANSLATIONS_BASE_PATH')
 
 export function provideTranslation(config: TranslationConfig): EnvironmentProviders {
   return makeEnvironmentProviders([
@@ -48,6 +50,10 @@ export function provideTranslation(config: TranslationConfig): EnvironmentProvid
     {
       provide: FALLBACK_LANG,
       useValue: config.fallbackLang
+    },
+    {
+      provide: TRANSLATIONS_BASE_PATH,
+      useValue: config.translationsBasePath
     }
   ])
 }
