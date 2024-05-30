@@ -15,10 +15,7 @@ export class QuangIsAuthenticatedDirective implements OnInit {
   authService = inject(AuthService)
   takeUntilDestroyed = takeUntilDestroyed()
 
-  /**
-   * Check if the user in the store is authenticated and define whether to render or not
-   */
-  ngOnInit(): void {
+  constructor() {
     toObservable(this.authService.isAuthenticated)
       .pipe(distinctUntilChanged(), this.takeUntilDestroyed)
       .subscribe(() => {
@@ -28,5 +25,20 @@ export class QuangIsAuthenticatedDirective implements OnInit {
           this.viewContainerRef.clear()
         }
       })
+  }
+
+  /**
+   * Check if the user in the store is authenticated and define whether to render or not
+   */
+  ngOnInit(): void {
+    // toObservable(this.authService.isAuthenticated)
+    //   .pipe(distinctUntilChanged(), this.takeUntilDestroyed)
+    //   .subscribe(() => {
+    //     if (this.authService.isAuthenticated()) {
+    //       this.viewContainerRef.createEmbeddedView(this.templateRef)
+    //     } else {
+    //       this.viewContainerRef.clear()
+    //     }
+    //   })
   }
 }
