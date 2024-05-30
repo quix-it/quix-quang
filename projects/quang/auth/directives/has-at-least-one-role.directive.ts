@@ -9,18 +9,19 @@ import { AuthService } from '../auth.service'
   selector: '[quangHasAtLeastOneRole]',
   standalone: true
 })
-export class QuangHasAtLeastOneRoleDirective implements OnInit {
+export class QuangHasAtLeastOneRoleDirective {
   targetRoles = input.required<string[]>({ alias: 'quangHasAtLeastOneRole' })
   viewContainerRef = inject(ViewContainerRef)
   templateRef = inject(TemplateRef)
   authService = inject(AuthService)
   takeUntilDestroyed = takeUntilDestroyed()
 
-  /**
-   * check with the selector if the user has at least one necessary role,
-   * if he has them he displays the element otherwise he does not render them
-   */
-  ngOnInit(): void {
+  constructor() {
+    /**
+     * check with the selector if the user has at least one necessary role,
+     * if he has them he displays the element otherwise he does not render them
+     */
+
     toObservable(this.authService.roles)
       .pipe(distinctUntilChanged(), this.takeUntilDestroyed)
       .subscribe(() => {
