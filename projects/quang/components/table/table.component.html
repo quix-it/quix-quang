@@ -57,11 +57,12 @@
             <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
               <th
                 [class.sort-btn]="sortableTable()"
+                [ngClass]="el?.css"
                 (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
                 class="align-bottom"
               >
                 <div
-                  *ngIf="el.sort?.key"
+                  *ngIf="el?.sort?.key"
                   class="d-flex justify-content-between"
                 >
                   <div class="align-self-end d-flex gap-1">
@@ -85,6 +86,7 @@
             *ngFor="let row of tableConfigurations().rows"
           >
             <td
+              [attr.colspan]="cell?.fullWidth ? row?.cellData?.length : undefined"
               [ngClass]="cell.css!"
               *ngFor="let cell of row.cellData"
             >

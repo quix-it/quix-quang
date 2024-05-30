@@ -20,6 +20,7 @@ import { ResizeObservableService } from '@quix/quang/device'
 export interface TableHeader {
   text: string
   sort?: SortCol
+  css?: string[]
 }
 
 export interface TableConfiguration<T> {
@@ -32,6 +33,7 @@ export interface TableCell {
   payload?: any
   text?: string
   css?: string[]
+  fullWidth?: boolean
 }
 
 export interface TableRow<T> {
