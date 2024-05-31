@@ -185,7 +185,7 @@ export class AuthService {
     }
   }
 
-  private logout() {
-    this.oAuthService.logOut()
+  async logout() {
+    await this.oAuthService.logOut()
   }
 }
