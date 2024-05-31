@@ -18,6 +18,7 @@
             <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
               <th
                 [class.sort-btn]="sortableTable()"
+                [ngClass]="el?.css"
                 (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
                 class="align-bottom"
               >
@@ -57,7 +58,6 @@
             <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
               <th
                 [class.sort-btn]="sortableTable()"
-                [ngClass]="el?.css"
                 (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
                 class="align-bottom"
               >
