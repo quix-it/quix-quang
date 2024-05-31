@@ -184,4 +184,8 @@ export class AuthService {
       })
     }
   }
+
+  private logout() {
+    this.oAuthService.logOut()
+  }
 }
