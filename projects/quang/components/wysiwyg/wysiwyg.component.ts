@@ -70,7 +70,6 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
    */
   _generateSunEditorWysiwygEffect = effect(
     async () => {
-      console.log('genero sun')
       if (this._inputForWysiwyg()?.nativeElement) {
         const sunEditorOptions: SunEditorOptions = {
           plugins: plugins,

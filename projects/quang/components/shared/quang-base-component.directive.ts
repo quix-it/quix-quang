@@ -130,10 +130,8 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
     const controlErrors = this._ngControl()?.control?.errors
 
     if (controlErrors) {
-      console.log(controlErrors)
       if (this.errorMap()?.length) {
         const targetError = this.errorMap()?.find((error) => {
-          console.error(error)
           return (
             Object.keys(controlErrors)?.find(
               (targetError) => error.error.toLowerCase() === targetError.toLowerCase()

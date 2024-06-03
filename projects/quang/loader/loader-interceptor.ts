@@ -21,7 +21,6 @@ export interface UrlData {
 export function quangLoaderInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn) {
   const excludedUrlByMethod = getExcludedUrlsByMethod(inject(EXCLUDED_URL))
   const loaderService = inject(QuangLoaderService)
-  console.log('ciao')
   if (!isMethodType(request.method)) {
     return next(request)
   }

@@ -117,8 +117,6 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
       ?.positionChanges.pipe(this.takeUntilDestroyed())
       .subscribe((position) => {
         const positionRef: ConnectedOverlayPositionChange = position as ConnectedOverlayPositionChange
-        console.log('positionRef.connectionPair', positionRef.connectionPair)
-        console.log('(this.componentOverlayRef()?.instance as any)', this.componentOverlayRef()?.instance as any)
         ;(this.componentOverlayRef()?.instance as any).positionPair.set(positionRef.connectionPair)
       })
     this.overlayRef()

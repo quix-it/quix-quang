@@ -34,7 +34,6 @@ export class QuangLoaderComponent {
     this._loaderService()
       .isLoading$.pipe(this._takeUntilDestroyed())
       .subscribe((isLoading) => {
-        console.log('this._loadingCount', this._loadingCount())
         const hideTimeout = this._hideTimeout()
         if (hideTimeout) {
           clearTimeout(hideTimeout)
