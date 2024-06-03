@@ -4,6 +4,7 @@ import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angul
 
 import { Subscription } from 'rxjs'
 
+import { ErrorData } from './ErrorData'
 import { makeId } from './makeId'
 
 @Directive()
@@ -14,7 +15,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   componentClass = input<string | string[]>('')
   componentLabel = input<string>('')
   componentPlaceholder = input<string>('')
-  errorMap = input<{ error: string; message: string }[]>([])
+  errorMap = input<ErrorData[]>([])
   successMessage = input<string>('')
   helpMessage = input<string>('')
   formControl = input<FormControl>()
