@@ -38,6 +38,7 @@ export const AUTH_CONFIG = new InjectionToken<QuangAuthConfig | undefined>('AUTH
 
 export interface QuangAuthConfig extends AuthConfig {
   autoLogin: boolean
+  sendAccessToken: boolean
 }
 
 export interface QuangParsedIdToken extends ParsedIdToken {}
@@ -136,6 +137,10 @@ export class AuthService {
     }
   }
 
+  async logout() {
+    await this.oAuthService.logOut()
+  }
+
   private loginError() {
     patchState(this.state, {
       loginStatus: {
@@ -183,9 +188,5 @@ export class AuthService {
         })
       })
     }
-  }
-
-  async logout() {
-    await this.oAuthService.logOut()
   }
 }

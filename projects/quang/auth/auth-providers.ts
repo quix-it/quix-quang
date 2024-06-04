@@ -10,6 +10,10 @@ export function provideAuth(authConfig?: QuangAuthConfig): EnvironmentProviders 
       provide: AUTH_CONFIG,
       useValue: authConfig
     },
-    provideOAuthClient()
+    provideOAuthClient({
+      resourceServer: {
+        sendAccessToken: authConfig?.sendAccessToken ?? true
+      }
+    })
   ])
 }
