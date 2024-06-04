@@ -1,4 +1,3 @@
-import { provideHttpClient } from '@angular/common/http'
 import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 
 import { provideOAuthClient } from 'angular-oauth2-oidc'
@@ -11,7 +10,6 @@ export function provideAuth(authConfig?: QuangAuthConfig): EnvironmentProviders 
       provide: AUTH_CONFIG,
       useValue: authConfig
     },
-    provideHttpClient(),
     provideOAuthClient()
   ])
 }

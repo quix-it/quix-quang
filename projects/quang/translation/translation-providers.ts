@@ -1,4 +1,3 @@
-import { provideHttpClient } from '@angular/common/http'
 import { EnvironmentProviders, InjectionToken, makeEnvironmentProviders } from '@angular/core'
 
 import { provideTransloco } from '@ngneat/transloco'
@@ -20,7 +19,6 @@ export const TRANSLATIONS_BASE_PATH = new InjectionToken<string>('TRANSLATIONS_B
 
 export function provideTranslation(config: TranslationConfig): EnvironmentProviders {
   return makeEnvironmentProviders([
-    provideHttpClient(),
     QuangTranslationLoaderService,
     QuangTranslationService,
     provideTransloco({
