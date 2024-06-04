@@ -131,13 +131,10 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
     if (controlErrors) {
       if (this.errorMap()?.length) {
-        const targetError = this.errorMap()?.find((error) => {
-          return (
-            Object.keys(controlErrors)?.find(
-              (targetError) => error.error.toLowerCase() === targetError.toLowerCase()
-            ) ?? []
-          )
-        })
+        const targetError = this.errorMap()?.find(
+          (error) =>
+            !!Object.keys(controlErrors)?.find((targetError) => error.error.toLowerCase() === targetError.toLowerCase())
+        )
         if (targetError) {
           this._currentErrorMessage.set(targetError.message ?? '')
           this._currentErrorMessageExtraData.set(targetError.error)

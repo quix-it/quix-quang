@@ -1,6 +1,14 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
-import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import {
+  AbstractControl,
+  FormsModule,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  ValidatorFn,
+  Validators
+} from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
 
@@ -33,19 +41,42 @@ export class InputTestComponent {
     {
       error: Validators.maxLength.name,
       message: 'form.errors.maxLength'
+    },
+    {
+      error: 'noMatch',
+      message: 'form.errors.noMatch'
     }
   ])
-
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('sì pirrone!', [
+      testInput: this.formBuilder().control<string>('', [
         Validators.required,
-        Validators.minLength(10),
+        Validators.minLength(1),
         Validators.maxLength(30)
       ])
     })
   )
+  testFormChange = this.testForm()
+    .controls.testInput.valueChanges.pipe(takeUntilDestroyed())
+    .subscribe((val) => {
+      if (val && val === 'ciao') {
+        this.testForm().controls.testInput.setErrors(null)
+      } else if (val) {
+        console.log('ciaoni')
+        this.testForm().controls.testInput.setErrors({ noMatch: true })
+        console.log('this.testForm().controls.testInput', this.testForm().controls.testInput.errors)
+      }
+    })
   showInput = signal(true)
+
+  testValidation(): ValidatorFn {
+    return (control: AbstractControl): Record<string, any> | null => {
+      if (control.value && control.value !== 'ciao') {
+        return { noMatch: true }
+      }
+      return null
+    }
+  }
 
   changeFormEnabled() {
     if (this.testForm().enabled) this.testForm().disable()
