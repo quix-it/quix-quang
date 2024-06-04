@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptors } from '@angular/common/http'
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http'
 import { ApplicationConfig } from '@angular/core'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { provideRouter } from '@angular/router'
@@ -11,7 +11,7 @@ import { routes } from './app.routes'
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([quangLoaderInterceptor])),
+    provideHttpClient(withInterceptors([quangLoaderInterceptor]), withInterceptorsFromDi()),
     provideRouter(routes),
     provideTranslation({
       availableLangs: ['it', 'en'],

@@ -31,7 +31,7 @@ interface AuthState {
   tokenStatus: TokenStatus
   parsedToken: QuangParsedIdToken | undefined
   roles: string[]
-  user: object
+  user: any
 }
 
 export const AUTH_CONFIG = new InjectionToken<QuangAuthConfig | undefined>('AUTH_CONFIG')
@@ -39,6 +39,7 @@ export const AUTH_CONFIG = new InjectionToken<QuangAuthConfig | undefined>('AUTH
 export interface QuangAuthConfig extends AuthConfig {
   autoLogin: boolean
   sendAccessToken: boolean
+  urlsToSendToken: string[]
 }
 
 export interface QuangParsedIdToken extends ParsedIdToken {}
