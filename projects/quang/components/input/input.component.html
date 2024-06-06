@@ -14,6 +14,7 @@
     <input
       [class.is-invalid]="_showErrors()"
       [class.is-valid]="_showSuccess()"
+      [class.no-resize]="!resizable()"
       [disabled]="_isDisabled()"
       [id]="componentId()"
       [ngClass]="componentClass()"

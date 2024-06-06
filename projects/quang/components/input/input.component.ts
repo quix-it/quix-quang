@@ -27,6 +27,8 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
 export class QuangInputComponent extends QuangBaseComponent<string | number> {
   componentType = input.required<InputType>()
 
+  resizable = input(true)
+
   constructor() {
     super()
     toObservable(this.componentType)
