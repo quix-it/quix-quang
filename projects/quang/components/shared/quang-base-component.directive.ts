@@ -57,7 +57,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   onChange?: (value: T) => void
   onTouched?: () => void
 
-  protected constructor() {
+  constructor() {
     toObservable(this.formControl)
       .pipe(this._takeUntilDestroyed())
       .subscribe((form) => {
