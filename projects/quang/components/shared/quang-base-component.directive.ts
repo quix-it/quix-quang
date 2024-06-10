@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, Injector, computed, inject, input, signal } from '@angular/core'
+import { AfterViewInit, Directive, Injector, computed, inject, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angular/forms'
 
@@ -19,6 +19,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   successMessage = input<string>('')
   helpMessage = input<string>('')
   formControl = input<FormControl>()
+  blurComponent = output<void>()
 
   /*_currentErrorMessageSig = computed(() =>
     this._showErrorsSig()
@@ -101,6 +102,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
     if (this.onTouched) {
       this.onTouched()
     }
+    this.componentBlur.emit()
   }
 
   setupFormControl() {
