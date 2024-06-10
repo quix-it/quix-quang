@@ -12,6 +12,6 @@ export class QuangTranslationLoaderService implements TranslocoLoader {
   @Optional() private readonly translationBasePath: string = inject(TRANSLATIONS_BASE_PATH)
 
   getTranslation(lang: string): Observable<HashMap<any>> {
-    return this.httpClient.get<Translation>(`${this.translationBasePath ?? '/'}assets/i18n/${lang}.json`)
+    return this.httpClient.get<Translation>(`${this.translationBasePath ?? './'}assets/i18n/${lang}.json`)
   }
 }
