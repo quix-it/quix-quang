@@ -19,7 +19,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   successMessage = input<string>('')
   helpMessage = input<string>('')
   formControl = input<FormControl>()
-  blurComponent = output<void>()
+  componentBlur = output<void>()
 
   /*_currentErrorMessageSig = computed(() =>
     this._showErrorsSig()
