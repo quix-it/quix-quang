@@ -21,4 +21,5 @@ export class QuangTooltipComponent {
   content = input<string>('')
   quangTooltipPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
   positionPair = signal<ConnectionPositionPair | null>(null)
+  payload = input<any>()
 }

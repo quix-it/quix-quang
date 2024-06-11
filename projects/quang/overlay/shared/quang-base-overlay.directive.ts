@@ -23,6 +23,7 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
 
   showMethod = input<'click' | 'hover'>('click')
   content = input.required<any>()
+  quangOverlayPayload = input<any>()
   closeOnClickOutside: boolean = true
   overlayPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
   takeUntilDestroyed = signal(takeUntilDestroyed())
@@ -112,6 +113,7 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
     if (createdOverlay) {
       this.componentOverlayRef.set(createdOverlay.attach(componentPortal))
       ;(this.componentOverlayRef()?.instance as any).content = this.content
+      ;(this.componentOverlayRef()?.instance as any).payload = this.quangOverlayPayload
     }
     this.positionStrategy()
       ?.positionChanges.pipe(this.takeUntilDestroyed())

@@ -8,7 +8,6 @@ import {
   inject,
   input,
   output,
-  signal,
   viewChild
 } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
@@ -70,18 +69,16 @@ export class QuangTableComponent<T> {
   selectedRaw = output<TableRow<T>>()
   sortChanged = output<SortCol[]>()
   public SortTable = SortTable
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
-  _resizeObservableService = signal(inject(ResizeObservableService))
-  _elementRef = signal(inject(ElementRef))
+  _takeUntilDestroyed = takeUntilDestroyed()
+  _resizeObservableService = inject(ResizeObservableService)
+  _elementRef = inject(ElementRef)
 
-  _elementRefEffect = effect(() => {
-    this._resizeObservableService()
-      .resizeObservable(this._elementRef().nativeElement)
-      .pipe(this._takeUntilDestroyed())
-      .subscribe(() => {
-        this.fixTableHeaderWidth()
-      })
-  })
+  elementRefObservable = this._resizeObservableService
+    .resizeObservable(this._elementRef.nativeElement)
+    .pipe(takeUntilDestroyed())
+    .subscribe(() => {
+      this.fixTableHeaderWidth()
+    })
 
   _tableHeader = viewChild<ElementRef>('tableHeader')
 
@@ -89,6 +86,12 @@ export class QuangTableComponent<T> {
 
   _tableHeaderEffect = effect(() => {
     if (this._tableHeader()) {
+      this.fixTableHeaderWidth()
+    }
+  })
+
+  _tableHeaderElementEffect = effect(() => {
+    if (this._tableHeaderElement()) {
       this.fixTableHeaderWidth()
     }
   })
@@ -108,20 +111,6 @@ export class QuangTableComponent<T> {
       this.fixTableHeaderWidth()
     }
   })
-
-  /*@HostListener('window:resize', ['$event'])
-  onResize() {
-    this.fixTableHeaderWidth()
-  }*/
-
-  /*ngAfterViewInit(): void {
-    this.fixTableHeaderWidth()
-    interval(500)
-      .pipe(this._takeUntilDestroyed())
-      .subscribe(() => {
-        this.fixTableHeaderWidth()
-      })
-  }*/
 
   onClickRow(row: TableRow<T>): void {
     if (this.clickableRow()) {

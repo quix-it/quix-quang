@@ -13,6 +13,7 @@ import { ChangeDetectionStrategy, Component, TemplateRef, input, signal } from '
 export class QuangPopoverComponent {
   content = input<TemplateRef<any> | null>(null)
   positionPair = signal<ConnectionPositionPair | null>(null)
+  payload = input<any>()
 
   getPopoverPosition(): string {
     const originX = this.positionPair()?.originX
