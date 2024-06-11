@@ -30,6 +30,7 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
   // animation = input.required<'right' | 'left' | 'center' | 'top' | 'bottom'>()
   height = input<string>('80vh')
   width = input<string>('80vw')
+  backgroundColor = input<string>()
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
 
