@@ -68,9 +68,9 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    setTimeout(() => {
-      this.overlayRef?.detach()
-      this.overlayRef?.dispose()
-    }, 300)
+    // setTimeout(() => {
+    this.overlayRef?.detach()
+    this.overlayRef?.dispose()
+    // }, 300)
   }
 }
