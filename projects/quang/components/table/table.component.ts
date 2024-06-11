@@ -13,6 +13,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@ngneat/transloco'
+import { Subscription } from 'rxjs'
 
 import { ResizeObservableService } from '@quix/quang/device'
 
@@ -71,14 +72,6 @@ export class QuangTableComponent<T> {
   public SortTable = SortTable
   _takeUntilDestroyed = takeUntilDestroyed()
   _resizeObservableService = inject(ResizeObservableService)
-  _elementRef = inject(ElementRef)
-
-  elementRefObservable = this._resizeObservableService
-    .resizeObservable(this._elementRef.nativeElement)
-    .pipe(takeUntilDestroyed())
-    .subscribe(() => {
-      this.fixTableHeaderWidth()
-    })
 
   _tableHeader = viewChild<ElementRef>('tableHeader')
 
@@ -111,6 +104,7 @@ export class QuangTableComponent<T> {
       this.fixTableHeaderWidth()
     }
   })
+  hiddenColumnsObservable?: Subscription = undefined
 
   onClickRow(row: TableRow<T>): void {
     if (this.clickableRow()) {
@@ -127,11 +121,20 @@ export class QuangTableComponent<T> {
       const stickyColumns = this._tableHeader()?.nativeElement?.querySelectorAll('th')
 
       // Copy the column widths from our hidden Primary table header to our Sticky Table header.
-      const ths = this._fakeTableHeader()?.nativeElement?.querySelectorAll('th')
+      const hiddenColumns = this._fakeTableHeader()?.nativeElement?.querySelectorAll('th')
 
-      if (stickyColumns && ths) {
-        for (let i = 0; i < ths?.length; i++) {
-          const th = ths[i]
+      if (stickyColumns?.length > 0 && hiddenColumns?.length > 0) {
+        if (this.hiddenColumnsObservable) {
+          this.hiddenColumnsObservable.unsubscribe()
+        }
+        this.hiddenColumnsObservable = this._resizeObservableService
+          .resizeObservable(hiddenColumns[0])
+          .pipe(this._takeUntilDestroyed)
+          .subscribe(() => {
+            this.fixTableHeaderWidth()
+          })
+        for (let i = 0; i < hiddenColumns?.length; i++) {
+          const th = hiddenColumns[i]
           // Since the Sticky Table header is expected to be an exact copy of the Primary Table, we know their indices will be the same.
           stickyColumns[i].style.minWidth = th.offsetWidth + 'px'
           stickyColumns[i].style.maxWidth = th.offsetWidth + 'px'
