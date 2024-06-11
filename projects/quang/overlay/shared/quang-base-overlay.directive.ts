@@ -7,11 +7,21 @@ import {
   OverlayRef
 } from '@angular/cdk/overlay'
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal'
-import { ComponentRef, Directive, ElementRef, HostListener, computed, inject, input, signal } from '@angular/core'
+import {
+  ComponentRef,
+  Directive,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  computed,
+  inject,
+  input,
+  signal
+} from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 @Directive()
-export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
+export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implements OnDestroy {
   targetComponentType = signal<ComponentType<T> | undefined>(undefined)
 
   /**
@@ -142,5 +152,9 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> {
     } else {
       this.attachOverlay()
     }
+  }
+
+  ngOnDestroy(): void {
+    this.detachOverlay()
   }
 }
