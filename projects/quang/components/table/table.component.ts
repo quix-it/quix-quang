@@ -77,6 +77,8 @@ export class QuangTableComponent<T> {
 
   _tableHeaderElement = viewChild<Element>('tableHeader')
 
+  noResultsText = input<string>('quangTable.noResults')
+
   _tableHeaderEffect = effect(() => {
     if (this._tableHeader()) {
       this.fixTableHeaderWidth()

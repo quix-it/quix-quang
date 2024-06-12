@@ -23,6 +23,10 @@ export class QuangPaginatorComponent implements OnInit {
   totalItems = input.required<number>()
   showTotalElementsCount = input<boolean>(true)
 
+  totalItemsText = input<string>('quangPaginator.totalItems')
+  sizeText = input<string>('quangPaginator.size')
+  pageRangeText = input<string>('quangPaginator.pageRange')
+
   _currentPage = signal<number>(1)
   _pageSize = signal<number>(0)
   _totalPages = computed(() => Math.ceil(this.totalItems() / this._pageSize()))

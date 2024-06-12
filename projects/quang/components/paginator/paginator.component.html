@@ -7,14 +7,14 @@
     *ngIf="showTotalElementsCount()"
     class="me-3 pagination-label"
   >
-    {{ 'quangPaginator.totalItems' | transloco }} {{ totalItems() }}
+    {{ totalItemsText() | transloco }} {{ totalItems() }}
   </div>
   <div class="me-3">
     <label
       class="form-label pagination-label mb-0 text-center"
       for="pageSize"
     >
-      {{ 'quangPaginator.size' | transloco }}
+      {{ sizeText() | transloco }}
     </label>
     <select
       [id]="componentId() + '-quang-page-size'"
@@ -36,7 +36,7 @@
     </select>
   </div>
   <div class="pagination-label text-center">
-    {{ 'quangPaginator.pageRange' | transloco: { page: page(), amountPages: _totalPages() } }}
+    {{ pageRangeText() | transloco: { page: page(), amountPages: _totalPages() } }}
   </div>
   <div class="pagination">
     <ul>
