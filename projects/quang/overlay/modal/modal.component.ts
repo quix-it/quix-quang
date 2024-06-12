@@ -1,4 +1,4 @@
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay'
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay'
 import { CdkPortal, PortalModule } from '@angular/cdk/portal'
 import { NgStyle } from '@angular/common'
 import {
@@ -31,11 +31,12 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
   height = input<string>('80vh')
   width = input<string>('80vw')
   backgroundColor = input<string>()
+  showBackdrop = input<boolean>(true)
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
 
   private overlayConfig?: OverlayConfig
-  private overlayRef: any
+  private overlayRef?: OverlayRef
 
   get positionStrategy() {
     switch (this.position()) {
@@ -54,7 +55,8 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
     this.overlayConfig = new OverlayConfig({
       hasBackdrop: true,
       positionStrategy: this.positionStrategy,
-      scrollStrategy: this.overlay.scrollStrategies.block()
+      scrollStrategy: this.overlay.scrollStrategies.block(),
+      backdropClass: this.showBackdrop() ? undefined : ''
     })
     this.overlayRef = this.overlay.create(this.overlayConfig)
     this.overlayRef
