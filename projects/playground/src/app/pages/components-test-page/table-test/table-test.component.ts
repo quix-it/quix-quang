@@ -243,9 +243,11 @@ export class TableTestComponent implements AfterViewInit {
               ]
             }
           })
+        } else {
+          this.tableConfig.rows = []
         }
+        this.tableConfig = { ...this.tableConfig }
       })
-    this.tableConfig = { ...this.tableConfig }
   }
 
   onEditPerson(id: number): void {
