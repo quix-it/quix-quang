@@ -56,8 +56,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   })
   selectedOption = output<string | number | null>()
 
-  // changeDetectorRef = signal(inject(ChangeDetectorRef))
-
   constructor() {
     super()
     this.inputValue$.pipe(this._takeUntilDestroyed(), debounceTime(300), distinctUntilChanged()).subscribe((value) => {

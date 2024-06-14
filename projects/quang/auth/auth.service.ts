@@ -152,7 +152,9 @@ export class AuthService {
     })
   }
 
-  private loginSuccess() {
+  private async loginSuccess() {
+    await this.getUserProfile()
+    this.setTokens()
     patchState(this.state, {
       loginStatus: {
         isAuthenticated: true,
@@ -160,7 +162,6 @@ export class AuthService {
         loginRequested: true
       }
     })
-    this.getUserProfile().then()
   }
 
   private async getUserProfile() {
