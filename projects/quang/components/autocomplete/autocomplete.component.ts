@@ -55,6 +55,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     return text?.length ? this.filterOptions(text) : this.selectOptions()
   })
   selectedOption = output<string | number | null>()
+  searchTextChange = output<string>()
 
   constructor() {
     super()
@@ -88,6 +89,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   onChangeInput(value: any): void {
     this.inputValue$.next(value.target?.value)
+    this.searchTextChange.emit(value.target?.value)
   }
 
   filterOptions(value: string): SelectOption[] {
