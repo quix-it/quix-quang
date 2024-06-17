@@ -56,12 +56,16 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   })
   selectedOption = output<string | number | null>()
   searchTextChange = output<string>()
+  searchTextDebounce = input<number>(300)
 
   constructor() {
     super()
-    this.inputValue$.pipe(this._takeUntilDestroyed(), debounceTime(300), distinctUntilChanged()).subscribe((value) => {
-      this._inputValue.set(value?.toString() ?? '')
-    })
+    this.inputValue$
+      .pipe(this._takeUntilDestroyed(), debounceTime(this.searchTextDebounce()), distinctUntilChanged())
+      .subscribe((value) => {
+        this._inputValue.set(value?.toString() ?? '')
+        this.searchTextChange.emit(this._inputValue() ?? '')
+      })
     toObservable(this._showOptions)
       .pipe(this._takeUntilDestroyed())
       .subscribe((data) => {
@@ -89,7 +93,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   onChangeInput(value: any): void {
     this.inputValue$.next(value.target?.value)
-    this.searchTextChange.emit(value.target?.value)
   }
 
   filterOptions(value: string): SelectOption[] {
