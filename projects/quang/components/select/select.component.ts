@@ -43,7 +43,6 @@ export class QuangSelectComponent
   _optionHideTimeout = signal<any | undefined>(undefined)
   _selectedItems = computed(() => {
     if (this._value() !== null) {
-      console.log(this._value())
       const targetValue = this._value()
       return this.selectOptions().filter((x) => {
         if (Array.isArray(targetValue)) {

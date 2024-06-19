@@ -67,7 +67,7 @@ export class QuangTableComponent<T> {
   selectedRows = input<string[] | number[]>()
   stickyTable = input<boolean>(true)
   sortableTable = input<boolean>(false)
-  selectedRaw = output<TableRow<T>>()
+  selectedRow = output<TableRow<T>>()
   sortChanged = output<SortCol[]>()
   public SortTable = SortTable
   _takeUntilDestroyed = takeUntilDestroyed()
@@ -110,7 +110,7 @@ export class QuangTableComponent<T> {
 
   onClickRow(row: TableRow<T>): void {
     if (this.clickableRow()) {
-      this.selectedRaw.emit(row)
+      this.selectedRow.emit(row)
     }
   }
 
