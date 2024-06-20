@@ -66,7 +66,6 @@ export class QuangTableComponent<T> {
   clickableRow = input<boolean>(false)
   selectedRows = input<string[] | number[]>()
   stickyTable = input<boolean>(true)
-  sortableTable = input<boolean>(false)
   selectedRow = output<TableRow<T>>()
   sortChanged = output<SortCol[]>()
   public SortTable = SortTable

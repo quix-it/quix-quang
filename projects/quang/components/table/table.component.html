@@ -17,9 +17,9 @@
           <tr>
             <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
               <th
-                [class.sort-btn]="sortableTable()"
+                [class.sort-btn]="el?.sort"
                 [ngClass]="el?.css"
-                (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
+                (click)="el?.sort ? onSortColumn(el.sort!) : null"
                 class="align-bottom"
               >
                 <div class="align-self-end d-flex gap-1">
@@ -57,8 +57,8 @@
           <tr>
             <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
               <th
-                [class.sort-btn]="sortableTable()"
-                (click)="sortableTable() && el?.sort ? onSortColumn(el.sort!) : null"
+                [class.sort-btn]="el?.sort"
+                (click)="el?.sort ? onSortColumn(el.sort!) : null"
                 class="align-bottom"
               >
                 <div class="align-self-end d-flex gap-1">
