@@ -42,6 +42,8 @@ export class DateComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.group.disable()
+    setTimeout(() => {
+      this.group.disable()
+    }, 500)
   }
 }
