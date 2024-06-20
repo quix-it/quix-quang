@@ -29,7 +29,7 @@
         class="content"
       >
         <ng-container *ngFor="let val of _selectedItems(); let last = last">
-          {{ val.label }}{{ !last ? ', ' : '' }}
+          {{ translateValue() ? (val.label | transloco) : val.label }}{{ !last ? ', ' : '' }}
         </ng-container>
       </div>
     </button>
