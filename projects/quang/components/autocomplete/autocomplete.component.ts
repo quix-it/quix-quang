@@ -11,7 +11,7 @@ import {
   output,
   signal
 } from '@angular/core'
-import { toObservable } from '@angular/core/rxjs-interop'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@ngneat/transloco'
@@ -49,6 +49,13 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   emitOnly = input<boolean>(false)
   _showOptions = signal<boolean | null>(null)
   _inputValue = signal<string | null>(null)
+  selectOptionsChange = toObservable(this.selectOptions)
+    .pipe(takeUntilDestroyed())
+    .subscribe(() => {
+      if (!this._inputValue()) {
+        this.setInputValue()
+      }
+    })
   inputValue$ = new Subject<string>()
   _filteredOptions = computed<SelectOption[]>(() => {
     const text = this._inputValue()
@@ -104,7 +111,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   override onChangedHandler(value: string | number | null): void {
     super.onChangedHandler(value)
-    this._inputValue.set(this.selectOptions().find((x) => x.value === this._value())?.label ?? '')
+    this.setInputValue()
   }
 
   onValueChange(value: string | number | null): void {
@@ -126,7 +133,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   override writeValue(val: string | number | null): void {
-    this._inputValue.set(this.selectOptions().find((x) => x.value === this._value())?.label ?? '')
+    this.setInputValue()
     super.writeValue(val)
+  }
+
+  setInputValue() {
+    this._inputValue.set(this.selectOptions().find((x) => x.value === this._value())?.label ?? '')
   }
 }
