@@ -1,5 +1,5 @@
 <div
-  [class.sticky-table]="stickyTable"
+  [class.sticky-table]="stickyTable()"
   class="table-responsive"
 >
   <ng-container *ngIf="tableConfigurations().rows?.length">
