@@ -19,6 +19,7 @@
       [ngClass]="componentClass()"
       [placeholder]="componentPlaceholder() | transloco"
       [readOnly]="isReadonly()"
+      [step]="componentType() === 'number' ? componentStep() : 'any'"
       [tabIndex]="componentTabIndex()"
       [type]="componentType()"
       [value]="_value()"

@@ -26,6 +26,7 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
 })
 export class QuangInputComponent extends QuangBaseComponent<string | number> {
   componentType = input.required<InputType>()
+  componentStep = input<string>()
 
   resizable = input(true)
 
