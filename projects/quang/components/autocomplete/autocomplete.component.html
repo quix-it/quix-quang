@@ -1,4 +1,7 @@
-<div class="autocomplete-container">
+<div
+  (mouseleave)="hideOptionVisibility()"
+  class="autocomplete-container"
+>
   <label
     [htmlFor]="componentId()"
     *ngIf="componentLabel()"

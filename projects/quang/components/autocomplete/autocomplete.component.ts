@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostListener,
   computed,
   forwardRef,
   inject,
@@ -80,14 +79,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
           this.checkInputValue()
         }
       })
-  }
-
-  // selectionMode = input<'single' | 'multiple'>('single')
-  @HostListener('document:click', ['$event'])
-  clickOut(event: any) {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.hideOptionVisibility()
-    }
   }
 
   showOptionVisibility(): void {
