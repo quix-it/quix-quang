@@ -128,7 +128,15 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     super.writeValue(val)
   }
 
+  override onBlurHandler() {
+    setTimeout(() => {
+      super.onBlurHandler()
+
+      this.hideOptionVisibility()
+    }, 500)
+  }
+
   setInputValue() {
-    this._inputValue.set(this.selectOptions().find((x) => x.value === this._value())?.label ?? '')
+    this._inputValue.set(this.selectOptions().find((x) => x.value === this._value())?.label ?? this._inputValue())
   }
 }
