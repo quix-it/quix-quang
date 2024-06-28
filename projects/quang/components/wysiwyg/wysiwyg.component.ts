@@ -106,6 +106,10 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
       sunEditor.onBlur = () => {
         this.onBlurHandler()
       }
+      if (this._isDisabled()) {
+        sunEditor.disable()
+        sunEditor.toolbar.disable()
+      }
     }
   }
 
