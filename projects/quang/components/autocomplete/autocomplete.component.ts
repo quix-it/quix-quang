@@ -124,7 +124,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   override writeValue(val: string | number | null): void {
-    this.setInputValue()
+    this.setInputValue(true)
+    this.setInputValue(true)
     super.writeValue(val)
   }
 
@@ -136,7 +137,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     }, 500)
   }
 
-  setInputValue() {
-    this._inputValue.set(this.selectOptions().find((x) => x.value === this._value())?.label ?? this._inputValue())
+  setInputValue(resetOnMiss = false) {
+    this._inputValue.set(
+      this.selectOptions().find((x) => x.value === this._value())?.label ?? (resetOnMiss ? null : this._inputValue())
+    )
   }
 }
