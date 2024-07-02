@@ -21,10 +21,11 @@
         [name]="item.value + '-checkbox'"
         [ngClass]="componentClass()"
         [tabIndex]="componentTabIndex()"
+        [value]="getSelected(item)"
         (blur)="onBlurHandler($event)"
         (input)="onSelectItem(item)"
         #inputCheckbox
-        class="form-check"
+        class="form-check-input"
         type="checkbox"
       />
       <label
