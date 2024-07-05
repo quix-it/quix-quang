@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common'
+import { JsonPipe, NgClass, NgIf } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -36,7 +36,7 @@ import { QuangTranslationService } from '@quix/quang/translation'
       multi: true
     }
   ],
-  imports: [TranslocoPipe, NgIf, NgClass],
+  imports: [TranslocoPipe, NgIf, NgClass, JsonPipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | string | null> {
