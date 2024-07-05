@@ -76,6 +76,8 @@ export class AppComponent {
       position: 'bottom-center',
       text: 'beauty button here',
       customTemplate: this.customToast,
+      showCloseButton: true,
+      customIcon: './assets/icons/svg/calendar.svg',
       timing: 50000000
     })
   }
