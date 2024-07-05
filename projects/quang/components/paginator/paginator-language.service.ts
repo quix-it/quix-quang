@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core'
 
-import { TranslocoService } from '@ngneat/transloco'
-
-import { QuangTranslationService } from '@quix/quang/translation'
+import { TranslocoService } from '@jsverse/transloco'
 
 import { PaginatorIntl } from './paginatorIntl'
 

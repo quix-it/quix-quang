@@ -2,7 +2,7 @@ import { JsonPipe, NgForOf, NgIf } from '@angular/common'
 import { Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { QuangAutocompleteComponent } from '@quix/quang/components/autocomplete'
 import { SelectOption } from '@quix/quang/components/shared'

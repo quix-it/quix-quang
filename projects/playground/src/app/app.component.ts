@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, inject, signal } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { QuangLoaderComponent } from '@quix/quang/loader'
 import { QuangModalComponent } from '@quix/quang/overlay/modal'

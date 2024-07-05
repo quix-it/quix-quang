@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable, Optional, inject } from '@angular/core'
 
-import { HashMap, Translation, TranslocoLoader } from '@ngneat/transloco'
+import { HashMap, Translation, TranslocoLoader } from '@jsverse/transloco'
 import { Observable } from 'rxjs'
 
 import { TRANSLATIONS_BASE_PATH } from './translation-providers'

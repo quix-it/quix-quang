@@ -12,7 +12,7 @@ import {
 } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 import { Subscription } from 'rxjs'
 
 import { ResizeObservableService } from '@quix/quang/device'

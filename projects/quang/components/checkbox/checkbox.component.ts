@@ -2,7 +2,7 @@ import { NgClass, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 

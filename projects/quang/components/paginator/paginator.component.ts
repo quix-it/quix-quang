@@ -1,7 +1,7 @@
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, OnInit, computed, input, output, signal } from '@angular/core'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { makeId } from '@quix/quang/components/shared'
 

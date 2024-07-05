@@ -13,7 +13,7 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs'
 
 import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@quix/quang/components/shared'

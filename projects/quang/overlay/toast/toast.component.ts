@@ -2,7 +2,7 @@ import { OverlayModule } from '@angular/cdk/overlay'
 import { DatePipe, NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { QuangToastService } from './toast.service'
 

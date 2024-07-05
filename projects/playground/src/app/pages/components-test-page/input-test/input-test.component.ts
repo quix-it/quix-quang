@@ -10,7 +10,7 @@ import {
   Validators
 } from '@angular/forms'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { InputType, QuangInputComponent } from '@quix/quang/components/input'
 
