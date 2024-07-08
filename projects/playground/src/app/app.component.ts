@@ -14,6 +14,8 @@ import { QuangToastService } from '@quix/quang/overlay/toast/toast.service'
 import { QuangTooltipDirective } from '@quix/quang/overlay/tooltip'
 import { QuangTranslationService } from '@quix/quang/translation'
 
+import { AppService } from './app.service'
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -35,12 +37,12 @@ import { QuangTranslationService } from '@quix/quang/translation'
 export class AppComponent {
   @ViewChild('customToast') customToast?: TemplateRef<any>
   title = signal('playground')
-
   quangTranslationService = signal(inject(QuangTranslationService))
   quangToast = signal(inject(QuangToastService))
   showModal = signal(false)
   content = signal('content')
 
+  appService = inject(AppService)
   constructor(private http: HttpClient) {}
 
   changeLanguage(lang: string) {
@@ -80,5 +82,9 @@ export class AppComponent {
       customIcon: './assets/icons/svg/calendar.svg',
       timing: 50000000
     })
+  }
+
+  testApiCall(): void {
+    this.appService.testHttpGet()
   }
 }
