@@ -38,6 +38,7 @@ export class QuangLoaderComponent {
         if (hideTimeout) {
           clearTimeout(hideTimeout)
           this._hideTimeout.set(undefined)
+          this._loadingCount.set(0)
         }
         if (isLoading) {
           this._loadingCount.update((value) => (value ?? 0) + 1)
