@@ -10,6 +10,12 @@ export interface TranslationConfig {
   defaultLang: string
   fallbackLang: string
   translationsBasePath?: string
+  reRenderOnLangChange?: boolean
+  prodMode?: boolean
+  failedRetries?: number
+  logMissingKey?: boolean
+  useFallbackTranslation?: boolean
+  allowEmpty?: boolean
 }
 
 export const AVAILABLE_LANGS = new InjectionToken<string[]>('AVAILABLE_LANGS')
@@ -26,13 +32,13 @@ export function provideTranslation(config: TranslationConfig): EnvironmentProvid
         availableLangs: config.availableLangs,
         defaultLang: config.defaultLang,
         fallbackLang: config.fallbackLang,
-        reRenderOnLangChange: true,
-        prodMode: true,
-        failedRetries: 1,
+        reRenderOnLangChange: config.reRenderOnLangChange ?? true,
+        prodMode: config.prodMode ?? true,
+        failedRetries: config.failedRetries ?? 1,
         missingHandler: {
-          logMissingKey: true,
-          useFallbackTranslation: true,
-          allowEmpty: false
+          logMissingKey: config.logMissingKey ?? true,
+          useFallbackTranslation: config.useFallbackTranslation ?? true,
+          allowEmpty: config.allowEmpty ?? false
         }
       },
       loader: QuangTranslationLoaderService
