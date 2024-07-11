@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common'
+import { JsonPipe, NgClass, NgIf } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,7 +14,7 @@ import {
 } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 import AirDatepicker, { AirDatepickerDate, AirDatepickerLocale, AirDatepickerOptions } from 'air-datepicker'
 import en from 'air-datepicker/locale/en'
 import fr from 'air-datepicker/locale/fr'
@@ -36,7 +36,7 @@ import { QuangTranslationService } from '@quix/quang/translation'
       multi: true
     }
   ],
-  imports: [TranslocoPipe, NgIf, NgClass],
+  imports: [TranslocoPipe, NgIf, NgClass, JsonPipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | string | null> {

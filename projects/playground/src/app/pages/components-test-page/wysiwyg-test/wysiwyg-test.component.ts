@@ -2,7 +2,7 @@ import { JsonPipe, NgForOf, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { QuangWysiwygComponent } from '@quix/quang/components/wysiwyg'
 import { wysiwygRequired } from '@quix/quang/forms'

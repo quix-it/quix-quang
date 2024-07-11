@@ -12,6 +12,7 @@
   </label>
   <div class="option-list-container">
     <button
+      [attr.required]="getIsRequiredControl()"
       [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap().length"
       [class.is-valid]="_ngControl()?.valid && (_ngControl()?.dirty || _ngControl()?.touched) && successMessage()"
       [disabled]="_isDisabled()"

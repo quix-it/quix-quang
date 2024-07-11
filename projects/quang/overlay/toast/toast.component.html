@@ -1,7 +1,7 @@
 <div
   [class.hide]="!_showToast()"
   [class.show]="_showToast()"
-  [ngClass]="_currentToast()?.position"
+  [ngClass]="[_currentToast()?.position ?? '', _currentToast()?.type ?? '']"
   aria-atomic="true"
   aria-live="assertive"
   class="toast fade"
@@ -10,15 +10,20 @@
   <div class="toast-header">
     <span
       [ngClass]="_currentToast()?.type"
+      *ngIf="!_currentToast()?.customIcon"
       class="rounded me-2"
     ></span>
+    <img
+      [src]="_currentToast()?.customIcon"
+      *ngIf="_currentToast()?.customIcon"
+    />
     <strong class="me-auto">{{ _currentToast()?.title | transloco }}</strong>
     <small *ngIf="_currentToast()?.date">{{ _currentToast()?.date ?? '' | date: _currentToast()?.dateFormat }}</small>
     <button
       (click)="close()"
       *ngIf="_currentToast()?.showCloseButton"
       aria-label="Close"
-      class="me-2 mb-1 btn-close"
+      class="ms-2 mb-1 btn-close"
       data-dismiss="toast"
       type="button"
     >

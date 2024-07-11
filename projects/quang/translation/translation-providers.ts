@@ -1,6 +1,6 @@
 import { EnvironmentProviders, InjectionToken, makeEnvironmentProviders } from '@angular/core'
 
-import { provideTransloco } from '@ngneat/transloco'
+import { provideTransloco } from '@jsverse/transloco'
 
 import { QuangTranslationLoaderService } from './translation-loader.service'
 import { QuangTranslationService } from './translation.service'

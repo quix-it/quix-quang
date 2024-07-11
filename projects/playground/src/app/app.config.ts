@@ -1,9 +1,9 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http'
 import { ApplicationConfig } from '@angular/core'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { provideRouter } from '@angular/router'
 
-import { provideLoader } from '@quix/quang/loader'
+import { provideLoader, quangLoaderInterceptor } from '@quix/quang/loader'
 import { provideTranslation } from '@quix/quang/translation'
 
 import { routes } from './app.routes'
@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
     //withInterceptors([quangLoaderInterceptor]),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptorsFromDi(), withInterceptors([quangLoaderInterceptor])),
     provideRouter(routes),
     /*provideAuth({
       issuer: 'https://sdc-qas.calzedonia.com/auth/realms/quake',

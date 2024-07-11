@@ -14,7 +14,7 @@ import {
 } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 import sunEditor from 'suneditor'
 import SunEditor from 'suneditor/src/lib/core'
 import { SunEditorOptions } from 'suneditor/src/options'
@@ -37,7 +37,7 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
   imports: [TranslocoPipe, NgIf, NgClass, JsonPipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit {
+export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit, Extracted {
   _inputForWysiwyg = viewChild<ElementRef>('inputForWysiwyg')
 
   minHeight = input<string>('200px')
@@ -182,4 +182,35 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     }
     return buttonList
   }
+}
+
+interface Extracted {
+  _inputForWysiwyg: any
+  minHeight: any
+  font: any
+  fontSize: any
+  formatBlock: any
+  paragraphStyle: any
+  blockquote: any
+  bold: any
+  underline: any
+  italic: any
+  strike: any
+  fontColor: any
+  highlightColor: any
+  textStyle: any
+  removeFormat: any
+  align: any
+  list: any
+  table: any
+  link: any
+  image: any
+  fullScreen: any
+  showBlocks: any
+  _sunEditorWysiwygInstance: any
+  changeDetectorRef: any
+  _generateSunEditorWysiwygEffect: any
+  registerEvents(): void
+  writeValue(val: string): void
+  getButtonList(): string[]
 }

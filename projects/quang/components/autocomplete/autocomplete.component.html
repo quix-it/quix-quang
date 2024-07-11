@@ -8,6 +8,7 @@
     <span [hidden]="!_isRequired()">*</span>
   </label>
   <input
+    [attr.required]="getIsRequiredControl()"
     [class.is-invalid]="_showErrors()"
     [class.is-valid]="_showSuccess()"
     [disabled]="_isDisabled() || isReadonly()"

@@ -7,6 +7,9 @@
 
 .form-select {
   height: 2.375rem;
+  &:disabled {
+    background-image: unset;
+  }
 }
 
 .content {

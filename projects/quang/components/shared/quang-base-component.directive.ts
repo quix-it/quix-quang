@@ -54,6 +54,10 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   _takeUntilDestroyed = signal(takeUntilDestroyed())
   _statusChange$?: Subscription
 
+  getIsRequiredControl = computed(
+    () => !!(this._ngControl()?.control as any)?.['_rawValidators']?.find((x: any) => x.name === 'required')
+  )
+
   onChange?: (value: T) => void
   onTouched?: () => void
 

@@ -11,6 +11,7 @@ export interface ToastData {
   date?: Date
   dateFormat?: string
   customTemplate?: TemplateRef<any>
+  customIcon?: string
 }
 
 @Injectable({

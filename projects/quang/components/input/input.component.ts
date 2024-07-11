@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/
 import { toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
-import { TranslocoPipe } from '@ngneat/transloco'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 
