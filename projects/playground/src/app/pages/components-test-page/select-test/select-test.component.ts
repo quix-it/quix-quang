@@ -133,7 +133,7 @@ export class SelectTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('', [Validators.required]),
+      testInput: this.formBuilder().control<string>({ value: '', disabled: true }, [Validators.required]),
       testInputMultiple: this.formBuilder().control<number[]>([], [Validators.required])
     })
   )
