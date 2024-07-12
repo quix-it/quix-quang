@@ -1,9 +1,9 @@
-import { Directive, OnInit, TemplateRef, ViewContainerRef, inject, input } from '@angular/core'
+import { Directive, TemplateRef, ViewContainerRef, inject, input } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { distinctUntilChanged } from 'rxjs/operators'
 
-import { AuthService } from '../auth.service'
+import { QuangAuthService } from '../auth.service'
 
 @Directive({
   selector: '[quangHasAtLeastOneRole]',
@@ -13,7 +13,7 @@ export class QuangHasAtLeastOneRoleDirective {
   targetRoles = input.required<string[]>({ alias: 'quangHasAtLeastOneRole' })
   viewContainerRef = inject(ViewContainerRef)
   templateRef = inject(TemplateRef)
-  authService = inject(AuthService)
+  authService = inject(QuangAuthService)
   takeUntilDestroyed = takeUntilDestroyed()
 
   constructor() {

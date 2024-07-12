@@ -1,9 +1,9 @@
-import { Directive, TemplateRef, ViewContainerRef, effect, inject } from '@angular/core'
+import { Directive, TemplateRef, ViewContainerRef, inject } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { distinctUntilChanged } from 'rxjs/operators'
 
-import { AuthService } from '../auth.service'
+import { QuangAuthService } from '../auth.service'
 
 @Directive({
   selector: '[quangIsNotAuthenticated]',
@@ -12,7 +12,7 @@ import { AuthService } from '../auth.service'
 export class QuangIsNotAuthenticatedDirective {
   viewContainerRef = inject(ViewContainerRef)
   templateRef = inject(TemplateRef)
-  authService = inject(AuthService)
+  authService = inject(QuangAuthService)
   takeUntilDestroyed = takeUntilDestroyed()
 
   constructor() {

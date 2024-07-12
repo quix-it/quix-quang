@@ -3,7 +3,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { distinctUntilChanged } from 'rxjs'
 
-import { AuthService } from '../auth.service'
+import { QuangAuthService } from '../auth.service'
 
 @Directive({
   selector: '[quangHasEveryRole]',
@@ -13,7 +13,7 @@ export class QuangHasEveryRoleDirective {
   targetRoles = input.required<string[]>({ alias: 'quangHasEveryRole' })
   viewContainerRef = inject(ViewContainerRef)
   templateRef = inject(TemplateRef)
-  authService = inject(AuthService)
+  authService = inject(QuangAuthService)
   takeUntilDestroyed = takeUntilDestroyed()
 
   constructor() {
