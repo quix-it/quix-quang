@@ -243,10 +243,21 @@ export class TableTestComponent implements AfterViewInit {
               ]
             }
           })
+          this.tableConfig.rows.unshift({
+            cellData: [
+              {
+                fullWidth: true,
+                css: ['bg-info'],
+                text: 'gagagaggagagagagaga'
+              }
+            ]
+          })
         } else {
           this.tableConfig.rows = []
         }
-        this.tableConfig = { ...this.tableConfig }
+        this.tableConfig = {
+          ...this.tableConfig
+        }
       })
   }
 
