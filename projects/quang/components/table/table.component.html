@@ -86,7 +86,7 @@
             *ngFor="let row of tableConfigurations().rows"
           >
             <td
-              [attr.colspan]="cell?.fullWidth ? row?.cellData?.length : undefined"
+              [attr.colspan]="cell?.fullWidth ? tableConfigurations().headers.length : undefined"
               [ngClass]="cell.css!"
               *ngFor="let cell of row.cellData"
             >
