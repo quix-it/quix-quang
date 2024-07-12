@@ -47,7 +47,7 @@ export interface QuangParsedIdToken extends ParsedIdToken {}
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class QuangAuthService {
   private injectedAuthConfig = inject(AUTH_CONFIG)
   private oAuthService = inject(OAuthService)
   private oauthEvents = this.oAuthService.events.pipe(
