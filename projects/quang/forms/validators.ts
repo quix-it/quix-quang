@@ -2,34 +2,64 @@ import { AbstractControl, ValidatorFn } from '@angular/forms'
 
 import { isAfter, isBefore, isWithinInterval } from 'date-fns'
 
-export const europeanVatNumber: Record<string, RegExp> = {
-  AT: /U[0-9]{8}/gm,
-  BE: /0[0-9]{9}/gm,
-  BG: /[0-9]{9,10}/gm,
-  CY: /[0-9]{8}L/gm,
-  CZ: /[0-9]{8,10}/gm,
-  DE: /[0-9]{9}/gm,
-  DK: /[0-9]{8}/gm,
-  EE: /[0-9]{9}/gm,
-  GR: /[0-9]{9}/gm,
-  ES: /[0-9A-Z][0-9]{7}[0-9A-Z]/gm,
-  FI: /[0-9]{8}/gm,
-  FR: /[0-9A-Z]{2}[0-9]{9}/gm,
-  GB: /([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})/gm,
-  HU: /[0-9]{8}/gm,
-  IE: /[0-9]S[0-9]{5}L/gm,
-  IT: /[0-9]{11}/gm,
-  LT: /([0-9]{9}|[0-9]{12})/gm,
-  LU: /[0-9]{8}/gm,
-  LV: /[0-9]{11}/gm,
-  MT: /[0-9]{8}/gm,
-  NL: /[0-9]{9}B[0-9]{2}/gm,
-  PL: /[0-9]{10}/gm,
-  PT: /[0-9]{9}/gm,
-  RO: /[0-9]{2,10}/gm,
-  SE: /[0-9]{12}/gm,
-  SI: /[0-9]{8}/gm,
-  SK: /[0-9]{10}/gm
+export enum EuroLocale {
+  AT = 'AT',
+  BE = 'BE',
+  BG = 'BG',
+  CY = 'CY',
+  CZ = 'CZ',
+  DE = 'DE',
+  DK = 'DK',
+  EE = 'EE',
+  GR = 'GR',
+  ES = 'ES',
+  FI = 'FI',
+  FR = 'FR',
+  GB = 'GB',
+  HU = 'HU',
+  IE = 'IE',
+  IT = 'IT',
+  LT = 'LT',
+  LU = 'LU',
+  LV = 'LV',
+  MT = 'MT',
+  NL = 'NL',
+  PL = 'PL',
+  PT = 'PT',
+  RO = 'RO',
+  SE = 'SE',
+  SI = 'SI',
+  SK = 'SK'
+}
+
+export const europeanVatNumber: Record<EuroLocale, RegExp> = {
+  [EuroLocale.AT]: /U[0-9]{8}/gm,
+  [EuroLocale.BE]: /0[0-9]{9}/gm,
+  [EuroLocale.BG]: /[0-9]{9,10}/gm,
+  [EuroLocale.CY]: /[0-9]{8}L/gm,
+  [EuroLocale.CZ]: /[0-9]{8,10}/gm,
+  [EuroLocale.DE]: /[0-9]{9}/gm,
+  [EuroLocale.DK]: /[0-9]{8}/gm,
+  [EuroLocale.EE]: /[0-9]{9}/gm,
+  [EuroLocale.GR]: /[0-9]{9}/gm,
+  [EuroLocale.ES]: /[0-9A-Z][0-9]{7}[0-9A-Z]/gm,
+  [EuroLocale.FI]: /[0-9]{8}/gm,
+  [EuroLocale.FR]: /[0-9A-Z]{2}[0-9]{9}/gm,
+  [EuroLocale.GB]: /([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})/gm,
+  [EuroLocale.HU]: /[0-9]{8}/gm,
+  [EuroLocale.IE]: /[0-9]S[0-9]{5}L/gm,
+  [EuroLocale.IT]: /[0-9]{11}/gm,
+  [EuroLocale.LT]: /([0-9]{9}|[0-9]{12})/gm,
+  [EuroLocale.LU]: /[0-9]{8}/gm,
+  [EuroLocale.LV]: /[0-9]{11}/gm,
+  [EuroLocale.MT]: /[0-9]{8}/gm,
+  [EuroLocale.NL]: /[0-9]{9}B[0-9]{2}/gm,
+  [EuroLocale.PL]: /[0-9]{10}/gm,
+  [EuroLocale.PT]: /[0-9]{9}/gm,
+  [EuroLocale.RO]: /[0-9]{2,10}/gm,
+  [EuroLocale.SE]: /[0-9]{12}/gm,
+  [EuroLocale.SI]: /[0-9]{8}/gm,
+  [EuroLocale.SK]: /[0-9]{10}/gm
 }
 export function fileMaxSize(maxSize: number): ValidatorFn {
   return (control: AbstractControl): Record<string, any> | null => {
@@ -130,12 +160,16 @@ export function isFiscalCode() {
   }
 }
 
-export function isVatNumber(locale: string) {
+export function isVatNumber(localeList: EuroLocale[]) {
   return (control: AbstractControl): Record<string, any> | null => {
-    if (!europeanVatNumber[locale]?.test(control?.value)) {
-      return { vatNumber: false }
+    let isInvalidVat = true
+    for (const locale of localeList) {
+      if (europeanVatNumber[locale]?.test(control?.value)) {
+        isInvalidVat = false
+        break
+      }
     }
-    return null
+    return isInvalidVat ? { vatNumber: false } : null
   }
 }
 
