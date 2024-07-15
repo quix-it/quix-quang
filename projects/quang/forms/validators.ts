@@ -132,7 +132,7 @@ export function isFiscalCode() {
 
 export function isVatNumber(locale: string) {
   return (control: AbstractControl): Record<string, any> | null => {
-    if (!europeanVatNumber[locale].test(control.value)) {
+    if (!europeanVatNumber[locale]?.test(control?.value)) {
       return { vatNumber: false }
     }
     return null
