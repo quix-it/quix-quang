@@ -46,6 +46,7 @@ export class TableTestComponent implements AfterViewInit {
       },
       {
         text: 'Name3',
+        css: ['justify-content-end'],
         sort: {
           key: 'name3',
           sort: SortTable.DEFAULT
@@ -227,7 +228,8 @@ export class TableTestComponent implements AfterViewInit {
                   text: person.name
                 },
                 {
-                  text: person.name
+                  text: person.name,
+                  css: ['text-end']
                 },
                 {
                   text: person.age

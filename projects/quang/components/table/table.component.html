@@ -18,11 +18,13 @@
             <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
               <th
                 [class.sort-btn]="el?.sort"
-                [ngClass]="el?.css"
                 (click)="el?.sort ? onSortColumn(el.sort!) : null"
                 class="align-bottom"
               >
-                <div class="align-self-end d-flex gap-1">
+                <div
+                  [ngClass]="el?.css"
+                  class="align-self-end d-flex gap-1"
+                >
                   {{ el.text | transloco }}
                   <div
                     *ngIf="el.sort?.key"
@@ -61,7 +63,10 @@
                 (click)="el?.sort ? onSortColumn(el.sort!) : null"
                 class="align-bottom"
               >
-                <div class="align-self-end d-flex gap-1">
+                <div
+                  [ngClass]="el?.css"
+                  class="align-self-end d-flex gap-1"
+                >
                   {{ el.text | transloco }}
                   <div
                     *ngIf="el.sort?.key"
