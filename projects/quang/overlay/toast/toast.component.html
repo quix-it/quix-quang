@@ -7,7 +7,10 @@
   class="toast fade"
   role="alert"
 >
-  <div class="toast-header">
+  <div
+    *ngIf="!_currentToast()?.hideHeader"
+    class="toast-header"
+  >
     <span
       [ngClass]="_currentToast()?.type"
       *ngIf="!_currentToast()?.customIcon"
