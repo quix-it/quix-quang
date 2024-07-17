@@ -20,7 +20,11 @@
       [src]="_currentToast()?.customIcon"
       *ngIf="_currentToast()?.customIcon"
     />
-    <strong class="me-auto">{{ _currentToast()?.title | transloco }}</strong>
+    <strong
+      *ngIf="_currentToast()?.title"
+      class="me-auto"
+      >{{ _currentToast()?.title | transloco }}</strong
+    >
     <small *ngIf="_currentToast()?.date">{{ _currentToast()?.date ?? '' | date: _currentToast()?.dateFormat }}</small>
     <button
       (click)="close()"
@@ -34,7 +38,7 @@
     </button>
   </div>
   <div
-    *ngIf="_currentToast()?.text || _currentToast()?.customTemplate"
+    *ngIf="_currentToast()?.text"
     class="toast-body"
   >
     {{ _currentToast()?.text | transloco: { textValue: _currentToast()?.textValue } }}

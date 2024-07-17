@@ -2,7 +2,7 @@ import { Injectable, TemplateRef, signal } from '@angular/core'
 
 export interface ToastData {
   type: 'success' | 'warning' | 'error'
-  title: string
+  title?: string
   position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'center' | 'top-center' | 'bottom-center'
   timing: number
   text?: string
