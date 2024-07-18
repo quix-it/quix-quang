@@ -94,7 +94,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   _dateContainer = viewChild<ElementRef>('inputDateContainer')
 
   @Optional() _quangTranslationService = signal<QuangTranslationService | undefined>(inject(QuangTranslationService))
-  _quangTranslationActiveLang = signal<string | undefined>(undefined)
+  _quangTranslationActiveLang = computed(() => this._quangTranslationService()?.activeLang() ?? null)
 
   _activeLanguage = computed(() => {
     if (this.activeLanguageOverride()) {
@@ -183,16 +183,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   )
 
   valueFormat = computed(() => this.dateFormat() + (this.timepicker() ? ' ' + this.timeFormat() : ''))
-
-  constructor() {
-    super()
-    if (this._quangTranslationService()) {
-      this._quangTranslationService()?.activeLang.subscribe((lang) => {
-        this._quangTranslationActiveLang.set(lang)
-      })
-      this._quangTranslationActiveLang.set(this._quangTranslationService()?.getActiveLang())
-    }
-  }
 
   override onChangedHandler(val: string) {
     super.onChangedHandler(val)
