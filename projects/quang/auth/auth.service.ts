@@ -91,7 +91,7 @@ export class QuangAuthService {
     this.init()
   }
 
-  private async init() {
+  async init() {
     if (this.config.useSilentRefresh !== false) this.oAuthService.setupAutomaticSilentRefresh()
 
     await this.oAuthService.loadDiscoveryDocumentAndTryLogin()
