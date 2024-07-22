@@ -102,15 +102,15 @@ export class QuangAuthService {
   }
 
   async checkForAuthentication() {
-    const token = this.oAuthService.getAccessToken()
-    if (token) await this.loginSuccess()
+    const hasValidToken = this.oAuthService.hasValidAccessToken()
+    if (hasValidToken) await this.loginSuccess()
     patchState(this.state, {
       loginStatus: {
         ...this.state().loginStatus,
         checked: true
       }
     })
-    return !!token
+    return !!hasValidToken
   }
 
   async login() {
