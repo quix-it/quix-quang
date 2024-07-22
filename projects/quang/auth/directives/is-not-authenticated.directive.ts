@@ -1,7 +1,5 @@
-import { Directive, TemplateRef, ViewContainerRef, inject } from '@angular/core'
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
-
-import { distinctUntilChanged } from 'rxjs/operators'
+import { Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef, effect, inject } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { QuangAuthService } from '../auth.service'
 
@@ -12,22 +10,14 @@ import { QuangAuthService } from '../auth.service'
 export class QuangIsNotAuthenticatedDirective {
   viewContainerRef = inject(ViewContainerRef)
   templateRef = inject(TemplateRef)
+  embeddedViewRef: EmbeddedViewRef<any> | null = null
   authService = inject(QuangAuthService)
   takeUntilDestroyed = takeUntilDestroyed()
 
-  constructor() {
-    /**
-     * Check if the user in the store is authenticated and define whether to render or not
-     */
-
-    toObservable(this.authService.isAuthenticated)
-      .pipe(distinctUntilChanged(), this.takeUntilDestroyed)
-      .subscribe(() => {
-        if (!this.authService.isAuthenticated()) {
-          this.viewContainerRef.createEmbeddedView(this.templateRef)
-        } else {
-          this.viewContainerRef.clear()
-        }
-      })
-  }
+  showViewIfNotAuthenticated = effect(() => {
+    if (this.authService.isAuthenticated()) {
+      this.viewContainerRef.clear()
+      this.embeddedViewRef = null
+    } else if (!this.embeddedViewRef) this.embeddedViewRef = this.viewContainerRef.createEmbeddedView(this.templateRef)
+  })
 }
