@@ -80,10 +80,6 @@ export class QuangAuthService {
     this.config = authConfig
     this.showDebugInformation = !!authConfig.showDebugInformation
 
-    this.init()
-  }
-
-  private async init() {
     this.oAuthService.events.pipe(takeUntilDestroyed()).subscribe((event: OAuthEvent) => {
       if (event instanceof OAuthErrorEvent) {
         this.loginError()
@@ -92,6 +88,10 @@ export class QuangAuthService {
     })
     this.oAuthService.configure(this.config)
 
+    this.init()
+  }
+
+  private async init() {
     if (this.config.useSilentRefresh !== false) this.oAuthService.setupAutomaticSilentRefresh()
 
     await this.oAuthService.loadDiscoveryDocumentAndTryLogin()
