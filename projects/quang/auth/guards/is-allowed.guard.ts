@@ -3,7 +3,7 @@ import type { CanActivateFn } from '@angular/router'
 
 import { QuangAuthService } from '../auth.service'
 
-export const isAllowedGuardFactory =
+export const quangIsAllowedGuardFactory =
   (roles: string[], behavior: 'every' | 'atLeastOne'): CanActivateFn =>
   async () => {
     const authService = inject(QuangAuthService)
