@@ -32,6 +32,7 @@ export interface QuangAuthConfig extends AuthConfig {
   urlsToSendToken: string[]
   revokeTokensOnLogout?: boolean
   getUserProfileOnLoginSuccess?: boolean
+  useSilentRefresh: boolean
 }
 
 export interface QuangParsedIdToken extends ParsedIdToken {}
@@ -89,7 +90,7 @@ export class QuangAuthService {
   }
 
   public async init() {
-    if (this.config.useSilentRefresh !== false) this.oAuthService.setupAutomaticSilentRefresh()
+    this.oAuthService.setupAutomaticSilentRefresh()
 
     await this.oAuthService.loadDiscoveryDocumentAndTryLogin()
 
@@ -99,27 +100,30 @@ export class QuangAuthService {
   public async checkForAuthentication() {
     let hasValidToken = this.oAuthService.hasValidAccessToken()
 
-    if (!hasValidToken && this.config.useSilentRefresh !== false) {
-      try {
-        if (this.config.responseType === 'code') await this.oAuthService.refreshToken()
-        else await this.oAuthService.silentRefresh()
-        hasValidToken = this.oAuthService.hasValidAccessToken()
-      } catch (error: any) {
-        // Subset of situations from https://openid.net/specs/openid-connect-core-1_0.html#AuthError
-        // Only the ones where it's reasonably sure that sending the user to the IdServer will help.
-        const errorResponsesRequiringUserInteraction = [
-          'interaction_required',
-          'login_required',
-          'account_selection_required',
-          'consent_required'
-        ]
-        const reason = error?.reason
-        if (this.config.autoLogin || (reason && errorResponsesRequiringUserInteraction.includes(error.reason)))
-          this.login()
+    if (!hasValidToken) {
+      if (this.config.responseType === 'code') {
+        if (this.config.autoLogin) this.login()
+      } else {
+        try {
+          await this.oAuthService.silentRefresh()
+          hasValidToken = this.oAuthService.hasValidAccessToken()
+        } catch (error: any) {
+          // Subset of situations from https://openid.net/specs/openid-connect-core-1_0.html#AuthError
+          // Only the ones where it's reasonably sure that sending the user to the IdServer will help.
+          const errorResponsesRequiringUserInteraction = [
+            'interaction_required',
+            'login_required',
+            'account_selection_required',
+            'consent_required'
+          ]
+          const reason = error?.reason
+          if (this.config.autoLogin && reason && errorResponsesRequiringUserInteraction.includes(reason)) this.login()
+        }
       }
     }
 
     if (hasValidToken) await this.loginSuccess()
+
     patchState(this.state, {
       loginStatus: {
         ...this.state().loginStatus,
