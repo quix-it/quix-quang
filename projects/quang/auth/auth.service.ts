@@ -6,7 +6,6 @@ import { AuthConfig, OAuthErrorEvent, OAuthEvent, OAuthService, ParsedIdToken } 
 import { filter, firstValueFrom } from 'rxjs'
 
 interface LoginStatus {
-  requested: boolean
   checked: boolean
   authenticationError: boolean
 }
@@ -39,7 +38,6 @@ export interface QuangParsedIdToken extends ParsedIdToken {}
 
 const initialState: AuthState = {
   loginStatus: {
-    requested: false,
     checked: false,
     authenticationError: false
   },
@@ -64,7 +62,6 @@ export class QuangAuthService {
 
   private state = signalState<AuthState>(initialState)
 
-  loginRequested = this.state.loginStatus.requested
   loginChecked = this.state.loginStatus.checked
   isAuthenticated = computed(() => !!this.state.tokenStatus.accessToken())
   authenticationError = this.state.loginStatus.authenticationError
@@ -84,25 +81,43 @@ export class QuangAuthService {
       if (event instanceof OAuthErrorEvent) {
         this.loginError()
         console.error(event)
-      } else if (this.showDebugInformation) console.info(event)
+      } else if (this.showDebugInformation) console.debug(event)
     })
     this.oAuthService.configure(this.config)
-
-    this.init()
   }
 
-  async init() {
+  public async init() {
     if (this.config.useSilentRefresh !== false) this.oAuthService.setupAutomaticSilentRefresh()
 
     await this.oAuthService.loadDiscoveryDocumentAndTryLogin()
 
-    const isAuthenticated = await this.checkForAuthentication()
-
-    if (!isAuthenticated && this.config.autoLogin) await this.login()
+    await this.checkForAuthentication()
   }
 
-  async checkForAuthentication() {
-    const hasValidToken = this.oAuthService.hasValidAccessToken()
+  public async checkForAuthentication() {
+    let hasValidToken = this.oAuthService.hasValidAccessToken()
+
+    if (!hasValidToken && this.config.useSilentRefresh !== false) {
+      try {
+        if (this.config.responseType === 'code') {
+          if (this.oAuthService.getRefreshToken()) await this.oAuthService.refreshToken()
+        } else await this.oAuthService.silentRefresh()
+        hasValidToken = this.oAuthService.hasValidAccessToken()
+      } catch (error: any) {
+        // Subset of situations from https://openid.net/specs/openid-connect-core-1_0.html#AuthError
+        // Only the ones where it's reasonably sure that sending the user to the IdServer will help.
+        const errorResponsesRequiringUserInteraction = [
+          'interaction_required',
+          'login_required',
+          'account_selection_required',
+          'consent_required'
+        ]
+        const reason = error?.reason
+        if (this.config.autoLogin && reason && errorResponsesRequiringUserInteraction.includes(error.reason))
+          this.login()
+      }
+    }
+
     if (hasValidToken) await this.loginSuccess()
     patchState(this.state, {
       loginStatus: {
@@ -110,21 +125,14 @@ export class QuangAuthService {
         checked: true
       }
     })
-    return !!hasValidToken
+    return hasValidToken
   }
 
-  async login() {
-    patchState(this.state, {
-      loginStatus: {
-        ...this.state().loginStatus,
-        requested: true
-      }
-    })
+  public login() {
     this.oAuthService.initLoginFlow()
-    return await this.checkForAuthentication()
   }
 
-  async logout() {
+  public async logout() {
     if (this.config.revokeTokensOnLogout) await this.oAuthService.revokeTokenAndLogout()
     else this.oAuthService.logOut()
     patchState(this.state, { ...initialState })
@@ -144,7 +152,7 @@ export class QuangAuthService {
     this.setTokens()
   }
 
-  async getUserProfile() {
+  public async getUserProfile() {
     const userProfile = await this.oAuthService.loadUserProfile()
     patchState(this.state, { user: userProfile })
   }

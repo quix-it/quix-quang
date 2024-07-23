@@ -17,7 +17,7 @@ export class QuangHasEveryRoleDirective {
 
   hideViewIfNotAllowed = effect(() => {
     if (this.authService.showDebugInformation)
-      console.info({ userRoles: this.authService.roles(), rolesToCheck: this.targetRoles() })
+      console.debug({ userRoles: this.authService.roles(), rolesToCheck: this.targetRoles() })
     const isAllowed = this.authService.hasEveryRole(this.targetRoles())
     if (isAllowed) {
       if (!this.embeddedViewRef) this.embeddedViewRef = this.viewContainerRef.createEmbeddedView(this.templateRef)

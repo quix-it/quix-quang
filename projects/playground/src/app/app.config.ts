@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
       clientId: 'interactive.public', // The "Auth Code + PKCE" client
       responseType: 'code',
       redirectUri: `${window.location.origin}/`,
-      scope: 'openid profile email api', // Ask offline_access to support refresh token refreshes
+      scope: 'openid profile email api offline_access', // Ask offline_access to support refresh token refreshes
       useSilentRefresh: true, // Needed for Code Flow to suggest using iframe-based refreshes
       silentRefreshTimeout: 5000, // For faster testing
       timeoutFactor: 0.25, // For faster testing
@@ -29,7 +29,7 @@ export const appConfig: ApplicationConfig = {
       nonceStateSeparator: 'semicolon', // Real semicolon gets mangled by Duende ID Server's URI encoding,
       sendAccessToken: true,
       urlsToSendToken: ['https://demo.duendesoftware.com/api'],
-      autoLogin: false
+      autoLogin: true
     }),
     provideTranslation({
       availableLangs: ['it', 'en'],
