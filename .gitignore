@@ -27,11 +27,7 @@ speed-measure-plugin*.json
 ./nx
 
 # IDE - VSCode
-.vscode/*
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+.vscode
 
 # misc
 /.angular/cache
