@@ -26,7 +26,7 @@
     &:after,
     &:before {
       bottom: 100%;
-      left: 5%;
+      left: 10%;
       transform: translateX(-50%);
     }
   }
@@ -35,7 +35,7 @@
     &:after,
     &:before {
       bottom: 100%;
-      left: 95%;
+      left: 90%;
       transform: translateX(-50%);
     }
   }
@@ -53,7 +53,7 @@
     &:after,
     &:before {
       top: 100%;
-      left: 5%;
+      left: 10%;
       transform: translateX(-50%) rotate(180deg);
     }
   }
@@ -62,7 +62,7 @@
     &:after,
     &:before {
       top: 100%;
-      left: 95%;
+      left: 90%;
       transform: translateX(-50%) rotate(180deg);
     }
   }
