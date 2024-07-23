@@ -79,8 +79,10 @@ export class QuangAuthService {
 
     this.oAuthService.events.pipe(takeUntilDestroyed()).subscribe((event: OAuthEvent) => {
       if (event instanceof OAuthErrorEvent) {
-        this.loginError()
-        console.error(event)
+        if (this.loginChecked()) {
+          this.loginError()
+          console.error(event)
+        }
       } else if (this.showDebugInformation) console.debug(event)
     })
     this.oAuthService.configure(this.config)
@@ -99,9 +101,8 @@ export class QuangAuthService {
 
     if (!hasValidToken && this.config.useSilentRefresh !== false) {
       try {
-        if (this.config.responseType === 'code') {
-          if (this.oAuthService.getRefreshToken()) await this.oAuthService.refreshToken()
-        } else await this.oAuthService.silentRefresh()
+        if (this.config.responseType === 'code') await this.oAuthService.refreshToken()
+        else await this.oAuthService.silentRefresh()
         hasValidToken = this.oAuthService.hasValidAccessToken()
       } catch (error: any) {
         // Subset of situations from https://openid.net/specs/openid-connect-core-1_0.html#AuthError
@@ -113,7 +114,7 @@ export class QuangAuthService {
           'consent_required'
         ]
         const reason = error?.reason
-        if (this.config.autoLogin && reason && errorResponsesRequiringUserInteraction.includes(error.reason))
+        if (this.config.autoLogin || (reason && errorResponsesRequiringUserInteraction.includes(error.reason)))
           this.login()
       }
     }
