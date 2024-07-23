@@ -1,8 +1,24 @@
 {
   "welcomeMessage": "Benvenuto in {{title}}",
+  "setLanguage": "Imposta lingua: {{lang}}",
+  "colors": {
+    "setDark": "Imposta tema Scuro",
+    "setLight": "Imposta tema Chiaro",
+    "colorScheme": "Schema colori (può essere personalizzato)",
+    "primary": "Primario",
+    "secondary": "Secondario",
+    "success": "Successo",
+    "info": "Informazioni",
+    "warning": "Warning",
+    "danger": "Errore",
+    "light": "Chiaro",
+    "dark": "Scuro"
+  },
   "title": {
     "components": {
-      "input": "Componente di input"
+      "input": "Componente di input",
+      "date": "Componente datepicker",
+      "wysiwyg": "Componente Wysiwyg (What-You-See-Is-What-You-Get)"
     }
   },
   "form": {

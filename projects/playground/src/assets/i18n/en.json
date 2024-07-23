@@ -1,8 +1,24 @@
 {
   "welcomeMessage": "Welcome to {{title}}",
+  "setLanguage": "Set language: {{lang}}",
+  "colors": {
+    "setDark": "Set dark theme",
+    "setLight": "Set light theme",
+    "colorScheme": "Color scheme (can be customized)",
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "success": "Success",
+    "info": "Info",
+    "warning": "Warning",
+    "danger": "Danger",
+    "light": "Light",
+    "dark": "Dark"
+  },
   "title": {
     "components": {
-      "input": "Input Component!"
+      "input": "Input component",
+      "date": "Datepicker component",
+      "wysiwyg": "Wysiwyg component (What-You-See-Is-What-You-Get)"
     }
   },
   "form": {

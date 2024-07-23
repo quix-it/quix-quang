@@ -1,89 +1,164 @@
-<h1>{{ 'welcomeMessage' | transloco: { title: title() } }}</h1>
-<div class="d-flex flex-wrap">
-  <button (click)="changeLanguage('it')">IT LANG</button>
-  <button (click)="changeLanguage('en')">EN LANG</button>
-  <button (click)="showLoader()">LOADER</button>
-  <button (click)="openModal()">MODAL</button>
-  <button (click)="testApiCall()">API CALL</button>
-  <div>
-    <button
-      [quangTooltip]="title()"
-      (click)="openToast()"
-      class="w-100"
-      overlayPosition="top"
+<div class="d-flex p-3 gap-4">
+  <div class="d-flex flex-column w-75 gap-3">
+    <h1>{{ 'welcomeMessage' | transloco: { title: title() } }}</h1>
+    <!-- Buttons -->
+    <div class="d-flex gap-4 flex-wrap">
+      <button
+        (click)="changeLanguage('it')"
+        class="btn btn-primary text-uppercase"
+      >
+        {{ 'setLanguage' | transloco: { lang: 'it' } }}
+      </button>
+      <button
+        (click)="changeLanguage('en')"
+        class="btn btn-outline-primary text-uppercase"
+      >
+        {{ 'setLanguage' | transloco: { lang: 'en' } }}
+      </button>
+    </div>
+    <div class="d-flex gap-4 flex-wrap">
+      <button
+        (click)="showLoader()"
+        class="btn btn-secondary d-flex gap-2"
+      >
+        <svg-icon
+          [applyClass]="true"
+          src="assets/icons/svg/reload.svg"
+          style="width: 20px"
+        ></svg-icon>
+        <span>LOADER</span>
+      </button>
+      <button
+        (click)="testApiCall()"
+        class="btn btn-outline-secondary"
+      >
+        API CALL
+      </button>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <button
+        (click)="openModal()"
+        class="btn btn-outline-primary"
+      >
+        MODAL
+      </button>
+      <div>
+        <button
+          [quangTooltip]="title()"
+          (click)="openToast()"
+          class="w-100 btn btn-outline-secondary"
+          overlayPosition="top"
+        >
+          TOAST
+        </button>
+        <p
+          [quangTooltip]="title()"
+          class="text-muted m-0"
+          overlayPosition="top"
+        >
+          With QuangTooltip
+        </p>
+      </div>
+      <button
+        [quangPopover]="popoverTest"
+        [scrollCloseThreshold]="undefined"
+        class="btn popover-test-button"
+        overlayPosition="top"
+        showMethod="click"
+      >
+        POPOVER TEST
+      </button>
+    </div>
+
+    <quang-loader> </quang-loader>
+    <quang-toast></quang-toast>
+    <quang-modal
+      (backdropClick)="closeModal()"
+      *ngIf="showModal()"
+      animation="top"
+      position="right"
     >
-      TOAST
-    </button>
-    <p
-      [quangTooltip]="title()"
-      class="text-muted m-0"
-      overlayPosition="top"
-    >
-      With QuangTooltip
-    </p>
+      <ng-container header>
+        <div class="d-flex justify-content-between mt-2">
+          <h2>{{ title() | transloco }}</h2>
+          <button
+            (click)="closeModal()"
+            type="button"
+          >
+            X
+          </button>
+        </div>
+      </ng-container>
+      <ng-container body>
+        <h3>{{ content() }}</h3>
+      </ng-container>
+      <ng-container footer>
+        <div class="mb-3">
+          <button
+            (click)="closeModal()"
+            type="button"
+          >
+            CLOSE
+          </button>
+          <button
+            (click)="btnAction()"
+            type="button"
+          >
+            ACTION
+          </button>
+        </div>
+      </ng-container>
+    </quang-modal>
+    <router-outlet />
+
+    <ng-template #popoverTest>
+      <span>test works!</span>
+    </ng-template>
+
+    <ng-template #customToast>
+      <div class="d-flex justify-content-end">
+        <button
+          class="btn btn-primary m-2 text-end"
+          type="button"
+        >
+          pulsante bello
+        </button>
+      </div>
+    </ng-template>
   </div>
-  <div
-    [quangPopover]="popoverTest"
-    [scrollCloseThreshold]="undefined"
-    overlayPosition="top"
-    showMethod="click"
-    style="height: fit-content"
-  >
-    POPOVER TEST
+  <!-- Colors column -->
+  <div class="d-flex flex-column w-25 gap-4">
+    <h3>{{ 'colors.colorScheme' | transloco }}</h3>
+    <div class="d-flex gap-4">
+      <button
+        (click)="changeTheme('light')"
+        class="btn btn-outline-primary d-flex gap-2"
+      >
+        {{ 'colors.setLight' | transloco }}
+        <svg-icon
+          [applyClass]="true"
+          src="assets/icons/svg/light.svg"
+          style="width: 20px"
+        ></svg-icon>
+      </button>
+      <button
+        (click)="changeTheme('dark')"
+        class="btn btn-primary d-flex gap-2"
+      >
+        {{ 'colors.setDark' | transloco }}
+        <svg-icon
+          [applyClass]="true"
+          src="assets/icons/svg/dark.svg"
+          style="width: 20px"
+        ></svg-icon>
+      </button>
+    </div>
+    <div
+      *ngFor="let color of colorScheme"
+      class="d-flex gap-3"
+    >
+      <div class="color-scheme-sample bg-{{ color }}"></div>
+      {{ color | transloco }}
+    </div>
   </div>
 </div>
-<quang-loader> </quang-loader>
-<quang-toast></quang-toast>
-<quang-modal
-  (backdropClick)="closeModal()"
-  *ngIf="showModal()"
-  animation="top"
-  position="right"
->
-  <ng-container header>
-    <div class="d-flex justify-content-between mt-2">
-      <h2>{{ title() | transloco }}</h2>
-      <button
-        (click)="closeModal()"
-        type="button"
-      >
-        X
-      </button>
-    </div>
-  </ng-container>
-  <ng-container body>
-    <h3>{{ content() }}</h3>
-  </ng-container>
-  <ng-container footer>
-    <div class="mb-3">
-      <button
-        (click)="closeModal()"
-        type="button"
-      >
-        CLOSE
-      </button>
-      <button
-        (click)="btnAction()"
-        type="button"
-      >
-        ACTION
-      </button>
-    </div>
-  </ng-container>
-</quang-modal>
-<router-outlet />
-
-<ng-template #popoverTest>
-  <span>test works!</span>
-</ng-template>
-
-<ng-template #customToast>
-  <div class="d-flex justify-content-end">
-    <button
-      class="btn btn-primary m-2 text-end"
-      type="button"
-    >
-      pulsante bello
-    </button>
-  </div>
-</ng-template>

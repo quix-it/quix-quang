@@ -77,7 +77,16 @@
               "projects/playground/src/assets"
             ],
             "styles": [
-              "projects/playground/src/sass/styles.scss"
+              {
+                "input": "projects/playground/src/sass/styles-light.scss",
+                "bundleName": "light",
+                "inject": true
+              },
+              {
+                "input": "projects/playground/src/sass/styles-dark.scss",
+                "bundleName": "dark",
+                "inject": false
+              }
             ],
             "scripts": []
           },

@@ -13,13 +13,50 @@
   ></quang-input>
   {{ testForm().value | json }}
 </form>
-<button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
-<button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
-<button (click)="changeVisibility()">change visibility</button>
-<button (click)="recreateForm()">recreate form</button>
-<button (click)="setFormValues()">set form</button>
-<button (click)="checkCurrentFormValueAndValidity()">check current form value and validity</button>
-<button (click)="setReadonly()">current readonly: {{ isReadonly() }}</button>
+<div class="d-flex gap-4">
+  <button
+    (click)="changeFormEnabled()"
+    class="btn btn-outline-secondary"
+  >
+    change form enabled {{ testForm().enabled }}
+  </button>
+  <button
+    (click)="changeFormInputRequired()"
+    class="btn btn-outline-secondary"
+  >
+    change input form required. Actual {{ getIsRequiredInput() }}
+  </button>
+  <button
+    (click)="changeVisibility()"
+    class="btn btn-outline-secondary"
+  >
+    change visibility
+  </button>
+  <button
+    (click)="recreateForm()"
+    class="btn btn-outline-secondary"
+  >
+    recreate form
+  </button>
+  <button
+    (click)="setFormValues()"
+    class="btn btn-outline-secondary"
+  >
+    set form
+  </button>
+  <button
+    (click)="checkCurrentFormValueAndValidity()"
+    class="btn btn-outline-secondary"
+  >
+    check current form value and validity
+  </button>
+  <button
+    (click)="setReadonly()"
+    class="btn btn-outline-secondary"
+  >
+    current readonly: {{ isReadonly() }}
+  </button>
+</div>
 <select [(ngModel)]="inputType">
   <option
     [value]="type"
