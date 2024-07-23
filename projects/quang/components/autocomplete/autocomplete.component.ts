@@ -106,10 +106,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   onValueChange(value: string | number | null): void {
-    if (!this.emitOnly()) {
-      this.onChangedHandler(value)
-      this.hideOptionVisibility()
-    }
+    this.onChangedHandler(value)
+    this.hideOptionVisibility()
     this.selectedOption.emit(value)
   }
 

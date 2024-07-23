@@ -13,7 +13,7 @@
   position: relative;
   padding: 1rem;
 
-  &.bottom {
+  &.center-bottom {
     &:after,
     &:before {
       bottom: 100%;
@@ -22,7 +22,25 @@
     }
   }
 
-  &.top {
+  &.start-bottom {
+    &:after,
+    &:before {
+      bottom: 100%;
+      left: 5%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &.end-bottom {
+    &:after,
+    &:before {
+      bottom: 100%;
+      left: 95%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &.center-top {
     &:after,
     &:before {
       top: 100%;
@@ -31,7 +49,25 @@
     }
   }
 
-  &.end {
+  &.start-top {
+    &:after,
+    &:before {
+      top: 100%;
+      left: 5%;
+      transform: translateX(-50%) rotate(180deg);
+    }
+  }
+
+  &.end-top {
+    &:after,
+    &:before {
+      top: 100%;
+      left: 95%;
+      transform: translateX(-50%) rotate(180deg);
+    }
+  }
+
+  &.end-center {
     &:after,
     &:before {
       right: 100%;
@@ -40,7 +76,7 @@
     }
   }
 
-  &.start {
+  &.start-center {
     &:after,
     &:before {
       left: 100%;

@@ -28,7 +28,7 @@ export const appConfig: ApplicationConfig = {
       nonceStateSeparator: 'semicolon', // Real semicolon gets mangled by Duende ID Server's URI encoding,
       sendAccessToken: true,
       urlsToSendToken: ['https://demo.duendesoftware.com/api'],
-      autoLogin: true
+      autoLogin: false
     }),
     provideTranslation({
       availableLangs: ['it', 'en'],

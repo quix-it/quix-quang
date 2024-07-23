@@ -18,13 +18,11 @@ export class QuangPopoverComponent {
   getPopoverPosition(): string {
     const originX = this.positionPair()?.originX
     const originY = this.positionPair()?.originY
+    console.log('originX', originX)
+    console.log('originY', originY)
     if (originX && originY) {
-      if (originX === 'center') {
-        return originY
-      } else if (originY === 'center') {
-        return originX
-      }
+      return `${originX}-${originY}`
     }
-    return 'top'
+    return ''
   }
 }

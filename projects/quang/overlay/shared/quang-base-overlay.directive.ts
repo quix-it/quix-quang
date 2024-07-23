@@ -9,6 +9,7 @@ import {
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal'
 import {
   ComponentRef,
+  DestroyRef,
   Directive,
   ElementRef,
   HostListener,
@@ -35,8 +36,10 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
   content = input.required<any>()
   quangOverlayPayload = input<any>()
   closeOnClickOutside: boolean = true
-  overlayPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
-  takeUntilDestroyed = signal(takeUntilDestroyed())
+  overlayPosition = input<
+    'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right'
+  >('top')
+  destroyRef = inject(DestroyRef)
   private top = signal<ConnectedPosition>({
     originX: 'center',
     originY: 'top',
@@ -44,10 +47,38 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
     overlayY: 'bottom',
     offsetY: -8
   })
+  private topLeft = signal<ConnectedPosition>({
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    offsetY: -8
+  })
+  private topRight = signal<ConnectedPosition>({
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'bottom',
+    offsetY: -8
+  })
   private bottom = signal<ConnectedPosition>({
     originX: 'center',
     originY: 'bottom',
     overlayX: 'center',
+    overlayY: 'top',
+    offsetY: 8
+  })
+  private bottomLeft = signal<ConnectedPosition>({
+    originX: 'start',
+    originY: 'bottom',
+    overlayX: 'start',
+    overlayY: 'top',
+    offsetY: 8
+  })
+  private bottomRight = signal<ConnectedPosition>({
+    originX: 'end',
+    originY: 'bottom',
+    overlayX: 'end',
     overlayY: 'top',
     offsetY: 8
   })
@@ -69,8 +100,16 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
     switch (this.overlayPosition()) {
       case 'top':
         return [this.top(), this.bottom()]
+      case 'top-left':
+        return [this.topRight(), this.bottomLeft()]
+      case 'top-right':
+        return [this.topLeft(), this.bottomRight()]
       case 'bottom':
         return [this.bottom(), this.top()]
+      case 'bottom-left':
+        return [this.bottomRight(), this.topLeft()]
+      case 'bottom-right':
+        return [this.bottomLeft(), this.topRight()]
       case 'left':
         return [this.left(), this.right()]
       case 'right':
@@ -101,12 +140,14 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
 
   attachOverlay(): void {
     const targetComponentType = this.targetComponentType()
+    console.log('this.tooltipPosition()', this.tooltipPosition())
     if (!targetComponentType) {
       return
     }
     this.positionStrategy.set(
       this.overlayPositionBuilder().flexibleConnectedTo(this.elementRef()).withPositions(this.tooltipPosition())
     )
+
     this.overlayRef.set(
       this.overlay().create({
         positionStrategy: this.positionStrategy(),
@@ -126,14 +167,15 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
       ;(this.componentOverlayRef()?.instance as any).payload = this.quangOverlayPayload
     }
     this.positionStrategy()
-      ?.positionChanges.pipe(this.takeUntilDestroyed())
+      ?.positionChanges.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((position) => {
+        console.log('position strategy', position)
         const positionRef: ConnectedOverlayPositionChange = position as ConnectedOverlayPositionChange
         ;(this.componentOverlayRef()?.instance as any).positionPair.set(positionRef.connectionPair)
       })
     this.overlayRef()
       ?.backdropClick()
-      .pipe(this.takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         if (this.closeOnClickOutside) {
           this.detachOverlay()
