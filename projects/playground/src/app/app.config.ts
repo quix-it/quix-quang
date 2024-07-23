@@ -20,8 +20,7 @@ export const appConfig: ApplicationConfig = {
       responseType: 'code',
       redirectUri: `${window.location.origin}/`,
       scope: 'openid profile email api offline_access', // Ask offline_access to support refresh token refreshes
-      useSilentRefresh: true, // Needed for Code Flow to suggest using iframe-based refreshes
-      silentRefreshTimeout: 5000, // For faster testing
+      useSilentRefresh: false, // Explicitly set this to false, otherwise code flow will try to use an iframe to refresh session
       timeoutFactor: 0.25, // For faster testing
       sessionChecksEnabled: true,
       showDebugInformation: true, // Also requires enabling "Verbose" level in devtools
