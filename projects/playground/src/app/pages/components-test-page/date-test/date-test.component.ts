@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { SvgIconComponent } from 'angular-svg-icon'
 
 import { QuangDateComponent } from '@quix/quang/components/date'
 import { QuangInputComponent } from '@quix/quang/components/input'
@@ -19,7 +20,8 @@ import { QuangInputComponent } from '@quix/quang/components/input'
     NgForOf,
     TranslocoPipe,
     QuangDateComponent,
-    QuangDateComponent
+    QuangDateComponent,
+    SvgIconComponent
   ],
   templateUrl: './date-test.component.html',
   styleUrl: './date-test.component.scss',
@@ -93,7 +95,7 @@ export class DateTestComponent {
     console.log('Current form validity:', this.testForm().valid)
   }
 
-  changeData() {
+  changeDateFormat() {
     console.log('changeData')
     this.isReadonly.set(!this.isReadonly())
     this.dateFormat.set('yyyy/MM/dd')

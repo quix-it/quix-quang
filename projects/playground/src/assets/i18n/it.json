@@ -4,7 +4,7 @@
   "colors": {
     "setDark": "Imposta tema Scuro",
     "setLight": "Imposta tema Chiaro",
-    "colorScheme": "Schema colori (può essere personalizzato)",
+    "colorScheme": "Schema colori (personalizzabile)",
     "primary": "Primario",
     "secondary": "Secondario",
     "success": "Successo",
@@ -18,17 +18,40 @@
     "components": {
       "input": "Componente di input",
       "date": "Componente datepicker",
-      "wysiwyg": "Componente Wysiwyg (What-You-See-Is-What-You-Get)"
+      "wysiwyg": "Componente Wysiwyg (What-You-See-Is-What-You-Get)",
+      "toggle": "Componente toggle",
+      "checkbox": "Componente checkbox",
+      "paginator": "Componente di paginazione",
+      "select": "Componente select",
+      "autocomplete": "Componente di autocomplete",
+      "table": "Componente tabella"
     }
   },
   "form": {
     "label": {
-      "input": "Input intestazione"
+      "input": "Input intestazione",
+      "toggle": "Toggle intestazione",
+      "checkbox": "Checkbox intestazione",
+      "date": "Data intestazione",
+      "select": "Select intestazione",
+      "autocomplete": "Autocomplete intestazione",
+      "success": "Valido!"
     },
     "errors": {
       "required": "Questo campo è obbligatorio",
       "minLength": "Lunghezza minima di {{requiredLength}} caratteri",
       "maxLength": "Lunghezza massima di {{requiredLength}} caratteri"
+    },
+    "buttons": {
+      "enabled": "Form abilitato: {{enabled}}",
+      "changeVisibility": "Cambia visibilità",
+      "recreateForm": "Ricrea form",
+      "setForm": "Compila form",
+      "checkForm": "Controlla valore e validità form",
+      "readonly": "Readonly: {{readonly}}",
+      "required": "Required: {{required}}",
+      "changeDateFormat": "Cambia formato data",
+      "selectInputType": "Seleziona tipologia di input:"
     }
   },
   "quangPaginator": {

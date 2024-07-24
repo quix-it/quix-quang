@@ -18,17 +18,40 @@
     "components": {
       "input": "Input component",
       "date": "Datepicker component",
-      "wysiwyg": "Wysiwyg component (What-You-See-Is-What-You-Get)"
+      "wysiwyg": "Wysiwyg component (What-You-See-Is-What-You-Get)",
+      "toggle": "Toggle component",
+      "checkbox": "Checkbox component",
+      "paginator": "Paginator component",
+      "select": "Select component",
+      "autocomplete": "Autocomplete component",
+      "table": "Table component"
     }
   },
   "form": {
     "label": {
-      "input": "Input header"
+      "input": "Input header",
+      "toggle": "Toggle header",
+      "checkbox": "Checkbox header",
+      "date": "Date header",
+      "select": "Select header",
+      "autocomplete": "Autocomplete header",
+      "success": "Valid!"
     },
     "errors": {
       "required": "This field is required",
       "minLength": "This field must be at least {{requiredLength}} characters long",
       "maxLength": "This field must be at most {{requiredLength}} characters long"
+    },
+    "buttons": {
+      "enabled": "Form enabled: {{enabled}}",
+      "changeVisibility": "Change visibility",
+      "recreateForm": "Recreate form",
+      "setForm": "Set form",
+      "checkForm": "Check form value and validity",
+      "readonly": "Readonly: {{readonly}}",
+      "required": "Required: {{required}}",
+      "changeDateFormat": "Change date format",
+      "selectInputType": "Select input type:"
     }
   },
   "quangPaginator": {

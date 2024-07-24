@@ -1,4 +1,17 @@
-<h3>{{ 'title.components.input' | transloco }}</h3>
+<div class="d-flex gap-4">
+  <h3 class="d-flex flex-column w-100">{{ 'title.components.input' | transloco }}</h3>
+  <div class="d-flex flex-column w-50">
+    <span>{{ 'form.buttons.selectInputType' | transloco }}</span>
+    <select [(ngModel)]="inputType">
+      <option
+        [value]="type"
+        *ngFor="let type of inputTypes()"
+      >
+        {{ type }}
+      </option>
+    </select>
+  </div>
+</div>
 <form
   [formGroup]="testForm()"
   *ngIf="showInput()"
@@ -9,59 +22,53 @@
     [isReadonly]="isReadonly()"
     componentLabel="form.label.input"
     formControlName="testInput"
-    successMessage="tutto bello!"
+    successMessage="form.label.success"
   ></quang-input>
-  {{ testForm().value | json }}
 </form>
-<div class="d-flex gap-4">
+<span class="d-flex mb-4">
+  {{ testForm().value | json }}
+</span>
+<div class="d-flex gap-3">
   <button
     (click)="changeFormEnabled()"
     class="btn btn-outline-secondary"
   >
-    change form enabled {{ testForm().enabled }}
+    {{ 'form.buttons.enabled' | transloco: { enabled: testForm().enabled } }}
   </button>
   <button
     (click)="changeFormInputRequired()"
     class="btn btn-outline-secondary"
   >
-    change input form required. Actual {{ getIsRequiredInput() }}
+    {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
   </button>
   <button
     (click)="changeVisibility()"
     class="btn btn-outline-secondary"
   >
-    change visibility
+    {{ 'form.buttons.changeVisibility' | transloco }}
   </button>
   <button
     (click)="recreateForm()"
     class="btn btn-outline-secondary"
   >
-    recreate form
+    {{ 'form.buttons.recreateForm' | transloco }}
   </button>
   <button
     (click)="setFormValues()"
     class="btn btn-outline-secondary"
   >
-    set form
+    {{ 'form.buttons.setForm' | transloco }}
   </button>
   <button
     (click)="checkCurrentFormValueAndValidity()"
     class="btn btn-outline-secondary"
   >
-    check current form value and validity
+    {{ 'form.buttons.checkForm' | transloco }}
   </button>
   <button
     (click)="setReadonly()"
     class="btn btn-outline-secondary"
   >
-    current readonly: {{ isReadonly() }}
+    {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
   </button>
 </div>
-<select [(ngModel)]="inputType">
-  <option
-    [value]="type"
-    *ngFor="let type of inputTypes()"
-  >
-    {{ type }}
-  </option>
-</select>

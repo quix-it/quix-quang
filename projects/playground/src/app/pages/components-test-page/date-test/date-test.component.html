@@ -10,20 +10,63 @@
     [isReadonly]="isReadonly()"
     [timepicker]="true"
     buttonClass=""
-    componentLabel="form.label.input"
-    successMessage="tutto bello!"
+    componentLabel="form.label.date"
+    successMessage="form.label.success"
   >
-    <img
+    <svg-icon
+      [applyClass]="true"
       calendarIcon
-      src="./assets/icons/svg/calendar.svg"
-    />
+      src="assets/icons/svg/calendar.svg"
+    ></svg-icon>
   </quang-date>
 </form>
-<button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
-<button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
-<button (click)="changeVisibility()">change visibility</button>
-<button (click)="recreateForm()">recreate form</button>
-<button (click)="setFormValues()">set form</button>
-<button (click)="checkCurrentFormValueAndValidity()">check current form value and validity</button>
-<button (click)="changeData()">change data</button>
-<button (click)="setReadonly()">current readonly: {{ isReadonly() }}</button>
+<div class="d-flex gap-3">
+  <button
+    (click)="changeFormEnabled()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.enabled' | transloco: { enabled: testForm().enabled } }}
+  </button>
+  <button
+    (click)="changeFormInputRequired()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+  </button>
+  <button
+    (click)="changeVisibility()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.changeVisibility' | transloco }}
+  </button>
+  <button
+    (click)="recreateForm()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.recreateForm' | transloco }}
+  </button>
+  <button
+    (click)="setFormValues()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.setForm' | transloco }}
+  </button>
+  <button
+    (click)="checkCurrentFormValueAndValidity()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.checkForm' | transloco }}
+  </button>
+  <button
+    (click)="changeDateFormat()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.changeDateFormat' | transloco }}
+  </button>
+  <button
+    (click)="setReadonly()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+  </button>
+</div>
