@@ -1,14 +1,14 @@
 :host {
   --bs-popover-border-width: 1px;
   --bs-popover-arrow-width: 0.5rem;
-  --bs-popover-arrow-border: var(--bs-border-color);
+  --bs-popover-arrow-border: var(--bs-border-color, #000);
   --box-shadow-bg: rgba(0, 0, 0, 0.16);
 }
 
 .popover-container {
   box-shadow: var(--box-shadow-bg);
-  background: var(--bs-body-bg);
-  border: var(--bs-popover-border-width) solid var(--bs-border-color);
+  background: var(--bs-body-bg, #fff);
+  border: var(--bs-popover-border-width) solid var(--bs-border-color, #000);
   pointer-events: none;
   position: relative;
   padding: 1rem;
@@ -97,12 +97,12 @@
   }
 
   &:after {
-    border-color: transparent transparent var(--bs-body-bg) transparent;
+    border-color: transparent transparent var(--bs-body-bg, #fff) transparent;
     border-width: var(--bs-popover-arrow-width);
   }
 
   &:before {
-    border-color: transparent transparent var(--bs-border-color) transparent;
+    border-color: transparent transparent var(--bs-border-color, #000) transparent;
     border-width: calc(var(--bs-popover-arrow-width) + 1px);
   }
 }
