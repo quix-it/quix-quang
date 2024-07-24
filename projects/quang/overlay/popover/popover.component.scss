@@ -12,6 +12,7 @@
   pointer-events: none;
   position: relative;
   padding: 1rem;
+  pointer-events: all;
 
   &.center-bottom {
     &:after,
