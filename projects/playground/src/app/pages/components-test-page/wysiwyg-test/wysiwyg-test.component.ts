@@ -41,7 +41,7 @@ export class WysiwygTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('', [
+      testInput: this.formBuilder().control<string>('gagagagagagagaga', [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(100),
