@@ -1,5 +1,6 @@
 <div
   [ngClass]="getPopoverPosition()"
+  *ngIf="content()"
   class="popover-container"
 >
   <ng-container
