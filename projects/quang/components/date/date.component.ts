@@ -39,6 +39,14 @@ import { QuangTranslationService } from '@quix/quang/translation'
   imports: [TranslocoPipe, NgIf, NgClass, JsonPipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * Datepicker component based on {@link https://air-datepicker.com/docs}.
+ *
+ * It can be used to only display the `timepicker` component
+ *
+ * @example
+ * <quang-date [showOnlyTimepicker]="true"></quang-date>
+ */
 export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | string | null> {
   /**
    * Format to use to show on the input field.
@@ -55,7 +63,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
    */
   timeFormat = input<string>('HH:mm')
   /**
-   * value used to join the rendering inside a multiple selection date
+   * Value used to join the rendering inside a multiple selection date
    */
   multipleDateJoinCharacter = input<string>(', ')
   /**
@@ -110,9 +118,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   _startValue = signal<Date | Date[] | string | undefined | null>(undefined)
   _airDatepickerInstance = signal<AirDatepicker | undefined>(undefined)
 
-  /**
-   * the actual date calendar is based on {@link https://air-datepicker.com/docs}
-   */
   _generateAirDatepickerEffect = effect(
     async () => {
       if (this._inputForDate()?.nativeElement && this._dateContainer()?.nativeElement) {

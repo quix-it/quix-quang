@@ -24,6 +24,10 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * Input component that handles all the types declared in {@link InputType}
+ * @property {boolean} resizable just for textarea {@link InputType}
+ */
 export class QuangInputComponent extends QuangBaseComponent<string | number> {
   componentType = input.required<InputType>()
   componentStep = input<string>()

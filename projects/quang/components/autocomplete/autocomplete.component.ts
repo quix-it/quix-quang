@@ -37,13 +37,16 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
     }
   ]
 })
+/**
+ * Autocomplete component that uses a list of options {@link SelectOption}
+ */
 export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | null> {
   elementRef = inject(ElementRef)
   optionListMaxHeight = input<string>('200px')
   selectOptions = input.required<SelectOption[]>()
   translateValue = input<boolean>(true)
   /**
-   * only emit value without save in ngControl
+   * Only emits the value without saving it in ngControl
    */
   emitOnly = input<boolean>(false)
   _showOptions = signal<boolean | null>(null)

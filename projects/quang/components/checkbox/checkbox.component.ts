@@ -23,6 +23,10 @@ export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * Checkbox component that can be of type checkbox or toggle
+ * @property labelPosition - label can be aligned in {@link LabelPosition}
+ */
 export class QuangCheckboxComponent extends QuangBaseComponent<boolean> {
   labelPosition = input<LabelPosition>('top')
   checkType = input.required<'checkbox' | 'toggle'>()
