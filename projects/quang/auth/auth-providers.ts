@@ -2,9 +2,9 @@ import { APP_INITIALIZER, EnvironmentProviders, Provider, makeEnvironmentProvide
 
 import { provideOAuthClient } from 'angular-oauth2-oidc'
 
-import { AUTH_CONFIG, QuangAuthConfig, QuangAuthService } from './auth.service'
+import { type MobileAuthFeature } from '@quix/quang/auth/mobile'
 
-import { type MobileAuthFeature } from './mobile'
+import { AUTH_CONFIG, QuangAuthConfig, QuangAuthService } from './auth.service'
 
 function initializeAuthService(authService: QuangAuthService) {
   return () => authService.init()

@@ -4,9 +4,13 @@ import { App, URLOpenListenerEvent } from '@capacitor/app'
 import { Browser } from '@capacitor/browser'
 import { Capacitor } from '@capacitor/core'
 
-import { AUTH_CONFIG, QuangAuthService } from '../auth.service'
-
-import { QuangAuthFeature, QuangAuthFeatureKind, quangAuthFeature } from '../auth-providers'
+import {
+  AUTH_CONFIG,
+  QuangAuthFeature,
+  QuangAuthFeatureKind,
+  QuangAuthService,
+  quangAuthFeature
+} from '@quix/quang/auth'
 
 /**
  * A type alias for providers returned by `withMobileAuth` for use with `provideAuth`.
