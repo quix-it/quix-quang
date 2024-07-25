@@ -5,7 +5,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { TranslocoPipe } from '@jsverse/transloco'
 
 import { QuangSelectComponent } from '@quix/quang/components/select'
-import { QuangOptionListComponent, SelectOption } from '@quix/quang/components/shared'
+import { SelectOption } from '@quix/quang/components/shared'
 
 @Component({
   selector: 'playground-select-test',
@@ -17,6 +17,7 @@ import { QuangOptionListComponent, SelectOption } from '@quix/quang/components/s
 })
 export class SelectTestComponent {
   isReadonly = signal<boolean>(false)
+  showValueAndValidity = signal<boolean>(false)
 
   stringList: SelectOption[] = [
     {
@@ -178,6 +179,7 @@ export class SelectTestComponent {
   }
 
   checkCurrentFormValueAndValidity() {
+    this.showValueAndValidity.set(true)
     console.log('Current form value:', this.testForm().value)
     console.log('Current form validity:', this.testForm().valid)
   }

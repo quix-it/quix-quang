@@ -16,6 +16,7 @@ import { SelectOption } from '@quix/quang/components/shared'
 })
 export class AutocompleteTestComponent {
   isReadonly = signal<boolean>(false)
+  showValueAndValidity = signal<boolean>(false)
 
   stringList = [
     {
@@ -181,6 +182,7 @@ export class AutocompleteTestComponent {
   }
 
   checkCurrentFormValueAndValidity() {
+    this.showValueAndValidity.set(true)
     console.log('Current form value:', this.testForm().value)
     console.log('Current form validity:', this.testForm().valid)
   }

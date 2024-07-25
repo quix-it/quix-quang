@@ -16,6 +16,7 @@ import { QuangCheckboxComponent } from '@quix/quang/components/checkbox/checkbox
 })
 export class ToggleTestComponent {
   isReadonly = signal<boolean>(false)
+  showValueAndValidity = signal<boolean>(false)
 
   formBuilder = signal(inject(NonNullableFormBuilder))
 
@@ -84,6 +85,7 @@ export class ToggleTestComponent {
   }
 
   checkCurrentFormValueAndValidity() {
+    this.showValueAndValidity.set(true)
     console.log('Current form value:', this.testForm().value)
     console.log('Current form validity:', this.testForm().valid)
   }

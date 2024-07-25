@@ -2,6 +2,8 @@ import { JsonPipe } from '@angular/common'
 import { AfterViewInit, Component, TemplateRef, ViewChild, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
+import { TranslocoPipe } from '@jsverse/transloco'
+import { SvgIconComponent } from 'angular-svg-icon'
 import { of } from 'rxjs'
 
 import {
@@ -22,7 +24,7 @@ interface People {
 @Component({
   selector: 'playground-table-test',
   standalone: true,
-  imports: [QuangTableComponent, JsonPipe],
+  imports: [QuangTableComponent, JsonPipe, TranslocoPipe, SvgIconComponent],
   templateUrl: './table-test.component.html',
   styleUrl: './table-test.component.scss'
 })
@@ -75,7 +77,7 @@ export class TableTestComponent implements AfterViewInit {
 
   readonly people: People[] = [
     {
-      name: 'John Doewegeqwg ewgwgewgeqwgiojeqwiogjewgewiogjiogjew',
+      name: 'John Doewe',
       age: 30,
       gender: 'Male',
       id: 1
@@ -236,7 +238,7 @@ export class TableTestComponent implements AfterViewInit {
                 },
                 {
                   text: person.gender,
-                  css: ['bg-info']
+                  css: ['bg-light']
                 },
                 {
                   renderer: this.actions,
@@ -245,12 +247,12 @@ export class TableTestComponent implements AfterViewInit {
               ]
             }
           })
-          this.tableConfig.rows.unshift({
+          this.tableConfig.rows.splice(4, 0, {
             cellData: [
               {
                 fullWidth: true,
                 css: ['bg-info'],
-                text: 'gagagaggagagagagaga'
+                text: 'Full row example'
               }
             ]
           })
