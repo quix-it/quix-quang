@@ -38,6 +38,7 @@ export function withMobileAuth(): MobileAuthFeature {
     },
     {
       provide: AUTH_CONFIG,
+      multi: true,
       deps: [Injector],
       useFactory: (injector: Injector) => {
         const existingConfig = injector.get(AUTH_CONFIG)
