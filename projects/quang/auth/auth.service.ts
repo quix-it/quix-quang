@@ -26,6 +26,8 @@ interface AuthState {
 
 export const AUTH_CONFIG = new InjectionToken<QuangAuthConfig | undefined>('AUTH_CONFIG')
 
+export const OPEN_URI = new InjectionToken<(uri: string) => void | undefined>('OPEN_URI')
+
 export interface QuangAuthConfig extends AuthConfig {
   autoLogin: boolean
   sendAccessToken: boolean
@@ -74,6 +76,9 @@ export class QuangAuthService {
   constructor() {
     const authConfig = inject(AUTH_CONFIG)
     if (!authConfig) throw new Error('Missing auth config')
+
+    const openUri = inject(OPEN_URI)
+    if (openUri) authConfig.openUri = openUri
 
     this.config = authConfig
     this.showDebugInformation = !!authConfig.showDebugInformation
