@@ -6,21 +6,11 @@ import { Capacitor } from '@capacitor/core'
 
 import {
   AUTH_CONFIG,
-  QuangAuthFeature,
+  MobileAuthFeature,
   QuangAuthFeatureKind,
   QuangAuthService,
   quangAuthFeature
 } from '@quix/quang/auth'
-
-/**
- * A type alias for providers returned by `withMobileAuth` for use with `provideAuth`.
- *
- * @see {@link withMobileAuth}
- * @see {@link provideAuth}
- *
- * @publicApi
- */
-export type MobileAuthFeature = QuangAuthFeature<QuangAuthFeatureKind.MobileAuthFeature>
 
 export function withMobileAuth(): MobileAuthFeature {
   const providers: Provider[] = [

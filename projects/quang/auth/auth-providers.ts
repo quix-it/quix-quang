@@ -2,8 +2,6 @@ import { APP_INITIALIZER, EnvironmentProviders, Provider, makeEnvironmentProvide
 
 import { provideOAuthClient } from 'angular-oauth2-oidc'
 
-import { type MobileAuthFeature } from '@quix/quang/auth/mobile'
-
 import { AUTH_CONFIG, QuangAuthConfig, QuangAuthService } from './auth.service'
 
 function initializeAuthService(authService: QuangAuthService) {
@@ -51,6 +49,16 @@ export function quangAuthFeature<FeatureKind extends QuangAuthFeatureKind>(
 ): QuangAuthFeature<FeatureKind> {
   return { ɵkind: kind, ɵproviders: providers }
 }
+
+/**
+ * A type alias for providers returned by `withMobileAuth` for use with `provideAuth`.
+ *
+ * @see {@link withMobileAuth}
+ * @see {@link provideAuth}
+ *
+ * @publicApi
+ */
+export type MobileAuthFeature = QuangAuthFeature<QuangAuthFeatureKind.MobileAuthFeature>
 
 /**
  * A type alias that represents all QuangAuth features available for use with `provideAuth`.
