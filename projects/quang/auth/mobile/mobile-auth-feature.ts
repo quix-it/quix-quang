@@ -16,20 +16,22 @@ export function withMobileAuth(
       multi: true,
       deps: [QuangAuthService, NgZone],
       useFactory: (authService: QuangAuthService, ngZone: NgZone) => {
-        if (Capacitor.isNativePlatform()) {
-          App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
-            ngZone.run(() => {
-              Browser.removeAllListeners()
-              Browser.close()
-              const [, queryParams] = event.url.split('?')
-              location.href = `/?${queryParams}`
+        return () => {
+          if (Capacitor.isNativePlatform()) {
+            App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
+              ngZone.run(() => {
+                Browser.removeAllListeners()
+                Browser.close()
+                const [, queryParams] = event.url.split('?')
+                location.href = `/?${queryParams}`
+              })
             })
-          })
-          App.addListener('resume', () => {
-            ngZone.run(() => {
-              authService.init()
+            App.addListener('resume', () => {
+              ngZone.run(() => {
+                authService.init()
+              })
             })
-          })
+          }
         }
       }
     },
