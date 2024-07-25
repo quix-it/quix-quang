@@ -1,6 +1,21 @@
 {
   "welcomeMessage": "Welcome to {{title}}",
-  "setLanguage": "Set language: {{lang}}",
+  "buttons": {
+    "setLanguage": "Set language: {{lang}}",
+    "loader": "Loader",
+    "apiCall": "API call",
+    "modal": "Open modal",
+    "toast": {
+      "warning": "Show warning toast",
+      "error": "Show error toast",
+      "success": "Show success toast"
+    },
+    "popover": "Show popover",
+    "withTooltip": "hover here for QuangTooltip",
+    "tooltipMessage": "With QuangTooltip and custom icon",
+    "close": "Close",
+    "action": "Action"
+  },
   "colors": {
     "setDark": "Set dark theme",
     "setLight": "Set light theme",
@@ -25,7 +40,10 @@
       "select": "Select component",
       "autocomplete": "Autocomplete component",
       "table": "Table component"
-    }
+    },
+    "header": "Header",
+    "body": "Body",
+    "footer": "Footer"
   },
   "form": {
     "label": {
@@ -34,8 +52,12 @@
       "checkbox": "Checkbox header",
       "date": "Date header",
       "select": "Select header",
+      "multipleSelect": "Multiple select header",
       "autocomplete": "Autocomplete header",
-      "success": "Valid!"
+      "wysiwyg": "Wysiwyg header",
+      "success": "Valid!",
+      "formValue": "Form value: {{value}}",
+      "formValidity": "Form valid: {{valid}}"
     },
     "errors": {
       "required": "This field is required",
@@ -51,7 +73,9 @@
       "readonly": "Readonly: {{readonly}}",
       "required": "Required: {{required}}",
       "changeDateFormat": "Change date format",
-      "selectInputType": "Select input type:"
+      "selectInputType": "Select input type:",
+      "changeHeight": "Change height",
+      "flipButton": "Hide button"
     }
   },
   "quangPaginator": {

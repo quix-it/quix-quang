@@ -1,5 +1,5 @@
-<div class="d-flex p-3 gap-4">
-  <div class="d-flex flex-column w-75 gap-3">
+<div class="d-flex">
+  <div class="d-flex flex-column w-75 gap-3 p-3 border-end">
     <h1>{{ 'welcomeMessage' | transloco: { title: title() } }}</h1>
     <!-- Buttons -->
     <div class="d-flex gap-4 flex-wrap">
@@ -7,13 +7,13 @@
         (click)="changeLanguage('it')"
         class="btn btn-primary text-uppercase"
       >
-        {{ 'setLanguage' | transloco: { lang: 'it' } }}
+        {{ 'buttons.setLanguage' | transloco: { lang: 'it' } }}
       </button>
       <button
         (click)="changeLanguage('en')"
         class="btn btn-outline-primary text-uppercase"
       >
-        {{ 'setLanguage' | transloco: { lang: 'en' } }}
+        {{ 'buttons.setLanguage' | transloco: { lang: 'en' } }}
       </button>
     </div>
     <div class="d-flex gap-4 flex-wrap">
@@ -26,13 +26,13 @@
           src="assets/icons/svg/reload.svg"
           style="width: 20px"
         ></svg-icon>
-        <span>LOADER</span>
+        <span>{{ 'buttons.loader' | transloco }}</span>
       </button>
       <button
         (click)="testApiCall()"
         class="btn btn-outline-secondary"
       >
-        API CALL
+        {{ 'buttons.apiCall' | transloco }}
       </button>
     </div>
     <div class="d-flex flex-wrap gap-2">
@@ -40,25 +40,8 @@
         (click)="openModal()"
         class="btn btn-outline-primary"
       >
-        MODAL
+        {{ 'buttons.modal' | transloco }}
       </button>
-      <div>
-        <button
-          [quangTooltip]="title()"
-          (click)="openToast()"
-          class="w-100 btn btn-outline-secondary"
-          overlayPosition="top"
-        >
-          TOAST
-        </button>
-        <p
-          [quangTooltip]="title()"
-          class="text-muted m-0"
-          overlayPosition="top"
-        >
-          With QuangTooltip
-        </p>
-      </div>
       <button
         [quangPopover]="popoverTest"
         [scrollCloseThreshold]="undefined"
@@ -66,7 +49,47 @@
         overlayPosition="top"
         showMethod="click"
       >
-        POPOVER TEST
+        {{ 'buttons.popover' | transloco }}
+        <span>CLICK</span>
+      </button>
+      <button
+        [quangPopover]="popoverTest"
+        [scrollCloseThreshold]="undefined"
+        class="btn popover-test-button"
+        overlayPosition="top"
+        showMethod="hover"
+      >
+        {{ 'buttons.popover' | transloco }}
+        <span>HOVER</span>
+      </button>
+    </div>
+    <div class="d-flex gap-2">
+      <div
+        [quangTooltip]="'buttons.tooltipMessage' | transloco"
+        class="w-100"
+        overlayPosition="top"
+      >
+        <button
+          (click)="openToast('warning', true)"
+          class="w-100 btn btn-outline-secondary"
+        >
+          {{ 'buttons.toast.warning' | transloco }}
+        </button>
+        <small class="text-muted m-0">
+          {{ 'buttons.withTooltip' | transloco }}
+        </small>
+      </div>
+      <button
+        (click)="openToast('error')"
+        class="w-100 btn btn-outline-secondary"
+      >
+        {{ 'buttons.toast.error' | transloco }}
+      </button>
+      <button
+        (click)="openToast('success')"
+        class="w-100 btn btn-outline-secondary"
+      >
+        {{ 'buttons.toast.success' | transloco }}
       </button>
     </div>
 
@@ -76,13 +99,15 @@
       (backdropClick)="closeModal()"
       *ngIf="showModal()"
       animation="top"
+      height="100vh"
       position="right"
     >
       <ng-container header>
         <div class="d-flex justify-content-between mt-2">
-          <h2>{{ title() | transloco }}</h2>
+          <h3>{{ 'title.header' | transloco }}</h3>
           <button
             (click)="closeModal()"
+            class="btn btn-outline-secondary"
             type="button"
           >
             X
@@ -91,20 +116,31 @@
       </ng-container>
       <ng-container body>
         <h3>{{ content() }}</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </p>
+        <img src="https://picsum.photos/200/300" />
       </ng-container>
       <ng-container footer>
-        <div class="mb-3">
+        <div class="d-flex mb-3 gap-3 w-100">
+          <h3 class="d-flex flex-column flex-grow-1">{{ 'title.footer' | transloco }}</h3>
           <button
             (click)="closeModal()"
+            class="btn btn-outline-secondary"
             type="button"
           >
-            CLOSE
+            {{ 'buttons.close' | transloco }}
           </button>
           <button
             (click)="btnAction()"
+            class="btn btn-secondary"
             type="button"
           >
-            ACTION
+            {{ 'buttons.action' | transloco }}
           </button>
         </div>
       </ng-container>
@@ -127,7 +163,10 @@
     </ng-template>
   </div>
   <!-- Colors column -->
-  <div class="d-flex flex-column w-25 gap-4">
+  <div
+    class="d-flex flex-column w-25 gap-4 p-3"
+    style="position: fixed; right: 0"
+  >
     <h3>{{ 'colors.colorScheme' | transloco }}</h3>
     <div class="d-flex gap-4">
       <button

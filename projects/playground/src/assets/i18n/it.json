@@ -1,6 +1,21 @@
 {
   "welcomeMessage": "Benvenuto in {{title}}",
-  "setLanguage": "Imposta lingua: {{lang}}",
+  "buttons": {
+    "setLanguage": "Imposta lingua: {{lang}}",
+    "loader": "Loader",
+    "apiCall": "Chiamata API",
+    "modal": "Apri modale",
+    "toast": {
+      "warning": "Mostra toast warning",
+      "error": "Mostra toast errore",
+      "success": "Mostra toast successo"
+    },
+    "popover": "Mostra popover",
+    "withTooltip": "fai hover per il QuangTooltip",
+    "tooltipMessage": "Con QuangTooltip ed icona custom",
+    "close": "Chiudi",
+    "action": "Azione"
+  },
   "colors": {
     "setDark": "Imposta tema Scuro",
     "setLight": "Imposta tema Chiaro",
@@ -25,7 +40,10 @@
       "select": "Componente select",
       "autocomplete": "Componente di autocomplete",
       "table": "Componente tabella"
-    }
+    },
+    "header": "Intestazione",
+    "body": "Corpo",
+    "footer": "Footer"
   },
   "form": {
     "label": {
@@ -33,9 +51,13 @@
       "toggle": "Toggle intestazione",
       "checkbox": "Checkbox intestazione",
       "date": "Data intestazione",
-      "select": "Select intestazione",
+      "select": "Select singola intestazione",
+      "multipleSelect": "Select multipla intestazione",
       "autocomplete": "Autocomplete intestazione",
-      "success": "Valido!"
+      "wysiwyg": "Wysiwyg intestazione",
+      "success": "Valido!",
+      "formValue": "Valore form: {{value}}",
+      "formValidity": "Form valido: {{valid}}"
     },
     "errors": {
       "required": "Questo campo è obbligatorio",
@@ -51,7 +73,9 @@
       "readonly": "Readonly: {{readonly}}",
       "required": "Required: {{required}}",
       "changeDateFormat": "Cambia formato data",
-      "selectInputType": "Seleziona tipologia di input:"
+      "selectInputType": "Seleziona tipologia di input:",
+      "changeHeight": "Cambia altezza",
+      "flipButton": "Nascondi pulsante"
     }
   },
   "quangPaginator": {

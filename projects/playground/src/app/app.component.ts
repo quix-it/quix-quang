@@ -98,15 +98,15 @@ export class AppComponent {
     this.content.update((content) => content + '!!!')
   }
 
-  openToast(): void {
+  openToast(type: 'success' | 'warning' | 'error', customIcon?: boolean): void {
     this.quangToast().openToast({
-      type: 'warning',
-      title: 'Hello world!',
+      type: type,
+      title: type,
       position: 'bottom-center',
       text: 'beauty button here',
       customTemplate: this.customToast,
       showCloseButton: true,
-      customIcon: './assets/icons/svg/calendar.svg',
+      customIcon: customIcon ? './assets/icons/svg/calendar.svg' : '',
       timing: 50000000
     })
   }
