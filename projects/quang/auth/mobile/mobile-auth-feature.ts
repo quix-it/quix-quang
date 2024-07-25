@@ -4,15 +4,12 @@ import { App, URLOpenListenerEvent } from '@capacitor/app'
 import { Browser } from '@capacitor/browser'
 import { Capacitor } from '@capacitor/core'
 
-import {
-  AUTH_CONFIG,
-  MobileAuthFeature,
-  QuangAuthFeatureKind,
-  QuangAuthService,
-  quangAuthFeature
-} from '@quix/quang/auth'
+import { MobileAuthFeature, OPEN_URI, QuangAuthFeatureKind, QuangAuthService, quangAuthFeature } from '@quix/quang/auth'
 
-export function withMobileAuth(): MobileAuthFeature {
+export function withMobileAuth(
+  toolbarColor: string = '#000000',
+  presentationStyle: 'popover' | 'fullscreen' = 'popover'
+): MobileAuthFeature {
   const providers: Provider[] = [
     {
       provide: APP_INITIALIZER,
@@ -37,13 +34,18 @@ export function withMobileAuth(): MobileAuthFeature {
       }
     },
     {
-      provide: AUTH_CONFIG,
-      multi: true,
-      deps: [Injector],
-      useFactory: (injector: Injector) => {
-        const existingConfig = injector.get(AUTH_CONFIG)
-        if (!existingConfig) throw new Error('Missing QuangAuthConfig to extend')
-        return existingConfig
+      provide: OPEN_URI,
+      deps: [],
+      useFactory: () => {
+        return (url: string) => {
+          if (Capacitor.isNativePlatform()) {
+            if (Capacitor.getPlatform() === 'ios')
+              Browser.addListener('browserFinished', () => {
+                window.location.reload()
+              })
+            Browser.open({ url, presentationStyle, toolbarColor })
+          } else location.href = url
+        }
       }
     }
   ]
