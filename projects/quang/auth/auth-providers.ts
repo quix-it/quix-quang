@@ -20,13 +20,13 @@ export function provideAuth(authConfig?: QuangAuthConfig, ...features: QuangAuth
         allowedUrls: authConfig?.urlsToSendToken ?? []
       }
     }),
+    features.map((feature) => feature.ɵproviders),
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAuthService,
       multi: true,
       deps: [QuangAuthService]
-    },
-    features.map((feature) => feature.ɵproviders)
+    }
   ])
 }
 
