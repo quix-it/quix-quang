@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, Injector, NgZone, Provider } from '@angular/core'
+import { APP_INITIALIZER, NgZone, Provider } from '@angular/core'
 
 import { App, URLOpenListenerEvent } from '@capacitor/app'
 import { Browser } from '@capacitor/browser'
@@ -11,6 +11,21 @@ export function withMobileAuth(
   presentationStyle: 'popover' | 'fullscreen' = 'popover'
 ): MobileAuthFeature {
   const providers: Provider[] = [
+    {
+      provide: OPEN_URI,
+      deps: [],
+      useFactory: () => {
+        return (url: string) => {
+          if (Capacitor.isNativePlatform()) {
+            if (Capacitor.getPlatform() === 'ios')
+              Browser.addListener('browserFinished', () => {
+                window.location.reload()
+              })
+            Browser.open({ url, presentationStyle, toolbarColor })
+          } else location.href = url
+        }
+      }
+    },
     {
       provide: APP_INITIALIZER,
       multi: true,
@@ -32,21 +47,6 @@ export function withMobileAuth(
               })
             })
           }
-        }
-      }
-    },
-    {
-      provide: OPEN_URI,
-      deps: [],
-      useFactory: () => {
-        return (url: string) => {
-          if (Capacitor.isNativePlatform()) {
-            if (Capacitor.getPlatform() === 'ios')
-              Browser.addListener('browserFinished', () => {
-                window.location.reload()
-              })
-            Browser.open({ url, presentationStyle, toolbarColor })
-          } else location.href = url
         }
       }
     }
