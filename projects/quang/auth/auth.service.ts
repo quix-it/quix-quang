@@ -77,7 +77,7 @@ export class QuangAuthService {
     const authConfig = inject(AUTH_CONFIG)
     if (!authConfig) throw new Error('Missing auth config')
 
-    const openUri = inject(OPEN_URI)
+    const openUri = inject(OPEN_URI, { optional: true })
     if (openUri) authConfig.openUri = openUri
 
     this.config = authConfig
