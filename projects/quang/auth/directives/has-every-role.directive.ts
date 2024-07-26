@@ -3,6 +3,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { QuangAuthService } from '../auth.service'
 
+/**
+ * This directive conditionally renders the associated template if the authenticated user
+ * has every of the specified roles. By using the `QuangAuthService.hasEveryRole()` method it checks the user's roles against
+ * the required roles provided through the `quangHasEveryRole` required input.
+ *
+ * @example
+ * <div *quangHasEveryRole="['admin', 'editor']">
+ *   This content will only be visible to users with 'admin' and 'editor' roles.
+ * </div>
+ */
 @Directive({
   selector: '[quangHasEveryRole]',
   standalone: true

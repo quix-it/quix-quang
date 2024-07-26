@@ -24,8 +24,13 @@ export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
- * Checkbox component that can be of type checkbox or toggle
- * @property labelPosition - label can be aligned in {@link LabelPosition}
+ * Checkbox component for rendering a `checkbox` or a `toggle` switch.
+ *
+ * @usageNotes
+ * This component can be configured to display as a standard checkbox or as a toggle switch,
+ * depending on the `checkType` input property.
+ *
+ * The component label can be aligned in {@link LabelPosition} by setting the `labelPosition` input property.
  */
 export class QuangCheckboxComponent extends QuangBaseComponent<boolean> {
   labelPosition = input<LabelPosition>('top')

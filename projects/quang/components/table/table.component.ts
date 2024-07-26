@@ -62,6 +62,14 @@ export interface SortCol {
   imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet, NgFor],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * Table component for displaying data in a tabular format.
+ *
+ * It supports customizable column cells template and sorting rows by column headers.
+ *
+ * @usageNotes
+ * The component must be configured using the {@link TableConfiguration} object
+ */
 export class QuangTableComponent<T> {
   clickableRow = input<boolean>(false)
   selectedRows = input<string[] | number[]>()

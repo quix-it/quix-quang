@@ -25,6 +25,13 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
   imports: [TranslocoPipe, NgIf, NgFor, NgClass, NgStyle, QuangOptionListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * Select component for choosing one or multiple options from a dropdown.
+ *
+ * @usageNotes
+ * This component supports both single and multiple selection modes. It can be configured
+ * to display a list of options and allows users to select one or more of them by setting the `selectionMode` property to either `single` or `multiple`.
+ */
 export class QuangSelectComponent
   extends QuangBaseComponent<string | number | string[] | number[] | null>
   implements AfterViewInit

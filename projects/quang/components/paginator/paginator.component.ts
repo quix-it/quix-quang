@@ -13,6 +13,14 @@ import { makeId } from '@quix/quang/components/shared'
   styleUrl: './paginator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * Paginator component for handling pagination in lists and tables.
+ *
+ * This component provides a user interface for navigating through pages of data.
+ *
+ * @usageNotes
+ * `showTotalElementsCount` can be used to show or hide the total number of items.
+ */
 export class QuangPaginatorComponent implements OnInit {
   componentId = input<string>(makeId(10))
   componentTabIndex = input<number>(0)

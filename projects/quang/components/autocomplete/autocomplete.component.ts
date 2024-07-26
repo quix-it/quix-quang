@@ -38,7 +38,13 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
   ]
 })
 /**
- * Autocomplete component that uses a list of options {@link SelectOption}
+ * Autocomplete component for providing suggestion options {@link SelectOption} as the user types.
+ *
+ * @usageNotes
+ * This component displays a list of filtered options based on user input.
+ * It allows users to select an option from the suggestions and emits the event `selectedOption` when an option is selected.
+ *
+ * `searchTextDebounce` is by default set to 300ms.
  */
 export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | null> {
   elementRef = inject(ElementRef)
