@@ -21,22 +21,6 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   formControl = input<FormControl>()
   componentBlur = output<void>()
 
-  /*_currentErrorMessageSig = computed(() =>
-    this._showErrorsSig()
-      ? this.errorMapSig().find((error) => error.error === Object.keys(this._ngControl?.errors ?? {})[0])?.message
-      : ''
-  )*/ // <- questo non funziona come pensavo
-  /*_showSuccessSig = computed(() => this.successMessageSig() && this._ngControl?.control?.valid && this._isTouchedSig()) // <- questo funziona in parte
-        console.log(
-        'check _showSuccessSig',
-        this.successMessageSig() && this._ngControl?.control?.valid && this._isTouchedSig(),
-        this._showSuccessSig()
-      )
-   */
-  //_isControlInteractedSig = computed(() => this._ngControl?.dirty || this._ngControl?.touched) // <- questo non funziona
-  //_requiredSig = computed(() => this._ngControl?.control?.hasValidator(Validators.required)) // <- questo non funziona
-  // _isControlDisabledSig = computed(() => this._ngControl?.control?.disabled) // <- questo non funziona
-
   _value = signal<T | null>(null)
   _isRequired = signal<boolean>(false)
   _isDisabled = signal<boolean>(false)
