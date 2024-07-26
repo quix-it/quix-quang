@@ -10,6 +10,9 @@ import { ChangeDetectionStrategy, Component, TemplateRef, input, signal } from '
   styleUrl: './popover.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * Popover component that can render custom content, passed from the outside as a `TemplateRef`
+ */
 export class QuangPopoverComponent {
   content = input<TemplateRef<any> | null>(null)
   positionPair = signal<ConnectionPositionPair | null>(null)
