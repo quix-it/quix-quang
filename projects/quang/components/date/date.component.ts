@@ -24,6 +24,8 @@ import { format, isValid, parse, startOfDay } from 'date-fns'
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 import { QuangTranslationService } from '@quix/quang/translation'
 
+export interface QuangDatepickerOptions extends AirDatepickerOptions {}
+
 @Component({
   selector: 'quang-date',
   standalone: true,
@@ -42,10 +44,14 @@ import { QuangTranslationService } from '@quix/quang/translation'
 /**
  * Datepicker component based on {@link https://air-datepicker.com/docs}.
  *
- * It can be used to only display the `timepicker` component
+ * @usageNotes
+ * 1. It can be used to only display the `timepicker` component by setting
+ * `[showOnlyTimepicker]="true"`
  *
- * @example
- * <quang-date [showOnlyTimepicker]="true"></quang-date>
+ * 2. `datepickerOptions` can be used to override the default options of the component to get full access to all the
+ * possible customizations that Air Datepicker provides. See {@link https://air-datepicker.com/examples}
+ * Please note that overriding the `container` and `locale` properties and the `onSelect` and `onHide`
+ * events might cause the component to malfunction.
  */
 export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | string | null> {
   /**
@@ -98,6 +104,8 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   calendarClasses = input<string>('')
   buttonClass = input<string>('')
 
+  datepickerOptions = input<QuangDatepickerOptions | undefined>(undefined)
+
   _inputForDate = viewChild<ElementRef>('inputForDate')
   _dateContainer = viewChild<ElementRef>('inputDateContainer')
 
@@ -131,7 +139,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         const airDatepickerOpts: AirDatepickerOptions<HTMLInputElement> = {
           autoClose: true,
           classes: this.calendarClasses(),
-          container: this._dateContainer()?.nativeElement,
           dateFormat: this.dateFormat(),
           inline: this.showInline(),
           isMobile: false,
@@ -144,8 +151,9 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
           maxMinutes: this.maxMinute(),
           minDate: this.minDate(),
           maxDate: this.maxDate(),
-          selectedDates: targetDate,
           toggleSelected: false,
+          selectedDates: targetDate,
+          container: this._dateContainer()?.nativeElement,
           locale: this.getLocale(),
           onSelect: ({ date, formattedDate }) => {
             let targetString = ''
@@ -172,7 +180,8 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
             if (isAnimationComplete) {
               this.validateDate()
             }
-          }
+          },
+          ...(this.datepickerOptions() ?? {})
         }
 
         if (this._airDatepickerInstance()) {
