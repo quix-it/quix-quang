@@ -36,8 +36,8 @@ export class ToggleTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      toggle: this.formBuilder().control<boolean>(true, [Validators.required]),
-      checkbox: this.formBuilder().control<boolean>(false, [Validators.required])
+      toggle: this.formBuilder().control<boolean>(false, [Validators.required]),
+      checkbox: this.formBuilder().control<boolean>(true, [Validators.required])
     })
   )
   showInput = signal(true)

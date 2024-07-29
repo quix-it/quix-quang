@@ -35,4 +35,14 @@ export class QuangCheckboxComponent extends QuangBaseComponent<boolean> {
     const inputElement = $event.target as HTMLInputElement
     this.onChangedHandler(inputElement.checked)
   }
+
+  override writeValue(val: boolean): void {
+    super.writeValue(val)
+    this.onChangedHandler(val)
+  }
+
+  override onChangedHandler(value: boolean): void {
+    console.log(value)
+    super.onChangedHandler(value)
+  }
 }
