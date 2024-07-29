@@ -6,7 +6,7 @@ const config = {
     '$ANGULAR_OUTPUT',
     '$ANGULAR_TWO_WAY_BINDING',
     '$ANGULAR_STRUCTURAL_DIRECTIVE',
-    '$DEFAULT'
+    '$DEFAULT',
   ],
   attributeSort: 'ASC',
   bracketSameLine: false,
@@ -30,7 +30,7 @@ const config = {
     '(.*)actions(.*)',
     '(.*)effects(.*)',
     '(.*)selectors(.*)',
-    '^[./]'
+    '^[./]',
   ],
   importOrderParserPlugins: ['typescript', 'decorators-legacy'],
   importOrderSeparation: true,
@@ -40,7 +40,7 @@ const config = {
   overrides: [{ files: '*.page.html', options: { parser: 'angular' } }],
   semi: false,
   singleQuote: true,
-  trailingComma: "es5"
+  trailingComma: 'es5',
 }
 
 module.exports = config

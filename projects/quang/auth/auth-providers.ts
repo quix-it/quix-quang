@@ -12,21 +12,21 @@ export function provideAuth(authConfig?: QuangAuthConfig, ...features: QuangAuth
   return makeEnvironmentProviders([
     {
       provide: AUTH_CONFIG,
-      useValue: authConfig
+      useValue: authConfig,
     },
     provideOAuthClient({
       resourceServer: {
         sendAccessToken: authConfig?.sendAccessToken ?? true,
-        allowedUrls: authConfig?.urlsToSendToken ?? []
-      }
+        allowedUrls: authConfig?.urlsToSendToken ?? [],
+      },
     }),
     features.map((feature) => feature.ɵproviders),
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAuthService,
       multi: true,
-      deps: [QuangAuthService]
-    }
+      deps: [QuangAuthService],
+    },
   ])
 }
 
@@ -76,5 +76,5 @@ export type QuangAuthFeatures = MobileAuthFeature
  * The list of features as an enum to uniquely type each feature.
  */
 export const enum QuangAuthFeatureKind {
-  MobileAuthFeature
+  MobileAuthFeature,
 }

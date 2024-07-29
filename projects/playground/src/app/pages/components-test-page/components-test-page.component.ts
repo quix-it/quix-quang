@@ -22,10 +22,10 @@ import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
     PaginatorTestComponent,
     WysiwygTestComponent,
     AutocompleteTestComponent,
-    TableTestComponent
+    TableTestComponent,
   ],
   templateUrl: './components-test-page.component.html',
   styleUrl: './components-test-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentsTestPageComponent {}

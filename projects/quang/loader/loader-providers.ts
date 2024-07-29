@@ -6,7 +6,7 @@ export function provideLoader(urlData: UrlData[]): EnvironmentProviders {
   return makeEnvironmentProviders([
     {
       provide: EXCLUDED_URL,
-      useValue: urlData
-    }
+      useValue: urlData,
+    },
   ])
 }

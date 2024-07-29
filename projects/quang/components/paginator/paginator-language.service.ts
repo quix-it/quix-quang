@@ -5,7 +5,7 @@ import { TranslocoService } from '@jsverse/transloco'
 import { PaginatorIntl } from './paginatorIntl'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuangPaginatorLanguageService extends PaginatorIntl {
   constructor(private readonly transloco: TranslocoService) {
@@ -23,7 +23,7 @@ export class QuangPaginatorLanguageService extends PaginatorIntl {
         'quangPaginator.nextPage',
         'quangPaginator.previousPage',
         'quangPaginator.firstPage',
-        'quangPaginator.lastPage'
+        'quangPaginator.lastPage',
       ])
       .subscribe((t) => {
         ;[this.itemsPerPageLabel, this.nextPageLabel, this.previousPageLabel, this.firstPageLabel, this.lastPageLabel] =

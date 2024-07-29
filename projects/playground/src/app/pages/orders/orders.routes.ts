@@ -6,10 +6,10 @@ import { OrderListComponent } from './order-list/order-list.component'
 export const routes: Route[] = [
   {
     path: '',
-    component: OrderListComponent
+    component: OrderListComponent,
   },
   {
     path: 'detail/:id',
-    component: OrderDetailComponent
-  }
+    component: OrderDetailComponent,
+  },
 ]

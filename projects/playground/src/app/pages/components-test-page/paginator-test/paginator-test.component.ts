@@ -10,7 +10,7 @@ import { QuangPaginatorComponent } from '@quix/quang/components/paginator'
   imports: [QuangPaginatorComponent, FormsModule, ReactiveFormsModule, JsonPipe],
   templateUrl: './paginator-test.component.html',
   styleUrl: './paginator-test.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorTestComponent {
   formBuilder = signal(inject(NonNullableFormBuilder))
@@ -20,7 +20,7 @@ export class PaginatorTestComponent {
   testForm = signal(
     this.formBuilder().group({
       page: 1,
-      pageSize: 10
+      pageSize: 10,
     })
   )
 

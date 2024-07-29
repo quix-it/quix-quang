@@ -5,8 +5,8 @@ import { ComponentsTestPageComponent } from './components-test-page.component'
 const routes: Route[] = [
   {
     path: '',
-    component: ComponentsTestPageComponent
-  }
+    component: ComponentsTestPageComponent,
+  },
 ]
 
 export default routes
