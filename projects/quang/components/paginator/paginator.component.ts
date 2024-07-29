@@ -53,8 +53,8 @@ export class QuangPaginatorComponent implements OnInit {
 
   onChangeSize(event: any): void {
     this._pageSize.set(parseInt(event.target.value))
-    this.goToFirstPage()
     this.changeSize.emit(this._pageSize())
+    this.goToFirstPage()
   }
 
   goToNextPage(): void {
