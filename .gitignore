@@ -46,3 +46,6 @@ Thumbs.db
 
 # created by pipeline
 sonar/sonar-project.properties
+
+.nx/cache
+.nx/workspace-data

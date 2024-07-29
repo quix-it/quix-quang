@@ -1,9 +1,11 @@
-import { EnvironmentProviders, InjectionToken, makeEnvironmentProviders } from '@angular/core'
+import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 
 import { provideTransloco } from '@jsverse/transloco'
 
 import { QuangTranslationLoaderService } from './translation-loader.service'
 import { QuangTranslationService } from './translation.service'
+
+import { AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH } from './translations.tokens'
 
 export interface TranslationConfig {
   availableLangs: string[]
@@ -17,11 +19,6 @@ export interface TranslationConfig {
   useFallbackTranslation?: boolean
   allowEmpty?: boolean
 }
-
-export const AVAILABLE_LANGS = new InjectionToken<string[]>('AVAILABLE_LANGS')
-export const DEFAULT_LANG = new InjectionToken<string>('DEFAULT_LANG')
-export const FALLBACK_LANG = new InjectionToken<string>('FALLBACK_LANG')
-export const TRANSLATIONS_BASE_PATH = new InjectionToken<string>('TRANSLATIONS_BASE_PATH')
 
 export function provideTranslation(config: TranslationConfig): EnvironmentProviders {
   return makeEnvironmentProviders([
@@ -38,26 +35,26 @@ export function provideTranslation(config: TranslationConfig): EnvironmentProvid
         missingHandler: {
           logMissingKey: config.logMissingKey ?? true,
           useFallbackTranslation: config.useFallbackTranslation ?? true,
-          allowEmpty: config.allowEmpty ?? false
-        }
+          allowEmpty: config.allowEmpty ?? false,
+        },
       },
-      loader: QuangTranslationLoaderService
+      loader: QuangTranslationLoaderService,
     }),
     {
       provide: AVAILABLE_LANGS,
-      useValue: config.availableLangs
+      useValue: config.availableLangs,
     },
     {
       provide: DEFAULT_LANG,
-      useValue: config.defaultLang
+      useValue: config.defaultLang,
     },
     {
       provide: FALLBACK_LANG,
-      useValue: config.fallbackLang
+      useValue: config.fallbackLang,
     },
     {
       provide: TRANSLATIONS_BASE_PATH,
-      useValue: config.translationsBasePath
-    }
+      useValue: config.translationsBasePath,
+    },
   ])
 }

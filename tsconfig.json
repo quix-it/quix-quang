@@ -15,21 +15,15 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "paths": {
-      "@quix/quang": [
-        "./projects/quang"
-      ],
-      "@quix/quang/*": [
-        "./projects/quang/*"
-      ]
+      "@quix/quang": ["projects/quang"],
+      "@quix/quang/*": ["projects/quang/*"]
     },
+    "baseUrl": ".",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

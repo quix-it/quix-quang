@@ -3,14 +3,16 @@ import { toSignal } from '@angular/core/rxjs-interop'
 
 import { HashMap, SetTranslationOptions, Translation, TranslocoService } from '@jsverse/transloco'
 
-import { AVAILABLE_LANGS, DEFAULT_LANG } from './translation-providers'
+import { AVAILABLE_LANGS, DEFAULT_LANG } from './translations.tokens'
 
 @Injectable()
 export class QuangTranslationService {
   private readonly _translocoService: TranslocoService = inject(TranslocoService)
+
   activeLang = toSignal(this._translocoService.langChanges$, { initialValue: null })
 
   private readonly _availableLangs = inject(AVAILABLE_LANGS)
+
   private readonly _defaultLang = inject(DEFAULT_LANG)
 
   setActiveLang(lang: string): void {

@@ -1,8 +1,5 @@
-const prettierConfigStandard = require('prettier-config-standard')
-
 /** @type {import('prettier').Config} */
 const config = {
-  ...prettierConfigStandard,
   plugins: ['prettier-plugin-organize-attributes', '@trivago/prettier-plugin-sort-imports'],
   attributeGroups: [
     '$ANGULAR_INPUT',
@@ -40,7 +37,10 @@ const config = {
   importOrderSortSpecifiers: true,
   printWidth: 120,
   singleAttributePerLine: true,
-  overrides: [{ files: '*.page.html', options: { parser: 'angular' } }]
+  overrides: [{ files: '*.page.html', options: { parser: 'angular' } }],
+  semi: false,
+  singleQuote: true,
+  trailingComma: "es5"
 }
 
 module.exports = config
