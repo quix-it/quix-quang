@@ -11,6 +11,12 @@
     border-radius: var(--bs-border-radius);
   }
 
+  .se-wrapper {
+    textarea:disabled + .se-wrapper-wysiwyg {
+      background-color: var(--bs-secondary-bg);
+    }
+  }
+
   .is-invalid .sun-editor .se-container {
     .se-toolbar {
       border-bottom: 1px solid var(--bs-danger);
