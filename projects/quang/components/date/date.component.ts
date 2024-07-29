@@ -10,7 +10,7 @@ import {
   inject,
   input,
   signal,
-  viewChild
+  viewChild,
 } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
@@ -33,11 +33,11 @@ import { QuangTranslationService } from '@quix/quang/translation'
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => QuangDateComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   imports: [TranslocoPipe, NgIf, NgClass, JsonPipe],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | string | null> {
   /**
@@ -47,6 +47,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
    * @default dd/MM/yyyy
    */
   dateFormat = input<string>('dd/MM/yyyy')
+
   /**
    * Format to use to show on the time inside the input field.
    * The format is based on the standard {@link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table}
@@ -54,20 +55,24 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
    * @default HH:mm
    */
   timeFormat = input<string>('HH:mm')
+
   /**
    * value used to join the rendering inside a multiple selection date
    */
   multipleDateJoinCharacter = input<string>(', ')
+
   /**
    * Calendar locale, if not provided the component will try to use the one provided in {@link QuangTranslationService}
    * if the language is not set in {@link QuangTranslationService} it will use the browser language
    * Use this parameter only to override default behavior
    */
   activeLanguageOverride = input<string | undefined>(undefined)
+
   /**
    * If true enable the timepicker inside the calendar
    */
   timepicker = input<boolean>(false)
+
   /**
    * If true the component will offset the time to have midnight in UTC and not in the current locale
    * @example in italy Thu Apr 18 2024 00:00:00 GMT+0200 will become Thu Apr 18 2024 02:00:00 GMT+0200 to have 2024-04-18T00:00:00.000Z
@@ -75,39 +80,52 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
    * @default true
    */
   offsetUTCTime = input<boolean>(true)
+
   /**
    * The message to show inside the input if the date is invalid
    */
   invalidDateMessage = input<string>('')
+
   showOnlyTimepicker = input<boolean>(false)
+
   minHour = input<number>(0)
+
   maxHour = input<number>(24)
+
   minMinute = input<number>(0)
+
   maxMinute = input<number>(59)
+
   minDate = input<Date | undefined>(undefined)
+
   maxDate = input<Date | undefined>(undefined)
+
   showInline = input<boolean>(false)
+
   calendarClasses = input<string>('')
+
   buttonClass = input<string>('')
 
   _inputForDate = viewChild<ElementRef>('inputForDate')
+
   _dateContainer = viewChild<ElementRef>('inputDateContainer')
 
   @Optional() _quangTranslationService = signal<QuangTranslationService | undefined>(inject(QuangTranslationService))
+
   _quangTranslationActiveLang = computed(() => this._quangTranslationService()?.activeLang() ?? null)
 
   _activeLanguage = computed(() => {
     if (this.activeLanguageOverride()) {
       return this.activeLanguageOverride()
-    } else {
-      if (this._quangTranslationService()) {
-        return this._quangTranslationActiveLang()
-      } else {
-        return navigator.language
-      }
     }
+    if (this._quangTranslationService()) {
+      return this._quangTranslationActiveLang()
+    }
+    return navigator.language
   })
+
   _startValue = signal<Date | Date[] | string | undefined | null>(undefined)
+
   _airDatepickerInstance = signal<AirDatepicker | undefined>(undefined)
 
   /**
@@ -167,7 +185,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
             if (isAnimationComplete) {
               this.validateDate()
             }
-          }
+          },
         }
 
         if (this._airDatepickerInstance()) {
@@ -178,11 +196,11 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       }
     },
     {
-      allowSignalWrites: true
+      allowSignalWrites: true,
     }
   )
 
-  valueFormat = computed(() => this.dateFormat() + (this.timepicker() ? ' ' + this.timeFormat() : ''))
+  valueFormat = computed(() => this.dateFormat() + (this.timepicker() ? ` ${this.timeFormat()}` : ''))
 
   override onChangedHandler(val: string) {
     super.onChangedHandler(val)
@@ -238,7 +256,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       )
       errors = {
         ...errors,
-        invalidDate: true
+        invalidDate: true,
       }
     } else if (errors) {
       delete errors['invalidDate']

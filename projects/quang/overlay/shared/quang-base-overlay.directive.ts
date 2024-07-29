@@ -4,7 +4,7 @@ import {
   FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayPositionBuilder,
-  OverlayRef
+  OverlayRef,
 } from '@angular/cdk/overlay'
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal'
 import {
@@ -17,12 +17,14 @@ import {
   computed,
   inject,
   input,
-  signal
+  signal,
 } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
+import { QuangBaseOverlayComponent } from './quang-base-overlay.component'
+
 @Directive()
-export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implements OnDestroy {
+export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayComponent> implements OnDestroy {
   targetComponentType = signal<ComponentType<T> | undefined>(undefined)
 
   /**
@@ -33,69 +35,83 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
   scrollCloseThreshold = input<number | undefined>(100)
 
   showMethod = input<'click' | 'hover'>('click')
+
   content = input.required<any>()
+
   quangOverlayPayload = input<any>()
+
   closeOnClickOutside: boolean = true
+
   overlayPosition = input<
     'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right'
   >('top')
+
   destroyRef = inject(DestroyRef)
+
   private top = signal<ConnectedPosition>({
     originX: 'center',
     originY: 'top',
     overlayX: 'center',
     overlayY: 'bottom',
-    offsetY: -8
+    offsetY: -8,
   })
+
   private topLeft = signal<ConnectedPosition>({
     originX: 'start',
     originY: 'top',
     overlayX: 'start',
     overlayY: 'bottom',
-    offsetY: -8
+    offsetY: -8,
   })
+
   private topRight = signal<ConnectedPosition>({
     originX: 'end',
     originY: 'top',
     overlayX: 'end',
     overlayY: 'bottom',
-    offsetY: -8
+    offsetY: -8,
   })
+
   private bottom = signal<ConnectedPosition>({
     originX: 'center',
     originY: 'bottom',
     overlayX: 'center',
     overlayY: 'top',
-    offsetY: 8
+    offsetY: 8,
   })
+
   private bottomLeft = signal<ConnectedPosition>({
     originX: 'start',
     originY: 'bottom',
     overlayX: 'start',
     overlayY: 'top',
-    offsetY: 8
+    offsetY: 8,
   })
+
   private bottomRight = signal<ConnectedPosition>({
     originX: 'end',
     originY: 'bottom',
     overlayX: 'end',
     overlayY: 'top',
-    offsetY: 8
+    offsetY: 8,
   })
+
   private left = signal<ConnectedPosition>({
     originX: 'start',
     originY: 'center',
     overlayX: 'end',
     overlayY: 'center',
-    offsetX: -8
+    offsetX: -8,
   })
+
   private right = signal<ConnectedPosition>({
     originX: 'end',
     originY: 'center',
     overlayX: 'start',
     overlayY: 'center',
-    offsetX: 8
+    offsetX: 8,
   })
+
   tooltipPosition = computed((): ConnectedPosition[] => {
     switch (this.overlayPosition()) {
       case 'top':
@@ -118,12 +134,17 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
         return [this.top(), this.bottom()]
     }
   })
+
   private overlayRef = signal<OverlayRef | null>(null)
+
   private readonly overlay = signal(inject(Overlay))
+
   private readonly overlayPositionBuilder = signal(inject(OverlayPositionBuilder))
+
   private readonly elementRef = signal(inject(ElementRef))
 
   private positionStrategy = signal<FlexibleConnectedPositionStrategy | undefined>(undefined)
+
   private componentOverlayRef = signal<ComponentRef<T> | null>(null)
 
   @HostListener('click') onClick(): void {
@@ -140,7 +161,6 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
 
   attachOverlay(): void {
     const targetComponentType = this.targetComponentType()
-    console.log('this.tooltipPosition()', this.tooltipPosition())
     if (!targetComponentType) {
       return
     }
@@ -155,7 +175,7 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
           ? this.overlay().scrollStrategies.close({ threshold: this.scrollCloseThreshold() })
           : this.overlay().scrollStrategies.noop(),
         hasBackdrop: this.showMethod() === 'click',
-        backdropClass: ''
+        backdropClass: '',
       })
     )
 
@@ -163,15 +183,20 @@ export abstract class QuangBaseOverlayDirective<T = ComponentType<any>> implemen
     const createdOverlay = this.overlayRef()
     if (createdOverlay) {
       this.componentOverlayRef.set(createdOverlay.attach(componentPortal))
-      ;(this.componentOverlayRef()?.instance as any).content = this.content
-      ;(this.componentOverlayRef()?.instance as any).payload = this.quangOverlayPayload
+      const componentOverlayRefInstance = this.componentOverlayRef()?.instance
+      if (componentOverlayRefInstance) {
+        componentOverlayRefInstance.content = this.content
+        componentOverlayRefInstance.payload = this.quangOverlayPayload
+      }
     }
     this.positionStrategy()
       ?.positionChanges.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((position) => {
-        console.log('position strategy', position)
         const positionRef: ConnectedOverlayPositionChange = position as ConnectedOverlayPositionChange
-        ;(this.componentOverlayRef()?.instance as any).positionPair.set(positionRef.connectionPair)
+        const componentOverlayRefInstance = this.componentOverlayRef()?.instance
+        if (componentOverlayRefInstance) {
+          componentOverlayRefInstance.positionPair.set(positionRef.connectionPair)
+        }
       })
     this.overlayRef()
       ?.backdropClick()

@@ -13,7 +13,7 @@ import { wysiwygRequired } from '@quix/quang/forms'
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, NgForOf, TranslocoPipe, QuangWysiwygComponent],
   templateUrl: './wysiwyg-test.component.html',
   styleUrl: './wysiwyg-test.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WysiwygTestComponent {
   isReadonly = signal<boolean>(false)
@@ -27,16 +27,16 @@ export class WysiwygTestComponent {
   errors = signal([
     {
       error: Validators.required.name,
-      message: 'form.errors.required'
+      message: 'form.errors.required',
     },
     {
       error: Validators.minLength.name,
-      message: 'form.errors.minLength'
+      message: 'form.errors.minLength',
     },
     {
       error: Validators.maxLength.name,
-      message: 'form.errors.maxLength'
-    }
+      message: 'form.errors.maxLength',
+    },
   ])
 
   testForm = signal(
@@ -45,10 +45,11 @@ export class WysiwygTestComponent {
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(100),
-        wysiwygRequired()
-      ])
+        wysiwygRequired(),
+      ]),
     })
   )
+
   showInput = signal(true)
 
   changeFormEnabled() {
@@ -76,7 +77,7 @@ export class WysiwygTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('sì pirrone rigenerato!', [Validators.required])
+        testInput: this.formBuilder().control<string>('sì pirrone rigenerato!', [Validators.required]),
       })
     )
   }
@@ -99,6 +100,6 @@ export class WysiwygTestComponent {
   }
 
   changeHeight() {
-    this.wysiwygHeight.set(Math.random() * 500 + 'px')
+    this.wysiwygHeight.set(`${Math.random() * 500}px`)
   }
 }

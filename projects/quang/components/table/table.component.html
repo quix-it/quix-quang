@@ -99,7 +99,7 @@
               <ng-container
                 [ngTemplateOutlet]="cell?.renderer ?? null"
                 [ngTemplateOutletContext]="{
-                  $implicit: cell.payload
+                  $implicit: cell.payload,
                 }"
               ></ng-container>
             </td>

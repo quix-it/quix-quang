@@ -8,11 +8,13 @@ import { ChangeDetectionStrategy, Component, TemplateRef, input, signal } from '
   imports: [NgComponentOutlet, NgTemplateOutlet, NgClass, NgIf],
   templateUrl: './popover.component.html',
   styleUrl: './popover.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangPopoverComponent {
   content = input<TemplateRef<any> | null>(null)
+
   positionPair = signal<ConnectionPositionPair | null>(null)
+
   payload = input<any>()
 
   getPopoverPosition(): string {

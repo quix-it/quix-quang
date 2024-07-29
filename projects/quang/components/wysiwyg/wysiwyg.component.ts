@@ -10,13 +10,13 @@ import {
   inject,
   input,
   signal,
-  viewChild
+  viewChild,
 } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import sunEditor from 'suneditor'
-import SunEditor from 'suneditor/src/lib/core'
+import SunEditorCore from 'suneditor/src/lib/core'
 import { SunEditorOptions } from 'suneditor/src/options'
 import plugins from 'suneditor/src/plugins'
 
@@ -31,38 +31,59 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => QuangWysiwygComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   imports: [TranslocoPipe, NgIf, NgClass, JsonPipe],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit, Extracted {
+export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit {
   _inputForWysiwyg = viewChild<ElementRef>('inputForWysiwyg')
 
   minHeight = input<string>('200px')
+
   font = input<boolean>(true)
+
   fontSize = input<boolean>(true)
+
   formatBlock = input<boolean>(true)
+
   paragraphStyle = input<boolean>(true)
+
   blockquote = input<boolean>(true)
+
   bold = input<boolean>(true)
+
   underline = input<boolean>(true)
+
   italic = input<boolean>(true)
+
   strike = input<boolean>(true)
+
   fontColor = input<boolean>(true)
+
   highlightColor = input<boolean>(true)
+
   textStyle = input<boolean>(true)
+
   removeFormat = input<boolean>(true)
+
   align = input<boolean>(true)
+
   list = input<boolean>(true)
+
   table = input<boolean>(true)
+
   link = input<boolean>(true)
+
   image = input<boolean>(true)
+
   fullScreen = input<boolean>(true)
+
   showBlocks = input<boolean>(true)
 
-  _sunEditorWysiwygInstance = signal<SunEditor | undefined>(undefined)
+  _sunEditorWysiwygInstance = signal<SunEditorCore | undefined>(undefined)
+
   changeDetectorRef = signal(inject(ChangeDetectorRef))
 
   /**
@@ -72,10 +93,10 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     async () => {
       if (this._inputForWysiwyg()?.nativeElement) {
         const sunEditorOptions: SunEditorOptions = {
-          plugins: plugins,
+          plugins,
           buttonList: this._ngControl()?.control?.enabled && !this.isReadonly() ? [this.getButtonList()] : [],
           minHeight: this.minHeight(),
-          width: '100%'
+          width: '100%',
         }
 
         if (this._sunEditorWysiwygInstance()) {
@@ -88,27 +109,23 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
       }
     },
     {
-      allowSignalWrites: true
+      allowSignalWrites: true,
     }
   )
 
-  constructor() {
-    super()
-  }
-
   registerEvents(): void {
-    const sunEditor = this._sunEditorWysiwygInstance()
-    if (sunEditor) {
-      sunEditor.onChange = (contents, core) => {
+    const sunEditorInstance = this._sunEditorWysiwygInstance()
+    if (sunEditorInstance) {
+      sunEditorInstance.onChange = (contents) => {
         this.onChangedHandler(contents)
         this.changeDetectorRef().markForCheck()
       }
-      sunEditor.onBlur = () => {
+      sunEditorInstance.onBlur = () => {
         this.onBlurHandler()
       }
       if (this._isDisabled()) {
-        sunEditor.disable()
-        sunEditor.toolbar.disable()
+        sunEditorInstance.disable()
+        sunEditorInstance.toolbar.disable()
       }
     }
   }
@@ -182,35 +199,4 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     }
     return buttonList
   }
-}
-
-interface Extracted {
-  _inputForWysiwyg: any
-  minHeight: any
-  font: any
-  fontSize: any
-  formatBlock: any
-  paragraphStyle: any
-  blockquote: any
-  bold: any
-  underline: any
-  italic: any
-  strike: any
-  fontColor: any
-  highlightColor: any
-  textStyle: any
-  removeFormat: any
-  align: any
-  list: any
-  table: any
-  link: any
-  image: any
-  fullScreen: any
-  showBlocks: any
-  _sunEditorWysiwygInstance: any
-  changeDetectorRef: any
-  _generateSunEditorWysiwygEffect: any
-  registerEvents(): void
-  writeValue(val: string): void
-  getButtonList(): string[]
 }

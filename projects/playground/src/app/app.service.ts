@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
 
-import { Observable, of } from 'rxjs'
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppService {
   http = inject(HttpClient)

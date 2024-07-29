@@ -18,14 +18,15 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => QuangInputComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangInputComponent extends QuangBaseComponent<string | number> {
   componentType = input.required<InputType>()
+
   componentStep = input<string>()
 
   resizable = input(true)

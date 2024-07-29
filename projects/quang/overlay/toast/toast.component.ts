@@ -12,10 +12,11 @@ import { QuangToastService } from './toast.service'
   imports: [OverlayModule, NgClass, TranslocoPipe, DatePipe, NgIf, NgTemplateOutlet],
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangToastComponent {
   toastService = signal(inject(QuangToastService))
+
   readonly _showToast = this.toastService().showToast
 
   _showToastEffect = effect(() => {

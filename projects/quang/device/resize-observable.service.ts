@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core'
 import { NextObserver, Observable, Subscriber, filter, map, throttleTime } from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ResizeObservableService {
   private resizeObserver: ResizeObserver
+
   private notifiers: NextObserver<ResizeObserverEntry[]>[] = []
 
   constructor() {

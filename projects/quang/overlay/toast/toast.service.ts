@@ -16,10 +16,11 @@ export interface ToastData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuangToastService {
   public showToast = signal<boolean>(false)
+
   currentToast = signal<ToastData | null>(null)
 
   openToast(toastData: ToastData): void {

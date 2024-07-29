@@ -12,7 +12,7 @@ import { QuangCheckboxComponent } from '@quix/quang/components/checkbox/checkbox
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangCheckboxComponent, NgIf, NgForOf, TranslocoPipe],
   templateUrl: './toggle-test.component.html',
   styleUrl: './toggle-test.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToggleTestComponent {
   isReadonly = signal<boolean>(false)
@@ -22,24 +22,25 @@ export class ToggleTestComponent {
   errors = signal([
     {
       error: Validators.required.name,
-      message: 'form.errors.required'
+      message: 'form.errors.required',
     },
     {
       error: Validators.minLength.name,
-      message: 'form.errors.minLength'
+      message: 'form.errors.minLength',
     },
     {
       error: Validators.maxLength.name,
-      message: 'form.errors.maxLength'
-    }
+      message: 'form.errors.maxLength',
+    },
   ])
 
   testForm = signal(
     this.formBuilder().group({
       toggle: this.formBuilder().control<boolean>(true, [Validators.required]),
-      checkbox: this.formBuilder().control<boolean>(false, [Validators.required])
+      checkbox: this.formBuilder().control<boolean>(false, [Validators.required]),
     })
   )
+
   showInput = signal(true)
 
   changeFormEnabled() {
@@ -71,7 +72,7 @@ export class ToggleTestComponent {
     this.testForm.set(
       this.formBuilder().group({
         toggle: this.formBuilder().control<boolean>(false, [Validators.required]),
-        checkbox: this.formBuilder().control<boolean>(false, [Validators.required])
+        checkbox: this.formBuilder().control<boolean>(false, [Validators.required]),
       })
     )
   }
@@ -79,7 +80,7 @@ export class ToggleTestComponent {
   setFormValues() {
     this.testForm().patchValue({
       toggle: true,
-      checkbox: true
+      checkbox: true,
     })
   }
 

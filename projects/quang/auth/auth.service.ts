@@ -42,23 +42,24 @@ export interface QuangParsedIdToken extends ParsedIdToken {}
 const initialState: AuthState = {
   loginStatus: {
     checked: false,
-    authenticationError: false
+    authenticationError: false,
   },
   tokenStatus: {
     accessToken: null,
     idToken: null,
-    refreshToken: null
+    refreshToken: null,
   },
   parsedToken: null,
   roles: new Set<string>(),
-  user: null
+  user: null,
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuangAuthService {
   private config: QuangAuthConfig
+
   showDebugInformation = false
 
   private oAuthService = inject(OAuthService)
@@ -66,11 +67,17 @@ export class QuangAuthService {
   private state = signalState<AuthState>(initialState)
 
   loginChecked = this.state.loginStatus.checked
+
   isAuthenticated = computed(() => !!this.state.tokenStatus.accessToken())
+
   authenticationError = this.state.loginStatus.authenticationError
+
   tokenStatus = this.state.tokenStatus
+
   parsedToken = this.state.parsedToken
+
   roles = this.state.roles
+
   user = this.state.user
 
   constructor() {
@@ -89,6 +96,7 @@ export class QuangAuthService {
           this.loginError()
           console.error(event)
         }
+        // eslint-disable-next-line no-console
       } else if (this.showDebugInformation) console.debug(event)
     })
     this.oAuthService.configure(this.config)
@@ -119,7 +127,7 @@ export class QuangAuthService {
             'interaction_required',
             'login_required',
             'account_selection_required',
-            'consent_required'
+            'consent_required',
           ]
           const reason = error?.reason
           if (this.config.autoLogin && reason && errorResponsesRequiringUserInteraction.includes(reason)) this.login()
@@ -132,8 +140,8 @@ export class QuangAuthService {
     patchState(this.state, {
       loginStatus: {
         ...this.state().loginStatus,
-        checked: true
-      }
+        checked: true,
+      },
     })
     return hasValidToken
   }
@@ -152,8 +160,8 @@ export class QuangAuthService {
     patchState(this.state, {
       loginStatus: {
         ...this.state().loginStatus,
-        authenticationError: true
-      }
+        authenticationError: true,
+      },
     })
   }
 
@@ -172,8 +180,8 @@ export class QuangAuthService {
       tokenStatus: {
         accessToken: this.oAuthService.getAccessToken(),
         idToken: this.oAuthService.getIdToken(),
-        refreshToken: this.oAuthService.getRefreshToken()
-      }
+        refreshToken: this.oAuthService.getRefreshToken(),
+      },
     })
     this.parseToken()
   }
@@ -184,7 +192,7 @@ export class QuangAuthService {
     if (idToken && accessToken) {
       this.oAuthService.processIdToken(idToken, accessToken).then((parsedToken) => {
         patchState(this.state, {
-          parsedToken
+          parsedToken,
         })
       })
     }

@@ -17,7 +17,7 @@ import { QuangTranslationService } from '@quix/quang/translation'
 import { AppService } from './app.service'
 
 @Component({
-  selector: 'app-root',
+  selector: 'playground-root',
   standalone: true,
   imports: [
     RouterOutlet,
@@ -28,21 +28,27 @@ import { AppService } from './app.service'
     QuangTooltipDirective,
     QuangPopoverDirective,
     QuangLoaderComponent,
-    QuangPopoverComponent
+    QuangPopoverComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   @ViewChild('customToast') customToast?: TemplateRef<any>
+
   title = signal('playground')
+
   quangTranslationService = signal(inject(QuangTranslationService))
+
   quangToast = signal(inject(QuangToastService))
+
   showModal = signal(false)
+
   content = signal('content')
 
   appService = inject(AppService)
+
   constructor(private http: HttpClient) {}
 
   changeLanguage(lang: string) {
@@ -68,7 +74,7 @@ export class AppComponent {
   }
 
   btnAction(): void {
-    this.content.update((content) => content + '!!!')
+    this.content.update((content) => `${content}!!!`)
   }
 
   openToast(): void {
@@ -80,7 +86,7 @@ export class AppComponent {
       customTemplate: this.customToast,
       showCloseButton: true,
       customIcon: './assets/icons/svg/calendar.svg',
-      timing: 50000000
+      timing: 50000000,
     })
   }
 

@@ -8,7 +8,7 @@ import {
   inject,
   input,
   output,
-  signal
+  signal,
 } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
@@ -29,25 +29,32 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => QuangAutocompleteComponent),
-      multi: true
+      multi: true,
     },
     {
       provide: QuangOptionListComponent,
-      multi: false
-    }
-  ]
+      multi: false,
+    },
+  ],
 })
 export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | null> {
   elementRef = inject(ElementRef)
+
   optionListMaxHeight = input<string>('200px')
+
   selectOptions = input.required<SelectOption[]>()
+
   translateValue = input<boolean>(true)
+
   /**
    * only emit value without save in ngControl
    */
   emitOnly = input<boolean>(false)
+
   _showOptions = signal<boolean | null>(null)
+
   _inputValue = signal<string | null>(null)
+
   selectOptionsChange = toObservable(this.selectOptions)
     .pipe(takeUntilDestroyed())
     .subscribe(() => {
@@ -55,13 +62,18 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
         this.setInputValue()
       }
     })
+
   inputValue$ = new Subject<string>()
+
   _filteredOptions = computed<SelectOption[]>(() => {
     const text = this._inputValue()
     return text?.length ? this.filterOptions(text) : this.selectOptions()
   })
+
   selectedOption = output<string | number | null>()
+
   searchTextChange = output<string>()
+
   searchTextDebounce = input<number>(300)
 
   constructor() {
@@ -95,9 +107,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   filterOptions(value: string): SelectOption[] {
     const options = this.selectOptions()
-    return options.filter((x) => {
-      return x.label.toLowerCase().includes(value.toLowerCase())
-    })
+    return options.filter((x) => x.label.toLowerCase().includes(value.toLowerCase()))
   }
 
   override onChangedHandler(value: string | number | null): void {

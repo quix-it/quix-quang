@@ -26,18 +26,15 @@
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/restrict-plus-operands": "off",
         "@typescript-eslint/consistent-type-imports": "off",
+        "@typescript-eslint/no-explicit-any": "warn",
         "@angular-eslint/template/eqeqeq": "off",
         "no-underscore-dangle": "off",
         "no-control-regex": "off",
         "no-useless-constructor": "off",
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "quang-quix",
-            "style": "kebab-case"
-          }
-        ]
+        "no-restricted-syntax": "warn",
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "class-methods-use-this": "warn",
+        "radix": "warn"
       }
     },
     {

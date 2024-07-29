@@ -1,14 +1,7 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import {
-  AbstractControl,
-  FormsModule,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  ValidatorFn,
-  Validators
-} from '@angular/forms'
+import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
@@ -20,11 +13,13 @@ import { InputType, QuangInputComponent } from '@quix/quang/components/input'
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangInputComponent, NgIf, NgForOf, TranslocoPipe],
   templateUrl: './input-test.component.html',
   styleUrl: './input-test.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputTestComponent {
   inputTypes = signal<string[]>(['text', 'textarea', 'password', 'email', 'number', 'url', 'search', 'tel', 'color'])
+
   inputType = signal<InputType>('text')
+
   isReadonly = signal<boolean>(false)
 
   formBuilder = signal(inject(NonNullableFormBuilder))
@@ -32,30 +27,32 @@ export class InputTestComponent {
   errors = signal([
     {
       error: Validators.required.name,
-      message: 'form.errors.required'
+      message: 'form.errors.required',
     },
     {
       error: Validators.minLength.name,
-      message: 'form.errors.minLength'
+      message: 'form.errors.minLength',
     },
     {
       error: Validators.maxLength.name,
-      message: 'form.errors.maxLength'
+      message: 'form.errors.maxLength',
     },
     {
       error: 'noMatch',
-      message: 'form.errors.noMatch'
-    }
+      message: 'form.errors.noMatch',
+    },
   ])
+
   testForm = signal(
     this.formBuilder().group({
       testInput: this.formBuilder().control<string>('', [
         Validators.required,
         Validators.minLength(1),
-        Validators.maxLength(30)
-      ])
+        Validators.maxLength(30),
+      ]),
     })
   )
+
   testFormChange = this.testForm()
     .controls.testInput.valueChanges.pipe(takeUntilDestroyed())
     .subscribe((val) => {
@@ -67,16 +64,8 @@ export class InputTestComponent {
         console.log('this.testForm().controls.testInput', this.testForm().controls.testInput.errors)
       }
     })
-  showInput = signal(true)
 
-  testValidation(): ValidatorFn {
-    return (control: AbstractControl): Record<string, any> | null => {
-      if (control.value && control.value !== 'ciao') {
-        return { noMatch: true }
-      }
-      return null
-    }
-  }
+  showInput = signal(true)
 
   changeFormEnabled() {
     if (this.testForm().enabled) this.testForm().disable()
@@ -106,15 +95,15 @@ export class InputTestComponent {
         testInput: this.formBuilder().control<string>('sì pirrone rigenerato!', [
           Validators.required,
           Validators.minLength(10),
-          Validators.maxLength(30)
-        ])
+          Validators.maxLength(30),
+        ]),
       })
     )
   }
 
   setFormValues() {
     this.testForm().patchValue({
-      testInput: 'ciao!'
+      testInput: 'ciao!',
     })
   }
 

@@ -19,34 +19,36 @@ import { QuangInputComponent } from '@quix/quang/components/input'
     NgForOf,
     TranslocoPipe,
     QuangDateComponent,
-    QuangDateComponent
+    QuangDateComponent,
   ],
   templateUrl: './date-test.component.html',
   styleUrl: './date-test.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateTestComponent {
   formBuilder = signal(inject(NonNullableFormBuilder))
 
   isReadonly = signal(false)
+
   dateFormat = signal('dd/MM/yyyy')
 
   errors = signal([
     {
       error: Validators.required.name,
-      message: 'form.errors.required'
-    }
-    /*{
+      message: 'form.errors.required',
+    },
+    /* {
       error: 'invalidDate',
       message: 'form.errors.invalidDate'
-    }*/
+    } */
   ])
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<Date | string>(new Date().toISOString(), [Validators.required])
+      testInput: this.formBuilder().control<Date | string>(new Date().toISOString(), [Validators.required]),
     })
   )
+
   showInput = signal(true)
 
   changeFormEnabled() {
@@ -74,7 +76,7 @@ export class DateTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<Date | string>(new Date(), [Validators.required])
+        testInput: this.formBuilder().control<Date | string>(new Date(), [Validators.required]),
       })
     )
   }
@@ -83,7 +85,7 @@ export class DateTestComponent {
     const targetDate = new Date()
     targetDate.setMonth(0)
     this.testForm().patchValue({
-      testInput: targetDate
+      testInput: targetDate,
     })
   }
 

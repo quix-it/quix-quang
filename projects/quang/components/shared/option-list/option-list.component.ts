@@ -1,14 +1,5 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  computed,
-  effect,
-  input,
-  output,
-  signal
-} from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostListener, computed, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -24,27 +15,41 @@ export interface SelectOption {
   imports: [NgStyle, NgIf, NgFor, NgClass, TranslocoPipe],
   templateUrl: './option-list.component.html',
   styleUrl: './option-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangOptionListComponent {
   selectionMode = input<'single' | 'multiple'>('single')
+
   optionListMaxHeight = input<string>('201px')
+
   selectOptions = input<SelectOption[]>([])
+
   selectButtonRef = input.required<HTMLButtonElement | HTMLInputElement>()
+
   _value = input<any>()
+
   _isDisabled = input<boolean>()
+
   componentClass = input<string | string[]>('')
+
   componentLabel = input<string>('')
+
   componentTabIndex = input<number>(0)
+
   translateValue = input<boolean>(false)
+
   nullOption = input<boolean>(true)
+
   elementWidth = signal<string>('0px')
+
   elementTop = signal<string>('0px')
 
   changedHandler = output<any>()
+
   blurHandler = output<any>()
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
+
   selectButtonRef$ = toObservable(this.selectButtonRef)
     .pipe(this._takeUntilDestroyed())
     .subscribe(() => {
@@ -61,13 +66,12 @@ export class QuangOptionListComponent {
       return [
         {
           label: '',
-          value: null
+          value: null,
         },
-        ...this.selectOptions()
+        ...this.selectOptions(),
       ]
-    } else {
-      return [...this.selectOptions()]
     }
+    return [...this.selectOptions()]
   })
 
   @HostListener('window:scroll') changePosition() {
@@ -85,18 +89,15 @@ export class QuangOptionListComponent {
   }
 
   getScrollParent(node: any): HTMLElement {
-    return !node || node === document.body
-      ? document.body
-      : this.isScrollable(node)
-        ? node
-        : this.getScrollParent(node?.parentNode)
+    if (!node || node === document.body) return document.body
+    return this.isScrollable(node) ? node : this.getScrollParent(node?.parentNode)
   }
 
   onSelectItem(item: SelectOption | null): void {
     if (this.selectionMode() === 'single') {
       this.changedHandler.emit(item?.value ?? null)
     } else {
-      let values: string[] | number[] | null = this._value() as string[] | number[] | null
+      const values: string[] | number[] | null = this._value() as string[] | number[] | null
       if (values) {
         if (values.some((x) => x === item?.value)) {
           this.changedHandler.emit(values.filter((x) => x !== item?.value) as string[] | number[])

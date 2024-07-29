@@ -29,7 +29,7 @@ export enum EuroLocale {
   RO = 'RO',
   SE = 'SE',
   SI = 'SI',
-  SK = 'SK'
+  SK = 'SK',
 }
 
 export const europeanVatNumber: Record<EuroLocale, RegExp> = {
@@ -59,7 +59,7 @@ export const europeanVatNumber: Record<EuroLocale, RegExp> = {
   [EuroLocale.RO]: /[0-9]{2,10}/gm,
   [EuroLocale.SE]: /[0-9]{12}/gm,
   [EuroLocale.SI]: /[0-9]{8}/gm,
-  [EuroLocale.SK]: /[0-9]{10}/gm
+  [EuroLocale.SK]: /[0-9]{10}/gm,
 }
 export function fileMaxSize(maxSize: number): ValidatorFn {
   return (control: AbstractControl): Record<string, any> | null => {
@@ -97,10 +97,10 @@ export function fileType(fileTypes: string[]) {
   }
 }
 
-export function fileExtensions(fileExtensions: string[]) {
+export function fileExtensions(list: string[]) {
   return (control: AbstractControl): Record<string, any> | null => {
-    if (control.value && !fileExtensions.includes(control.value?.name?.match(/(?:\.([^.]+))?$/g)[0])) {
-      return { fileExtension: { requiredValue: fileExtensions.toString() } }
+    if (control.value && !list.includes(control.value?.name?.match(/(?:\.([^.]+))?$/g)[0])) {
+      return { fileExtension: { requiredValue: list.toString() } }
     }
     return null
   }
@@ -115,19 +115,19 @@ export function requiredCheckbox() {
   }
 }
 
-export function minDate(minDate: Date) {
+export function minDate(dateToCompare: Date) {
   return (control: AbstractControl): Record<string, any> | null => {
-    if (isBefore(new Date(control.value), minDate)) {
-      return { minDate: { requiredValue: minDate } }
+    if (isBefore(new Date(control.value), dateToCompare)) {
+      return { minDate: { requiredValue: dateToCompare } }
     }
     return null
   }
 }
 
-export function maxDate(maxDate: Date) {
+export function maxDate(dateToCompare: Date) {
   return (control: AbstractControl): Record<string, any> | null => {
-    if (isAfter(new Date(control.value), maxDate)) {
-      return { maxDate: { requiredValue: maxDate } }
+    if (isAfter(new Date(control.value), dateToCompare)) {
+      return { maxDate: { requiredValue: dateToCompare } }
     }
     return null
   }
@@ -138,7 +138,7 @@ export function dateBetween(start: Date, end: Date) {
     if (
       !isWithinInterval(new Date(control.value), {
         start,
-        end
+        end,
       })
     ) {
       return { dateBetween: { requiredValue: [start, end] } }

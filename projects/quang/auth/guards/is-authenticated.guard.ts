@@ -5,5 +5,5 @@ import { QuangAuthService } from '../auth.service'
 
 export const quangIsAuthenticatedGuard: CanActivateFn = async () => {
   const authService = inject(QuangAuthService)
-  return await authService.getAuthResult()
+  return authService.getAuthResult()
 }

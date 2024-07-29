@@ -9,7 +9,7 @@ import {
   QuangHasAtLeastOneRoleDirective,
   QuangHasEveryRoleDirective,
   QuangIsAuthenticatedDirective,
-  QuangIsNotAuthenticatedDirective
+  QuangIsNotAuthenticatedDirective,
 } from '@quix/quang/auth'
 
 @Component({
@@ -20,7 +20,7 @@ import {
     QuangIsAuthenticatedDirective,
     QuangIsNotAuthenticatedDirective,
     QuangHasAtLeastOneRoleDirective,
-    QuangHasEveryRoleDirective
+    QuangHasEveryRoleDirective,
   ],
   template: `
     <h1 *quangIsAuthenticated>Is Auth</h1>
@@ -73,11 +73,13 @@ import {
     </button>
   `,
   styleUrl: './auth-test.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthTestComponent {
   http = inject(HttpClient)
+
   authService = inject(QuangAuthService)
+
   getProtectedApiResponse(): void {
     this.http
       .get<any>('https://demo.duendesoftware.com/api/test')
@@ -90,14 +92,10 @@ export class AuthTestComponent {
         console.log(res)
       })
   }
+
   editRoles(action: 'add' | 'remove', role: string) {
-    switch (action) {
-      case 'add':
-        this.authService.addRoles([role])
-        break
-      case 'remove':
-        this.authService.removeRoles([role])
-        break
-    }
+    if (action === 'add') this.authService.addRoles([role])
+
+    if (action === 'remove') this.authService.removeRoles([role])
   }
 }

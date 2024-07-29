@@ -7,15 +7,29 @@ import { QuangLoaderService } from './loader.service'
 
 export const EXCLUDED_URL = new InjectionToken<UrlData[]>('EXCLUDED_URL')
 
-export type METHOD_TYPE = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 
-export function isMethodType(value: string): value is METHOD_TYPE {
-  return value === 'GET' || value === 'POST' || value === 'PUT' || value === 'DELETE' || value === 'PATCH'
+export function isMethodType(value: string): value is HttpMethod {
+  return ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'].includes(value)
 }
 
 export interface UrlData {
   url: string
-  method: METHOD_TYPE
+  method: HttpMethod
+}
+
+function getExcludedUrlsByMethod(urlData: UrlData[]) {
+  const excludedUrlByMethod = new Map<HttpMethod, Set<string>>([
+    ['GET', new Set()],
+    ['PUT', new Set()],
+    ['DELETE', new Set()],
+    ['POST', new Set()],
+    ['PATCH', new Set()],
+  ])
+  for (const { method, url } of urlData) {
+    excludedUrlByMethod.get(method ?? 'GET')?.add(url)
+  }
+  return excludedUrlByMethod
 }
 
 export function quangLoaderInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn) {
@@ -40,18 +54,4 @@ export function quangLoaderInterceptor(request: HttpRequest<unknown>, next: Http
       loaderService.hide()
     })
   )
-}
-
-function getExcludedUrlsByMethod(urlData: UrlData[]) {
-  const excludedUrlByMethod = new Map<METHOD_TYPE, Set<string>>([
-    ['GET', new Set()],
-    ['PUT', new Set()],
-    ['DELETE', new Set()],
-    ['POST', new Set()],
-    ['PATCH', new Set()]
-  ])
-  for (const url of urlData) {
-    excludedUrlByMethod.get(url.method ?? 'GET')?.add(url.url)
-  }
-  return excludedUrlByMethod
 }

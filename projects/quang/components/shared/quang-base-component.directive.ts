@@ -10,39 +10,61 @@ import { makeId } from './makeId'
 @Directive()
 export abstract class QuangBaseComponent<T = any> implements ControlValueAccessor, AfterViewInit {
   componentId = input<string>(makeId(10))
+
   isReadonly = input<boolean>(false)
+
   componentTabIndex = input<number>(0)
+
   componentClass = input<string | string[]>('')
+
   componentLabel = input<string>('')
+
   componentPlaceholder = input<string>('')
+
   errorMap = input<ErrorData[]>([])
+
   successMessage = input<string>('')
+
   helpMessage = input<string>('')
+
   formControl = input<FormControl>()
+
   componentBlur = output<void>()
 
   _value = signal<T | null>(null)
+
   _isRequired = signal<boolean>(false)
+
   _isDisabled = signal<boolean>(false)
+
   _isTouched = signal<boolean>(false)
+
   _isValid = signal<boolean>(false)
+
   _showSuccess = computed(() => this.successMessage() && this._isValid() && this._isTouched() && !this._isDisabled())
+
   _showErrors = computed(
     () => this.errorMap()?.length > 0 && !this._isValid() && this._isTouched() && !this._isDisabled()
   )
+
   _currentErrorMessage = signal<string>('')
-  _currentErrorMessageExtraData = signal<{}>({})
+
+  _currentErrorMessageExtraData = signal<Record<string, any>>({})
 
   _ngControl = signal<NgControl | null>(null)
+
   _injector = signal<Injector>(inject(Injector))
+
   _takeUntilDestroyed = signal(takeUntilDestroyed())
+
   _statusChange$?: Subscription
 
   getIsRequiredControl = computed(
-    () => !!(this._ngControl()?.control as any)?.['_rawValidators']?.find((x: any) => x.name === 'required')
+    () => !!(this._ngControl()?.control as any)?._rawValidators?.find((x: any) => x.name === 'required')
   )
 
   onChange?: (value: T) => void
+
   onTouched?: () => void
 
   constructor() {
@@ -119,19 +141,23 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
     this._isValid.set(this._ngControl()?.control?.valid ?? false)
     const controlErrors = this._ngControl()?.control?.errors
 
-    if (controlErrors) {
-      if (this.errorMap()?.length) {
-        const targetError = this.errorMap()?.find(
-          (error) =>
-            !!Object.keys(controlErrors)?.find((targetError) => error.error.toLowerCase() === targetError.toLowerCase())
-        )
-        if (targetError) {
-          this._currentErrorMessage.set(targetError.message ?? '')
-          this._currentErrorMessageExtraData.set(targetError.error)
-        } else {
-          this._currentErrorMessage.set('')
-          this._currentErrorMessageExtraData.set({})
-        }
+    if (controlErrors && this.errorMap()?.length) {
+      const targetError = this.errorMap()?.find(
+        (errorData) =>
+          !!Object.keys(controlErrors)?.find(
+            (controlError) => errorData.error.toLowerCase() === controlError.toLowerCase()
+          )
+      )
+      if (targetError) {
+        const [, controlErrorValue] =
+          Object.entries(controlErrors).find(
+            ([controlErrorKey]) => targetError.error.toLowerCase() === controlErrorKey.toLowerCase()
+          ) ?? []
+        this._currentErrorMessage.set(targetError.message ?? '')
+        this._currentErrorMessageExtraData.set({ [targetError.error]: controlErrorValue ?? true })
+      } else {
+        this._currentErrorMessage.set('')
+        this._currentErrorMessageExtraData.set({})
       }
     }
     if (controlErrors?.[Validators.required.name]) {

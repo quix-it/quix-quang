@@ -8,7 +8,7 @@ import {
   inject,
   input,
   output,
-  viewChild
+  viewChild,
 } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
@@ -46,7 +46,7 @@ export interface TableRow<T> {
 export enum SortTable {
   DEFAULT,
   ASC,
-  DESC
+  DESC,
 }
 
 export interface SortCol {
@@ -60,16 +60,23 @@ export interface SortCol {
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
   imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet, NgFor],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangTableComponent<T> {
   clickableRow = input<boolean>(false)
+
   selectedRows = input<string[] | number[]>()
+
   stickyTable = input<boolean>(true)
+
   selectedRow = output<TableRow<T>>()
+
   sortChanged = output<SortCol[]>()
+
   public SortTable = SortTable
+
   _takeUntilDestroyed = takeUntilDestroyed()
+
   _resizeObservableService = inject(ResizeObservableService)
 
   _tableHeader = viewChild<ElementRef>('tableHeader')
@@ -105,6 +112,7 @@ export class QuangTableComponent<T> {
       this.fixTableHeaderWidth()
     }
   })
+
   hiddenColumnsObservable?: Subscription = undefined
 
   onClickRow(row: TableRow<T>): void {
@@ -137,33 +145,38 @@ export class QuangTableComponent<T> {
         for (let i = 0; i < hiddenColumns?.length; i++) {
           const th = hiddenColumns[i]
           // Since the Sticky Table header is expected to be an exact copy of the Primary Table, we know their indices will be the same.
-          stickyColumns[i].style.minWidth = th.offsetWidth + 'px'
-          stickyColumns[i].style.maxWidth = th.offsetWidth + 'px'
+          stickyColumns[i].style.minWidth = `${th.offsetWidth}px`
+          stickyColumns[i].style.maxWidth = `${th.offsetWidth}px`
         }
       }
     })
   }
 
   onSortColumn(sort: SortCol): void {
-    this.tableConfigurations().headers.map((header) => {
-      if (header.sort?.key) {
-        if (header.sort?.key !== sort.key) {
-          header.sort = {
-            ...header.sort,
-            sort: SortTable.DEFAULT
-          }
-        } else {
-          switch (sort.sort) {
-            case SortTable.DEFAULT:
-              header.sort.sort = SortTable.ASC
-              break
-            case SortTable.ASC:
-              header.sort.sort = SortTable.DESC
-              break
-            case SortTable.DESC:
-              header.sort.sort = SortTable.DEFAULT
-              break
-          }
+    this.tableConfigurations().headers.forEach((header) => {
+      if (!header.sort?.key) return
+
+      if (header.sort?.key === sort.key) {
+        switch (sort.sort) {
+          case SortTable.ASC:
+            // eslint-disable-next-line no-param-reassign
+            header.sort.sort = SortTable.DESC
+            break
+          case SortTable.DESC:
+            // eslint-disable-next-line no-param-reassign
+            header.sort.sort = SortTable.DEFAULT
+            break
+          case SortTable.DEFAULT:
+          default:
+            // eslint-disable-next-line no-param-reassign
+            header.sort.sort = SortTable.ASC
+            break
+        }
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        header.sort = {
+          ...header.sort,
+          sort: SortTable.DEFAULT,
         }
       }
     })
@@ -172,7 +185,7 @@ export class QuangTableComponent<T> {
         (x) =>
           x.sort ?? {
             key: '',
-            sort: SortTable.DEFAULT
+            sort: SortTable.DEFAULT,
           }
       ) ?? []
     )

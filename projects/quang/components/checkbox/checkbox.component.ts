@@ -17,19 +17,16 @@ export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => QuangCheckboxComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangCheckboxComponent extends QuangBaseComponent<boolean> {
   labelPosition = input<LabelPosition>('top')
-  checkType = input.required<'checkbox' | 'toggle'>()
 
-  constructor() {
-    super()
-  }
+  checkType = input.required<'checkbox' | 'toggle'>()
 
   override onChangedEventHandler($event: Event) {
     const inputElement = $event.target as HTMLInputElement

@@ -15,21 +15,22 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => QuangSelectComponent),
-      multi: true
+      multi: true,
     },
     {
       provide: QuangOptionListComponent,
-      multi: false
-    }
+      multi: false,
+    },
   ],
   imports: [TranslocoPipe, NgIf, NgFor, NgClass, NgStyle, QuangOptionListComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangSelectComponent
   extends QuangBaseComponent<string | number | string[] | number[] | null>
   implements AfterViewInit
 {
   selectionMode = input<'single' | 'multiple'>('single')
+
   /**
    * Set the max height of the selection list before scrolling.
    * Default: 18rem
@@ -40,34 +41,38 @@ export class QuangSelectComponent
   selectOptions = input.required<SelectOption[]>()
 
   _showOptions = signal<boolean>(false)
+
   _optionHideTimeout = signal<any | undefined>(undefined)
+
   _selectedItems = computed(() => {
     if (this._value() !== null) {
       const targetValue = this._value()
       return this.selectOptions().filter((x) => {
         if (Array.isArray(targetValue)) {
           return targetValue.some((k) => k === x.value)
-        } else {
-          return targetValue === x.value
         }
+        return targetValue === x.value
       })
     }
     return null
   })
+
   QuangSelectComponent = QuangSelectComponent
+
   translateValue = input<boolean>(true)
+
   nullOption = input<boolean>(true)
+
   _selectOptions = computed(() => {
     if (this.nullOption() && !this.selectOptions().find((x) => x.value === null)) {
       const nullValue: SelectOption[] = [{ label: '', value: null }]
       return nullValue.concat(this.selectOptions())
-    } else {
-      return this.selectOptions()
     }
+    return this.selectOptions()
   })
 
   // buon esempio di conversione
-  /*_inputArrayChange = effect(
+  /* _inputArrayChange = effect(
     () => {
       if (this.nullOption() && !this.selectOptions().find((x) => x.value === null)) {
         const nullValue: SelectOption[] = [{ label: '', value: null }]
@@ -79,11 +84,7 @@ export class QuangSelectComponent
     {
       allowSignalWrites: true
     }
-  )*/
-
-  constructor() {
-    super()
-  }
+  ) */
 
   changeOptionsVisibility(skipTimeout = false): void {
     if (this.isReadonly()) return

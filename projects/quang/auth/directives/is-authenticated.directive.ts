@@ -5,13 +5,17 @@ import { QuangAuthService } from '../auth.service'
 
 @Directive({
   selector: '[quangIsAuthenticated]',
-  standalone: true
+  standalone: true,
 })
 export class QuangIsAuthenticatedDirective {
   viewContainerRef = inject(ViewContainerRef)
+
   templateRef = inject(TemplateRef)
+
   embeddedViewRef: EmbeddedViewRef<any> | null = null
+
   authService = inject(QuangAuthService)
+
   takeUntilDestroyed = takeUntilDestroyed()
 
   hideViewIfNotAuthenticated = effect(() => {

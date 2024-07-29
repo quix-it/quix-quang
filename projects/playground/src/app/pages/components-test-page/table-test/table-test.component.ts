@@ -9,7 +9,7 @@ import {
   SortCol,
   SortTable,
   TableConfiguration,
-  TableRow
+  TableRow,
 } from '@quix/quang/components/table/table.component'
 
 interface People {
@@ -24,53 +24,54 @@ interface People {
   standalone: true,
   imports: [QuangTableComponent, JsonPipe],
   templateUrl: './table-test.component.html',
-  styleUrl: './table-test.component.scss'
+  styleUrl: './table-test.component.scss',
 })
 export class TableTestComponent implements AfterViewInit {
   @ViewChild('actions') actions?: TemplateRef<any>
+
   tableConfig: TableConfiguration<People> = {
     headers: [
       {
         text: 'Name',
         sort: {
           key: 'name',
-          sort: SortTable.DEFAULT
-        }
+          sort: SortTable.DEFAULT,
+        },
       },
       {
         text: 'Name2',
         sort: {
           key: 'name2',
-          sort: SortTable.DEFAULT
-        }
+          sort: SortTable.DEFAULT,
+        },
       },
       {
         text: 'Name3',
         css: ['justify-content-end'],
         sort: {
           key: 'name3',
-          sort: SortTable.DEFAULT
-        }
+          sort: SortTable.DEFAULT,
+        },
       },
       {
         text: 'Age',
         sort: {
           key: 'age',
-          sort: SortTable.DESC
-        }
+          sort: SortTable.DESC,
+        },
       },
       {
         text: 'Gender',
         sort: {
           key: 'gender',
-          sort: SortTable.DEFAULT
-        }
+          sort: SortTable.DEFAULT,
+        },
       },
       {
-        text: ''
-      }
+        text: '',
+      },
     ],
-    rows: []
+    rows: [],
   }
 
   readonly people: People[] = [
@@ -78,128 +79,128 @@ export class TableTestComponent implements AfterViewInit {
       name: 'John Doewegeqwg ewgwgewgeqwgiojeqwiogjewgewiogjiogjew',
       age: 30,
       gender: 'Male',
-      id: 1
+      id: 1,
     },
     {
       name: 'Jane Doe',
       age: 25,
       gender: 'Female',
-      id: 2
+      id: 2,
     },
     {
       name: 'Peter Parker',
       age: 20,
       gender: 'Male',
-      id: 3
+      id: 3,
     },
     {
       name: 'Mary Jane',
       age: 22,
       gender: 'Female',
-      id: 4
+      id: 4,
     },
     {
       name: 'Bruce Wayne',
       age: 35,
       gender: 'Male',
-      id: 5
+      id: 5,
     },
     {
       name: 'Clark Kent',
       age: 30,
       gender: 'Male',
-      id: 6
+      id: 6,
     },
     {
       name: 'Diana Prince',
       age: 28,
       gender: 'Female',
-      id: 7
+      id: 7,
     },
     {
       name: 'Barry Allen',
       age: 25,
       gender: 'Male',
-      id: 8
+      id: 8,
     },
     {
       name: 'Kara Zor-El',
       age: 23,
       gender: 'Female',
-      id: 9
+      id: 9,
     },
     {
       name: 'Hal Jordan',
       age: 32,
       gender: 'Male',
-      id: 10
+      id: 10,
     },
     {
       name: 'Tony Stark',
       age: 40,
       gender: 'Male',
-      id: 11
+      id: 11,
     },
     {
       name: 'Steve Rogers',
       age: 35,
       gender: 'Male',
-      id: 12
+      id: 12,
     },
     {
       name: 'Natasha Romanoff',
       age: 30,
       gender: 'Female',
-      id: 13
+      id: 13,
     },
     {
       name: 'Bruce Banner',
       age: 35,
       gender: 'Male',
-      id: 14
+      id: 14,
     },
     {
       name: 'Thor Odinson',
       age: 1000,
       gender: 'Male',
-      id: 15
+      id: 15,
     },
     {
       name: 'Loki Laufeyson',
       age: 1000,
       gender: 'Male',
-      id: 16
+      id: 16,
     },
     {
       name: 'Heimdall',
       age: 500,
       gender: 'Male',
-      id: 17
+      id: 17,
     },
     {
       name: 'Sif',
       age: 500,
       gender: 'Female',
-      id: 18
+      id: 18,
     },
     {
       name: 'Volstagg',
       age: 500,
       gender: 'Male',
-      id: 19
+      id: 19,
     },
     {
       name: 'Fandral',
       age: 500,
       gender: 'Male',
-      id: 20
+      id: 20,
     },
     {
       name: 'Hogun',
       age: 500,
       gender: 'Male',
-      id: 21
-    }
+      id: 21,
+    },
   ]
 
   selectedRows: string[] = []
@@ -215,50 +216,50 @@ export class TableTestComponent implements AfterViewInit {
       .pipe(this._takeUntilDestroyed())
       .subscribe((people) => {
         if (Array.isArray(people) && people?.length) {
-          this.tableConfig.rows = people.map((person): TableRow<People> => {
-            return {
+          this.tableConfig.rows = people.map(
+            (person): TableRow<People> => ({
               css: undefined,
               rowId: `person-${person.id}`,
               payload: person,
               cellData: [
                 {
-                  text: person.name
-                },
-                {
-                  text: person.name
+                  text: person.name,
                 },
                 {
                   text: person.name,
-                  css: ['text-end']
                 },
                 {
-                  text: person.age
+                  text: person.name,
+                  css: ['text-end'],
+                },
+                {
+                  text: person.age,
                 },
                 {
                   text: person.gender,
-                  css: ['bg-info']
+                  css: ['bg-info'],
                 },
                 {
                   renderer: this.actions,
-                  payload: person
-                }
-              ]
-            }
-          })
+                  payload: person,
+                },
+              ],
+            })
+          )
           this.tableConfig.rows.unshift({
             cellData: [
               {
                 fullWidth: true,
                 css: ['bg-info'],
-                text: 'gagagaggagagagagaga'
-              }
-            ]
+                text: 'gagagaggagagagagaga',
+              },
+            ],
           })
         } else {
           this.tableConfig.rows = []
         }
         this.tableConfig = {
-          ...this.tableConfig
+          ...this.tableConfig,
         }
       })
   }

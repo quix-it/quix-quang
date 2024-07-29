@@ -10,15 +10,14 @@ import { QuangLoaderService } from './loader.service'
   imports: [NgIf],
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangLoaderComponent {
   disableDelay = input<number>(500)
 
   _loadingCount = signal<number | null>(null)
-  _showLoader = computed(() => {
-    return (this._loadingCount() ?? 0) > 0
-  })
+
+  _showLoader = computed(() => (this._loadingCount() ?? 0) > 0)
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
 
@@ -42,16 +41,14 @@ export class QuangLoaderComponent {
         }
         if (isLoading) {
           this._loadingCount.update((value) => (value ?? 0) + 1)
+        } else if ((this._loadingCount() ?? 0) > 1) {
+          this._loadingCount.update((value) => (value ?? 0) - 1)
         } else {
-          if ((this._loadingCount() ?? 0) > 1) {
-            this._loadingCount.update((value) => (value ?? 0) - 1)
-          } else {
-            this._hideTimeout.set(
-              setTimeout(() => {
-                this._loadingCount.set(0)
-              }, this.disableDelay())
-            )
-          }
+          this._hideTimeout.set(
+            setTimeout(() => {
+              this._loadingCount.set(0)
+            }, this.disableDelay())
+          )
         }
       })
   }
