@@ -2,6 +2,8 @@ import { ConnectionPositionPair } from '@angular/cdk/overlay'
 import { NgClass, NgComponentOutlet, NgIf, NgTemplateOutlet } from '@angular/common'
 import { ChangeDetectionStrategy, Component, TemplateRef, input, signal } from '@angular/core'
 
+import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
+
 @Component({
   selector: 'quang-popover',
   standalone: true,
@@ -10,7 +12,7 @@ import { ChangeDetectionStrategy, Component, TemplateRef, input, signal } from '
   styleUrl: './popover.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuangPopoverComponent {
+export class QuangPopoverComponent implements QuangBaseOverlayComponent {
   content = input<TemplateRef<any> | null>(null)
 
   positionPair = signal<ConnectionPositionPair | null>(null)
