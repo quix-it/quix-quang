@@ -3,6 +3,8 @@ import { ApplicationConfig } from '@angular/core'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { provideRouter } from '@angular/router'
 
+import { provideAngularSvgIcon } from 'angular-svg-icon'
+
 import { provideAuth } from '@quix/quang/auth'
 import { provideLoader, quangLoaderInterceptor } from '@quix/quang/loader'
 import { provideTranslation } from '@quix/quang/translation'
@@ -14,6 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi(), withInterceptors([quangLoaderInterceptor])),
     provideRouter(routes),
+    provideAngularSvgIcon(),
     provideAuth({
       issuer: 'https://demo.duendesoftware.com',
       clientId: 'interactive.public', // The "Auth Code + PKCE" client

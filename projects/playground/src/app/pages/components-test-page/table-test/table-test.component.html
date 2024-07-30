@@ -1,13 +1,9 @@
+<h3>{{ 'title.components.table' | transloco }}</h3>
 <quang-table
   [stickyTable]="false"
   [tableConfigurations]="tableConfig"
   (sortChanged)="onChangeSort($event)"
 ></quang-table>
-<!--
-  [clickableRow]="true"
-  [selectedRows]="selectedRows"
-  (selectedRaw)="onClickRow($event)"
--->
 <ng-template
   #actions
   let-person
@@ -18,14 +14,20 @@
       class="btn me-3"
       type="button"
     >
-      <img src="./assets/icons/svg/edit.svg" />
+      <svg-icon
+        [applyClass]="true"
+        src="assets/icons/svg/edit.svg"
+      ></svg-icon>
     </button>
     <button
       (click)="onDeletePerson(person.id)"
       class="btn"
       type="button"
     >
-      <img src="./assets/icons/svg/trash.svg" />
+      <svg-icon
+        [applyClass]="true"
+        src="assets/icons/svg/trash.svg"
+      ></svg-icon>
     </button>
   </div>
 </ng-template>

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { SvgIconComponent } from 'angular-svg-icon'
 
 import { QuangDateComponent } from '@quix/quang/components/date'
 import { QuangInputComponent } from '@quix/quang/components/input'
@@ -20,6 +21,7 @@ import { QuangInputComponent } from '@quix/quang/components/input'
     TranslocoPipe,
     QuangDateComponent,
     QuangDateComponent,
+    SvgIconComponent,
   ],
   templateUrl: './date-test.component.html',
   styleUrl: './date-test.component.scss',
@@ -29,6 +31,8 @@ export class DateTestComponent {
   formBuilder = signal(inject(NonNullableFormBuilder))
 
   isReadonly = signal(false)
+
+  showValueAndValidity = signal<boolean>(false)
 
   dateFormat = signal('dd/MM/yyyy')
 
@@ -90,12 +94,13 @@ export class DateTestComponent {
   }
 
   checkCurrentFormValueAndValidity() {
+    this.showValueAndValidity.set(true)
     console.log('Current form value:', this.testForm().value)
     console.log('Current form value json:', JSON.stringify(this.testForm().value))
     console.log('Current form validity:', this.testForm().valid)
   }
 
-  changeData() {
+  changeDateFormat() {
     console.log('changeData')
     this.isReadonly.set(!this.isReadonly())
     this.dateFormat.set('yyyy/MM/dd')

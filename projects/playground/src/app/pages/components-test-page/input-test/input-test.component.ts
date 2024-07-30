@@ -6,21 +6,71 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { TranslocoPipe } from '@jsverse/transloco'
 
 import { InputType, QuangInputComponent } from '@quix/quang/components/input'
+import { QuangSelectComponent } from '@quix/quang/components/select'
+import { SelectOption } from '@quix/quang/components/shared'
 
 @Component({
   selector: 'playground-input-test',
   standalone: true,
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangInputComponent, NgIf, NgForOf, TranslocoPipe],
+  imports: [
+    FormsModule,
+    JsonPipe,
+    ReactiveFormsModule,
+    QuangInputComponent,
+    NgIf,
+    NgForOf,
+    TranslocoPipe,
+    QuangSelectComponent,
+  ],
   templateUrl: './input-test.component.html',
   styleUrl: './input-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputTestComponent {
-  inputTypes = signal<string[]>(['text', 'textarea', 'password', 'email', 'number', 'url', 'search', 'tel', 'color'])
+  inputTypes = signal<SelectOption[]>([
+    {
+      value: 'text',
+      label: 'Text',
+    },
+    {
+      value: 'textarea',
+      label: 'Textarea',
+    },
+    {
+      value: 'password',
+      label: 'Password',
+    },
+    {
+      value: 'email',
+      label: 'Email',
+    },
+    {
+      value: 'number',
+      label: 'Number',
+    },
+    {
+      value: 'url',
+      label: 'Url',
+    },
+    {
+      value: 'search',
+      label: 'Search',
+    },
+    {
+      value: 'tel',
+      label: 'Tel',
+    },
+    {
+      value: 'color',
+      label: 'Color',
+    },
+  ])
 
   inputType = signal<InputType>('text')
 
   isReadonly = signal<boolean>(false)
+
+  showValueAndValidity = signal<boolean>(false)
 
   formBuilder = signal(inject(NonNullableFormBuilder))
 
@@ -92,7 +142,7 @@ export class InputTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('sì pirrone rigenerato!', [
+        testInput: this.formBuilder().control<string>('New form created', [
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(30),
@@ -108,6 +158,7 @@ export class InputTestComponent {
   }
 
   checkCurrentFormValueAndValidity() {
+    this.showValueAndValidity.set(true)
     console.log('Current form value:', this.testForm().value)
     console.log('Current form validity:', this.testForm().valid)
   }

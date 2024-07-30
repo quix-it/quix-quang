@@ -1,4 +1,14 @@
-<h3>{{ 'title.components.input' | transloco }}</h3>
+<div class="d-flex gap-4">
+  <h3 class="d-flex flex-column w-100">{{ 'title.components.input' | transloco }}</h3>
+  <div class="d-flex flex-column w-50">
+    <quang-select
+      [selectOptions]="inputTypes()"
+      [(ngModel)]="inputType"
+      componentLabel="form.buttons.selectInputType"
+      selectionMode="single"
+    ></quang-select>
+  </div>
+</div>
 <form
   [formGroup]="testForm()"
   *ngIf="showInput()"
@@ -9,22 +19,61 @@
     [isReadonly]="isReadonly()"
     componentLabel="form.label.input"
     formControlName="testInput"
-    successMessage="tutto bello!"
+    successMessage="form.label.success"
   ></quang-input>
-  {{ testForm().value | json }}
 </form>
-<button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
-<button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
-<button (click)="changeVisibility()">change visibility</button>
-<button (click)="recreateForm()">recreate form</button>
-<button (click)="setFormValues()">set form</button>
-<button (click)="checkCurrentFormValueAndValidity()">check current form value and validity</button>
-<button (click)="setReadonly()">current readonly: {{ isReadonly() }}</button>
-<select [(ngModel)]="inputType">
-  <option
-    [value]="type"
-    *ngFor="let type of inputTypes()"
+<div
+  *ngIf="showValueAndValidity()"
+  class="d-flex flex-column mb-4"
+>
+  <span>
+    {{ 'form.label.formValue' | transloco: { value: testForm().value | json } }}
+  </span>
+  <span>
+    {{ 'form.label.formValidity' | transloco: { valid: this.testForm().valid } }}
+  </span>
+</div>
+<div class="d-flex gap-3">
+  <button
+    (click)="changeFormEnabled()"
+    class="btn btn-outline-secondary"
   >
-    {{ type }}
-  </option>
-</select>
+    {{ 'form.buttons.enabled' | transloco: { enabled: testForm().enabled } }}
+  </button>
+  <button
+    (click)="changeFormInputRequired()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+  </button>
+  <button
+    (click)="changeVisibility()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.changeVisibility' | transloco }}
+  </button>
+  <button
+    (click)="recreateForm()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.recreateForm' | transloco }}
+  </button>
+  <button
+    (click)="setFormValues()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.setForm' | transloco }}
+  </button>
+  <button
+    (click)="checkCurrentFormValueAndValidity()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.checkForm' | transloco }}
+  </button>
+  <button
+    (click)="setReadonly()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+  </button>
+</div>

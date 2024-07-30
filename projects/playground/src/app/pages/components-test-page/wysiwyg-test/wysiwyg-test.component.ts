@@ -18,6 +18,8 @@ import { wysiwygRequired } from '@quix/quang/forms'
 export class WysiwygTestComponent {
   isReadonly = signal<boolean>(false)
 
+  showValueAndValidity = signal<boolean>(false)
+
   formBuilder = signal(inject(NonNullableFormBuilder))
 
   highlightColor = signal(true)
@@ -77,7 +79,7 @@ export class WysiwygTestComponent {
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('sì pirrone rigenerato!', [Validators.required]),
+        testInput: this.formBuilder().control<string>('New form created', [Validators.required]),
       })
     )
   }
@@ -87,6 +89,7 @@ export class WysiwygTestComponent {
   }
 
   checkCurrentFormValueAndValidity() {
+    this.showValueAndValidity.set(true)
     console.log('Current form value:', this.testForm().value)
     console.log('Current form validity:', this.testForm().valid)
   }

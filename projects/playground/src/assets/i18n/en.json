@@ -1,18 +1,81 @@
 {
   "welcomeMessage": "Welcome to {{title}}",
+  "buttons": {
+    "setLanguage": "Set language: {{lang}}",
+    "loader": "Loader",
+    "apiCall": "API call",
+    "modal": "Open modal",
+    "toast": {
+      "warning": "Show warning toast",
+      "error": "Show error toast",
+      "success": "Show success toast"
+    },
+    "popover": "Show popover",
+    "withTooltip": "hover here for QuangTooltip",
+    "tooltipMessage": "With QuangTooltip and custom icon",
+    "close": "Close",
+    "action": "Action"
+  },
+  "colors": {
+    "setDark": "Set dark theme",
+    "setLight": "Set light theme",
+    "colorScheme": "Color scheme (can be customized)",
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "success": "Success",
+    "info": "Info",
+    "warning": "Warning",
+    "danger": "Danger",
+    "light": "Light",
+    "dark": "Dark"
+  },
   "title": {
     "components": {
-      "input": "Input Component!"
-    }
+      "input": "Input component",
+      "date": "Datepicker component",
+      "wysiwyg": "Wysiwyg component (What-You-See-Is-What-You-Get)",
+      "toggle": "Toggle component",
+      "checkbox": "Checkbox component",
+      "paginator": "Paginator component",
+      "select": "Select component",
+      "autocomplete": "Autocomplete component",
+      "table": "Table component"
+    },
+    "header": "Header",
+    "body": "Body",
+    "footer": "Footer"
   },
   "form": {
     "label": {
-      "input": "Input header"
+      "input": "Input header",
+      "toggle": "Toggle header",
+      "checkbox": "Checkbox header",
+      "date": "Date header",
+      "select": "Select header",
+      "multipleSelect": "Multiple select header",
+      "autocomplete": "Autocomplete header",
+      "wysiwyg": "Wysiwyg header",
+      "success": "Valid!",
+      "formValue": "Form value: {{value}}",
+      "formValidity": "Form valid: {{valid}}"
     },
     "errors": {
       "required": "This field is required",
       "minLength": "This field must be at least {{requiredLength}} characters long",
       "maxLength": "This field must be at most {{requiredLength}} characters long"
+    },
+    "buttons": {
+      "enabled": "Form enabled: {{enabled}}",
+      "changeVisibility": "Change visibility",
+      "recreateForm": "Recreate form",
+      "setForm": "Set form",
+      "checkForm": "Check form value and validity",
+      "readonly": "Readonly: {{readonly}}",
+      "required": "Required: {{required}}",
+      "changeDateFormat": "Change date format",
+      "selectInputType": "Select input type:",
+      "changeHeight": "Change height",
+      "flipButton": "Hide button"
     }
   },
   "quangPaginator": {

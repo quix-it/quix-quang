@@ -8,19 +8,78 @@
     [highlightColor]="highlightColor()"
     [isReadonly]="isReadonly()"
     [minHeight]="wysiwygHeight()"
-    componentLabel="form.label.input"
+    componentLabel="form.label.wysiwyg"
     formControlName="testInput"
-    successMessage="tutto bello!"
+    successMessage="form.label.success"
   ></quang-wysiwyg>
 </form>
-<pre>{{ testForm().value | json }}</pre>
+<div
+  *ngIf="showValueAndValidity()"
+  class="d-flex flex-column mb-4"
+>
+  <span>
+    {{ 'form.label.formValue' | transloco: { value: testForm().value | json } }}
+  </span>
+  <span>
+    {{ 'form.label.formValidity' | transloco: { valid: this.testForm().valid } }}
+  </span>
+</div>
 <pre>{{ testForm().controls.testInput.errors | json }}</pre>
-<button (click)="changeFormEnabled()">change form enabled {{ testForm().enabled }}</button>
-<button (click)="changeFormInputRequired()">change input form required. Actual {{ getIsRequiredInput() }}</button>
-<button (click)="changeVisibility()">change visibility</button>
-<button (click)="recreateForm()">recreate form</button>
-<button (click)="setFormValues()">set form</button>
-<button (click)="checkCurrentFormValueAndValidity()">check current form value and validity</button>
-<button (click)="setReadonly()">current readonly: {{ isReadonly() }}</button>
-<button (click)="flipButton()">Flip button</button>
-<button (click)="changeHeight()">Change Height</button>
+<div class="d-flex gap-3">
+  <button
+    (click)="changeFormEnabled()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.enabled' | transloco: { enabled: testForm().enabled } }}
+  </button>
+  <button
+    (click)="changeFormInputRequired()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+  </button>
+  <button
+    (click)="changeVisibility()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.changeVisibility' | transloco }}
+  </button>
+  <button
+    (click)="recreateForm()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.recreateForm' | transloco }}
+  </button>
+  <button
+    (click)="setFormValues()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.setForm' | transloco }}
+  </button>
+  <button
+    (click)="checkCurrentFormValueAndValidity()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.checkForm' | transloco }}
+  </button>
+  <button
+    (click)="setReadonly()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+  </button>
+</div>
+<div class="d-flex gap-3 mt-3">
+  <button
+    (click)="flipButton()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.flipButton' | transloco }}
+  </button>
+  <button
+    (click)="changeHeight()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.changeHeight' | transloco }}
+  </button>
+</div>
