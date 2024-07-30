@@ -29,3 +29,25 @@
     </button>
   </div>
 </ng-template>
+
+<ng-template
+  #name3
+  let-name
+>
+  <div
+    [quangOverlayPayload]="name"
+    [quangPopover]="namePop"
+    overlayPosition="top-left"
+  >
+    {{ name }}
+  </div>
+</ng-template>
+
+<ng-template
+  #namePop
+  let-name
+>
+  <div class="p-2">
+    {{ name }}
+  </div>
+</ng-template>

@@ -59,9 +59,10 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
   private topLeft = signal<ConnectedPosition>({
     originX: 'start',
     originY: 'top',
-    overlayX: 'start',
+    overlayX: 'end',
     overlayY: 'bottom',
     offsetY: -8,
+    offsetX: 40,
   })
 
   private topRight = signal<ConnectedPosition>({
@@ -70,6 +71,7 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
     overlayX: 'end',
     overlayY: 'bottom',
     offsetY: -8,
+    offsetX: 40,
   })
 
   private bottom = signal<ConnectedPosition>({
@@ -83,9 +85,10 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
   private bottomLeft = signal<ConnectedPosition>({
     originX: 'start',
     originY: 'bottom',
-    overlayX: 'start',
+    overlayX: 'end',
     overlayY: 'top',
-    offsetY: 8,
+    offsetY: 12,
+    offsetX: 40,
   })
 
   private bottomRight = signal<ConnectedPosition>({
@@ -93,7 +96,8 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
     originY: 'bottom',
     overlayX: 'end',
     overlayY: 'top',
-    offsetY: 8,
+    offsetY: 12,
+    offsetX: 40,
   })
 
   private left = signal<ConnectedPosition>({
@@ -117,15 +121,15 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
       case 'top':
         return [this.top(), this.bottom()]
       case 'top-left':
-        return [this.topRight(), this.bottomLeft()]
+        return [this.topLeft(), this.bottomLeft()]
       case 'top-right':
-        return [this.topLeft(), this.bottomRight()]
+        return [this.topRight(), this.bottomRight()]
       case 'bottom':
         return [this.bottom(), this.top()]
       case 'bottom-left':
-        return [this.bottomRight(), this.topLeft()]
+        return [this.bottomLeft(), this.topLeft()]
       case 'bottom-right':
-        return [this.bottomLeft(), this.topRight()]
+        return [this.bottomRight(), this.topRight()]
       case 'left':
         return [this.left(), this.right()]
       case 'right':
@@ -160,6 +164,8 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
   }
 
   attachOverlay(): void {
+    // eslint-disable-next-line no-console
+    console.log(this.elementRef())
     const targetComponentType = this.targetComponentType()
     if (!targetComponentType) {
       return

@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common'
-import { AfterViewInit, Component, TemplateRef, ViewChild, signal } from '@angular/core'
+import { AfterViewInit, Component, TemplateRef, ViewChild, signal, viewChild } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { of } from 'rxjs'
@@ -11,6 +11,8 @@ import {
   TableConfiguration,
   TableRow,
 } from '@quix/quang/components/table/table.component'
+import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
+import { QuangPopoverComponent } from '@quix/quang/overlay/popover/popover.component'
 
 interface People {
   name: string
@@ -22,12 +24,14 @@ interface People {
 @Component({
   selector: 'playground-table-test',
   standalone: true,
-  imports: [QuangTableComponent, JsonPipe],
+  imports: [QuangTableComponent, QuangPopoverComponent, QuangPopoverDirective, JsonPipe],
   templateUrl: './table-test.component.html',
   styleUrl: './table-test.component.scss',
 })
 export class TableTestComponent implements AfterViewInit {
   @ViewChild('actions') actions?: TemplateRef<any>
+
+  name3 = viewChild<TemplateRef<any>>('name3')
 
   tableConfig: TableConfiguration<People> = {
     headers: [
@@ -228,9 +232,13 @@ export class TableTestComponent implements AfterViewInit {
                 {
                   text: person.name,
                 },
+                // {
+                //   text: person.name,
+                //   css: ['text-end'],
+                // },
                 {
-                  text: person.name,
-                  css: ['text-end'],
+                  renderer: this.name3(),
+                  payload: person.name,
                 },
                 {
                   text: person.age,
