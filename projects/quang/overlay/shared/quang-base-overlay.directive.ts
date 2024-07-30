@@ -87,7 +87,7 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
     originY: 'bottom',
     overlayX: 'end',
     overlayY: 'top',
-    offsetY: 12,
+    offsetY: 8,
     offsetX: 40,
   })
 
@@ -96,7 +96,7 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
     originY: 'bottom',
     overlayX: 'end',
     overlayY: 'top',
-    offsetY: 12,
+    offsetY: 8,
     offsetX: 40,
   })
 
