@@ -1,5 +1,6 @@
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, OnInit, computed, input, output, signal } from '@angular/core'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
@@ -22,7 +23,19 @@ export class QuangPaginatorComponent implements OnInit {
 
   page = input.required<number>()
 
+  page$ = toObservable(this.page)
+    .pipe(takeUntilDestroyed())
+    .subscribe((page) => {
+      this._currentPage.set(page)
+    })
+
   pageSize = input.required<number>()
+
+  pageSize$ = toObservable(this.pageSize)
+    .pipe(takeUntilDestroyed())
+    .subscribe((pageSize) => {
+      this._pageSize.set(pageSize)
+    })
 
   sizeList = input.required<number[]>()
 
