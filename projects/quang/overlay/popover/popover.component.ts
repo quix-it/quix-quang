@@ -12,6 +12,9 @@ import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
   styleUrl: './popover.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+/**
+ * Popover component that can render custom content, passed from the outside as a `TemplateRef`
+ */
 export class QuangPopoverComponent implements QuangBaseOverlayComponent {
   content = input<TemplateRef<any> | null>(null)
 

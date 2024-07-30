@@ -22,6 +22,35 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
   changeDetection: ChangeDetectionStrategy.OnPush,
   // animations: [trigger('slideInOut', [transition(':enter', fromRightToLeft), transition(':leave', fromLeftToRight)])]
 })
+/**
+ * Modal component that leverages Angular CDK's Overlay and Portal modules to create modals with flexible positioning and configurations.
+ *
+ * @usageNotes
+ * The component can be shown by using its selector `quang-modal` with a boolean binded to the Angular directive `*ngIf`.
+ *
+ * Its structure is divided in 3 `ng-content` to set the header, body and footer.
+ * Every section has its own selector and can be used to render custom content in a simple way.
+ *
+ * `header` section is placed on top, `footer` section is placed on bottom.
+ *
+ * @example
+ * <quang-modal
+ *   (backdropClick)="closeModal()"
+ *   *ngIf="showModal"
+ *   animation="top"
+ *   position="right"
+ * >
+ *   <ng-container header>
+ *     <h2>Modal header</h2>
+ *   </ng-container>
+ *   <ng-container body>
+ *     <h3>Modal body</h3>
+ *   </ng-container>
+ *   <ng-container footer>
+ *     <h3>Modal footer</h3>
+ *   </ng-container>
+ * </quang-modal>
+ */
 export class QuangModalComponent implements AfterViewInit, OnDestroy {
   @ViewChild(CdkPortal) public readonly portal?: CdkPortal
 

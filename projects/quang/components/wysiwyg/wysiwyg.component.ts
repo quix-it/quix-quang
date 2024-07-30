@@ -37,6 +37,18 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
   imports: [TranslocoPipe, NgIf, NgClass, JsonPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+/**
+ * WYSIWYG (What You See Is What You Get) component based on {@link https://github.com/JiHong88/SunEditor}.
+ *
+ * This component provides a rich text editor for users to create and edit HTML content.
+ * It supports a wide range of formatting options.
+ *
+ * @usageNotes
+ * The component allows you to show or hide buttons from the WYSIWYG editor.
+ * By default, all the available buttons are shown in the editor bar.
+ *
+ * The height of the editor can be customized by setting the `minHeight` property. By default, it is `200px`.
+ */
 export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit {
   _inputForWysiwyg = viewChild<ElementRef>('inputForWysiwyg')
 
@@ -86,9 +98,6 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   changeDetectorRef = signal(inject(ChangeDetectorRef))
 
-  /**
-   * the actual date wysiwyg is based on {@link https://github.com/JiHong88/SunEditor}
-   */
   _generateSunEditorWysiwygEffect = effect(
     async () => {
       if (this._inputForWysiwyg()?.nativeElement) {

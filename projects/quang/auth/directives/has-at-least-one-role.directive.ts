@@ -3,6 +3,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { QuangAuthService } from '../auth.service'
 
+/**
+ * This directive conditionally renders the associated template if the authenticated user
+ * has at least one of the specified roles. By using the `QuangAuthService.hasAtLeastOneRole()` method it checks the user's roles against
+ * the required roles provided through the `quangHasAtLeastOneRole` directive.
+ *
+ * @example
+ * <div *quangHasAtLeastOneRole="['admin', 'editor']">
+ *   This content will only be visible to users with 'admin' or 'editor' roles.
+ * </div>
+ */
 @Directive({
   selector: '[quangHasAtLeastOneRole]',
   standalone: true,
