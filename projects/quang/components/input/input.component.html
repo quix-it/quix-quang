@@ -12,6 +12,8 @@
   </label>
   <ng-container *ngIf="componentType() !== 'textarea'">
     <input
+      [attr.maxLength]="maxLengthText()"
+      [attr.minLength]="minLengthText()"
       [attr.required]="getIsRequiredControl()"
       [class.is-invalid]="_showErrors()"
       [class.is-valid]="_showSuccess()"
@@ -32,6 +34,8 @@
   </ng-container>
   <ng-container *ngIf="componentType() === 'textarea'">
     <textarea
+      [attr.maxLength]="maxLengthText()"
+      [attr.minLength]="minLengthText()"
       [class.is-invalid]="_showErrors()"
       [class.is-valid]="_showSuccess()"
       [class.no-resize]="!resizable()"
