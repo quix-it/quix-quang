@@ -164,8 +164,6 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
   }
 
   attachOverlay(): void {
-    // eslint-disable-next-line no-console
-    console.log(this.elementRef())
     const targetComponentType = this.targetComponentType()
     if (!targetComponentType) {
       return
