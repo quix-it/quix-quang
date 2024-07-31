@@ -49,7 +49,7 @@ export class DateTestComponent {
 
   testForm = signal(
     this.formBuilder().group({
-      testInput: this.formBuilder().control<Date | string>(new Date().toISOString(), [Validators.required]),
+      testInput: this.formBuilder().control<Date | string>('', [Validators.required]),
     })
   )
 

@@ -1,4 +1,4 @@
-import { JsonPipe, NgClass, NgIf } from '@angular/common'
+import { JsonPipe, NgClass, NgIf, NgStyle } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,12 +15,7 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
-import AirDatepicker, {
-  AirDatepickerDate,
-  AirDatepickerLocale,
-  AirDatepickerOptions,
-  AirDatepickerPositionCallback,
-} from 'air-datepicker'
+import AirDatepicker, { AirDatepickerDate, AirDatepickerLocale, AirDatepickerOptions } from 'air-datepicker'
 import en from 'air-datepicker/locale/en'
 import fr from 'air-datepicker/locale/fr'
 import it from 'air-datepicker/locale/it'
@@ -44,7 +39,7 @@ export interface QuangDatepickerOptions extends AirDatepickerOptions {}
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgClass, JsonPipe],
+  imports: [TranslocoPipe, NgIf, NgClass, JsonPipe, NgStyle],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -132,7 +127,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
   _dateContainer = viewChild<ElementRef>('inputDateContainer')
 
-  _pointer = viewChild<ElementRef>('pointer')
+  pointerRotation = signal<string>(`${-45}deg`)
 
   @Optional() _quangTranslationService = signal<QuangTranslationService | undefined>(inject(QuangTranslationService))
 
@@ -186,14 +181,26 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
           toggleSelected: false,
           selectedDates: targetDate,
           container: this._dateContainer()?.nativeElement,
-          // position: () =>
-          //   this.getCalendarPosition({
-          //     $datepicker: this._dateContainer()?.nativeElement,
-          //     $target: this._inputForDate()?.nativeElement,
-          //     $pointer: this._pointer()?.nativeElement,
-          //     isViewChange: false,
-          //     done: () => {}
-          //   }),
+          position: ({ $datepicker, $target, $pointer }) => {
+            const coords = $target?.getBoundingClientRect()
+            const datepicker = $datepicker
+            const pointer = $pointer
+
+            const diff = window.innerHeight - coords.height - coords.top - $datepicker.getBoundingClientRect().height
+
+            if (diff > 0) {
+              datepicker.style.left = `${40}px`
+              datepicker.style.top = `${90}px`
+              pointer.style.bottom = 'unset'
+              this.pointerRotation.set(`${-45}deg`)
+            } else {
+              datepicker.style.left = `${40}px`
+              datepicker.style.bottom = `${datepicker?.getBoundingClientRect()?.height}px`
+              datepicker.style.top = 'unset'
+              pointer.style.top = 'unset'
+              this.pointerRotation.set(`${135}deg`)
+            }
+          },
           locale: this.getLocale(),
           onSelect: ({ date, formattedDate }) => {
             let targetString = ''
@@ -248,47 +255,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       })
   }
 
-  getCalendarPosition: AirDatepickerPositionCallback = ({
-    $datepicker,
-    $target,
-    $pointer,
-    done,
-  }: {
-    $datepicker: HTMLDivElement
-    $target: HTMLInputElement
-    $pointer: HTMLElement
-    done: () => void
-  }) => {
-    const coords = $target.getBoundingClientRect()
-    const dpHeight = $datepicker.clientHeight
-    const dpWidth = $datepicker.clientWidth
-    const datePicker = $datepicker
-    const pointer = $pointer
-
-    const top = coords.y + coords.height / 2 + window.scrollY - dpHeight / 2
-    const left = coords.x + coords.width / 2 - dpWidth / 2
-    // const view = isViewChange
-    // console.log(coords)
-    // console.log(dpHeight)
-    // console.log(dpWidth)
-    // console.log(datePicker)
-    // console.log(pointer.offsetHeight)
-    // console.log(top)
-    // console.log(left)
-
-    datePicker.style.left = `${left}px`
-    datePicker.style.top = `${top}px`
-    datePicker.style.height = `${pointer.offsetHeight}px`
-    datePicker.style.width = `${pointer.offsetWidth}px`
-
-    // datePicker.style.display = 'none'
-
-    return function completeHide() {
-      datePicker.style.display = 'none'
-      done()
-    }
-  }
-
   onChangeText($event: Event): void {
     this.inputValue$.next(($event.target as HTMLInputElement)?.value)
   }
@@ -300,7 +266,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         const formattedDate = toDate(parse(inputValue, this.dateFormat(), new Date()))
         this._airDatepickerInstance()?.selectDate(formattedDate)
         this._airDatepickerInstance()?.setViewDate(formattedDate)
-        // this._inputValue.set(null)
         this.onChangedHandler(toDate(parse(inputValue, this.dateFormat(), new Date())).toISOString())
         this._inputForDate()?.nativeElement.focus()
       }
@@ -329,6 +294,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         .join(this.multipleDateJoinCharacter())
     } else if (val) {
       targetDate = format(this.offsetUTCTime() ? this.dateToUtc(startOfDay(val)) : startOfDay(val), this.valueFormat())
+      this._inputValue.set(targetDate)
     }
     this._value.set(targetDate)
   }
@@ -347,7 +313,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     }
   }
 
-  dateToUtc(date: Date): Date {
+  private dateToUtc(date: Date): Date {
     // convert to UTC time removing the timezone
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
   }
