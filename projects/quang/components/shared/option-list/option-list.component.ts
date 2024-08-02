@@ -1,5 +1,15 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import { ChangeDetectionStrategy, Component, HostListener, computed, input, output, signal } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  computed,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -44,9 +54,13 @@ export class QuangOptionListComponent {
 
   elementTop = signal<string>('0px')
 
+  elementBottom = signal<string>('0px')
+
   changedHandler = output<any>()
 
   blurHandler = output<any>()
+
+  optionList = viewChild<ElementRef>('optionList')
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
 
@@ -128,8 +142,23 @@ export class QuangOptionListComponent {
   }
 
   getOptionListTop() {
-    this.elementTop.set(
-      `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.offsetHeight ?? 0)}px`
-    )
+    const diff =
+      window.innerHeight -
+      (this.optionList()?.nativeElement?.getBoundingClientRect()?.height ?? 0) -
+      (this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) -
+      (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)
+    if (diff >= 0) {
+      this.elementTop.set(
+        `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.offsetHeight ?? 0)}px`
+      )
+      this.elementBottom.set(`unset`)
+      this.optionList()?.nativeElement?.classList.remove('option-list-top')
+    } else {
+      this.elementTop.set(`unset`)
+      this.elementBottom.set(
+        `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
+      )
+      this.optionList()?.nativeElement?.classList.add('option-list-top')
+    }
   }
 }

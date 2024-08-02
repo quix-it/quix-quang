@@ -5,6 +5,7 @@
 .option-list {
   --option-list-width: 100%;
   --option-list-top: 10px;
+  --option-list-bottom: unset;
   border: 1px solid var(--bs-border-color);
   border-top: 0;
   border-radius: var(--bs-border-radius);
@@ -12,6 +13,7 @@
   position: fixed;
   width: var(--option-list-width);
   top: var(--option-list-top);
+  bottom: var(--option-list-bottom);
   z-index: 999;
   ul {
     margin: 0;
@@ -20,6 +22,10 @@
   .selected {
     background-color: var(--bs-body-bg);
     filter: brightness(95%);
+  }
+  &.option-list-top {
+    border-top: 1px solid var(--bs-border-color);
+    border-bottom: 0;
   }
 }
 
