@@ -189,12 +189,10 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
             const diff = window.innerHeight - coords.height - coords.top - $datepicker.getBoundingClientRect().height
 
             if (diff > 0) {
-              datepicker.style.left = `${40}px`
               datepicker.style.top = `${90}px`
               pointer.style.bottom = 'unset'
               this.pointerRotation.set(`${-45}deg`)
             } else {
-              datepicker.style.left = `${40}px`
               datepicker.style.bottom = `${14}rem`
               datepicker.style.top = 'unset'
               pointer.style.top = 'unset'
