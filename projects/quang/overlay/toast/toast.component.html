@@ -41,7 +41,7 @@
     *ngIf="_currentToast()?.text"
     class="toast-body"
   >
-    {{ _currentToast()?.text | transloco: { textValue: _currentToast()?.textValue } }}
+    {{ _currentToast()?.text?.trim() | transloco: { textValue: _currentToast()?.textValue?.trim() } }}
   </div>
   <ng-container *ngTemplateOutlet="_currentToast()?.customTemplate ?? null"></ng-container>
 </div>
