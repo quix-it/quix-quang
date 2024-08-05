@@ -91,6 +91,10 @@ export class InputTestComponent {
       error: 'noMatch',
       message: 'form.errors.noMatch',
     },
+    // {
+    //   error: 'fiscalCode',
+    //   message: 'form.error.fiscalCode'
+    // }
   ])
 
   testForm = signal(
@@ -99,6 +103,7 @@ export class InputTestComponent {
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(30),
+        // isFiscalCode()
       ]),
     })
   )

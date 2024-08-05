@@ -150,11 +150,12 @@ export function dateBetween(start: Date, end: Date) {
 export function isFiscalCode() {
   return (control: AbstractControl): Record<string, any> | null => {
     if (
+      control?.value &&
       !/^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$/gm.test(
         control.value.toUpperCase()
       )
     ) {
-      return { fiscalCode: false }
+      return { fiscalCode: true }
     }
     return null
   }
