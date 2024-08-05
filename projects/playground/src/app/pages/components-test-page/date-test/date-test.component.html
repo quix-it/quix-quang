@@ -51,6 +51,13 @@
     {{ 'form.buttons.changeVisibility' | transloco }}
   </button>
   <button
+    (click)="resetForm()"
+    class="btn btn-outline-secondary"
+    type="button"
+  >
+    {{ 'form.buttons.resetForm' | transloco }}
+  </button>
+  <button
     (click)="recreateForm()"
     class="btn btn-outline-secondary"
   >

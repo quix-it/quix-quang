@@ -255,6 +255,10 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
   onChangeText($event: Event): void {
     this.inputValue$.next(($event.target as HTMLInputElement)?.value)
+    if (!($event.target as HTMLInputElement)?.value) {
+      this._airDatepickerInstance()?.setFocusDate(false)
+      this._airDatepickerInstance()?.clear({ silent: true })
+    }
   }
 
   override onChangedEventHandler(): void {
@@ -268,6 +272,11 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         this._inputForDate()?.nativeElement.focus()
       }
     }
+  }
+
+  override onChangedHandler(value: string | Date | Date[] | null): void {
+    this._inputValue.set(value?.toString() ?? '')
+    super.onChangedHandler(value)
   }
 
   override onBlurHandler(): void {
@@ -293,6 +302,8 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     } else if (val) {
       targetDate = format(this.offsetUTCTime() ? this.dateToUtc(startOfDay(val)) : startOfDay(val), this.valueFormat())
       this._inputValue.set(targetDate)
+    } else {
+      this._airDatepickerInstance()?.clear({ silent: true })
     }
     this._value.set(targetDate)
   }

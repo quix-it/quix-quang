@@ -75,7 +75,8 @@
       "changeDateFormat": "Change date format",
       "selectInputType": "Select input type:",
       "changeHeight": "Change height",
-      "flipButton": "Hide button"
+      "flipButton": "Hide button",
+      "resetForm": "Reset Form"
     }
   },
   "quangPaginator": {

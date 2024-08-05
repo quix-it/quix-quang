@@ -77,6 +77,10 @@ export class DateTestComponent {
     this.showInput.set(!this.showInput())
   }
 
+  resetForm(): void {
+    this.testForm().reset()
+  }
+
   recreateForm() {
     this.testForm.set(
       this.formBuilder().group({
