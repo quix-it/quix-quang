@@ -124,6 +124,11 @@ export class QuangSelectComponent
     )
   }
 
+  override onBlurHandler(): void {
+    this._showOptions.set(false)
+    super.onBlurHandler()
+  }
+
   override onChangedHandler(value: string | number | string[] | number[] | null): void {
     super.onChangedHandler(value)
     if (this.selectionMode() === 'single') {
