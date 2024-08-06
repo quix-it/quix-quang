@@ -5,6 +5,7 @@
     '--option-list-top': elementTop(),
     '--option-list-bottom': elementBottom(),
   }"
+  (blur)="onBlurHandler($event)"
   #optionList
   class="option-list"
 >
@@ -24,7 +25,6 @@
         [ngClass]="componentClass()"
         [tabIndex]="componentTabIndex()"
         [value]="getSelected(item)"
-        (blur)="onBlurHandler($event)"
         (input)="onSelectItem(item)"
         #inputCheckbox
         class="form-check-input"

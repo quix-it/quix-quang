@@ -128,6 +128,7 @@ export class QuangOptionListComponent {
 
   getSelected(item: SelectOption): boolean {
     if (this.selectionMode() === 'single') {
+      this.setFocus()
       return this._value() === item.value
     }
     return this._value()?.some((x: number | string | null) => x === item?.value)
@@ -160,5 +161,9 @@ export class QuangOptionListComponent {
       )
       this.optionList()?.nativeElement?.classList.add('option-list-top')
     }
+  }
+
+  setFocus(): void {
+    this.optionList()?.nativeElement.focus()
   }
 }

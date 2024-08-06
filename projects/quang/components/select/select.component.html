@@ -47,7 +47,7 @@
       [selectionMode]="selectionMode()"
       [selectOptions]="selectOptions()"
       [translateValue]="translateValue()"
-      (blurHandler)="onBlurHandler()"
+      (blurHandler)="onBlurOptionList($event)"
       (changedHandler)="onChangedHandler($event)"
       *ngIf="_showOptions()"
     ></quang-option-list>
