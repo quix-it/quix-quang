@@ -127,15 +127,15 @@ export class QuangOptionListComponent {
   }
 
   getSelected(item: SelectOption): boolean {
+    this.setFocus()
     if (this.selectionMode() === 'single') {
-      this.setFocus()
       return this._value() === item.value
     }
     return this._value()?.some((x: number | string | null) => x === item?.value)
   }
 
   onBlurHandler(e: any): void {
-    this.blurHandler.emit(e)
+    if (this.selectionMode() === 'single') this.blurHandler.emit(e)
   }
 
   getOptionListWidth() {
