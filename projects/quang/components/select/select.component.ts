@@ -1,5 +1,15 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import { AfterViewInit, ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core'
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  forwardRef,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -46,6 +56,8 @@ export class QuangSelectComponent
   optionListMaxHeight = input<string>('18rem')
 
   selectOptions = input.required<SelectOption[]>()
+
+  optionList = viewChild<QuangOptionListComponent>('optionList')
 
   _showOptions = signal<boolean>(false)
 
@@ -101,6 +113,14 @@ export class QuangSelectComponent
       this.showOptionVisibility()
     }
   }
+
+  onGetOptionList = toObservable(this.optionList)
+    .pipe(takeUntilDestroyed())
+    .subscribe((optionList) => {
+      if (optionList) {
+        optionList.setFocus()
+      }
+    })
 
   showOptionVisibility(): void {
     if (this._optionHideTimeout()) {

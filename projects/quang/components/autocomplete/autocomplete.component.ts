@@ -64,6 +64,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   _inputValue = signal<string | null>(null)
 
+  _optionHideTimeout = signal<any | undefined>(undefined)
+
   selectOptionsChange = toObservable(this.selectOptions)
     .pipe(takeUntilDestroyed())
     .subscribe(() => {
@@ -103,11 +105,25 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   showOptionVisibility(): void {
+    if (this._optionHideTimeout()) {
+      clearTimeout(this._optionHideTimeout())
+      this._optionHideTimeout.set(null)
+    }
     this._showOptions.set(true)
   }
 
-  hideOptionVisibility(): void {
-    this._showOptions.set(false)
+  hideOptionVisibility(skipTimeout = false): void {
+    if (this._optionHideTimeout()) {
+      clearTimeout(this._optionHideTimeout())
+    }
+    this._optionHideTimeout.set(
+      setTimeout(
+        () => {
+          this._showOptions.set(false)
+        },
+        skipTimeout ? 0 : 50
+      )
+    )
   }
 
   onChangeInput(value: any): void {
@@ -148,10 +164,13 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   override onBlurHandler() {
     setTimeout(() => {
-      super.onBlurHandler()
-
       this.hideOptionVisibility()
+      super.onBlurHandler()
     }, 500)
+  }
+
+  onBlurOptionList(event: any): void {
+    if (event) this.hideOptionVisibility()
   }
 
   setInputValue(resetOnMiss = false) {

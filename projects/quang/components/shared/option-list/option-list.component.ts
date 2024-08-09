@@ -127,7 +127,6 @@ export class QuangOptionListComponent {
   }
 
   getSelected(item: SelectOption): boolean {
-    this.setFocus()
     if (this.selectionMode() === 'single') {
       return this._value() === item.value
     }

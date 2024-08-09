@@ -36,7 +36,7 @@
     [selectButtonRef]="selectInput"
     [selectOptions]="_filteredOptions()"
     [translateValue]="translateValue()"
-    (blurHandler)="onBlurHandler()"
+    (blurHandler)="onBlurOptionList($event)"
     (changedHandler)="onValueChange($event)"
     *ngIf="_showOptions()"
     selectionMode="single"
