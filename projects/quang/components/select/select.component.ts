@@ -4,12 +4,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   forwardRef,
   input,
   signal,
   viewChild,
 } from '@angular/core'
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -114,13 +114,9 @@ export class QuangSelectComponent
     }
   }
 
-  onGetOptionList = toObservable(this.optionList)
-    .pipe(takeUntilDestroyed())
-    .subscribe((optionList) => {
-      if (optionList) {
-        optionList.setFocus()
-      }
-    })
+  getOptionList = effect(() => {
+    this.optionList()?.setFocus()
+  })
 
   showOptionVisibility(): void {
     if (this._optionHideTimeout()) {
@@ -145,7 +141,9 @@ export class QuangSelectComponent
   }
 
   onBlurOptionList(event: any): void {
-    if (event) this.hideOptionVisibility()
+    if (event) {
+      this.hideOptionVisibility()
+    }
   }
 
   override onChangedHandler(value: string | number | string[] | number[] | null): void {
