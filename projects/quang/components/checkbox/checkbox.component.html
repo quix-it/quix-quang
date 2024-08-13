@@ -18,6 +18,7 @@
   </label>
   <input
     [attr.required]="getIsRequiredControl()"
+    [attr.role]="checkType() === 'checkbox' ? 'checkbox' : 'switch'"
     [checked]="_value()"
     [class.is-invalid]="_showErrors()"
     [class.is-valid]="_showSuccess()"
@@ -31,7 +32,6 @@
     (blur)="onBlurHandler()"
     (input)="onChangedEventHandler($event)"
     class="form-check-input"
-    role="switch"
     type="checkbox"
   />
   <div class="valid-feedback">
