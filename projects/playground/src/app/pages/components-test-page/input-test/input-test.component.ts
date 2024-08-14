@@ -72,7 +72,7 @@ export class InputTestComponent {
 
   showValueAndValidity = signal<boolean>(false)
 
-  formBuilder = signal(inject(NonNullableFormBuilder))
+  formBuilder = inject(NonNullableFormBuilder)
 
   errors = signal([
     {
@@ -97,47 +97,43 @@ export class InputTestComponent {
     // }
   ])
 
-  testForm = signal(
-    this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('', [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(30),
-        // isFiscalCode()
-      ]),
-    })
-  )
+  testForm = this.formBuilder.group({
+    testInput: this.formBuilder.control<string>('', [
+      Validators.required,
+      Validators.minLength(1),
+      Validators.maxLength(30),
+      // isFiscalCode()
+    ]),
+  })
 
-  testFormChange = this.testForm()
-    .controls.testInput.valueChanges.pipe(takeUntilDestroyed())
-    .subscribe((val) => {
-      if (val && val === 'ciao') {
-        this.testForm().controls.testInput.setErrors(null)
-      } else if (val) {
-        console.log('ciaoni')
-        this.testForm().controls.testInput.setErrors({ noMatch: true })
-        console.log('this.testForm().controls.testInput', this.testForm().controls.testInput.errors)
-      }
-    })
+  testFormChange = this.testForm.controls.testInput.valueChanges.pipe(takeUntilDestroyed()).subscribe((val) => {
+    if (val && val === 'ciao') {
+      this.testForm.controls.testInput.setErrors(null)
+    } else if (val) {
+      console.log('ciaoni')
+      this.testForm.controls.testInput.setErrors({ noMatch: true })
+      console.log('this.testForm.controls.testInput', this.testForm.controls.testInput.errors)
+    }
+  })
 
   showInput = signal(true)
 
   changeFormEnabled() {
-    if (this.testForm().enabled) this.testForm().disable()
-    else this.testForm().enable()
+    if (this.testForm.enabled) this.testForm.disable()
+    else this.testForm.enable()
   }
 
   getIsRequiredInput() {
-    return this.testForm().controls.testInput.hasValidator(Validators.required)
+    return this.testForm.controls.testInput.hasValidator(Validators.required)
   }
 
   changeFormInputRequired() {
     if (this.getIsRequiredInput()) {
-      this.testForm().controls.testInput.removeValidators(Validators.required)
+      this.testForm.controls.testInput.removeValidators(Validators.required)
     } else {
-      this.testForm().controls.testInput.addValidators(Validators.required)
+      this.testForm.controls.testInput.addValidators(Validators.required)
     }
-    this.testForm().controls.testInput.updateValueAndValidity()
+    this.testForm.controls.testInput.updateValueAndValidity()
   }
 
   changeVisibility() {
@@ -145,27 +141,25 @@ export class InputTestComponent {
   }
 
   recreateForm() {
-    this.testForm.set(
-      this.formBuilder().group({
-        testInput: this.formBuilder().control<string>('New form created', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(30),
-        ]),
-      })
-    )
+    this.testForm = this.formBuilder.group({
+      testInput: this.formBuilder.control<string>('New form created', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(30),
+      ]),
+    })
   }
 
   setFormValues() {
-    this.testForm().patchValue({
+    this.testForm.patchValue({
       testInput: 'ciao!',
     })
   }
 
   checkCurrentFormValueAndValidity() {
     this.showValueAndValidity.set(true)
-    console.log('Current form value:', this.testForm().value)
-    console.log('Current form validity:', this.testForm().valid)
+    console.log('Current form value:', this.testForm.value)
+    console.log('Current form validity:', this.testForm.valid)
   }
 
   setReadonly() {

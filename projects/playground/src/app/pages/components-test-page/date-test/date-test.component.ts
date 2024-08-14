@@ -28,9 +28,9 @@ import { QuangInputComponent } from '@quix/quang/components/input'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateTestComponent {
-  formBuilder = signal(inject(NonNullableFormBuilder))
+  formBuilder = inject(NonNullableFormBuilder)
 
-  isReadonly = signal(false)
+  isReadonly = signal<boolean>(false)
 
   showValueAndValidity = signal<boolean>(false)
 
@@ -47,30 +47,28 @@ export class DateTestComponent {
     } */
   ])
 
-  testForm = signal(
-    this.formBuilder().group({
-      testInput: this.formBuilder().control<Date | string>('', [Validators.required]),
-    })
-  )
+  testForm = this.formBuilder.group({
+    testInput: this.formBuilder.control<Date | string>('', [Validators.required]),
+  })
 
-  showInput = signal(true)
+  showInput = signal<boolean>(true)
 
   changeFormEnabled() {
-    if (this.testForm().enabled) this.testForm().disable()
-    else this.testForm().enable()
+    if (this.testForm.enabled) this.testForm.disable()
+    else this.testForm.enable()
   }
 
   getIsRequiredInput() {
-    return this.testForm().controls.testInput.hasValidator(Validators.required)
+    return this.testForm.controls.testInput.hasValidator(Validators.required)
   }
 
   changeFormInputRequired() {
     if (this.getIsRequiredInput()) {
-      this.testForm().controls.testInput.removeValidators(Validators.required)
+      this.testForm.controls.testInput.removeValidators(Validators.required)
     } else {
-      this.testForm().controls.testInput.addValidators(Validators.required)
+      this.testForm.controls.testInput.addValidators(Validators.required)
     }
-    this.testForm().controls.testInput.updateValueAndValidity()
+    this.testForm.controls.testInput.updateValueAndValidity()
   }
 
   changeVisibility() {
@@ -78,30 +76,28 @@ export class DateTestComponent {
   }
 
   resetForm(): void {
-    this.testForm().reset()
+    this.testForm.reset()
   }
 
   recreateForm() {
-    this.testForm.set(
-      this.formBuilder().group({
-        testInput: this.formBuilder().control<Date | string>(new Date(), [Validators.required]),
-      })
-    )
+    this.testForm = this.formBuilder.group({
+      testInput: this.formBuilder.control<Date | string>(new Date(), [Validators.required]),
+    })
   }
 
   setFormValues() {
     const targetDate = new Date()
     targetDate.setMonth(0)
-    this.testForm().patchValue({
+    this.testForm.patchValue({
       testInput: targetDate,
     })
   }
 
   checkCurrentFormValueAndValidity() {
     this.showValueAndValidity.set(true)
-    console.log('Current form value:', this.testForm().value)
-    console.log('Current form value json:', JSON.stringify(this.testForm().value))
-    console.log('Current form validity:', this.testForm().valid)
+    console.log('Current form value:', this.testForm.value)
+    console.log('Current form value json:', JSON.stringify(this.testForm.value))
+    console.log('Current form validity:', this.testForm.valid)
   }
 
   changeDateFormat() {

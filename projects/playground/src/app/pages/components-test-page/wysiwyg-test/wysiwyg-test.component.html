@@ -1,6 +1,6 @@
 <h3>{{ 'title.components.wysiwyg' | transloco }}</h3>
 <form
-  [formGroup]="testForm()"
+  [formGroup]="testForm"
   *ngIf="showInput()"
 >
   <quang-wysiwyg
@@ -18,19 +18,19 @@
   class="d-flex flex-column mb-4"
 >
   <span>
-    {{ 'form.label.formValue' | transloco: { value: testForm().value | json } }}
+    {{ 'form.label.formValue' | transloco: { value: testForm.value | json } }}
   </span>
   <span>
-    {{ 'form.label.formValidity' | transloco: { valid: this.testForm().valid } }}
+    {{ 'form.label.formValidity' | transloco: { valid: this.testForm.valid } }}
   </span>
 </div>
-<pre>{{ testForm().controls.testInput.errors | json }}</pre>
+<pre>{{ testForm.controls.testInput.errors | json }}</pre>
 <div class="d-flex gap-3">
   <button
     (click)="changeFormEnabled()"
     class="btn btn-outline-secondary"
   >
-    {{ 'form.buttons.enabled' | transloco: { enabled: testForm().enabled } }}
+    {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
   </button>
   <button
     (click)="changeFormInputRequired()"

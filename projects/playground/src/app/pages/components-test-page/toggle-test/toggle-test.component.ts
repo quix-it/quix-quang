@@ -19,7 +19,7 @@ export class ToggleTestComponent {
 
   showValueAndValidity = signal<boolean>(false)
 
-  formBuilder = signal(inject(NonNullableFormBuilder))
+  formBuilder = inject(NonNullableFormBuilder)
 
   errors = signal([
     {
@@ -36,34 +36,32 @@ export class ToggleTestComponent {
     },
   ])
 
-  testForm = signal(
-    this.formBuilder().group({
-      toggle: this.formBuilder().control<boolean>(false, [Validators.required]),
-      checkbox: this.formBuilder().control<boolean>(true, [Validators.required]),
-    })
-  )
+  testForm = this.formBuilder.group({
+    toggle: this.formBuilder.control<boolean>(false, [Validators.required]),
+    checkbox: this.formBuilder.control<boolean>(true, [Validators.required]),
+  })
 
   showInput = signal(true)
 
   changeFormEnabled() {
-    if (this.testForm().enabled) this.testForm().disable()
-    else this.testForm().enable()
+    if (this.testForm.enabled) this.testForm.disable()
+    else this.testForm.enable()
   }
 
   getIsRequiredInput() {
-    return this.testForm().controls.toggle.hasValidator(Validators.required)
+    return this.testForm.controls.toggle.hasValidator(Validators.required)
   }
 
   changeFormInputRequired() {
     if (this.getIsRequiredInput()) {
-      this.testForm().controls.toggle.removeValidators(Validators.required)
-      this.testForm().controls.checkbox.removeValidators(Validators.required)
+      this.testForm.controls.toggle.removeValidators(Validators.required)
+      this.testForm.controls.checkbox.removeValidators(Validators.required)
     } else {
-      this.testForm().controls.toggle.addValidators(Validators.required)
-      this.testForm().controls.checkbox.addValidators(Validators.required)
+      this.testForm.controls.toggle.addValidators(Validators.required)
+      this.testForm.controls.checkbox.addValidators(Validators.required)
     }
-    this.testForm().controls.toggle.updateValueAndValidity()
-    this.testForm().controls.checkbox.updateValueAndValidity()
+    this.testForm.controls.toggle.updateValueAndValidity()
+    this.testForm.controls.checkbox.updateValueAndValidity()
   }
 
   changeVisibility() {
@@ -71,16 +69,14 @@ export class ToggleTestComponent {
   }
 
   recreateForm() {
-    this.testForm.set(
-      this.formBuilder().group({
-        toggle: this.formBuilder().control<boolean>(false, [Validators.required]),
-        checkbox: this.formBuilder().control<boolean>(false, [Validators.required]),
-      })
-    )
+    this.testForm = this.formBuilder.group({
+      toggle: this.formBuilder.control<boolean>(false, [Validators.required]),
+      checkbox: this.formBuilder.control<boolean>(false, [Validators.required]),
+    })
   }
 
   setFormValues() {
-    this.testForm().patchValue({
+    this.testForm.patchValue({
       toggle: true,
       checkbox: true,
     })
@@ -88,8 +84,8 @@ export class ToggleTestComponent {
 
   checkCurrentFormValueAndValidity() {
     this.showValueAndValidity.set(true)
-    console.log('Current form value:', this.testForm().value)
-    console.log('Current form validity:', this.testForm().valid)
+    console.log('Current form value:', this.testForm.value)
+    console.log('Current form validity:', this.testForm.valid)
   }
 
   setReadonly() {

@@ -119,7 +119,7 @@ export class AutocompleteTestComponent {
     this.onChangeForm()
   }
 
-  formBuilder = signal(inject(NonNullableFormBuilder))
+  formBuilder = inject(NonNullableFormBuilder)
 
   errors = signal([
     {
@@ -136,31 +136,29 @@ export class AutocompleteTestComponent {
     },
   ])
 
-  testForm = signal(
-    this.formBuilder().group({
-      testInput: this.formBuilder().control<string>('', [Validators.required]),
-      testInputMultiple: this.formBuilder().control<number[]>([], [Validators.required]),
-    })
-  )
+  testForm = this.formBuilder.group({
+    testInput: this.formBuilder.control<string>('', [Validators.required]),
+    testInputMultiple: this.formBuilder.control<number[]>([], [Validators.required]),
+  })
 
-  showInput = signal(true)
+  showInput = signal<boolean>(true)
 
   changeFormEnabled() {
-    if (this.testForm().enabled) this.testForm().disable()
-    else this.testForm().enable()
+    if (this.testForm.enabled) this.testForm.disable()
+    else this.testForm.enable()
   }
 
   getIsRequiredInput() {
-    return this.testForm().controls.testInput.hasValidator(Validators.required)
+    return this.testForm.controls.testInput.hasValidator(Validators.required)
   }
 
   changeFormInputRequired() {
     if (this.getIsRequiredInput()) {
-      this.testForm().controls.testInput.removeValidators(Validators.required)
+      this.testForm.controls.testInput.removeValidators(Validators.required)
     } else {
-      this.testForm().controls.testInput.addValidators(Validators.required)
+      this.testForm.controls.testInput.addValidators(Validators.required)
     }
-    this.testForm().controls.testInput.updateValueAndValidity()
+    this.testForm.controls.testInput.updateValueAndValidity()
   }
 
   changeVisibility() {
@@ -168,16 +166,14 @@ export class AutocompleteTestComponent {
   }
 
   recreateForm() {
-    this.testForm.set(
-      this.formBuilder().group({
-        testInput: this.formBuilder().control<string>(this.stringList[2].value as string, [Validators.required]),
-        testInputMultiple: this.formBuilder().control<number[]>([1, 2], [Validators.required]),
-      })
-    )
+    this.testForm = this.formBuilder.group({
+      testInput: this.formBuilder.control<string>(this.stringList[2].value as string, [Validators.required]),
+      testInputMultiple: this.formBuilder.control<number[]>([1, 2], [Validators.required]),
+    })
   }
 
   setFormValues() {
-    this.testForm().patchValue({
+    this.testForm.patchValue({
       testInput: 'min',
       testInputMultiple: [3, 4],
     })
@@ -185,8 +181,8 @@ export class AutocompleteTestComponent {
 
   checkCurrentFormValueAndValidity() {
     this.showValueAndValidity.set(true)
-    console.log('Current form value:', this.testForm().value)
-    console.log('Current form validity:', this.testForm().valid)
+    console.log('Current form value:', this.testForm.value)
+    console.log('Current form validity:', this.testForm.valid)
   }
 
   setReadonly() {
@@ -194,13 +190,13 @@ export class AutocompleteTestComponent {
   }
 
   onChangeForm(): void {
-    this.testForm().controls.testInput.valueChanges.subscribe((x) => {
+    this.testForm.controls.testInput.valueChanges.subscribe((x) => {
       console.log('valueChange', x)
     })
   }
 
   onSelectOption(option: any): void {
     console.log(option)
-    this.testForm().controls.testInput.patchValue('')
+    this.testForm.controls.testInput.patchValue('')
   }
 }

@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common'
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -15,28 +15,22 @@ import { QuangPaginatorComponent } from '@quix/quang/components/paginator'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorTestComponent {
-  formBuilder = signal(inject(NonNullableFormBuilder))
+  formBuilder = inject(NonNullableFormBuilder)
 
   sizeList = [10, 20, 30, 40, 50]
 
-  testForm = signal(
-    this.formBuilder().group({
-      page: 1,
-      pageSize: 10,
-    })
-  )
+  testForm = this.formBuilder.group({
+    page: 1,
+    pageSize: 10,
+  })
 
   onChangePage(page: number): void {
-    this.testForm().controls.page.patchValue(page)
+    this.testForm.controls.page.patchValue(page)
     console.log(page)
   }
 
   onChangePageSize(pageSize: number): void {
-    this.testForm().controls.pageSize.patchValue(pageSize)
+    this.testForm.controls.pageSize.patchValue(pageSize)
     console.log(pageSize)
   }
-
-  // onSubmit() {
-  //   console.log(this.testForm().value)
-  // }
 }

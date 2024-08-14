@@ -3,9 +3,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  Renderer2,
   computed,
   effect,
   forwardRef,
+  inject,
   input,
   signal,
   viewChild,
@@ -114,6 +116,8 @@ export class QuangSelectComponent
     }
   }
 
+  renderer = inject(Renderer2)
+
   getOptionList = effect(() => {
     this.optionList()?.setFocus()
   })
@@ -122,6 +126,7 @@ export class QuangSelectComponent
     if (this._optionHideTimeout()) {
       clearTimeout(this._optionHideTimeout())
       this._optionHideTimeout.set(null)
+      this.renderer.setProperty(this.optionList(), 'focus', 'focus')
     }
     this._showOptions.set(true)
   }

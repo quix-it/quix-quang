@@ -134,9 +134,9 @@ export class QuangOptionListComponent {
   }
 
   onBlurHandler(e: any): void {
-    if (this.selectionMode() === 'single') {
-      if (e.sourceCapabilities) this.blurHandler.emit(e)
-    }
+    // if (this.selectionMode() === 'single') {
+    if (e.sourceCapabilities) this.blurHandler.emit(e)
+    // }
   }
 
   getOptionListWidth() {
@@ -165,6 +165,8 @@ export class QuangOptionListComponent {
   }
 
   setFocus(): void {
-    this.optionList()?.nativeElement.focus()
+    if (this.optionList()?.nativeElement) {
+      this.optionList()?.nativeElement.focus()
+    }
   }
 }
