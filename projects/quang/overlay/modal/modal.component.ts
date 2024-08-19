@@ -1,16 +1,7 @@
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay'
 import { CdkPortal, PortalModule } from '@angular/cdk/portal'
 import { NgStyle } from '@angular/common'
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  ViewChild,
-  input,
-  output,
-  signal,
-} from '@angular/core'
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, ViewChild, input, output } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 @Component({
@@ -20,7 +11,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // animations: [trigger('slideInOut', [transition(':enter', fromRightToLeft), transition(':leave', fromLeftToRight)])]
 })
 /**
  * Modal component that leverages Angular CDK's Overlay and Portal modules to create modals with flexible positioning and configurations.
@@ -37,7 +27,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
  * <quang-modal
  *   (backdropClick)="closeModal()"
  *   *ngIf="showModal"
- *   animation="top"
  *   position="right"
  * >
  *   <ng-container header>
@@ -58,7 +47,6 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
 
   position = input.required<'right' | 'left' | 'center'>()
 
-  // animation = input.required<'right' | 'left' | 'center' | 'top' | 'bottom'>()
   height = input<string>('80vh')
 
   width = input<string>('80vw')
@@ -66,8 +54,6 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
   backgroundColor = input<string>()
 
   showBackdrop = input<boolean>(true)
-
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
 
   private overlayConfig?: OverlayConfig
 
@@ -97,18 +83,15 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
     this.overlayRef = this.overlay.create(this.overlayConfig)
     this.overlayRef
       .backdropClick()
-      .pipe(this._takeUntilDestroyed())
+      .pipe(takeUntilDestroyed())
       .subscribe(() => {
         this.backdropClick.emit()
       })
     this.overlayRef?.attach(this.portal)
-    // this.animationState = 'visible'
   }
 
   ngOnDestroy(): void {
-    // setTimeout(() => {
     this.overlayRef?.detach()
     this.overlayRef?.dispose()
-    // }, 300)
   }
 }

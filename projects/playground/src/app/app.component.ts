@@ -19,7 +19,6 @@ import { SvgIconComponent } from 'angular-svg-icon'
 import { QuangLoaderComponent } from '@quix/quang/loader'
 import { QuangModalComponent } from '@quix/quang/overlay/modal'
 import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
-import { QuangPopoverComponent } from '@quix/quang/overlay/popover/popover.component'
 import { QuangToastComponent } from '@quix/quang/overlay/toast'
 import { QuangToastService } from '@quix/quang/overlay/toast/toast.service'
 import { QuangTooltipDirective } from '@quix/quang/overlay/tooltip'
@@ -40,7 +39,6 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
     QuangTooltipDirective,
     QuangPopoverDirective,
     QuangLoaderComponent,
-    QuangPopoverComponent,
     NgForOf,
     UpperCasePipe,
     SvgIconComponent,
@@ -56,9 +54,9 @@ export class AppComponent {
 
   title = signal('playground')
 
-  quangTranslationService = signal(inject(QuangTranslationService))
+  quangTranslationService = inject(QuangTranslationService)
 
-  quangToast = signal(inject(QuangToastService))
+  quangToast = inject(QuangToastService)
 
   showModal = signal(false)
 
@@ -78,7 +76,7 @@ export class AppComponent {
   }
 
   changeLanguage(lang: string) {
-    this.quangTranslationService().setActiveLang(lang)
+    this.quangTranslationService.setActiveLang(lang)
   }
 
   showLoader() {
@@ -104,7 +102,7 @@ export class AppComponent {
   }
 
   openToast(type: 'success' | 'warning' | 'error', customIcon?: boolean): void {
-    this.quangToast().openToast({
+    this.quangToast.openToast({
       type,
       title: type,
       position: 'bottom-center',

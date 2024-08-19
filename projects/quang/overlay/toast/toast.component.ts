@@ -27,6 +27,17 @@ import { QuangToastService } from './toast.service'
  * of a squared indicator positioned next to the header's title.
  *
  * The component can also display a {@link ToastData.customIcon} in the toast header instead of the squared indicator.
+ * 
+ * @example
+ * <quang-toast></quang-toast>
+ * this.quangToast.openToast({
+      type,
+      title: type,
+      position: 'bottom-center',
+      text: 'custom text here',
+      showCloseButton: true,
+      timing: 50000000,
+    })
  */
 export class QuangToastComponent {
   toastService = signal(inject(QuangToastService))

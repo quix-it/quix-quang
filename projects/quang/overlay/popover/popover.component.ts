@@ -14,6 +14,18 @@ import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
 })
 /**
  * Popover component that can render custom content, passed from the outside as a `TemplateRef`
+ * @example
+ * <button
+        [quangPopover]="popoverTest"
+        [scrollCloseThreshold]="undefined"
+        class="btn popover-test-button"
+        overlayPosition="top"
+        showMethod="click"
+      >
+        {{ 'buttons.popover' | transloco }}
+        <span>CLICK</span>
+      </button>
+      <ng-template #popoverTest> <span>test works!</span> <button type="button">click!</button> </ng-template>
  */
 export class QuangPopoverComponent implements QuangBaseOverlayComponent {
   content = input<TemplateRef<any> | null>(null)
