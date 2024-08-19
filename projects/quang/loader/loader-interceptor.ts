@@ -18,6 +18,13 @@ export interface UrlData {
   method: HttpMethod
 }
 
+/**
+ * @example
+ * providers: [
+ * provideHttpClient(withInterceptors([quangLoaderInterceptor]))
+ * ]
+ */
+
 function getExcludedUrlsByMethod(urlData: UrlData[]) {
   const excludedUrlByMethod = new Map<HttpMethod, Set<string>>([
     ['GET', new Set()],

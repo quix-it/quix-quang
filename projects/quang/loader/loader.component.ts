@@ -29,6 +29,16 @@ export class QuangLoaderComponent {
     this.onLoading()
   }
 
+  /**
+   * @example
+   * <quang-loader></quang-loader>
+   *
+   * @example
+   * <quang-loader>
+   *  custom loader here
+   * </quang-loader>
+   */
+
   onLoading() {
     this._loaderService()
       .isLoading$.pipe(this._takeUntilDestroyed())

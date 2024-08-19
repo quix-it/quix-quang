@@ -1,6 +1,6 @@
 # Quang overlay
 
-The purpose of these components is to provide a simple and quick way to create responsive and modern applications.
+The purpose of these components and directives is to provide a simple and quick way to create responsive and modern applications.
 
 All the components extend the [`QuangBaseOverlayDirective`](shared/quang-base-overlay.directive.ts)
 that provides a label on top, the specific object below it, and a possible error message underneath.
