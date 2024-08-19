@@ -20,6 +20,17 @@ export interface TranslationConfig {
   allowEmpty?: boolean
 }
 
+/**
+ * @example
+ * providers: [
+ * provideTranslation({
+      availableLangs: ['it', 'en'],
+      defaultLang: 'it',
+      fallbackLang: 'it',
+    })
+   ]
+ */
+
 export function provideTranslation(config: TranslationConfig): EnvironmentProviders {
   return makeEnvironmentProviders([
     QuangTranslationLoaderService,
