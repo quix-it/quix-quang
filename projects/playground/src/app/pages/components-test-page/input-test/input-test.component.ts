@@ -48,22 +48,22 @@ export class InputTestComponent {
       value: 'number',
       label: 'Number',
     },
-    // {
-    //   value: 'url',
-    //   label: 'Url',
-    // },
-    // {
-    //   value: 'search',
-    //   label: 'Search',
-    // },
-    // {
-    //   value: 'tel',
-    //   label: 'Tel',
-    // },
-    // {
-    //   value: 'color',
-    //   label: 'Color',
-    // },
+    {
+      value: 'url',
+      label: 'Url',
+    },
+    {
+      value: 'search',
+      label: 'Search',
+    },
+    {
+      value: 'tel',
+      label: 'Tel',
+    },
+    {
+      value: 'color',
+      label: 'Color',
+    },
   ])
 
   inputType = signal<InputType>('text')

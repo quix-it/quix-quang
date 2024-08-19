@@ -134,9 +134,7 @@ export class QuangOptionListComponent {
   }
 
   onBlurHandler(e: any): void {
-    // if (this.selectionMode() === 'single') {
-    if (e.sourceCapabilities) this.blurHandler.emit(e)
-    // }
+    this.blurHandler.emit(e)
   }
 
   getOptionListWidth() {
@@ -161,12 +159,6 @@ export class QuangOptionListComponent {
         `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
       )
       this.optionList()?.nativeElement?.classList.add('option-list-top')
-    }
-  }
-
-  setFocus(): void {
-    if (this.optionList()?.nativeElement) {
-      this.optionList()?.nativeElement.focus()
     }
   }
 }

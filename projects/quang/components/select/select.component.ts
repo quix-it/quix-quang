@@ -1,17 +1,5 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  Renderer2,
-  computed,
-  effect,
-  forwardRef,
-  inject,
-  input,
-  signal,
-  viewChild,
-} from '@angular/core'
+import { AfterViewInit, ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -59,8 +47,6 @@ export class QuangSelectComponent
 
   selectOptions = input.required<SelectOption[]>()
 
-  optionList = viewChild<QuangOptionListComponent>('optionList')
-
   _showOptions = signal<boolean>(false)
 
   _optionHideTimeout = signal<any | undefined>(undefined)
@@ -92,21 +78,6 @@ export class QuangSelectComponent
     return this.selectOptions()
   })
 
-  // buon esempio di conversione
-  /* _inputArrayChange = effect(
-    () => {
-      if (this.nullOption() && !this.selectOptions().find((x) => x.value === null)) {
-        const nullValue: SelectOption[] = [{ label: '', value: null }]
-        this._selectOptions.set(nullValue.concat(this.selectOptions()))
-      } else if (!this.nullOption() && this.selectOptions().find((x) => x.value === null)) {
-        this._selectOptions.set(this.selectOptions())
-      }
-    },
-    {
-      allowSignalWrites: true
-    }
-  ) */
-
   changeOptionsVisibility(skipTimeout = false): void {
     if (this.isReadonly()) return
     if (this._showOptions()) {
@@ -116,17 +87,10 @@ export class QuangSelectComponent
     }
   }
 
-  renderer = inject(Renderer2)
-
-  getOptionList = effect(() => {
-    this.optionList()?.setFocus()
-  })
-
   showOptionVisibility(): void {
     if (this._optionHideTimeout()) {
       clearTimeout(this._optionHideTimeout())
       this._optionHideTimeout.set(null)
-      this.renderer.setProperty(this.optionList(), 'focus', 'focus')
     }
     this._showOptions.set(true)
   }
@@ -143,12 +107,6 @@ export class QuangSelectComponent
         skipTimeout ? 0 : 50
       )
     )
-  }
-
-  onBlurOptionList(event: any): void {
-    if (event) {
-      this.hideOptionVisibility()
-    }
   }
 
   override onChangedHandler(value: string | number | string[] | number[] | null): void {
