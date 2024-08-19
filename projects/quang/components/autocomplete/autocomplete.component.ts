@@ -157,9 +157,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   override writeValue(val: string | number | null): void {
-    this.setInputValue(true)
-    this.setInputValue(true)
     super.writeValue(val)
+    this.setInputValue(true)
   }
 
   override onBlurHandler() {
