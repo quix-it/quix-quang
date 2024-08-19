@@ -1,7 +1,17 @@
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay'
 import { CdkPortal, PortalModule } from '@angular/cdk/portal'
 import { NgStyle } from '@angular/common'
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, ViewChild, input, output } from '@angular/core'
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  OnDestroy,
+  ViewChild,
+  inject,
+  input,
+  output,
+} from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 @Component({
@@ -55,6 +65,8 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
 
   showBackdrop = input<boolean>(true)
 
+  private readonly destroyRef = inject(DestroyRef)
+
   private overlayConfig?: OverlayConfig
 
   private overlayRef?: OverlayRef
@@ -83,7 +95,7 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
     this.overlayRef = this.overlay.create(this.overlayConfig)
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.backdropClick.emit()
       })
