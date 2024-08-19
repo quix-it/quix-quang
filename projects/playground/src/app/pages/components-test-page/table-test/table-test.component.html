@@ -1,7 +1,7 @@
 <h3>{{ 'title.components.table' | transloco }}</h3>
 <quang-table
   [stickyTable]="false"
-  [tableConfigurations]="tableConfig"
+  [tableConfigurations]="tableConfig()"
   (sortChanged)="onChangeSort($event)"
 ></quang-table>
 <ng-template

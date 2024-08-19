@@ -1,10 +1,10 @@
 import { JsonPipe } from '@angular/common'
-import { AfterViewInit, Component, TemplateRef, ViewChild, signal, viewChild } from '@angular/core'
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { Component, TemplateRef, computed, signal, viewChild } from '@angular/core'
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
-import { SvgIconComponent } from 'angular-svg-icon'
-import { of } from 'rxjs'
+import { AngularSvgIconModule } from 'angular-svg-icon'
+import { map, of } from 'rxjs'
 
 import {
   QuangTableComponent,
@@ -32,60 +32,15 @@ interface People {
     QuangPopoverDirective,
     JsonPipe,
     TranslocoPipe,
-    SvgIconComponent,
+    AngularSvgIconModule,
   ],
   templateUrl: './table-test.component.html',
   styleUrl: './table-test.component.scss',
 })
-export class TableTestComponent implements AfterViewInit {
-  @ViewChild('actions') actions?: TemplateRef<any>
+export class TableTestComponent {
+  actions = viewChild<TemplateRef<any>>('actions')
 
   name3 = viewChild<TemplateRef<any>>('name3')
-
-  tableConfig: TableConfiguration<People> = {
-    headers: [
-      {
-        text: 'Name',
-        sort: {
-          key: 'name',
-          sort: SortTable.DEFAULT,
-        },
-      },
-      {
-        text: 'Name2',
-        sort: {
-          key: 'name2',
-          sort: SortTable.DEFAULT,
-        },
-      },
-      {
-        text: 'Name3',
-        css: ['justify-content-end'],
-        sort: {
-          key: 'name3',
-          sort: SortTable.DEFAULT,
-        },
-      },
-      {
-        text: 'Age',
-        sort: {
-          key: 'age',
-          sort: SortTable.DESC,
-        },
-      },
-      {
-        text: 'Gender',
-        sort: {
-          key: 'gender',
-          sort: SortTable.DEFAULT,
-        },
-      },
-      {
-        text: '',
-      },
-    ],
-    rows: [],
-  }
 
   readonly people: People[] = [
     {
@@ -216,80 +171,96 @@ export class TableTestComponent implements AfterViewInit {
     },
   ]
 
+  peopleList = toSignal(of(this.people).pipe(map((x) => x)))
+
+  tableConfig = computed<TableConfiguration<People>>(() => ({
+    headers: [
+      {
+        text: 'Name',
+        sort: {
+          key: 'name',
+          sort: SortTable.DEFAULT,
+        },
+      },
+      {
+        text: 'Name2',
+        sort: {
+          key: 'name2',
+          sort: SortTable.DEFAULT,
+        },
+      },
+      {
+        text: 'Name3',
+        css: ['justify-content-end'],
+        sort: {
+          key: 'name3',
+          sort: SortTable.DEFAULT,
+        },
+      },
+      {
+        text: 'Age',
+        sort: {
+          key: 'age',
+          sort: SortTable.DESC,
+        },
+      },
+      {
+        text: 'Gender',
+        sort: {
+          key: 'gender',
+          sort: SortTable.DEFAULT,
+        },
+      },
+      {
+        text: '',
+      },
+    ],
+    rows:
+      this.peopleList()?.map(
+        (person): TableRow<People> => ({
+          css: undefined,
+          rowId: `person-${person.id}`,
+          payload: person,
+          cellData: [
+            {
+              text: person.name,
+            },
+            {
+              text: person.name,
+            },
+            {
+              renderer: this.name3(),
+              payload: person.name,
+            },
+            {
+              text: person.age.toString(),
+            },
+            {
+              text: person.gender,
+              css: ['bg-light'],
+            },
+            {
+              renderer: this.actions(),
+              payload: person,
+            },
+          ],
+        })
+      ) ?? [],
+  }))
+
   selectedRows: string[] = []
 
   _takeUntilDestroyed = signal(takeUntilDestroyed())
 
-  ngAfterViewInit(): void {
-    this.generateTable()
-  }
-
-  generateTable(): void {
-    of(this.people)
-      .pipe(this._takeUntilDestroyed())
-      .subscribe((people) => {
-        if (Array.isArray(people) && people?.length) {
-          this.tableConfig.rows = people.map(
-            (person): TableRow<People> => ({
-              css: undefined,
-              rowId: `person-${person.id}`,
-              payload: person,
-              cellData: [
-                {
-                  text: person.name,
-                },
-                {
-                  text: person.name,
-                },
-                // {
-                //   text: person.name,
-                //   css: ['text-end'],
-                // },
-                {
-                  renderer: this.name3(),
-                  payload: person.name,
-                },
-                {
-                  text: person.age,
-                },
-                {
-                  text: person.gender,
-                  css: ['bg-light'],
-                },
-                {
-                  renderer: this.actions,
-                  payload: person,
-                },
-              ],
-            })
-          )
-          this.tableConfig.rows.splice(4, 0, {
-            cellData: [
-              {
-                fullWidth: true,
-                css: ['bg-info'],
-                text: 'Full row example',
-              },
-            ],
-          })
-        } else {
-          this.tableConfig.rows = []
-        }
-        this.tableConfig = {
-          ...this.tableConfig,
-        }
-      })
-  }
-
   onEditPerson(id: number): void {
-    const person = this.tableConfig.rows.find((x) => x.payload?.id === id)
+    const person = this.tableConfig().rows.find((x) => x.payload?.id === id)
     if (person) {
       person.css = person?.css?.length ? undefined : ['hover-table']
     }
   }
 
   onDeletePerson(id: number): void {
-    this.tableConfig.rows = this.tableConfig.rows.filter((x) => x.payload?.id !== id)
+    this.tableConfig().rows = this.tableConfig().rows.filter((x) => x.payload?.id !== id)
   }
 
   onClickRow(e: TableRow<People>): void {
