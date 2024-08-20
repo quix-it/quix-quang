@@ -37,7 +37,6 @@ export class CustomViewportRuler implements OnDestroy {
     ngZone: NgZone,
     @Optional() @Inject(DOCUMENT) document: any
   ) {
-    console.log('CustomViewportRuler!')
     this._document = document
 
     ngZone.runOutsideAngular(() => {
