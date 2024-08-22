@@ -27,6 +27,7 @@
       (blur)="onBlurHandler()"
       (focus)="interceptInputInteraction($event)"
       (input)="onChangeText($event)"
+      (search)="onCancel()"
       #inputForDate
       class="form-control"
       type="search"
