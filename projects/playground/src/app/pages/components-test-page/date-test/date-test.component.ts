@@ -19,6 +19,7 @@ import { QuangInputComponent } from '@quix/quang/components/input'
     NgIf,
     NgForOf,
     TranslocoPipe,
+    JsonPipe,
     QuangDateComponent,
     QuangDateComponent,
     SvgIconComponent,

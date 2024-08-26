@@ -268,14 +268,22 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         const formattedDate = toDate(parse(inputValue, this.dateFormat(), new Date()))
         this._airDatepickerInstance()?.selectDate(formattedDate)
         this._airDatepickerInstance()?.setViewDate(formattedDate)
-        this.onChangedHandler(toDate(parse(inputValue, this.dateFormat(), new Date())).toISOString())
-        this._inputForDate()?.nativeElement.focus()
+        if (inputValue !== this._value())
+          this.onChangedHandler(toDate(parse(inputValue, this.dateFormat(), new Date())).toISOString())
+        this._inputForDate()?.nativeElement.blur()
       }
     }
   }
 
   override onChangedHandler(value: string | Date | Date[] | null): void {
-    this._inputValue.set(value?.toString() ?? '')
+    if (Array.isArray(value)) {
+      this.inputValue$.next(new Date(value?.toString() ?? '')?.toISOString() ?? '')
+    } else if (value instanceof Date) {
+      this.inputValue$.next(value.toISOString())
+    } else {
+      this.inputValue$.next(value ?? '')
+    }
+
     super.onChangedHandler(value)
   }
 
@@ -363,5 +371,9 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       default:
         return (en as any).default || en
     }
+  }
+
+  onCancel(): void {
+    this.onChangedHandler(null)
   }
 }
