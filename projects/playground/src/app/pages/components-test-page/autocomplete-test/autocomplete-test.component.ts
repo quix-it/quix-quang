@@ -115,10 +115,6 @@ export class AutocompleteTestComponent {
     })
   )
 
-  constructor() {
-    this.onChangeForm()
-  }
-
   formBuilder = inject(NonNullableFormBuilder)
 
   errors = signal([
@@ -142,6 +138,10 @@ export class AutocompleteTestComponent {
   })
 
   showInput = signal<boolean>(true)
+
+  constructor() {
+    this.onChangeForm()
+  }
 
   changeFormEnabled() {
     if (this.testForm.enabled) this.testForm.disable()
@@ -197,6 +197,5 @@ export class AutocompleteTestComponent {
 
   onSelectOption(option: any): void {
     console.log(option)
-    this.testForm.controls.testInput.patchValue('')
   }
 }
