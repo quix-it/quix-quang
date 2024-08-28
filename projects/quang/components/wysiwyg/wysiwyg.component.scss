@@ -6,6 +6,7 @@
   .se-toolbar {
     color: var(--bs-body-color) !important;
     background-color: var(--bs-body-bg) !important;
+    z-index: unset !important;
   }
 
   .se-wrapper-inner {
@@ -40,9 +41,15 @@
   }
 
   .se-wrapper {
+    z-index: unset !important;
+
     textarea:disabled + .se-wrapper-wysiwyg {
       background-color: var(--bs-secondary-bg);
     }
+  }
+
+  .se-wrapper .se-wrapper-inner {
+    border-top: 1px solid var(--bs-border-color);
   }
 
   .is-invalid .sun-editor .se-container {
