@@ -22,6 +22,8 @@ import plugins from 'suneditor/src/plugins'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 
+export interface QuangWysiwygOptions extends SunEditorOptions {}
+
 @Component({
   selector: 'quang-wysiwyg',
   standalone: true,
@@ -94,6 +96,8 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   showBlocks = input<boolean>(true)
 
+  wysiwygOptions = input<QuangWysiwygOptions | undefined>(undefined)
+
   _sunEditorWysiwygInstance = signal<SunEditorCore | undefined>(undefined)
 
   changeDetectorRef = signal(inject(ChangeDetectorRef))
@@ -106,6 +110,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
           buttonList: this._ngControl()?.control?.enabled && !this.isReadonly() ? [this.getButtonList()] : [],
           minHeight: this.minHeight(),
           width: '100%',
+          ...(this.wysiwygOptions() ?? {}),
         }
 
         if (this._sunEditorWysiwygInstance()) {
