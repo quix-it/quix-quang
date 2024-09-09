@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
       useSilentRefresh: false, // Explicitly set this to false, otherwise code flow will try to use an iframe to refresh session
       timeoutFactor: 0.25, // For faster testing
       sessionChecksEnabled: true,
-      showDebugInformation: true, // Also requires enabling "Verbose" level in devtools
+      showDebugInformation: false, // Also requires enabling "Verbose" level in devtools
       clearHashAfterLogin: false, // https://github.com/manfredsteyer/angular-oauth2-oidc/issues/457#issuecomment-431807040,
       nonceStateSeparator: 'semicolon', // Real semicolon gets mangled by Duende ID Server's URI encoding,
       sendAccessToken: true,

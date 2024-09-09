@@ -31,6 +31,21 @@ export class AuthTestComponent {
 
   authService = inject(QuangAuthService)
 
+  checkRole = this.authService.roles
+
+  // Example to add user roles from user
+  /* userSubscription$ = toObservable(this.authService.user)
+    .pipe(
+      takeUntilDestroyed(),
+      tap((u) => console.log('u ---->', u)),
+      map((user) => user?.['info'].realm_access.roles as string[]), // customize with your actual handling of roles
+      filter((roles) => roles.length > 0),
+      tap((roles) => {
+        this.authService.addRoles(roles)
+      })
+    )
+    .subscribe() */
+
   getProtectedApiResponse(): void {
     this.http
       .get<any>('https://demo.duendesoftware.com/api/test')

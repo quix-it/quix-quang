@@ -1,8 +1,10 @@
 # Quang Auth
 
-Quang Auth provides a comprehensive set of tools and utilities based on OIDC (Open ID Connect) for managing authentication within your Angular application.
+Quang Auth provides a comprehensive set of tools and utilities based on OIDC (Open ID Connect) for managing
+authentication within your Angular application.
 
-This service encapsulates authentication logic, making it reusable and maintainable across different parts of your application.
+This service encapsulates authentication logic, making it reusable and maintainable across different parts of your
+application.
 
 To use this set be sure to have installed 'angular-oauth2-oidc' dependency.
 
@@ -14,7 +16,8 @@ This section outlines the custom directives provided by the Quang Auth.
 
 This directive shows content only after user login.
 
-To use it import [QuangIsAuthenticatedDirective](./directives/is-authenticated.directive.ts) and put it in your template.
+To use it import [QuangIsAuthenticatedDirective](./directives/is-authenticated.directive.ts) and put it in your
+template.
 
 <h4 style="color:#657ED4">@example</h4>
 
@@ -28,7 +31,8 @@ To use it import [QuangIsAuthenticatedDirective](./directives/is-authenticated.d
 
 This directive shows content only if user is not authenticated.
 
-To use it import [QuangIsNotAuthenticatedDirective](./directives/is-not-authenticated.directive.ts) and put it in your template.
+To use it import [QuangIsNotAuthenticatedDirective](./directives/is-not-authenticated.directive.ts) and put it in your
+template.
 
 <h4 style="color:#657ED4">@example</h4>
 
@@ -56,7 +60,8 @@ To use it import [QuangHasEveryRoleDirective](./directives/has-every-role.direct
 
 This directive shows content only if user is not authenticated.
 
-To use it import [QuangHasAtLeastOneRoleDirective](./directives/has-at-least-one-role.directive.ts) and put it in your template.
+To use it import [QuangHasAtLeastOneRoleDirective](./directives/has-at-least-one-role.directive.ts) and put it in your
+template.
 
 <h4 style="color:#657ED4">@example</h4>
 
@@ -68,7 +73,8 @@ To use it import [QuangHasAtLeastOneRoleDirective](./directives/has-at-least-one
 
 ## Guards
 
-Guards are used to control access to routes in your Angular application. This section details the available guards for protecting routes based on user authentication status.
+Guards are used to control access to routes in your Angular application. This section details the available guards for
+protecting routes based on user authentication status.
 
 ### IsAllowedGuard
 
@@ -120,14 +126,35 @@ export const routes: Routes = [
 
 This section covers the mobile-specific functionalities offered by the Quang Auth service.
 
-Function `withMobileAuth()` in [mobile-auth-feature.ts](./mobile/mobile-auth-feature.ts) return if auth is managed in a mobile app.
+Function `withMobileAuth()` in [mobile-auth-feature.ts](./mobile/mobile-auth-feature.ts) return if auth is managed in a
+mobile app.
 
 ### Auth Providers
 
 [auth-providers.ts](./auth-providers.ts)
 
-This section describes the configuration options for the Quang Auth service. It details the providers that need to be registered in your Angular application's configuration (app.config.ts) to enable authentication functionality.
+This section describes the configuration options for the Quang Auth service. It details the providers that need to be
+registered in your Angular application's configuration (app.config.ts) to enable authentication functionality.
 
 ### Auth Service
 
-[`QuangAuthService`](./auth.service.ts) provides a set of functions, models, and interfaces for interacting with the authentication system. This section documents the available methods, data structures, and contracts for using the Auth service effectively.
+[`QuangAuthService`](./auth.service.ts) provides a set of functions, models, and interfaces for interacting with the
+authentication system. This section documents the available methods, data structures, and contracts for using the Auth
+service effectively.
+
+The service DOES NOT handle automatically the roles for the user. It's needed to call the `addRoles()` method to add
+roles to the user after login.
+
+```
+userSubscription$ = toObservable(this.authService.user)
+    .pipe(
+        takeUntilDestroyed(),
+        tap((u) => console.log('u ---->', u)),
+        map((user) => user?.['info'].realm_access.roles as string[]), // customize with your actual handling of roles
+        filter((roles) => roles.length > 0),
+        tap((roles) => {
+            this.authService.addRoles(roles)
+        })
+    )
+.subscribe()
+```
