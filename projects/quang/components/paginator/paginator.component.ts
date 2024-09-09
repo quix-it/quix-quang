@@ -31,21 +31,9 @@ export class QuangPaginatorComponent implements OnInit {
 
   page = input.required<number>()
 
-  page$ = toObservable(this.page)
-    .pipe(takeUntilDestroyed())
-    .subscribe((page) => {
-      this._currentPage.set(page)
-    })
-
   pageSize = input.required<number>()
 
-  pageSize$ = toObservable(this.pageSize)
-    .pipe(takeUntilDestroyed())
-    .subscribe((pageSize) => {
-      this._pageSize.set(pageSize)
-    })
-
-  sizeList = input.required<number[]>()
+  sizeList = input<number[]>([])
 
   totalItems = input.required<number>()
 
@@ -59,7 +47,19 @@ export class QuangPaginatorComponent implements OnInit {
 
   _currentPage = signal<number>(1)
 
+  page$ = toObservable(this.page)
+    .pipe(takeUntilDestroyed())
+    .subscribe((page) => {
+      this._currentPage.set(page)
+    })
+
   _pageSize = signal<number>(0)
+
+  pageSize$ = toObservable(this.pageSize)
+    .pipe(takeUntilDestroyed())
+    .subscribe((pageSize) => {
+      this._pageSize.set(pageSize)
+    })
 
   _totalPages = computed(() => Math.ceil(this.totalItems() / this._pageSize()))
 

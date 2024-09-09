@@ -9,7 +9,10 @@
   >
     {{ totalItemsText() | transloco }} {{ totalItems() }}
   </div>
-  <div class="me-3">
+  <div
+    *ngIf="sizeList().length > 0"
+    class="me-3"
+  >
     <label
       class="form-label pagination-label mb-0 text-center"
       for="pageSize"
@@ -26,7 +29,6 @@
       id="pageSize"
       name="pageSize"
     >
-      <!-- [ngValue]="pageSize()" -->
       <option
         [selected]="pageSize === this._pageSize()"
         *ngFor="let pageSize of sizeList()"
