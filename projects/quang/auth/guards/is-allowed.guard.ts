@@ -10,5 +10,5 @@ export const quangIsAllowedGuardFactory =
     const isAuthenticated = await authService.getAuthResult()
     if (!isAuthenticated) return false
     const isAllowedFunction = behavior === 'every' ? authService.hasEveryRole : authService.hasAtLeastOneRole
-    return isAllowedFunction(roles)
+    return isAllowedFunction.call(authService, roles)
   }
