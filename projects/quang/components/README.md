@@ -16,7 +16,8 @@ suggestions as the user types, allowing for easy selection from a list of filter
 
 ### Checkbox/Toggle
 
-The [QuangCheckboxComponent](checkbox/checkbox.component.ts) can be used as a standard checkbox or as a toggle switch by setting the `checkType` input.
+The [QuangCheckboxComponent](checkbox/checkbox.component.ts) can be used as a standard checkbox or as a toggle switch by
+setting the `checkType` input.
 
 ### Datepicker
 
@@ -24,13 +25,26 @@ The [QuangDateComponent](date/date.component.ts) is based on Air Datepicker.
 
 It can be fully customized using the input property `datepickerOptions` (see https://air-datepicker.com/examples)
 
+---
+
 <h4 style="color:#f03c15">IMPORTANT</h4>
 
-Remember to import 'node_modules/@quix/quang/components/date/global-date.component.scss' in your global style (suggested "vendors" folder)
+Remember to add the import
+
+`node_modules/@quix/quang/components/date/global-date.component.scss`
+
+or
+
+`@quix/quang/components/date/global-date.component.scss`
+
+in your global style (suggested "vendors" folder)
+
+---
 
 ### Input
 
 The [QuangInputComponent](input/input.component.ts) must be configured using the `componentType` input property as:
+
 * text
 * textarea
 * password
@@ -47,12 +61,25 @@ The [QuangSelectComponent](select/select.component.ts) supports single or multip
 
 ### WYSIWYG
 
-The [QuangWysiwygComponent](wysiwyg/wysiwyg.component.ts) is a rich text editor based on https://github.com/JiHong88/SunEditor, offering a wide range of formatting options
+The [QuangWysiwygComponent](wysiwyg/wysiwyg.component.ts) is a rich text editor based
+on https://github.com/JiHong88/SunEditor, offering a wide range of formatting options
 for creating and editing HTML content.
+
+---
 
 <h4 style="color:#f03c15">IMPORTANT</h4>
 
-Remember to import 'node_modules/@quix/quang/components/wysiwyg/global-wysiswyg.component.scss' in your global style (suggested "vendors" folder)
+Remember to import
+
+`node_modules/@quix/quang/components/wysiwyg/global-wysiswyg.component.scss`
+
+or
+
+`@quix/quang/components/wysiwyg/global-wysiswyg.component.scss`
+
+in your global style (suggested "vendors" folder)
+
+---
 
 ## Other components
 
@@ -64,5 +91,6 @@ The [QuangTableComponent](table/table.component.ts) allows for displaying data i
 
 ### Paginator
 
-The [QuangPaginatorComponent](paginator/paginator.component.ts) provides controls for navigating through pages of data, supporting configurations
+The [QuangPaginatorComponent](paginator/paginator.component.ts) provides controls for navigating through pages of data,
+supporting configurations
 for total items, items per page, and current page.

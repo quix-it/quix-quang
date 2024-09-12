@@ -27,6 +27,7 @@ import { QuangTranslationService } from '@quix/quang/translation'
 import { AppService } from './app.service'
 
 export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
+
 @Component({
   selector: 'playground-root',
   standalone: true,
@@ -92,9 +93,7 @@ export class AppComponent {
   }
 
   closeModal(): void {
-    setTimeout(() => {
-      this.showModal.set(false)
-    }, 400)
+    this.showModal.set(false)
   }
 
   btnAction(): void {
