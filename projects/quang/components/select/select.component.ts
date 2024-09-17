@@ -109,9 +109,24 @@ export class QuangSelectComponent
     )
   }
 
+  override onBlurHandler() {
+    if (this.selectionMode() === 'single') {
+      setTimeout(() => {
+        this.hideOptionVisibility()
+        super.onBlurHandler()
+      }, 100)
+    }
+  }
+
   override onChangedHandler(value: string | number | string[] | number[] | null): void {
     super.onChangedHandler(value)
     if (this.selectionMode() === 'single') {
+      this.hideOptionVisibility()
+    }
+  }
+
+  onMouseLeaveCallback() {
+    if (this.selectionMode() === 'multiple') {
       this.hideOptionVisibility()
     }
   }

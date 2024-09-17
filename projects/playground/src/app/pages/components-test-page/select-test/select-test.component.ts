@@ -134,7 +134,7 @@ export class SelectTestComponent {
   ])
 
   testForm = this.formBuilder.group({
-    testInput: this.formBuilder.control<string>({ value: '', disabled: true }, [Validators.required]),
+    testInput: this.formBuilder.control<string>('', [Validators.required]),
     testInputMultiple: this.formBuilder.control<number[]>([], [Validators.required]),
   })
 
