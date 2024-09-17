@@ -13,6 +13,8 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   isReadonly = input<boolean>(false)
 
+  isReadonly$ = toObservable(this.isReadonly)
+
   componentTabIndex = input<number>(0)
 
   componentClass = input<string | string[]>('')
@@ -132,6 +134,10 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
     this.checkFormErrors()
   }
+
+  onChangeIsReadonly = this.isReadonly$.pipe(takeUntilDestroyed()).subscribe((isReadonly: boolean) => {
+    this._isDisabled.set(isReadonly || this._ngControl()?.disabled || false)
+  })
 
   setDisabledState(isDisabled: boolean) {
     this._isDisabled.set(isDisabled)
