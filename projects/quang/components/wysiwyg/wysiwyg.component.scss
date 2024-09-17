@@ -18,6 +18,10 @@
     color: var(--bs-body-color) !important;
   }
 
+  .se-btn:enabled.active {
+    color: var(--bs-primary) !important;
+  }
+
   .se-btn:hover {
     background-color: var(--bs-secondary-bg) !important;
   }
