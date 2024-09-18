@@ -94,6 +94,7 @@ export class QuangOptionListComponent {
   }
 
   isScrollable(ele: HTMLElement): string | boolean {
+    if (!ele) return false
     const hasScrollableContent = ele.scrollHeight > ele.clientHeight
 
     const overflowYStyle = window.getComputedStyle(ele).overflowY
