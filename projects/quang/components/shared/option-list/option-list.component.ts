@@ -93,14 +93,23 @@ export class QuangOptionListComponent {
     this.getOptionListTop()
   }
 
-  isScrollable(ele: HTMLElement): string | boolean {
+  isScrollable(ele: HTMLElement): boolean {
     if (!ele) return false
-    const hasScrollableContent = ele.scrollHeight > ele.clientHeight
 
-    const overflowYStyle = window.getComputedStyle(ele).overflowY
-    const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
+    let result = false
 
-    return hasScrollableContent && !isOverflowHidden
+    try {
+      const hasScrollableContent = ele.scrollHeight > ele.clientHeight
+
+      const overflowYStyle = window.getComputedStyle(ele).overflowY
+      const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
+
+      result = hasScrollableContent && !isOverflowHidden
+    } catch (e) {
+      console.error('captured error isScrollable', e)
+    }
+
+    return result
   }
 
   getScrollParent(node: any): HTMLElement {
