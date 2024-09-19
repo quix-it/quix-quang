@@ -12,7 +12,6 @@
     <li
       [class.m-0]="last"
       [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
-      (click)="selectionMode() === 'single' ? onSelectItem(item) : undefined"
       *ngFor="let item of selectOptionss(); let i = index; let last = last"
       class="item"
     >

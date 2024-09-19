@@ -1,5 +1,6 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -139,6 +140,16 @@ export class SelectTestComponent {
   })
 
   showInput = signal(true)
+
+  onChangeTestInput = this.testForm.controls.testInput.valueChanges.pipe(takeUntilDestroyed()).subscribe((val) => {
+    console.log(val)
+  })
+
+  onChangeTestInputMultiple = this.testForm.controls.testInputMultiple.valueChanges
+    .pipe(takeUntilDestroyed())
+    .subscribe((val) => {
+      console.log(val)
+    })
 
   changeFormEnabled() {
     if (this.testForm.enabled) this.testForm.disable()
