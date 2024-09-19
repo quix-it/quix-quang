@@ -12,6 +12,7 @@
     <li
       [class.m-0]="last"
       [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
+      (click)="selectionMode() === 'single' ? onSelectItem(item) : undefined"
       *ngFor="let item of selectOptionss(); let i = index; let last = last"
       class="item"
     >
@@ -25,7 +26,7 @@
         [tabIndex]="componentTabIndex()"
         [value]="getSelected(item)"
         (blur)="onBlurHandler($event)"
-        (input)="onSelectItem(item)"
+        (input)="selectionMode() === 'multiple' ? onSelectItem(item) : undefined"
         #inputCheckbox
         class="form-check-input"
         type="checkbox"
