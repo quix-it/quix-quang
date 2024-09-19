@@ -25,7 +25,7 @@
         [tabIndex]="componentTabIndex()"
         [value]="getSelected(item)"
         (blur)="onBlurHandler($event)"
-        (input)="selectionMode() === 'multiple' ? onSelectItem(item) : undefined"
+        (input)="onSelectItem(item)"
         #inputCheckbox
         class="form-check-input"
         type="checkbox"
