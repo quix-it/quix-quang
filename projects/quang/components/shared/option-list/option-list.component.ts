@@ -134,7 +134,6 @@ export class QuangOptionListComponent {
         this.changedHandler.emit(null)
       }
     }
-    this.onBlurHandler(item)
   }
 
   getSelected(item: SelectOption): boolean {

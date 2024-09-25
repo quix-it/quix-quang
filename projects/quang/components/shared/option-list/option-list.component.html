@@ -5,13 +5,13 @@
     '--option-list-top': elementTop(),
     '--option-list-bottom': elementBottom(),
   }"
+  #optionList
   class="option-list"
 >
   <ul>
     <li
       [class.m-0]="last"
       [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
-      (click)="$event.preventDefault(); $event.stopImmediatePropagation(); onSelectItem(item); onBlurHandler($event)"
       *ngFor="let item of selectOptionss(); let i = index; let last = last"
       class="item"
     >
@@ -24,6 +24,9 @@
         [ngClass]="componentClass()"
         [tabIndex]="componentTabIndex()"
         [value]="getSelected(item)"
+        (blur)="onBlurHandler($event)"
+        (input)="onSelectItem(item)"
+        #inputCheckbox
         class="form-check-input"
         type="checkbox"
       />
