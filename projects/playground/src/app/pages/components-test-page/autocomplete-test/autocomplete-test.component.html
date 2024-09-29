@@ -1,4 +1,5 @@
 <h3>{{ 'title.components.autocomplete' | transloco }}</h3>
+ciao
 <form
   [formGroup]="testForm"
   *ngIf="showInput()"
@@ -9,7 +10,9 @@
       <quang-autocomplete
         [errorMap]="errors()"
         [isReadonly]="isReadonly()"
-        [selectOptions]="stringList"
+        [searchTextDebounce]="500"
+        [selectOptions]="stringListFiltered()"
+        (searchTextChange)="changeTextTest($event)"
         (selectedOption)="onSelectOption($event)"
         class="col-6"
         componentLabel="form.label.autocomplete"
@@ -18,15 +21,6 @@
       ></quang-autocomplete>
     </div>
   </div>
-  <!-- <quang-autocomplete
-    [errorMap]="errors()"
-    [isReadonly]="isReadonly()"
-    [selectOptions]="numberList"
-    componentLabel="form.label.input"
-    formControlName="testInputMultiple"
-    selectionMode="multiple"
-    successMessage="tutto bello!"
-  ></quang-autocomplete> -->
 </form>
 <div
   *ngIf="showValueAndValidity()"

@@ -1,5 +1,6 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
-import { Component, inject, signal } from '@angular/core'
+import { Component, DestroyRef, inject, signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -66,6 +67,8 @@ export class AutocompleteTestComponent {
       value: x.code,
     })
   )
+
+  stringListFiltered = signal([...this.stringList])
 
   numberList = [
     {
@@ -139,6 +142,8 @@ export class AutocompleteTestComponent {
 
   showInput = signal<boolean>(true)
 
+  destroyRef = inject(DestroyRef)
+
   constructor() {
     this.onChangeForm()
   }
@@ -190,12 +195,21 @@ export class AutocompleteTestComponent {
   }
 
   onChangeForm(): void {
-    this.testForm.controls.testInput.valueChanges.subscribe((x) => {
-      console.log('valueChange', x)
+    console.log('onChangeForm')
+    this.testForm.controls.testInput.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((x) => {
+      console.log('valueChange --->', x)
     })
   }
 
   onSelectOption(option: any): void {
     console.log(option)
+  }
+
+  changeTextTest($event: string) {
+    // test for string changes and autocompletes
+    console.log('change text test', $event)
+    setTimeout(() => {
+      this.stringListFiltered.set(this.stringList.filter((y) => y.label.toLowerCase().includes($event.toLowerCase())))
+    }, 500)
   }
 }
