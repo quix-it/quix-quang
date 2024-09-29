@@ -2,6 +2,7 @@ import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   TemplateRef,
   effect,
@@ -18,9 +19,11 @@ import { Subscription } from 'rxjs'
 import { ResizeObservableService } from '@quix/quang/device'
 
 export interface TableHeader {
-  text: string
+  text?: string
   sort?: SortCol
   css?: string[]
+  renderer?: TemplateRef<any>
+  payload?: any
 }
 
 export interface TableConfiguration<T> {
@@ -83,7 +86,7 @@ export class QuangTableComponent<T> {
 
   public SortTable = SortTable
 
-  _takeUntilDestroyed = takeUntilDestroyed()
+  destroyRef = inject(DestroyRef)
 
   _resizeObservableService = inject(ResizeObservableService)
 
@@ -146,7 +149,7 @@ export class QuangTableComponent<T> {
         }
         this.hiddenColumnsObservable = this._resizeObservableService
           .resizeObservable(hiddenColumns[0])
-          .pipe(this._takeUntilDestroyed)
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(() => {
             this.fixTableHeaderWidth()
           })

@@ -1,11 +1,13 @@
-import { JsonPipe } from '@angular/common'
-import { Component, TemplateRef, computed, signal, viewChild } from '@angular/core'
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop'
+import { JsonPipe, NgIf } from '@angular/common'
+import { Component, DestroyRef, TemplateRef, computed, inject, signal, viewChild } from '@angular/core'
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop'
+import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 import { map, of } from 'rxjs'
 
+import { QuangCheckboxComponent } from '@quix/quang/components/checkbox'
 import {
   QuangTableComponent,
   SortCol,
@@ -33,6 +35,9 @@ interface People {
     JsonPipe,
     TranslocoPipe,
     AngularSvgIconModule,
+    QuangCheckboxComponent,
+    ReactiveFormsModule,
+    NgIf,
   ],
   templateUrl: './table-test.component.html',
   styleUrl: './table-test.component.scss',
@@ -41,6 +46,8 @@ export class TableTestComponent {
   actions = viewChild<TemplateRef<any>>('actions')
 
   name3 = viewChild<TemplateRef<any>>('name3')
+
+  checkboxRenderer = viewChild<TemplateRef<any>>('checkboxRenderer')
 
   readonly people: People[] = [
     {
@@ -176,6 +183,10 @@ export class TableTestComponent {
   tableConfig = computed<TableConfiguration<People>>(() => ({
     headers: [
       {
+        renderer: this.checkboxRenderer(),
+        payload: 'header',
+      },
+      {
         text: 'Name',
         sort: {
           key: 'name',
@@ -223,6 +234,10 @@ export class TableTestComponent {
           payload: person,
           cellData: [
             {
+              renderer: this.checkboxRenderer(),
+              payload: person.id,
+            },
+            {
               text: person.name,
             },
             {
@@ -250,7 +265,34 @@ export class TableTestComponent {
 
   selectedRows: string[] = []
 
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
+  destroyRef = inject(DestroyRef)
+
+  selectFormMap = signal<Map<string, FormControl<boolean>> | undefined>(undefined)
+
+  private readonly formBuilder = inject(NonNullableFormBuilder)
+
+  checkboxForm = this.formBuilder.control(false)
+
+  peopleList$ = toObservable(this.peopleList)
+    .pipe(takeUntilDestroyed())
+    .subscribe((data) => {
+      const targetMap = new Map<string, FormControl<boolean>>()
+      const headerForm = this.formBuilder.control(false)
+      headerForm.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((x) => {
+        console.log('header', x)
+        // loop in the selectFormMap and set everything to the same value as x
+        for (const [key, value] of targetMap) {
+          if (key !== 'header') value.setValue(x)
+        }
+      })
+      targetMap.set('header', headerForm)
+      if (data) {
+        for (const datum of data) {
+          targetMap.set(datum.id.toString(), this.formBuilder.control(false))
+        }
+      }
+      this.selectFormMap.set(targetMap)
+    })
 
   onEditPerson(id: number): void {
     const person = this.tableConfig().rows.find((x) => x.payload?.id === id)

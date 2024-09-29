@@ -6,7 +6,7 @@
   [class.label-right]="labelPosition() === 'right' && checkType() === 'toggle'"
   [class.label-top]="labelPosition() === 'top'"
   [class.toggle-wrapper]="checkType() === 'toggle'"
-  class="mb-3 form-check"
+  [ngClass]="{ 'mb-3': !removeMargin(), 'form-check': !removeMargin() }"
 >
   <label
     [htmlFor]="componentId()"

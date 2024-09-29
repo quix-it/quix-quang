@@ -15,24 +15,30 @@
       >
         <thead>
           <tr>
-            <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
+            <ng-container *ngFor="let header of tableConfigurations().headers; let i = index">
               <th
-                [class.sort-btn]="el?.sort"
-                (click)="el?.sort ? onSortColumn(el.sort!) : null"
+                [class.sort-btn]="header?.sort"
+                (click)="header?.sort ? onSortColumn(header.sort!) : null"
                 class="align-bottom"
               >
                 <div
-                  [ngClass]="el?.css"
+                  [ngClass]="header?.css"
                   class="align-self-end d-flex gap-1"
                 >
-                  {{ el.text | transloco }}
+                  {{ !header.renderer ? (header.text | transloco) : null }}
+                  <ng-container
+                    [ngTemplateOutlet]="header?.renderer ?? null"
+                    [ngTemplateOutletContext]="{
+                      $implicit: header.payload,
+                    }"
+                  ></ng-container>
                   <div
-                    *ngIf="el.sort?.key"
+                    *ngIf="header.sort?.key"
                     class="d-flex justify-content-between"
                   >
                     <ng-container
                       [ngTemplateOutlet]="orderBtns"
-                      [ngTemplateOutletContext]="{ $implicit: el.sort }"
+                      [ngTemplateOutletContext]="{ $implicit: header.sort }"
                     ></ng-container>
                   </div>
                 </div>
@@ -57,24 +63,30 @@
           id="fakeTableHeader"
         >
           <tr>
-            <ng-container *ngFor="let el of tableConfigurations().headers; let i = index">
+            <ng-container *ngFor="let header of tableConfigurations().headers; let i = index">
               <th
-                [class.sort-btn]="el?.sort"
-                (click)="el?.sort ? onSortColumn(el.sort!) : null"
+                [class.sort-btn]="header?.sort"
+                (click)="header?.sort ? onSortColumn(header.sort!) : null"
                 class="align-bottom"
               >
                 <div
-                  [ngClass]="el?.css"
+                  [ngClass]="header?.css"
                   class="align-self-end d-flex gap-1"
                 >
-                  {{ el.text | transloco }}
+                  {{ !header.renderer ? (header.text | transloco) : null }}
+                  <ng-container
+                    [ngTemplateOutlet]="header?.renderer ?? null"
+                    [ngTemplateOutletContext]="{
+                      $implicit: header.payload,
+                    }"
+                  ></ng-container>
                   <div
-                    *ngIf="el.sort?.key"
+                    *ngIf="header.sort?.key"
                     class="d-flex justify-content-between"
                   >
                     <ng-container
                       [ngTemplateOutlet]="orderBtns"
-                      [ngTemplateOutletContext]="{ $implicit: el.sort }"
+                      [ngTemplateOutletContext]="{ $implicit: header.sort }"
                     ></ng-container>
                   </div>
                 </div>

@@ -53,3 +53,19 @@
     {{ name }}
   </div>
 </ng-template>
+
+<ng-template
+  #checkboxRenderer
+  let-data
+>
+  <div
+    *ngIf="selectFormMap()?.get(data.toString()) as targetForm"
+    style="padding-bottom: 0.25rem"
+  >
+    <quang-checkbox
+      [formControl]="targetForm"
+      [removeMargin]="true"
+      checkType="checkbox"
+    ></quang-checkbox>
+  </div>
+</ng-template>

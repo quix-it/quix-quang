@@ -37,6 +37,8 @@ export class QuangCheckboxComponent extends QuangBaseComponent<boolean> {
 
   checkType = input.required<'checkbox' | 'toggle'>()
 
+  removeMargin = input<boolean>(false)
+
   override onChangedEventHandler($event: Event) {
     const inputElement = $event.target as HTMLInputElement
     this.onChangedHandler(inputElement.checked)
