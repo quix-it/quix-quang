@@ -106,7 +106,7 @@ export class QuangOptionListComponent {
 
       result = hasScrollableContent && !isOverflowHidden
     } catch (e) {
-      console.error('captured error isScrollable', e)
+      // console.error('captured error isScrollable', e)
     }
 
     return result
