@@ -35,7 +35,11 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
 
   minLengthText = input<number | null>(null)
 
-  componentStep = input<string>()
+  minNumber = input<number | undefined>(undefined)
+
+  maxNumber = input<number | undefined>(undefined)
+
+  componentStep = input<number>(1)
 
   resizable = input(true)
 

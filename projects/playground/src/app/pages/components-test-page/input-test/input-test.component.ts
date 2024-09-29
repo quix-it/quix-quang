@@ -1,5 +1,5 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
@@ -27,44 +27,9 @@ import { SelectOption } from '@quix/quang/components/shared'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputTestComponent {
-  inputTypes = signal<SelectOption[]>([
-    {
-      value: 'text',
-      label: 'Text',
-    },
-    {
-      value: 'textarea',
-      label: 'Textarea',
-    },
-    {
-      value: 'password',
-      label: 'Password',
-    },
-    {
-      value: 'email',
-      label: 'Email',
-    },
-    {
-      value: 'number',
-      label: 'Number',
-    },
-    {
-      value: 'url',
-      label: 'Url',
-    },
-    {
-      value: 'search',
-      label: 'Search',
-    },
-    {
-      value: 'tel',
-      label: 'Tel',
-    },
-    {
-      value: 'color',
-      label: 'Color',
-    },
-  ])
+  inputTypesList: InputType[] = ['number', 'url', 'tel', 'color', 'email', 'password', 'search', 'text', 'textarea']
+
+  inputTypes = computed<SelectOption[]>(() => this.inputTypesList.map((x) => ({ label: x, value: x })))
 
   inputType = signal<InputType>('text')
 
@@ -108,10 +73,10 @@ export class InputTestComponent {
 
   testFormChange = this.testForm.controls.testInput.valueChanges.pipe(takeUntilDestroyed()).subscribe((val) => {
     if (val && val === 'ciao') {
-      this.testForm.controls.testInput.setErrors(null)
+      // this.testForm.controls.testInput.setErrors(null)
     } else if (val) {
       console.log('ciaoni')
-      this.testForm.controls.testInput.setErrors({ noMatch: true })
+      // this.testForm.controls.testInput.setErrors({ noMatch: true })
       console.log('this.testForm.controls.testInput', this.testForm.controls.testInput.errors)
     }
   })
