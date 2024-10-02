@@ -15,7 +15,7 @@
     height: 0;
     overflow: hidden;
     line-height: 0;
-    visibility: hidden;
+    visibility: collapse;
 
     th {
       padding-top: 0 !important;
@@ -92,6 +92,7 @@
     }
   }
 }
+
 .sort-arrows {
   display: flex;
   flex-direction: column;
@@ -106,6 +107,7 @@
   .arrow-up {
     opacity: 100%;
   }
+
   .arrow-down {
     display: none;
   }
@@ -115,6 +117,7 @@
   .arrow-up {
     display: none;
   }
+
   .arrow-down {
     opacity: 100%;
   }
