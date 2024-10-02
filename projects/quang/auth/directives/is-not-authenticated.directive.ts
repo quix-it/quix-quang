@@ -1,4 +1,12 @@
-import { Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef, effect, inject } from '@angular/core'
+import {
+  ChangeDetectorRef,
+  Directive,
+  EmbeddedViewRef,
+  TemplateRef,
+  ViewContainerRef,
+  effect,
+  inject,
+} from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { QuangAuthService } from '../auth.service'
@@ -18,10 +26,15 @@ export class QuangIsNotAuthenticatedDirective {
 
   takeUntilDestroyed = takeUntilDestroyed()
 
+  changeDetectorRef = inject(ChangeDetectorRef)
+
   showViewIfNotAuthenticated = effect(() => {
     if (this.authService.isAuthenticated()) {
       this.viewContainerRef.clear()
       this.embeddedViewRef = null
-    } else if (!this.embeddedViewRef) this.embeddedViewRef = this.viewContainerRef.createEmbeddedView(this.templateRef)
+    } else if (!this.embeddedViewRef) {
+      this.embeddedViewRef = this.viewContainerRef.createEmbeddedView(this.templateRef)
+    }
+    this.changeDetectorRef.markForCheck()
   })
 }

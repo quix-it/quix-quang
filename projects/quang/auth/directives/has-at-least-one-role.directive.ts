@@ -1,4 +1,13 @@
-import { Directive, EmbeddedViewRef, TemplateRef, ViewContainerRef, effect, inject, input } from '@angular/core'
+import {
+  ChangeDetectorRef,
+  Directive,
+  EmbeddedViewRef,
+  TemplateRef,
+  ViewContainerRef,
+  effect,
+  inject,
+  input,
+} from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { QuangAuthService } from '../auth.service'
@@ -30,6 +39,8 @@ export class QuangHasAtLeastOneRoleDirective {
 
   takeUntilDestroyed = takeUntilDestroyed()
 
+  changeDetectorRef = inject(ChangeDetectorRef)
+
   hideViewIfNotAllowed = effect(() => {
     if (this.authService.showDebugInformation)
       // eslint-disable-next-line no-console
@@ -41,5 +52,6 @@ export class QuangHasAtLeastOneRoleDirective {
       this.viewContainerRef.clear()
       this.embeddedViewRef = null
     }
+    this.changeDetectorRef.markForCheck()
   })
 }
