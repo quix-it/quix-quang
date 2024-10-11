@@ -5,7 +5,7 @@
       '--quang-modal-panel-height': height(),
       '--quang-modal-panel-background': backgroundColor(),
     }"
-    class="dialog"
+    class="dialog {{ animationClassEnter() }}"
   >
     <div class="dialog__header">
       <ng-content select="[header]"></ng-content>

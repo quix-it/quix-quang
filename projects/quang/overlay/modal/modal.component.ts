@@ -1,6 +1,6 @@
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay'
 import { CdkPortal, PortalModule } from '@angular/cdk/portal'
-import { NgStyle } from '@angular/common'
+import { NgClass, NgStyle } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -8,16 +8,23 @@ import {
   DestroyRef,
   OnDestroy,
   ViewChild,
+  computed,
   inject,
   input,
   output,
 } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
+export type ModalAnimationMode =
+  | 'SLIDE_FROM_LEFT_TO_RIGHT'
+  | 'SLIDE_FROM_RIGHT_TO_LEFT'
+  | 'SLIDE_TOP_TO_BOTTOM'
+  | 'SLIDE_BOTTOM_TO_TOP'
+  | 'FADE'
 @Component({
   selector: 'quang-modal',
   standalone: true,
-  imports: [PortalModule, NgStyle],
+  imports: [PortalModule, NgStyle, NgClass],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,6 +68,8 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
 
   width = input<string>('80vw')
 
+  animationMode = input<ModalAnimationMode>()
+
   backgroundColor = input<string>()
 
   showBackdrop = input<boolean>(true)
@@ -71,7 +80,7 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
 
   private overlayRef?: OverlayRef
 
-  get positionStrategy() {
+  positionStrategy = computed(() => {
     switch (this.position()) {
       case 'right':
         return this.overlay.position().global().right().top()
@@ -81,14 +90,31 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
       default:
         return this.overlay.position().global().centerHorizontally().centerVertically()
     }
-  }
+  })
+
+  animationClassEnter = computed(() => {
+    switch (this.animationMode()) {
+      case 'SLIDE_FROM_LEFT_TO_RIGHT':
+        return 'left-to-right-enter-active'
+      case 'SLIDE_FROM_RIGHT_TO_LEFT':
+        return 'right-to-left-enter-active'
+      case 'SLIDE_TOP_TO_BOTTOM':
+        return 'top-to-bottom-enter-active'
+      case 'SLIDE_BOTTOM_TO_TOP':
+        return 'top-to-bottom-enter-active'
+      case 'FADE':
+        return 'fade-enter-active'
+      default:
+        return ''
+    }
+  })
 
   constructor(private readonly overlay: Overlay) {}
 
   ngAfterViewInit(): void {
     this.overlayConfig = new OverlayConfig({
       hasBackdrop: true,
-      positionStrategy: this.positionStrategy,
+      positionStrategy: this.positionStrategy(),
       scrollStrategy: this.overlay.scrollStrategies.block(),
       backdropClass: this.showBackdrop() ? undefined : '',
     })
@@ -103,6 +129,10 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.closeModal()
+  }
+
+  closeModal(): void {
     this.overlayRef?.detach()
     this.overlayRef?.dispose()
   }
