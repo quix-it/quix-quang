@@ -92,7 +92,7 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
     }
   })
 
-  animationClass = computed(() => {
+  animationClassEnter = computed(() => {
     switch (this.animationMode()) {
       case 'SLIDE_FROM_LEFT_TO_RIGHT':
         return 'left-to-right-enter-active'
@@ -129,6 +129,10 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.closeModal()
+  }
+
+  closeModal(): void {
     this.overlayRef?.detach()
     this.overlayRef?.dispose()
   }
