@@ -93,15 +93,14 @@
       </button>
     </div>
 
-    <quang-loader> </quang-loader>
+    <quang-loader></quang-loader>
     <quang-toast></quang-toast>
     <quang-modal
-      [animationMode]="'SLIDE_TOP_TO_BOTTOM'"
       (backdropClick)="closeModal()"
       *ngIf="showModal()"
-      animation="top"
-      height="100vh"
-      position="right"
+      animationMode="SLIDE_BOTTOM_TO_TOP"
+      height="80vh"
+      position="center"
     >
       <ng-container header>
         <div class="d-flex justify-content-between mt-2">
@@ -148,7 +147,10 @@
     </quang-modal>
     <router-outlet />
 
-    <ng-template #popoverTest> <span>test works!</span> <button type="button">click!</button> </ng-template>
+    <ng-template #popoverTest
+      ><span>test works!</span>
+      <button type="button">click!</button>
+    </ng-template>
 
     <ng-template #customToast>
       <div class="d-flex justify-content-end">
