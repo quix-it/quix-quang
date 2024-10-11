@@ -96,6 +96,7 @@
     <quang-loader> </quang-loader>
     <quang-toast></quang-toast>
     <quang-modal
+      [animationMode]="'SLIDE_TOP_TO_BOTTOM'"
       (backdropClick)="closeModal()"
       *ngIf="showModal()"
       animation="top"

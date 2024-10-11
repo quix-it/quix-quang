@@ -1,5 +1,6 @@
 <ng-template cdkPortal>
   <div
+    [ngClass]="animationClass()"
     [ngStyle]="{
       '--quang-modal-panel-width': width(),
       '--quang-modal-panel-height': height(),
@@ -8,6 +9,7 @@
     class="dialog"
   >
     <div class="dialog__header">
+      {{ animationClass() }}
       <ng-content select="[header]"></ng-content>
     </div>
     <div class="dialog__body">
