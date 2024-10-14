@@ -23,13 +23,21 @@
   }
 
   ::ng-deep {
-    .air-datepicker {
-      position: relative;
-      .air-datepicker--pointer {
-        left: 1.5rem;
-        top: -6px;
-        bottom: -6px;
-        transform: rotate(var(--pointer-rotation));
+    --date-picker-container-top: 0;
+    --date-picker-container-bottom: 0;
+    .air-datepicker-global-container {
+      top: var(--date-picker-container-top);
+      bottom: var(--date-picker-container-bottom);
+      left: 1.5rem;
+      position: fixed;
+      .air-datepicker {
+        position: relative;
+        .air-datepicker--pointer {
+          left: 1.5rem;
+          top: -6px;
+          bottom: -6px;
+          transform: rotate(var(--pointer-rotation));
+        }
       }
     }
   }

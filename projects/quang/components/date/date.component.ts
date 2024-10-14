@@ -3,6 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  HostBinding,
+  HostListener,
   Optional,
   computed,
   effect,
@@ -153,6 +155,29 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
   inputValue$ = new Subject<string>()
 
+  calendarDiffPosition = signal<number>(0)
+
+  @HostBinding('style.--date-picker-container-top') datePickerContainerTop = '0'
+
+  @HostBinding('style.--date-picker-container-bottom') datePickerContainerBottom = '0'
+
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    const coords = this._inputForDate()?.nativeElement.getBoundingClientRect()
+    const diff =
+      window.innerHeight -
+      coords.height -
+      coords.top -
+      (this._airDatepickerInstance()?.$datepicker?.getBoundingClientRect()?.height || 0)
+    if (diff > 0) {
+      this.datePickerContainerTop = `${coords.top + coords.height + 32}px`
+      this.datePickerContainerBottom = 'unset'
+    } else {
+      this.datePickerContainerBottom = `${(coords.bottom - coords.top + coords.height) * 2}px`
+      this.datePickerContainerTop = 'unset'
+    }
+  }
+
   _generateAirDatepickerEffect = effect(
     async () => {
       if (this._inputForDate()?.nativeElement && this._dateContainer()?.nativeElement) {
@@ -189,11 +214,11 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
             const diff = window.innerHeight - coords.height - coords.top - $datepicker.getBoundingClientRect().height
 
             if (diff > 0) {
-              datepicker.style.top = `${90}px`
+              datepicker.style.top = '0'
               pointer.style.bottom = 'unset'
               this.pointerRotation.set(`${-45}deg`)
             } else {
-              datepicker.style.bottom = `${14}rem`
+              // datepicker.style.bottom = `${(-coords.bottom - coords.height * 3) / 2}px`
               datepicker.style.top = 'unset'
               pointer.style.top = 'unset'
               this.pointerRotation.set(`${135}deg`)
