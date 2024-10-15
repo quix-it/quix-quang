@@ -163,18 +163,26 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
   @HostListener('window:scroll')
   onWindowScroll() {
+    this.setCalendarPosition()
+  }
+
+  setCalendarPosition(): void {
     const coords = this._inputForDate()?.nativeElement.getBoundingClientRect()
     const diff =
       window.innerHeight -
       coords.height -
       coords.top -
       (this._airDatepickerInstance()?.$datepicker?.getBoundingClientRect()?.height || 0)
+    // console.log(coords)
+    // console.log(diff)
     if (diff > 0) {
       this.datePickerContainerTop = `${coords.top + coords.height + 32}px`
       this.datePickerContainerBottom = 'unset'
     } else {
-      this.datePickerContainerBottom = `${(coords.bottom - coords.top + coords.height) * 2}px`
-      this.datePickerContainerTop = 'unset'
+      // this.datePickerContainerBottom = `${(coords.bottom - coords.top + coords.height) * 2}px`
+      // console.log(this.datePickerContainerBottom)
+      this.datePickerContainerTop = `${(coords.top + coords.bottom) / 3 - 32}px`
+      // this.datePickerContainerTop = 'unset'
     }
   }
 
@@ -212,13 +220,11 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
             const pointer = $pointer
 
             const diff = window.innerHeight - coords.height - coords.top - $datepicker.getBoundingClientRect().height
-
             if (diff > 0) {
               datepicker.style.top = '0'
               pointer.style.bottom = 'unset'
               this.pointerRotation.set(`${-45}deg`)
             } else {
-              // datepicker.style.bottom = `${(-coords.bottom - coords.height * 3) / 2}px`
               datepicker.style.top = 'unset'
               pointer.style.top = 'unset'
               this.pointerRotation.set(`${135}deg`)
@@ -256,6 +262,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
         if (this._airDatepickerInstance()) {
           this._airDatepickerInstance()?.update(airDatepickerOpts)
+          this.setCalendarPosition()
         } else {
           this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
         }
