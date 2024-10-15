@@ -25,10 +25,11 @@
   ::ng-deep {
     --date-picker-container-top: 0;
     --date-picker-container-bottom: 0;
+    --date-picker-container-left: 0;
     .air-datepicker-global-container {
       top: var(--date-picker-container-top);
       bottom: var(--date-picker-container-bottom);
-      left: 1.5rem;
+      left: var(--date-picker-container-bottom);
       position: fixed;
       .air-datepicker {
         position: relative;

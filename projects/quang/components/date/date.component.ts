@@ -161,6 +161,8 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
   @HostBinding('style.--date-picker-container-bottom') datePickerContainerBottom = '0'
 
+  @HostBinding('style.--date-picker-container-left') datePickerContainerLeft = '0'
+
   @HostListener('window:scroll')
   onWindowScroll() {
     this.setCalendarPosition()
@@ -175,6 +177,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       (this._airDatepickerInstance()?.$datepicker?.getBoundingClientRect()?.height || 0)
     // console.log(coords)
     // console.log(diff)
+    this.datePickerContainerLeft = `${coords.left}px`
     if (diff > 0) {
       this.datePickerContainerTop = `${coords.top + coords.height + 32}px`
       this.datePickerContainerBottom = 'unset'
