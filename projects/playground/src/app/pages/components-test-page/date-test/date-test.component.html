@@ -1,90 +1,91 @@
 <h3>{{ 'title.components.date' | transloco }}</h3>
 <form
-        [formGroup]="testForm"
-        *ngIf="showInput()"
+  [formGroup]="testForm"
+  *ngIf="showInput()"
+  style="margin-left: 100px"
 >
-    <quang-date
-            [dateFormat]="dateFormat()"
-            [errorMap]="errors()"
-            [formControl]="testForm.controls.testInput"
-            [isReadonly]="isReadonly()"
-            [timepicker]="false"
-            buttonClass=""
-            componentLabel="form.label.date"
-            successMessage="form.label.success"
-    >
-        <svg-icon
-                [applyClass]="true"
-                calendarIcon
-                src="assets/icons/svg/calendar.svg"
-        ></svg-icon>
-    </quang-date>
+  <quang-date
+    [dateFormat]="dateFormat()"
+    [errorMap]="errors()"
+    [formControl]="testForm.controls.testInput"
+    [isReadonly]="isReadonly()"
+    [timepicker]="false"
+    buttonClass=""
+    componentLabel="form.label.date"
+    successMessage="form.label.success"
+  >
+    <svg-icon
+      [applyClass]="true"
+      calendarIcon
+      src="assets/icons/svg/calendar.svg"
+    ></svg-icon>
+  </quang-date>
 </form>
 <div
-        *ngIf="showValueAndValidity()"
-        class="d-flex flex-column mb-4"
+  *ngIf="showValueAndValidity()"
+  class="d-flex flex-column mb-4"
 >
   <span>
     {{ 'form.label.formValue' | transloco: { value: testForm.value | json } }}
   </span>
-    <span>
+  <span>
     {{ 'form.label.formValidity' | transloco: { valid: this.testForm.valid } }}
   </span>
 </div>
 <div class="d-flex gap-3">
-    <button
-            (click)="changeFormEnabled()"
-            class="btn btn-outline-secondary"
-    >
-        {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
-    </button>
-    <button
-            (click)="changeFormInputRequired()"
-            class="btn btn-outline-secondary"
-    >
-        {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
-    </button>
-    <button
-            (click)="changeVisibility()"
-            class="btn btn-outline-secondary"
-    >
-        {{ 'form.buttons.changeVisibility' | transloco }}
-    </button>
-    <button
-            (click)="resetForm()"
-            class="btn btn-outline-secondary"
-            type="button"
-    >
-        {{ 'form.buttons.resetForm' | transloco }}
-    </button>
-    <button
-            (click)="recreateForm()"
-            class="btn btn-outline-secondary"
-    >
-        {{ 'form.buttons.recreateForm' | transloco }}
-    </button>
-    <button
-            (click)="setFormValues()"
-            class="btn btn-outline-secondary"
-    >
-        {{ 'form.buttons.setForm' | transloco }}
-    </button>
-    <button
-            (click)="checkCurrentFormValueAndValidity()"
-            class="btn btn-outline-secondary"
-    >
-        {{ 'form.buttons.checkForm' | transloco }}
-    </button>
-    <button
-            (click)="changeDateFormat()"
-            class="btn btn-outline-secondary"
-    >
-        {{ 'form.buttons.changeDateFormat' | transloco }}
-    </button>
-    <button
-            (click)="setReadonly()"
-            class="btn btn-outline-secondary"
-    >
-        {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
-    </button>
+  <button
+    (click)="changeFormEnabled()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
+  </button>
+  <button
+    (click)="changeFormInputRequired()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+  </button>
+  <button
+    (click)="changeVisibility()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.changeVisibility' | transloco }}
+  </button>
+  <button
+    (click)="resetForm()"
+    class="btn btn-outline-secondary"
+    type="button"
+  >
+    {{ 'form.buttons.resetForm' | transloco }}
+  </button>
+  <button
+    (click)="recreateForm()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.recreateForm' | transloco }}
+  </button>
+  <button
+    (click)="setFormValues()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.setForm' | transloco }}
+  </button>
+  <button
+    (click)="checkCurrentFormValueAndValidity()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.checkForm' | transloco }}
+  </button>
+  <button
+    (click)="changeDateFormat()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.changeDateFormat' | transloco }}
+  </button>
+  <button
+    (click)="setReadonly()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+  </button>
 </div>
