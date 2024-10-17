@@ -1,67 +1,71 @@
 <div class="mb-3">
-  <label
-    [htmlFor]="componentId()"
-    *ngIf="componentLabel()"
-    class="form-label"
-  >
-    {{ componentLabel() | transloco }}
-    <span [hidden]="!_isRequired()">*</span>
-  </label>
-  <div
-    [class.is-invalid]="_showErrors()"
-    [class.is-valid]="_showSuccess()"
-    class="input-date-container"
-  >
-    <input
-      [attr.required]="getIsRequiredControl()"
-      [autocomplete]="'off'"
-      [class.is-invalid]="_showErrors()"
-      [class.is-valid]="_showSuccess()"
-      [disabled]="_isDisabled()"
-      [id]="componentId()"
-      [ngClass]="componentClass()"
-      [placeholder]="componentPlaceholder() | transloco"
-      [readOnly]="isReadonly()"
-      [tabIndex]="componentTabIndex()"
-      [value]="_value()"
-      (blur)="onBlurHandler()"
-      (focus)="interceptInputInteraction($event)"
-      (input)="onChangeText($event)"
-      (search)="onCancel()"
-      #inputForDate
-      class="form-control"
-      type="search"
-    />
-    <button
-      [attr.required]="getIsRequiredControl()"
-      [ngClass]="buttonClass"
-      (click)="_ngControl()?.disabled ? null : openDatePicker()"
-      *ngIf="!_ngControl()?.disabled"
-      aria-label="calendar-button"
-      class="btn btn-outline-secondary btn-outline-calendar"
-      type="button"
+    <label
+            [htmlFor]="componentId()"
+            *ngIf="componentLabel()"
+            class="form-label"
     >
-      <ng-content select="[calendarIcon]"></ng-content>
-    </button>
-  </div>
-  <div class="valid-feedback">
-    {{ successMessage() | transloco }}
-  </div>
-  <div class="invalid-feedback">
-    {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
-  </div>
-  <small
-    [hidden]="_showSuccess() || _showErrors()"
-    *ngIf="helpMessage()"
-    aria-live="assertive"
-    class="form-text text-muted"
-  >
-    {{ helpMessage() | transloco }}
-  </small>
+        {{ componentLabel() | transloco }}
+        <span [hidden]="!_isRequired()">*</span>
+    </label>
+    <div
+            [class.is-invalid]="_showErrors()"
+            [class.is-valid]="_showSuccess()"
+            class="input-date-container"
+    >
+        <input
+                [attr.required]="getIsRequiredControl()"
+                [autocomplete]="'off'"
+                [class.is-invalid]="_showErrors()"
+                [class.is-valid]="_showSuccess()"
+                [disabled]="_isDisabled()"
+                [id]="componentId()"
+                [ngClass]="componentClass()"
+                [placeholder]="componentPlaceholder() | transloco"
+                [readOnly]="isReadonly()"
+                [tabIndex]="componentTabIndex()"
+                [value]="_value()"
+                (blur)="onBlurHandler()"
+                (focus)="interceptInputInteraction($event)"
+                (input)="onChangeText($event)"
+                (search)="onCancel()"
+                #inputForDate
+                class="form-control"
+                type="search"
+        />
+        <button
+                [attr.required]="getIsRequiredControl()"
+                [ngClass]="buttonClass"
+                (click)="_ngControl()?.disabled ? null : openDatePicker()"
+                *ngIf="!_ngControl()?.disabled"
+                aria-label="calendar-button"
+                class="btn btn-outline-secondary btn-outline-calendar"
+                type="button"
+        >
+            <ng-content select="[calendarIcon]"></ng-content>
+        </button>
+    </div>
+    <div class="valid-feedback">
+        {{ successMessage() | transloco }}
+    </div>
+    <div class="invalid-feedback">
+        {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
+    </div>
+    <small
+            [hidden]="_showSuccess() || _showErrors()"
+            *ngIf="helpMessage()"
+            aria-live="assertive"
+            class="form-text text-muted"
+    >
+        {{ helpMessage() | transloco }}
+    </small>
 </div>
 
-<div
-  [ngStyle]="{ '--pointer-rotation': pointerRotation() }"
-  #inputDateContainer
-  class="air-datepicker-global-container"
-></div>
+<div class="container-date">
+    <div class="wrapper-date">
+        <div
+                [ngStyle]="{ '--pointer-rotation': pointerRotation(), '--pointer-top': pointerTop(), '--pointer-bottom': pointerBottom() }"
+                #inputDateContainer
+                class="air-datepicker-global-container"
+        ></div>
+    </div>
+</div>
