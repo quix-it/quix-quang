@@ -10,6 +10,7 @@
 >
   <label
     [htmlFor]="componentId()"
+    [ngClass]="{ 'cursor-pointer': !_isDisabled() }"
     *ngIf="componentLabel()"
     class="form-label"
   >
@@ -31,7 +32,7 @@
     [value]="_value()"
     (blur)="onBlurHandler()"
     (input)="onChangedEventHandler($event)"
-    class="form-check-input"
+    class="form-check-input {{ _isDisabled() ? '' : 'cursor-pointer' }}"
     type="checkbox"
   />
   <div class="valid-feedback">
