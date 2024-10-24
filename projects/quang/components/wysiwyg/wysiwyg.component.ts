@@ -12,7 +12,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core'
-import { NG_VALUE_ACCESSOR } from '@angular/forms'
+import { AbstractControl, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import sunEditor from 'suneditor'
@@ -127,6 +127,8 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     }
   )
 
+  STRIP_HTML_REGEX = /<[^>]*>/g
+
   registerEvents(): void {
     const sunEditorInstance = this._sunEditorWysiwygInstance()
     if (sunEditorInstance) {
@@ -147,6 +149,13 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
   override writeValue(val: string): void {
     super.writeValue(val)
     this._sunEditorWysiwygInstance()?.setContents(val)
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    if (control.hasValidator(Validators.required) && control.value?.replace(this.STRIP_HTML_REGEX, '') === '') {
+      return { required: true }
+    }
+    return null
   }
 
   getButtonList(): string[] {
