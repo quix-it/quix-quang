@@ -158,6 +158,14 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     return null
   }
 
+  override onChangedHandler(value: string): void {
+    super.onChangedHandler(value)
+    const control = this._ngControl()
+    if (control?.control) {
+      if (this.validate(control.control)) control.control.setErrors(this.validate(control.control))
+    }
+  }
+
   getButtonList(): string[] {
     const buttonList: string[] = []
     if (this.font()) {
