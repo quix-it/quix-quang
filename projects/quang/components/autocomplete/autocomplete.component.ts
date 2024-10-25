@@ -86,6 +86,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       .subscribe((value) => {
         if (value !== this._inputValue()) this.searchTextChange.emit(value?.toString() || '')
         this._inputValue.set(value?.toString() || '')
+        if (!this._inputValue()?.length) this._ngControl()?.control?.patchValue(null)
       })
     toObservable(this._showOptions)
       .pipe(this._takeUntilDestroyed())
