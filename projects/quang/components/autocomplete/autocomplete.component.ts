@@ -10,7 +10,7 @@ import {
   output,
   signal,
 } from '@angular/core'
-import { toObservable } from '@angular/core/rxjs-interop'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -67,6 +67,14 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   _optionHideTimeout = signal<any | undefined>(undefined)
 
   inputValue$ = new Subject<string>()
+
+  selectOptionsChange = toObservable(this.selectOptions)
+    .pipe(takeUntilDestroyed())
+    .subscribe(() => {
+      if (!this._inputValue()) {
+        this.setInputValue()
+      }
+    })
 
   _filteredOptions = computed<SelectOption[]>(() => {
     const text = this._inputValue()
