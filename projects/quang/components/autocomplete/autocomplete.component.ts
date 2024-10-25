@@ -10,7 +10,7 @@ import {
   output,
   signal,
 } from '@angular/core'
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
+import { toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -66,14 +66,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   _optionHideTimeout = signal<any | undefined>(undefined)
 
-  selectOptionsChange = toObservable(this.selectOptions)
-    .pipe(takeUntilDestroyed())
-    .subscribe(() => {
-      if (!this._inputValue()) {
-        this.setInputValue()
-      }
-    })
-
   inputValue$ = new Subject<string>()
 
   _filteredOptions = computed<SelectOption[]>(() => {
@@ -92,8 +84,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     this.inputValue$
       .pipe(this._takeUntilDestroyed(), debounceTime(this.searchTextDebounce()), distinctUntilChanged())
       .subscribe((value) => {
-        this._inputValue.set(value?.toString() ?? '')
-        this.searchTextChange.emit(this._inputValue() ?? '')
+        this._inputValue.set(value?.toString() || '')
+        this.searchTextChange.emit(this._inputValue() || '')
       })
     toObservable(this._showOptions)
       .pipe(this._takeUntilDestroyed())
@@ -164,6 +156,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   override onBlurHandler() {
     setTimeout(() => {
       this.hideOptionVisibility()
+      if (!this._inputValue()?.length) this._ngControl()?.control?.patchValue(null)
       super.onBlurHandler()
     }, 500)
   }
@@ -176,5 +169,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     this._inputValue.set(
       this.selectOptions().find((x) => x.value === this._value())?.label ?? (resetOnMiss ? null : this._inputValue())
     )
+    this.inputValue$.next(this._inputValue() ?? '')
   }
 }
