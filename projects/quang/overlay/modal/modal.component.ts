@@ -71,6 +71,8 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
 
   padding = input<string>('0 1rem')
 
+  containerClass = input<string>('')
+
   animationMode = input<ModalAnimationMode>()
 
   backgroundColor = input<string>()
