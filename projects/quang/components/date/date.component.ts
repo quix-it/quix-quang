@@ -364,7 +364,8 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   private setCalendarPosition() {
     const windowInnerHeight = window.innerHeight
     const inputBoundingClientRect = this._inputForDate()?.nativeElement.getBoundingClientRect()
-    const diff = windowInnerHeight - inputBoundingClientRect.height - inputBoundingClientRect.top - 200
+    const diff = windowInnerHeight - inputBoundingClientRect.height - inputBoundingClientRect.top - 239
+    // console.log(inputBoundingClientRect)
     if (diff >= 0) {
       this.targetPosition.set('bottom')
       this.pointerRotation.set(`${-45}deg`)
