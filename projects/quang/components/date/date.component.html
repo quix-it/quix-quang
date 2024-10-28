@@ -23,7 +23,7 @@
       [placeholder]="componentPlaceholder() | transloco"
       [readOnly]="isReadonly()"
       [tabIndex]="componentTabIndex()"
-      [value]="_value()"
+      [value]="_inputValueString()"
       (blur)="onBlurHandler()"
       (focus)="interceptInputInteraction($event)"
       (input)="onChangeText($event)"

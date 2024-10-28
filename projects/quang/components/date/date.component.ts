@@ -162,6 +162,8 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
   inputValue$ = new Subject<string>()
 
+  _inputValueString = signal<string>('')
+
   targetPosition = signal<AirDatepickerPosition>('bottom')
 
   _generateAirDatepickerEffect = effect(
@@ -202,7 +204,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
             } else {
               targetString = formattedDate
             }
-            this.onChangedHandler(targetString)
+            this.onChangedHandler(date, targetString)
           },
           onHide: (isAnimationComplete: boolean) => {
             if (isAnimationComplete) {
@@ -213,9 +215,13 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         }
 
         if (this._airDatepickerInstance()) {
-          this._airDatepickerInstance()?.hide()
-          this._airDatepickerInstance()?.update(airDatepickerOpts)
-          this._airDatepickerInstance()?.show()
+          if (this._airDatepickerInstance()?.visible) {
+            this._airDatepickerInstance()?.hide()
+            this._airDatepickerInstance()?.update(airDatepickerOpts)
+            this._airDatepickerInstance()?.show()
+          } else {
+            this._airDatepickerInstance()?.update(airDatepickerOpts)
+          }
         } else {
           this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
         }
@@ -234,9 +240,10 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       .pipe(this._takeUntilDestroyed(), debounceTime(this.searchTextDebounce()), distinctUntilChanged())
       .subscribe((value) => {
         const inputValue = value?.toString() ?? null
-        if (inputValue && inputValue !== this._value()) {
+        if (inputValue && inputValue !== this._inputValueString()) {
           if (isMatch(inputValue, this.dateFormat())) {
             const formattedDate = toDate(parse(inputValue, this.dateFormat(), new Date()))
+            this._inputValueString.set(inputValue)
             this._airDatepickerInstance()?.selectDate(formattedDate)
             this._airDatepickerInstance()?.setViewDate(formattedDate)
           }
@@ -257,16 +264,18 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     }
   }
 
-  override onChangedHandler(value: string | Date | Date[] | null): void {
+  override onChangedHandler(value: string | Date | Date[] | null, targetString?: string): void {
     if (Array.isArray(value)) {
       this.inputValue$.next(new Date(value?.toString() ?? null)?.toISOString() ?? null)
-    } else if (value instanceof Date) {
-      this.inputValue$.next(value.toISOString())
     } else {
-      this.inputValue$.next(value ?? '')
+      this.inputValue$.next(targetString ?? '')
     }
-
-    super.onChangedHandler(value)
+    this._inputValueString.set(targetString ?? '')
+    if (value !== null) {
+      super.onChangedHandler(new Date(value.toString()).toISOString())
+    } else {
+      super.onChangedHandler(value)
+    }
     this._inputForDate()?.nativeElement.blur()
   }
 
@@ -365,7 +374,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     const windowInnerHeight = window.innerHeight
     const inputBoundingClientRect = this._inputForDate()?.nativeElement.getBoundingClientRect()
     const diff = windowInnerHeight - inputBoundingClientRect.height - inputBoundingClientRect.top - 239
-    // console.log(inputBoundingClientRect)
     if (diff >= 0) {
       this.targetPosition.set('bottom')
       this.pointerRotation.set(`${-45}deg`)
