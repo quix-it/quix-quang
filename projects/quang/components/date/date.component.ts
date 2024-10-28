@@ -272,18 +272,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
   _inputValue = toSignal(this.inputValue$.asObservable())
 
-  // override onBlurHandler(): void {
-  //   const inputValue = this._inputValue()
-  //   if (!inputValue?.length || inputValue === null) {
-  //     this.onChangedHandler(null)
-  //   } else if (!isMatch(inputValue, this.dateFormat())) {
-  //     this.onChangedHandler(null)
-  //   } else {
-  //     this.validateDate(inputValue)
-  //   }
-  //   super.onBlurHandler()
-  // }
-
   onHideCalendar(): void {
     const inputValue = this._inputValue()
     if (!inputValue?.length || inputValue === null) {
