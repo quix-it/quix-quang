@@ -1,6 +1,6 @@
 {
   "name": "quix-quang",
-  "version": "17.0.2-10",
+  "version": "17.0.2-11",
   "scripts": {
     "ng": "ng",
     "start:playground": "ng serve playground --open",
