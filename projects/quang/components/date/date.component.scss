@@ -2,7 +2,7 @@
 
 :host {
   display: block;
-  position: relative;
+  // position: relative;
   --pointer-rotation: '';
 
   .input-date-container {
@@ -25,7 +25,7 @@
 
   ::ng-deep {
     .air-datepicker {
-      position: relative;
+      // position: relative;
 
       .air-datepicker--pointer {
         left: 1.5rem;
@@ -43,18 +43,13 @@
   //   .wrapper-date {
   //     position: absolute;
 
-  //     .air-datepicker-global-container {
+  .air-datepicker-global-container {
+    position: static;
+  }
   //       position: fixed;
   //       left: unset;
   //       top: unset;
   //     }
   //   }
   // }
-  .container-date {
-    position: absolute;
-    .wrapper-date {
-      position: fixed;
-      top: unset;
-    }
-  }
 }
