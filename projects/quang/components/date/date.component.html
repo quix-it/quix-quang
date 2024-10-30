@@ -34,6 +34,8 @@
     />
     <button
       [attr.required]="getIsRequiredControl()"
+      [class.border-danger]="_showErrors()"
+      [class.border-success]="_showSuccess()"
       [ngClass]="buttonClass"
       (click)="_ngControl()?.disabled ? null : openDatePicker()"
       *ngIf="!_ngControl()?.disabled"
