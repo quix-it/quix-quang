@@ -345,7 +345,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   }
 
   onCancel(): void {
-    // this.onChangedHandler(null)
     this._inputForDate()?.nativeElement.blur()
   }
 
