@@ -66,6 +66,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   _optionHideTimeout = signal<any | undefined>(undefined)
 
+  inputValue$ = new Subject<string>()
+
   selectOptionsChange = toObservable(this.selectOptions)
     .pipe(takeUntilDestroyed())
     .subscribe(() => {
@@ -73,8 +75,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
         this.setInputValue()
       }
     })
-
-  inputValue$ = new Subject<string>()
 
   _filteredOptions = computed<SelectOption[]>(() => {
     const text = this._inputValue()
@@ -92,8 +92,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     this.inputValue$
       .pipe(this._takeUntilDestroyed(), debounceTime(this.searchTextDebounce()), distinctUntilChanged())
       .subscribe((value) => {
-        this._inputValue.set(value?.toString() ?? '')
-        this.searchTextChange.emit(this._inputValue() ?? '')
+        if (value !== this._inputValue()) this.searchTextChange.emit(value?.toString() || '')
+        this._inputValue.set(value?.toString() || '')
+        if (!this._inputValue()?.length) this._ngControl()?.control?.patchValue(null)
       })
     toObservable(this._showOptions)
       .pipe(this._takeUntilDestroyed())
@@ -164,6 +165,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   override onBlurHandler() {
     setTimeout(() => {
       this.hideOptionVisibility()
+      if (!this._inputValue()?.length) this._ngControl()?.control?.patchValue(null)
       super.onBlurHandler()
     }, 500)
   }
@@ -176,5 +178,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     this._inputValue.set(
       this.selectOptions().find((x) => x.value === this._value())?.label ?? (resetOnMiss ? null : this._inputValue())
     )
+    this.inputValue$.next(this._inputValue() ?? '')
   }
 }

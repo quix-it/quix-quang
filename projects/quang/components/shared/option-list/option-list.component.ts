@@ -75,7 +75,7 @@ export class QuangOptionListComponent {
       })
     })
 
-  selectOptionss = computed(() => {
+  selectOptionsList = computed(() => {
     if (this.nullOption() && this.selectionMode() === 'single') {
       return [
         {
