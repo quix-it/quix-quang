@@ -134,7 +134,9 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   _dateContainer = viewChild<ElementRef>('inputDateContainer')
 
   pointerRotation = signal<string>(`-45deg`)
+
   pointerTop = signal<string>(`-6px`)
+
   pointerBottom = signal<string>(`-6px`)
 
   @Optional() _quangTranslationService = signal<QuangTranslationService | undefined>(inject(QuangTranslationService))
@@ -162,6 +164,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   inputValue$ = new Subject<string>()
 
   targetPosition = signal<AirDatepickerPosition>('bottom')
+
   _generateAirDatepickerEffect = effect(
     async () => {
       if (this._inputForDate()?.nativeElement && this._dateContainer()?.nativeElement) {
@@ -192,7 +195,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
           selectedDates: targetDate,
           container: this._dateContainer()?.nativeElement,
           position: this.targetPosition(),
-          /*position: ({ $datepicker, $target, $pointer }) => {
+          /* position: ({ $datepicker, $target, $pointer }) => {
             const coords = $target?.getBoundingClientRect()
             const datepicker = $datepicker
             const pointer = $pointer
@@ -209,7 +212,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
               pointer.style.top = 'unset'
               this.pointerRotation.set(`${135}deg`)
             }
-          },*/
+          }, */
           locale: this.getLocale(),
           onSelect: ({ date, formattedDate }) => {
             let targetString = ''
@@ -251,6 +254,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       allowSignalWrites: true,
     }
   )
+
   valueFormat = computed(() => this.dateFormat() + (this.timepicker() ? ` ${this.timeFormat()}` : ''))
 
   constructor() {
@@ -396,7 +400,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     const windowInnerHeight = window.innerHeight
     const inputBoundingClientRect = this._inputForDate()?.nativeElement.getBoundingClientRect()
     const diff = windowInnerHeight - inputBoundingClientRect.height - inputBoundingClientRect.top - 200
-    console.log('diff', diff)
     if (diff >= 0) {
       this.targetPosition.set('bottom')
       this.pointerRotation.set(`${-45}deg`)
