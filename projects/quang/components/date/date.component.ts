@@ -265,13 +265,25 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   }
 
   override onChangedHandler(value: string | Date | Date[] | null, targetString?: string): void {
+    let targetDate = value
     if (Array.isArray(value)) {
       this.inputValue$.next(new Date(value?.toString() ?? null)?.toISOString() ?? null)
+      targetDate = value
+        .map((x) => (this.offsetUTCTime() ? this.dateToUtc(startOfDay(x)) : startOfDay(x)))
+        .map((x) => format(x, this.valueFormat()))
+        .join(this.multipleDateJoinCharacter())
     } else {
       this.inputValue$.next(targetString ?? '')
+      if (value) {
+        if (this.offsetUTCTime()) {
+          targetDate = this.dateToUtc(startOfDay(value))?.toISOString()
+        } else {
+          targetDate = startOfDay(value)?.toISOString()
+        }
+      }
     }
     this._inputValueString.set(targetString ?? '')
-    super.onChangedHandler(value !== null ? new Date(value.toString()).toISOString() : value)
+    super.onChangedHandler(targetDate)
     this._inputForDate()?.nativeElement.blur()
   }
 
