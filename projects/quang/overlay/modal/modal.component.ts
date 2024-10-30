@@ -21,6 +21,7 @@ export type ModalAnimationMode =
   | 'SLIDE_TOP_TO_BOTTOM'
   | 'SLIDE_BOTTOM_TO_TOP'
   | 'FADE'
+
 @Component({
   selector: 'quang-modal',
   standalone: true,
@@ -68,17 +69,15 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
 
   width = input<string>('80vw')
 
+  padding = input<string>('0 1rem')
+
+  containerClass = input<string>('')
+
   animationMode = input<ModalAnimationMode>()
 
   backgroundColor = input<string>()
 
   showBackdrop = input<boolean>(true)
-
-  private readonly destroyRef = inject(DestroyRef)
-
-  private overlayConfig?: OverlayConfig
-
-  private overlayRef?: OverlayRef
 
   positionStrategy = computed(() => {
     switch (this.position()) {
@@ -108,6 +107,12 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
         return ''
     }
   })
+
+  private readonly destroyRef = inject(DestroyRef)
+
+  private overlayConfig?: OverlayConfig
+
+  private overlayRef?: OverlayRef
 
   constructor(private readonly overlay: Overlay) {}
 

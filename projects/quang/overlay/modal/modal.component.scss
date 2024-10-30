@@ -5,7 +5,7 @@
   flex-direction: column;
   width: var(--quang-modal-panel-width);
   height: var(--quang-modal-panel-height);
-  padding: 0 1rem;
+  padding: var(--quang-modal-panel-padding);
 
   &__header {
     display: flex;
