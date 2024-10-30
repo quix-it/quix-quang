@@ -13,6 +13,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -159,9 +160,9 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
   searchTextDebounce = input<number>(500)
 
-  _inputValue = signal<string | null>(null)
-
   inputValue$ = new Subject<string>()
+
+  _inputValueString = signal<string>('')
 
   targetPosition = signal<AirDatepickerPosition>('bottom')
 
@@ -175,7 +176,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         } else if (startValueDate) {
           targetDate = [startValueDate]
         }
-
+        this.setCalendarPosition()
         const airDatepickerOpts: AirDatepickerOptions<HTMLInputElement> = {
           autoClose: false,
           classes: this.calendarClasses(),
@@ -195,56 +196,32 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
           selectedDates: targetDate,
           container: this._dateContainer()?.nativeElement,
           position: this.targetPosition(),
-          /* position: ({ $datepicker, $target, $pointer }) => {
-            const coords = $target?.getBoundingClientRect()
-            const datepicker = $datepicker
-            const pointer = $pointer
-
-            const diff = window.innerHeight - coords.height - coords.top - $datepicker.getBoundingClientRect().height
-
-            if (diff > 0) {
-              datepicker.style.top = `${90}px`
-              pointer.style.bottom = 'unset'
-              this.pointerRotation.set(`${-45}deg`)
-            } else {
-              datepicker.style.bottom = `${14}rem`
-              datepicker.style.top = 'unset'
-              pointer.style.top = 'unset'
-              this.pointerRotation.set(`${135}deg`)
-            }
-          }, */
           locale: this.getLocale(),
           onSelect: ({ date, formattedDate }) => {
-            let targetString = ''
+            let targetString = date.toString()
             if (Array.isArray(formattedDate)) {
               targetString = formattedDate.join(this.multipleDateJoinCharacter())
             } else {
               targetString = formattedDate
             }
-            this.onChangedHandler(targetString)
-            if (this.onChange) {
-              if (this.offsetUTCTime()) {
-                if (Array.isArray(date)) {
-                  const utcDateArray = date.map((d) => this.dateToUtc(d))
-                  this.onChange(utcDateArray)
-                } else {
-                  this.onChange(this.dateToUtc(date))
-                }
-              } else {
-                this.onChange(date)
-              }
-            }
+            this.onChangedHandler(date, targetString)
           },
           onHide: (isAnimationComplete: boolean) => {
             if (isAnimationComplete) {
-              this.validateDate()
+              this.onHideCalendar()
             }
           },
           ...(this.datepickerOptions() ?? {}),
         }
 
         if (this._airDatepickerInstance()) {
-          this._airDatepickerInstance()?.update(airDatepickerOpts)
+          if (this._airDatepickerInstance()?.visible) {
+            this._airDatepickerInstance()?.hide()
+            this._airDatepickerInstance()?.update(airDatepickerOpts)
+            this._airDatepickerInstance()?.show()
+          } else {
+            this._airDatepickerInstance()?.update(airDatepickerOpts)
+          }
         } else {
           this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
         }
@@ -262,8 +239,15 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     this.inputValue$
       .pipe(this._takeUntilDestroyed(), debounceTime(this.searchTextDebounce()), distinctUntilChanged())
       .subscribe((value) => {
-        this._inputValue.set(value?.toString() ?? '')
-        this.onChangedEventHandler()
+        const inputValue = value?.toString() ?? null
+        if (inputValue && inputValue !== this._inputValueString()) {
+          if (isMatch(inputValue, this.dateFormat())) {
+            const formattedDate = toDate(parse(inputValue, this.dateFormat(), new Date()))
+            this._inputValueString.set(inputValue)
+            this._airDatepickerInstance()?.selectDate(formattedDate)
+            this._airDatepickerInstance()?.setViewDate(formattedDate)
+          }
+        }
       })
   }
 
@@ -280,42 +264,41 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     }
   }
 
-  override onChangedEventHandler(): void {
-    const inputValue = this._inputValue()
-    if (inputValue) {
-      if (isMatch(inputValue, this.dateFormat())) {
-        const formattedDate = toDate(parse(inputValue, this.dateFormat(), new Date()))
-        this._airDatepickerInstance()?.selectDate(formattedDate)
-        this._airDatepickerInstance()?.setViewDate(formattedDate)
-        if (inputValue !== this._value())
-          this.onChangedHandler(toDate(parse(inputValue, this.dateFormat(), new Date())).toISOString())
-        this._inputForDate()?.nativeElement.blur()
+  override onChangedHandler(value: string | Date | Date[] | null, targetString?: string): void {
+    let targetDate = value
+    if (Array.isArray(value)) {
+      this.inputValue$.next(new Date(value?.toString() ?? null)?.toISOString() ?? null)
+      targetDate = value
+        .map((x) => (this.offsetUTCTime() ? this.dateToUtc(startOfDay(x)) : startOfDay(x)))
+        .map((x) => format(x, this.valueFormat()))
+        .join(this.multipleDateJoinCharacter())
+    } else {
+      this.inputValue$.next(targetString ?? '')
+      if (value) {
+        if (this.offsetUTCTime()) {
+          targetDate = this.dateToUtc(startOfDay(value))?.toISOString()
+        } else {
+          targetDate = startOfDay(value)?.toISOString()
+        }
       }
     }
+    this._inputValueString.set(targetString ?? '')
+    super.onChangedHandler(targetDate)
+    this._inputForDate()?.nativeElement.blur()
   }
 
-  override onChangedHandler(value: string | Date | Date[] | null): void {
-    if (Array.isArray(value)) {
-      this.inputValue$.next(new Date(value?.toString() ?? '')?.toISOString() ?? '')
-    } else if (value instanceof Date) {
-      this.inputValue$.next(value.toISOString())
-    } else {
-      this.inputValue$.next(value ?? '')
-    }
+  _inputValue = toSignal(this.inputValue$.asObservable())
 
-    super.onChangedHandler(value)
-  }
-
-  override onBlurHandler(): void {
+  onHideCalendar(): void {
     const inputValue = this._inputValue()
-    if (!inputValue) {
-      this.onChangedHandler(inputValue)
+    if (!inputValue?.length || inputValue === null) {
+      this.onChangedHandler(null)
     } else if (!isMatch(inputValue, this.dateFormat())) {
       this.onChangedHandler(null)
     } else {
-      this.validateDate()
+      this.validateDate(inputValue)
     }
-    super.onBlurHandler()
+    this.onBlurHandler()
   }
 
   override writeValue(val?: Date | Date[] | string | null): void {
@@ -328,7 +311,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         .join(this.multipleDateJoinCharacter())
     } else if (val) {
       targetDate = format(this.offsetUTCTime() ? this.dateToUtc(startOfDay(val)) : startOfDay(val), this.valueFormat())
-      this._inputValue.set(targetDate)
     } else {
       this._airDatepickerInstance()?.clear({ silent: true })
     }
@@ -363,7 +345,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   }
 
   onCancel(): void {
-    this.onChangedHandler(null)
+    this._inputForDate()?.nativeElement.blur()
   }
 
   private dateToUtc(date: Date): Date {
@@ -371,8 +353,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
   }
 
-  private validateDate() {
-    const targetValue = this._value()
+  private validateDate(targetValue: string | Date | Date[] | null) {
     let dateValid = false
     if (Array.isArray(targetValue)) {
       dateValid = targetValue.every((x) => isValid(parse(x.toString(), this.valueFormat(), new Date())))
@@ -390,6 +371,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
         ...errors,
         invalidDate: true,
       }
+      this._ngControl()?.control?.setValue(null)
     } else if (errors) {
       delete errors['invalidDate']
     }
@@ -399,7 +381,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   private setCalendarPosition() {
     const windowInnerHeight = window.innerHeight
     const inputBoundingClientRect = this._inputForDate()?.nativeElement.getBoundingClientRect()
-    const diff = windowInnerHeight - inputBoundingClientRect.height - inputBoundingClientRect.top - 200
+    const diff = windowInnerHeight - inputBoundingClientRect.height - inputBoundingClientRect.top - 239
     if (diff >= 0) {
       this.targetPosition.set('bottom')
       this.pointerRotation.set(`${-45}deg`)

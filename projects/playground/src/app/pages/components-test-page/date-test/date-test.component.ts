@@ -52,6 +52,10 @@ export class DateTestComponent {
     testInput: this.formBuilder.control<Date | string>('', [Validators.required]),
   })
 
+  onChangeValue$ = this.testForm.controls.testInput.valueChanges.subscribe((val) => {
+    console.log(val)
+  })
+
   showInput = signal<boolean>(true)
 
   changeFormEnabled() {

@@ -12,7 +12,7 @@
     <li
       [class.m-0]="last"
       [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
-      *ngFor="let item of selectOptionss(); let i = index; let last = last"
+      *ngFor="let item of selectOptionsList(); let i = index; let last = last"
       class="item"
     >
       <input

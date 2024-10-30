@@ -5,7 +5,6 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { TranslocoPipe } from '@jsverse/transloco'
 
 import { QuangWysiwygComponent } from '@quix/quang/components/wysiwyg'
-import { wysiwygRequired } from '@quix/quang/forms'
 
 @Component({
   selector: 'playground-wysiwyg-test',
@@ -46,7 +45,6 @@ export class WysiwygTestComponent {
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(100),
-      wysiwygRequired(),
     ]),
   })
 
