@@ -241,7 +241,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       .subscribe((value) => {
         const inputValue = value?.toString() ?? null
         if (inputValue && inputValue !== this._inputValueString()) {
-          if (isMatch(inputValue, this.dateFormat())) {
+          if (isMatch(inputValue, this.valueFormat())) {
             const formattedDate = toDate(parse(inputValue, this.dateFormat(), new Date()))
             this._inputValueString.set(inputValue)
             this._airDatepickerInstance()?.selectDate(formattedDate)
@@ -276,9 +276,11 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       this.inputValue$.next(targetString ?? '')
       if (value) {
         if (this.offsetUTCTime()) {
-          targetDate = this.dateToUtc(startOfDay(value))?.toISOString()
+          targetDate = this.timepicker()
+            ? this.dateToUtc(new Date(value))?.toISOString()
+            : this.dateToUtc(startOfDay(value))?.toISOString()
         } else {
-          targetDate = startOfDay(value)?.toISOString()
+          targetDate = this.timepicker() ? new Date(value)?.toISOString() : startOfDay(value)?.toISOString()
         }
       }
     }
@@ -293,7 +295,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     const inputValue = this._inputValue()
     if (!inputValue?.length || inputValue === null) {
       this.onChangedHandler(null)
-    } else if (!isMatch(inputValue, this.dateFormat())) {
+    } else if (!isMatch(inputValue, this.valueFormat())) {
       this.onChangedHandler(null)
     } else {
       this.validateDate(inputValue)
