@@ -271,11 +271,7 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
       this.inputValue$.next(targetString ?? '')
     }
     this._inputValueString.set(targetString ?? '')
-    if (value !== null) {
-      super.onChangedHandler(new Date(value.toString()).toISOString())
-    } else {
-      super.onChangedHandler(value)
-    }
+    super.onChangedHandler(value !== null ? new Date(value.toString()).toISOString() : value)
     this._inputForDate()?.nativeElement.blur()
   }
 
@@ -337,7 +333,8 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   }
 
   onCancel(): void {
-    this.onChangedHandler(null)
+    // this.onChangedHandler(null)
+    this._inputForDate()?.nativeElement.blur()
   }
 
   private dateToUtc(date: Date): Date {
