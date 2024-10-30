@@ -2,7 +2,6 @@
 
 :host {
   display: block;
-  position: relative;
   --pointer-rotation: '';
 
   .input-date-container {
@@ -25,8 +24,6 @@
 
   ::ng-deep {
     .air-datepicker {
-      position: relative;
-
       .air-datepicker--pointer {
         left: 1.5rem;
         top: var(--pointer-top);
@@ -36,18 +33,16 @@
     }
   }
 
-  .container-date {
-    position: relative;
-    z-index: 100;
+  .air-datepicker-global-container {
+    z-index: 1000;
+    position: static;
+  }
 
-    .wrapper-date {
-      position: absolute;
+  .border-danger {
+    border-color: var(--bs-form-invalid-border-color);
+  }
 
-      .air-datepicker-global-container {
-        position: fixed;
-        left: unset;
-        top: unset;
-      }
-    }
+  .border-success {
+    border-color: var(--bs-form-valid-border-color);
   }
 }
