@@ -193,6 +193,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
         toggleSelected: false,
         multipleDates: false,
         selectedDates: targetDate ? [targetDate] : undefined,
+        startDate: targetDate,
         position: this.targetPosition(),
         locale: this.getLocale(),
         onSelect: ({ date }) => {
@@ -261,12 +262,13 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
 
   override onChangedHandler(value: string | null): void {
     let targetDate = value
+    const currentValue = this._value()
     if (!this.timepicker() && targetDate) {
       // remove time from date
       targetDate = `${targetDate.split('T')[0]}T00:00:00.000Z`
+    } else if (this.showOnlyTimepicker() && currentValue && targetDate) {
+      targetDate = `${currentValue.split('T')[0]}T${targetDate.split('T')[1]}`
     }
-
-    const currentValue = this._value()
 
     if (currentValue === targetDate) {
       return

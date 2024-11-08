@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, Injector, computed, inject, input, output, signal } from '@angular/core'
+import { AfterViewInit, DestroyRef, Directive, Injector, computed, inject, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angular/forms'
 
@@ -68,6 +68,8 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   onChange?: (value: T) => void
 
   onTouched?: () => void
+
+  destroyRef = inject(DestroyRef)
 
   constructor() {
     toObservable(this.formControl)
