@@ -223,7 +223,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
           this._airDatepickerInstance()?.hide()
           this._airDatepickerInstance()?.update(airDatepickerOpts)
           this._airDatepickerInstance()?.show()
-          // this._inputForDate()?.nativeElement.focus()
+          this._inputForDate()?.nativeElement.focus()
         } else {
           this._airDatepickerInstance()?.update(airDatepickerOpts, { silent: true })
         }
@@ -263,7 +263,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
     let targetDate = value
     if (!this.timepicker() && targetDate) {
       // remove time from date
-      targetDate = `${targetDate.split('T')[0]  }T00:00:00.000Z`
+      targetDate = `${targetDate.split('T')[0]}T00:00:00.000Z`
     }
 
     const currentValue = this._value()
@@ -295,9 +295,8 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
   formatDate(val: string | null): string {
     if (val) {
       return format(val, this.valueFormat())
-    } 
-      return ''
-    
+    }
+    return ''
   }
 
   openDatePicker() {

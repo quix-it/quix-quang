@@ -17,6 +17,7 @@
       [autocomplete]="'off'"
       [class.is-invalid]="_showErrors()"
       [class.is-valid]="_showSuccess()"
+      [class.with-button-calendar]="!hasNoContent()"
       [disabled]="_isDisabled()"
       [hidden]="showInline()"
       [id]="componentId()"
@@ -43,10 +44,10 @@
       *ngIf="!_ngControl()?.disabled"
       #calendarButton
       aria-label="calendar-button"
-      class="btn btn-outline-secondary btn-outline-calendar"
+      class="btn btn-outline-secondary btn-outline-calendar d-flexr"
       type="button"
     >
-      <ng-content select="[calendarIcon]"></ng-content>
+      <ng-content></ng-content>
     </button>
   </div>
   <div class="valid-feedback">
