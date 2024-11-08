@@ -19,7 +19,7 @@
   input {
     flex: 1;
 
-    .with-button-calendar {
+    &.with-button-calendar {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
