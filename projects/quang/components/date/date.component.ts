@@ -193,7 +193,6 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
         toggleSelected: false,
         multipleDates: false,
         selectedDates: targetDate ? [targetDate] : undefined,
-        startDate: targetDate,
         position: this.targetPosition(),
         locale: this.getLocale(),
         onSelect: ({ date }) => {
@@ -204,7 +203,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
             }
             this.onChangedHandler(selectTargetDate.toISOString())
             if (this._airDatepickerInstance()?.visible) {
-              this._inputForDate()?.nativeElement.focus()
+              this._airDatepickerInstance()?.hide()
             }
           }
           if (this.showInline()) {

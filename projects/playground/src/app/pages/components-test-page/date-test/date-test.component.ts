@@ -109,13 +109,9 @@ export class DateTestComponent {
 
   checkCurrentFormValueAndValidity() {
     this.showValueAndValidity.set(true)
-    console.log('Current form value:', this.testForm.value)
-    console.log('Current form value json:', JSON.stringify(this.testForm.value))
-    console.log('Current form validity:', this.testForm.valid)
   }
 
   changeDateFormat() {
-    console.log('changeData')
     this.isReadonly.set(!this.isReadonly())
     this.dateFormat.set('yyyy/MM/dd')
   }
