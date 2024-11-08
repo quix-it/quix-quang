@@ -136,7 +136,7 @@ export class AutocompleteTestComponent {
   ])
 
   testForm = this.formBuilder.group({
-    testInput: this.formBuilder.control<string>('', [Validators.required]),
+    testInput: this.formBuilder.control<string | null>(null, [Validators.required]),
     testInputMultiple: this.formBuilder.control<number[]>([], [Validators.required]),
   })
 
@@ -172,7 +172,7 @@ export class AutocompleteTestComponent {
 
   recreateForm() {
     this.testForm = this.formBuilder.group({
-      testInput: this.formBuilder.control<string>(this.stringList[2].value as string, [Validators.required]),
+      testInput: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
       testInputMultiple: this.formBuilder.control<number[]>([1, 2], [Validators.required]),
     })
   }
@@ -186,8 +186,6 @@ export class AutocompleteTestComponent {
 
   checkCurrentFormValueAndValidity() {
     this.showValueAndValidity.set(true)
-    console.log('Current form value:', this.testForm.value)
-    console.log('Current form validity:', this.testForm.valid)
   }
 
   setReadonly() {
@@ -195,7 +193,6 @@ export class AutocompleteTestComponent {
   }
 
   onChangeForm(): void {
-    console.log('onChangeForm')
     this.testForm.controls.testInput.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((x) => {
       console.log('valueChange --->', x)
     })
@@ -207,7 +204,6 @@ export class AutocompleteTestComponent {
 
   changeTextTest($event: string) {
     // test for string changes and autocompletes
-    console.log('change text test', $event)
     setTimeout(() => {
       this.stringListFiltered.set(this.stringList.filter((y) => y.label.toLowerCase().includes($event.toLowerCase())))
     }, 500)
