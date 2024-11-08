@@ -38,10 +38,9 @@
       [attr.required]="getIsRequiredControl()"
       [class.border-danger]="_showErrors()"
       [class.border-success]="_showSuccess()"
-      [hidden]="showInline() || hasNoContent()"
+      [hidden]="showInline() || hasNoContent() || _ngControl()?.disabled"
       [ngClass]="buttonClass()"
       (click)="_ngControl()?.disabled ? null : openDatePicker()"
-      *ngIf="!_ngControl()?.disabled"
       #calendarButton
       aria-label="calendar-button"
       class="btn btn-outline-secondary btn-outline-calendar d-flexr"

@@ -120,7 +120,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
 
   contentTemplate = viewChild.required<ElementRef>('calendarButton')
 
-  hasNoContent = computed(() => this.contentTemplate().nativeElement.children.length === 0)
+  hasNoContent = computed(() => this.contentTemplate()?.nativeElement.children.length === 0)
 
   @Optional() _quangTranslationService = signal<QuangTranslationService | undefined>(inject(QuangTranslationService))
 
