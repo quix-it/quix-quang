@@ -1,5 +1,5 @@
 import { JsonPipe, NgForOf, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -49,11 +49,14 @@ export class DateTestComponent {
   ])
 
   testForm = this.formBuilder.group({
-    testInput: this.formBuilder.control<Date | string>('', [Validators.required]),
+    testInput: this.formBuilder.control<string>('', [Validators.required]),
   })
+
+  changeDetection = inject(ChangeDetectorRef)
 
   onChangeValue$ = this.testForm.controls.testInput.valueChanges.subscribe((val) => {
     console.log(val)
+    this.changeDetection.markForCheck()
   })
 
   showInput = signal<boolean>(true)
@@ -61,6 +64,12 @@ export class DateTestComponent {
   changeFormEnabled() {
     if (this.testForm.enabled) this.testForm.disable()
     else this.testForm.enable()
+  }
+
+  constructor() {
+    setTimeout(() => {
+      this.testForm.controls.testInput.setValue(new Date().toISOString())
+    }, 2000)
   }
 
   getIsRequiredInput() {
@@ -86,7 +95,7 @@ export class DateTestComponent {
 
   recreateForm() {
     this.testForm = this.formBuilder.group({
-      testInput: this.formBuilder.control<Date | string>(new Date(), [Validators.required]),
+      testInput: this.formBuilder.control<string>(new Date().toISOString(), [Validators.required]),
     })
   }
 
@@ -94,7 +103,7 @@ export class DateTestComponent {
     const targetDate = new Date()
     targetDate.setMonth(0)
     this.testForm.patchValue({
-      testInput: targetDate,
+      testInput: targetDate.toISOString(),
     })
   }
 

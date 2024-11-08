@@ -18,12 +18,13 @@
       [class.is-invalid]="_showErrors()"
       [class.is-valid]="_showSuccess()"
       [disabled]="_isDisabled()"
+      [hidden]="showInline()"
       [id]="componentId()"
       [ngClass]="componentClass()"
       [placeholder]="componentPlaceholder() | transloco"
       [readOnly]="isReadonly()"
       [tabIndex]="componentTabIndex()"
-      [value]="_inputValueString()"
+      [value]="inputValueString()"
       (blur)="onBlurHandler()"
       (focus)="interceptInputInteraction($event)"
       (input)="onChangeText($event)"
@@ -36,9 +37,11 @@
       [attr.required]="getIsRequiredControl()"
       [class.border-danger]="_showErrors()"
       [class.border-success]="_showSuccess()"
-      [ngClass]="buttonClass"
+      [hidden]="showInline() || hasNoContent()"
+      [ngClass]="buttonClass()"
       (click)="_ngControl()?.disabled ? null : openDatePicker()"
       *ngIf="!_ngControl()?.disabled"
+      #calendarButton
       aria-label="calendar-button"
       class="btn btn-outline-secondary btn-outline-calendar"
       type="button"
@@ -60,18 +63,4 @@
   >
     {{ helpMessage() | transloco }}
   </small>
-</div>
-
-<div class="container-date">
-  <div class="wrapper-date">
-    <div
-      [ngStyle]="{
-        '--pointer-rotation': pointerRotation(),
-        '--pointer-top': pointerTop(),
-        '--pointer-bottom': pointerBottom(),
-      }"
-      #inputDateContainer
-      class="air-datepicker-global-container"
-    ></div>
-  </div>
 </div>

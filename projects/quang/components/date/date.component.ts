@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostListener,
   Optional,
   computed,
   effect,
@@ -13,7 +12,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core'
-import { toSignal } from '@angular/core/rxjs-interop'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -26,8 +25,8 @@ import AirDatepicker, {
 import en from 'air-datepicker/locale/en'
 import fr from 'air-datepicker/locale/fr'
 import it from 'air-datepicker/locale/it'
-import { format, isMatch, isValid, parse, startOfDay, toDate } from 'date-fns'
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs'
+import { format, isMatch, parse } from 'date-fns'
+import { debounceTime, fromEvent } from 'rxjs'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 import { QuangTranslationService } from '@quix/quang/translation'
@@ -61,7 +60,7 @@ export interface QuangDatepickerOptions extends AirDatepickerOptions {}
  * Please note that overriding the `container` and `locale` properties and the `onSelect` and `onHide`
  * events might cause the component to malfunction.
  */
-export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | string | null> {
+export class QuangDateComponent extends QuangBaseComponent<string | null> {
   /**
    * Format to use to show on the input field.
    * The format is based on the standard {@link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table}
@@ -79,11 +78,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
   timeFormat = input<string>('HH:mm')
 
   /**
-   * Value used to join the rendering inside a multiple selection date
-   */
-  multipleDateJoinCharacter = input<string>(', ')
-
-  /**
    * Calendar locale, if not provided the component will try to use the one provided in {@link QuangTranslationService}
    * if the language is not set in {@link QuangTranslationService} it will use the browser language
    * Use this parameter only to override default behavior
@@ -94,14 +88,6 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
    * If true enable the timepicker inside the calendar
    */
   timepicker = input<boolean>(false)
-
-  /**
-   * If true the component will offset the time to have midnight in UTC and not in the current locale
-   * @example in italy Thu Apr 18 2024 00:00:00 GMT+0200 will become Thu Apr 18 2024 02:00:00 GMT+0200 to have 2024-04-18T00:00:00.000Z
-   * Default: true
-   * @default true
-   */
-  offsetUTCTime = input<boolean>(true)
 
   /**
    * The message to show inside the input if the date is invalid
@@ -132,13 +118,9 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
 
   _inputForDate = viewChild<ElementRef>('inputForDate')
 
-  _dateContainer = viewChild<ElementRef>('inputDateContainer')
+  contentTemplate = viewChild.required<ElementRef>('calendarButton')
 
-  pointerRotation = signal<string>(`-45deg`)
-
-  pointerTop = signal<string>(`-6px`)
-
-  pointerBottom = signal<string>(`-6px`)
+  hasNoContent = computed(() => this.contentTemplate().nativeElement.children.length === 0)
 
   @Optional() _quangTranslationService = signal<QuangTranslationService | undefined>(inject(QuangTranslationService))
 
@@ -154,169 +136,168 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     return navigator.language
   })
 
-  _startValue = signal<Date | Date[] | string | undefined | null>(undefined)
-
   _airDatepickerInstance = signal<AirDatepicker | undefined>(undefined)
 
   searchTextDebounce = input<number>(500)
 
-  inputValue$ = new Subject<string>()
-
-  _inputValueString = signal<string>('')
-
-  targetPosition = signal<AirDatepickerPosition>('bottom')
+  targetPosition = signal<AirDatepickerPosition>('bottom left')
 
   _generateAirDatepickerEffect = effect(
-    async () => {
-      if (this._inputForDate()?.nativeElement && this._dateContainer()?.nativeElement) {
-        let targetDate: AirDatepickerDate[] | undefined
-        const startValueDate = this._startValue()
-        if (Array.isArray(startValueDate)) {
-          targetDate = startValueDate
-        } else if (startValueDate) {
-          targetDate = [startValueDate]
-        }
-        this.setCalendarPosition()
-        const airDatepickerOpts: AirDatepickerOptions<HTMLInputElement> = {
-          autoClose: false,
-          classes: this.calendarClasses(),
-          dateFormat: this.dateFormat(),
-          inline: this.showInline(),
-          isMobile: false,
-          timepicker: this.timepicker(),
-          onlyTimepicker: this.showOnlyTimepicker(),
-          timeFormat: this.timeFormat(),
-          minHours: this.minHour(),
-          maxHours: this.maxHour(),
-          minMinutes: this.minMinute(),
-          maxMinutes: this.maxMinute(),
-          minDate: this.minDate(),
-          maxDate: this.maxDate(),
-          toggleSelected: false,
-          selectedDates: targetDate,
-          container: this._dateContainer()?.nativeElement,
-          position: this.targetPosition(),
-          locale: this.getLocale(),
-          onSelect: ({ date, formattedDate }) => {
-            let targetString = date.toString()
-            if (Array.isArray(formattedDate)) {
-              targetString = formattedDate.join(this.multipleDateJoinCharacter())
-            } else {
-              targetString = formattedDate
-            }
-            this.onChangedHandler(date, targetString)
-          },
-          onHide: (isAnimationComplete: boolean) => {
-            if (isAnimationComplete) {
-              this.onHideCalendar()
-            }
-          },
-          ...(this.datepickerOptions() ?? {}),
-        }
-
-        if (this._airDatepickerInstance()) {
-          if (this._airDatepickerInstance()?.visible) {
-            this._airDatepickerInstance()?.hide()
-            this._airDatepickerInstance()?.update(airDatepickerOpts)
-            this._airDatepickerInstance()?.show()
-          } else {
-            this._airDatepickerInstance()?.update(airDatepickerOpts)
-          }
-        } else {
-          this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
-        }
-      }
+    () => {
+      this.setupCalendar()
     },
     {
       allowSignalWrites: true,
     }
   )
 
-  valueFormat = computed(() => this.dateFormat() + (this.timepicker() ? ` ${this.timeFormat()}` : ''))
+  valueFormat = computed(() =>
+    this.showOnlyTimepicker()
+      ? this.timeFormat()
+      : this.dateFormat() + (this.timepicker() ? ` ${this.timeFormat()}` : '')
+  )
+
+  inputValueString = computed(() => this.formatDate(this._value()))
 
   constructor() {
     super()
-    this.inputValue$
-      .pipe(this._takeUntilDestroyed(), debounceTime(this.searchTextDebounce()), distinctUntilChanged())
-      .subscribe((value) => {
-        const inputValue = value?.toString() ?? null
-        if (inputValue && inputValue !== this._inputValueString()) {
-          if (isMatch(inputValue, this.valueFormat())) {
-            const formattedDate = toDate(parse(inputValue, this.dateFormat(), new Date()))
-            this._inputValueString.set(inputValue)
-            this._airDatepickerInstance()?.selectDate(formattedDate)
-            this._airDatepickerInstance()?.setViewDate(formattedDate)
-          }
+
+    fromEvent(document, 'scroll', { capture: true })
+      .pipe(takeUntilDestroyed(), debounceTime(250))
+      .subscribe(() => {
+        if (this._airDatepickerInstance()?.visible) {
+          this.setupCalendar()
         }
       })
   }
 
-  @HostListener('window:scroll')
-  onWindowScroll() {
-    this.setCalendarPosition()
+  setupCalendar() {
+    if (this._inputForDate()?.nativeElement) {
+      const targetDate: AirDatepickerDate | undefined = this._value() ?? undefined
+      this.setCalendarPosition()
+      const airDatepickerOpts: AirDatepickerOptions = {
+        autoClose: false,
+        classes: this.calendarClasses(),
+        dateFormat: this.dateFormat(),
+        inline: this.showInline(),
+        isMobile: false,
+        timepicker: this.timepicker(),
+        onlyTimepicker: this.showOnlyTimepicker(),
+        timeFormat: this.timeFormat(),
+        minHours: this.minHour(),
+        maxHours: this.maxHour(),
+        minMinutes: this.minMinute(),
+        maxMinutes: this.maxMinute(),
+        minDate: this.minDate(),
+        maxDate: this.maxDate(),
+        toggleSelected: false,
+        multipleDates: false,
+        selectedDates: targetDate ? [targetDate] : undefined,
+        position: this.targetPosition(),
+        locale: this.getLocale(),
+        onSelect: ({ date }) => {
+          if (!Array.isArray(date)) {
+            let selectTargetDate = date
+            if (!this.timepicker()) {
+              selectTargetDate = this.dateToUtc(date)
+            }
+            this.onChangedHandler(selectTargetDate.toISOString())
+            if (this._airDatepickerInstance()?.visible) {
+              this._inputForDate()?.nativeElement.focus()
+            }
+          }
+          if (this.showInline()) {
+            this.onHideCalendar()
+          }
+        },
+        onHide: (isAnimationComplete: boolean) => {
+          if (isAnimationComplete) {
+            this.onHideCalendar()
+          }
+        },
+        ...(this.datepickerOptions() ?? {}),
+      }
+
+      if (this._airDatepickerInstance()) {
+        if (this._airDatepickerInstance()?.visible) {
+          this._airDatepickerInstance()?.hide()
+          this._airDatepickerInstance()?.update(airDatepickerOpts)
+          this._airDatepickerInstance()?.show()
+          // this._inputForDate()?.nativeElement.focus()
+        } else {
+          this._airDatepickerInstance()?.update(airDatepickerOpts, { silent: true })
+        }
+
+        if (!targetDate) {
+          this._airDatepickerInstance()?.setFocusDate(false)
+          this._airDatepickerInstance()?.clear({ silent: true })
+        } else {
+          this._airDatepickerInstance()?.selectDate(targetDate, { updateTime: true })
+        }
+      } else {
+        this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
+      }
+    }
   }
 
   onChangeText($event: Event): void {
-    this.inputValue$.next(($event.target as HTMLInputElement)?.value)
-    if (!($event.target as HTMLInputElement)?.value) {
-      this._airDatepickerInstance()?.setFocusDate(false)
-      this._airDatepickerInstance()?.clear({ silent: true })
-    }
-  }
-
-  override onChangedHandler(value: string | Date | Date[] | null, targetString?: string): void {
-    let targetDate = value
-    if (Array.isArray(value)) {
-      this.inputValue$.next(new Date(value?.toString() ?? null)?.toISOString() ?? null)
-      targetDate = value
-        .map((x) => (this.offsetUTCTime() ? this.dateToUtc(startOfDay(x)) : startOfDay(x)))
-        .map((x) => format(x, this.valueFormat()))
-        .join(this.multipleDateJoinCharacter())
-    } else {
-      this.inputValue$.next(targetString ?? '')
-      if (value) {
-        if (this.offsetUTCTime()) {
-          targetDate = this.timepicker()
-            ? this.dateToUtc(new Date(value))?.toISOString()
-            : this.dateToUtc(startOfDay(value))?.toISOString()
-        } else {
-          targetDate = this.timepicker() ? new Date(value)?.toISOString() : startOfDay(value)?.toISOString()
-        }
+    const value = ($event.target as HTMLInputElement)?.value
+    if (value) {
+      if (value.length === this.valueFormat().length && isMatch(value, this.valueFormat())) {
+        this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
       }
+    } else {
+      this.onChangedHandler(value)
     }
-    this._inputValueString.set(targetString ?? '')
-    super.onChangedHandler(targetDate)
-    this._inputForDate()?.nativeElement.blur()
   }
 
-  _inputValue = toSignal(this.inputValue$.asObservable())
+  setupInputStringToDate(value: string) {
+    let targetDate = parse(value, this.valueFormat(), new Date())
+    if (!this.timepicker()) {
+      targetDate = this.dateToUtc(targetDate)
+    }
+    return targetDate
+  }
+
+  override onChangedHandler(value: string | null): void {
+    let targetDate = value
+    if (!this.timepicker() && targetDate) {
+      // remove time from date
+      targetDate = `${targetDate.split('T')[0]  }T00:00:00.000Z`
+    }
+
+    const currentValue = this._value()
+
+    if (currentValue === targetDate) {
+      return
+    }
+
+    this._value.set(targetDate)
+  }
 
   onHideCalendar(): void {
-    const inputValue = this._inputValue()
-    if (!inputValue?.length || inputValue === null) {
-      this.onChangedHandler(null)
-    } else if (!isMatch(inputValue, this.valueFormat())) {
-      this.onChangedHandler(null)
+    const value = this._inputForDate()?.nativeElement.value
+    if (isMatch(value, this.valueFormat())) {
+      this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
     } else {
-      this.validateDate(inputValue)
+      this.onChangedHandler(null)
     }
+
+    if (this.formControl()?.getRawValue() !== this._value()) {
+      super.onChangedHandler(this._value())
+    } else if (this.onTouched) {
+      this.onTouched()
+    }
+
     this.onBlurHandler()
   }
 
-  override writeValue(val?: Date | Date[] | string | null): void {
-    this._startValue.set(val)
-    let targetDate: string | null = null
-    if (val && Array.isArray(val)) {
-      targetDate = val
-        .map((x) => (this.offsetUTCTime() ? this.dateToUtc(startOfDay(x)) : startOfDay(x)))
-        .map((x) => format(x, this.valueFormat()))
-        .join(this.multipleDateJoinCharacter())
-    } else if (val) {
-      targetDate = format(this.offsetUTCTime() ? this.dateToUtc(startOfDay(val)) : startOfDay(val), this.valueFormat())
-    } else {
-      this._airDatepickerInstance()?.clear({ silent: true })
-    }
-    this._value.set(targetDate)
+  formatDate(val: string | null): string {
+    if (val) {
+      return format(val, this.valueFormat())
+    } 
+      return ''
+    
   }
 
   openDatePicker() {
@@ -355,45 +336,14 @@ export class QuangDateComponent extends QuangBaseComponent<Date | Date[] | strin
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
   }
 
-  private validateDate(targetValue: string | Date | Date[] | null) {
-    let dateValid = false
-    if (Array.isArray(targetValue)) {
-      dateValid = targetValue.every((x) => isValid(parse(x.toString(), this.valueFormat(), new Date())))
-    } else if (targetValue) {
-      dateValid = isValid(parse(targetValue.toString(), this.valueFormat(), new Date()))
-    }
-    let errors = this._ngControl()?.control?.errors ?? null
-    if (!dateValid) {
-      this._value.set(
-        this._quangTranslationService()
-          ? this._quangTranslationService()!.translate(this.invalidDateMessage())
-          : this.invalidDateMessage()
-      )
-      errors = {
-        ...errors,
-        invalidDate: true,
-      }
-      this._ngControl()?.control?.setValue(null)
-    } else if (errors) {
-      delete errors['invalidDate']
-    }
-    this._ngControl()?.control?.setErrors(errors)
-  }
-
   private setCalendarPosition() {
     const windowInnerHeight = window.innerHeight
     const inputBoundingClientRect = this._inputForDate()?.nativeElement.getBoundingClientRect()
     const diff = windowInnerHeight - inputBoundingClientRect.height - inputBoundingClientRect.top - 239
     if (diff >= 0) {
-      this.targetPosition.set('bottom')
-      this.pointerRotation.set(`${-45}deg`)
-      this.pointerTop.set('-6px')
-      this.pointerBottom.set('unset')
+      this.targetPosition.set('bottom left')
     } else {
-      this.targetPosition.set('top')
-      this.pointerRotation.set(`${135}deg`)
-      this.pointerTop.set('unset')
-      this.pointerBottom.set('-6px')
+      this.targetPosition.set('top left')
     }
   }
 }

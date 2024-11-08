@@ -1,8 +1,15 @@
 @import '../shared/sass/input-search';
 
+::ng-deep {
+  .air-datepicker {
+    .air-datepicker--pointer {
+      display: none;
+    }
+  }
+}
+
 :host {
   display: block;
-  --pointer-rotation: '';
 
   .input-date-container {
     display: flex;
@@ -22,21 +29,10 @@
     border-color: var(--bs-border-color);
   }
 
-  ::ng-deep {
-    .air-datepicker {
-      .air-datepicker--pointer {
-        left: 1.5rem;
-        top: var(--pointer-top);
-        bottom: var(--pointer-bottom);
-        transform: rotate(var(--pointer-rotation));
-      }
-    }
-  }
-
-  .air-datepicker-global-container {
+  /*.air-datepicker-global-container {
     z-index: 1000;
     position: static;
-  }
+  }*/
 
   .border-danger {
     border-color: var(--bs-form-invalid-border-color);
