@@ -176,7 +176,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
       const targetDate: AirDatepickerDate | undefined = this._value() ?? undefined
       this.setCalendarPosition()
       const airDatepickerOpts: AirDatepickerOptions = {
-        autoClose: false,
+        autoClose: true,
         classes: this.calendarClasses(),
         dateFormat: this.dateFormat(),
         inline: this.showInline(),
@@ -203,7 +203,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
             }
             this.onChangedHandler(selectTargetDate.toISOString())
             if (this._airDatepickerInstance()?.visible) {
-              this._airDatepickerInstance()?.hide()
+              // this._airDatepickerInstance()?.hide()
             }
           }
           if (this.showInline()) {
@@ -220,10 +220,11 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
 
       if (this._airDatepickerInstance()) {
         if (this._airDatepickerInstance()?.visible) {
-          this._airDatepickerInstance()?.hide()
+          /* this._airDatepickerInstance()?.hide()
           this._airDatepickerInstance()?.update(airDatepickerOpts)
           this._airDatepickerInstance()?.show()
-          this._inputForDate()?.nativeElement.focus()
+          this._inputForDate()?.nativeElement.focus() */
+          this._airDatepickerInstance()?.update(airDatepickerOpts)
         } else {
           this._airDatepickerInstance()?.update(airDatepickerOpts, { silent: true })
         }
