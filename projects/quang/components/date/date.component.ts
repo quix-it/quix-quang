@@ -213,6 +213,21 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
           }
         },
         ...(this.datepickerOptions() ?? {}),
+        onShow: (isAnimationComplete) => {
+          if (!isAnimationComplete) {
+            const timepicker = document.getElementsByClassName('air-datepicker-time')?.[0]
+            if (timepicker) {
+              const inputs = timepicker.getElementsByTagName('input')
+              for (let i = 0; i < inputs.length; i++) {
+                inputs[i].setAttribute('type', 'input')
+                inputs[i].onfocus = (evt) => {
+                  evt.stopImmediatePropagation()
+                  evt.preventDefault()
+                }
+              }
+            }
+          }
+        },
       }
 
       if (this._airDatepickerInstance()) {
