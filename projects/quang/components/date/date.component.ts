@@ -220,10 +220,10 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
               const inputs = timepicker.getElementsByTagName('input')
               for (let i = 0; i < inputs.length; i++) {
                 inputs[i].setAttribute('type', 'number')
+                inputs[i].setAttribute('maxLength', '2')
+                inputs[i].className = 'form-control'
                 inputs[i].onmouseup = (evt) => {
                   evt.stopImmediatePropagation()
-                  evt.preventDefault()
-                  evt.stopPropagation()
                 }
               }
             }

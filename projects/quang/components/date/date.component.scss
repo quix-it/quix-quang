@@ -21,6 +21,12 @@
           input {
             width: 100%;
             text-align: center;
+            padding: 0;
+            padding-left: 1rem;
+            border-color: var(--bs-border-color);
+          }
+          .form-control:focus {
+            box-shadow: unset !important;
           }
         }
       }
@@ -52,11 +58,6 @@
     display: flex;
     border-color: var(--bs-border-color);
   }
-
-  /*.air-datepicker-global-container {
-    z-index: 1000;
-    position: static;
-  }*/
 
   .border-danger {
     border-color: var(--bs-form-invalid-border-color);
