@@ -6,6 +6,25 @@
     .air-datepicker--pointer {
       display: none;
     }
+    .air-datepicker-time {
+      display: block;
+      .air-datepicker-time--current {
+        display: none;
+      }
+      .air-datepicker-time--sliders {
+        display: flex;
+        justify-content: center;
+        padding-top: 0.25rem;
+        gap: 1rem;
+        .air-datepicker-time--row {
+          width: 100%;
+          input {
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+    }
   }
 }
 
