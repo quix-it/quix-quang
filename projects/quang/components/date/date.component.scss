@@ -18,6 +18,14 @@
         gap: 1rem;
         .air-datepicker-time--row {
           width: 100%;
+          position: relative;
+          &:first-child::after {
+            content: ':';
+            display: inline;
+            font-size: 1rem;
+            position: absolute;
+            right: -0.65rem;
+          }
           input {
             width: 100%;
             text-align: center;
