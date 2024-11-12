@@ -219,10 +219,11 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
             if (timepicker) {
               const inputs = timepicker.getElementsByTagName('input')
               for (let i = 0; i < inputs.length; i++) {
-                inputs[i].setAttribute('type', 'input')
-                inputs[i].onfocus = (evt) => {
+                inputs[i].setAttribute('type', 'number')
+                inputs[i].onmouseup = (evt) => {
                   evt.stopImmediatePropagation()
                   evt.preventDefault()
+                  evt.stopPropagation()
                 }
               }
             }
