@@ -232,23 +232,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
           if (isAnimationComplete || !this.showTimepicker()) {
             return
           }
-          const timepicker = document.getElementsByClassName('air-datepicker-time')?.[0]
-          if (timepicker) {
-            const inputs = timepicker.getElementsByTagName('input')
-            for (let i = 0; i < inputs.length; i++) {
-              inputs[i].setAttribute('type', 'number')
-              inputs[i].setAttribute('maxLength', '2')
-              inputs[i].className = 'form-control'
-              inputs[i].onmouseup = (evt) => {
-                evt.stopImmediatePropagation()
-              }
-              inputs[i].onblur = () => {
-                if (this.isMouseOutsideCalendar()) {
-                  this._airDatepickerInstance()?.hide()
-                }
-              }
-            }
-          }
+          this.setupTimepicker()
         },
       }
 
@@ -267,6 +251,10 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
         }
       } else {
         this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
+      }
+
+      if (this.showInline()) {
+        this.setupTimepicker()
       }
     }
   }
@@ -386,6 +374,26 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
       this.targetPosition.set('bottom left')
     } else {
       this.targetPosition.set('top left')
+    }
+  }
+
+  private setupTimepicker() {
+    const timepicker = document.getElementsByClassName('air-datepicker-time')?.[0]
+    if (timepicker) {
+      const inputs = timepicker.getElementsByTagName('input')
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].setAttribute('type', 'number')
+        inputs[i].setAttribute('maxLength', '2')
+        inputs[i].className = 'form-control'
+        inputs[i].onmouseup = (evt) => {
+          evt.stopImmediatePropagation()
+        }
+        inputs[i].onblur = () => {
+          if (this.isMouseOutsideCalendar()) {
+            this._airDatepickerInstance()?.hide()
+          }
+        }
+      }
     }
   }
 }
