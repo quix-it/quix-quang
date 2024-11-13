@@ -171,6 +171,12 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
       })
   }
 
+  showTimepicker = computed(() => this.timepicker() || this.showOnlyTimepicker())
+
+  isMouseInsideCalendar = signal(false)
+
+  isMouseOutsideCalendar = computed(() => !this.isMouseInsideCalendar())
+
   setupCalendar() {
     if (this._inputForDate()?.nativeElement) {
       const targetDate: AirDatepickerDate | undefined = this._value() ?? undefined
@@ -181,7 +187,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
         dateFormat: this.dateFormat(),
         inline: this.showInline(),
         isMobile: false,
-        timepicker: this.timepicker(),
+        timepicker: this.timepicker() || this.showOnlyTimepicker(),
         onlyTimepicker: this.showOnlyTimepicker(),
         timeFormat: this.timeFormat(),
         minHours: this.minHour(),
@@ -198,7 +204,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
         onSelect: ({ date }) => {
           if (!Array.isArray(date)) {
             let selectTargetDate = date
-            if (!this.timepicker()) {
+            if (!this.showTimepicker()) {
               selectTargetDate = this.dateToUtc(date)
             }
             this.onChangedHandler(selectTargetDate.toISOString())
@@ -214,16 +220,31 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
         },
         ...(this.datepickerOptions() ?? {}),
         onShow: (isAnimationComplete) => {
-          if (!isAnimationComplete) {
-            const timepicker = document.getElementsByClassName('air-datepicker-time')?.[0]
-            if (timepicker) {
-              const inputs = timepicker.getElementsByTagName('input')
-              for (let i = 0; i < inputs.length; i++) {
-                inputs[i].setAttribute('type', 'number')
-                inputs[i].setAttribute('maxLength', '2')
-                inputs[i].className = 'form-control'
-                inputs[i].onmouseup = (evt) => {
-                  evt.stopImmediatePropagation()
+          const datepicker = this._airDatepickerInstance()?.$datepicker
+          if (datepicker) {
+            datepicker.onmouseenter = () => {
+              this.isMouseInsideCalendar.set(true)
+            }
+            datepicker.onmouseleave = () => {
+              this.isMouseInsideCalendar.set(false)
+            }
+          }
+          if (isAnimationComplete || !this.showTimepicker()) {
+            return
+          }
+          const timepicker = document.getElementsByClassName('air-datepicker-time')?.[0]
+          if (timepicker) {
+            const inputs = timepicker.getElementsByTagName('input')
+            for (let i = 0; i < inputs.length; i++) {
+              inputs[i].setAttribute('type', 'number')
+              inputs[i].setAttribute('maxLength', '2')
+              inputs[i].className = 'form-control'
+              inputs[i].onmouseup = (evt) => {
+                evt.stopImmediatePropagation()
+              }
+              inputs[i].onblur = () => {
+                if (this.isMouseOutsideCalendar()) {
+                  this._airDatepickerInstance()?.hide()
                 }
               }
             }
@@ -261,9 +282,17 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
     }
   }
 
+  override onBlurHandler() {
+    super.onBlurHandler()
+
+    if (this.isMouseOutsideCalendar() && this._airDatepickerInstance()?.visible) {
+      this._airDatepickerInstance()?.hide()
+    }
+  }
+
   setupInputStringToDate(value: string) {
     let targetDate = parse(value, this.valueFormat(), new Date())
-    if (!this.timepicker()) {
+    if (!this.showTimepicker()) {
       targetDate = this.dateToUtc(targetDate)
     }
     return targetDate
@@ -272,7 +301,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
   override onChangedHandler(value: string | null): void {
     let targetDate = value
     const currentValue = this._value()
-    if (!this.timepicker() && targetDate) {
+    if (!this.showTimepicker() && targetDate) {
       // remove time from date
       targetDate = `${targetDate.split('T')[0]}T00:00:00.000Z`
     } else if (this.showOnlyTimepicker() && currentValue && targetDate) {
@@ -321,6 +350,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
       $event.stopPropagation()
       $event.stopImmediatePropagation()
       $event.preventDefault()
+    } else {
+      // console.log('e', this._airDatepickerInstance() as any)
+      // ;(this._airDatepickerInstance() as any)._onMouseDown($event)
     }
   }
 

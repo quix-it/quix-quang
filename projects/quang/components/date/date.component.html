@@ -29,6 +29,8 @@
       (blur)="onBlurHandler()"
       (focus)="interceptInputInteraction($event)"
       (input)="onChangeText($event)"
+      (mouseenter)="isMouseInsideCalendar.set(true)"
+      (mouseleave)="isMouseInsideCalendar.set(false)"
       (search)="onCancel()"
       #inputForDate
       class="form-control"
