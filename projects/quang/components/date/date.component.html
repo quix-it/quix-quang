@@ -40,7 +40,7 @@
       [attr.required]="getIsRequiredControl()"
       [class.border-danger]="_showErrors()"
       [class.border-success]="_showSuccess()"
-      [hidden]="showInline() || hasNoContent() || isReadonly()"
+      [hidden]="showInline() || hasNoContent() || _isDisabled()"
       [ngClass]="buttonClass()"
       (click)="_ngControl()?.disabled ? null : openDatePicker()"
       #calendarButton
