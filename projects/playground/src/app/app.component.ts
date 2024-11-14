@@ -117,6 +117,10 @@ export class AppComponent {
     this.appService.testHttpGet()
   }
 
+  testUnauthorized(): void {
+    this.appService.testHttpUnauthorized()
+  }
+
   changeTheme(value: 'light' | 'dark') {
     this.style.href = `${this.deployUrl ?? ''}${value}.css`
     document.body.setAttribute('data-bs-theme', value)

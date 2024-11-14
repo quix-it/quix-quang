@@ -1,4 +1,6 @@
 export * from './auth-providers'
+export * from './logoutOnIntercept-interceptor'
+export * from './interceptor-methods'
 export * from './auth.service'
 export * from './directives/is-authenticated.directive'
 export * from './directives/has-at-least-one-role.directive'

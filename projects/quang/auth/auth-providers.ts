@@ -1,4 +1,3 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { APP_INITIALIZER, EnvironmentProviders, Provider, makeEnvironmentProviders } from '@angular/core'
 
 import { provideOAuthClient } from 'angular-oauth2-oidc'
@@ -27,15 +26,6 @@ export function provideAuth(authConfig?: QuangAuthConfig, ...features: QuangAuth
       useFactory: initializeAuthService,
       multi: true,
       deps: [QuangAuthService],
-    },
-  ])
-}
-
-export function provideLogoutOnUnauthorized() {
-  return makeEnvironmentProviders([
-    {
-      provide: HTTP_INTERCEPTORS,
-      useFactory: () => {},
     },
   ])
 }

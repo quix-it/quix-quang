@@ -5,6 +5,7 @@
     "loader": "Loader",
     "apiCall": "Chiamata API",
     "modal": "Apri modale",
+    "unauthorized": "non autorizzato",
     "toast": {
       "warning": "Mostra toast warning",
       "error": "Mostra toast errore",
