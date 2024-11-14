@@ -4,6 +4,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 import { QuangLoaderService } from './loader.service'
 
+/**
+ * @example
+ * <quang-loader></quang-loader>
+ *
+ * @example
+ * <quang-loader>
+ *  custom loader here
+ * </quang-loader>
+ */
 @Component({
   selector: 'quang-loader',
   standalone: true,
@@ -19,47 +28,26 @@ export class QuangLoaderComponent {
 
   _showLoader = computed(() => (this._loadingCount() ?? 0) > 0)
 
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
+  private readonly loaderService = inject(QuangLoaderService)
 
-  _loaderService = signal(inject(QuangLoaderService))
-
-  _hideTimeout = signal<any>(undefined)
+  private timeoutId: any | null = null
 
   constructor() {
-    this.onLoading()
-  }
-
-  /**
-   * @example
-   * <quang-loader></quang-loader>
-   *
-   * @example
-   * <quang-loader>
-   *  custom loader here
-   * </quang-loader>
-   */
-
-  onLoading() {
-    this._loaderService()
-      .isLoading$.pipe(this._takeUntilDestroyed())
-      .subscribe((isLoading) => {
-        const hideTimeout = this._hideTimeout()
-        if (hideTimeout) {
-          clearTimeout(hideTimeout)
-          this._hideTimeout.set(undefined)
+    this.loaderService.isLoading$.pipe(takeUntilDestroyed()).subscribe((isLoading) => {
+      if (this.timeoutId !== null) {
+        clearTimeout(this.timeoutId)
+        this.timeoutId = null
+        this._loadingCount.set(0)
+      }
+      if (isLoading) {
+        this._loadingCount.update((value) => (value ?? 0) + 1)
+      } else if ((this._loadingCount() ?? 0) > 1) {
+        this._loadingCount.update((value) => (value ?? 0) - 1)
+      } else {
+        this.timeoutId = setTimeout(() => {
           this._loadingCount.set(0)
-        }
-        if (isLoading) {
-          this._loadingCount.update((value) => (value ?? 0) + 1)
-        } else if ((this._loadingCount() ?? 0) > 1) {
-          this._loadingCount.update((value) => (value ?? 0) - 1)
-        } else {
-          this._hideTimeout.set(
-            setTimeout(() => {
-              this._loadingCount.set(0)
-            }, this.disableDelay())
-          )
-        }
-      })
+        }, this.disableDelay())
+      }
+    })
   }
 }
