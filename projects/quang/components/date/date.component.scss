@@ -39,6 +39,12 @@
         }
       }
     }
+    &.-inline-.-only-timepicker- {
+      border: 0;
+      .air-datepicker--time {
+        border: 0;
+      }
+    }
   }
 }
 
@@ -55,6 +61,9 @@
     &.with-button-calendar {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+    }
+    &:disabled {
+      border-radius: var(--bs-border-radius);
     }
   }
 
