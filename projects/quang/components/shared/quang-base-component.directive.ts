@@ -147,7 +147,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   checkFormErrors() {
     this._isValid.set(this._ngControl()?.control?.valid ?? false)
     const controlErrors = this._ngControl()?.control?.errors
-    this._isTouched.set(!this._ngControl()?.control?.pristine ?? false)
+    this._isTouched.set(!this._ngControl()?.control?.pristine)
     if (controlErrors && this.errorMap()?.length) {
       const targetError = this.errorMap()?.find(
         (errorData) =>

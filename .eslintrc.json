@@ -59,7 +59,8 @@
         "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "class-methods-use-this": "off",
-        "radix": "warn"
+        "radix": "warn",
+        "no-await-in-loop": "off"
       }
     },
     {

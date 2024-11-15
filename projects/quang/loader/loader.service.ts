@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core'
+import { Injectable, computed } from '@angular/core'
 
-import { BehaviorSubject } from 'rxjs'
+import { patchState, signalState } from '@ngrx/signals'
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuangLoaderService {
-  public isLoading$ = new BehaviorSubject<boolean | null>(null)
+  private loaderState = signalState({ count: 0 })
 
-  show(): void {
-    this.isLoading$.next(true)
+  public isLoading = computed(() => this.loaderState.count() > 0)
+
+  public show(): void {
+    patchState(this.loaderState, { count: this.loaderState().count + 1 })
   }
 
-  hide(): void {
-    this.isLoading$.next(false)
+  public hide(): void {
+    patchState(this.loaderState, { count: this.loaderState().count - 1 })
   }
 }

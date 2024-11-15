@@ -15,6 +15,7 @@ import { RouterOutlet } from '@angular/router'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { SvgIconComponent } from 'angular-svg-icon'
+import { delay, firstValueFrom } from 'rxjs'
 
 import { QuangLoaderComponent } from '@quix/quang/loader'
 import { QuangModalComponent } from '@quix/quang/overlay/modal'
@@ -80,11 +81,10 @@ export class AppComponent {
     this.quangTranslationService.setActiveLang(lang)
   }
 
-  showLoader() {
+  async showLoader() {
     for (let i = 0; i < 20; i++) {
-      this.http.get('https://jsonplaceholder.typicode.com/todos/1').subscribe((x) => {
-        console.log('call', x)
-      })
+      const x = await firstValueFrom(this.http.get('https://jsonplaceholder.typicode.com/todos/1').pipe(delay(300)))
+      console.log('call', x)
     }
   }
 
