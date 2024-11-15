@@ -19,6 +19,19 @@
         "semi": "off",
         "import/prefer-default-export": "off",
         "no-console": ["error", { "allow": ["warn", "error"] }],
+        "no-continue": "off",
+        "max-classes-per-file": "off",
+        "import/extensions": "off",
+        "import/order": "off",
+        "@typescript-eslint/lines-between-class-members": [
+          "error",
+          {
+            "enforce": [
+              { "blankLine": "always", "prev": "*", "next": "method" },
+              { "blankLine": "always", "prev": "method", "next": "*" }
+            ]
+          }
+        ],
         "@typescript-eslint/no-non-null-assertion": "warn",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
@@ -27,13 +40,25 @@
         "@typescript-eslint/restrict-plus-operands": "off",
         "@typescript-eslint/consistent-type-imports": "off",
         "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "args": "all",
+            "argsIgnorePattern": "^_",
+            "caughtErrors": "all",
+            "caughtErrorsIgnorePattern": "^_",
+            "destructuredArrayIgnorePattern": "^_",
+            "varsIgnorePattern": "^_",
+            "ignoreRestSiblings": true
+          }
+        ],
         "@angular-eslint/template/eqeqeq": "off",
         "no-underscore-dangle": "off",
         "no-control-regex": "off",
         "no-useless-constructor": "off",
-        "no-restricted-syntax": "warn",
+        "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-        "class-methods-use-this": "warn",
+        "class-methods-use-this": "off",
         "radix": "warn"
       }
     },
