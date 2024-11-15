@@ -17,22 +17,26 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi(), withInterceptors([quangLoaderInterceptor, logoutOnIntercept])),
     provideRouter(routes),
     provideAngularSvgIcon(),
-    provideAuth({
-      issuer: 'https://demo.duendesoftware.com',
-      clientId: 'interactive.public', // The "Auth Code + PKCE" client
-      responseType: 'code',
-      redirectUri: `${window.location.origin}/`,
-      scope: 'openid profile email api offline_access', // Ask offline_access to support refresh token refreshes
-      useSilentRefresh: false, // Explicitly set this to false, otherwise code flow will try to use an iframe to refresh session
-      timeoutFactor: 0.25, // For faster testing
-      sessionChecksEnabled: true,
-      showDebugInformation: false, // Also requires enabling "Verbose" level in devtools
-      clearHashAfterLogin: false, // https://github.com/manfredsteyer/angular-oauth2-oidc/issues/457#issuecomment-431807040,
-      nonceStateSeparator: 'semicolon', // Real semicolon gets mangled by Duende ID Server's URI encoding,
-      sendAccessToken: true,
-      urlsToSendToken: ['https://demo.duendesoftware.com/api'],
-      autoLogin: false, // set this to true to automatically log in
-    }),
+    provideAuth(
+      {
+        issuer: 'https://demo.duendesoftware.com',
+        clientId: 'interactive.public', // The "Auth Code + PKCE" client
+        responseType: 'code',
+        redirectUri: `${window.location.origin}/`,
+        scope: 'openid profile email api offline_access', // Ask offline_access to support refresh token refreshes
+        useSilentRefresh: false, // Explicitly set this to false, otherwise code flow will try to use an iframe to refresh session
+        timeoutFactor: 0.25, // For faster testing
+        sessionChecksEnabled: true,
+        showDebugInformation: false, // Also requires enabling "Verbose" level in devtools
+        clearHashAfterLogin: false, // https://github.com/manfredsteyer/angular-oauth2-oidc/issues/457#issuecomment-431807040,
+        nonceStateSeparator: 'semicolon', // Real semicolon gets mangled by Duende ID Server's URI encoding,
+        sendAccessToken: true,
+        urlsToSendToken: ['https://demo.duendesoftware.com/api'],
+        autoLogin: false, // set this to true to automatically log in
+        oidc: true,
+      },
+      'memoryStorage'
+    ),
     provideTranslation({
       availableLangs: ['it', 'en'],
       defaultLang: 'it',

@@ -4,11 +4,38 @@ import { provideOAuthClient } from 'angular-oauth2-oidc'
 
 import { AUTH_CONFIG, QuangAuthConfig, QuangAuthService } from './auth.service'
 
+// import { MemoryStorage } from './memory-storage'
+
 function initializeAuthService(authService: QuangAuthService) {
   return () => authService.init()
 }
 
-export function provideAuth(authConfig?: QuangAuthConfig, ...features: QuangAuthFeatures[]): EnvironmentProviders {
+// function localStorageFactory(): OAuthStorage {
+//   return localStorage
+// }
+
+// function sessionStorageFactory(): OAuthStorage {
+//   return sessionStorage
+// }
+
+// function getStorage(storage: 'localStorage' | 'sessionStorage' | 'memoryStorage'): Provider {
+//   switch (storage) {
+//     case 'localStorage':
+//       return { provide: OAuthStorage, useFactory: localStorageFactory }
+//     case 'sessionStorage':
+//       return { provide: OAuthStorage, useFactory: sessionStorageFactory }
+//     case 'memoryStorage':
+//       return { provide: OAuthStorage, useClass: MemoryStorage }
+//     default:
+//       return { provide: OAuthStorage, useFactory: sessionStorageFactory }
+//   }
+// }
+
+export function provideAuth(
+  authConfig?: QuangAuthConfig,
+  // storage: 'localStorage' | 'sessionStorage' | 'memoryStorage' = 'sessionStorage',
+  ...features: QuangAuthFeatures[]
+): EnvironmentProviders {
   return makeEnvironmentProviders([
     {
       provide: AUTH_CONFIG,
@@ -27,6 +54,7 @@ export function provideAuth(authConfig?: QuangAuthConfig, ...features: QuangAuth
       multi: true,
       deps: [QuangAuthService],
     },
+    // getStorage(storage)
   ])
 }
 
