@@ -1,5 +1,5 @@
 .dialog {
-  background-color: var(--bs-body-bg, var(--quang-modal-panel-background, #fff));
+  background-color: var(--quang-modal-panel-background, var(--bs-body-bg, initial));
   position: relative;
   display: flex;
   flex-direction: column;
