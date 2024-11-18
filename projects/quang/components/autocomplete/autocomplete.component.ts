@@ -77,6 +77,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   searchTextDebounce = input<number>(300)
 
+  internalFilterOptions = input<boolean>(true)
+
   constructor() {
     super()
     this.inputValue$
@@ -128,7 +130,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   filterOptions(value: string): SelectOption[] {
     const options = this.selectOptions()
-    return options.filter((x) => x.label.toLowerCase().includes(value.toLowerCase()))
+    if (this.internalFilterOptions()) return options.filter((x) => x.label.toLowerCase().includes(value.toLowerCase()))
+    return options
   }
 
   override onChangedHandler(value: string | number): void {
