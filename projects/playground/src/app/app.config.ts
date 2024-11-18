@@ -35,7 +35,7 @@ export const appConfig: ApplicationConfig = {
         autoLogin: false, // set this to true to automatically log in
         oidc: true,
       },
-      'memoryStorage'
+      'sessionStorage'
     ),
     provideTranslation({
       availableLangs: ['it', 'en'],

@@ -1,39 +1,41 @@
 import { APP_INITIALIZER, EnvironmentProviders, Provider, makeEnvironmentProviders } from '@angular/core'
 
-import { provideOAuthClient } from 'angular-oauth2-oidc'
+import { OAuthStorage, provideOAuthClient } from 'angular-oauth2-oidc'
 
 import { AUTH_CONFIG, QuangAuthConfig, QuangAuthService } from './auth.service'
-
-// import { MemoryStorage } from './memory-storage'
 
 function initializeAuthService(authService: QuangAuthService) {
   return () => authService.init()
 }
 
-// function localStorageFactory(): OAuthStorage {
-//   return localStorage
+function localStorageFactory(): OAuthStorage {
+  return localStorage
+}
+
+function sessionStorageFactory(): OAuthStorage {
+  return sessionStorage
+}
+
+// function memoryStorageFactory(): OAuthStorage {
+//   return new MemoryStorage()
 // }
 
-// function sessionStorageFactory(): OAuthStorage {
-//   return sessionStorage
-// }
-
-// function getStorage(storage: 'localStorage' | 'sessionStorage' | 'memoryStorage'): Provider {
-//   switch (storage) {
-//     case 'localStorage':
-//       return { provide: OAuthStorage, useFactory: localStorageFactory }
-//     case 'sessionStorage':
-//       return { provide: OAuthStorage, useFactory: sessionStorageFactory }
-//     case 'memoryStorage':
-//       return { provide: OAuthStorage, useClass: MemoryStorage }
-//     default:
-//       return { provide: OAuthStorage, useFactory: sessionStorageFactory }
-//   }
-// }
+function getStorage(storage: 'localStorage' | 'sessionStorage') {
+  switch (storage) {
+    case 'localStorage':
+      return { provide: OAuthStorage, useFactory: localStorageFactory }
+    case 'sessionStorage':
+      return { provide: OAuthStorage, useFactory: sessionStorageFactory }
+    // case 'memoryStorage':
+    //   return { provide: OAuthStorage, useFactory: memoryStorageFactory }
+    default:
+      return { provide: OAuthStorage, useFactory: sessionStorageFactory }
+  }
+}
 
 export function provideAuth(
   authConfig?: QuangAuthConfig,
-  // storage: 'localStorage' | 'sessionStorage' | 'memoryStorage' = 'sessionStorage',
+  storage: 'localStorage' | 'sessionStorage' = 'sessionStorage',
   ...features: QuangAuthFeatures[]
 ): EnvironmentProviders {
   return makeEnvironmentProviders([
@@ -54,7 +56,7 @@ export function provideAuth(
       multi: true,
       deps: [QuangAuthService],
     },
-    // getStorage(storage)
+    getStorage(storage),
   ])
 }
 
