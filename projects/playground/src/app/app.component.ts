@@ -109,7 +109,7 @@ export class AppComponent {
       customTemplate: this.customToast,
       showCloseButton: true,
       customIcon: customIcon ? './assets/icons/svg/calendar.svg' : '',
-      timing: 50000000,
+      timing: 5000,
     })
   }
 
