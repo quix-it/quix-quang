@@ -33,6 +33,11 @@ import { QuangTranslationService } from '@quix/quang/translation'
 
 export interface QuangDatepickerOptions extends AirDatepickerOptions {}
 
+export interface DateRange {
+  dateFrom: string | null
+  dateTo: string | null
+}
+
 @Component({
   selector: 'quang-date',
   standalone: true,
@@ -60,7 +65,7 @@ export interface QuangDatepickerOptions extends AirDatepickerOptions {}
  * Please note that overriding the `container` and `locale` properties and the `onSelect` and `onHide`
  * events might cause the component to malfunction.
  */
-export class QuangDateComponent extends QuangBaseComponent<string | null> {
+export class QuangDateComponent extends QuangBaseComponent<string | DateRange | null> {
   /**
    * Format to use to show on the input field.
    * The format is based on the standard {@link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table}
@@ -126,6 +131,10 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
 
   _quangTranslationActiveLang = computed(() => this._quangTranslationService()?.activeLang() ?? null)
 
+  multipleDatesSeparator = input<string>(' - ')
+
+  rangeSelection = input(false)
+
   _activeLanguage = computed(() => {
     if (this.activeLanguageOverride()) {
       return this.activeLanguageOverride()
@@ -154,7 +163,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
   valueFormat = computed(() =>
     this.showOnlyTimepicker()
       ? this.timeFormat()
-      : this.dateFormat() + (this.timepicker() ? ` ${this.timeFormat()}` : '')
+      : this.dateFormat() + (this.showTimepicker() ? ` ${this.timeFormat()}` : '')
   )
 
   inputValueString = computed(() => this.formatDate(this._value()))
@@ -171,7 +180,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
       })
   }
 
-  showTimepicker = computed(() => this.timepicker() || this.showOnlyTimepicker())
+  showTimepicker = computed(() => !this.rangeSelection() && (this.timepicker() || this.showOnlyTimepicker()))
 
   isMouseInsideCalendar = signal(false)
 
@@ -179,7 +188,19 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
 
   setupCalendar() {
     if (this._inputForDate()?.nativeElement) {
-      const targetDate: AirDatepickerDate | undefined = this._value() ?? undefined
+      const currentValue = this._value()
+      let targetDate: AirDatepickerDate[] | undefined = undefined
+      if (currentValue && typeof currentValue === 'string') {
+        targetDate = [currentValue]
+      } else if (currentValue && typeof currentValue === 'object') {
+        targetDate = []
+        if (currentValue.dateFrom) {
+          targetDate.push(currentValue.dateFrom)
+        }
+        if (currentValue.dateTo) {
+          targetDate.push(currentValue.dateTo)
+        }
+      }
       this.setCalendarPosition()
       const airDatepickerOpts: AirDatepickerOptions = {
         autoClose: true,
@@ -187,7 +208,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
         dateFormat: this.dateFormat(),
         inline: this.showInline(),
         isMobile: false,
-        timepicker: this.timepicker() || this.showOnlyTimepicker(),
+        multipleDatesSeparator: this.multipleDatesSeparator(),
+        range: this.rangeSelection(),
+        timepicker: this.showTimepicker(),
         onlyTimepicker: this.showOnlyTimepicker(),
         timeFormat: this.timeFormat(),
         minHours: this.minHour(),
@@ -198,7 +221,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
         maxDate: this.maxDate(),
         toggleSelected: false,
         multipleDates: false,
-        selectedDates: targetDate ? [targetDate] : undefined,
+        selectedDates: targetDate,
         position: this.targetPosition(),
         locale: this.getLocale(),
         onSelect: ({ date }) => {
@@ -262,6 +285,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
   onChangeText($event: Event): void {
     const value = ($event.target as HTMLInputElement)?.value
     if (value) {
+      // TODO: check format for DateRange
       if (value.length === this.valueFormat().length && isMatch(value, this.valueFormat())) {
         this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
       }
@@ -286,17 +310,36 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
     return targetDate
   }
 
-  override onChangedHandler(value: string | null): void {
+  override onChangedHandler(value: string | DateRange | null): void {
     let targetDate = value
     const currentValue = this._value()
-    if (!this.showTimepicker() && targetDate) {
-      // remove time from date
-      targetDate = `${targetDate.split('T')[0]}T00:00:00.000Z`
-    } else if (this.showOnlyTimepicker() && currentValue && targetDate) {
-      targetDate = `${currentValue.split('T')[0]}T${targetDate.split('T')[1]}`
+    if (typeof targetDate === 'string' && (!currentValue || typeof currentValue === 'string')) {
+      if (!this.showTimepicker() && targetDate) {
+        // remove time from date
+        targetDate = `${targetDate.split('T')[0]}T00:00:00.000Z`
+      } else if (this.showOnlyTimepicker() && currentValue && targetDate) {
+        targetDate = `${currentValue.split('T')[0]}T${targetDate.split('T')[1]}`
+      }
+    } else if (
+      this.rangeSelection() &&
+      typeof targetDate === 'object' &&
+      (currentValue === null || typeof currentValue === 'object')
+    ) {
+      if (!this.showTimepicker() && targetDate?.dateFrom) {
+        // remove time from date
+        targetDate.dateFrom = `${targetDate.dateFrom.split('T')[0]}T00:00:00.000Z`
+      } else if (this.showOnlyTimepicker() && currentValue?.dateFrom && targetDate?.dateFrom) {
+        targetDate.dateFrom = `${currentValue?.dateFrom.split('T')[0]}T${targetDate.dateFrom.split('T')[1]}`
+      }
+      if (!this.showTimepicker() && targetDate?.dateTo) {
+        // remove time from date
+        targetDate.dateTo = `${targetDate.dateTo.split('T')[0]}T00:00:00.000Z`
+      } else if (this.showOnlyTimepicker() && currentValue?.dateTo && targetDate?.dateTo) {
+        targetDate.dateTo = `${currentValue?.dateTo.split('T')[0]}T${targetDate.dateTo.split('T')[1]}`
+      }
     }
 
-    if (currentValue === targetDate) {
+    if (JSON.stringify(currentValue) === JSON.stringify(targetDate)) {
       return
     }
 
@@ -304,11 +347,37 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
   }
 
   onHideCalendar(): void {
-    const value = this._inputForDate()?.nativeElement.value
-    if (isMatch(value, this.valueFormat())) {
-      this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
+    const valueInput: string = this._inputForDate()?.nativeElement.value
+    let value: string | DateRange = valueInput
+    if (this.rangeSelection()) {
+      value = {
+        dateFrom: '',
+        dateTo: '',
+      }
+      const splitValue = valueInput.split(this.multipleDatesSeparator())
+      if (splitValue[0]) {
+        value.dateFrom = splitValue[0]
+      }
+      if (splitValue[1]) {
+        value.dateTo = splitValue[1]
+      }
+      if (!value.dateFrom || !isMatch(value.dateFrom, this.valueFormat())) {
+        value.dateFrom = null
+      } else {
+        value.dateFrom = this.setupInputStringToDate(value.dateFrom).toISOString()
+      }
+      if (!value.dateTo || !isMatch(value.dateTo, this.valueFormat())) {
+        value.dateTo = null
+      } else {
+        value.dateTo = this.setupInputStringToDate(value.dateTo).toISOString()
+      }
+      this.onChangedHandler(value)
     } else {
-      this.onChangedHandler(null)
+      if (isMatch(value, this.valueFormat())) {
+        this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
+      } else {
+        this.onChangedHandler(null)
+      }
     }
 
     if (this.formControl()?.getRawValue() !== this._value()) {
@@ -320,9 +389,19 @@ export class QuangDateComponent extends QuangBaseComponent<string | null> {
     this.onBlurHandler()
   }
 
-  formatDate(val: string | null): string {
-    if (val) {
+  formatDate(val: string | DateRange | null): string {
+    if (val && typeof val === 'string') {
       return format(val, this.valueFormat())
+    } else if (val && typeof val === 'object') {
+      let dateFromFormat = ''
+      let dateToFormat = ''
+      if (val.dateFrom) {
+        dateFromFormat = format(val.dateFrom, this.valueFormat())
+      }
+      if (val.dateTo) {
+        dateToFormat = format(val.dateTo, this.valueFormat())
+      }
+      return `${dateFromFormat}${this.multipleDatesSeparator()}${dateToFormat}`
     }
     return ''
   }
