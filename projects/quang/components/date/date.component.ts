@@ -189,7 +189,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   setupCalendar() {
     if (this._inputForDate()?.nativeElement) {
       const currentValue = this._value()
-      let targetDate: AirDatepickerDate[] | undefined = undefined
+      let targetDate: AirDatepickerDate[] | undefined
       if (currentValue && typeof currentValue === 'string') {
         targetDate = [currentValue]
       } else if (currentValue && typeof currentValue === 'object') {
@@ -354,13 +354,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
         dateFrom: '',
         dateTo: '',
       }
-      const splitValue = valueInput.split(this.multipleDatesSeparator())
-      if (splitValue[0]) {
-        value.dateFrom = splitValue[0]
-      }
-      if (splitValue[1]) {
-        value.dateTo = splitValue[1]
-      }
+      const [dateFrom, dateTo] = valueInput.split(this.multipleDatesSeparator())
+      value.dateFrom = dateFrom ?? ''
+      value.dateTo = dateTo ?? ''
       if (!value.dateFrom || !isMatch(value.dateFrom, this.valueFormat())) {
         value.dateFrom = null
       } else {
@@ -372,13 +368,11 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
         value.dateTo = this.setupInputStringToDate(value.dateTo).toISOString()
       }
       this.onChangedHandler(value)
-    } else {
-      if (isMatch(value, this.valueFormat())) {
+    } else if (isMatch(value, this.valueFormat())) {
         this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
       } else {
         this.onChangedHandler(null)
       }
-    }
 
     if (this.formControl()?.getRawValue() !== this._value()) {
       super.onChangedHandler(this._value())
@@ -392,7 +386,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   formatDate(val: string | DateRange | null): string {
     if (val && typeof val === 'string') {
       return format(val, this.valueFormat())
-    } else if (val && typeof val === 'object') {
+    } if (val && typeof val === 'object') {
       let dateFromFormat = ''
       let dateToFormat = ''
       if (val.dateFrom) {
