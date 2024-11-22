@@ -1,8 +1,10 @@
 import { OverlayModule } from '@angular/cdk/overlay'
 import { DatePipe, NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
-import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core'
+import { toObservable, toSignal } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { map, of, switchAll, timer } from 'rxjs'
 
 import { QuangToastService } from './toast.service'
 
@@ -42,15 +44,19 @@ import { QuangToastService } from './toast.service'
 export class QuangToastComponent {
   toastService = signal(inject(QuangToastService))
 
-  readonly _showToast = this.toastService().showToast
+  readonly isShowing = this.toastService().isShowing
+  showAtLeastFor = input<number>(500)
 
-  _showToastEffect = effect(() => {
-    if (this._showToast()) {
-      setTimeout(() => {
-        this.toastService().closeToast()
-      }, this.toastService().currentToast()?.timing)
-    }
-  })
+  private showToastBuffer$ = toObservable(this.isShowing).pipe(
+    map((isShowing) =>
+      isShowing
+        ? of(isShowing)
+        : timer(this.toastService().currentToast()?.timing ?? this.showAtLeastFor()).pipe(map(() => isShowing))
+    ),
+    switchAll()
+  )
+
+  showToast = toSignal(this.showToastBuffer$)
 
   readonly _currentToast = this.toastService().currentToast
 

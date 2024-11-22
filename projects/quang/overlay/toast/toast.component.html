@@ -1,6 +1,6 @@
 <div
-  [class.hide]="!_showToast()"
-  [class.show]="_showToast()"
+  [class.hide]="!isShowing()"
+  [class.show]="isShowing()"
   [ngClass]="[_currentToast()?.position ?? '', _currentToast()?.type ?? '']"
   aria-atomic="true"
   aria-live="assertive"

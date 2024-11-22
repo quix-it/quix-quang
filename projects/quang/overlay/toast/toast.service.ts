@@ -1,4 +1,6 @@
-import { Injectable, TemplateRef, signal } from '@angular/core'
+import { Injectable, TemplateRef, computed } from '@angular/core'
+
+import { patchState, signalState } from '@ngrx/signals'
 
 export interface ToastData {
   type: 'success' | 'warning' | 'error'
@@ -19,17 +21,43 @@ export interface ToastData {
   providedIn: 'root',
 })
 export class QuangToastService {
-  public showToast = signal<boolean>(false)
+  private toastState = signalState({
+    count: 0,
+    currentToast: null as ToastData | null,
+    currentTimeout: null as ReturnType<typeof setTimeout> | number | null,
+  })
 
-  currentToast = signal<ToastData | null>(null)
+  public isShowing = computed(() => this.toastState.count() > 0)
 
-  openToast(toastData: ToastData): void {
-    this.currentToast.set(toastData)
-    this.showToast.set(true)
+  count = this.toastState.count
+  currentTimeout = this.toastState.currentTimeout
+
+  public openToast(toastData: ToastData): void {
+    patchState(this.toastState, {
+      currentToast: toastData,
+      count: this.count() + 1,
+    })
+
+    if (this.count() > 1) {
+      clearTimeout(this.currentTimeout() as number)
+      patchState(this.toastState, {
+        count: this.count() - 1,
+        currentTimeout: null,
+      })
+    }
+    patchState(this.toastState, {
+      currentTimeout: setTimeout(() => {
+        this.closeToast()
+      }, toastData.timing),
+    })
   }
 
-  closeToast(): void {
-    this.currentToast.set(null)
-    this.showToast.set(false)
+  public closeToast(): void {
+    patchState(this.toastState, {
+      currentToast: null,
+    })
+    patchState(this.toastState, { count: this.count() - 1 })
   }
+
+  public currentToast = computed(() => this.toastState.currentToast())
 }
