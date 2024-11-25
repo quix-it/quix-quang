@@ -12,20 +12,20 @@
     <li
       [class.m-0]="last"
       [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
+      (mousedown)="$event.stopImmediatePropagation(); onSelectItem(item)"
       *ngFor="let item of selectOptionsList(); let i = index; let last = last"
       class="item"
     >
       <input
         [checked]="getSelected(item)"
         [class.d-none]="selectionMode() === 'single' || !item?.value"
-        [disabled]="_isDisabled()"
+        [disabled]="true"
         [id]="i + '-' + item.value + '-checkbox'"
         [name]="i + '-' + item.value + '-checkbox'"
         [ngClass]="componentClass()"
         [tabIndex]="componentTabIndex()"
         [value]="getSelected(item)"
         (blur)="onBlurHandler($event)"
-        (input)="onSelectItem(item)"
         #inputCheckbox
         class="form-check-input"
         type="checkbox"
