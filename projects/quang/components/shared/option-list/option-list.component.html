@@ -27,13 +27,13 @@
         [value]="getSelected(item)"
         (blur)="onBlurHandler($event)"
         #inputCheckbox
-        class="form-check-input"
+        class="form-check-input opacity-100"
         type="checkbox"
       />
       <label
         [class.ms-3]="selectionMode() === 'multiple' && item?.value"
         [for]="i + '-' + item.value + '-checkbox'"
-        class="form-check-label checkbox-label w-100"
+        class="form-check-label checkbox-label w-100 opacity-100"
       >
         {{ translateValue() ? (item.label | transloco) : item.label }}
       </label>
