@@ -9,9 +9,10 @@ import {
   inject,
   input,
   output,
+  signal,
   viewChild,
 } from '@angular/core'
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { Subscription } from 'rxjs'
@@ -47,9 +48,9 @@ export interface TableRow<T> {
 }
 
 export enum SortTable {
-  DEFAULT,
-  ASC,
-  DESC,
+  DEFAULT = 'DEFAULT',
+  ASC = 'ASC',
+  DESC = 'DESC',
 }
 
 export interface SortCol {
@@ -118,8 +119,30 @@ export class QuangTableComponent<T> {
 
   tableConfigurations = input.required<TableConfiguration<T>>()
 
+  _tableConfigurations = signal<TableConfiguration<T>>({
+    headers: [],
+    rows: [],
+  })
+
+  tableConfigurations$ = toObservable(this.tableConfigurations)
+    .pipe(takeUntilDestroyed())
+    .subscribe((data) => {
+      const headers: TableHeader[] = []
+      const rows: TableRow<T>[] = []
+      for (const header of data.headers) {
+        headers.push({ ...header })
+      }
+      for (const row of data.rows) {
+        rows.push({ ...row })
+      }
+      this._tableConfigurations.set({
+        headers,
+        rows,
+      })
+    })
+
   effectTableConfigurations = effect(() => {
-    if (this.tableConfigurations()) {
+    if (this._tableConfigurations()) {
       this.fixTableHeaderWidth()
     }
   })
@@ -136,6 +159,8 @@ export class QuangTableComponent<T> {
     return !!this.selectedRows()?.some((x) => x === rowId)
   }
 
+  lastWidth = -1
+
   fixTableHeaderWidth() {
     setTimeout(() => {
       const stickyColumns = this._tableHeader()?.nativeElement?.querySelectorAll('th')
@@ -148,10 +173,13 @@ export class QuangTableComponent<T> {
           this.hiddenColumnsObservable.unsubscribe()
         }
         this.hiddenColumnsObservable = this._resizeObservableService
-          .resizeObservable(hiddenColumns[0])
+          .widthResizeObservable(hiddenColumns[0])
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(() => {
-            this.fixTableHeaderWidth()
+          .subscribe((data) => {
+            if (data !== this.lastWidth) {
+              this.lastWidth = data
+              this.fixTableHeaderWidth()
+            }
           })
         for (let i = 0; i < hiddenColumns?.length; i++) {
           const th = hiddenColumns[i]
@@ -164,7 +192,13 @@ export class QuangTableComponent<T> {
   }
 
   onSortColumn(sort: SortCol): void {
-    this.tableConfigurations().headers.forEach((header) => {
+    const tableHeaders: TableHeader[] = []
+    for (const header of this._tableConfigurations().headers) {
+      tableHeaders.push({
+        ...header,
+      })
+    }
+    tableHeaders.forEach((header) => {
       if (!header.sort?.key) return
 
       if (header.sort?.key === sort.key) {
@@ -191,14 +225,7 @@ export class QuangTableComponent<T> {
         }
       }
     })
-    this.sortChanged.emit(
-      this.tableConfigurations().headers.map(
-        (x) =>
-          x.sort ?? {
-            key: '',
-            sort: SortTable.DEFAULT,
-          }
-      ) ?? []
-    )
+    this._tableConfigurations.set({ ...this._tableConfigurations(), headers: tableHeaders })
+    this.sortChanged.emit([sort]) // it's an array to handle multisort in the future
   }
 }

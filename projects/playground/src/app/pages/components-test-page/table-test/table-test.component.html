@@ -1,4 +1,11 @@
 <h3>{{ 'title.components.table' | transloco }}</h3>
+<button
+  (click)="addPerson()"
+  class="btn me-3 btn-primary"
+  type="button"
+>
+  Add person
+</button>
 <quang-table
   [stickyTable]="true"
   [tableConfigurations]="tableConfig()"

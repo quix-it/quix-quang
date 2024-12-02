@@ -1,11 +1,19 @@
-import { JsonPipe, NgIf } from '@angular/common'
-import { Component, DestroyRef, TemplateRef, computed, inject, signal, viewChild } from '@angular/core'
-import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop'
+import { NgIf } from '@angular/common'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  TemplateRef,
+  computed,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
-import { map, of } from 'rxjs'
 
 import { QuangCheckboxComponent } from '@quix/quang/components/checkbox'
 import {
@@ -16,7 +24,6 @@ import {
   TableRow,
 } from '@quix/quang/components/table/table.component'
 import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
-import { QuangPopoverComponent } from '@quix/quang/overlay/popover/popover.component'
 
 interface People {
   name: string
@@ -30,9 +37,7 @@ interface People {
   standalone: true,
   imports: [
     QuangTableComponent,
-    QuangPopoverComponent,
     QuangPopoverDirective,
-    JsonPipe,
     TranslocoPipe,
     AngularSvgIconModule,
     QuangCheckboxComponent,
@@ -41,6 +46,7 @@ interface People {
   ],
   templateUrl: './table-test.component.html',
   styleUrl: './table-test.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableTestComponent {
   actions = viewChild<TemplateRef<any>>('actions')
@@ -178,7 +184,7 @@ export class TableTestComponent {
     },
   ]
 
-  peopleList = toSignal(of(this.people).pipe(map((x) => x)))
+  peopleList = signal(this.people)
 
   tableConfig = computed<TableConfiguration<People>>(() => ({
     headers: [
@@ -299,6 +305,10 @@ export class TableTestComponent {
     if (person) {
       person.css = person?.css?.length ? undefined : ['hover-table']
     }
+  }
+
+  addPerson() {
+    this.peopleList.set([...this.peopleList(), { name: 'New Person', age: 0, gender: 'Male', id: 1000 }])
   }
 
   onDeletePerson(id: number): void {
