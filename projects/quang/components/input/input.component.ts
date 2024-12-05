@@ -11,7 +11,6 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
 
 @Component({
   selector: 'quang-input',
-  standalone: true,
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
   providers: [

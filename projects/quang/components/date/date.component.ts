@@ -1,4 +1,4 @@
-import { JsonPipe, NgClass, NgIf, NgStyle } from '@angular/common'
+import { NgClass, NgIf } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -40,7 +40,6 @@ export interface DateRange {
 
 @Component({
   selector: 'quang-date',
-  standalone: true,
   templateUrl: './date.component.html',
   styleUrl: './date.component.scss',
   providers: [
@@ -50,7 +49,7 @@ export interface DateRange {
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgClass, JsonPipe, NgStyle],
+  imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -369,10 +368,10 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       }
       this.onChangedHandler(value)
     } else if (isMatch(value, this.valueFormat())) {
-        this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
-      } else {
-        this.onChangedHandler(null)
-      }
+      this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
+    } else {
+      this.onChangedHandler(null)
+    }
 
     if (this.formControl()?.getRawValue() !== this._value()) {
       super.onChangedHandler(this._value())
@@ -386,7 +385,8 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   formatDate(val: string | DateRange | null): string {
     if (val && typeof val === 'string') {
       return format(val, this.valueFormat())
-    } if (val && typeof val === 'object') {
+    }
+    if (val && typeof val === 'object') {
       let dateFromFormat = ''
       let dateToFormat = ''
       if (val.dateFrom) {

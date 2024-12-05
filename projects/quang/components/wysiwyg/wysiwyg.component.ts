@@ -1,4 +1,4 @@
-import { JsonPipe, NgClass, NgIf } from '@angular/common'
+import { NgClass, NgIf } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -26,7 +26,6 @@ export interface QuangWysiwygOptions extends SunEditorOptions {}
 
 @Component({
   selector: 'quang-wysiwyg',
-  standalone: true,
   templateUrl: './wysiwyg.component.html',
   styleUrl: './wysiwyg.component.scss',
   providers: [
@@ -36,7 +35,7 @@ export interface QuangWysiwygOptions extends SunEditorOptions {}
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgClass, JsonPipe],
+  imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**

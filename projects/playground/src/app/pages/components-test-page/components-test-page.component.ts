@@ -12,7 +12,6 @@ import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
 
 @Component({
   selector: 'playground-components-test-page',
-  standalone: true,
   imports: [
     // AuthTestComponent,
     InputTestComponent,

@@ -1,6 +1,6 @@
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay'
 import { CdkPortal, PortalModule } from '@angular/cdk/portal'
-import { NgClass, NgStyle } from '@angular/common'
+import { NgStyle } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -24,8 +24,7 @@ export type ModalAnimationMode =
 
 @Component({
   selector: 'quang-modal',
-  standalone: true,
-  imports: [PortalModule, NgStyle, NgClass],
+  imports: [PortalModule, NgStyle],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

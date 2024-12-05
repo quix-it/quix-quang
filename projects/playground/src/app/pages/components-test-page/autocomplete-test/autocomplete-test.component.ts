@@ -1,4 +1,4 @@
-import { JsonPipe, NgForOf, NgIf } from '@angular/common'
+import { JsonPipe, NgIf } from '@angular/common'
 import { Component, DestroyRef, inject, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
@@ -10,8 +10,7 @@ import { SelectOption } from '@quix/quang/components/shared'
 
 @Component({
   selector: 'playground-autocomplete-test',
-  standalone: true,
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, NgForOf, TranslocoPipe, QuangAutocompleteComponent],
+  imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, TranslocoPipe, QuangAutocompleteComponent],
   templateUrl: './autocomplete-test.component.html',
   styleUrl: './autocomplete-test.component.scss',
 })
@@ -198,6 +197,7 @@ export class AutocompleteTestComponent {
     })
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSelectOption(option: any): void {
     console.log(option)
   }

@@ -1,4 +1,4 @@
-import { NgForOf, NgIf, UpperCasePipe } from '@angular/common'
+import { NgForOf, NgIf } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
 import {
   ChangeDetectionStrategy,
@@ -31,7 +31,6 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
 
 @Component({
   selector: 'playground-root',
-  standalone: true,
   imports: [
     RouterOutlet,
     NgIf,
@@ -42,7 +41,6 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
     QuangPopoverDirective,
     QuangLoaderComponent,
     NgForOf,
-    UpperCasePipe,
     SvgIconComponent,
   ],
   templateUrl: './app.component.html',

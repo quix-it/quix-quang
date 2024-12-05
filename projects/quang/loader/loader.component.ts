@@ -17,7 +17,6 @@ import { QuangLoaderService } from './loader.service'
  */
 @Component({
   selector: 'quang-loader',
-  standalone: true,
   imports: [NgIf],
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss',

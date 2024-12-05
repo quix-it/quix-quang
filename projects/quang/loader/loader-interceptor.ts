@@ -18,13 +18,6 @@ export interface UrlData {
   method: HttpMethod
 }
 
-/**
- * @example
- * providers: [
- * provideHttpClient(withInterceptors([quangLoaderInterceptor]))
- * ]
- */
-
 function getExcludedUrlsByMethod(urlData: UrlData[]) {
   const excludedUrlByMethod = new Map<HttpMethod, Set<string>>([
     ['GET', new Set()],
@@ -39,6 +32,14 @@ function getExcludedUrlsByMethod(urlData: UrlData[]) {
   return excludedUrlByMethod
 }
 
+/**
+ * @example
+ * export const appConfig: ApplicationConfig = {
+ *   providers: [
+ *     provideHttpClient(withInterceptors([quangLoaderInterceptor]))
+ *   ]
+ * }
+ */
 export function quangLoaderInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn) {
   const excludedUrlByMethod = getExcludedUrlsByMethod(inject(EXCLUDED_URL))
   const loaderService = inject(QuangLoaderService)

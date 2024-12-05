@@ -1,9 +1,41 @@
-import { Injectable, InjectionToken, computed, inject } from '@angular/core'
+import {
+  EnvironmentProviders,
+  Injectable,
+  InjectionToken,
+  computed,
+  inject,
+  makeEnvironmentProviders,
+} from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { patchState, signalState } from '@ngrx/signals'
 import { AuthConfig, OAuthErrorEvent, OAuthEvent, OAuthService, ParsedIdToken } from 'angular-oauth2-oidc'
 import { filter, firstValueFrom } from 'rxjs'
+
+import { QUANG_LOGGING_BEHAVIOR } from '@quix/quang'
+
+export const AUTH_CONFIG = new InjectionToken<QuangAuthConfig | undefined>('AUTH_CONFIG')
+
+export interface QuangAuthConfig extends AuthConfig {
+  autoLogin: boolean
+  sendAccessToken: boolean
+  urlsToSendToken: string[]
+  revokeTokensOnLogout?: boolean
+  getUserProfileOnLoginSuccess?: boolean
+  useSilentRefresh: boolean
+}
+
+export function provideQuangAuthConfig(authConfig?: QuangAuthConfig): EnvironmentProviders {
+  return makeEnvironmentProviders([{ provide: AUTH_CONFIG, useValue: authConfig }])
+}
+
+export interface QuangParsedIdToken extends ParsedIdToken {}
+
+export const OPEN_URI = new InjectionToken<(uri: string) => void | undefined>('OPEN_URI')
+
+export function provideOpenURI(openURI: (uri: string) => void | undefined): EnvironmentProviders {
+  return makeEnvironmentProviders([{ provide: OPEN_URI, deps: [], useFactory: openURI }])
+}
 
 interface LoginStatus {
   checked: boolean
@@ -21,23 +53,9 @@ interface AuthState {
   tokenStatus: TokenStatus
   parsedToken: QuangParsedIdToken | null
   roles: Set<string>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: Record<string, any> | null
 }
-
-export const AUTH_CONFIG = new InjectionToken<QuangAuthConfig | undefined>('AUTH_CONFIG')
-
-export const OPEN_URI = new InjectionToken<(uri: string) => void | undefined>('OPEN_URI')
-
-export interface QuangAuthConfig extends AuthConfig {
-  autoLogin: boolean
-  sendAccessToken: boolean
-  urlsToSendToken: string[]
-  revokeTokensOnLogout?: boolean
-  getUserProfileOnLoginSuccess?: boolean
-  useSilentRefresh: boolean
-}
-
-export interface QuangParsedIdToken extends ParsedIdToken {}
 
 const initialState: AuthState = {
   loginStatus: {
@@ -60,7 +78,7 @@ const initialState: AuthState = {
 export class QuangAuthService {
   private config: QuangAuthConfig
 
-  showDebugInformation = false
+  logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })
 
   private oAuthService = inject(OAuthService)
 
@@ -88,7 +106,6 @@ export class QuangAuthService {
     if (openUri) authConfig.openUri = openUri
 
     this.config = authConfig
-    this.showDebugInformation = !!authConfig.showDebugInformation
 
     this.oAuthService.events.pipe(takeUntilDestroyed()).subscribe((event: OAuthEvent) => {
       if (event instanceof OAuthErrorEvent) {
@@ -97,7 +114,7 @@ export class QuangAuthService {
           console.error(event)
         }
         // eslint-disable-next-line no-console
-      } else if (this.showDebugInformation) console.debug(event)
+      } else if (this.logLevel === 'verbose') console.debug(event)
     })
     this.oAuthService.configure(this.config)
   }
@@ -120,6 +137,7 @@ export class QuangAuthService {
         try {
           await this.oAuthService.silentRefresh()
           hasValidToken = this.oAuthService.hasValidAccessToken()
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
           // Subset of situations from https://openid.net/specs/openid-connect-core-1_0.html#AuthError
           // Only the ones where it's reasonably sure that sending the user to the IdServer will help.

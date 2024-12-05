@@ -60,7 +60,6 @@ export interface SortCol {
 
 @Component({
   selector: 'quang-table',
-  standalone: true,
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
   imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet, NgFor],

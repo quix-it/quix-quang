@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
+import { NgClass, NgFor, NgIf } from '@angular/common'
 import { AfterViewInit, ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
@@ -8,7 +8,6 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
 
 @Component({
   selector: 'quang-select',
-  standalone: true,
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
   providers: [
@@ -22,7 +21,7 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
       multi: false,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgFor, NgClass, NgStyle, QuangOptionListComponent],
+  imports: [TranslocoPipe, NgIf, NgFor, NgClass, QuangOptionListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**

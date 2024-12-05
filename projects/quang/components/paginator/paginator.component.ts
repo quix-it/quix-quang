@@ -8,7 +8,6 @@ import { makeId } from '@quix/quang/components/shared'
 
 @Component({
   selector: 'quang-paginator',
-  standalone: true,
   imports: [TranslocoPipe, NgIf, NgFor, NgClass],
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',

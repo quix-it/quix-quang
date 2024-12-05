@@ -36,7 +36,6 @@ interface People {
 
 @Component({
   selector: 'playground-table-test',
-  standalone: true,
   imports: [
     QuangTableComponent,
     QuangPopoverDirective,
