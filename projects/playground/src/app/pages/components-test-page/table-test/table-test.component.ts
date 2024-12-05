@@ -25,6 +25,8 @@ import {
 } from '@quix/quang/components/table/table.component'
 import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
 
+import { TableHeader } from 'dist/quang/components/table'
+
 interface People {
   name: string
   age: number
@@ -186,87 +188,90 @@ export class TableTestComponent {
 
   peopleList = signal(this.people)
 
-  tableConfig = computed<TableConfiguration<People>>(() => ({
-    headers: [
-      {
-        renderer: this.checkboxRenderer(),
-        payload: 'header',
+  tableHeaders = signal<TableHeader[]>([
+    {
+      renderer: this.checkboxRenderer(),
+      payload: 'header',
+    },
+    {
+      text: 'Name',
+      sort: {
+        key: 'name',
+        sort: SortTable.DEFAULT,
       },
-      {
-        text: 'Name',
-        sort: {
-          key: 'name',
-          sort: SortTable.DEFAULT,
+    },
+    {
+      text: 'Name2',
+      sort: {
+        key: 'name2',
+        sort: SortTable.DEFAULT,
+      },
+    },
+    {
+      text: 'Name3',
+      css: ['justify-content-end'],
+      sort: {
+        key: 'name3',
+        sort: SortTable.DEFAULT,
+      },
+    },
+    {
+      text: 'Age',
+      sort: {
+        key: 'age',
+        sort: SortTable.DESC,
+      },
+    },
+    {
+      text: 'Gender',
+      sort: {
+        key: 'gender',
+        sort: SortTable.DEFAULT,
+      },
+    },
+    {
+      text: '',
+    },
+  ])
+
+  tableRows = signal(
+    this.peopleList()?.map<TableRow<People>>((person) => ({
+      css: undefined,
+      rowId: `person-${person.id}`,
+      payload: person,
+      cellData: [
+        {
+          renderer: this.checkboxRenderer(),
+          payload: person.id,
         },
-      },
-      {
-        text: 'Name2',
-        sort: {
-          key: 'name2',
-          sort: SortTable.DEFAULT,
+        {
+          text: person.name,
         },
-      },
-      {
-        text: 'Name3',
-        css: ['justify-content-end'],
-        sort: {
-          key: 'name3',
-          sort: SortTable.DEFAULT,
+        {
+          text: person.name,
         },
-      },
-      {
-        text: 'Age',
-        sort: {
-          key: 'age',
-          sort: SortTable.DESC,
+        {
+          renderer: this.name3(),
+          payload: person.name,
         },
-      },
-      {
-        text: 'Gender',
-        sort: {
-          key: 'gender',
-          sort: SortTable.DEFAULT,
+        {
+          text: person.age.toString(),
         },
-      },
-      {
-        text: '',
-      },
-    ],
-    rows:
-      this.peopleList()?.map(
-        (person): TableRow<People> => ({
-          css: undefined,
-          rowId: `person-${person.id}`,
+        {
+          text: person.gender,
+          css: ['bg-light'],
+        },
+        {
+          renderer: this.actions(),
           payload: person,
-          cellData: [
-            {
-              renderer: this.checkboxRenderer(),
-              payload: person.id,
-            },
-            {
-              text: person.name,
-            },
-            {
-              text: person.name,
-            },
-            {
-              renderer: this.name3(),
-              payload: person.name,
-            },
-            {
-              text: person.age.toString(),
-            },
-            {
-              text: person.gender,
-              css: ['bg-light'],
-            },
-            {
-              renderer: this.actions(),
-              payload: person,
-            },
-          ],
-        })
-      ) ?? [],
+        },
+      ],
+    })) ?? []
+  )
+
+  tableConfig = computed<TableConfiguration<People>>(() => ({
+    headers: this.tableHeaders(),
+    rows: this.tableRows(),
   }))
 
   selectedRows: string[] = []
@@ -327,6 +332,13 @@ export class TableTestComponent {
   }
 
   onChangeSort(sortCols: SortCol[]): void {
-    console.log(sortCols)
+    this.tableHeaders.update((headers) =>
+      headers.map((h) => ({
+        ...h,
+        sort: h.sort
+          ? { ...h.sort, sort: sortCols[0].key === h.sort.key ? sortCols[0].sort : SortTable.DEFAULT }
+          : undefined,
+      }))
+    )
   }
 }
