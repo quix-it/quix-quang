@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import { AfterViewInit, ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core'
+import { AfterViewInit, ChangeDetectionStrategy, Component, computed, effect, ElementRef, forwardRef, input, signal, viewChild } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -46,6 +46,8 @@ export class QuangSelectComponent
   optionListMaxHeight = input<string>('18rem')
 
   selectOptions = input.required<SelectOption[]>()
+
+  selectButton = viewChild<ElementRef<HTMLButtonElement>>('selectButton')
 
   _showOptions = signal<boolean>(false)
 
@@ -104,6 +106,7 @@ export class QuangSelectComponent
       setTimeout(() => {
         this.hideOptionVisibility()
         super.onBlurHandler()
+        this.selectButton()?.nativeElement.focus()
       }, 100)
     }
   }

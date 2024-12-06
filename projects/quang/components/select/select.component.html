@@ -19,12 +19,12 @@
       [id]="componentId()"
       [ngClass]="componentClass()"
       [tabIndex]="componentTabIndex()"
-      (blur)="onBlurHandler()"
       (click)="changeOptionsVisibility()"
       #selectButton
       class="form-select"
       type="button"
     >
+      <!-- (blur)="onBlurHandler()" -->
       <div
         *ngIf="_selectedItems()?.length"
         class="content"
@@ -50,6 +50,7 @@
       (blurHandler)="onBlurHandler()"
       (changedHandler)="onChangedHandler($event)"
       *ngIf="_showOptions()"
+      #optionList
     ></quang-option-list>
   </div>
   <div class="valid-feedback">

@@ -6,6 +6,7 @@ import {
   HostListener,
   OnDestroy,
   computed,
+  effect,
   input,
   output,
   signal,
@@ -93,10 +94,11 @@ export class QuangOptionListComponent implements OnDestroy {
 
   onKeyDown = () => {}
 
-  optionList$ = toObservable(this.optionList)
-    .pipe(takeUntilDestroyed())
-    .subscribe((optionList) => {
-      const ul = optionList?.nativeElement?.children[0]
+  optionList$ = effect(() => {
+    if (this.optionList()) {
+      this.optionList()?.nativeElement.focus()
+    }
+      const ul = this.optionList()?.nativeElement?.children[0]
       const li = ul.children
       let currentIndex = 0
       li[currentIndex].classList.add('selected')
