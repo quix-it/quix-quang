@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   HostListener,
+  OnDestroy,
   computed,
   input,
   output,
@@ -27,7 +28,7 @@ export interface SelectOption {
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuangOptionListComponent {
+export class QuangOptionListComponent implements OnDestroy {
   selectionMode = input<'single' | 'multiple'>('single')
 
   optionListMaxHeight = input<string>('201px')
@@ -87,6 +88,52 @@ export class QuangOptionListComponent {
     }
     return [...this.selectOptions()]
   })
+
+  disableTimerFn: EventListenerOrEventListenerObject = () => {}
+
+  onKeyDown = () => {}
+
+  optionList$ = toObservable(this.optionList)
+    .pipe(takeUntilDestroyed())
+    .subscribe((optionList) => {
+      const ul = optionList?.nativeElement?.children[0]
+      const li = ul.children
+      let currentIndex = 0
+      li[currentIndex].classList.add('selected')
+      document.addEventListener('keydown', (event) => {
+        this.onKeyDown.bind(this)
+        switch (event.key) {
+          case 'ArrowDown': {
+            li[currentIndex].classList.remove('selected')
+            if (currentIndex === li.length - 1) {
+              currentIndex = li.length - 1
+            } else {
+              currentIndex += 1
+            }
+            li[currentIndex].classList.add('selected')
+            break
+          }
+          case 'ArrowUp': {
+            li[currentIndex].classList.remove('selected')
+            if (currentIndex === 0) {
+              currentIndex = 0
+            } else {
+              currentIndex -= 1
+            }
+            li[currentIndex].classList.add('selected')
+            break
+          }
+          case 'Enter': {
+            this.onSelectItem(this.selectOptionsList()[currentIndex])
+            break
+          }
+          default: {
+            li[currentIndex].classList.add('selected')
+            break
+          }
+        }
+      })
+    })
 
   @HostListener('window:scroll') changePosition() {
     this.getOptionListWidth()
@@ -170,5 +217,9 @@ export class QuangOptionListComponent {
       )
       this.optionList()?.nativeElement?.classList.add('option-list-top')
     }
+  }
+
+  ngOnDestroy(): void {
+    document.removeEventListener('keydown', this.onKeyDown)
   }
 }
