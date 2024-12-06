@@ -17,14 +17,14 @@
     [placeholder]="componentPlaceholder() | transloco"
     [tabIndex]="componentTabIndex()"
     [value]="_inputValue()"
-    (blur)="onBlurHandler()"
     (click)="showOptionVisibility()"
     (input)="onChangeInput($event)"
     #selectInput
     autocomplete="off"
     class="form-control"
     type="text"
-  />
+    />
+    <!-- (blur)="onBlurHandler()" -->
   <quang-option-list
     [_isDisabled]="_isDisabled()"
     [_value]="_value()"
