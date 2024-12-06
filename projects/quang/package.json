@@ -17,7 +17,7 @@
     "@jsverse/transloco": "^7.5.0",
     "@ngrx/signals": "^18.1.1",
     "air-datepicker": "^3.5.0",
-    "angular-oauth2-oidc": "^18.0.0",
+    "angular-oauth2-oidc": "^19.0.0",
     "date-fns": "^3.6.0",
     "rxjs": "~7.8.0",
     "suneditor": "^2.46.0"
