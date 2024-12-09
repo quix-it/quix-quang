@@ -92,50 +92,50 @@ export class QuangOptionListComponent implements OnDestroy {
 
   disableTimerFn: EventListenerOrEventListenerObject = () => {}
 
-  onKeyDown = () => {}
+  onKeyDown: any
 
   optionList$ = effect(() => {
     if (this.optionList()) {
       this.optionList()?.nativeElement.focus()
     }
-      const ul = this.optionList()?.nativeElement?.children[0]
-      const li = ul.children
-      let currentIndex = 0
-      li[currentIndex].classList.add('selected')
-      document.addEventListener('keydown', (event) => {
-        this.onKeyDown.bind(this)
-        switch (event.key) {
-          case 'ArrowDown': {
-            li[currentIndex].classList.remove('selected')
-            if (currentIndex === li.length - 1) {
-              currentIndex = li.length - 1
-            } else {
-              currentIndex += 1
-            }
-            li[currentIndex].classList.add('selected')
-            break
+    const ul = this.optionList()?.nativeElement?.children[0]
+    const li = ul.children
+    let currentIndex = 0
+    li[currentIndex].classList.add('selected')
+    this.onKeyDown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case 'ArrowDown': {
+          li[currentIndex].classList.remove('selected')
+          if (currentIndex === li.length - 1) {
+            currentIndex = li.length - 1
+          } else {
+            currentIndex += 1
           }
-          case 'ArrowUp': {
-            li[currentIndex].classList.remove('selected')
-            if (currentIndex === 0) {
-              currentIndex = 0
-            } else {
-              currentIndex -= 1
-            }
-            li[currentIndex].classList.add('selected')
-            break
-          }
-          case 'Enter': {
-            this.onSelectItem(this.selectOptionsList()[currentIndex])
-            break
-          }
-          default: {
-            li[currentIndex].classList.add('selected')
-            break
-          }
+          li[currentIndex].classList.add('selected')
+          break
         }
-      })
-    })
+        case 'ArrowUp': {
+          li[currentIndex].classList.remove('selected')
+          if (currentIndex === 0) {
+            currentIndex = 0
+          } else {
+            currentIndex -= 1
+          }
+          li[currentIndex].classList.add('selected')
+          break
+        }
+        case 'Enter': {
+          this.onSelectItem(this.selectOptionsList()[currentIndex])
+          break
+        }
+        default: {
+          li[currentIndex].classList.add('selected')
+          break
+        }
+      }
+    }
+    document.addEventListener('keydown', this.onKeyDown)
+  })
 
   @HostListener('window:scroll') changePosition() {
     this.getOptionListWidth()
@@ -155,7 +155,7 @@ export class QuangOptionListComponent implements OnDestroy {
 
       result = hasScrollableContent && !isOverflowHidden
     } catch (e) {
-      // console.error('captured error isScrollable', e)
+      console.error('captured error isScrollable', e)
     }
 
     return result
