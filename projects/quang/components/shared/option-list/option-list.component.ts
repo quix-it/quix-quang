@@ -2,11 +2,12 @@ import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   HostListener,
-  OnDestroy,
   computed,
   effect,
+  inject,
   input,
   output,
   signal,
@@ -15,6 +16,7 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { Subscription, fromEvent } from 'rxjs'
 
 export interface SelectOption {
   label: string
@@ -29,7 +31,7 @@ export interface SelectOption {
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class QuangOptionListComponent implements OnDestroy {
+export class QuangOptionListComponent {
   selectionMode = input<'single' | 'multiple'>('single')
 
   optionListMaxHeight = input<string>('201px')
@@ -64,10 +66,10 @@ export class QuangOptionListComponent implements OnDestroy {
 
   optionList = viewChild<ElementRef>('optionList')
 
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
+  destroyRef = inject(DestroyRef)
 
   selectButtonRef$ = toObservable(this.selectButtonRef)
-    .pipe(this._takeUntilDestroyed())
+    .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(() => {
       this.getOptionListWidth()
       this.getOptionListTop()
@@ -90,9 +92,11 @@ export class QuangOptionListComponent implements OnDestroy {
     return [...this.selectOptions()]
   })
 
-  disableTimerFn: EventListenerOrEventListenerObject = () => {}
+  onKeyDown: Subscription | null = null
 
-  onKeyDown: any
+  selectedElementIndex = computed<number>(
+    () => this.selectOptionsList()?.findIndex((x) => x?.value === this._value()) ?? 0
+  )
 
   optionList$ = effect(() => {
     if (this.optionList()) {
@@ -100,41 +104,60 @@ export class QuangOptionListComponent implements OnDestroy {
     }
     const ul = this.optionList()?.nativeElement?.children[0]
     const li = ul.children
-    let currentIndex = 0
+    let currentIndex = this.selectedElementIndex()
+    // if (this._value()) {
+    //   currentIndex = this.selectOptionsList()?.findIndex((x) => x.value === this._value())
+    // }
     li[currentIndex].classList.add('selected')
-    this.onKeyDown = (event: KeyboardEvent) => {
-      switch (event.key) {
-        case 'ArrowDown': {
-          li[currentIndex].classList.remove('selected')
-          if (currentIndex === li.length - 1) {
-            currentIndex = li.length - 1
-          } else {
-            currentIndex += 1
-          }
-          li[currentIndex].classList.add('selected')
-          break
-        }
-        case 'ArrowUp': {
-          li[currentIndex].classList.remove('selected')
-          if (currentIndex === 0) {
-            currentIndex = 0
-          } else {
-            currentIndex -= 1
-          }
-          li[currentIndex].classList.add('selected')
-          break
-        }
-        case 'Enter': {
-          this.onSelectItem(this.selectOptionsList()[currentIndex])
-          break
-        }
-        default: {
-          li[currentIndex].classList.add('selected')
-          break
-        }
-      }
+
+    if (this.onKeyDown) {
+      this.onKeyDown.unsubscribe()
     }
-    document.addEventListener('keydown', this.onKeyDown)
+
+    this.onKeyDown = fromEvent(document, 'keydown', { capture: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => {
+        switch ((event as KeyboardEvent).key) {
+          case 'ArrowDown': {
+            if (currentIndex !== this.selectedElementIndex()) li[currentIndex].classList.remove('selected')
+            if (currentIndex === li.length - 1) {
+              currentIndex = li.length - 1
+            } else {
+              currentIndex += 1
+            }
+            li[currentIndex].classList.add('selected')
+            if (
+              this.optionList()?.nativeElement?.scrollTop >=
+              (this.optionList()?.nativeElement?.scrollHeight ?? 0) -
+                (this.optionList()?.nativeElement?.offsetHeight ?? 0)
+            ) {
+              event.preventDefault()
+            }
+            break
+          }
+          case 'ArrowUp': {
+            if (currentIndex !== this.selectedElementIndex()) li[currentIndex].classList.remove('selected')
+            if (currentIndex === 0) {
+              currentIndex = 0
+            } else {
+              currentIndex -= 1
+            }
+            li[currentIndex].classList.add('selected')
+            if (!this.optionList()?.nativeElement?.scrollTop) {
+              event.preventDefault()
+            }
+            break
+          }
+          case 'Enter': {
+            this.onSelectItem(this.selectOptionsList()[currentIndex])
+            break
+          }
+          default: {
+            li[currentIndex].classList.add('selected')
+            break
+          }
+        }
+      })
   })
 
   @HostListener('window:scroll') changePosition() {
@@ -161,9 +184,9 @@ export class QuangOptionListComponent implements OnDestroy {
     return result
   }
 
-  getScrollParent(node: any): HTMLElement {
+  getScrollParent(node: HTMLElement): HTMLElement {
     if (!node || node === document.body) return document.body
-    return this.isScrollable(node) ? node : this.getScrollParent(node?.parentNode)
+    return this.isScrollable(node) ? node : this.getScrollParent(node?.parentNode as HTMLElement)
   }
 
   onSelectItem(item: SelectOption | null): void {
@@ -192,7 +215,7 @@ export class QuangOptionListComponent implements OnDestroy {
     return this._value()?.some((x: number | string | null) => x === item?.value)
   }
 
-  onBlurHandler(e: any): void {
+  onBlurHandler(e: Event): void {
     this.blurHandler.emit(e)
   }
 
@@ -219,9 +242,5 @@ export class QuangOptionListComponent implements OnDestroy {
       )
       this.optionList()?.nativeElement?.classList.add('option-list-top')
     }
-  }
-
-  ngOnDestroy(): void {
-    document.removeEventListener('keydown', this.onKeyDown)
   }
 }
