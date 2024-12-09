@@ -23,6 +23,11 @@ export interface SelectOption {
   value: string | number | null
 }
 
+export enum OptionListParentType {
+  SELECT = 'select',
+  AUTOCOMPLETE = 'autocomplete',
+}
+
 @Component({
   selector: 'quang-option-list',
   standalone: true,
@@ -68,6 +73,8 @@ export class QuangOptionListComponent {
 
   destroyRef = inject(DestroyRef)
 
+  parentType = input.required<OptionListParentType>()
+
   selectButtonRef$ = toObservable(this.selectButtonRef)
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(() => {
@@ -99,15 +106,12 @@ export class QuangOptionListComponent {
   )
 
   optionList$ = effect(() => {
-    if (this.optionList()) {
+    if (this.optionList() && this.parentType() === OptionListParentType.SELECT) {
       this.optionList()?.nativeElement.focus()
     }
     const ul = this.optionList()?.nativeElement?.children[0]
     const li = ul.children
     let currentIndex = this.selectedElementIndex()
-    // if (this._value()) {
-    //   currentIndex = this.selectOptionsList()?.findIndex((x) => x.value === this._value())
-    // }
     li[currentIndex]?.classList.add('selected')
 
     if (this.onKeyDown) {
@@ -119,6 +123,7 @@ export class QuangOptionListComponent {
       .subscribe((event) => {
         switch ((event as KeyboardEvent).key) {
           case 'ArrowDown': {
+            if (this.parentType() === OptionListParentType.AUTOCOMPLETE) this.optionList()?.nativeElement.focus()
             if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
             if (currentIndex === li.length - 1) {
               currentIndex = li.length - 1
@@ -136,6 +141,7 @@ export class QuangOptionListComponent {
             break
           }
           case 'ArrowUp': {
+            if (this.parentType() === OptionListParentType.AUTOCOMPLETE) this.optionList()?.nativeElement.focus()
             if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
             if (currentIndex === 0) {
               currentIndex = 0

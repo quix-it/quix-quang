@@ -1,10 +1,25 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
-import { AfterViewInit, ChangeDetectionStrategy, Component, computed, effect, ElementRef, forwardRef, input, signal, viewChild } from '@angular/core'
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  computed,
+  forwardRef,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@quix/quang/components/shared'
+import {
+  OptionListParentType,
+  QuangBaseComponent,
+  QuangOptionListComponent,
+  SelectOption,
+} from '@quix/quang/components/shared'
 
 @Component({
   selector: 'quang-select',
@@ -69,6 +84,8 @@ export class QuangSelectComponent
   translateValue = input<boolean>(true)
 
   nullOption = input<boolean>(true)
+
+  readonly ParentType = OptionListParentType.SELECT
 
   changeOptionsVisibility(skipTimeout = false): void {
     if (this.isReadonly()) return

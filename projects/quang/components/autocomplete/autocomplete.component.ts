@@ -6,7 +6,12 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 import { TranslocoPipe } from '@jsverse/transloco'
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs'
 
-import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@quix/quang/components/shared'
+import {
+  OptionListParentType,
+  QuangBaseComponent,
+  QuangOptionListComponent,
+  SelectOption,
+} from '@quix/quang/components/shared'
 
 @Component({
   selector: 'quang-autocomplete',
@@ -78,6 +83,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   searchTextDebounce = input<number>(300)
 
   internalFilterOptions = input<boolean>(true)
+
+  readonly ParentType = OptionListParentType.AUTOCOMPLETE
 
   constructor() {
     super()
