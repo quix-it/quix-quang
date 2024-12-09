@@ -108,7 +108,7 @@ export class QuangOptionListComponent {
     // if (this._value()) {
     //   currentIndex = this.selectOptionsList()?.findIndex((x) => x.value === this._value())
     // }
-    li[currentIndex].classList.add('selected')
+    li[currentIndex]?.classList.add('selected')
 
     if (this.onKeyDown) {
       this.onKeyDown.unsubscribe()
@@ -119,13 +119,13 @@ export class QuangOptionListComponent {
       .subscribe((event) => {
         switch ((event as KeyboardEvent).key) {
           case 'ArrowDown': {
-            if (currentIndex !== this.selectedElementIndex()) li[currentIndex].classList.remove('selected')
+            if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
             if (currentIndex === li.length - 1) {
               currentIndex = li.length - 1
             } else {
               currentIndex += 1
             }
-            li[currentIndex].classList.add('selected')
+            li[currentIndex]?.classList.add('selected')
             if (
               this.optionList()?.nativeElement?.scrollTop >=
               (this.optionList()?.nativeElement?.scrollHeight ?? 0) -
@@ -136,13 +136,13 @@ export class QuangOptionListComponent {
             break
           }
           case 'ArrowUp': {
-            if (currentIndex !== this.selectedElementIndex()) li[currentIndex].classList.remove('selected')
+            if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
             if (currentIndex === 0) {
               currentIndex = 0
             } else {
               currentIndex -= 1
             }
-            li[currentIndex].classList.add('selected')
+            li[currentIndex]?.classList.add('selected')
             if (!this.optionList()?.nativeElement?.scrollTop) {
               event.preventDefault()
             }
@@ -153,7 +153,7 @@ export class QuangOptionListComponent {
             break
           }
           default: {
-            li[currentIndex].classList.add('selected')
+            li[currentIndex]?.classList.add('selected')
             break
           }
         }
