@@ -17,6 +17,7 @@
     [placeholder]="componentPlaceholder() | transloco"
     [tabIndex]="componentTabIndex()"
     [value]="_inputValue()"
+    (blur)="onBlurInput($event)"
     (click)="showOptionVisibility()"
     (input)="onChangeInput($event)"
     #selectInput
@@ -32,6 +33,7 @@
     [componentTabIndex]="componentTabIndex()"
     [nullOption]="false"
     [optionListMaxHeight]="optionListMaxHeight()"
+    [parentID]="componentId()"
     [parentType]="ParentType"
     [selectButtonRef]="selectInput"
     [selectOptions]="_filteredOptions()"
@@ -39,6 +41,7 @@
     (blurHandler)="onBlurOptionList($event)"
     (changedHandler)="onValueChange($event)"
     *ngIf="_showOptions()"
+    #optionList
     selectionMode="single"
   ></quang-option-list>
   {{ _currentErrorMessage() }}

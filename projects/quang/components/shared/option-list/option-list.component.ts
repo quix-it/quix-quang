@@ -75,6 +75,8 @@ export class QuangOptionListComponent {
 
   parentType = input.required<OptionListParentType>()
 
+  parentID = input<string>('')
+
   selectButtonRef$ = toObservable(this.selectButtonRef)
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(() => {
@@ -159,7 +161,15 @@ export class QuangOptionListComponent {
             break
           }
           default: {
-            li[currentIndex]?.classList.add('selected')
+            if ((event as KeyboardEvent)?.key?.length === 1 || (event as KeyboardEvent)?.key === 'Backspace') {
+              if (
+                this.parentType() === OptionListParentType.AUTOCOMPLETE &&
+                document.activeElement?.id === this.optionList()?.nativeElement?.id
+              ) {
+                document.getElementById(this.parentID())?.focus()
+                document.getElementById(this.parentID())?.click()
+              }
+            }
             break
           }
         }

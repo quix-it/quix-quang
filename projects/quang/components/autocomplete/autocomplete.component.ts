@@ -1,5 +1,14 @@
 import { NgClass, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, forwardRef, input, output, signal } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  forwardRef,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
@@ -49,6 +58,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   selectOptions = input.required<SelectOption[]>()
 
   translateValue = input<boolean>(true)
+
+  optionList = viewChild<QuangOptionListComponent>('optionList')
 
   /**
    * Only emits the value without saving it in ngControl
@@ -167,6 +178,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   override writeValue(val: string | number): void {
     super.writeValue(val)
     this.setInputValue(true)
+  }
+
+  onBlurInput(event: FocusEvent) {
+    if ((event?.relatedTarget as HTMLDivElement)?.id !== this.optionList()?.optionList()?.nativeElement?.id)
+      this.onBlurHandler()
   }
 
   override onBlurHandler() {
