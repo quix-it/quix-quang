@@ -166,6 +166,7 @@ export class QuangOptionListComponent {
                 this.parentType() === OptionListParentType.AUTOCOMPLETE &&
                 document.activeElement?.id === this.optionList()?.nativeElement?.id
               ) {
+                currentIndex = 0
                 document.getElementById(this.parentID())?.focus()
                 document.getElementById(this.parentID())?.click()
               }
