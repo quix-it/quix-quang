@@ -1,15 +1,7 @@
 import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 
-import { EXCLUDED_URL, UrlData } from './loader-interceptor'
-
-export function provideLoader(urlData: UrlData[]): EnvironmentProviders {
-  return makeEnvironmentProviders([
-    {
-      provide: EXCLUDED_URL,
-      useValue: urlData,
-    },
-  ])
-}
+import { UrlData } from '../shared/intercept-utils'
+import { LOADER_EXCLUDED_URLS } from './loader.interceptor'
 
 /**
  * @example
@@ -23,3 +15,11 @@ export function provideLoader(urlData: UrlData[]): EnvironmentProviders {
     ])
    ]
  */
+export function provideLoader(urlData: UrlData[]): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    {
+      provide: LOADER_EXCLUDED_URLS,
+      useValue: urlData,
+    },
+  ])
+}
