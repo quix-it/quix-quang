@@ -10,4 +10,8 @@ export class AppService {
   testHttpGet(): any {
     this.http.get('https://httpbin.org/get').subscribe(() => {})
   }
+
+  testHttpUnauthorized(): any {
+    this.http.get('https://httpbin.org/status/401').subscribe(() => {})
+  }
 }

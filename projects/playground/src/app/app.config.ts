@@ -15,7 +15,7 @@ import { routes } from './app.routes'
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptorsFromDi(), withInterceptors([quangLoaderInterceptor])),
+    provideHttpClient(withInterceptorsFromDi(), withInterceptors([quangLoaderInterceptor, logoutOnErrorInterceptor])),
     provideRouter(routes),
     provideAngularSvgIcon(),
     provideQuangConfig(

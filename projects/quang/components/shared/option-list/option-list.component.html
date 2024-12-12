@@ -5,8 +5,11 @@
     '--option-list-top': elementTop(),
     '--option-list-bottom': elementBottom(),
   }"
+  (blur)="onBlurHandler($event)"
   #optionList
   class="option-list"
+  id="optionList"
+  tabindex="1"
 >
   <ul>
     <li

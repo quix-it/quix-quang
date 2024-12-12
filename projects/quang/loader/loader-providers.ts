@@ -2,7 +2,8 @@ import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 
 import { QuangFeature, QuangFeatureKind, quangFeature } from '@quix/quang'
 
-import { EXCLUDED_URL, UrlData } from './loader-interceptor'
+import { UrlData } from '../shared/intercept-utils'
+import { LOADER_EXCLUDED_URLS } from './loader.interceptor'
 
 /**
  * @example
@@ -20,7 +21,7 @@ import { EXCLUDED_URL, UrlData } from './loader-interceptor'
 export function provideQuangLoaderExcludedUrls(excludedUrls: UrlData[]): EnvironmentProviders {
   return makeEnvironmentProviders([
     {
-      provide: EXCLUDED_URL,
+      provide: LOADER_EXCLUDED_URLS,
       useValue: excludedUrls,
     },
   ])

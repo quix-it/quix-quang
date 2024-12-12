@@ -190,7 +190,14 @@ export class QuangAuthService {
 
   public async getUserProfile() {
     const userProfile = await this.oAuthService.loadUserProfile()
-    patchState(this.state, { user: userProfile })
+    try {
+      if (userProfile) {
+        patchState(this.state, { user: userProfile })
+      }
+    } catch {
+      // eslint-disable-next-line no-console
+      console.debug('no user profile')
+    }
   }
 
   private setTokens() {

@@ -27,6 +27,9 @@
     border-top: 1px solid var(--bs-border-color);
     border-bottom: 0;
   }
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 .item {

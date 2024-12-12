@@ -71,4 +71,8 @@ export type QuangAuthFeatures = QuangAuthFeature<QuangAuthFeatureKind>
  */
 export const enum QuangAuthFeatureKind {
   MobileAuthFeature,
+  SessionStorageFeature,
+  LocalStorageFeature,
+  MemoryStorageFeature,
+  LogoutOnErrorFeature,
 }

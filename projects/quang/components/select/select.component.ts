@@ -1,10 +1,25 @@
 import { NgClass, NgFor, NgIf } from '@angular/common'
-import { AfterViewInit, ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core'
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  computed,
+  forwardRef,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@quix/quang/components/shared'
+import {
+  OptionListParentType,
+  QuangBaseComponent,
+  QuangOptionListComponent,
+  SelectOption,
+} from '@quix/quang/components/shared'
 
 @Component({
   selector: 'quang-select',
@@ -46,6 +61,8 @@ export class QuangSelectComponent
 
   selectOptions = input.required<SelectOption[]>()
 
+  selectButton = viewChild<ElementRef<HTMLButtonElement>>('selectButton')
+
   _showOptions = signal<boolean>(false)
 
   _optionHideTimeout = signal<any | undefined>(undefined)
@@ -66,6 +83,8 @@ export class QuangSelectComponent
   translateValue = input<boolean>(true)
 
   nullOption = input<boolean>(true)
+
+  readonly ParentType = OptionListParentType.SELECT
 
   changeOptionsVisibility(skipTimeout = false): void {
     if (this.isReadonly()) return
@@ -103,6 +122,7 @@ export class QuangSelectComponent
       setTimeout(() => {
         this.hideOptionVisibility()
         super.onBlurHandler()
+        this.selectButton()?.nativeElement.focus()
       }, 100)
     }
   }

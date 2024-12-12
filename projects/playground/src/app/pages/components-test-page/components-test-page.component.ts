@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
-// import { AuthTestComponent } from './auth-test/auth-test.component'
+import { AuthTestComponent } from './auth-test/auth-test.component'
 import { AutocompleteTestComponent } from './autocomplete-test/autocomplete-test.component'
 import { DateTestComponent } from './date-test/date-test.component'
 import { InputTestComponent } from './input-test/input-test.component'
@@ -13,7 +13,7 @@ import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
 @Component({
   selector: 'playground-components-test-page',
   imports: [
-    // AuthTestComponent,
+    AuthTestComponent,
     InputTestComponent,
     DateTestComponent,
     ToggleTestComponent,
