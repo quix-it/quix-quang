@@ -1,10 +1,6 @@
-import { InjectionToken } from '@angular/core'
-
-export const EXCLUDED_URL = new InjectionToken<UrlData[]>('EXCLUDED_URL')
-
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 
-export function isMethodType(value: string): value is HttpMethod {
+export function isHttpMethod(value: string): value is HttpMethod {
   return ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'].includes(value)
 }
 

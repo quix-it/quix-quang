@@ -5,7 +5,7 @@ import { provideRouter } from '@angular/router'
 
 import { provideAngularSvgIcon } from 'angular-svg-icon'
 
-import { ON_STATUS_LOGOUT, logoutOnIntercept, provideAuth } from '@quix/quang/auth'
+import { logoutOnErrorInterceptor, provideAuth, withLogoutOnError, withSessionStorage } from '@quix/quang/auth'
 import { provideLoader, quangLoaderInterceptor } from '@quix/quang/loader'
 import { provideTranslation } from '@quix/quang/translation'
 
@@ -14,7 +14,7 @@ import { routes } from './app.routes'
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptorsFromDi(), withInterceptors([quangLoaderInterceptor, logoutOnIntercept])),
+    provideHttpClient(withInterceptorsFromDi(), withInterceptors([quangLoaderInterceptor, logoutOnErrorInterceptor])),
     provideRouter(routes),
     provideAngularSvgIcon(),
     provideAuth(
@@ -35,7 +35,8 @@ export const appConfig: ApplicationConfig = {
         autoLogin: false, // set this to true to automatically log in
         oidc: true,
       },
-      'sessionStorage'
+      withSessionStorage(),
+      withLogoutOnError([], [401, 402, 403])
     ),
     provideTranslation({
       availableLangs: ['it', 'en'],
@@ -48,6 +49,5 @@ export const appConfig: ApplicationConfig = {
         method: 'GET',
       },
     ]),
-    { provide: ON_STATUS_LOGOUT, useValue: [401, 402, 403] },
   ],
 }
