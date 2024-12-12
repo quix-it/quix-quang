@@ -39,7 +39,7 @@ export enum OptionListParentType {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangOptionListComponent {
-  logLevel = inject(QUANG_LOGGING_BEHAVIOR)
+  logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })
 
   selectionMode = input<'single' | 'multiple'>('single')
 

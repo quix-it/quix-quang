@@ -29,7 +29,7 @@ import { QuangAuthService } from '../auth.service'
   standalone: true,
 })
 export class QuangHasEveryRoleDirective {
-  logLevel = inject(QUANG_LOGGING_BEHAVIOR)
+  logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })
 
   targetRoles = input.required<string[]>({ alias: 'quangHasEveryRole' })
 
