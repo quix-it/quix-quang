@@ -1,11 +1,19 @@
-import { JsonPipe, NgIf } from '@angular/common'
-import { Component, DestroyRef, TemplateRef, computed, inject, signal, viewChild } from '@angular/core'
-import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop'
+import { NgIf } from '@angular/common'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  TemplateRef,
+  computed,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
-import { map, of } from 'rxjs'
 
 import { QuangCheckboxComponent } from '@quix/quang/components/checkbox'
 import {
@@ -16,7 +24,8 @@ import {
   TableRow,
 } from '@quix/quang/components/table/table.component'
 import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
-import { QuangPopoverComponent } from '@quix/quang/overlay/popover/popover.component'
+
+import { TableHeader } from 'dist/quang/components/table'
 
 interface People {
   name: string
@@ -30,9 +39,7 @@ interface People {
   standalone: true,
   imports: [
     QuangTableComponent,
-    QuangPopoverComponent,
     QuangPopoverDirective,
-    JsonPipe,
     TranslocoPipe,
     AngularSvgIconModule,
     QuangCheckboxComponent,
@@ -41,6 +48,7 @@ interface People {
   ],
   templateUrl: './table-test.component.html',
   styleUrl: './table-test.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableTestComponent {
   actions = viewChild<TemplateRef<any>>('actions')
@@ -178,89 +186,92 @@ export class TableTestComponent {
     },
   ]
 
-  peopleList = toSignal(of(this.people).pipe(map((x) => x)))
+  peopleList = signal(this.people)
+
+  tableHeaders = signal<TableHeader[]>([
+    {
+      renderer: this.checkboxRenderer(),
+      payload: 'header',
+    },
+    {
+      text: 'Name',
+      sort: {
+        key: 'name',
+        sort: SortTable.DEFAULT,
+      },
+    },
+    {
+      text: 'Name2',
+      sort: {
+        key: 'name2',
+        sort: SortTable.DEFAULT,
+      },
+    },
+    {
+      text: 'Name3',
+      css: ['justify-content-end'],
+      sort: {
+        key: 'name3',
+        sort: SortTable.DEFAULT,
+      },
+    },
+    {
+      text: 'Age',
+      sort: {
+        key: 'age',
+        sort: SortTable.DESC,
+      },
+    },
+    {
+      text: 'Gender',
+      sort: {
+        key: 'gender',
+        sort: SortTable.DEFAULT,
+      },
+    },
+    {
+      text: '',
+    },
+  ])
+
+  tableRows = signal(
+    this.peopleList()?.map<TableRow<People>>((person) => ({
+      css: undefined,
+      rowId: `person-${person.id}`,
+      payload: person,
+      cellData: [
+        {
+          renderer: this.checkboxRenderer(),
+          payload: person.id,
+        },
+        {
+          text: person.name,
+        },
+        {
+          text: person.name,
+        },
+        {
+          renderer: this.name3(),
+          payload: person.name,
+        },
+        {
+          text: person.age.toString(),
+        },
+        {
+          text: person.gender,
+          css: ['bg-light'],
+        },
+        {
+          renderer: this.actions(),
+          payload: person,
+        },
+      ],
+    })) ?? []
+  )
 
   tableConfig = computed<TableConfiguration<People>>(() => ({
-    headers: [
-      {
-        renderer: this.checkboxRenderer(),
-        payload: 'header',
-      },
-      {
-        text: 'Name',
-        sort: {
-          key: 'name',
-          sort: SortTable.DEFAULT,
-        },
-      },
-      {
-        text: 'Name2',
-        sort: {
-          key: 'name2',
-          sort: SortTable.DEFAULT,
-        },
-      },
-      {
-        text: 'Name3',
-        css: ['justify-content-end'],
-        sort: {
-          key: 'name3',
-          sort: SortTable.DEFAULT,
-        },
-      },
-      {
-        text: 'Age',
-        sort: {
-          key: 'age',
-          sort: SortTable.DESC,
-        },
-      },
-      {
-        text: 'Gender',
-        sort: {
-          key: 'gender',
-          sort: SortTable.DEFAULT,
-        },
-      },
-      {
-        text: '',
-      },
-    ],
-    rows:
-      this.peopleList()?.map(
-        (person): TableRow<People> => ({
-          css: undefined,
-          rowId: `person-${person.id}`,
-          payload: person,
-          cellData: [
-            {
-              renderer: this.checkboxRenderer(),
-              payload: person.id,
-            },
-            {
-              text: person.name,
-            },
-            {
-              text: person.name,
-            },
-            {
-              renderer: this.name3(),
-              payload: person.name,
-            },
-            {
-              text: person.age.toString(),
-            },
-            {
-              text: person.gender,
-              css: ['bg-light'],
-            },
-            {
-              renderer: this.actions(),
-              payload: person,
-            },
-          ],
-        })
-      ) ?? [],
+    headers: this.tableHeaders(),
+    rows: this.tableRows(),
   }))
 
   selectedRows: string[] = []
@@ -301,6 +312,10 @@ export class TableTestComponent {
     }
   }
 
+  addPerson() {
+    this.peopleList.set([...this.peopleList(), { name: 'New Person', age: 0, gender: 'Male', id: 1000 }])
+  }
+
   onDeletePerson(id: number): void {
     this.tableConfig().rows = this.tableConfig().rows.filter((x) => x.payload?.id !== id)
   }
@@ -317,6 +332,13 @@ export class TableTestComponent {
   }
 
   onChangeSort(sortCols: SortCol[]): void {
-    console.log(sortCols)
+    this.tableHeaders.update((headers) =>
+      headers.map((h) => ({
+        ...h,
+        sort: h.sort
+          ? { ...h.sort, sort: sortCols[0].key === h.sort.key ? sortCols[0].sort : SortTable.DEFAULT }
+          : undefined,
+      }))
+    )
   }
 }

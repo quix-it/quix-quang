@@ -9,16 +9,12 @@
     [errorMap]="errors()"
     [formControl]="testForm.controls.testInput"
     [isReadonly]="isReadonly()"
-    [timepicker]="false"
-    buttonClass=""
+    [rangeSelection]="true"
+    [timepicker]="true"
     componentLabel="form.label.date"
     successMessage="form.label.success"
   >
-    <svg-icon
-      [applyClass]="true"
-      calendarIcon
-      src="assets/icons/svg/calendar.svg"
-    ></svg-icon>
+    <svg-icon src="./assets/icons/svg/calendar.svg" />
   </quang-date>
 </form>
 <div

@@ -1,17 +1,70 @@
 @import '../shared/sass/input-search';
 
+::ng-deep {
+  .air-datepicker {
+    z-index: 99999;
+    .air-datepicker--pointer {
+      display: none;
+    }
+    .air-datepicker-time {
+      display: block;
+      .air-datepicker-time--current {
+        display: none;
+      }
+      .air-datepicker-time--sliders {
+        display: flex;
+        justify-content: center;
+        padding-top: 0.25rem;
+        gap: 1rem;
+        .air-datepicker-time--row {
+          width: 100%;
+          position: relative;
+          &:first-child::after {
+            content: ':';
+            display: inline;
+            font-size: 1rem;
+            position: absolute;
+            right: -0.65rem;
+          }
+          input {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            padding-left: 1rem;
+            border-color: var(--bs-border-color);
+          }
+          .form-control:focus {
+            box-shadow: unset !important;
+          }
+        }
+      }
+    }
+    &.-inline-.-only-timepicker- {
+      border: 0;
+      .air-datepicker--time {
+        border: 0;
+      }
+    }
+  }
+}
+
 :host {
   display: block;
-  --pointer-rotation: '';
 
   .input-date-container {
     display: flex;
   }
 
   input {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
     flex: 1;
+
+    &.with-button-calendar {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:disabled {
+      border-radius: var(--bs-border-radius);
+    }
   }
 
   .btn-outline-calendar {
@@ -19,23 +72,8 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     min-width: unset;
+    display: flex;
     border-color: var(--bs-border-color);
-  }
-
-  ::ng-deep {
-    .air-datepicker {
-      .air-datepicker--pointer {
-        left: 1.5rem;
-        top: var(--pointer-top);
-        bottom: var(--pointer-bottom);
-        transform: rotate(var(--pointer-rotation));
-      }
-    }
-  }
-
-  .air-datepicker-global-container {
-    z-index: 1000;
-    position: static;
   }
 
   .border-danger {

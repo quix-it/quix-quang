@@ -17,16 +17,20 @@
       [autocomplete]="'off'"
       [class.is-invalid]="_showErrors()"
       [class.is-valid]="_showSuccess()"
+      [class.with-button-calendar]="!hasNoContent()"
       [disabled]="_isDisabled()"
+      [hidden]="showInline()"
       [id]="componentId()"
       [ngClass]="componentClass()"
       [placeholder]="componentPlaceholder() | transloco"
       [readOnly]="isReadonly()"
       [tabIndex]="componentTabIndex()"
-      [value]="_inputValueString()"
+      [value]="inputValueString()"
       (blur)="onBlurHandler()"
       (focus)="interceptInputInteraction($event)"
       (input)="onChangeText($event)"
+      (mouseenter)="isMouseInsideCalendar.set(true)"
+      (mouseleave)="isMouseInsideCalendar.set(false)"
       (search)="onCancel()"
       #inputForDate
       class="form-control"
@@ -36,14 +40,15 @@
       [attr.required]="getIsRequiredControl()"
       [class.border-danger]="_showErrors()"
       [class.border-success]="_showSuccess()"
-      [ngClass]="buttonClass"
+      [hidden]="showInline() || hasNoContent() || _isDisabled()"
+      [ngClass]="buttonClass()"
       (click)="_ngControl()?.disabled ? null : openDatePicker()"
-      *ngIf="!_ngControl()?.disabled"
+      #calendarButton
       aria-label="calendar-button"
       class="btn btn-outline-secondary btn-outline-calendar"
       type="button"
     >
-      <ng-content select="[calendarIcon]"></ng-content>
+      <ng-content></ng-content>
     </button>
   </div>
   <div class="valid-feedback">
@@ -60,18 +65,4 @@
   >
     {{ helpMessage() | transloco }}
   </small>
-</div>
-
-<div class="container-date">
-  <div class="wrapper-date">
-    <div
-      [ngStyle]="{
-        '--pointer-rotation': pointerRotation(),
-        '--pointer-top': pointerTop(),
-        '--pointer-bottom': pointerBottom(),
-      }"
-      #inputDateContainer
-      class="air-datepicker-global-container"
-    ></div>
-  </div>
 </div>

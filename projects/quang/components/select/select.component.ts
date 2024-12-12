@@ -64,19 +64,9 @@ export class QuangSelectComponent
     return null
   })
 
-  QuangSelectComponent = QuangSelectComponent
-
   translateValue = input<boolean>(true)
 
   nullOption = input<boolean>(true)
-
-  _selectOptions = computed(() => {
-    if (this.nullOption() && !this.selectOptions().find((x) => x.value === null)) {
-      const nullValue: SelectOption[] = [{ label: '', value: null }]
-      return nullValue.concat(this.selectOptions())
-    }
-    return this.selectOptions()
-  })
 
   changeOptionsVisibility(skipTimeout = false): void {
     if (this.isReadonly()) return

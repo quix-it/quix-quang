@@ -1,15 +1,5 @@
 import { NgClass, NgIf } from '@angular/common'
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  computed,
-  forwardRef,
-  inject,
-  input,
-  output,
-  signal,
-} from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, forwardRef, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
@@ -46,8 +36,8 @@ import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@qui
  *
  * `searchTextDebounce` is by default set to 300ms.
  */
-export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | null> {
-  elementRef = inject(ElementRef)
+export class QuangAutocompleteComponent extends QuangBaseComponent<string | number> {
+  syncFormWithText = input<boolean>(false)
 
   optionListMaxHeight = input<string>('200px')
 
@@ -62,7 +52,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   _showOptions = signal<boolean | null>(null)
 
-  _inputValue = signal<string | null>(null)
+  _inputValue = signal<string>('')
 
   _optionHideTimeout = signal<any | undefined>(undefined)
 
@@ -87,17 +77,24 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   searchTextDebounce = input<number>(300)
 
+  internalFilterOptions = input<boolean>(true)
+
   constructor() {
     super()
     this.inputValue$
-      .pipe(this._takeUntilDestroyed(), debounceTime(this.searchTextDebounce()), distinctUntilChanged())
+      .pipe(takeUntilDestroyed(), debounceTime(this.searchTextDebounce()), distinctUntilChanged())
       .subscribe((value) => {
-        if (value !== this._inputValue()) this.searchTextChange.emit(value?.toString() || '')
+        if (value !== this._inputValue()) {
+          this.searchTextChange.emit(value?.toString() || '')
+          if (this.syncFormWithText()) {
+            this.onValueChange(value, false)
+          }
+        }
         this._inputValue.set(value?.toString() || '')
-        if (!this._inputValue()?.length) this._ngControl()?.control?.patchValue(null)
+        if (!this._inputValue()?.length && !this.emitOnly()) this._ngControl()?.control?.patchValue(null)
       })
     toObservable(this._showOptions)
-      .pipe(this._takeUntilDestroyed())
+      .pipe(takeUntilDestroyed())
       .subscribe((data) => {
         if (!data && data !== null) {
           this.checkInputValue()
@@ -133,17 +130,20 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   filterOptions(value: string): SelectOption[] {
     const options = this.selectOptions()
-    return options.filter((x) => x.label.toLowerCase().includes(value.toLowerCase()))
+    if (this.internalFilterOptions()) return options.filter((x) => x.label.toLowerCase().includes(value.toLowerCase()))
+    return options
   }
 
-  override onChangedHandler(value: string | number | null): void {
+  override onChangedHandler(value: string | number): void {
     super.onChangedHandler(value)
     this.setInputValue()
   }
 
-  onValueChange(value: string | number | null): void {
+  onValueChange(value: string | number, hideOptions = true): void {
     this.onChangedHandler(value)
-    this.hideOptionVisibility()
+    if (hideOptions) {
+      this.hideOptionVisibility()
+    }
     this.selectedOption.emit(value)
   }
 
@@ -151,13 +151,13 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     const option = this.selectOptions().find((x) => x.label.toLowerCase() === this._inputValue()?.toLowerCase())
     if (option?.value === this._value()) return
     if (option) {
-      this.onChangedHandler(option.value)
-    } else {
-      this.onChangedHandler(null)
+      this.onChangedHandler(option.value ?? '')
+    } else if (!this.syncFormWithText()) {
+      this.onChangedHandler('')
     }
   }
 
-  override writeValue(val: string | number | null): void {
+  override writeValue(val: string | number): void {
     super.writeValue(val)
     this.setInputValue(true)
   }
@@ -165,9 +165,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   override onBlurHandler() {
     setTimeout(() => {
       this.hideOptionVisibility()
-      if (!this._inputValue()?.length) this._ngControl()?.control?.patchValue(null)
+      if (!this._inputValue()?.length && !this.emitOnly()) this._ngControl()?.control?.patchValue(null)
       super.onBlurHandler()
-    }, 500)
+    }, 100)
   }
 
   onBlurOptionList(event: any): void {
@@ -176,8 +176,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   setInputValue(resetOnMiss = false) {
     this._inputValue.set(
-      this.selectOptions().find((x) => x.value === this._value())?.label ?? (resetOnMiss ? null : this._inputValue())
+      this.selectOptions().find((x) => x.value === this._value())?.label ?? (resetOnMiss ? '' : this._inputValue())
     )
-    this.inputValue$.next(this._inputValue() ?? '')
+    if (!this.syncFormWithText()) this.inputValue$.next(this._inputValue() ?? '')
   }
 }

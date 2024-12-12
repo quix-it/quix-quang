@@ -12,6 +12,7 @@ ciao
         [isReadonly]="isReadonly()"
         [searchTextDebounce]="500"
         [selectOptions]="stringListFiltered()"
+        [syncFormWithText]="true"
         (searchTextChange)="changeTextTest($event)"
         (selectedOption)="onSelectOption($event)"
         class="col-6"

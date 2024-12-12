@@ -12,28 +12,28 @@
     <li
       [class.m-0]="last"
       [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
+      (mousedown)="$event.stopImmediatePropagation(); onSelectItem(item)"
       *ngFor="let item of selectOptionsList(); let i = index; let last = last"
       class="item"
     >
       <input
         [checked]="getSelected(item)"
         [class.d-none]="selectionMode() === 'single' || !item?.value"
-        [disabled]="_isDisabled()"
+        [disabled]="true"
         [id]="i + '-' + item.value + '-checkbox'"
         [name]="i + '-' + item.value + '-checkbox'"
         [ngClass]="componentClass()"
         [tabIndex]="componentTabIndex()"
         [value]="getSelected(item)"
         (blur)="onBlurHandler($event)"
-        (input)="onSelectItem(item)"
         #inputCheckbox
-        class="form-check-input"
+        class="form-check-input opacity-100"
         type="checkbox"
       />
       <label
         [class.ms-3]="selectionMode() === 'multiple' && item?.value"
         [for]="i + '-' + item.value + '-checkbox'"
-        class="form-check-label checkbox-label w-100"
+        class="form-check-label checkbox-label w-100 opacity-100"
       >
         {{ translateValue() ? (item.label | transloco) : item.label }}
       </label>

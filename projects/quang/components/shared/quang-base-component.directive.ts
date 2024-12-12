@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, Injector, computed, inject, input, output, signal } from '@angular/core'
+import { AfterViewInit, DestroyRef, Directive, Injector, computed, inject, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angular/forms'
 
@@ -68,6 +68,8 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   onChange?: (value: T) => void
 
   onTouched?: () => void
+
+  destroyRef = inject(DestroyRef)
 
   constructor() {
     toObservable(this.formControl)
@@ -145,9 +147,8 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   checkFormErrors() {
     this._isValid.set(this._ngControl()?.control?.valid ?? false)
     const controlErrors = this._ngControl()?.control?.errors
-    if (this._ngControl()?.control?.pristine) {
-      this._isTouched.set(false)
-    } else if (controlErrors && this.errorMap()?.length) {
+    this._isTouched.set(!this._ngControl()?.control?.pristine)
+    if (controlErrors && this.errorMap()?.length) {
       const targetError = this.errorMap()?.find(
         (errorData) =>
           !!Object.keys(controlErrors)?.find(
