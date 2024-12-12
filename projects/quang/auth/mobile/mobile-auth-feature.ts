@@ -4,12 +4,12 @@ import { App, URLOpenListenerEvent } from '@capacitor/app'
 import { Browser } from '@capacitor/browser'
 import { Capacitor } from '@capacitor/core'
 
-import { MobileAuthFeature, OPEN_URI, QuangAuthFeatureKind, QuangAuthService, quangAuthFeature } from '@quix/quang/auth'
+import { OPEN_URI, QuangAuthFeature, QuangAuthFeatureKind, QuangAuthService, quangAuthFeature } from '@quix/quang/auth'
 
 export function withMobileAuth(
   toolbarColor: string = '#000000',
   presentationStyle: 'popover' | 'fullscreen' = 'popover'
-): MobileAuthFeature {
+): QuangAuthFeature<QuangAuthFeatureKind.MobileAuthFeature> {
   const providers: Provider[] = [
     {
       provide: OPEN_URI,

@@ -10,7 +10,11 @@
     {{ componentLabel() | transloco }}
     <span [hidden]="!_isRequired()">*</span>
   </label>
-  <div class="option-list-container">
+  <div
+    [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap().length"
+    [class.is-valid]="_ngControl()?.valid && (_ngControl()?.dirty || _ngControl()?.touched) && successMessage()"
+    class="option-list-container"
+  >
     <button
       [attr.required]="getIsRequiredControl()"
       [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap().length"
@@ -19,7 +23,6 @@
       [id]="componentId()"
       [ngClass]="componentClass()"
       [tabIndex]="componentTabIndex()"
-      (blur)="onBlurHandler()"
       (click)="changeOptionsVisibility()"
       #selectButton
       class="form-select"
@@ -43,6 +46,7 @@
       [componentTabIndex]="componentTabIndex()"
       [nullOption]="nullOption()"
       [optionListMaxHeight]="optionListMaxHeight()"
+      [parentType]="ParentType"
       [selectButtonRef]="selectButton"
       [selectionMode]="selectionMode()"
       [selectOptions]="selectOptions()"
@@ -50,6 +54,7 @@
       (blurHandler)="onBlurHandler()"
       (changedHandler)="onChangedHandler($event)"
       *ngIf="_showOptions()"
+      #optionList
     ></quang-option-list>
   </div>
   <div class="valid-feedback">
