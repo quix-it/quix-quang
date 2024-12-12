@@ -1,12 +1,26 @@
 import { NgClass, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, forwardRef, input, output, signal } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  forwardRef,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs'
 
-import { QuangBaseComponent, QuangOptionListComponent, SelectOption } from '@quix/quang/components/shared'
+import {
+  OptionListParentType,
+  QuangBaseComponent,
+  QuangOptionListComponent,
+  SelectOption,
+} from '@quix/quang/components/shared'
 
 @Component({
   selector: 'quang-autocomplete',
@@ -45,6 +59,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   translateValue = input<boolean>(true)
 
+  optionList = viewChild<QuangOptionListComponent>('optionList')
+
   /**
    * Only emits the value without saving it in ngControl
    */
@@ -78,6 +94,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   searchTextDebounce = input<number>(300)
 
   internalFilterOptions = input<boolean>(true)
+
+  readonly ParentType = OptionListParentType.AUTOCOMPLETE
 
   constructor() {
     super()
@@ -160,6 +178,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   override writeValue(val: string | number): void {
     super.writeValue(val)
     this.setInputValue(true)
+  }
+
+  onBlurInput(event: FocusEvent) {
+    if ((event?.relatedTarget as HTMLDivElement)?.id !== this.optionList()?.optionList()?.nativeElement?.id)
+      this.onBlurHandler()
   }
 
   override onBlurHandler() {

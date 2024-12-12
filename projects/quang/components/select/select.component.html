@@ -23,7 +23,6 @@
       [id]="componentId()"
       [ngClass]="componentClass()"
       [tabIndex]="componentTabIndex()"
-      (blur)="onBlurHandler()"
       (click)="changeOptionsVisibility()"
       #selectButton
       class="form-select"
@@ -47,6 +46,7 @@
       [componentTabIndex]="componentTabIndex()"
       [nullOption]="nullOption()"
       [optionListMaxHeight]="optionListMaxHeight()"
+      [parentType]="ParentType"
       [selectButtonRef]="selectButton"
       [selectionMode]="selectionMode()"
       [selectOptions]="selectOptions()"
@@ -54,6 +54,7 @@
       (blurHandler)="onBlurHandler()"
       (changedHandler)="onChangedHandler($event)"
       *ngIf="_showOptions()"
+      #optionList
     ></quang-option-list>
   </div>
   <div class="valid-feedback">

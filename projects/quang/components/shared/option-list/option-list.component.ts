@@ -1,10 +1,13 @@
-import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
+import { NgClass, NgFor, NgStyle } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   HostListener,
   computed,
+  effect,
+  inject,
   input,
   output,
   signal,
@@ -13,16 +16,22 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { Subscription, fromEvent } from 'rxjs'
 
 export interface SelectOption {
   label: string
   value: string | number | null
 }
 
+export enum OptionListParentType {
+  SELECT = 'select',
+  AUTOCOMPLETE = 'autocomplete',
+}
+
 @Component({
   selector: 'quang-option-list',
   standalone: true,
-  imports: [NgStyle, NgIf, NgFor, NgClass, TranslocoPipe],
+  imports: [NgStyle, NgFor, NgClass, TranslocoPipe],
   templateUrl: './option-list.component.html',
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -62,10 +71,14 @@ export class QuangOptionListComponent {
 
   optionList = viewChild<ElementRef>('optionList')
 
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
+  destroyRef = inject(DestroyRef)
+
+  parentType = input.required<OptionListParentType>()
+
+  parentID = input<string>('')
 
   selectButtonRef$ = toObservable(this.selectButtonRef)
-    .pipe(this._takeUntilDestroyed())
+    .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(() => {
       this.getOptionListWidth()
       this.getOptionListTop()
@@ -88,6 +101,77 @@ export class QuangOptionListComponent {
     return [...this.selectOptions()]
   })
 
+  onKeyDown: Subscription | null = null
+
+  selectedElementIndex = computed<number>(
+    () => this.selectOptionsList()?.findIndex((x) => x?.value === this._value()) ?? 0
+  )
+
+  optionList$ = effect(() => {
+    if (this.optionList() && this.parentType() === OptionListParentType.SELECT) {
+      this.optionList()?.nativeElement.focus()
+    }
+    const ul = this.optionList()?.nativeElement?.children[0]
+    const li = ul.children
+    let currentIndex = this.selectedElementIndex()
+    li[currentIndex]?.classList.add('selected')
+
+    if (this.onKeyDown) {
+      this.onKeyDown.unsubscribe()
+    }
+
+    this.onKeyDown = fromEvent(document, 'keydown', { capture: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => {
+        switch ((event as KeyboardEvent).key) {
+          case 'ArrowDown': {
+            if (this.parentType() === OptionListParentType.AUTOCOMPLETE) this.optionList()?.nativeElement.focus()
+            if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
+            if (currentIndex === li.length - 1) {
+              currentIndex = li.length - 1
+            } else {
+              currentIndex += 1
+            }
+            li[currentIndex]?.classList.add('selected')
+            if (
+              this.optionList()?.nativeElement?.scrollTop >=
+              (this.optionList()?.nativeElement?.scrollHeight ?? 0) -
+                (this.optionList()?.nativeElement?.offsetHeight ?? 0)
+            ) {
+              event.preventDefault()
+            }
+            break
+          }
+          case 'ArrowUp': {
+            if (this.parentType() === OptionListParentType.AUTOCOMPLETE) this.optionList()?.nativeElement.focus()
+            if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
+            if (currentIndex !== 0) currentIndex -= 1
+            li[currentIndex]?.classList.add('selected')
+            if (!this.optionList()?.nativeElement?.scrollTop) {
+              event.preventDefault()
+            }
+            break
+          }
+          case 'Enter': {
+            this.onSelectItem(this.selectOptionsList()[currentIndex])
+            break
+          }
+          default: {
+            if (
+              ((event as KeyboardEvent)?.key?.length === 1 || (event as KeyboardEvent)?.key === 'Backspace') &&
+              this.parentType() === OptionListParentType.AUTOCOMPLETE &&
+              document.activeElement?.id === this.optionList()?.nativeElement?.id
+            ) {
+              currentIndex = 0
+              document.getElementById(this.parentID())?.focus()
+              document.getElementById(this.parentID())?.click()
+            }
+            break
+          }
+        }
+      })
+  })
+
   @HostListener('window:scroll') changePosition() {
     this.getOptionListWidth()
     this.getOptionListTop()
@@ -102,19 +186,19 @@ export class QuangOptionListComponent {
       const hasScrollableContent = ele.scrollHeight > ele.clientHeight
 
       const overflowYStyle = window.getComputedStyle(ele).overflowY
-      const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
+      const isOverflowHidden = overflowYStyle.includes('hidden')
 
       result = hasScrollableContent && !isOverflowHidden
     } catch (e) {
-      // console.error('captured error isScrollable', e)
+      console.error('captured error isScrollable', e)
     }
 
     return result
   }
 
-  getScrollParent(node: any): HTMLElement {
+  getScrollParent(node: HTMLElement): HTMLElement {
     if (!node || node === document.body) return document.body
-    return this.isScrollable(node) ? node : this.getScrollParent(node?.parentNode)
+    return this.isScrollable(node) ? node : this.getScrollParent(node?.parentNode as HTMLElement)
   }
 
   onSelectItem(item: SelectOption | null): void {
@@ -143,7 +227,7 @@ export class QuangOptionListComponent {
     return this._value()?.some((x: number | string | null) => x === item?.value)
   }
 
-  onBlurHandler(e: any): void {
+  onBlurHandler(e: Event): void {
     this.blurHandler.emit(e)
   }
 
@@ -152,23 +236,22 @@ export class QuangOptionListComponent {
   }
 
   getOptionListTop() {
+    const nativeElement = this.optionList()?.nativeElement as HTMLElement | undefined
     const diff =
       window.innerHeight -
-      (this.optionList()?.nativeElement?.getBoundingClientRect()?.height ?? 0) -
+      (nativeElement?.getBoundingClientRect()?.height ?? 0) -
       (this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) -
       (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)
-    if (diff >= 0) {
-      this.elementTop.set(
-        `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.offsetHeight ?? 0)}px`
-      )
-      this.elementBottom.set(`unset`)
-      this.optionList()?.nativeElement?.classList.remove('option-list-top')
+    let topValue = 'unset'
+    let bottomValue = 'unset'
+    const isTop = diff >= 0
+    if (isTop) {
+      topValue = `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.offsetHeight ?? 0)}px`
     } else {
-      this.elementTop.set(`unset`)
-      this.elementBottom.set(
-        `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
-      )
-      this.optionList()?.nativeElement?.classList.add('option-list-top')
+      bottomValue = `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
     }
+    nativeElement?.classList.toggle('option-list-top', !isTop)
+    this.elementTop.set(topValue)
+    this.elementBottom.set(bottomValue)
   }
 }
