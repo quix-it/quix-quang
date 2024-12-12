@@ -2,7 +2,7 @@ import { Injectable, Provider } from '@angular/core'
 
 import { OAuthStorage } from 'angular-oauth2-oidc'
 
-import { QuangAuthFeature, QuangAuthFeatureKind, quangAuthFeature } from '@quix/quang/auth'
+import { QuangAuthFeature, QuangAuthFeatureKind, quangAuthFeature } from '../auth-providers'
 
 @Injectable()
 export class MemoryStorage implements OAuthStorage {
