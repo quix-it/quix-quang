@@ -1,4 +1,4 @@
-import { NgForOf, NgIf, UpperCasePipe } from '@angular/common'
+import { NgForOf, NgIf } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
 import {
   ChangeDetectionStrategy,
@@ -42,7 +42,6 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
     QuangPopoverDirective,
     QuangLoaderComponent,
     NgForOf,
-    UpperCasePipe,
     SvgIconComponent,
   ],
   templateUrl: './app.component.html',
@@ -115,6 +114,10 @@ export class AppComponent {
 
   testApiCall(): void {
     this.appService.testHttpGet()
+  }
+
+  testUnauthorized(): void {
+    this.appService.testHttpUnauthorized()
   }
 
   changeTheme(value: 'light' | 'dark') {

@@ -51,16 +51,6 @@ export function quangAuthFeature<FeatureKind extends QuangAuthFeatureKind>(
 }
 
 /**
- * A type alias for providers returned by `withMobileAuth` for use with `provideAuth`.
- *
- * @see {@link withMobileAuth}
- * @see {@link provideAuth}
- *
- * @publicApi
- */
-export type MobileAuthFeature = QuangAuthFeature<QuangAuthFeatureKind.MobileAuthFeature>
-
-/**
  * A type alias that represents all QuangAuth features available for use with `provideAuth`.
  * Features can be enabled by adding special functions to the `provideAuth` call.
  * See documentation for each symbol to find corresponding function name. See also `provideAuth`
@@ -70,11 +60,15 @@ export type MobileAuthFeature = QuangAuthFeature<QuangAuthFeatureKind.MobileAuth
  *
  * @publicApi
  */
-export type QuangAuthFeatures = MobileAuthFeature
+export type QuangAuthFeatures = QuangAuthFeature<QuangAuthFeatureKind>
 
 /**
  * The list of features as an enum to uniquely type each feature.
  */
 export const enum QuangAuthFeatureKind {
   MobileAuthFeature,
+  SessionStorageFeature,
+  LocalStorageFeature,
+  MemoryStorageFeature,
+  LogoutOnErrorFeature,
 }
