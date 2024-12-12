@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
+import { NgClass, NgFor, NgStyle } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -31,7 +31,7 @@ export enum OptionListParentType {
 @Component({
   selector: 'quang-option-list',
   standalone: true,
-  imports: [NgStyle, NgIf, NgFor, NgClass, TranslocoPipe],
+  imports: [NgStyle, NgFor, NgClass, TranslocoPipe],
   templateUrl: './option-list.component.html',
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -145,11 +145,7 @@ export class QuangOptionListComponent {
           case 'ArrowUp': {
             if (this.parentType() === OptionListParentType.AUTOCOMPLETE) this.optionList()?.nativeElement.focus()
             if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
-            if (currentIndex === 0) {
-              currentIndex = 0
-            } else {
-              currentIndex -= 1
-            }
+            if (currentIndex !== 0) currentIndex -= 1
             li[currentIndex]?.classList.add('selected')
             if (!this.optionList()?.nativeElement?.scrollTop) {
               event.preventDefault()
@@ -161,15 +157,14 @@ export class QuangOptionListComponent {
             break
           }
           default: {
-            if ((event as KeyboardEvent)?.key?.length === 1 || (event as KeyboardEvent)?.key === 'Backspace') {
-              if (
-                this.parentType() === OptionListParentType.AUTOCOMPLETE &&
-                document.activeElement?.id === this.optionList()?.nativeElement?.id
-              ) {
-                currentIndex = 0
-                document.getElementById(this.parentID())?.focus()
-                document.getElementById(this.parentID())?.click()
-              }
+            if (
+              ((event as KeyboardEvent)?.key?.length === 1 || (event as KeyboardEvent)?.key === 'Backspace') &&
+              this.parentType() === OptionListParentType.AUTOCOMPLETE &&
+              document.activeElement?.id === this.optionList()?.nativeElement?.id
+            ) {
+              currentIndex = 0
+              document.getElementById(this.parentID())?.focus()
+              document.getElementById(this.parentID())?.click()
             }
             break
           }
@@ -191,7 +186,7 @@ export class QuangOptionListComponent {
       const hasScrollableContent = ele.scrollHeight > ele.clientHeight
 
       const overflowYStyle = window.getComputedStyle(ele).overflowY
-      const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
+      const isOverflowHidden = overflowYStyle.includes('hidden')
 
       result = hasScrollableContent && !isOverflowHidden
     } catch (e) {
@@ -241,23 +236,22 @@ export class QuangOptionListComponent {
   }
 
   getOptionListTop() {
+    const nativeElement = this.optionList()?.nativeElement as HTMLElement | undefined
     const diff =
       window.innerHeight -
-      (this.optionList()?.nativeElement?.getBoundingClientRect()?.height ?? 0) -
+      (nativeElement?.getBoundingClientRect()?.height ?? 0) -
       (this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) -
       (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)
-    if (diff >= 0) {
-      this.elementTop.set(
-        `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.offsetHeight ?? 0)}px`
-      )
-      this.elementBottom.set(`unset`)
-      this.optionList()?.nativeElement?.classList.remove('option-list-top')
+    let topValue = 'unset'
+    let bottomValue = 'unset'
+    const isTop = diff >= 0
+    if (isTop) {
+      topValue = `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.offsetHeight ?? 0)}px`
     } else {
-      this.elementTop.set(`unset`)
-      this.elementBottom.set(
-        `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
-      )
-      this.optionList()?.nativeElement?.classList.add('option-list-top')
+      bottomValue = `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
     }
+    nativeElement?.classList.toggle('option-list-top', !isTop)
+    this.elementTop.set(topValue)
+    this.elementBottom.set(bottomValue)
   }
 }

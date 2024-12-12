@@ -195,39 +195,39 @@ export class TableTestComponent {
     },
     {
       text: 'Name',
-      // sort: {
-      //   key: 'name',
-      //   sort: SortTable.DEFAULT,
-      // }
+      sort: {
+        key: 'name',
+        sort: SortTable.DEFAULT,
+      },
     },
     {
       text: 'Name2',
-      // sort: {
-      //   key: 'name2',
-      //   sort: SortTable.DEFAULT,
-      // },
+      sort: {
+        key: 'name2',
+        sort: SortTable.DEFAULT,
+      },
     },
     {
       text: 'Name3',
       css: ['justify-content-end'],
-      // sort: {
-      //   key: 'name3',
-      //   sort: SortTable.DEFAULT,
-      // },
+      sort: {
+        key: 'name3',
+        sort: SortTable.DEFAULT,
+      },
     },
     {
       text: 'Age',
-      // sort: {
-      //   key: 'age',
-      //   sort: SortTable.DESC,
-      // },
+      sort: {
+        key: 'age',
+        sort: SortTable.DESC,
+      },
     },
     {
       text: 'Gender',
-      // sort: {
-      //   key: 'gender',
-      //   sort: SortTable.DEFAULT,
-      // },
+      sort: {
+        key: 'gender',
+        sort: SortTable.DEFAULT,
+      },
     },
     {
       text: '',
@@ -270,8 +270,7 @@ export class TableTestComponent {
   )
 
   tableConfig = computed<TableConfiguration<People>>(() => ({
-    // headers: this.tableHeaders(),
-    headers: [],
+    headers: this.tableHeaders(),
     rows: this.tableRows(),
   }))
 
@@ -332,14 +331,14 @@ export class TableTestComponent {
     }
   }
 
-  // onChangeSort(sortCols: SortCol[]): void {
-  //   this.tableHeaders.update((headers) =>
-  //     headers.map((h) => ({
-  //       ...h,
-  //       sort: h.sort
-  //         ? { ...h.sort, sort: sortCols[0].key === h.sort.key ? sortCols[0].sort : SortTable.DEFAULT }
-  //         : undefined,
-  //     }))
-  //   )
-  // }
+  onChangeSort(sortCols: SortCol[]): void {
+    this.tableHeaders.update((headers) =>
+      headers.map((h) => ({
+        ...h,
+        sort: h.sort
+          ? { ...h.sort, sort: sortCols[0].key === h.sort.key ? sortCols[0].sort : SortTable.DEFAULT }
+          : undefined,
+      }))
+    )
+  }
 }

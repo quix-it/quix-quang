@@ -9,8 +9,8 @@
 <quang-table
   [stickyTable]="true"
   [tableConfigurations]="tableConfig()"
+  (sortChanged)="onChangeSort($event)"
 ></quang-table>
-<!-- (sortChanged)="onChangeSort($event)" -->
 <ng-template
   #actions
   let-person
