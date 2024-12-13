@@ -132,6 +132,15 @@ export class QuangOptionListComponent {
             } else {
               currentIndex += 1
             }
+            if (currentIndex === 0) {
+              event.preventDefault()
+              this.optionList()?.nativeElement?.scroll(0, 0)
+            }
+            const optionListBottom = this.optionList()?.nativeElement?.getBoundingClientRect()?.bottom
+            const itemListHeight = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.height
+            const itemListBottom = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.bottom
+            if (optionListBottom > (itemListBottom ?? 0) + (itemListHeight ?? 0)) event.preventDefault()
+
             li[currentIndex]?.classList.add('selected')
             if (
               this.optionList()?.nativeElement?.scrollTop >=
@@ -146,6 +155,10 @@ export class QuangOptionListComponent {
             if (this.parentType() === OptionListParentType.AUTOCOMPLETE) this.optionList()?.nativeElement.focus()
             if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
             if (currentIndex !== 0) currentIndex -= 1
+            const optionListTop = this.optionList()?.nativeElement?.getBoundingClientRect()?.top
+            const itemListHeight = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.height
+            const itemListTop = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.top
+            if (optionListTop < (itemListTop ?? 0) - (itemListHeight ?? 0)) event.preventDefault()
             li[currentIndex]?.classList.add('selected')
             if (!this.optionList()?.nativeElement?.scrollTop) {
               event.preventDefault()

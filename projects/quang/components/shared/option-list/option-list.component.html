@@ -15,6 +15,7 @@
     <li
       [class.m-0]="last"
       [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
+      [id]="'item-' + i"
       (mousedown)="$event.stopImmediatePropagation(); onSelectItem(item)"
       *ngFor="let item of selectOptionsList(); let i = index; let last = last"
       class="item"
