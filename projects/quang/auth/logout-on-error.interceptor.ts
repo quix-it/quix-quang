@@ -3,9 +3,10 @@ import { InjectionToken, Provider, inject } from '@angular/core'
 
 import { catchError, throwError } from 'rxjs'
 
+import { UrlData, getExcludedUrlsByMethod, isHttpMethod } from '@quix/quang/shared'
+
 import { QuangAuthService } from './auth.service'
 
-import { UrlData, getExcludedUrlsByMethod, isHttpMethod } from '../shared/intercept-utils'
 import { QuangAuthFeature, QuangAuthFeatureKind, quangAuthFeature } from './auth-providers'
 
 export const LOGOUT_STATUSES = new InjectionToken<number[]>('LOGOUT_STATUSES')
