@@ -1,6 +1,7 @@
 import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 
-import { UrlData } from '../shared/intercept-utils'
+import { UrlData } from '@quix/quang/shared'
+
 import { LOADER_EXCLUDED_URLS } from './loader.interceptor'
 
 /**

@@ -3,9 +3,9 @@ import { InjectionToken, inject } from '@angular/core'
 
 import { finalize } from 'rxjs'
 
-import { QuangLoaderService } from './loader.service'
+import { UrlData, getExcludedUrlsByMethod, isHttpMethod } from '@quix/quang/shared'
 
-import { UrlData, getExcludedUrlsByMethod, isHttpMethod } from '../shared/intercept-utils'
+import { QuangLoaderService } from './loader.service'
 
 export const LOADER_EXCLUDED_URLS = new InjectionToken<UrlData[]>('LOADER_EXCLUDED_URLS')
 
