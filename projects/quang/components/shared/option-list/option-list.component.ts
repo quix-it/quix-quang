@@ -17,7 +17,6 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { Subscription, fromEvent } from 'rxjs'
-import { HasEventTargetAddRemove } from 'rxjs/internal/observable/fromEvent'
 
 export interface SelectOption {
   label: string
@@ -123,7 +122,7 @@ export class QuangOptionListComponent {
       this.onKeyDown.unsubscribe()
     }
 
-    this.onKeyDown = fromEvent(this.optionList()?.nativeElement as HasEventTargetAddRemove<KeyboardEvent>, 'keydown', {
+    this.onKeyDown = fromEvent(document, 'keydown', {
       capture: true,
     })
       .pipe(takeUntilDestroyed(this.destroyRef))
