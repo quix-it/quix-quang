@@ -17,6 +17,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { Subscription, fromEvent } from 'rxjs'
+import { HasEventTargetAddRemove } from 'rxjs/internal/observable/fromEvent'
 
 export interface SelectOption {
   label: string
@@ -122,7 +123,9 @@ export class QuangOptionListComponent {
       this.onKeyDown.unsubscribe()
     }
 
-    this.onKeyDown = fromEvent(document, 'keydown', { capture: true })
+    this.onKeyDown = fromEvent(this.optionList()?.nativeElement as HasEventTargetAddRemove<KeyboardEvent>, 'keydown', {
+      capture: true,
+    })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => {
         switch ((event as KeyboardEvent).key) {
@@ -139,8 +142,12 @@ export class QuangOptionListComponent {
               this.optionList()?.nativeElement?.scroll(0, 0)
             }
             const optionListBottom = this.optionList()?.nativeElement?.getBoundingClientRect()?.bottom
-            const itemListHeight = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.height
-            const itemListBottom = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.bottom
+            const itemListHeight = this.optionList()
+              ?.nativeElement?.children?.[0]?.children?.item(currentIndex)
+              ?.getBoundingClientRect()?.height
+            const itemListBottom = this.optionList()
+              ?.nativeElement?.children?.[0]?.children?.item(currentIndex)
+              ?.getBoundingClientRect()?.bottom
             if (optionListBottom > (itemListBottom ?? 0) + (itemListHeight ?? 0)) event.preventDefault()
 
             li[currentIndex]?.classList.add('selected')
@@ -158,8 +165,12 @@ export class QuangOptionListComponent {
             if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
             if (currentIndex !== 0) currentIndex -= 1
             const optionListTop = this.optionList()?.nativeElement?.getBoundingClientRect()?.top
-            const itemListHeight = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.height
-            const itemListTop = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.top
+            const itemListHeight = this.optionList()
+              ?.nativeElement?.children?.[0]?.children?.item(currentIndex)
+              ?.getBoundingClientRect()?.height
+            const itemListTop = this.optionList()
+              ?.nativeElement?.children?.[0]?.children?.item(currentIndex)
+              ?.getBoundingClientRect()?.top
             if (optionListTop < (itemListTop ?? 0) - (itemListHeight ?? 0)) event.preventDefault()
             li[currentIndex]?.classList.add('selected')
             if (!this.optionList()?.nativeElement?.scrollTop) {
