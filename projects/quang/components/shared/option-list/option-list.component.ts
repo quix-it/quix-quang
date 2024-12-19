@@ -208,7 +208,7 @@ export class QuangOptionListComponent {
     this.getOptionListTop()
   }
 
-  isScrollable(ele: HTMLElement): boolean {
+  isScrollable(ele: Element): boolean {
     if (!ele) return false
 
     let result = false
@@ -227,9 +227,9 @@ export class QuangOptionListComponent {
     return result
   }
 
-  getScrollParent(node: HTMLElement): HTMLElement {
-    if (!node || node === document.body) return document.body
-    return this.isScrollable(node) ? node : this.getScrollParent(node?.parentNode as HTMLElement)
+  getScrollParent(node: unknown): Element {
+    if (!node || node === document.body || !(node instanceof Element)) return document.body
+    return this.isScrollable(node) ? node : this.getScrollParent(node.parentNode)
   }
 
   onSelectItem(item: SelectOption | null): void {
