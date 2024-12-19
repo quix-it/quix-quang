@@ -110,9 +110,12 @@ export class QuangOptionListComponent {
   optionList$ = effect(() => {
     if (this.optionList() && this.parentType() === OptionListParentType.SELECT) {
       this.optionList()?.nativeElement.focus()
-      const item = this.optionList()?.nativeElement?.children[0]?.children.item(this.selectedElementIndex())
-      if (item) {
-        item.scrollIntoView({ block: 'start', inline: 'nearest' })
+      const optionListNativeElement = this.optionList()?.nativeElement
+      if (optionListNativeElement) {
+        const item = optionListNativeElement?.children[0]?.children.item(this.selectedElementIndex())
+        if (item) {
+          item.scrollIntoView({ block: 'start', inline: 'nearest' })
+        }
       }
     }
     const ul = this.optionList()?.nativeElement?.children[0]
