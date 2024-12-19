@@ -114,7 +114,8 @@ export class QuangOptionListComponent {
       if (optionListNativeElement) {
         const item = optionListNativeElement?.children[0]?.children.item(this.selectedElementIndex())
         if (item) {
-          item.scrollIntoView({ block: 'start', inline: 'nearest' })
+          // item.scrollIntoView({ block: 'start', inline: 'nearest' })
+          optionListNativeElement?.scroll(0, item?.getBoundingClientRect()?.top ?? 0)
         }
       }
     }
