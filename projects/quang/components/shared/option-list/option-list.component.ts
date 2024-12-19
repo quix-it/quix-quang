@@ -112,10 +112,9 @@ export class QuangOptionListComponent {
       this.optionList()?.nativeElement.focus()
       const optionListNativeElement = this.optionList()?.nativeElement
       if (optionListNativeElement) {
-        const item = optionListNativeElement?.children[0]?.children.item(this.selectedElementIndex())
+        const item = optionListNativeElement?.children[0]?.children.item(this.selectedElementIndex()) as HTMLElement
         if (item) {
-          // item.scrollIntoView({ block: 'start', inline: 'nearest' })
-          optionListNativeElement?.scroll(0, item?.getBoundingClientRect()?.top ?? 0)
+          optionListNativeElement?.scrollTo(0, item?.offsetTop ?? 0)
         }
       }
     }
