@@ -112,7 +112,7 @@ export class QuangOptionListComponent {
       this.optionList()?.nativeElement.focus()
       const item = this.optionList()?.nativeElement?.children[0]?.children.item(this.selectedElementIndex())
       if (item) {
-        item.scrollIntoView({ block: 'center' })
+        item.scrollIntoView({ block: 'start', inline: 'nearest' })
       }
     }
     const ul = this.optionList()?.nativeElement?.children[0]
