@@ -62,6 +62,8 @@ export class QuangSelectComponent
 
   selectOptions = input.required<SelectOption[]>()
 
+  scrollBehaviorOnOpen = input<ScrollBehavior>('smooth')
+
   selectButton = viewChild<ElementRef<HTMLButtonElement>>('selectButton')
 
   _showOptions = signal<boolean>(false)

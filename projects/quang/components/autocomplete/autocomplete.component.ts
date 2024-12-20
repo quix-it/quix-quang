@@ -59,6 +59,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   translateValue = input<boolean>(true)
 
+  scrollBehaviorOnOpen = input<ScrollBehavior>('smooth')
+
   optionList = viewChild<QuangOptionListComponent>('optionList')
 
   /**
