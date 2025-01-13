@@ -35,7 +35,7 @@
     "@capacitor/browser": "^6.0.1",
     "@capacitor/core": "^6.1.1",
     "@jsverse/transloco": "^7.5.0",
-    "@ngrx/signals": "^18.1.1",
+    "@ngrx/signals": "^19.0.0",
     "air-datepicker": "^3.5.0",
     "angular-oauth2-oidc": "^19.0.0",
     "angular-svg-icon": "^19.0.0",
@@ -76,11 +76,5 @@
     "prettier-eslint": "^16.3.0",
     "prettier-plugin-organize-attributes": "^1.0.0",
     "typescript": "~5.5.2"
-  },
-  "overrides": {
-    "@ngrx/signals": {
-      "@angular/common": "$@angular/common",
-      "@angular/core": "$@angular/core"
-    }
   }
 }
