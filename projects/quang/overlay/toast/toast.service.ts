@@ -1,4 +1,4 @@
-import { Injectable, TemplateRef, computed } from '@angular/core'
+import { Injectable, TemplateRef, computed, signal } from '@angular/core'
 
 import { patchState, signalState } from '@ngrx/signals'
 
@@ -23,7 +23,6 @@ export interface ToastData {
 export class QuangToastService {
   private toastState = signalState({
     count: 0,
-    currentToast: null as ToastData | null,
     currentTimeout: null as ReturnType<typeof setTimeout> | number | null,
   })
 
@@ -34,9 +33,10 @@ export class QuangToastService {
 
   public openToast(toastData: ToastData): void {
     patchState(this.toastState, {
-      currentToast: toastData,
       count: this.count() + 1,
     })
+
+    this.currentToast.set(toastData)
 
     if (this.count() > 1) {
       clearTimeout(this.currentTimeout() as number)
@@ -53,11 +53,9 @@ export class QuangToastService {
   }
 
   public closeToast(): void {
-    patchState(this.toastState, {
-      currentToast: null,
-    })
+    this.currentToast.set(null)
     patchState(this.toastState, { count: this.count() - 1 })
   }
 
-  public currentToast = computed(() => this.toastState.currentToast())
+  public currentToast = signal<ToastData | null>(null)
 }
