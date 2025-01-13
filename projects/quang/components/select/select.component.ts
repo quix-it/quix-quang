@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common'
+import { NgClass, NgFor, NgIf } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -37,7 +37,7 @@ import {
       multi: false,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgFor, NgClass, NgStyle, QuangOptionListComponent],
+  imports: [TranslocoPipe, NgIf, NgFor, NgClass, QuangOptionListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -61,6 +61,8 @@ export class QuangSelectComponent
   optionListMaxHeight = input<string>('18rem')
 
   selectOptions = input.required<SelectOption[]>()
+
+  scrollBehaviorOnOpen = input<ScrollBehavior>('smooth')
 
   selectButton = viewChild<ElementRef<HTMLButtonElement>>('selectButton')
 

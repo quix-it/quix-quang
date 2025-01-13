@@ -6,41 +6,42 @@
     '--option-list-bottom': elementBottom(),
   }"
   (blur)="onBlurHandler($event)"
-  #optionList
+  #optionListContainer
   class="option-list"
   id="optionList"
   tabindex="1"
 >
   <ul>
-    <li
-      [class.m-0]="last"
-      [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
-      [id]="'item-' + i"
-      (mousedown)="$event.stopImmediatePropagation(); onSelectItem(item)"
-      *ngFor="let item of selectOptionsList(); let i = index; let last = last"
-      class="item"
-    >
-      <input
-        [checked]="getSelected(item)"
-        [class.d-none]="selectionMode() === 'single' || !item?.value"
-        [disabled]="true"
-        [id]="i + '-' + item.value + '-checkbox'"
-        [name]="i + '-' + item.value + '-checkbox'"
-        [ngClass]="componentClass()"
-        [tabIndex]="componentTabIndex()"
-        [value]="getSelected(item)"
-        (blur)="onBlurHandler($event)"
-        #inputCheckbox
-        class="form-check-input opacity-100"
-        type="checkbox"
-      />
-      <label
-        [class.ms-3]="selectionMode() === 'multiple' && item?.value"
-        [for]="i + '-' + item.value + '-checkbox'"
-        class="form-check-label checkbox-label w-100 opacity-100"
+    @for (item of selectOptionsList(); track i; let i = $index; let last = $last) {
+      <li
+        [class.m-0]="last"
+        [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
+        [id]="'item-' + i"
+        (mousedown)="$event.stopImmediatePropagation(); onSelectItem(item)"
+        class="item"
       >
-        {{ translateValue() ? (item.label | transloco) : item.label }}
-      </label>
-    </li>
+        <input
+          [checked]="getSelected(item)"
+          [class.d-none]="selectionMode() === 'single' || !item?.value"
+          [disabled]="true"
+          [id]="i + '-' + item.value + '-checkbox'"
+          [name]="i + '-' + item.value + '-checkbox'"
+          [ngClass]="componentClass()"
+          [tabIndex]="componentTabIndex()"
+          [value]="getSelected(item)"
+          (blur)="onBlurHandler($event)"
+          #inputCheckbox
+          class="form-check-input opacity-100"
+          type="checkbox"
+        />
+        <label
+          [class.ms-3]="selectionMode() === 'multiple' && item?.value"
+          [for]="i + '-' + item.value + '-checkbox'"
+          class="form-check-label checkbox-label w-100 opacity-100"
+        >
+          {{ translateValue() ? (item.label | transloco) : item.label }}
+        </label>
+      </li>
+    }
   </ul>
 </div>

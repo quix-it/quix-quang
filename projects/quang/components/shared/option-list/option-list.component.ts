@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgStyle } from '@angular/common'
+import { NgClass, NgStyle } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -31,7 +31,7 @@ export enum OptionListParentType {
 @Component({
   selector: 'quang-option-list',
   standalone: true,
-  imports: [NgStyle, NgFor, NgClass, TranslocoPipe],
+  imports: [NgStyle, NgClass, TranslocoPipe],
   templateUrl: './option-list.component.html',
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -65,11 +65,13 @@ export class QuangOptionListComponent {
 
   elementBottom = signal<string>('0px')
 
+  scrollBehaviorOnOpen = input<ScrollBehavior>('smooth')
+
   changedHandler = output<any>()
 
   blurHandler = output<any>()
 
-  optionList = viewChild<ElementRef>('optionList')
+  optionListContainer = viewChild<ElementRef<HTMLDivElement>>('optionListContainer')
 
   destroyRef = inject(DestroyRef)
 
@@ -108,59 +110,80 @@ export class QuangOptionListComponent {
   )
 
   optionList$ = effect(() => {
-    if (this.optionList() && this.parentType() === OptionListParentType.SELECT) {
-      this.optionList()?.nativeElement.focus()
+    const optionListContainer = this.optionListContainer()
+    if (optionListContainer && this.parentType() === OptionListParentType.SELECT) {
+      optionListContainer?.nativeElement.focus()
+      const optionListContainerNativeElement = optionListContainer?.nativeElement
+      if (optionListContainerNativeElement) {
+        const ul = optionListContainerNativeElement?.children[0] as HTMLUListElement
+        const listItem = ul?.children.item(this.selectedElementIndex()) as HTMLLIElement | undefined
+        if (listItem) {
+          setTimeout(() => {
+            listItem.scrollIntoView({ behavior: this.scrollBehaviorOnOpen() })
+          }, 0)
+        }
+      }
     }
-    const ul = this.optionList()?.nativeElement?.children[0]
-    const li = ul.children
+    const ul = optionListContainer?.nativeElement?.children[0] as HTMLUListElement | undefined
+    const listItems = (ul?.children ?? []) as HTMLLIElement[]
     let currentIndex = this.selectedElementIndex()
-    li[currentIndex]?.classList.add('selected')
+    listItems?.[currentIndex]?.classList.add('selected')
 
     if (this.onKeyDown) {
       this.onKeyDown.unsubscribe()
     }
 
-    this.onKeyDown = fromEvent(document, 'keydown', { capture: true })
+    this.onKeyDown = fromEvent(document, 'keydown', {
+      capture: true,
+    })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => {
         switch ((event as KeyboardEvent).key) {
           case 'ArrowDown': {
-            if (this.parentType() === OptionListParentType.AUTOCOMPLETE) this.optionList()?.nativeElement.focus()
-            if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
-            if (currentIndex === li.length - 1) {
-              currentIndex = li.length - 1
+            if (this.parentType() === OptionListParentType.AUTOCOMPLETE) optionListContainer?.nativeElement.focus()
+            if (currentIndex !== this.selectedElementIndex()) listItems[currentIndex]?.classList.remove('selected')
+            if (currentIndex === listItems.length - 1) {
+              currentIndex = listItems.length - 1
             } else {
               currentIndex += 1
             }
             if (currentIndex === 0) {
               event.preventDefault()
-              this.optionList()?.nativeElement?.scroll(0, 0)
+              optionListContainer?.nativeElement?.scroll(0, 0)
             }
-            const optionListBottom = this.optionList()?.nativeElement?.getBoundingClientRect()?.bottom
-            const itemListHeight = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.height
-            const itemListBottom = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.bottom
+            const optionListBottom = optionListContainer?.nativeElement?.getBoundingClientRect()?.bottom ?? 0
+            const itemListHeight = optionListContainer?.nativeElement?.children?.[0]?.children
+              ?.item(currentIndex)
+              ?.getBoundingClientRect()?.height
+            const itemListBottom = optionListContainer?.nativeElement?.children?.[0]?.children
+              ?.item(currentIndex)
+              ?.getBoundingClientRect()?.bottom
             if (optionListBottom > (itemListBottom ?? 0) + (itemListHeight ?? 0)) event.preventDefault()
 
-            li[currentIndex]?.classList.add('selected')
+            listItems[currentIndex]?.classList.add('selected')
             if (
-              this.optionList()?.nativeElement?.scrollTop >=
-              (this.optionList()?.nativeElement?.scrollHeight ?? 0) -
-                (this.optionList()?.nativeElement?.offsetHeight ?? 0)
+              (optionListContainer?.nativeElement?.scrollTop ?? 0) >=
+              (optionListContainer?.nativeElement?.scrollHeight ?? 0) -
+                (optionListContainer?.nativeElement?.offsetHeight ?? 0)
             ) {
               event.preventDefault()
             }
             break
           }
           case 'ArrowUp': {
-            if (this.parentType() === OptionListParentType.AUTOCOMPLETE) this.optionList()?.nativeElement.focus()
-            if (currentIndex !== this.selectedElementIndex()) li[currentIndex]?.classList.remove('selected')
+            if (this.parentType() === OptionListParentType.AUTOCOMPLETE) optionListContainer?.nativeElement.focus()
+            if (currentIndex !== this.selectedElementIndex()) listItems[currentIndex]?.classList.remove('selected')
             if (currentIndex !== 0) currentIndex -= 1
-            const optionListTop = this.optionList()?.nativeElement?.getBoundingClientRect()?.top
-            const itemListHeight = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.height
-            const itemListTop = document.getElementById(`item-${currentIndex}`)?.getBoundingClientRect()?.top
+            const optionListTop = optionListContainer?.nativeElement?.getBoundingClientRect()?.top ?? 0
+            const itemListHeight = optionListContainer?.nativeElement?.children?.[0]?.children
+              ?.item(currentIndex)
+              ?.getBoundingClientRect()?.height
+            const itemListTop = optionListContainer?.nativeElement?.children?.[0]?.children
+              ?.item(currentIndex)
+              ?.getBoundingClientRect()?.top
             if (optionListTop < (itemListTop ?? 0) - (itemListHeight ?? 0)) event.preventDefault()
-            li[currentIndex]?.classList.add('selected')
-            if (!this.optionList()?.nativeElement?.scrollTop) {
+            listItems[currentIndex]?.classList.add('selected')
+            if (!optionListContainer?.nativeElement?.scrollTop) {
               event.preventDefault()
             }
             break
@@ -173,7 +196,7 @@ export class QuangOptionListComponent {
             if (
               ((event as KeyboardEvent)?.key?.length === 1 || (event as KeyboardEvent)?.key === 'Backspace') &&
               this.parentType() === OptionListParentType.AUTOCOMPLETE &&
-              document.activeElement?.id === this.optionList()?.nativeElement?.id
+              document.activeElement?.id === optionListContainer?.nativeElement?.id
             ) {
               currentIndex = 0
               document.getElementById(this.parentID())?.focus()
@@ -190,7 +213,7 @@ export class QuangOptionListComponent {
     this.getOptionListTop()
   }
 
-  isScrollable(ele: HTMLElement): boolean {
+  isScrollable(ele: Element): boolean {
     if (!ele) return false
 
     let result = false
@@ -209,9 +232,9 @@ export class QuangOptionListComponent {
     return result
   }
 
-  getScrollParent(node: HTMLElement): HTMLElement {
-    if (!node || node === document.body) return document.body
-    return this.isScrollable(node) ? node : this.getScrollParent(node?.parentNode as HTMLElement)
+  getScrollParent(node: unknown): Element {
+    if (!node || node === document.body || !(node instanceof Element)) return document.body
+    return this.isScrollable(node) ? node : this.getScrollParent(node.parentNode)
   }
 
   onSelectItem(item: SelectOption | null): void {
@@ -249,7 +272,7 @@ export class QuangOptionListComponent {
   }
 
   getOptionListTop() {
-    const nativeElement = this.optionList()?.nativeElement as HTMLElement | undefined
+    const nativeElement = this.optionListContainer()?.nativeElement
     const diff =
       window.innerHeight -
       (nativeElement?.getBoundingClientRect()?.height ?? 0) -

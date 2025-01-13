@@ -59,6 +59,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   translateValue = input<boolean>(true)
 
+  scrollBehaviorOnOpen = input<ScrollBehavior>('smooth')
+
   optionList = viewChild<QuangOptionListComponent>('optionList')
 
   /**
@@ -181,7 +183,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   onBlurInput(event: FocusEvent) {
-    if ((event?.relatedTarget as HTMLDivElement)?.id !== this.optionList()?.optionList()?.nativeElement?.id)
+    if ((event?.relatedTarget as HTMLDivElement)?.id !== this.optionList()?.optionListContainer()?.nativeElement?.id)
       this.onBlurHandler()
   }
 

@@ -1,4 +1,4 @@
-import { JsonPipe, NgForOf, NgIf } from '@angular/common'
+import { JsonPipe, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
@@ -11,7 +11,7 @@ import { SelectOption } from '@quix/quang/components/shared'
 @Component({
   selector: 'playground-select-test',
   standalone: true,
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, NgForOf, TranslocoPipe, QuangSelectComponent],
+  imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, TranslocoPipe, QuangSelectComponent],
   templateUrl: './select-test.component.html',
   styleUrl: './select-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
