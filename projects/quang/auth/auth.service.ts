@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Injectable, InjectionToken, computed, inject } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
@@ -12,14 +13,15 @@ interface LoginStatus {
 
 interface TokenStatus {
   accessToken: string | null
+  accessTokenExpiresAt: number | null
   idToken: string | null
+  idTokenExpiresAt: number | null
   refreshToken: string | null
 }
 
 interface AuthState {
   loginStatus: LoginStatus
   tokenStatus: TokenStatus
-  parsedToken: QuangParsedIdToken | null
   roles: Set<string>
   user: Record<string, any> | null
 }
@@ -46,13 +48,23 @@ const initialState: AuthState = {
   },
   tokenStatus: {
     accessToken: null,
+    accessTokenExpiresAt: null,
     idToken: null,
+    idTokenExpiresAt: null,
     refreshToken: null,
   },
-  parsedToken: null,
   roles: new Set<string>(),
   user: null,
 }
+
+// Subset of situations from https://openid.net/specs/openid-connect-core-1_0.html#AuthError
+// Only the ones where it's reasonably sure that sending the user to the IdServer will help.
+const errorResponsesRequiringUserInteraction = [
+  'interaction_required',
+  'login_required',
+  'account_selection_required',
+  'consent_required',
+]
 
 @Injectable({
   providedIn: 'root',
@@ -74,8 +86,6 @@ export class QuangAuthService {
 
   tokenStatus = this.state.tokenStatus
 
-  parsedToken = this.state.parsedToken
-
   roles = this.state.roles
 
   user = this.state.user
@@ -91,13 +101,11 @@ export class QuangAuthService {
     this.showDebugInformation = !!authConfig.showDebugInformation
 
     this.oAuthService.events.pipe(takeUntilDestroyed()).subscribe((event: OAuthEvent) => {
-      if (event instanceof OAuthErrorEvent) {
-        if (this.loginChecked()) {
-          this.loginError()
-          console.error(event)
-        }
-        // eslint-disable-next-line no-console
-      } else if (this.showDebugInformation) console.debug(event)
+      if (event instanceof OAuthErrorEvent && this.loginChecked()) {
+        this.loginError()
+      }
+      if (this.showDebugInformation) console.debug('Auth service event', event)
+      if (event.type === 'token_received') this.setTokens()
     })
     this.oAuthService.configure(this.config)
   }
@@ -110,33 +118,20 @@ export class QuangAuthService {
     await this.checkForAuthentication()
   }
 
-  public async checkForAuthentication() {
+  public async checkForAuthentication(forceRefresh = false) {
     let hasValidToken = this.oAuthService.hasValidAccessToken()
 
-    if (!hasValidToken) {
-      if (this.config.responseType === 'code') {
-        if (this.config.autoLogin) this.login()
-      } else {
-        try {
-          await this.oAuthService.silentRefresh()
-          hasValidToken = this.oAuthService.hasValidAccessToken()
-        } catch (error: any) {
-          // Subset of situations from https://openid.net/specs/openid-connect-core-1_0.html#AuthError
-          // Only the ones where it's reasonably sure that sending the user to the IdServer will help.
-          const errorResponsesRequiringUserInteraction = [
-            'interaction_required',
-            'login_required',
-            'account_selection_required',
-            'consent_required',
-          ]
-          const reason = error?.reason
-          if (this.config.autoLogin && reason && errorResponsesRequiringUserInteraction.includes(reason)) this.login()
-        }
-      }
+    try {
+      if (forceRefresh) hasValidToken = await this.refreshAuth()
+    } catch (error: any) {
+      const reason = error?.reason
+      if (this.config.autoLogin && reason && errorResponsesRequiringUserInteraction.includes(reason)) this.login()
+      hasValidToken = false
     }
 
-    if (hasValidToken) await this.loginSuccess()
+    if (hasValidToken && this.config.getUserProfileOnLoginSuccess) await this.getUserProfile()
 
+    this.setTokens()
     patchState(this.state, {
       loginStatus: {
         ...this.state().loginStatus,
@@ -146,11 +141,18 @@ export class QuangAuthService {
     return hasValidToken
   }
 
+  private async refreshAuth() {
+    if (this.config.responseType === 'code') await this.oAuthService.refreshToken()
+    else await this.oAuthService.silentRefresh()
+    return this.oAuthService.hasValidAccessToken()
+  }
+
   public login() {
     this.oAuthService.initLoginFlow()
   }
 
   public async logout() {
+    if (!this.isAuthenticated()) return
     if (this.config.revokeTokensOnLogout) await this.oAuthService.revokeTokenAndLogout()
     else this.oAuthService.logOut()
     patchState(this.state, { ...initialState })
@@ -165,44 +167,34 @@ export class QuangAuthService {
     })
   }
 
-  private async loginSuccess() {
-    if (this.config.getUserProfileOnLoginSuccess !== false) await this.getUserProfile()
-    this.setTokens()
-  }
-
   public async getUserProfile() {
-    const userProfile = await this.oAuthService.loadUserProfile()
-    try {
-      if (userProfile) {
-        patchState(this.state, { user: userProfile })
-      }
-    } catch {
-      // eslint-disable-next-line no-console
-      console.debug('no user profile')
-    }
+    const user = await this.oAuthService.loadUserProfile()
+    if (user) patchState(this.state, { user })
   }
 
   private setTokens() {
-    patchState(this.state, {
-      tokenStatus: {
-        accessToken: this.oAuthService.getAccessToken(),
-        idToken: this.oAuthService.getIdToken(),
-        refreshToken: this.oAuthService.getRefreshToken(),
-      },
-    })
-    this.parseToken()
-  }
-
-  private parseToken() {
-    const idToken = this.tokenStatus.idToken()
-    const accessToken = this.tokenStatus.accessToken()
-    if (idToken && accessToken) {
-      this.oAuthService.processIdToken(idToken, accessToken).then((parsedToken) => {
-        patchState(this.state, {
-          parsedToken,
-        })
-      })
+    const tokenStatus = {
+      accessToken: this.oAuthService.getAccessToken(),
+      accessTokenExpiresAt: this.oAuthService.getAccessTokenExpiration(),
+      idToken: this.oAuthService.getIdToken(),
+      idTokenExpiresAt: this.oAuthService.getIdTokenExpiration(),
+      refreshToken: this.oAuthService.getRefreshToken(),
     }
+    if (this.showDebugInformation) {
+      const now = new Date()
+      const accessTokenDate = new Date(tokenStatus.accessTokenExpiresAt)
+      const idTokenDate = new Date(tokenStatus.idTokenExpiresAt)
+      console.table(tokenStatus)
+      console.debug(
+        `Id token expires at ${idTokenDate} in ${Math.abs(idTokenDate.valueOf() - now.valueOf()) / 1000 / 60} minutes`
+      )
+      console.debug(
+        `Access token expires at ${accessTokenDate} in ${Math.abs(accessTokenDate.valueOf() - now.valueOf()) / 1000 / 60} minutes`
+      )
+    }
+    patchState(this.state, {
+      tokenStatus,
+    })
   }
 
   async waitForLoginCheck(): Promise<void> {
