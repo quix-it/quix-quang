@@ -116,6 +116,8 @@ export class QuangAuthService {
     await this.oAuthService.loadDiscoveryDocumentAndTryLogin()
 
     await this.checkForAuthentication()
+
+    if (this.config.autoLogin && !this.isAuthenticated()) this.login()
   }
 
   public async checkForAuthentication(forceRefresh = false) {
