@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CommonModule } from '@angular/common'
+import { CommonModule, JsonPipe } from '@angular/common'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 
@@ -22,6 +22,7 @@ import {
     QuangIsNotAuthenticatedDirective,
     QuangHasAtLeastOneRoleDirective,
     QuangHasEveryRoleDirective,
+    JsonPipe,
   ],
   templateUrl: './auth-test.component.html',
   styleUrl: './auth-test.component.css',
@@ -33,6 +34,8 @@ export class AuthTestComponent {
   authService = inject(QuangAuthService)
 
   checkRole = this.authService.roles
+
+  user = this.authService.user
 
   // Example to add user roles from user
   /* userSubscription$ = toObservable(this.authService.user)
