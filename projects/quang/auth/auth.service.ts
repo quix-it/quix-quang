@@ -200,7 +200,7 @@ export class QuangAuthService {
       idTokenExpiresAt: this.oAuthService.getIdTokenExpiration(),
       refreshToken: this.oAuthService.getRefreshToken(),
     }
-    if (this.showDebugInformation) {
+    if (this.logLevel === 'verbose') {
       const now = new Date()
       const accessTokenDate = new Date(tokenStatus.accessTokenExpiresAt)
       const idTokenDate = new Date(tokenStatus.idTokenExpiresAt)
