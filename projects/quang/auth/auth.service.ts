@@ -101,10 +101,10 @@ export class QuangAuthService {
     this.showDebugInformation = !!authConfig.showDebugInformation
 
     this.oAuthService.events.pipe(takeUntilDestroyed()).subscribe((event: OAuthEvent) => {
+      if (this.showDebugInformation) console.debug('Auth service event', event)
       if (event instanceof OAuthErrorEvent && this.loginChecked()) {
         this.loginError()
       }
-      if (this.showDebugInformation) console.debug('Auth service event', event)
       if (event.type === 'token_received') this.setTokens()
     })
     this.oAuthService.configure(this.config)
@@ -167,6 +167,7 @@ export class QuangAuthService {
         authenticationError: true,
       },
     })
+    this.logout()
   }
 
   public async getUserProfile() {
