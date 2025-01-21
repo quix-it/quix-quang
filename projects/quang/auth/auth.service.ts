@@ -131,8 +131,6 @@ export class QuangAuthService {
       hasValidToken = false
     }
 
-    if (hasValidToken && this.config.getUserProfileOnLoginSuccess) await this.getUserProfile()
-
     this.setTokens()
     patchState(this.state, {
       loginStatus: {
@@ -140,6 +138,9 @@ export class QuangAuthService {
         checked: true,
       },
     })
+
+    if (hasValidToken && this.config.getUserProfileOnLoginSuccess) await this.getUserProfile()
+
     return hasValidToken
   }
 
