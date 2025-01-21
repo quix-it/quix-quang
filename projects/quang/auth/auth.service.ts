@@ -118,10 +118,8 @@ export class QuangAuthService {
     this.config = authConfig
 
     this.oAuthService.events.pipe(takeUntilDestroyed()).subscribe((event: OAuthEvent) => {
-      if (event instanceof OAuthErrorEvent && this.loginChecked()) {
-        this.loginError()
-      }
       if (this.logLevel === 'verbose') console.debug('Auth service event', event)
+      if (event instanceof OAuthErrorEvent && this.loginChecked()) this.loginError()
       if (event.type === 'token_received') this.setTokens()
     })
     this.oAuthService.configure(this.config)
@@ -149,8 +147,6 @@ export class QuangAuthService {
       hasValidToken = false
     }
 
-    if (hasValidToken && this.config.getUserProfileOnLoginSuccess) await this.getUserProfile()
-
     this.setTokens()
     patchState(this.state, {
       loginStatus: {
@@ -158,6 +154,9 @@ export class QuangAuthService {
         checked: true,
       },
     })
+
+    if (hasValidToken && this.config.getUserProfileOnLoginSuccess) await this.getUserProfile()
+
     return hasValidToken
   }
 
@@ -185,6 +184,7 @@ export class QuangAuthService {
         authenticationError: true,
       },
     })
+    this.logout()
   }
 
   public async getUserProfile() {
