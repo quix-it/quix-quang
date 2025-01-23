@@ -12,9 +12,11 @@ import {
   signal,
   viewChild,
 } from '@angular/core'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { AbstractControl, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { filter, take } from 'rxjs'
 import sunEditor from 'suneditor'
 import SunEditorCore from 'suneditor/src/lib/core'
 import { SunEditorOptions } from 'suneditor/src/options'
@@ -98,6 +100,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
   wysiwygOptions = input<QuangWysiwygOptions | undefined>(undefined)
 
   _sunEditorWysiwygInstance = signal<SunEditorCore | undefined>(undefined)
+  _sunEditorWysiwygInstance$ = toObservable(this._sunEditorWysiwygInstance)
 
   changeDetectorRef = signal(inject(ChangeDetectorRef))
 
@@ -147,7 +150,17 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   override writeValue(val: string): void {
     super.writeValue(val)
-    this._sunEditorWysiwygInstance()?.setContents(val)
+    this._sunEditorWysiwygInstance$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((x) => x !== undefined),
+        take(1)
+      )
+      .subscribe((sunEditorWysiwygInstance) => {
+        if (sunEditorWysiwygInstance) {
+          sunEditorWysiwygInstance?.setContents(val)
+        }
+      })
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
