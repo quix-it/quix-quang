@@ -92,7 +92,7 @@ export class QuangAuthService {
 
   logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })
 
-  private oAuthService = inject(OAuthService)
+  private oAuthService = inject(OAuthService, { optional: true })
 
   private state = signalState<AuthState>(initialState)
 
@@ -117,18 +117,18 @@ export class QuangAuthService {
 
     this.config = authConfig
 
-    this.oAuthService.events.pipe(takeUntilDestroyed()).subscribe((event: OAuthEvent) => {
+    this.oAuthService?.events.pipe(takeUntilDestroyed()).subscribe((event: OAuthEvent) => {
       if (this.logLevel === 'verbose') console.debug('Auth service event', event)
       if (event instanceof OAuthErrorEvent && this.loginChecked()) this.loginError()
       if (event.type === 'token_received') this.setTokens()
     })
-    this.oAuthService.configure(this.config)
+    this.oAuthService?.configure(this.config)
   }
 
   public async init() {
-    this.oAuthService.setupAutomaticSilentRefresh()
+    this.oAuthService?.setupAutomaticSilentRefresh()
 
-    await this.oAuthService.loadDiscoveryDocumentAndTryLogin()
+    await this.oAuthService?.loadDiscoveryDocumentAndTryLogin()
 
     await this.checkForAuthentication()
 
@@ -136,7 +136,7 @@ export class QuangAuthService {
   }
 
   public async checkForAuthentication(forceRefresh = false) {
-    let hasValidToken = this.oAuthService.hasValidAccessToken()
+    let hasValidToken = this.oAuthService?.hasValidAccessToken()
 
     try {
       if (forceRefresh) hasValidToken = await this.refreshAuth()
@@ -161,19 +161,19 @@ export class QuangAuthService {
   }
 
   private async refreshAuth() {
-    if (this.config.responseType === 'code') await this.oAuthService.refreshToken()
-    else await this.oAuthService.silentRefresh()
-    return this.oAuthService.hasValidAccessToken()
+    if (this.config.responseType === 'code') await this.oAuthService?.refreshToken()
+    else await this.oAuthService?.silentRefresh()
+    return this.oAuthService?.hasValidAccessToken()
   }
 
   public login() {
-    this.oAuthService.initLoginFlow()
+    this.oAuthService?.initLoginFlow()
   }
 
   public async logout() {
     if (!this.isAuthenticated()) return
-    if (this.config.revokeTokensOnLogout) await this.oAuthService.revokeTokenAndLogout()
-    else this.oAuthService.logOut()
+    if (this.config.revokeTokensOnLogout) await this.oAuthService?.revokeTokenAndLogout()
+    else this.oAuthService?.logOut()
     patchState(this.state, { ...initialState })
   }
 
@@ -188,22 +188,22 @@ export class QuangAuthService {
   }
 
   public async getUserProfile() {
-    const user = await this.oAuthService.loadUserProfile()
+    const user = await this.oAuthService?.loadUserProfile()
     if (user) patchState(this.state, { user })
   }
 
   private setTokens() {
     const tokenStatus = {
-      accessToken: this.oAuthService.getAccessToken(),
-      accessTokenExpiresAt: this.oAuthService.getAccessTokenExpiration(),
-      idToken: this.oAuthService.getIdToken(),
-      idTokenExpiresAt: this.oAuthService.getIdTokenExpiration(),
-      refreshToken: this.oAuthService.getRefreshToken(),
+      accessToken: this.oAuthService?.getAccessToken() ?? null,
+      accessTokenExpiresAt: this.oAuthService?.getAccessTokenExpiration() ?? null,
+      idToken: this.oAuthService?.getIdToken() ?? null,
+      idTokenExpiresAt: this.oAuthService?.getIdTokenExpiration() ?? null,
+      refreshToken: this.oAuthService?.getRefreshToken() ?? null,
     }
     if (this.logLevel === 'verbose') {
       const now = new Date()
-      const accessTokenDate = new Date(tokenStatus.accessTokenExpiresAt)
-      const idTokenDate = new Date(tokenStatus.idTokenExpiresAt)
+      const accessTokenDate = new Date(tokenStatus.accessTokenExpiresAt ?? '')
+      const idTokenDate = new Date(tokenStatus.idTokenExpiresAt ?? '')
       console.table(tokenStatus)
       console.debug(
         `Id token expires at ${idTokenDate} in ${Math.abs(idTokenDate.valueOf() - now.valueOf()) / 1000 / 60} minutes`
