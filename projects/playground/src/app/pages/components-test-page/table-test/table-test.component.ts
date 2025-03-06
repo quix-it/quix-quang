@@ -21,11 +21,10 @@ import {
   SortCol,
   SortTable,
   TableConfiguration,
+  TableHeader,
   TableRow,
 } from '@quix/quang/components/table/table.component'
 import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
-
-import { TableHeader } from 'dist/quang/components/table'
 
 interface People {
   name: string
