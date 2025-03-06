@@ -28,13 +28,14 @@
       class="form-select"
       type="button"
     >
-      <div
-        *ngIf="_selectedItems()?.length"
-        class="content"
-      >
-        <ng-container *ngFor="let val of _selectedItems(); let last = last">
-          {{ translateValue() ? (val.label | transloco) : val.label }}{{ !last ? ', ' : '' }}
-        </ng-container>
+      <div class="content">
+        @if (_selectedItems()?.length) {
+          <ng-container *ngFor="let val of _selectedItems(); let last = last">
+            {{ translateValue() ? (val.label | transloco) : val.label }}{{ !last ? ', ' : '' }}
+          </ng-container>
+        } @else {
+          <ng-container>{{ componentPlaceholder() | transloco }}</ng-container>
+        }
       </div>
     </button>
 
