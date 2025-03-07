@@ -31,7 +31,6 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
 
 @Component({
   selector: 'playground-root',
-  standalone: true,
   imports: [
     RouterOutlet,
     NgIf,

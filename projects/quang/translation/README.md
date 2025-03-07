@@ -16,7 +16,6 @@ Read [@example](./translation-providers.ts) for usage.
 
 [QuangTranslationService](./translation.service.ts) is responsible for managing translations within the application. It leverages the @jsverse/transloco library for core translation functionalities.
 
-
 ### Translation Tokens
 
 [`Translation Tokens`](./translations.tokens.ts) includes a set of tokens that you can use inside your project.

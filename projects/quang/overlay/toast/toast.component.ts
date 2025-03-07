@@ -10,7 +10,6 @@ import { QuangToastService } from './toast.service'
 
 @Component({
   selector: 'quang-toast',
-  standalone: true,
   imports: [OverlayModule, NgClass, TranslocoPipe, DatePipe, NgIf, NgTemplateOutlet],
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.scss',

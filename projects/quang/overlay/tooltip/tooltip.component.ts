@@ -6,7 +6,6 @@ import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
 
 @Component({
   selector: 'quang-tooltip',
-  standalone: true,
   imports: [OverlayModule],
   templateUrl: './tooltip.component.html',
   styleUrl: './tooltip.component.scss',

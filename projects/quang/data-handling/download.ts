@@ -20,7 +20,7 @@ export function handleDownload(response: HttpResponse<Blob>, defaultExtension = 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-destructuring
     filename = r.exec(contentDisposition)![1]
     filename = filename.replace(/['"]/g, '')
-  } catch (e) {
+  } catch (_error) {
     filename = `download-${new Date().getTime()}.${defaultExtension}`
   }
   const file = new File([body], filename, {

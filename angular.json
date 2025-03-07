@@ -71,7 +71,8 @@
             "tsConfig": "projects/playground/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["projects/playground/src/favicon.ico", "projects/playground/src/assets"],
-            "styles": [{
+            "styles": [
+              {
                 "input": "projects/playground/src/sass/styles-light.scss",
                 "bundleName": "light",
                 "inject": true

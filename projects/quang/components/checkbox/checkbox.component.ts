@@ -10,7 +10,6 @@ export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
 
 @Component({
   selector: 'quang-checkbox',
-  standalone: true,
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.scss',
   providers: [

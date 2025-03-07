@@ -23,7 +23,6 @@ import {
 
 @Component({
   selector: 'quang-select',
-  standalone: true,
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
   providers: [

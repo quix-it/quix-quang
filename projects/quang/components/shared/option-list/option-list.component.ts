@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NgClass, NgStyle } from '@angular/common'
 import {
   ChangeDetectionStrategy,
@@ -18,6 +19,8 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { TranslocoPipe } from '@jsverse/transloco'
 import { Subscription, fromEvent } from 'rxjs'
 
+import { QUANG_LOGGING_BEHAVIOR } from '@quix/quang'
+
 export interface SelectOption {
   label: string
   value: string | number | null
@@ -30,13 +33,14 @@ export enum OptionListParentType {
 
 @Component({
   selector: 'quang-option-list',
-  standalone: true,
   imports: [NgStyle, NgClass, TranslocoPipe],
   templateUrl: './option-list.component.html',
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangOptionListComponent {
+  logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })
+
   selectionMode = input<'single' | 'multiple'>('single')
 
   optionListMaxHeight = input<string>('201px')
@@ -225,8 +229,8 @@ export class QuangOptionListComponent {
       const isOverflowHidden = overflowYStyle.includes('hidden')
 
       result = hasScrollableContent && !isOverflowHidden
-    } catch (e) {
-      console.error('captured error isScrollable', e)
+    } catch (_error) {
+      if (this.logLevel === 'verbose') console.error('captured error isScrollable', _error)
     }
 
     return result

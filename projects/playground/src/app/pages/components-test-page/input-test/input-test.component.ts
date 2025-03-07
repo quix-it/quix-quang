@@ -11,7 +11,6 @@ import { SelectOption } from '@quix/quang/components/shared'
 
 @Component({
   selector: 'playground-input-test',
-  standalone: true,
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangInputComponent, NgIf, TranslocoPipe, QuangSelectComponent],
   templateUrl: './input-test.component.html',
   styleUrl: './input-test.component.scss',

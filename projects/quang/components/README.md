@@ -45,15 +45,15 @@ in your global style (suggested "vendors" folder)
 
 The [QuangInputComponent](input/input.component.ts) must be configured using the `componentType` input property as:
 
-* text
-* textarea
-* password
-* email
-* number
-* url
-* search
-* tel
-* color
+- text
+- textarea
+- password
+- email
+- number
+- url
+- search
+- tel
+- color
 
 ### Select
 

@@ -1,4 +1,4 @@
-import { JsonPipe, NgForOf, NgIf } from '@angular/common'
+import { JsonPipe, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
@@ -8,8 +8,7 @@ import { QuangWysiwygComponent } from '@quix/quang/components/wysiwyg'
 
 @Component({
   selector: 'playground-wysiwyg-test',
-  standalone: true,
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, NgForOf, TranslocoPipe, QuangWysiwygComponent],
+  imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, TranslocoPipe, QuangWysiwygComponent],
   templateUrl: './wysiwyg-test.component.html',
   styleUrl: './wysiwyg-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

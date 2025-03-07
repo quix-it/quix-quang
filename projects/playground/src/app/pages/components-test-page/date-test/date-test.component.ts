@@ -1,4 +1,4 @@
-import { JsonPipe, NgForOf, NgIf } from '@angular/common'
+import { JsonPipe, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
@@ -6,18 +6,14 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { SvgIconComponent } from 'angular-svg-icon'
 
 import { QuangDateComponent } from '@quix/quang/components/date'
-import { QuangInputComponent } from '@quix/quang/components/input'
 
 @Component({
   selector: 'playground-date-test',
-  standalone: true,
   imports: [
     FormsModule,
     JsonPipe,
     ReactiveFormsModule,
-    QuangInputComponent,
     NgIf,
-    NgForOf,
     TranslocoPipe,
     JsonPipe,
     QuangDateComponent,

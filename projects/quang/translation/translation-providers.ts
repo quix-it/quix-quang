@@ -2,6 +2,8 @@ import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 
 import { provideTransloco } from '@jsverse/transloco'
 
+import { QuangFeature, QuangFeatureKind, quangFeature } from '@quix/quang'
+
 import { QuangTranslationLoaderService } from './translation-loader.service'
 import { QuangTranslationService } from './translation.service'
 
@@ -22,15 +24,16 @@ export interface TranslationConfig {
 
 /**
  * @example
- * providers: [
- * provideTranslation({
-      availableLangs: ['it', 'en'],
-      defaultLang: 'it',
-      fallbackLang: 'it',
-    })
-   ]
+ * export const appConfig: ApplicationConfig = {
+ *   providers: [
+ *     provideTranslation({
+ *       availableLangs: ['it', 'en'],
+ *       defaultLang: 'it',
+ *       fallbackLang: 'it',
+ *     })
+ *   ]
+ * }
  */
-
 export function provideTranslation(config: TranslationConfig): EnvironmentProviders {
   return makeEnvironmentProviders([
     QuangTranslationLoaderService,
@@ -68,4 +71,8 @@ export function provideTranslation(config: TranslationConfig): EnvironmentProvid
       useValue: config.translationsBasePath,
     },
   ])
+}
+
+export function withTranslation(config: TranslationConfig): QuangFeature<QuangFeatureKind.TranslationFeature> {
+  return quangFeature(QuangFeatureKind.TranslationFeature, [provideTranslation(config)])
 }

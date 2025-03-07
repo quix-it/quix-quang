@@ -24,7 +24,6 @@ import {
 
 @Component({
   selector: 'quang-autocomplete',
-  standalone: true,
   imports: [TranslocoPipe, NgClass, NgIf, QuangOptionListComponent],
   templateUrl: './autocomplete.component.html',
   styleUrl: './autocomplete.component.scss',

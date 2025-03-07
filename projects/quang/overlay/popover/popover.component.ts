@@ -1,5 +1,5 @@
 import { ConnectionPositionPair } from '@angular/cdk/overlay'
-import { NgClass, NgComponentOutlet, NgIf, NgTemplateOutlet } from '@angular/common'
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
 import { ChangeDetectionStrategy, Component, TemplateRef, input, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
@@ -7,8 +7,7 @@ import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
 
 @Component({
   selector: 'quang-popover',
-  standalone: true,
-  imports: [NgComponentOutlet, NgTemplateOutlet, NgClass, NgIf],
+  imports: [NgTemplateOutlet, NgClass, NgIf],
   templateUrl: './popover.component.html',
   styleUrl: './popover.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

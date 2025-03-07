@@ -1,10 +1,42 @@
 /* eslint-disable no-console */
-import { Injectable, InjectionToken, computed, inject } from '@angular/core'
+import {
+  EnvironmentProviders,
+  Injectable,
+  InjectionToken,
+  computed,
+  inject,
+  makeEnvironmentProviders,
+} from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { patchState, signalState } from '@ngrx/signals'
 import { AuthConfig, OAuthErrorEvent, OAuthEvent, OAuthService, ParsedIdToken } from 'angular-oauth2-oidc'
 import { filter, firstValueFrom } from 'rxjs'
+
+import { QUANG_LOGGING_BEHAVIOR } from '@quix/quang'
+
+export const AUTH_CONFIG = new InjectionToken<QuangAuthConfig | undefined>('AUTH_CONFIG')
+
+export interface QuangAuthConfig extends AuthConfig {
+  autoLogin: boolean
+  sendAccessToken: boolean
+  urlsToSendToken: string[]
+  revokeTokensOnLogout?: boolean
+  getUserProfileOnLoginSuccess?: boolean
+  useSilentRefresh: boolean
+}
+
+export function provideQuangAuthConfig(authConfig?: QuangAuthConfig): EnvironmentProviders {
+  return makeEnvironmentProviders([{ provide: AUTH_CONFIG, useValue: authConfig }])
+}
+
+export interface QuangParsedIdToken extends ParsedIdToken {}
+
+export const OPEN_URI = new InjectionToken<(uri: string) => void | undefined>('OPEN_URI')
+
+export function provideOpenURI(openURI: (uri: string) => void | undefined): EnvironmentProviders {
+  return makeEnvironmentProviders([{ provide: OPEN_URI, deps: [], useFactory: openURI }])
+}
 
 interface LoginStatus {
   checked: boolean
@@ -23,23 +55,9 @@ interface AuthState {
   loginStatus: LoginStatus
   tokenStatus: TokenStatus
   roles: Set<string>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: Record<string, any> | null
 }
-
-export const AUTH_CONFIG = new InjectionToken<QuangAuthConfig | undefined>('AUTH_CONFIG')
-
-export const OPEN_URI = new InjectionToken<(uri: string) => void | undefined>('OPEN_URI')
-
-export interface QuangAuthConfig extends AuthConfig {
-  autoLogin: boolean
-  sendAccessToken: boolean
-  urlsToSendToken: string[]
-  revokeTokensOnLogout?: boolean
-  getUserProfileOnLoginSuccess?: boolean
-  useSilentRefresh: boolean
-}
-
-export interface QuangParsedIdToken extends ParsedIdToken {}
 
 const initialState: AuthState = {
   loginStatus: {
@@ -72,7 +90,7 @@ const errorResponsesRequiringUserInteraction = [
 export class QuangAuthService {
   private config: QuangAuthConfig
 
-  showDebugInformation = false
+  logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })
 
   private oAuthService = inject(OAuthService)
 
@@ -98,13 +116,10 @@ export class QuangAuthService {
     if (openUri) authConfig.openUri = openUri
 
     this.config = authConfig
-    this.showDebugInformation = !!authConfig.showDebugInformation
 
     this.oAuthService.events.pipe(takeUntilDestroyed()).subscribe((event: OAuthEvent) => {
-      if (this.showDebugInformation) console.debug('Auth service event', event)
-      if (event instanceof OAuthErrorEvent && this.loginChecked()) {
-        this.loginError()
-      }
+      if (this.logLevel === 'verbose') console.debug('Auth service event', event)
+      if (event instanceof OAuthErrorEvent && this.loginChecked()) this.loginError()
       if (event.type === 'token_received') this.setTokens()
     })
     this.oAuthService.configure(this.config)
@@ -125,6 +140,7 @@ export class QuangAuthService {
 
     try {
       if (forceRefresh) hasValidToken = await this.refreshAuth()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const reason = error?.reason
       if (this.config.autoLogin && reason && errorResponsesRequiringUserInteraction.includes(reason)) this.login()
@@ -184,7 +200,7 @@ export class QuangAuthService {
       idTokenExpiresAt: this.oAuthService.getIdTokenExpiration(),
       refreshToken: this.oAuthService.getRefreshToken(),
     }
-    if (this.showDebugInformation) {
+    if (this.logLevel === 'verbose') {
       const now = new Date()
       const accessTokenDate = new Date(tokenStatus.accessTokenExpiresAt)
       const idTokenDate = new Date(tokenStatus.idTokenExpiresAt)
