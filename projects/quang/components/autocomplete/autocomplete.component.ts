@@ -50,7 +50,7 @@ import {
  * `searchTextDebounce` is by default set to 300ms.
  */
 export class QuangAutocompleteComponent extends QuangBaseComponent<string | number> {
-  syncFormWithText = input<boolean>(false)
+  syncFormWithText = input<boolean>(true)
 
   optionListMaxHeight = input<string>('200px')
 
@@ -202,6 +202,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     this._inputValue.set(
       this.selectOptions().find((x) => x.value === this._value())?.label ?? (resetOnMiss ? '' : this._inputValue())
     )
-    if (!this.syncFormWithText()) this.inputValue$.next(this._inputValue() ?? '')
+    if (this.syncFormWithText()) this.inputValue$.next(this._inputValue() ?? '')
   }
 }
