@@ -24,8 +24,6 @@ import plugins from 'suneditor/src/plugins'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 
-export interface QuangWysiwygOptions extends SunEditorOptions {}
-
 @Component({
   selector: 'quang-wysiwyg',
   templateUrl: './wysiwyg.component.html',
@@ -97,7 +95,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   showBlocks = input<boolean>(true)
 
-  wysiwygOptions = input<QuangWysiwygOptions | undefined>(undefined)
+  wysiwygOptions = input<SunEditorOptions | undefined>(undefined)
 
   _sunEditorWysiwygInstance = signal<SunEditorCore | undefined>(undefined)
   _sunEditorWysiwygInstance$ = toObservable(this._sunEditorWysiwygInstance)

@@ -13,7 +13,7 @@ import {
 } from '@quix/quang/auth'
 
 export function withMobileAuth(
-  toolbarColor: string = '#000000',
+  toolbarColor = '#000000',
   presentationStyle: 'popover' | 'fullscreen' = 'popover'
 ): QuangAuthFeature<QuangAuthFeatureKind.MobileAuthFeature> {
   const providers: (Provider | EnvironmentProviders)[] = [
@@ -24,7 +24,6 @@ export function withMobileAuth(
             window.location.reload()
           })
         Browser.open({ url, presentationStyle, toolbarColor })
-        // eslint-disable-next-line no-restricted-globals
       } else location.href = url
     }),
     provideAppInitializer(() => {
@@ -37,7 +36,7 @@ export function withMobileAuth(
           Browser.removeAllListeners()
           Browser.close()
           const [, queryParams] = event.url.split('?')
-          // eslint-disable-next-line no-restricted-globals
+
           location.href = `/?${queryParams}`
         })
       })

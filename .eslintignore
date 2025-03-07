@@ -1,8 +1,0 @@
-package.json
-package-lock.json
-environment.**
-dist
-e2e/**
-*.js
-index.ts
-node_modules

@@ -47,7 +47,6 @@ export class QuangHasAtLeastOneRoleDirective {
 
   hideViewIfNotAllowed = effect(() => {
     if (this.logLevel === 'verbose')
-      // eslint-disable-next-line no-console
       console.debug({ userRoles: this.authService.roles(), rolesToCheck: this.targetRoles() })
     const isAllowed = this.authService.hasAtLeastOneRole(this.targetRoles())
     if (isAllowed) {

@@ -203,21 +203,17 @@ export class QuangTableComponent<T> {
       if (header.sort?.key === sort.key) {
         switch (sort.sort) {
           case SortTable.ASC:
-            // eslint-disable-next-line no-param-reassign
             header.sort.sort = SortTable.DESC
             break
           case SortTable.DESC:
-            // eslint-disable-next-line no-param-reassign
             header.sort.sort = SortTable.DEFAULT
             break
           case SortTable.DEFAULT:
           default:
-            // eslint-disable-next-line no-param-reassign
             header.sort.sort = SortTable.ASC
             break
         }
       } else {
-        // eslint-disable-next-line no-param-reassign
         header.sort = {
           ...header.sort,
           sort: SortTable.DEFAULT,

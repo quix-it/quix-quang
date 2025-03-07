@@ -7,11 +7,11 @@ import { Injectable, inject } from '@angular/core'
 export class AppService {
   http = inject(HttpClient)
 
-  testHttpGet(): any {
-    this.http.get('https://httpbin.org/get').subscribe(() => {})
+  testHttpGet() {
+    this.http.get('https://httpbin.org/get').subscribe()
   }
 
-  testHttpUnauthorized(): any {
-    this.http.get('https://httpbin.org/status/401').subscribe(() => {})
+  testHttpUnauthorized() {
+    this.http.get('https://httpbin.org/status/401').subscribe()
   }
 }

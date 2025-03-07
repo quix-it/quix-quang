@@ -3,15 +3,15 @@ import { signal, ɵɵFactoryDeclaration, ɵɵInjectableDeclaration } from '@angu
 export class PaginatorIntl {
   readonly changes = signal<any | undefined>(undefined)
 
-  itemsPerPageLabel: string = ''
+  itemsPerPageLabel = ''
 
-  nextPageLabel: string = ''
+  nextPageLabel = ''
 
-  previousPageLabel: string = ''
+  previousPageLabel = ''
 
-  firstPageLabel: string = ''
+  firstPageLabel = ''
 
-  lastPageLabel: string = ''
+  lastPageLabel = ''
 
   static ɵfac: ɵɵFactoryDeclaration<PaginatorIntl, never>
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   EnvironmentProviders,
   Injectable,
@@ -10,7 +9,7 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { patchState, signalState } from '@ngrx/signals'
-import { AuthConfig, OAuthErrorEvent, OAuthEvent, OAuthService, ParsedIdToken } from 'angular-oauth2-oidc'
+import { AuthConfig, OAuthErrorEvent, OAuthEvent, OAuthService } from 'angular-oauth2-oidc'
 import { filter, firstValueFrom } from 'rxjs'
 
 import { QUANG_LOGGING_BEHAVIOR } from '@quix/quang'
@@ -29,8 +28,6 @@ export interface QuangAuthConfig extends AuthConfig {
 export function provideQuangAuthConfig(authConfig?: QuangAuthConfig): EnvironmentProviders {
   return makeEnvironmentProviders([{ provide: AUTH_CONFIG, useValue: authConfig }])
 }
-
-export interface QuangParsedIdToken extends ParsedIdToken {}
 
 export const OPEN_URI = new InjectionToken<(uri: string) => void | undefined>('OPEN_URI')
 

@@ -31,8 +31,6 @@ import { debounceTime, fromEvent } from 'rxjs'
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 import { QuangTranslationService } from '@quix/quang/translation'
 
-export interface QuangDatepickerOptions extends AirDatepickerOptions {}
-
 export interface DateRange {
   dateFrom: string | null
   dateTo: string | null
@@ -118,7 +116,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
   buttonClass = input<string>('')
 
-  datepickerOptions = input<QuangDatepickerOptions | undefined>(undefined)
+  datepickerOptions = input<AirDatepickerOptions | undefined>(undefined)
 
   _inputForDate = viewChild<ElementRef>('inputForDate')
 
@@ -454,14 +452,14 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
     const timepicker = document.getElementsByClassName('air-datepicker-time')?.[0]
     if (timepicker) {
       const inputs = timepicker.getElementsByTagName('input')
-      for (let i = 0; i < inputs.length; i++) {
-        inputs[i].setAttribute('type', 'number')
-        inputs[i].setAttribute('maxLength', '2')
-        inputs[i].className = 'form-control'
-        inputs[i].onmouseup = (evt) => {
+      for (const input of Array.from(inputs)) {
+        input.setAttribute('type', 'number')
+        input.setAttribute('maxLength', '2')
+        input.className = 'form-control'
+        input.onmouseup = (evt) => {
           evt.stopImmediatePropagation()
         }
-        inputs[i].onblur = () => {
+        input.onblur = () => {
           if (this.isMouseOutsideCalendar()) {
             this._airDatepickerInstance()?.hide()
           }

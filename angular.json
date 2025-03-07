@@ -52,6 +52,12 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/quang/**/*.ts", "projects/quang/**/*.html"]
+          }
         }
       }
     },
@@ -125,6 +131,12 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "buildTarget": "playground:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/playground/src/**/*.ts", "projects/playground/src/**/*.html"]
           }
         }
       }

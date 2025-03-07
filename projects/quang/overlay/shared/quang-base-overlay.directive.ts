@@ -40,7 +40,7 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
 
   quangOverlayPayload = input<any>()
 
-  closeOnClickOutside: boolean = true
+  closeOnClickOutside = true
 
   overlayPosition = input<
     'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right'
