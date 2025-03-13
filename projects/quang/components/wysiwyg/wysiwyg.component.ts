@@ -39,6 +39,7 @@ export interface QuangWysiwygOptions extends SunEditorOptions {}
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 /**
  * WYSIWYG (What You See Is What You Get) component based on {@link https://github.com/JiHong88/SunEditor}.

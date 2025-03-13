@@ -38,6 +38,7 @@ import {
   ],
   imports: [TranslocoPipe, NgIf, NgFor, NgClass, QuangOptionListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 /**
  * Select component for choosing one or multiple options from a dropdown.
