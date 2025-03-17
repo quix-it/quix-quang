@@ -22,6 +22,7 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 /**
  * Input component that handles all the types declared in {@link InputType}

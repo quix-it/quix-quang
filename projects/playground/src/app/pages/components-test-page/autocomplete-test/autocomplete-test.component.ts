@@ -67,6 +67,26 @@ export class AutocompleteTestComponent {
     })
   )
 
+  textEqualValueStringList = signal<SelectOption[]>(
+    this.stringList.map(
+      (x): SelectOption => ({
+        label: x.label,
+        value: x.label,
+      })
+    )
+  )
+
+  textEqualValueStringListFiltered = signal<SelectOption[]>(
+    this.stringList.map(
+      (x): SelectOption => ({
+        label: x.label,
+        value: x.label,
+      })
+    )
+  )
+
+  fixedStringList = signal([...this.stringList])
+
   stringListFiltered = signal([...this.stringList])
 
   numberList = [
@@ -135,7 +155,10 @@ export class AutocompleteTestComponent {
   ])
 
   testForm = this.formBuilder.group({
-    testInput: this.formBuilder.control<string | null>(null, [Validators.required]),
+    testInput1: this.formBuilder.control<string | null>(null, [Validators.required]),
+    testInput2: this.formBuilder.control<string | null>(null, [Validators.required]),
+    testInput3: this.formBuilder.control<string | null>(null, [Validators.required]),
+    testInput4: this.formBuilder.control<string | null>(null, [Validators.required]),
     testInputMultiple: this.formBuilder.control<number[]>([], [Validators.required]),
   })
 
@@ -145,6 +168,12 @@ export class AutocompleteTestComponent {
 
   constructor() {
     this.onChangeForm()
+    setTimeout(() => {
+      this.testForm.patchValue({
+        testInput1: 'required',
+        testInput2: 'required',
+      })
+    }, 2000)
   }
 
   changeFormEnabled() {
@@ -153,16 +182,16 @@ export class AutocompleteTestComponent {
   }
 
   getIsRequiredInput() {
-    return this.testForm.controls.testInput.hasValidator(Validators.required)
+    return this.testForm.controls.testInput1.hasValidator(Validators.required)
   }
 
   changeFormInputRequired() {
     if (this.getIsRequiredInput()) {
-      this.testForm.controls.testInput.removeValidators(Validators.required)
+      this.testForm.controls.testInput1.removeValidators(Validators.required)
     } else {
-      this.testForm.controls.testInput.addValidators(Validators.required)
+      this.testForm.controls.testInput1.addValidators(Validators.required)
     }
-    this.testForm.controls.testInput.updateValueAndValidity()
+    this.testForm.controls.testInput1.updateValueAndValidity()
   }
 
   changeVisibility() {
@@ -171,14 +200,17 @@ export class AutocompleteTestComponent {
 
   recreateForm() {
     this.testForm = this.formBuilder.group({
-      testInput: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
+      testInput1: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
+      testInput2: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
+      testInput3: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
+      testInput4: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
       testInputMultiple: this.formBuilder.control<number[]>([1, 2], [Validators.required]),
     })
   }
 
   setFormValues() {
     this.testForm.patchValue({
-      testInput: 'min',
+      testInput1: 'min',
       testInputMultiple: [3, 4],
     })
   }
@@ -192,7 +224,7 @@ export class AutocompleteTestComponent {
   }
 
   onChangeForm(): void {
-    this.testForm.controls.testInput.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((x) => {
+    this.testForm.controls.testInput1.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((x) => {
       console.log('valueChange --->', x)
     })
   }
@@ -206,6 +238,20 @@ export class AutocompleteTestComponent {
     // test for string changes and autocompletes
     setTimeout(() => {
       this.stringListFiltered.set(this.stringList.filter((y) => y.label.toLowerCase().includes($event.toLowerCase())))
+    }, 500)
+  }
+
+  changeTextTestFixed($event: string) {
+    // test for string changes and autocompletes
+    setTimeout(() => {
+      this.textEqualValueStringListFiltered.set(
+        this.fixedStringList()
+          .filter((y) => y.label.toLowerCase().includes($event.toLowerCase()))
+          .map((x) => ({
+            label: x.label,
+            value: x.label,
+          }))
+      )
     }, 500)
   }
 }

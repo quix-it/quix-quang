@@ -21,6 +21,7 @@ export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 /**
  * Checkbox component for rendering a `checkbox` or a `toggle` switch.

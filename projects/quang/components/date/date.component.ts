@@ -51,6 +51,7 @@ export interface DateRange {
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 /**
  * Datepicker component based on {@link https://air-datepicker.com/docs}.

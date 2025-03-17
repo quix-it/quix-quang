@@ -14,6 +14,7 @@ import { QuangToastService } from './toast.service'
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 /**
  * Toast component that can be displayed by calling the `QuangToastService.openToast()` method,
@@ -28,7 +29,7 @@ import { QuangToastService } from './toast.service'
  * of a squared indicator positioned next to the header's title.
  *
  * The component can also display a {@link ToastData.customIcon} in the toast header instead of the squared indicator.
- * 
+ *
  * @example
  * <quang-toast></quang-toast>
  * this.quangToast.openToast({

@@ -13,7 +13,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs'
+import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs'
 
 import {
   OptionListParentType,
@@ -28,6 +28,7 @@ import {
   templateUrl: './autocomplete.component.html',
   styleUrl: './autocomplete.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -50,7 +51,8 @@ import {
  * `searchTextDebounce` is by default set to 300ms.
  */
 export class QuangAutocompleteComponent extends QuangBaseComponent<string | number> {
-  syncFormWithText = input<boolean>(true)
+  // the form can't be a random text but must be one of the options if this is false
+  syncFormWithText = input<boolean>(false)
 
   optionListMaxHeight = input<string>('200px')
 
@@ -98,6 +100,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   readonly ParentType = OptionListParentType.AUTOCOMPLETE
 
+  formValueChange$: Subscription | undefined = undefined
+
   constructor() {
     super()
     this.inputValue$
@@ -119,6 +123,22 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
           this.checkInputValue()
         }
       })
+  }
+
+  override setupFormControl(): void {
+    super.setupFormControl()
+    const formControl = this._ngControl()?.control
+    if (this.formValueChange$) {
+      this.formValueChange$.unsubscribe()
+      this.formValueChange$ = undefined
+    }
+    if (formControl) {
+      this.formValueChange$ = formControl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+        if (!this.syncFormWithText() && !value) {
+          this._inputValue.set('')
+        }
+      })
+    }
   }
 
   showOptionVisibility(): void {
@@ -189,7 +209,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   override onBlurHandler() {
     setTimeout(() => {
       this.hideOptionVisibility()
-      if (!this._inputValue()?.length && !this.emitOnly()) this._ngControl()?.control?.patchValue(null)
+      if (!this._inputValue()?.length && !this.emitOnly()) {
+        this._ngControl()?.control?.patchValue(null)
+      }
       super.onBlurHandler()
     }, 100)
   }
@@ -202,6 +224,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     this._inputValue.set(
       this.selectOptions().find((x) => x.value === this._value())?.label ?? (resetOnMiss ? '' : this._inputValue())
     )
-    if (this.syncFormWithText()) this.inputValue$.next(this._inputValue() ?? '')
+    if (!this.syncFormWithText()) this.inputValue$.next(this._inputValue() ?? '')
   }
 }
