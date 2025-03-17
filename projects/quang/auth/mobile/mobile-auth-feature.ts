@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, EnvironmentProviders, NgZone, Provider } from '@angular/core'
+import { EnvironmentProviders, NgZone, Provider, inject, provideAppInitializer } from '@angular/core'
 
 import { App, URLOpenListenerEvent } from '@capacitor/app'
 import { Browser } from '@capacitor/browser'
@@ -27,29 +27,26 @@ export function withMobileAuth(
         // eslint-disable-next-line no-restricted-globals
       } else location.href = url
     }),
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [QuangAuthService, NgZone],
-      useFactory: (authService: QuangAuthService, ngZone: NgZone) => () => {
-        if (Capacitor.isNativePlatform()) {
-          App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
-            ngZone.run(() => {
-              Browser.removeAllListeners()
-              Browser.close()
-              const [, queryParams] = event.url.split('?')
-              // eslint-disable-next-line no-restricted-globals
-              location.href = `/?${queryParams}`
-            })
-          })
-          App.addListener('resume', () => {
-            ngZone.run(() => {
-              authService.init()
-            })
-          })
-        }
-      },
-    },
+    provideAppInitializer(() => {
+      if (!Capacitor.isNativePlatform()) return
+
+      const ngZone: NgZone = inject(NgZone)
+      const authService: QuangAuthService = inject(QuangAuthService)
+      App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
+        ngZone.run(() => {
+          Browser.removeAllListeners()
+          Browser.close()
+          const [, queryParams] = event.url.split('?')
+          // eslint-disable-next-line no-restricted-globals
+          location.href = `/?${queryParams}`
+        })
+      })
+      App.addListener('resume', () => {
+        ngZone.run(() => {
+          authService.init()
+        })
+      })
+    }),
   ]
   return quangAuthFeature(QuangAuthFeatureKind.MobileAuthFeature, providers)
 }
