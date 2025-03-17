@@ -9,6 +9,7 @@ import { QuangPaginatorComponent } from '@quix/quang/components/paginator'
 @Component({
   selector: 'playground-paginator-test',
   imports: [QuangPaginatorComponent, FormsModule, ReactiveFormsModule, JsonPipe, TranslocoPipe],
+  standalone: true,
   templateUrl: './paginator-test.component.html',
   styleUrl: './paginator-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

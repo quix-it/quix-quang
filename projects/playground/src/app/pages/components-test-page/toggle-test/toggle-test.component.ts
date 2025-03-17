@@ -9,6 +9,7 @@ import { QuangCheckboxComponent } from '@quix/quang/components/checkbox/checkbox
 @Component({
   selector: 'playground-toggle-test',
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangCheckboxComponent, NgIf, TranslocoPipe],
+  standalone: true,
   templateUrl: './toggle-test.component.html',
   styleUrl: './toggle-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
