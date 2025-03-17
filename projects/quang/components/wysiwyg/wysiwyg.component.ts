@@ -117,6 +117,9 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
         }
 
         if (this._sunEditorWysiwygInstance()) {
+          if (this._ngControl()?.control?.enabled) {
+            this._sunEditorWysiwygInstance()?.enable()
+          }
           this._sunEditorWysiwygInstance()?.setOptions(sunEditorOptions)
         } else {
           this._sunEditorWysiwygInstance.set(sunEditor.create(this._inputForWysiwyg()?.nativeElement, sunEditorOptions))
@@ -144,7 +147,6 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
       }
       if (this._isDisabled()) {
         sunEditorInstance.disable()
-        sunEditorInstance.toolbar.disable()
       }
     }
   }
