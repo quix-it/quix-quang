@@ -122,6 +122,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   setupFormControl() {
     if (this._statusChange$) {
       this._statusChange$.unsubscribe()
+      this._statusChange$ = undefined
     }
 
     this._ngControl.set(this._injector().get(NgControl))
