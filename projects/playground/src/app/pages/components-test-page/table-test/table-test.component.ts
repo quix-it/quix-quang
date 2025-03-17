@@ -44,6 +44,7 @@ interface People {
     ReactiveFormsModule,
     NgIf,
   ],
+  standalone: true,
   templateUrl: './table-test.component.html',
   styleUrl: './table-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

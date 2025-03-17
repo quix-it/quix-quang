@@ -23,6 +23,7 @@ import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
     AutocompleteTestComponent,
     TableTestComponent,
   ],
+  standalone: true,
   templateUrl: './components-test-page.component.html',
   styleUrl: './components-test-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
