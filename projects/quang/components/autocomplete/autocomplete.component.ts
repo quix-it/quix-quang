@@ -164,6 +164,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   onChangeInput(value: any): void {
+    this.showOptionVisibility()
     this.inputValue$.next(value.target?.value)
   }
 
