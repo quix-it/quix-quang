@@ -125,7 +125,6 @@ export class QuangSelectComponent
       setTimeout(() => {
         this.hideOptionVisibility()
         super.onBlurHandler()
-        this.selectButton()?.nativeElement.focus()
       }, 100)
     }
   }

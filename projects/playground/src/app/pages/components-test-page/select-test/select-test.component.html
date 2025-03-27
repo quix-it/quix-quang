@@ -5,12 +5,23 @@
 >
   <div class="card">
     <div class="card-header"></div>
-    <div class="card-body">
+    <div class="card-body d-flex">
       <quang-select
         [errorMap]="errors()"
         [isReadonly]="isReadonly()"
         [selectOptions]="stringList"
-        class="col-8"
+        class="col-4"
+        componentLabel="form.label.select"
+        componentPlaceholder="Placeholder select singola scelta"
+        formControlName="testInput"
+        selectionMode="single"
+        successMessage="form.label.success"
+      ></quang-select>
+      <quang-select
+        [errorMap]="errors()"
+        [isReadonly]="isReadonly()"
+        [selectOptions]="stringList"
+        class="col-4"
         componentLabel="form.label.select"
         componentPlaceholder="Placeholder select singola scelta"
         formControlName="testInput"
@@ -21,7 +32,7 @@
         [errorMap]="errors()"
         [isReadonly]="isReadonly()"
         [selectOptions]="numberList"
-        class="col-8"
+        class="col-4"
         componentLabel="form.label.multipleSelect"
         componentPlaceholder="Placeholder select scelta multipla"
         formControlName="testInputMultiple"
