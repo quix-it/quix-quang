@@ -43,7 +43,7 @@ export class WysiwygTestComponent {
   showInput = signal(true)
 
   wysiwygOptions: QuangWysiwygOptions = {
-    imageUploadSizeLimit: 100,
+    imageUploadSizeLimit: 100000000000,
   }
 
   onImageUploadError = (errorMessage: any, result: any, core: any) => {

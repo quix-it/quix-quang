@@ -99,6 +99,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
   showBlocks = input<boolean>(true)
 
   onImageUploadError = input<(errorMessage: any, result: any, core: any) => boolean>()
+  onFileDrop = input<(e: any, cleanData: any, maxCharCount: any, core: any) => boolean>()
 
   wysiwygOptions = input<QuangWysiwygOptions | undefined>(undefined)
 
@@ -111,7 +112,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     if (this._inputForWysiwyg()?.nativeElement) {
       const sunEditorOptions: SunEditorOptions = {
         plugins,
-        defaultTag: 'span',
+        defaultTag: 'div',
         buttonList: this._ngControl()?.control?.enabled && !this.isReadonly() ? [this.getButtonList()] : [],
         minHeight: this.minHeight(),
         width: '100%',
@@ -128,10 +129,14 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
       }
 
       const imageUploadError = this.onImageUploadError()
+      const onFileDrop = this.onFileDrop()
       const sunEditorInstance = this._sunEditorWysiwygInstance()
 
       if (imageUploadError && sunEditorInstance) {
         sunEditorInstance.onImageUploadError = imageUploadError
+      }
+      if (onFileDrop && sunEditorInstance) {
+        sunEditorInstance.onDrop = onFileDrop
       }
 
       this.registerEvents()
