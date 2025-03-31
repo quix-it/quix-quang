@@ -110,6 +110,7 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
       if (this._inputForWysiwyg()?.nativeElement) {
         const sunEditorOptions: SunEditorOptions = {
           plugins,
+          defaultTag: 'span',
           buttonList: this._ngControl()?.control?.enabled && !this.isReadonly() ? [this.getButtonList()] : [],
           minHeight: this.minHeight(),
           width: '100%',
