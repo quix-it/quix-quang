@@ -24,6 +24,8 @@ import plugins from 'suneditor/src/plugins'
 
 import { QuangBaseComponent } from '@quix/quang/components/shared'
 
+export type QuangWysiwygOptions = SunEditorOptions
+
 @Component({
   selector: 'quang-wysiwyg',
   templateUrl: './wysiwyg.component.html',

@@ -9,6 +9,7 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { patchState, signalState } from '@ngrx/signals'
+
 import { AuthConfig, OAuthErrorEvent, OAuthEvent, OAuthService } from 'angular-oauth2-oidc'
 import { filter, firstValueFrom } from 'rxjs'
 

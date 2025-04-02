@@ -36,17 +36,13 @@ export interface DateRange {
   dateTo: string | null
 }
 
+export type QuangDatepickerOptions = AirDatepickerOptions
+
 @Component({
   selector: 'quang-date',
   templateUrl: './date.component.html',
   styleUrl: './date.component.scss',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => QuangDateComponent),
-      multi: true,
-    },
-  ],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => QuangDateComponent), multi: true }],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
@@ -117,7 +113,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
   buttonClass = input<string>('')
 
-  datepickerOptions = input<AirDatepickerOptions | undefined>(undefined)
+  datepickerOptions = input<QuangDatepickerOptions | undefined>(undefined)
 
   _inputForDate = viewChild<ElementRef>('inputForDate')
 
@@ -153,9 +149,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
     () => {
       this.setupCalendar()
     },
-    {
-      allowSignalWrites: true,
-    }
+    { allowSignalWrites: true }
   )
 
   valueFormat = computed(() =>
@@ -200,7 +194,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
         }
       }
       this.setCalendarPosition()
-      const airDatepickerOpts: AirDatepickerOptions = {
+      const airDatepickerOpts: QuangDatepickerOptions = {
         autoClose: true,
         classes: this.calendarClasses(),
         dateFormat: this.dateFormat(),
@@ -348,10 +342,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
     const valueInput: string = this._inputForDate()?.nativeElement.value
     let value: string | DateRange = valueInput
     if (this.rangeSelection()) {
-      value = {
-        dateFrom: '',
-        dateTo: '',
-      }
+      value = { dateFrom: '', dateTo: '' }
       const [dateFrom, dateTo] = valueInput.split(this.multipleDatesSeparator())
       value.dateFrom = dateFrom ?? ''
       value.dateTo = dateTo ?? ''
@@ -406,14 +397,11 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   }
 
   interceptInputInteraction($event: Event) {
-    if (this.isReadonly()) {
-      $event.stopPropagation()
-      $event.stopImmediatePropagation()
-      $event.preventDefault()
-    } else {
-      // console.log('e', this._airDatepickerInstance() as any)
-      // ;(this._airDatepickerInstance() as any)._onMouseDown($event)
-    }
+    if (!this.isReadonly()) return
+
+    $event.stopPropagation()
+    $event.stopImmediatePropagation()
+    $event.preventDefault()
   }
 
   getLocale(): AirDatepickerLocale {
