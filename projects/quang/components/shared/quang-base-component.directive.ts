@@ -61,8 +61,6 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   _injector = signal<Injector>(inject(Injector))
 
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
-
   _statusChange$?: Subscription
 
   getIsRequiredControl = computed(
@@ -77,7 +75,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   constructor() {
     toObservable(this.formControl)
-      .pipe(this._takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((form) => {
         if (form) {
           this.setupFormControl()
@@ -131,7 +129,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
     this._ngControl.set(this._injector().get(NgControl))
     this._statusChange$ = this._ngControl()
-      ?.control?.statusChanges.pipe(this._takeUntilDestroyed())
+      ?.control?.statusChanges.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.checkFormErrors()
       })
