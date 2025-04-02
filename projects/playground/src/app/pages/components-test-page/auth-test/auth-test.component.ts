@@ -15,7 +15,7 @@ import {
 
 @Component({
   selector: 'playground-auth-test',
-  standalone: true,
+
   imports: [
     CommonModule,
     QuangIsAuthenticatedDirective,

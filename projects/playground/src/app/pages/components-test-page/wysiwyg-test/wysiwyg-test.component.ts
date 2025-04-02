@@ -9,7 +9,7 @@ import { QuangWysiwygComponent, QuangWysiwygOptions } from '@quix/quang/componen
 @Component({
   selector: 'playground-wysiwyg-test',
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, TranslocoPipe, QuangWysiwygComponent],
-  standalone: true,
+
   templateUrl: './wysiwyg-test.component.html',
   styleUrl: './wysiwyg-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

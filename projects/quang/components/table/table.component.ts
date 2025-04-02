@@ -64,7 +64,6 @@ export interface SortCol {
   styleUrl: './table.component.scss',
   imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet, NgFor],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * Table component for displaying data in a tabular format.

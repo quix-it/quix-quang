@@ -10,7 +10,7 @@ import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
   templateUrl: './tooltip.component.html',
   styleUrl: './tooltip.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+
   animations: [
     trigger('tooltip', [
       state('*', style({ opacity: 1 })),

@@ -20,7 +20,7 @@ import { QuangDateComponent } from '@quix/quang/components/date'
     QuangDateComponent,
     SvgIconComponent,
   ],
-  standalone: true,
+
   templateUrl: './date-test.component.html',
   styleUrl: './date-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

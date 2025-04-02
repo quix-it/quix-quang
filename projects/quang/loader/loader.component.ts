@@ -21,7 +21,6 @@ import { QuangLoaderService } from './loader.service'
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class QuangLoaderComponent {
   /**

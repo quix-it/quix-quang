@@ -45,7 +45,6 @@ export type QuangDatepickerOptions = AirDatepickerOptions
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => QuangDateComponent), multi: true }],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * Datepicker component based on {@link https://air-datepicker.com/docs}.

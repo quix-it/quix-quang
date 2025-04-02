@@ -28,7 +28,6 @@ export type ModalAnimationMode =
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * Modal component that leverages Angular CDK's Overlay and Portal modules to create modals with flexible positioning and configurations.

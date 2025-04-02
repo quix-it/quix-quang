@@ -11,7 +11,7 @@ import { SelectOption } from '@quix/quang/components/shared'
 @Component({
   selector: 'playground-select-test',
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, TranslocoPipe, QuangSelectComponent],
-  standalone: true,
+
   templateUrl: './select-test.component.html',
   styleUrl: './select-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

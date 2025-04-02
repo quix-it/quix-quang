@@ -11,7 +11,7 @@ import { SelectOption } from '@quix/quang/components/shared'
 @Component({
   selector: 'playground-autocomplete-test',
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, TranslocoPipe, QuangAutocompleteComponent],
-  standalone: true,
+
   templateUrl: './autocomplete-test.component.html',
   styleUrl: './autocomplete-test.component.scss',
 })

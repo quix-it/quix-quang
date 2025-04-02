@@ -43,7 +43,7 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
     NgForOf,
     SvgIconComponent,
   ],
-  standalone: true,
+
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

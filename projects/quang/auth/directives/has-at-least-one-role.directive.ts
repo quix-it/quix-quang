@@ -26,7 +26,6 @@ import { QuangAuthService } from '../auth.service'
  */
 @Directive({
   selector: '[quangHasAtLeastOneRole]',
-  standalone: true,
 })
 export class QuangHasAtLeastOneRoleDirective {
   logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })

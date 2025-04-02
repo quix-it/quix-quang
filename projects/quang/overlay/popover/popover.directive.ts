@@ -7,7 +7,6 @@ import { QuangPopoverComponent } from './popover.component'
 
 @Directive({
   selector: '[quangPopover]',
-  standalone: true,
 })
 export class QuangPopoverDirective extends QuangBaseOverlayDirective<QuangPopoverComponent> {
   override targetComponentType = signal<ComponentType<QuangPopoverComponent> | undefined>(QuangPopoverComponent)

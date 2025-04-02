@@ -37,7 +37,6 @@ export enum OptionListParentType {
   templateUrl: './option-list.component.html',
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class QuangOptionListComponent {
   logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })
