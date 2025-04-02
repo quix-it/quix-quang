@@ -12,6 +12,7 @@ import { makeId } from '@quix/quang/components/shared'
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 /**
  * Paginator component for handling pagination in lists and tables.

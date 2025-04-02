@@ -1,6 +1,6 @@
 import { NgClass, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
-import { toObservable } from '@angular/core/rxjs-interop'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -22,6 +22,7 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 /**
  * Input component that handles all the types declared in {@link InputType}
@@ -45,7 +46,7 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
   constructor() {
     super()
     toObservable(this.componentType)
-      .pipe(this._takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.setupFormControl()
       })

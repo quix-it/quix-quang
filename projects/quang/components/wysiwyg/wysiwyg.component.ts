@@ -37,6 +37,7 @@ import { QuangBaseComponent } from '@quix/quang/components/shared'
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 /**
  * WYSIWYG (What You See Is What You Get) component based on {@link https://github.com/JiHong88/SunEditor}.
@@ -95,37 +96,50 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   showBlocks = input<boolean>(true)
 
-  wysiwygOptions = input<SunEditorOptions | undefined>(undefined)
+  onImageUploadError = input<(errorMessage: any, result: any, core: any) => boolean>()
+  onFileDrop = input<(e: any, cleanData: any, maxCharCount: any, core: any) => boolean>()
+
+  wysiwygOptions = input<QuangWysiwygOptions | undefined>(undefined)
 
   _sunEditorWysiwygInstance = signal<SunEditorCore | undefined>(undefined)
   _sunEditorWysiwygInstance$ = toObservable(this._sunEditorWysiwygInstance)
 
   changeDetectorRef = signal(inject(ChangeDetectorRef))
 
-  _generateSunEditorWysiwygEffect = effect(
-    async () => {
-      if (this._inputForWysiwyg()?.nativeElement) {
-        const sunEditorOptions: SunEditorOptions = {
-          plugins,
-          buttonList: this._ngControl()?.control?.enabled && !this.isReadonly() ? [this.getButtonList()] : [],
-          minHeight: this.minHeight(),
-          width: '100%',
-          ...(this.wysiwygOptions() ?? {}),
-        }
-
-        if (this._sunEditorWysiwygInstance()) {
-          this._sunEditorWysiwygInstance()?.setOptions(sunEditorOptions)
-        } else {
-          this._sunEditorWysiwygInstance.set(sunEditor.create(this._inputForWysiwyg()?.nativeElement, sunEditorOptions))
-        }
-
-        this.registerEvents()
+  _generateSunEditorWysiwygEffect = effect(async () => {
+    if (this._inputForWysiwyg()?.nativeElement) {
+      const sunEditorOptions: SunEditorOptions = {
+        plugins,
+        defaultTag: 'div',
+        buttonList: this._ngControl()?.control?.enabled && !this.isReadonly() ? [this.getButtonList()] : [],
+        minHeight: this.minHeight(),
+        width: '100%',
+        ...(this.wysiwygOptions() ?? {}),
       }
-    },
-    {
-      allowSignalWrites: true,
+
+      if (this._sunEditorWysiwygInstance()) {
+        if (this._ngControl()?.control?.enabled) {
+          this._sunEditorWysiwygInstance()?.enable()
+        }
+        this._sunEditorWysiwygInstance()?.setOptions(sunEditorOptions)
+      } else {
+        this._sunEditorWysiwygInstance.set(sunEditor.create(this._inputForWysiwyg()?.nativeElement, sunEditorOptions))
+      }
+
+      const imageUploadError = this.onImageUploadError()
+      const onFileDrop = this.onFileDrop()
+      const sunEditorInstance = this._sunEditorWysiwygInstance()
+
+      if (imageUploadError && sunEditorInstance) {
+        sunEditorInstance.onImageUploadError = imageUploadError
+      }
+      if (onFileDrop && sunEditorInstance) {
+        sunEditorInstance.onDrop = onFileDrop
+      }
+
+      this.registerEvents()
     }
-  )
+  })
 
   STRIP_HTML_REGEX = /<[^>]*>/g
 
@@ -141,7 +155,6 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
       }
       if (this._isDisabled()) {
         sunEditorInstance.disable()
-        sunEditorInstance.toolbar.disable()
       }
     }
   }

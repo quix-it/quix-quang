@@ -4,11 +4,12 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { QuangWysiwygComponent } from '@quix/quang/components/wysiwyg'
+import { QuangWysiwygComponent, QuangWysiwygOptions } from '@quix/quang/components/wysiwyg'
 
 @Component({
   selector: 'playground-wysiwyg-test',
   imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, TranslocoPipe, QuangWysiwygComponent],
+  standalone: true,
   templateUrl: './wysiwyg-test.component.html',
   styleUrl: './wysiwyg-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,22 +26,14 @@ export class WysiwygTestComponent {
   wysiwygHeight = signal<string>('200px')
 
   errors = signal([
-    {
-      error: Validators.required.name,
-      message: 'form.errors.required',
-    },
-    {
-      error: Validators.minLength.name,
-      message: 'form.errors.minLength',
-    },
-    {
-      error: Validators.maxLength.name,
-      message: 'form.errors.maxLength',
-    },
+    { error: Validators.required.name, message: 'form.errors.required' },
+    { error: Validators.minLength.name, message: 'form.errors.minLength' },
+    { error: Validators.maxLength.name, message: 'form.errors.maxLength' },
   ])
 
   testForm = this.formBuilder.group({
-    testInput: this.formBuilder.control<string>('gagagagagagagaga', [
+    // testInput: this.formBuilder.control<string>( 'gagagagagagagaga', [
+    testInput: this.formBuilder.control<string>({ value: 'gagagagagagagaga', disabled: true }, [
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(100),
@@ -48,6 +41,17 @@ export class WysiwygTestComponent {
   })
 
   showInput = signal(true)
+
+  wysiwygOptions: QuangWysiwygOptions = {
+    imageUploadSizeLimit: 100000000000,
+    iframe: true,
+    iframeCSSFileName: '.+',
+  }
+
+  onImageUploadError = (errorMessage: any, result: any, core: any) => {
+    console.log('onImageUploadError', errorMessage, result, core)
+    return true
+  }
 
   changeFormEnabled() {
     if (this.testForm.enabled) this.testForm.disable()
