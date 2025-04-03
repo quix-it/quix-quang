@@ -43,7 +43,10 @@ export class WysiwygTestComponent {
   showInput = signal(true)
 
   wysiwygOptions: QuangWysiwygOptions = {
-    imageUploadSizeLimit: 100000000000,
+    iframe: true,
+    iframeCSSFileName: '.+',
+    minHeight: undefined,
+    height: undefined,
   }
 
   onImageUploadError = (errorMessage: any, result: any, core: any) => {
