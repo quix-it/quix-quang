@@ -2,7 +2,7 @@
   "name": "quix-quang",
   "author": "Quix Srl",
   "homepage": "https://www.quixconsulting.com",
-  "version": "19.0.16",
+  "version": "19.0.17",
   "scripts": {
     "prepare": "husky",
     "ng": "ng",
