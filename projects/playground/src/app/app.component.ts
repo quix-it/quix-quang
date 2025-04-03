@@ -27,6 +27,8 @@ import { QuangTranslationService } from '@quix/quang/translation'
 
 import { AppService } from './app.service'
 
+import { WysiwygTestComponent } from './pages/components-test-page/wysiwyg-test/wysiwyg-test.component'
+
 export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
 
 @Component({
@@ -42,6 +44,7 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
     QuangLoaderComponent,
     NgForOf,
     SvgIconComponent,
+    WysiwygTestComponent,
   ],
 
   templateUrl: './app.component.html',

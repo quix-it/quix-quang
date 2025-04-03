@@ -55,7 +55,7 @@ export type QuangWysiwygOptions = SunEditorOptions
 export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit {
   _inputForWysiwyg = viewChild<ElementRef>('inputForWysiwyg')
 
-  minHeight = input<string>('200px')
+  minHeight = input<string | undefined>('200px')
 
   font = input<boolean>(true)
 
@@ -107,38 +107,46 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   changeDetectorRef = signal(inject(ChangeDetectorRef))
 
-  _generateSunEditorWysiwygEffect = effect(async () => {
-    if (this._inputForWysiwyg()?.nativeElement) {
-      const sunEditorOptions: SunEditorOptions = {
-        plugins,
-        defaultTag: 'div',
-        buttonList: this._ngControl()?.control?.enabled && !this.isReadonly() ? [this.getButtonList()] : [],
-        minHeight: this.minHeight(),
-        width: '100%',
-        ...(this.wysiwygOptions() ?? {}),
-      }
-
-      if (this._sunEditorWysiwygInstance()) {
-        if (this._ngControl()?.control?.enabled) {
-          this._sunEditorWysiwygInstance()?.enable()
+  _generateSunEditorWysiwygEffect = effect(() => {
+    try {
+      const inputForWysiwyg = this._inputForWysiwyg()?.nativeElement
+      if (inputForWysiwyg) {
+        const sunEditorOptions: SunEditorOptions = {
+          plugins,
+          defaultTag: 'div',
+          buttonList: this._ngControl()?.control?.enabled && !this.isReadonly() ? [this.getButtonList()] : [],
+          minHeight: this.minHeight(),
+          width: '100%',
+          ...(this.wysiwygOptions() ?? {}),
         }
-        this._sunEditorWysiwygInstance()?.setOptions(sunEditorOptions)
-      } else {
-        this._sunEditorWysiwygInstance.set(sunEditor.create(this._inputForWysiwyg()?.nativeElement, sunEditorOptions))
-      }
 
-      const imageUploadError = this.onImageUploadError()
-      const onFileDrop = this.onFileDrop()
-      const sunEditorInstance = this._sunEditorWysiwygInstance()
+        let sunEditorWysiwygInstance = this._sunEditorWysiwygInstance()
+        const ngControl = this._ngControl()
 
-      if (imageUploadError && sunEditorInstance) {
-        sunEditorInstance.onImageUploadError = imageUploadError
-      }
-      if (onFileDrop && sunEditorInstance) {
-        sunEditorInstance.onDrop = onFileDrop
-      }
+        if (sunEditorWysiwygInstance) {
+          if (ngControl?.control?.enabled) {
+            sunEditorWysiwygInstance.enable()
+          }
+          sunEditorWysiwygInstance.setOptions(sunEditorOptions)
+        } else {
+          sunEditorWysiwygInstance = sunEditor.create(inputForWysiwyg, sunEditorOptions)
+          this._sunEditorWysiwygInstance.set(sunEditorWysiwygInstance)
+        }
 
-      this.registerEvents()
+        const imageUploadError = this.onImageUploadError()
+        const onFileDrop = this.onFileDrop()
+
+        if (imageUploadError && sunEditorWysiwygInstance) {
+          sunEditorWysiwygInstance.onImageUploadError = imageUploadError
+        }
+        if (onFileDrop && sunEditorWysiwygInstance) {
+          sunEditorWysiwygInstance.onDrop = onFileDrop
+        }
+
+        this.registerEvents()
+      }
+    } catch (_) {
+      // we usually end up here when we are in a modal and then it starts in the right way
     }
   })
 
@@ -165,12 +173,17 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     this._sunEditorWysiwygInstance$
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        filter((x) => x !== undefined),
+        filter((x) => !!x),
         take(1)
       )
       .subscribe((sunEditorWysiwygInstance) => {
+        console.log('ciao sunEditorWysiwygInstance', sunEditorWysiwygInstance)
         if (sunEditorWysiwygInstance) {
-          sunEditorWysiwygInstance?.setContents(val)
+          try {
+            sunEditorWysiwygInstance.setContents(val)
+          } catch (_) {
+            // we usually end up here when we are in a modal and then it starts in the right way
+          }
         }
       })
   }
