@@ -9,7 +9,7 @@ import {
   QuangHasEveryRoleDirective,
   QuangIsAuthenticatedDirective,
   QuangIsNotAuthenticatedDirective,
-} from '@quang/auth'
+} from 'quang/auth'
 import { catchError, map, of } from 'rxjs'
 
 @Component({

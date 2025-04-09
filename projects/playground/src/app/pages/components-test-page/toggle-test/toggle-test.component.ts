@@ -4,7 +4,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { QuangCheckboxComponent } from '@quang/components/checkbox/checkbox.component'
+import { QuangCheckboxComponent } from 'quang/components/checkbox/checkbox.component'
 
 @Component({
   selector: 'playground-toggle-test',

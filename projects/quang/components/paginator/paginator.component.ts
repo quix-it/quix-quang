@@ -4,7 +4,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { makeId } from '@quang/components/shared'
+import { makeId } from 'quang/components/shared'
 
 @Component({
   selector: 'quang-paginator',

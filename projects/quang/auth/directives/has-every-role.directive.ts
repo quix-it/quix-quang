@@ -10,7 +10,7 @@ import {
 } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
-import { QUANG_LOGGING_BEHAVIOR } from '@quang'
+import { QUANG_LOGGING_BEHAVIOR } from 'quang'
 
 import { QuangAuthService } from '../auth.service'
 

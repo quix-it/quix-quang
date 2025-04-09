@@ -10,8 +10,8 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { patchState, signalState } from '@ngrx/signals'
 
-import { QUANG_LOGGING_BEHAVIOR } from '@quang'
 import { AuthConfig, OAuthErrorEvent, OAuthEvent, OAuthService } from 'angular-oauth2-oidc'
+import { QUANG_LOGGING_BEHAVIOR } from 'quang'
 import { filter, firstValueFrom } from 'rxjs'
 
 export const AUTH_CONFIG = new InjectionToken<QuangAuthConfig | undefined>('AUTH_CONFIG')

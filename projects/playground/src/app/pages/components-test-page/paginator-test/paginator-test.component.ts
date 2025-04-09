@@ -4,7 +4,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angul
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { QuangPaginatorComponent } from '@quang/components/paginator'
+import { QuangPaginatorComponent } from 'quang/components/paginator'
 
 @Component({
   selector: 'playground-paginator-test',

@@ -19,7 +19,7 @@ import {
   QuangBaseComponent,
   QuangOptionListComponent,
   SelectOption,
-} from '@quang/components/shared'
+} from 'quang/components/shared'
 
 @Component({
   selector: 'quang-select',

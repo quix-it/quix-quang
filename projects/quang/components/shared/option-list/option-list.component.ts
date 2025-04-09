@@ -17,7 +17,7 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
-import { QUANG_LOGGING_BEHAVIOR } from '@quang'
+import { QUANG_LOGGING_BEHAVIOR } from 'quang'
 import { Subscription, fromEvent } from 'rxjs'
 
 export interface SelectOption {

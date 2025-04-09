@@ -31,11 +31,11 @@ It can be fully customized using the input property `datepickerOptions` (see htt
 
 Remember to add the import
 
-`node_modules/@quang/components/date/global-date.component.scss`
+`node_modules/quang/components/date/global-date.component.scss`
 
 or
 
-`@quang/components/date/global-date.component.scss`
+`quang/components/date/global-date.component.scss`
 
 in your global style (suggested "vendors" folder)
 
@@ -71,11 +71,11 @@ for creating and editing HTML content.
 
 Remember to import
 
-`node_modules/@quang/components/wysiwyg/global-wysiswyg.component.scss`
+`node_modules/quang/components/wysiwyg/global-wysiswyg.component.scss`
 
 or
 
-`@quang/components/wysiwyg/global-wysiswyg.component.scss`
+`quang/components/wysiwyg/global-wysiswyg.component.scss`
 
 in your global style (suggested "vendors" folder)
 

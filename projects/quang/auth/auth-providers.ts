@@ -1,7 +1,7 @@
 import { EnvironmentProviders, Provider, inject, makeEnvironmentProviders, provideAppInitializer } from '@angular/core'
 
-import { type QuangFeature, QuangFeatureKind, quangFeature } from '@quang'
 import { provideOAuthClient } from 'angular-oauth2-oidc'
+import { type QuangFeature, QuangFeatureKind, quangFeature } from 'quang'
 
 import { type QuangAuthConfig, QuangAuthService, provideQuangAuthConfig } from './auth.service'
 

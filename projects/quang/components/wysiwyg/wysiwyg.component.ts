@@ -22,7 +22,7 @@ import SunEditorCore from 'suneditor/src/lib/core'
 import { SunEditorOptions } from 'suneditor/src/options'
 import plugins from 'suneditor/src/plugins'
 
-import { QuangBaseComponent } from '@quang/components/shared'
+import { QuangBaseComponent } from 'quang/components/shared'
 
 export type QuangWysiwygOptions = SunEditorOptions
 

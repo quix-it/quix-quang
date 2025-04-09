@@ -5,8 +5,8 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { QuangSelectComponent } from '@quang/components/select'
-import { SelectOption } from '@quang/components/shared'
+import { QuangSelectComponent } from 'quang/components/select'
+import { SelectOption } from 'quang/components/shared'
 
 @Component({
   selector: 'playground-select-test',
