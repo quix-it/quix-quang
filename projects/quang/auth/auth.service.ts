@@ -10,7 +10,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { patchState, signalState } from '@ngrx/signals'
 
-import { QUANG_LOGGING_BEHAVIOR } from '@quang-lib'
+import { QUANG_LOGGING_BEHAVIOR } from '@quang'
 import { AuthConfig, OAuthErrorEvent, OAuthEvent, OAuthService } from 'angular-oauth2-oidc'
 import { filter, firstValueFrom } from 'rxjs'
 

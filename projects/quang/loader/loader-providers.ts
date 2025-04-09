@@ -1,7 +1,7 @@
 import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 
-import { QuangFeature, QuangFeatureKind, quangFeature } from '@quang-lib'
-import { UrlData } from '@quang-lib/shared'
+import { QuangFeature, QuangFeatureKind, quangFeature } from '@quang'
+import { UrlData } from '@quang/shared'
 
 import { LOADER_EXCLUDED_URLS } from './loader.interceptor'
 

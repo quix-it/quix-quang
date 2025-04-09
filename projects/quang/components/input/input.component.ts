@@ -5,7 +5,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { QuangBaseComponent } from '@quang-lib/components/shared'
+import { QuangBaseComponent } from '@quang/components/shared'
 
 export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 'url' | 'search' | 'tel' | 'color'
 

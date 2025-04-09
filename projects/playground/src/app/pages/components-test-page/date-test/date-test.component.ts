@@ -5,7 +5,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { SvgIconComponent } from 'angular-svg-icon'
 
-import { QuangDateComponent } from '@quang-lib/components/date'
+import { QuangDateComponent } from '@quang/components/date'
 
 @Component({
   selector: 'playground-date-test',

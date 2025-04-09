@@ -4,13 +4,7 @@ import { App, URLOpenListenerEvent } from '@capacitor/app'
 import { Browser } from '@capacitor/browser'
 import { Capacitor } from '@capacitor/core'
 
-import {
-  QuangAuthFeature,
-  QuangAuthFeatureKind,
-  QuangAuthService,
-  provideOpenURI,
-  quangAuthFeature,
-} from '@quang-lib/auth'
+import { QuangAuthFeature, QuangAuthFeatureKind, QuangAuthService, provideOpenURI, quangAuthFeature } from '@quang/auth'
 
 export function withMobileAuth(
   toolbarColor = '#000000',

@@ -1,7 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal'
 import { Directive, TemplateRef, input, signal } from '@angular/core'
 
-import { QuangBaseOverlayDirective } from '@quang-lib/overlay/shared'
+import { QuangBaseOverlayDirective } from '@quang/overlay/shared'
 
 import { QuangPopoverComponent } from './popover.component'
 
