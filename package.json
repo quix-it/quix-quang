@@ -2,7 +2,7 @@
   "name": "quang-lib",
   "author": "Quix Srl",
   "homepage": "https://www.quixconsulting.com",
-  "version": "19.0.17",
+  "version": "19.0.18",
   "scripts": {
     "prepare": "husky",
     "ng": "ng",
