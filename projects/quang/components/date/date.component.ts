@@ -16,6 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTranslationService } from '@quang-lib/translation'
 import AirDatepicker, {
   AirDatepickerDate,
   AirDatepickerLocale,
@@ -28,8 +29,7 @@ import it from 'air-datepicker/locale/it'
 import { format, isMatch, parse } from 'date-fns'
 import { debounceTime, fromEvent } from 'rxjs'
 
-import { QuangBaseComponent } from '@quix/quang/components/shared'
-import { QuangTranslationService } from '@quix/quang/translation'
+import { QuangBaseComponent } from '@quang-lib/components/shared'
 
 export interface DateRange {
   dateFrom: string | null

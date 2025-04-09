@@ -1,9 +1,8 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http'
 import { InjectionToken, Provider, inject } from '@angular/core'
 
+import { UrlData, getExcludedUrlsByMethod, isHttpMethod } from '@quang-lib/shared'
 import { catchError, from, retry, switchMap, tap, throwError } from 'rxjs'
-
-import { UrlData, getExcludedUrlsByMethod, isHttpMethod } from '@quix/quang/shared'
 
 import { QuangAuthService } from './auth.service'
 

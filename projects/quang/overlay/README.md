@@ -14,11 +14,11 @@ To use the overlay components, you must install the `@angular/cdk` dependency.
 
 Remember to add the import
 
-`node_modules/@quix/quang/overlay/global-overlay.scss`
+`node_modules/@quang-lib/overlay/global-overlay.scss`
 
 or
 
-`@quix/quang/components/date/global-overlay.scss`
+`@quang-lib/components/date/global-overlay.scss`
 
 in your global style (suggested "vendors" folder)
 

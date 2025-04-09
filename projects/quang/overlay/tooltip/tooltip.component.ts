@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { ConnectionPositionPair, OverlayModule } from '@angular/cdk/overlay'
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core'
 
-import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
+import { QuangBaseOverlayComponent } from '@quang-lib/overlay/shared'
 
 @Component({
   selector: 'quang-tooltip',

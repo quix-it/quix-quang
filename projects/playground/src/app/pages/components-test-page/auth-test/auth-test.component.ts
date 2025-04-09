@@ -3,15 +3,14 @@ import { CommonModule, JsonPipe } from '@angular/common'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 
-import { catchError, map, of } from 'rxjs'
-
 import {
   QuangAuthService,
   QuangHasAtLeastOneRoleDirective,
   QuangHasEveryRoleDirective,
   QuangIsAuthenticatedDirective,
   QuangIsNotAuthenticatedDirective,
-} from '@quix/quang/auth'
+} from '@quang-lib/auth'
+import { catchError, map, of } from 'rxjs'
 
 @Component({
   selector: 'playground-auth-test',

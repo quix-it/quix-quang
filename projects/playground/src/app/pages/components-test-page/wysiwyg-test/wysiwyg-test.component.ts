@@ -4,7 +4,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { QuangWysiwygComponent, QuangWysiwygOptions } from '@quix/quang/components/wysiwyg'
+import { QuangWysiwygComponent, QuangWysiwygOptions } from '@quang-lib/components/wysiwyg'
 
 @Component({
   selector: 'playground-wysiwyg-test',

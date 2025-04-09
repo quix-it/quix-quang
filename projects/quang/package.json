@@ -1,5 +1,5 @@
 {
-  "name": "@quix/quang",
+  "name": "@quang-lib",
   "sideEffects": false,
   "version": "19.0.17",
   "dependencies": {

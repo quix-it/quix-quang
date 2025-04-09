@@ -14,18 +14,17 @@ import {
 import { RouterOutlet } from '@angular/router'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangLoaderComponent } from '@quang-lib/loader'
+import { QuangModalComponent } from '@quang-lib/overlay/modal'
+import { QuangPopoverDirective } from '@quang-lib/overlay/popover'
+import { QuangToastComponent } from '@quang-lib/overlay/toast'
+import { QuangTooltipDirective } from '@quang-lib/overlay/tooltip'
+import { QuangTranslationService } from '@quang-lib/translation'
 import { SvgIconComponent } from 'angular-svg-icon'
 import { delay, firstValueFrom } from 'rxjs'
 
-import { QuangLoaderComponent } from '@quix/quang/loader'
-import { QuangModalComponent } from '@quix/quang/overlay/modal'
-import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
-import { QuangToastComponent } from '@quix/quang/overlay/toast'
-import { QuangToastService } from '@quix/quang/overlay/toast/toast.service'
-import { QuangTooltipDirective } from '@quix/quang/overlay/tooltip'
-import { QuangTranslationService } from '@quix/quang/translation'
-
 import { AppService } from './app.service'
+import { QuangToastService } from '@quang-lib/overlay/toast/toast.service'
 
 import { WysiwygTestComponent } from './pages/components-test-page/wysiwyg-test/wysiwyg-test.component'
 

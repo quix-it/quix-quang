@@ -1,7 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal'
 import { Directive, input, signal } from '@angular/core'
 
-import { QuangBaseOverlayDirective } from '@quix/quang/overlay/shared'
+import { QuangBaseOverlayDirective } from '@quang-lib/overlay/shared'
 
 import { QuangTooltipComponent } from './tooltip.component'
 

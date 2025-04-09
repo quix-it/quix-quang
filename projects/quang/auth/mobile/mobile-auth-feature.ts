@@ -10,7 +10,7 @@ import {
   QuangAuthService,
   provideOpenURI,
   quangAuthFeature,
-} from '@quix/quang/auth'
+} from '@quang-lib/auth'
 
 export function withMobileAuth(
   toolbarColor = '#000000',

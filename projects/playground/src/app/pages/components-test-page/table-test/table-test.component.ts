@@ -13,9 +13,10 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangPopoverDirective } from '@quang-lib/overlay/popover'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 
-import { QuangCheckboxComponent } from '@quix/quang/components/checkbox'
+import { QuangCheckboxComponent } from '@quang-lib/components/checkbox'
 import {
   QuangTableComponent,
   SortCol,
@@ -23,8 +24,7 @@ import {
   TableConfiguration,
   TableHeader,
   TableRow,
-} from '@quix/quang/components/table/table.component'
-import { QuangPopoverDirective } from '@quix/quang/overlay/popover'
+} from '@quang-lib/components/table/table.component'
 
 interface People {
   name: string

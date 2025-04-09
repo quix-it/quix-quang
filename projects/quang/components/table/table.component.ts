@@ -15,9 +15,8 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { ResizeObservableService } from '@quang-lib/device'
 import { Subscription } from 'rxjs'
-
-import { ResizeObservableService } from '@quix/quang/device'
 
 export interface TableHeader {
   text?: string

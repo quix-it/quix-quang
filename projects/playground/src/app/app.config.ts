@@ -3,12 +3,11 @@ import { ApplicationConfig } from '@angular/core'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { provideRouter } from '@angular/router'
 
+import { provideQuangConfig } from '@quang-lib'
+import { logoutOnErrorInterceptor, withAuth, withLogoutOnError, withSessionStorage } from '@quang-lib/auth'
+import { quangLoaderInterceptor, withLoaderExcludedUrls } from '@quang-lib/loader'
+import { withTranslation } from '@quang-lib/translation'
 import { provideAngularSvgIcon } from 'angular-svg-icon'
-
-import { provideQuangConfig } from '@quix/quang'
-import { logoutOnErrorInterceptor, withAuth, withLogoutOnError, withSessionStorage } from '@quix/quang/auth'
-import { quangLoaderInterceptor, withLoaderExcludedUrls } from '@quix/quang/loader'
-import { withTranslation } from '@quix/quang/translation'
 
 import { routes } from './app.routes'
 
