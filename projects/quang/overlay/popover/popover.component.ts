@@ -10,7 +10,6 @@ import { QuangBaseOverlayComponent } from 'quang/overlay/shared'
   imports: [NgTemplateOutlet, NgClass, NgIf],
   templateUrl: './popover.component.html',
   styleUrl: './popover.component.scss',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -29,7 +28,7 @@ import { QuangBaseOverlayComponent } from 'quang/overlay/shared'
       <ng-template #popoverTest> <span>test works!</span> <button type="button">click!</button> </ng-template>
  */
 export class QuangPopoverComponent implements QuangBaseOverlayComponent {
-  popoverContent = input<TemplateRef<any> | null>(null)
+  overlayContent = input<TemplateRef<any> | null>(null)
 
   positionPair = signal<ConnectionPositionPair | null>(null)
 

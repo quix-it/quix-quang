@@ -4,7 +4,7 @@ import { Router } from '@angular/router'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangPopoverDirective } from 'quang/overlay/popover'
 
-import { menuList } from './menuList'
+import { MenuItem, menuList } from './menuList'
 
 @Component({
   selector: 'playground-menu',
@@ -15,7 +15,8 @@ import { menuList } from './menuList'
 })
 export class MenuComponent {
   private readonly router = inject(Router)
-  readonly menuList = menuList
+  readonly menuList: MenuItem[] = menuList
+  // readonly MenuItem = MenuItem
 
   navigateMenu(route: string): void {
     this.router.navigate([route])

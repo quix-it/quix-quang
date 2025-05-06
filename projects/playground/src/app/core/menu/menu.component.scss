@@ -1,0 +1,37 @@
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 0.25rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.border-r-0 {
+  border-right: 0;
+}
+
+.child-menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  li {
+    button {
+      width: 100%;
+      border-radius: 0;
+      text-align: left;
+    }
+    &:hover {
+      background-color: #dedede;
+    }
+  }
+}
+
+::ng-container {
+  quang-popover {
+    .popover-container {
+      padding: 0 !important;
+    }
+  }
+}

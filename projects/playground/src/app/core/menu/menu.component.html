@@ -1,9 +1,11 @@
 <div class="d-flex align-items-center">
-  @for (menuItem of menuList; track $index) {
+  @for (menuItem of menuList; track $index; let last = $last) {
     <div
-      [popover]="children"
-      [popoverContent]="menuItem.children"
-      class="d-flex flex-column menu-item"
+      [class.border-r-0]="!last"
+      [quangOverlayPayload]="menuItem.children"
+      [quangPopover]="children"
+      class="menu-item"
+      showMethod="click"
     >
       @if (menuItem.icon) {
         <svg-icon [src]="'./assets/' + menuItem.icon" />
@@ -19,9 +21,17 @@
   #children
   let-children
 >
-  <ul class="m-0 p-0">
-    @for (let child of children) {
-      <li (click)="navigateMenu(child.route)">{{ child.description }}</li>
+  <ul class="child-menu">
+    @for (child of children; track $index) {
+      <li>
+        <button
+          (click)="navigateMenu(child.route)"
+          class="btn"
+          type="button"
+        >
+          {{ child.description }}
+        </button>
+      </li>
     }
   </ul>
 </ng-template>
