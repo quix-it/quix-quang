@@ -196,4 +196,11 @@ export class SelectTestComponent {
   setReadonly() {
     this.isReadonly.set(!this.isReadonly())
   }
+
+  constructor() {
+    setTimeout(() => {
+      console.log('è il momento dei pocci')
+      this.testForm.controls.testInputMultiple.patchValue(1 as any)
+    }, 5000)
+  }
 }

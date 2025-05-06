@@ -244,7 +244,11 @@ export class QuangOptionListComponent {
     if (this.selectionMode() === 'single') {
       this.changedHandler.emit(item?.value ?? null)
     } else {
-      const values: string[] | number[] | null = this._value() as string[] | number[] | null
+      let targetValue = this._value()
+      if (!Array.isArray(targetValue) && targetValue) {
+        targetValue = [targetValue]
+      }
+      const values: string[] | number[] | null = targetValue as string[] | number[] | null
       if (values) {
         if (values.some((x) => x === item?.value)) {
           this.changedHandler.emit(values.filter((x) => x !== item?.value) as string[] | number[])
@@ -253,6 +257,8 @@ export class QuangOptionListComponent {
         } else {
           this.changedHandler.emit([...values] as string[] | number[])
         }
+      } else if (item?.value) {
+        this.changedHandler.emit([item.value] as string[] | number[])
       } else {
         this.changedHandler.emit(null)
       }
@@ -260,7 +266,7 @@ export class QuangOptionListComponent {
   }
 
   getSelected(item: SelectOption): boolean {
-    if (this.selectionMode() === 'single') {
+    if (this.selectionMode() === 'single' || !Array.isArray(this._value())) {
       return this._value() === item.value
     }
     return this._value()?.some((x: number | string | null) => x === item?.value)
