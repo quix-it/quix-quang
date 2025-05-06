@@ -1,0 +1,27 @@
+<div class="d-flex align-items-center">
+  @for (menuItem of menuList; track $index) {
+    <div
+      [popover]="children"
+      [popoverContent]="menuItem.children"
+      class="d-flex flex-column menu-item"
+    >
+      @if (menuItem.icon) {
+        <svg-icon [src]="'./assets/' + menuItem.icon" />
+      }
+      <p class="m-0">
+        {{ menuItem.description }}
+      </p>
+    </div>
+  }
+</div>
+
+<ng-template
+  #children
+  let-children
+>
+  <ul class="m-0 p-0">
+    @for (let child of children) {
+      <li (click)="navigateMenu(child.route)">{{ child.description }}</li>
+    }
+  </ul>
+</ng-template>

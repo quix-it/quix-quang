@@ -15,18 +15,13 @@ import { RouterOutlet } from '@angular/router'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { SvgIconComponent } from 'angular-svg-icon'
-import { QuangLoaderComponent } from 'quang/loader'
-import { QuangModalComponent } from 'quang/overlay/modal'
-import { QuangPopoverDirective } from 'quang/overlay/popover'
-import { QuangToastComponent } from 'quang/overlay/toast'
-import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 import { QuangTranslationService } from 'quang/translation'
 import { delay, firstValueFrom } from 'rxjs'
 
 import { AppService } from './app.service'
 import { QuangToastService } from 'quang/overlay/toast/toast.service'
 
-import { WysiwygTestComponent } from './pages/components-test-page/wysiwyg-test/wysiwyg-test.component'
+import { MenuComponent } from './core/menu/menu.component'
 
 export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
 
@@ -36,16 +31,17 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
     RouterOutlet,
     NgIf,
     TranslocoPipe,
-    QuangModalComponent,
-    QuangToastComponent,
-    QuangTooltipDirective,
-    QuangPopoverDirective,
-    QuangLoaderComponent,
+    // QuangModalComponent,
+    // QuangToastComponent,
+    // QuangTooltipDirective,
+    // QuangPopoverDirective,
+    // QuangLoaderComponent,
     NgForOf,
     SvgIconComponent,
-    WysiwygTestComponent,
+    MenuComponent,
+    // WysiwygTestComponent,
   ],
-
+  standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -2,16 +2,20 @@ import { Routes } from '@angular/router'
 
 export const routes: Routes = [
   {
-    path: 'components-test',
-    loadChildren: () => import('./pages/components-test-page/input-test-page.routes'),
+    path: 'components',
+    loadChildren: () => import('./pages/components-test-pages/components-test-pages.routes'),
+  },
+  {
+    path: 'overlay',
+    loadChildren: () => import('./pages/overlay-test-pages/overlay-test-pages.routes'),
   },
   {
     path: '',
-    redirectTo: 'components-test',
+    redirectTo: 'components',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'components-test',
+    redirectTo: 'components',
   },
 ]

@@ -1,7 +1,7 @@
-<div class="d-flex">
+<!-- <div class="d-flex">
   <div class="d-flex flex-column w-75 gap-3 p-3 border-end">
     <h1>{{ 'welcomeMessage' | transloco: { title: title() } }}</h1>
-    <!-- Buttons -->
+
     <div class="d-flex gap-4 flex-wrap">
       <button
         (click)="changeLanguage('it')"
@@ -175,7 +175,7 @@
       </div>
     </ng-template>
   </div>
-  <!-- Colors column -->
+
   <div
     class="d-flex flex-column w-25 gap-4 p-3"
     style="position: fixed; right: 0"
@@ -213,4 +213,6 @@
       {{ color | transloco }}
     </div>
   </div>
-</div>
+</div> -->
+<playground-menu />
+<router-outlet />
