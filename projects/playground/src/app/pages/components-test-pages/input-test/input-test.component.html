@@ -9,73 +9,78 @@
     ></quang-select>
   </div>
 </div>
-<form
-  [formGroup]="testForm"
-  *ngIf="showInput()"
->
-  <quang-input
-    [componentType]="inputType()"
-    [errorMap]="errors()"
-    [isReadonly]="isReadonly()"
-    [maxNumber]="10"
-    [minNumber]="0"
-    componentLabel="form.label.input"
-    formControlName="testInput"
-    successMessage="form.label.success"
-  ></quang-input>
+<form [formGroup]="testForm">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      @if (showInput()) {
+        <div class="row">
+          <quang-input
+            [componentType]="inputType()"
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [maxNumber]="10"
+            [minNumber]="0"
+            componentLabel="form.label.input"
+            formControlName="testInput"
+            successMessage="form.label.success"
+          ></quang-input>
+        </div>
+      }
+      <div class="d-flex gap-3 mt-3">
+        <button
+          (click)="changeFormEnabled()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
+        </button>
+        <button
+          (click)="changeFormInputRequired()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+        </button>
+        <button
+          (click)="changeVisibility()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.changeVisibility' | transloco }}
+        </button>
+        <button
+          (click)="recreateForm()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.recreateForm' | transloco }}
+        </button>
+        <button
+          (click)="setFormValues()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.setForm' | transloco }}
+        </button>
+        <button
+          (click)="checkCurrentFormValueAndValidity()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.checkForm' | transloco }}
+        </button>
+        <button
+          (click)="setReadonly()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+        </button>
+      </div>
+    </div>
+  </div>
 </form>
-<div
-  *ngIf="showValueAndValidity()"
-  class="d-flex flex-column mb-4"
->
-  <span>
-    {{ 'form.label.formValue' | transloco: { value: testForm.value | json } }}
-  </span>
-  <span>
-    {{ 'form.label.formValidity' | transloco: { valid: this.testForm.valid } }}
-  </span>
-</div>
-<div class="d-flex gap-3">
-  <button
-    (click)="changeFormEnabled()"
-    class="btn btn-outline-secondary"
-  >
-    {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
-  </button>
-  <button
-    (click)="changeFormInputRequired()"
-    class="btn btn-outline-secondary"
-  >
-    {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
-  </button>
-  <button
-    (click)="changeVisibility()"
-    class="btn btn-outline-secondary"
-  >
-    {{ 'form.buttons.changeVisibility' | transloco }}
-  </button>
-  <button
-    (click)="recreateForm()"
-    class="btn btn-outline-secondary"
-  >
-    {{ 'form.buttons.recreateForm' | transloco }}
-  </button>
-  <button
-    (click)="setFormValues()"
-    class="btn btn-outline-secondary"
-  >
-    {{ 'form.buttons.setForm' | transloco }}
-  </button>
-  <button
-    (click)="checkCurrentFormValueAndValidity()"
-    class="btn btn-outline-secondary"
-  >
-    {{ 'form.buttons.checkForm' | transloco }}
-  </button>
-  <button
-    (click)="setReadonly()"
-    class="btn btn-outline-secondary"
-  >
-    {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
-  </button>
-</div>
+@if (showValueAndValidity()) {
+  <div class="d-flex flex-column mt-3 ms-3">
+    <span>
+      {{ 'form.label.formValue' | transloco: { value: testForm.value | json } }}
+    </span>
+    <span>
+      {{ 'form.label.formValidity' | transloco: { valid: this.testForm.valid } }}
+    </span>
+  </div>
+}

@@ -1,4 +1,4 @@
-import { JsonPipe, NgIf } from '@angular/common'
+import { JsonPipe } from '@angular/common'
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
@@ -13,7 +13,6 @@ import { QuangDateComponent } from 'quang/components/date'
     FormsModule,
     JsonPipe,
     ReactiveFormsModule,
-    NgIf,
     TranslocoPipe,
     JsonPipe,
     QuangDateComponent,
@@ -26,7 +25,7 @@ import { QuangDateComponent } from 'quang/components/date'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateTestComponent {
-  formBuilder = inject(NonNullableFormBuilder)
+  private readonly formBuilder = inject(NonNullableFormBuilder)
 
   isReadonly = signal<boolean>(false)
 
@@ -47,6 +46,7 @@ export class DateTestComponent {
 
   testForm = this.formBuilder.group({
     testInput: this.formBuilder.control<string>('', [Validators.required]),
+    testInputNoTime: this.formBuilder.control<string>('', [Validators.required]),
   })
 
   changeDetection = inject(ChangeDetectorRef)
@@ -93,6 +93,7 @@ export class DateTestComponent {
   recreateForm() {
     this.testForm = this.formBuilder.group({
       testInput: this.formBuilder.control<string>(new Date().toISOString(), [Validators.required]),
+      testInputNoTime: this.formBuilder.control<string>(new Date().toISOString(), [Validators.required]),
     })
   }
 
@@ -101,6 +102,7 @@ export class DateTestComponent {
     targetDate.setMonth(0)
     this.testForm.patchValue({
       testInput: targetDate.toISOString(),
+      testInputNoTime: targetDate.toISOString(),
     })
   }
 

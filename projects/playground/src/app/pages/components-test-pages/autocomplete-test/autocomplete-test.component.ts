@@ -1,4 +1,4 @@
-import { JsonPipe, NgIf } from '@angular/common'
+import { JsonPipe } from '@angular/common'
 import { Component, DestroyRef, inject, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
@@ -10,7 +10,7 @@ import { SelectOption } from 'quang/components/shared'
 
 @Component({
   selector: 'playground-autocomplete-test',
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, NgIf, TranslocoPipe, QuangAutocompleteComponent],
+  imports: [FormsModule, JsonPipe, ReactiveFormsModule, TranslocoPipe, QuangAutocompleteComponent],
 
   templateUrl: './autocomplete-test.component.html',
   styleUrl: './autocomplete-test.component.scss',
