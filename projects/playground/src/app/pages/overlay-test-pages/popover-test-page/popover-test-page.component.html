@@ -1,0 +1,34 @@
+<p>popover-test-page works!</p>
+
+<div class="d-flex gap-3">
+  <button
+    [quangPopover]="popoverTest"
+    [scrollCloseThreshold]="undefined"
+    class="btn btn-primary popover-test-button"
+    overlayPosition="top"
+    showMethod="click"
+  >
+    {{ 'buttons.popover' | transloco }}
+    <span>CLICK</span>
+  </button>
+  <button
+    [quangPopover]="popoverTest"
+    [scrollCloseThreshold]="undefined"
+    class="btn btn-outline-primary popover-test-button"
+    overlayPosition="top"
+    showMethod="hover"
+  >
+    {{ 'buttons.popover' | transloco }}
+    <span>HOVER</span>
+  </button>
+</div>
+
+<ng-template #popoverTest
+  ><span>test works!</span>
+  <button
+    class="btn btn-danger"
+    type="button"
+  >
+    click!
+  </button>
+</ng-template>

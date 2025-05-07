@@ -15,6 +15,8 @@ import { RouterOutlet } from '@angular/router'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { SvgIconComponent } from 'angular-svg-icon'
+import { QuangLoaderComponent } from 'quang/loader'
+import { QuangToastComponent } from 'quang/overlay/toast'
 import { QuangTranslationService } from 'quang/translation'
 import { delay, firstValueFrom } from 'rxjs'
 
@@ -32,10 +34,10 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
     NgIf,
     TranslocoPipe,
     // QuangModalComponent,
-    // QuangToastComponent,
+    QuangToastComponent,
     // QuangTooltipDirective,
     // QuangPopoverDirective,
-    // QuangLoaderComponent,
+    QuangLoaderComponent,
     NgForOf,
     SvgIconComponent,
     MenuComponent,
@@ -59,8 +61,6 @@ export class AppComponent {
 
   showModal = signal(false)
 
-  content = signal('content')
-
   appService = inject(AppService)
 
   colorScheme = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']
@@ -83,18 +83,6 @@ export class AppComponent {
       const x = await firstValueFrom(this.http.get('https://jsonplaceholder.typicode.com/todos/1').pipe(delay(300)))
       console.log('call', x)
     }
-  }
-
-  openModal(): void {
-    this.showModal.set(true)
-  }
-
-  closeModal(): void {
-    this.showModal.set(false)
-  }
-
-  btnAction(): void {
-    this.content.update((content) => `${content}!!!`)
   }
 
   openToast(type: 'success' | 'warning' | 'error', customIcon?: boolean): void {

@@ -1,11 +1,21 @@
 import { Routes } from '@angular/router'
 
-import { OverlayTestPagesComponent } from './overlay-test-pages.component'
+import { ModalTestPageComponent } from './modal-test-page/modal-test-page.component'
+import { PopoverTestPageComponent } from './popover-test-page/popover-test-page.component'
+import { TooltipTestPageComponent } from './tooltip-test-page/tooltip-test-page.component'
 
 const routes: Routes = [
   {
     path: 'tooltip',
-    component: OverlayTestPagesComponent,
+    component: TooltipTestPageComponent,
+  },
+  {
+    path: 'popover',
+    component: PopoverTestPageComponent,
+  },
+  {
+    path: 'modal',
+    component: ModalTestPageComponent,
   },
   {
     path: '**',

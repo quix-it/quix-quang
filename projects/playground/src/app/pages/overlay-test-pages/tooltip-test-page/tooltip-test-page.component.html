@@ -1,0 +1,17 @@
+<p>tooltip-test-page works!</p>
+
+<div
+  [quangTooltip]="'buttons.tooltipMessage' | transloco"
+  class="w-100"
+  overlayPosition="top"
+>
+  <button
+    (click)="openToast('warning', true)"
+    class="w-100 btn btn-outline-secondary"
+  >
+    {{ 'buttons.toast.warning' | transloco }}
+  </button>
+  <small class="text-muted m-0">
+    {{ 'buttons.withTooltip' | transloco }}
+  </small>
+</div>
