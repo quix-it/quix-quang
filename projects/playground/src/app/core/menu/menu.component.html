@@ -1,21 +1,58 @@
 <div class="d-flex align-items-center">
   @for (menuItem of menuList; track $index; let last = $last) {
-    <div
-      [class.border-r-0]="!last"
-      [quangOverlayPayload]="menuItem.children"
-      [quangPopover]="children"
-      class="menu-item"
-      showMethod="click"
-    >
-      @if (menuItem.icon) {
-        <svg-icon [src]="'./assets/' + menuItem.icon" />
-      }
-      <p class="m-0">
-        {{ menuItem.description }}
-      </p>
-    </div>
+    <a [routerLink]="menuItem.route ? menuItem.route : undefined">
+      <div
+        (click)="onMenuClick($event, menuItem, origin)"
+        (mouseenter)="onMenuMouseEnter(origin, menuItem)"
+        (mouseleave)="onMenuMouseLeave()"
+        #origin="cdkOverlayOrigin"
+        cdkOverlayOrigin
+        class="menu-item"
+        routerLinkActive="menu-item-selected"
+      >
+        @if (menuItem.icon) {
+          <svg-icon [src]="'./assets/' + menuItem.icon" />
+        }
+        <p class="m-0">
+          {{ menuItem.description }}
+        </p>
+      </div>
+    </a>
   }
 </div>
+
+@if (currentMenuHoverOrigin()) {
+  <ng-template
+    [cdkConnectedOverlayOpen]="(currentMenuHover()?.children?.length ?? 0) > 0"
+    [cdkConnectedOverlayOrigin]="currentMenuHoverOrigin()"
+    [cdkConnectedOverlayPositions]="[{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' }]"
+    cdkConnectedOverlay
+  >
+    <div
+      (mouseenter)="childMenuMouseEnter()"
+      (mouseleave)="childMenuMouseLeave(); onMenuMouseLeave()"
+      class="flex select-none flex-col items-center divide-y hover:cursor-pointer child-menu"
+    >
+      <!-- [routerLink]="[childMenu.url]" -->
+      @for (childMenu of currentMenuHover()?.children; track $index) {
+        <a
+          [routerLink]="[childMenu.route]"
+          class="w-full hover:shadow-sm hover:cursor-pointer"
+          routerLinkActive="menu-item-selected"
+        >
+          <div
+            (click)="onChildMenuClick($event, childMenu)"
+            class="flex h-10 w-full flex-col items-start justify-center px-3"
+          >
+            <p class="m-0 py-2">
+              {{ childMenu.description }}
+            </p>
+          </div>
+        </a>
+      }
+    </div>
+  </ng-template>
+}
 
 <ng-template
   #children

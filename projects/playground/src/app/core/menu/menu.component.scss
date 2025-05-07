@@ -1,11 +1,15 @@
 .menu-item {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border-right: 1px solid var(--bs-border-color, #000);
   padding: 0.25rem;
   &:hover {
     cursor: pointer;
   }
+}
+
+.menu-item-selected {
+  background-color: #fefefe;
 }
 
 .border-r-0 {
@@ -13,17 +17,20 @@
 }
 
 .child-menu {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  li {
-    button {
-      width: 100%;
-      border-radius: 0;
-      text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bs-body-bg, #fff);
+  border: 1px solid var(--bs-border-color, #000);
+  a {
+    color: var(--bs-body-color, #000);
+    text-decoration: none;
+    width: 100%;
+    &:visited {
+      color: var(--bs-body-color, #000);
     }
     &:hover {
-      background-color: #dedede;
+      background-color: var(--bs-border-color, #000);
     }
   }
 }
