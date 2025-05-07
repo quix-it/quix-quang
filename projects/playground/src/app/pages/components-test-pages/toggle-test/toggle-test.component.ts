@@ -1,4 +1,4 @@
-import { JsonPipe, NgIf } from '@angular/common'
+import { JsonPipe } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
@@ -8,7 +8,7 @@ import { QuangCheckboxComponent } from 'quang/components/checkbox/checkbox.compo
 
 @Component({
   selector: 'playground-toggle-test',
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangCheckboxComponent, NgIf, TranslocoPipe],
+  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangCheckboxComponent, TranslocoPipe],
 
   templateUrl: './toggle-test.component.html',
   styleUrl: './toggle-test.component.scss',
