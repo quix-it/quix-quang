@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/overlay-test-pages/overlay-test-pages.routes'),
   },
   {
+    path: 'auth',
+    loadChildren: () => import('./pages/auth-test-pages/auth-test-pages.routes'),
+  },
+  {
     path: '',
     redirectTo: 'components',
     pathMatch: 'full',

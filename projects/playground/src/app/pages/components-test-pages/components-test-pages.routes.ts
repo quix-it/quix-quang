@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router'
 
-import { AuthTestComponent } from './auth-test/auth-test.component'
 import { AutocompleteTestComponent } from './autocomplete-test/autocomplete-test.component'
 import { DateTestComponent } from './date-test/date-test.component'
 import { InputTestComponent } from './input-test/input-test.component'
@@ -11,10 +10,6 @@ import { ToggleTestComponent } from './toggle-test/toggle-test.component'
 import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
 
 const routes: Routes = [
-  {
-    path: 'auth',
-    component: AuthTestComponent,
-  },
   {
     path: 'autocomplete',
     component: AutocompleteTestComponent,

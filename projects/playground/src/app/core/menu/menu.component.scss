@@ -7,6 +7,13 @@
     cursor: pointer;
   }
 }
+a {
+  color: var(--bs-body-color, #000);
+  text-decoration: none;
+  &:visited {
+    color: var(--bs-body-color, #000);
+  }
+}
 
 .menu-item-selected {
   background-color: #fefefe;
@@ -23,12 +30,7 @@
   background-color: var(--bs-body-bg, #fff);
   border: 1px solid var(--bs-border-color, #000);
   a {
-    color: var(--bs-body-color, #000);
-    text-decoration: none;
     width: 100%;
-    &:visited {
-      color: var(--bs-body-color, #000);
-    }
     &:hover {
       background-color: var(--bs-border-color, #000);
     }

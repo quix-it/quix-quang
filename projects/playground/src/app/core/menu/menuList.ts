@@ -60,4 +60,8 @@ export const menuList: MenuItem[] = [
       },
     ],
   },
+  {
+    description: 'Auth',
+    route: 'auth',
+  },
 ]
