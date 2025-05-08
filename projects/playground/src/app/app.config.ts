@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAngularSvgIcon(),
     provideQuangConfig(
-      { verbose: true },
+      { verbose: true, baseHref: '/quix-quang/' },
       withTranslation({
         availableLangs: ['it', 'en'],
         defaultLang: 'it',
