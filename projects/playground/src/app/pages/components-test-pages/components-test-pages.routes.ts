@@ -3,6 +3,7 @@ import { Routes } from '@angular/router'
 import { AutocompleteTestComponent } from './autocomplete-test/autocomplete-test.component'
 import { DateTestComponent } from './date-test/date-test.component'
 import { InputTestComponent } from './input-test/input-test.component'
+import { LoaderTestPageComponent } from './loader-test-page/loader-test-page.component'
 import { PaginatorTestComponent } from './paginator-test/paginator-test.component'
 import { SelectTestComponent } from './select-test/select-test.component'
 import { TableTestComponent } from './table-test/table-test.component'
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'wysiwyg',
     component: WysiwygTestComponent,
+  },
+  {
+    path: 'loader',
+    component: LoaderTestPageComponent,
   },
   {
     path: '**',

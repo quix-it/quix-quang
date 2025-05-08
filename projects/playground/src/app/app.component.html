@@ -42,37 +42,12 @@
       </button>
     </div>
 
-    <div class="d-flex gap-2">
-      
-      <button
-        (click)="openToast('error')"
-        class="w-100 btn btn-outline-secondary"
-      >
-        {{ 'buttons.toast.error' | transloco }}
-      </button>
-      <button
-        (click)="openToast('success')"
-        class="w-100 btn btn-outline-secondary"
-      >
-        {{ 'buttons.toast.success' | transloco }}
-      </button>
-    </div>
 
     <quang-loader></quang-loader>
     <quang-toast></quang-toast>
    
     <router-outlet />
 
-    <ng-template #customToast>
-      <div class="d-flex justify-content-end">
-        <button
-          class="btn btn-primary m-2 text-end"
-          type="button"
-        >
-          pulsante bello
-        </button>
-      </div>
-    </ng-template>
   </div>
 
   <div

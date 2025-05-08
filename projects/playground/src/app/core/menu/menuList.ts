@@ -41,6 +41,10 @@ export const menuList: MenuItem[] = [
         route: 'components/wysiwyg',
         description: 'Wysiwyg',
       },
+      {
+        route: 'components/loader',
+        description: 'Loader',
+      },
     ],
   },
   {
@@ -57,6 +61,10 @@ export const menuList: MenuItem[] = [
       {
         description: 'Modal',
         route: 'overlay/modal',
+      },
+      {
+        description: 'Toast',
+        route: 'overlay/toast',
       },
     ],
   },
