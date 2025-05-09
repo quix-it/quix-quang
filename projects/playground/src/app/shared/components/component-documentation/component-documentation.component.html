@@ -1,0 +1,39 @@
+<div class="documentation-container">
+  <h3>{{ 'title.components.documentation' | transloco }}</h3>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h4>{{ 'title.components.properties' | transloco }}</h4>
+    </div>
+    <div class="card-body">
+      <div class="inputs-list">
+        @let doc = documentation();
+        @if (doc && doc.properties && doc.properties.length > 0) {
+          @for (prop of doc.properties; track prop.name) {
+            <div class="input-item">
+              <div class="input-name"><code>{{ prop.name }}</code></div>
+              @if (prop.required) {
+                <span class="badge bg-primary">Required</span>
+              }
+            </div>
+          }
+        } @else {
+          <p>{{ 'documentation.noInputs' | transloco }}</p>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h4>{{ 'title.components.usage' | transloco }}</h4>
+    </div>
+    <div class="card-body">
+      <div class="code-snippet">
+        <pre><code>{{ cleanedExampleHtml() }}</code></pre>
+      </div>
+    </div>
+  </div>
+
+
+</div>

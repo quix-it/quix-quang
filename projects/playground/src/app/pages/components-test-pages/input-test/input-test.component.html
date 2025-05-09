@@ -16,6 +16,9 @@
       @if (showInput()) {
         <div class="row">
           <quang-input
+            id="testComponent"
+            #testComponent
+            playgroundSourceCode
             [componentType]="inputType()"
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
@@ -84,3 +87,12 @@
     </span>
   </div>
 }
+
+<!-- Component Documentation Section -->
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="QuangInputComponent"
+    [exampleHtml]="testComponentSource()"
+  ></playground-component-documentation>
+</div>
+

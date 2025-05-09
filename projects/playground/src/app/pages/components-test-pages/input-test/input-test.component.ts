@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
@@ -8,16 +8,41 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { InputType, QuangInputComponent } from 'quang/components/input'
 import { QuangSelectComponent } from 'quang/components/select'
 import { SelectOption } from 'quang/components/shared'
+import {
+  ComponentDocumentationComponent,
+} from '../../../shared/components/component-documentation/component-documentation.component'
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
 
 @Component({
   selector: 'playground-input-test',
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangInputComponent, TranslocoPipe, QuangSelectComponent],
-
+  imports: [
+    FormsModule,
+    JsonPipe,
+    ReactiveFormsModule,
+    QuangInputComponent,
+    TranslocoPipe,
+    QuangSelectComponent,
+    ComponentDocumentationComponent,
+    SourceCodeDirective
+  ],
   templateUrl: './input-test.component.html',
   styleUrl: './input-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputTestComponent {
+  // Expose QuangInputComponent for use in the template
+  protected QuangInputComponent = QuangInputComponent;
+
+  testComponent = viewChild('testComponent')
+
+  testComponentSource = computed<string>(() => {
+    if(this.testComponent()) {
+      console.log('testComponent', document.getElementById('testComponent'))
+      return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
+    }
+    return ''
+  })
+
   inputTypesList: InputType[] = ['number', 'url', 'tel', 'color', 'email', 'password', 'search', 'text', 'textarea']
 
   inputTypes = computed<SelectOption[]>(() => this.inputTypesList.map((x) => ({ label: x, value: x })))
