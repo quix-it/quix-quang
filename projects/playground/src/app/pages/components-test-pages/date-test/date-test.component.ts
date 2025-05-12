@@ -1,11 +1,22 @@
 import { JsonPipe } from '@angular/common'
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, signal } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { SvgIconComponent } from 'angular-svg-icon'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangDateComponent } from 'quang/components/date'
+
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
 
 @Component({
   selector: 'playground-date-test',
@@ -16,8 +27,9 @@ import { QuangDateComponent } from 'quang/components/date'
     TranslocoPipe,
     JsonPipe,
     QuangDateComponent,
-    QuangDateComponent,
     SvgIconComponent,
+    ComponentDocumentationComponent,
+    SourceCodeDirective,
   ],
 
   templateUrl: './date-test.component.html',
@@ -25,6 +37,18 @@ import { QuangDateComponent } from 'quang/components/date'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateTestComponent {
+  // Expose QuangDateComponent for use in the template
+  protected QuangDateComponent = QuangDateComponent
+
+  testComponent = viewChild('testComponent')
+
+  testComponentSource = computed<string>(() => {
+    if (this.testComponent()) {
+      return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
+    }
+    return ''
+  })
+
   private readonly formBuilder = inject(NonNullableFormBuilder)
 
   isReadonly = signal<boolean>(false)

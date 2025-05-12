@@ -11,8 +11,11 @@
             [formControl]="testForm.controls.testInput"
             [isReadonly]="isReadonly()"
             [timepicker]="true"
+            #testComponent
             class="col-6"
             componentLabel="form.label.date"
+            id="testComponent"
+            playgroundSourceCode
             successMessage="form.label.success"
           >
             <svg-icon src="./assets/icons/svg/calendar.svg" />
@@ -100,3 +103,11 @@
     </span>
   </div>
 }
+
+<!-- Component Documentation Section -->
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="QuangDateComponent"
+    [exampleHtml]="testComponentSource()"
+  ></playground-component-documentation>
+</div>

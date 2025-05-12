@@ -1,21 +1,41 @@
 import { JsonPipe } from '@angular/common'
-import { Component, DestroyRef, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal, viewChild } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
 import { SelectOption } from 'quang/components/shared'
 
 @Component({
   selector: 'playground-autocomplete-test',
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, TranslocoPipe, QuangAutocompleteComponent],
-
+  imports: [
+    FormsModule,
+    JsonPipe,
+    ReactiveFormsModule,
+    TranslocoPipe,
+    QuangAutocompleteComponent,
+    ComponentDocumentationComponent,
+  ],
   templateUrl: './autocomplete-test.component.html',
   styleUrl: './autocomplete-test.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteTestComponent {
+  // Expose QuangAutocompleteComponent for use in the template
+  protected QuangAutocompleteComponent = QuangAutocompleteComponent
+
+  testComponent = viewChild('testComponent')
+
+  testComponentSource = computed<string>(() => {
+    if (this.testComponent()) {
+      return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
+    }
+    return ''
+  })
+
   isReadonly = signal<boolean>(false)
 
   showValueAndValidity = signal<boolean>(false)

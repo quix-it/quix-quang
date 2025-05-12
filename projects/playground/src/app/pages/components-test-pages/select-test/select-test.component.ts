@@ -1,22 +1,44 @@
 import { JsonPipe } from '@angular/common'
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangSelectComponent } from 'quang/components/select'
 import { SelectOption } from 'quang/components/shared'
 
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+
 @Component({
   selector: 'playground-select-test',
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, TranslocoPipe, QuangSelectComponent],
-
+  imports: [
+    FormsModule,
+    JsonPipe,
+    ReactiveFormsModule,
+    TranslocoPipe,
+    QuangSelectComponent,
+    ComponentDocumentationComponent,
+    SourceCodeDirective,
+  ],
   templateUrl: './select-test.component.html',
   styleUrl: './select-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectTestComponent {
+  // Expose QuangSelectComponent for use in the template
+  protected QuangSelectComponent = QuangSelectComponent
+
+  testComponent = viewChild('testComponent')
+
+  testComponentSource = computed<string>(() => {
+    if (this.testComponent()) {
+      return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
+    }
+    return ''
+  })
+
   isReadonly = signal<boolean>(false)
 
   showValueAndValidity = signal<boolean>(false)

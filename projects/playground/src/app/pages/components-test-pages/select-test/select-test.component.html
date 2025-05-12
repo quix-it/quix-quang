@@ -9,10 +9,13 @@
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
             [selectOptions]="stringList"
+            #testComponent
             class="col-4"
             componentLabel="form.label.select"
             componentPlaceholder="Placeholder select singola scelta"
             formControlName="testInput"
+            id="testComponent"
+            playgroundSourceCode
             selectionMode="single"
             successMessage="form.label.success"
           ></quang-select>
@@ -98,3 +101,11 @@
     </span>
   </div>
 }
+
+<!-- Component Documentation Section -->
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="QuangSelectComponent"
+    [exampleHtml]="testComponentSource()"
+  ></playground-component-documentation>
+</div>

@@ -11,10 +11,9 @@
         @if (doc && doc.properties && doc.properties.length > 0) {
           @for (prop of doc.properties; track prop.name) {
             <div class="input-item">
-              <div class="input-name"><code>{{ prop.name }}</code></div>
-              @if (prop.required) {
-                <span class="badge bg-primary">Required</span>
-              }
+              <div class="input-name">
+                <code>{{ prop.name }}</code>
+              </div>
             </div>
           }
         } @else {
@@ -34,6 +33,4 @@
       </div>
     </div>
   </div>
-
-
 </div>
