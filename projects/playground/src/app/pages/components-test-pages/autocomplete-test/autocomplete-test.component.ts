@@ -24,6 +24,8 @@ import { SelectOption } from 'quang/components/shared'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteTestComponent {
+  componentsReadmePath = '/assets/docs/autocomplete.md'
+
   // Expose QuangAutocompleteComponent for use in the template
   protected QuangAutocompleteComponent = QuangAutocompleteComponent
 

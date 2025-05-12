@@ -4,6 +4,7 @@
   <button
     [quangPopover]="popoverTest"
     [scrollCloseThreshold]="undefined"
+    #testComponent
     class="btn btn-primary popover-test-button"
     overlayPosition="top"
     showMethod="click"
@@ -21,6 +22,14 @@
     {{ 'buttons.popover' | transloco }}
     <span>HOVER</span>
   </button>
+</div>
+
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="PopoverTestPageComponent"
+    [customReadmePath]="componentsReadmePath"
+    [exampleHtml]="testComponentSource()"
+  />
 </div>
 
 <ng-template #popoverTest

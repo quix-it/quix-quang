@@ -3,13 +3,17 @@ import { Component, signal } from '@angular/core'
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangModalComponent } from 'quang/overlay/modal'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
+
 @Component({
   selector: 'playground-modal-test-page',
-  imports: [QuangModalComponent, TranslocoPipe],
+  imports: [QuangModalComponent, TranslocoPipe, ComponentDocumentationComponent],
   templateUrl: './modal-test-page.component.html',
   styleUrl: './modal-test-page.component.scss',
 })
 export class ModalTestPageComponent {
+  protected ModalTestPageComponent = ModalTestPageComponent
+  componentsReadmePath = '/assets/docs/modal.md'
   showModal = signal<boolean>(false)
   content = signal<string>('content')
 
@@ -25,3 +29,9 @@ export class ModalTestPageComponent {
     this.content.update((content) => `${content}!!!`)
   }
 }
+
+// Add playground-component-documentation in the template
+// <playground-component-documentation
+//   [componentType]="ModalTestPageComponent"
+//   [customReadmePath]="componentsReadmePath"
+// ></playground-component-documentation>

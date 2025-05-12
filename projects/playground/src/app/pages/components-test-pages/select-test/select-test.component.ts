@@ -39,6 +39,8 @@ export class SelectTestComponent {
     return ''
   })
 
+  componentsReadmePath = './assets/docs/select.md'
+
   isReadonly = signal<boolean>(false)
 
   showValueAndValidity = signal<boolean>(false)

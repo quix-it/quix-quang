@@ -1,6 +1,6 @@
 /**
- * Script to copy README.md files from the quang project to the playground assets folder
- * Each README will be renamed according to its parent directory
+ * Script to copy specific README.md files from the quang project to the playground assets folder
+ * Generic README.md files (e.g., index files) will be ignored.
  */
 
 const fs = require('fs');
@@ -17,11 +17,11 @@ if (!fs.existsSync(DEST_DIR)) {
 }
 
 /**
- * Recursively find all README.md files
+ * Recursively find specific README.md files
  * @param {string} dir - Directory to search in
  * @returns {Array} - Array of objects with README path and parent directory name
  */
-function findReadmeFiles(dir) {
+function findSpecificReadmeFiles(dir) {
   let results = [];
 
   const files = fs.readdirSync(dir);
@@ -32,13 +32,17 @@ function findReadmeFiles(dir) {
 
     if (stat.isDirectory()) {
       // Recursively search subdirectories
-      results = results.concat(findReadmeFiles(filePath));
-    } else if (file.toLowerCase() === 'readme.md') {
-      // Found a README.md file, include its path and parent directory name
-      const parentDir = path.basename(dir);
+      results = results.concat(findSpecificReadmeFiles(filePath));
+    } else if (
+      file.toLowerCase() === 'readme.md' &&
+      !filePath.includes('components/README.md') &&
+      !filePath.includes('overlay/README.md')
+    ) {
+      // Found a specific README.md file, include its path and parent directory name
+      const parentDir = path.basename(path.dirname(filePath));
       results.push({
         path: filePath,
-        parentDir: parentDir
+        parentDir: parentDir,
       });
     }
   }
@@ -47,16 +51,16 @@ function findReadmeFiles(dir) {
 }
 
 /**
- * Copy README files to destination with new names
+ * Copy specific README files to destination with new names
  */
-function copyReadmeFiles() {
-  console.log('Starting to copy README files...');
+function copySpecificReadmeFiles() {
+  console.log('Starting to copy specific README files...');
 
-  const readmeFiles = findReadmeFiles(QUANG_DIR);
-  console.log(`Found ${readmeFiles.length} README.md files.`);
+  const readmeFiles = findSpecificReadmeFiles(QUANG_DIR);
+  console.log(`Found ${readmeFiles.length} specific README.md files.`);
 
   // Copy each README file with a new name based on its parent directory
-  readmeFiles.forEach(file => {
+  readmeFiles.forEach((file) => {
     const destFileName = `${file.parentDir}.md`;
     const destPath = path.join(DEST_DIR, destFileName);
 
@@ -68,8 +72,8 @@ function copyReadmeFiles() {
     }
   });
 
-  console.log('Finished copying README files.');
+  console.log('Finished copying specific README files.');
 }
 
 // Execute the copy function
-copyReadmeFiles();
+copySpecificReadmeFiles();

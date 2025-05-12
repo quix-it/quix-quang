@@ -16,6 +16,7 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangPopoverDirective } from 'quang/overlay/popover'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangCheckboxComponent } from 'quang/components/checkbox'
 import {
   QuangTableComponent,
@@ -43,6 +44,7 @@ interface People {
     QuangCheckboxComponent,
     ReactiveFormsModule,
     NgIf,
+    ComponentDocumentationComponent,
   ],
 
   templateUrl: './table-test.component.html',
@@ -50,11 +52,22 @@ interface People {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableTestComponent {
-  actions = viewChild<TemplateRef<any>>('actions')
+  protected TableTestComponent = TableTestComponent
 
-  name3 = viewChild<TemplateRef<any>>('name3')
+  private readonly checkboxRenderer = viewChild<TemplateRef<any>>('checkboxRenderer')
+  private readonly name3 = viewChild<TemplateRef<any>>('name3')
+  private readonly actions = viewChild<TemplateRef<any>>('actions')
+  private readonly testComponent = viewChild('testComponent')
 
-  checkboxRenderer = viewChild<TemplateRef<any>>('checkboxRenderer')
+  testComponentSource = computed<string>(() => {
+    if (this.testComponent()) {
+      console.log('testComponent', document.getElementById('testComponent'))
+      return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
+    }
+    return ''
+  })
+
+  componentsReadmePath = '/assets/docs/table.md'
 
   readonly people: People[] = [
     {

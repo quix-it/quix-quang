@@ -32,7 +32,7 @@ export class InputTestComponent {
   // Expose QuangInputComponent for use in the template
   protected QuangInputComponent = QuangInputComponent
 
-  testComponent = viewChild('testComponent')
+  private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
     if (this.testComponent()) {
@@ -43,7 +43,7 @@ export class InputTestComponent {
   })
 
   // Path to the components README.md file
-  componentsReadmePath = './assets/docs/components.md'
+  componentsReadmePath = './assets/docs/input.md'
 
   inputTypesList: InputType[] = ['number', 'url', 'tel', 'color', 'email', 'password', 'search', 'text', 'textarea']
 

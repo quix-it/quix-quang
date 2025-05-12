@@ -15,3 +15,11 @@
     {{ 'buttons.withTooltip' | transloco }}
   </small>
 </div>
+
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="TooltipTestPageComponent"
+    [customReadmePath]="componentsReadmePath"
+    [exampleHtml]="testComponentSource()"
+  />
+</div>

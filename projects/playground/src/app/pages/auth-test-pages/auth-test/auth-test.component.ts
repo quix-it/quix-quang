@@ -12,6 +12,8 @@ import {
 } from 'quang/auth'
 import { catchError, map, of } from 'rxjs'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
+
 @Component({
   selector: 'playground-auth-test',
 
@@ -22,12 +24,16 @@ import { catchError, map, of } from 'rxjs'
     QuangHasAtLeastOneRoleDirective,
     QuangHasEveryRoleDirective,
     JsonPipe,
+    ComponentDocumentationComponent,
   ],
   templateUrl: './auth-test.component.html',
   styleUrl: './auth-test.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthTestComponent {
+  protected AuthTestComponent = AuthTestComponent
+  componentsReadmePath = '/assets/docs/auth.md'
+
   http = inject(HttpClient)
 
   authService = inject(QuangAuthService)

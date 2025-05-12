@@ -1,20 +1,43 @@
 import { JsonPipe } from '@angular/common'
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangWysiwygComponent, QuangWysiwygOptions } from 'quang/components/wysiwyg'
 
 @Component({
   selector: 'playground-wysiwyg-test',
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, TranslocoPipe, QuangWysiwygComponent],
+  imports: [
+    FormsModule,
+    JsonPipe,
+    ReactiveFormsModule,
+    TranslocoPipe,
+    QuangWysiwygComponent,
+    ComponentDocumentationComponent,
+  ],
 
   templateUrl: './wysiwyg-test.component.html',
   styleUrl: './wysiwyg-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WysiwygTestComponent {
+  protected WysiwygTestComponent = WysiwygTestComponent
+
+  private readonly testComponent = viewChild('testComponent')
+
+  testComponentSource = computed<string>(() => {
+    if (this.testComponent()) {
+      console.log('testComponent', document.getElementById('testComponent'))
+      return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
+    }
+    return ''
+  })
+
+  // Path to the components README.md file
+  componentsReadmePath = './assets/docs/wysiwyg.md'
+
   isReadonly = signal<boolean>(false)
 
   showValueAndValidity = signal<boolean>(false)

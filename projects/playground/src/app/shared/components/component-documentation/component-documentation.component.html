@@ -10,7 +10,8 @@
         <h4>{{ 'title.components.readme' | transloco }}</h4>
       </div>
       <div class="card-body readme-content">
-        <markdown [data]="readme"></markdown>
+        <!-- [data]="readme" -->
+        <markdown [src]="customReadmePath()"></markdown>
       </div>
     </div>
   }

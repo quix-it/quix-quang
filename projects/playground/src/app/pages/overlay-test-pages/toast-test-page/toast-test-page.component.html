@@ -14,6 +14,14 @@
   </button>
 </div>
 
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="ToastTestPageComponent"
+    [customReadmePath]="componentsReadmePath"
+    [exampleHtml]="testComponentSource()"
+  />
+</div>
+
 <ng-template #customToast>
   <div class="d-flex justify-content-end">
     <button

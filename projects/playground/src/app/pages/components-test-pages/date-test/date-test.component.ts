@@ -40,6 +40,8 @@ export class DateTestComponent {
   // Expose QuangDateComponent for use in the template
   protected QuangDateComponent = QuangDateComponent
 
+  componentsReadmePath = '/assets/docs/date.md'
+
   testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {

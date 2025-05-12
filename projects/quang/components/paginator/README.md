@@ -1,0 +1,29 @@
+# QuangPaginatorComponent
+
+The `QuangPaginatorComponent` provides controls for navigating through pages of data, supporting configurations for total items, items per page, and current page.
+
+## Features
+- Pagination controls
+- Configurable total items, items per page, and current page
+- Emits events for page changes
+
+## Inputs
+- `totalItems`: Total number of items to paginate. (Required)
+- `itemsPerPage`: Number of items per page. Default is `10`.
+- `currentPage`: The current page number. Default is `1`.
+
+## Outputs
+- `pageChange`: Emits the new page number when the user navigates to a different page.
+
+## Usage
+```html
+<quang-paginator
+  [totalItems]="100"
+  [itemsPerPage]="10"
+  [currentPage]="1"
+  (pageChange)="onPageChange($event)"
+></quang-paginator>
+```
+
+## Notes
+This component is designed to work seamlessly with lists and tables, providing a user-friendly interface for pagination.
