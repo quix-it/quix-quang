@@ -6,9 +6,11 @@ import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+
 @Component({
   selector: 'playground-tooltip-test-page',
-  imports: [QuangTooltipDirective, TranslocoPipe, ComponentDocumentationComponent],
+  imports: [QuangTooltipDirective, TranslocoPipe, ComponentDocumentationComponent, SourceCodeDirective],
   templateUrl: './tooltip-test-page.component.html',
   styleUrl: './tooltip-test-page.component.scss',
 })

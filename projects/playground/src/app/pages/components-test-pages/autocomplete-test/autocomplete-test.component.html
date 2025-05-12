@@ -12,11 +12,13 @@
             [selectOptions]="stringListFiltered()"
             (searchTextChange)="changeTextTest($event)"
             (selectedOption)="onSelectOption($event)"
+            #testComponent
             class="col-6"
             componentLabel="form.label.autocompleteAsync"
             formControlName="testInput1"
+            playgroundSourceCode
             successMessage="form.label.success"
-          ></quang-autocomplete>
+          />
           <quang-autocomplete
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"

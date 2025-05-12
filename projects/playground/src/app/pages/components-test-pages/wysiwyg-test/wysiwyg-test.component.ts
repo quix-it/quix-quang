@@ -7,6 +7,8 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangWysiwygComponent, QuangWysiwygOptions } from 'quang/components/wysiwyg'
 
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+
 @Component({
   selector: 'playground-wysiwyg-test',
   imports: [
@@ -16,6 +18,7 @@ import { QuangWysiwygComponent, QuangWysiwygOptions } from 'quang/components/wys
     TranslocoPipe,
     QuangWysiwygComponent,
     ComponentDocumentationComponent,
+    SourceCodeDirective,
   ],
 
   templateUrl: './wysiwyg-test.component.html',

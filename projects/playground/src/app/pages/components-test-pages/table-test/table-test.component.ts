@@ -27,6 +27,8 @@ import {
   TableRow,
 } from 'quang/components/table/table.component'
 
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+
 interface People {
   name: string
   age: number
@@ -45,6 +47,7 @@ interface People {
     ReactiveFormsModule,
     NgIf,
     ComponentDocumentationComponent,
+    SourceCodeDirective,
   ],
 
   templateUrl: './table-test.component.html',

@@ -7,6 +7,8 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangPaginatorComponent } from 'quang/components/paginator'
 
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+
 @Component({
   selector: 'playground-paginator-test',
   imports: [
@@ -16,6 +18,7 @@ import { QuangPaginatorComponent } from 'quang/components/paginator'
     JsonPipe,
     TranslocoPipe,
     ComponentDocumentationComponent,
+    SourceCodeDirective,
   ],
 
   templateUrl: './paginator-test.component.html',

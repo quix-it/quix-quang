@@ -7,6 +7,8 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangCheckboxComponent } from 'quang/components/checkbox/checkbox.component'
 
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+
 @Component({
   selector: 'playground-toggle-test',
   imports: [
@@ -16,6 +18,7 @@ import { QuangCheckboxComponent } from 'quang/components/checkbox/checkbox.compo
     QuangCheckboxComponent,
     TranslocoPipe,
     ComponentDocumentationComponent,
+    SourceCodeDirective,
   ],
 
   templateUrl: './toggle-test.component.html',

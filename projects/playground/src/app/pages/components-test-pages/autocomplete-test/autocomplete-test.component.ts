@@ -9,6 +9,8 @@ import { ComponentDocumentationComponent } from '../../../shared/components/comp
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
 import { SelectOption } from 'quang/components/shared'
 
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+
 @Component({
   selector: 'playground-autocomplete-test',
   imports: [
@@ -18,6 +20,7 @@ import { SelectOption } from 'quang/components/shared'
     TranslocoPipe,
     QuangAutocompleteComponent,
     ComponentDocumentationComponent,
+    SourceCodeDirective,
   ],
   templateUrl: './autocomplete-test.component.html',
   styleUrl: './autocomplete-test.component.scss',
@@ -29,7 +32,7 @@ export class AutocompleteTestComponent {
   // Expose QuangAutocompleteComponent for use in the template
   protected QuangAutocompleteComponent = QuangAutocompleteComponent
 
-  testComponent = viewChild('testComponent')
+  private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
     if (this.testComponent()) {

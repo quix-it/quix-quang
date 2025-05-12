@@ -2,8 +2,10 @@
 
 <div
   [quangTooltip]="'buttons.tooltipMessage' | transloco"
+  #testComponent
   class="w-100"
   overlayPosition="top"
+  playgroundSourceCode
 >
   <button
     (click)="openToast('warning', true)"
