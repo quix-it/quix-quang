@@ -1,4 +1,8 @@
-import { Injectable, Type } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Injectable, Type, inject } from '@angular/core'
+
+import { Observable, of } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 
 // Add console logger for debugging purposes
 const DEBUG = true
@@ -17,12 +21,15 @@ export interface ComponentDocumentation {
   inputs: PropertyDoc[]
   outputs: PropertyDoc[]
   selector: string
+  readme?: string | null
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class ComponentDocumentationService {
+  private readonly http = inject(HttpClient)
+
   /**
    * Extracts documentation for a component class
    * @param componentType The component class to document
@@ -203,5 +210,77 @@ export class ComponentDocumentationService {
       outputs: uniqueOutputs,
       selector,
     }
+  }
+
+  /**
+   * Fetches the README content for a component
+   * @param componentType The component class to document
+   * @param customReadmePath Optional custom path to the README file
+   * @returns Observable with README content or null if not found
+   */
+  fetchReadmeContent(componentType: Type<any>, customReadmePath?: string): Observable<string | null> {
+    debugLog(`Fetching README for component: ${componentType.name}`)
+
+    // If a custom path is provided, try that first
+    if (customReadmePath) {
+      debugLog(`Trying custom README path: ${customReadmePath}`)
+      return this.http.get(customReadmePath, { responseType: 'text' }).pipe(
+        catchError((error) => {
+          debugLog(`Error fetching from custom path:`, error)
+          return of(null)
+        })
+      )
+    }
+
+    // Extract component name and try to determine the README path
+    const componentName = componentType.name
+
+    // Try to find the appropriate README path based on the component name
+    // First, remove "Component" suffix if it exists
+    const baseName = componentName.replace(/Component$/, '')
+
+    // Convert from camelCase to kebab-case
+    const kebabCase = baseName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+
+    // 1. Try paths in the component folders (how the project is structured)
+    const projectPaths = [
+      `/projects/quang/${kebabCase}/README.md`,
+      `/projects/quang/components/${kebabCase}/README.md`,
+      `/projects/quang/overlay/${kebabCase}/README.md`,
+    ]
+
+    // 2. Asset paths (current implementation)
+    const assetPaths = [
+      `/assets/readme/${kebabCase}.md`,
+      `/assets/docs/${kebabCase}.md`,
+      `/assets/documentation/${kebabCase}.md`,
+    ]
+
+    // Combine all possible paths
+    const possiblePaths = [...projectPaths, ...assetPaths]
+    debugLog(`Trying these possible README paths:`, possiblePaths)
+
+    // Try each path in sequence
+    return this.tryFetchFromPaths(possiblePaths)
+  }
+
+  /**
+   * Tries to fetch content from multiple paths in sequence
+   * @param paths Array of paths to try
+   * @returns Observable with content or null if all paths fail
+   */
+  private tryFetchFromPaths(paths: string[]): Observable<string | null> {
+    if (paths.length === 0) {
+      return of(null)
+    }
+
+    const [current, ...remaining] = paths
+
+    return this.http.get(current, { responseType: 'text' }).pipe(
+      catchError(() => {
+        debugLog(`Failed to fetch from ${current}, trying next path`)
+        return this.tryFetchFromPaths(remaining)
+      })
+    )
   }
 }

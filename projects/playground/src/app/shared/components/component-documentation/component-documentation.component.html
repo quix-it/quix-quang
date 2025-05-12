@@ -1,6 +1,19 @@
 @let doc = documentation();
+@let readme = readmeContent();
 <div class="documentation-container">
   <h3>{{ 'title.components.documentation' | transloco }}</h3>
+
+  <!-- README section - Added to display component's README content -->
+  @if (readme) {
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4>{{ 'title.components.readme' | transloco }}</h4>
+      </div>
+      <div class="card-body readme-content">
+        <markdown [data]="readme"></markdown>
+      </div>
+    </div>
+  }
 
   <div class="card mb-4">
     <div class="card-header">

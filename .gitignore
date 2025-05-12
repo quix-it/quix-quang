@@ -52,3 +52,5 @@ sonar/sonar-project.properties
 
 # Sentry Config File
 .sentryclirc
+
+projects/playground/src/assets/docs

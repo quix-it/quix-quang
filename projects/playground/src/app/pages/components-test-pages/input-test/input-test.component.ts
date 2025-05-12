@@ -5,12 +5,11 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { InputType, QuangInputComponent } from 'quang/components/input'
 import { QuangSelectComponent } from 'quang/components/select'
 import { SelectOption } from 'quang/components/shared'
-import {
-  ComponentDocumentationComponent,
-} from '../../../shared/components/component-documentation/component-documentation.component'
+
 import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
 
 @Component({
@@ -23,7 +22,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
     TranslocoPipe,
     QuangSelectComponent,
     ComponentDocumentationComponent,
-    SourceCodeDirective
+    SourceCodeDirective,
   ],
   templateUrl: './input-test.component.html',
   styleUrl: './input-test.component.scss',
@@ -31,17 +30,20 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
 })
 export class InputTestComponent {
   // Expose QuangInputComponent for use in the template
-  protected QuangInputComponent = QuangInputComponent;
+  protected QuangInputComponent = QuangInputComponent
 
   testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
-    if(this.testComponent()) {
+    if (this.testComponent()) {
       console.log('testComponent', document.getElementById('testComponent'))
       return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
     }
     return ''
   })
+
+  // Path to the components README.md file
+  componentsReadmePath = './assets/docs/components.md'
 
   inputTypesList: InputType[] = ['number', 'url', 'tel', 'color', 'email', 'password', 'search', 'text', 'textarea']
 
