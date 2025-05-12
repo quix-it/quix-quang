@@ -16,18 +16,18 @@
       @if (showInput()) {
         <div class="row">
           <quang-input
-            id="testComponent"
-            #testComponent
-            playgroundSourceCode
             [componentType]="inputType()"
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
             [maxNumber]="10"
             [minNumber]="0"
+            #testComponent
             componentLabel="form.label.input"
             formControlName="testInput"
+            id="testComponent"
+            playgroundSourceCode
             successMessage="form.label.success"
-          ></quang-input>
+          />
         </div>
       }
       <div class="d-flex gap-3 mt-3">
@@ -95,4 +95,3 @@
     [exampleHtml]="testComponentSource()"
   ></playground-component-documentation>
 </div>
-

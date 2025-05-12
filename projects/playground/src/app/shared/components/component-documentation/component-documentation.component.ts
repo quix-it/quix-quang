@@ -22,8 +22,8 @@ export class ComponentDocumentationComponent {
 
   cleanedExampleHtml = computed(() =>
     this.exampleHtml()
-      .replace(/id=".*? "/g, '')
-      .replace(/playgroundsourcecode=".*? "/g, '')
+      .replace(/ id=".*?"/g, '')
+      .replace(/ playgroundsourcecode=".*?"/g, '')
       .replace(/_nghost-ng-c\d+=""( )?/g, '')
       .replace(/ng-reflect-[a-zA-Z-]+="[^"]*"( )?/g, '')
       .replace(/_ng[a-zA-Z-]+="[^"]*"( )?/g, '')

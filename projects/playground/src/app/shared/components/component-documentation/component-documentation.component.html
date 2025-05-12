@@ -1,5 +1,17 @@
+@let doc = documentation();
 <div class="documentation-container">
   <h3>{{ 'title.components.documentation' | transloco }}</h3>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h4>{{ 'title.components.usage' | transloco }}</h4>
+    </div>
+    <div class="card-body">
+      <div class="code-snippet">
+        <pre><code>{{ cleanedExampleHtml() }}</code></pre>
+      </div>
+    </div>
+  </div>
 
   <div class="card mb-4">
     <div class="card-header">
@@ -7,9 +19,8 @@
     </div>
     <div class="card-body">
       <div class="inputs-list">
-        @let doc = documentation();
-        @if (doc && doc.properties && doc.properties.length > 0) {
-          @for (prop of doc.properties; track prop.name) {
+        @if (doc && doc.inputs && doc.inputs.length > 0) {
+          @for (prop of doc.inputs; track prop.name) {
             <div class="input-item">
               <div class="input-name">
                 <code>{{ prop.name }}</code>
@@ -25,11 +36,21 @@
 
   <div class="card mb-4">
     <div class="card-header">
-      <h4>{{ 'title.components.usage' | transloco }}</h4>
+      <h4>{{ 'title.components.events' | transloco }}</h4>
     </div>
     <div class="card-body">
-      <div class="code-snippet">
-        <pre><code>{{ cleanedExampleHtml() }}</code></pre>
+      <div class="outputs-list">
+        @if (doc && doc.outputs && doc.outputs.length > 0) {
+          @for (prop of doc.outputs; track prop.name) {
+            <div class="output-item">
+              <div class="output-name">
+                <code>{{ prop.name }}</code>
+              </div>
+            </div>
+          }
+        } @else {
+          <p>{{ 'documentation.noOutputs' | transloco }}</p>
+        }
       </div>
     </div>
   </div>

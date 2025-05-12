@@ -1,4 +1,3 @@
-// filepath: /Users/stefano.restuccia/Progetti/quix-quang/projects/playground/src/app/shared/services/component-documentation.service.ts
 import { Injectable, Type } from '@angular/core'
 
 // Add console logger for debugging purposes
@@ -11,10 +10,12 @@ function debugLog(...args: any[]) {
 
 export interface PropertyDoc {
   name: string
+  type: 'input' | 'output'
 }
 
 export interface ComponentDocumentation {
-  properties: PropertyDoc[]
+  inputs: PropertyDoc[]
+  outputs: PropertyDoc[]
   selector: string
 }
 
@@ -36,7 +37,8 @@ export class ComponentDocumentationService {
     debugLog(`Component selector: ${selector}`)
 
     // Extract input properties
-    const properties: PropertyDoc[] = []
+    const inputs: PropertyDoc[] = []
+    const outputs: PropertyDoc[] = []
 
     // METHOD 1: Access inputs through Angular's compiled metadata
     if (componentMetadata?.inputs) {
@@ -61,8 +63,37 @@ export class ComponentDocumentationService {
           publicName = inputMetadata[0] || propName
         }
 
-        properties.push({
+        inputs.push({
           name: publicName,
+          type: 'input',
+        })
+      })
+    }
+
+    // METHOD 1 for outputs: Access outputs through Angular's compiled metadata
+    if (componentMetadata?.outputs) {
+      debugLog('METHOD 1: Found Angular compiled metadata outputs:', componentMetadata.outputs)
+      Object.entries(componentMetadata.outputs).forEach(([propName, outputMetadata]: [string, any]) => {
+        // Each output metadata entry can have different formats based on Angular version
+        let publicName = propName
+
+        // Handle different metadata formats
+        if (typeof outputMetadata === 'string') {
+          // Simple mapping format: { publicName: 'privateName' }
+          publicName = outputMetadata
+        } else if (outputMetadata && typeof outputMetadata === 'object') {
+          // More complex format with additional metadata
+          publicName = outputMetadata.publicName || propName
+        }
+
+        // Check for Angular 17+ style output arrays [name, flags]
+        if (Array.isArray(outputMetadata)) {
+          publicName = outputMetadata[0] || propName
+        }
+
+        outputs.push({
+          name: publicName,
+          type: 'output',
         })
       })
     }
@@ -90,8 +121,19 @@ export class ComponentDocumentationService {
           ) {
             debugLog(`Property ${propName} is an input signal`)
 
-            properties.push({
+            inputs.push({
               name: propName,
+              type: 'input',
+            })
+          }
+
+          // Check if this is an output function
+          if (fnString.includes('output(') || fnString.includes('OutputSignal') || fnString.includes('EventEmitter')) {
+            debugLog(`Property ${propName} is an output signal`)
+
+            outputs.push({
+              name: propName,
+              type: 'output',
             })
           }
         }
@@ -111,28 +153,54 @@ export class ComponentDocumentationService {
           const args = inputDecorator.args || []
           const publicName = args[0] || propName
 
-          properties.push({
+          inputs.push({
             name: publicName,
+            type: 'input',
+          })
+        }
+
+        // Check if one of the decorators is @Output
+        const outputDecorator = decorators.find((d: any) => d.type.name === 'Output')
+        if (outputDecorator) {
+          const args = outputDecorator.args || []
+          const publicName = args[0] || propName
+
+          outputs.push({
+            name: publicName,
+            type: 'output',
           })
         }
       })
     }
 
-    // Deduplicate properties by name (in case we found the same property through multiple methods)
-    const uniqueProperties: PropertyDoc[] = []
-    const seenNames = new Set<string>()
+    // Deduplicate inputs by name
+    const uniqueInputs: PropertyDoc[] = []
+    const seenInputNames = new Set<string>()
 
-    for (const prop of properties) {
-      if (!seenNames.has(prop.name)) {
-        seenNames.add(prop.name)
-        uniqueProperties.push(prop)
+    for (const prop of inputs) {
+      if (!seenInputNames.has(prop.name)) {
+        seenInputNames.add(prop.name)
+        uniqueInputs.push(prop)
       }
     }
 
-    debugLog(`Final extracted properties:`, uniqueProperties)
+    // Deduplicate outputs by name
+    const uniqueOutputs: PropertyDoc[] = []
+    const seenOutputNames = new Set<string>()
+
+    for (const prop of outputs) {
+      if (!seenOutputNames.has(prop.name)) {
+        seenOutputNames.add(prop.name)
+        uniqueOutputs.push(prop)
+      }
+    }
+
+    debugLog(`Final extracted inputs:`, uniqueInputs)
+    debugLog(`Final extracted outputs:`, uniqueOutputs)
 
     return {
-      properties: uniqueProperties,
+      inputs: uniqueInputs,
+      outputs: uniqueOutputs,
       selector,
     }
   }
