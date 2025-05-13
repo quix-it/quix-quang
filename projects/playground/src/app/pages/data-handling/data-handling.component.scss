@@ -10,6 +10,12 @@
   h5 {
     margin: 0;
   }
+  .btn-copy {
+    padding: 0;
+    &:active {
+      border-color: transparent;
+    }
+  }
 }
 
 .card-body {

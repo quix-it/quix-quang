@@ -132,13 +132,24 @@
     "dataHandling": "Data handling"
   },
   "dataHandling": {
-    "functions": {
-      "blobToBase64": "Converts a Blob object to a Base64 string. Useful for encoding binary data for storage or transmission.",
-      "base64ToDataUri": "Converts a Base64 string into a Data URI. Useful for embedding data directly into web pages or applications.",
-      "dataUriToBlob": "Converts a Data URI back into a Blob object. Useful for reconstructing binary data from embedded sources."
+    "conversion": {
+      "title": "Data conversion",
+      "functions": {
+        "blobToBase64": "Converts a Blob object to a Base64 string. Useful for encoding binary data for storage or transmission.",
+        "base64ToDataUri": "Converts a Base64 string into a Data URI. Useful for embedding data directly into web pages or applications.",
+        "dataUriToBlob": "Converts a Data URI back into a Blob object. Useful for reconstructing binary data from embedded sources."
+      }
+    },
+    "download": {
+      "title": "Download",
+      "functions": {
+        "downloadFile": "Triggers a download for a given File object with the specified filename.",
+        "handleDownload": "Processes an HTTP response containing a Blob and triggers a file download. Automatically extracts the filename from the response headers or generates a default one."
+      }
     }
   },
   "utils": {
-    "copyContent": "Copy in clipboard"
+    "copyContent": "Copy in clipboard",
+    "copied": "Copied!"
   }
 }
