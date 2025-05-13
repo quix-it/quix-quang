@@ -2,13 +2,23 @@ import { CdkConnectedOverlay, CdkOverlayOrigin, FlexibleConnectedPositionStrateg
 import { Component, ElementRef, inject, signal } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 
+import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 
-import { MenuItem, menuList } from './menuList'
+import { ThemeModalComponent } from '../theme-modal/theme-modal.component'
+
+import { MenuItem, menuList, menuTheme } from './menuList'
 
 @Component({
   selector: 'playground-menu',
-  imports: [AngularSvgIconModule, CdkConnectedOverlay, RouterLink, CdkOverlayOrigin],
+  imports: [
+    AngularSvgIconModule,
+    CdkConnectedOverlay,
+    RouterLink,
+    CdkOverlayOrigin,
+    TranslocoPipe,
+    ThemeModalComponent,
+  ],
   standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
@@ -16,11 +26,13 @@ import { MenuItem, menuList } from './menuList'
 export class MenuComponent {
   private readonly router = inject(Router)
   readonly menuList: MenuItem[] = menuList
+  readonly menuTheme = menuTheme
   // readonly MenuItem = MenuItem
   currentMenuHover = signal<MenuItem | null>(null)
   currentMenuHoverOrigin = signal<CdkOverlayOrigin | FlexibleConnectedPositionStrategyOrigin>(new ElementRef(null))
   isHoveringMenuChild = signal<boolean>(false)
   childHideTimeout = signal<number | null>(null)
+  showMenuThemeModal = signal<boolean>(false)
 
   navigateMenu(route: string): void {
     this.router.navigate([route])
@@ -74,5 +86,13 @@ export class MenuComponent {
 
   childMenuMouseLeave() {
     this.isHoveringMenuChild.set(false)
+  }
+
+  openThemeModal(): void {
+    this.showMenuThemeModal.set(true)
+  }
+
+  closeThemeModal(): void {
+    this.showMenuThemeModal.set(false)
   }
 }

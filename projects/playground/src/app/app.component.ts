@@ -22,7 +22,6 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  style: HTMLLinkElement
 
   title = signal('playground')
 
@@ -34,25 +33,7 @@ export class AppComponent {
 
   appService = inject(AppService)
 
-  colorScheme = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']
-
-  constructor(
-    private http: HttpClient,
-    @Optional() @Inject(DEPLOY_URL) private readonly deployUrl: string
-  ) {
-    this.style = document.createElement('link')
-    this.style.rel = 'stylesheet'
-    document.head.appendChild(this.style)
-  }
-
   changeLanguage(lang: string) {
     this.quangTranslationService.setActiveLang(lang)
-  }
-
-  changeTheme(value: 'light' | 'dark') {
-    this.style.href = `${this.deployUrl ?? ''}${value}.css`
-    document.body.setAttribute('data-bs-theme', value)
-    document.body.classList.remove('light', 'dark')
-    document.body.classList.add(value)
   }
 }

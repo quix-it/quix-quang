@@ -105,5 +105,29 @@
       "tooltip": "QuangTooltip",
       "modal": "QuangModal"
     }
+  },
+  "menu": {
+    "home": "Home",
+    "components": {
+      "title": "Componenti",
+      "autocomplete": "Autocomplete",
+      "date": "DatePicker",
+      "input": "Input",
+      "paginator": "Paginator",
+      "select": "Select",
+      "table": "Table",
+      "checkbox": "Checkbox / Toggle",
+      "wysiwyg": "Wysiwyg",
+      "loader": "Loader"
+    },
+    "overlay": {
+      "title": "Overlay",
+      "tooltip": "Tooltip",
+      "popover": "Popover",
+      "modal": "Modal",
+      "toast": "Toast"
+    },
+    "auth": "Autenticazione",
+    "theme": "Tema"
   }
 }

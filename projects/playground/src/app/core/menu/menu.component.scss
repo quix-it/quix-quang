@@ -8,9 +8,15 @@
   background-color: var(--bs-gray-900);
   color: var(--bs-white);
   padding: 0.5rem;
+  border-bottom: 1px solid var(--bs-body-color);
+  margin-bottom: 1rem;
   a {
     color: var(--bs-white);
   }
+}
+
+.btn-theme {
+  color: var(--bs-white);
 }
 
 .menu-item {
