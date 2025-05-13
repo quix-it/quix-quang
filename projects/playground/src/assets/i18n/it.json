@@ -45,11 +45,16 @@
       "readme": "Readme",
       "usage": "Utilizzo",
       "properties": "Proprietà",
-      "events": "Eventi"
+      "events": "Eventi",
+      "documentation": "Documentazione"
     },
     "header": "Intestazione",
     "body": "Corpo",
     "footer": "Footer"
+  },
+  "documentation": {
+    "noInputs": "Non ci sono inputs",
+    "noOutputs": "Non ci sono outputs"
   },
   "form": {
     "label": {
@@ -92,5 +97,13 @@
   },
   "table": {
     "noResults": "Nessun risultato trovato"
+  },
+  "quang": {
+    "overlay": {
+      "toast": "QuangToast",
+      "popover": "QuangPopover",
+      "tooltip": "QuangTooltip",
+      "modal": "QuangModal"
+    }
   }
 }

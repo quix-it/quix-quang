@@ -2,7 +2,7 @@ import { Component, computed, inject, viewChild } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangToastService } from 'quang/overlay/toast'
-import { QuangTooltipDirective } from 'quang/overlay/tooltip'
+import { QuangTooltipComponent, QuangTooltipDirective } from 'quang/overlay/tooltip'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 
@@ -15,7 +15,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   styleUrl: './tooltip-test-page.component.scss',
 })
 export class TooltipTestPageComponent {
-  protected TooltipTestPageComponent = TooltipTestPageComponent
+  protected TooltipTestPageComponent = QuangTooltipComponent
   private readonly quangToast = inject(QuangToastService)
 
   private readonly testComponent = viewChild('testComponent')
