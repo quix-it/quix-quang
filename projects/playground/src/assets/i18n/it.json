@@ -129,7 +129,8 @@
     },
     "auth": "Autenticazione",
     "theme": "Tema",
-    "dataHandling": "Gestione Dati"
+    "dataHandling": "Gestione Dati",
+    "device": "Device"
   },
   "dataHandling": {
     "conversion": {
@@ -151,5 +152,11 @@
   "utils": {
     "copyContent": "Copia negli appunti",
     "copied": "Copiato!"
+  },
+  "device": {
+    "functions": {
+      "resizeObservable": "Osserva la dimensione di un elemento ed emette cambiamenti. Utile per design reattivi e layout dinamici.",
+      "widthResizeObservable": "Osserva la larghezza di un elemento ed emette cambiamenti. Utile per monitorare il ridimensionamento orizzontale."
+    }
   }
 }

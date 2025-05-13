@@ -22,6 +22,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/data-handling/data-handling.component').then((m) => m.DataHandlingComponent),
   },
   {
+    path: 'device',
+    loadComponent: () => import('./pages/device/device.component').then((m) => m.DeviceComponent),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',

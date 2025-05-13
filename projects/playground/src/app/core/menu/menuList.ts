@@ -80,6 +80,10 @@ export const menuList: MenuItem[] = [
     description: 'menu.dataHandling',
     route: '/data-handling',
   },
+  {
+    description: 'menu.device',
+    route: '/device',
+  },
 ]
 
 export const menuTheme: MenuItem = {

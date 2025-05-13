@@ -129,7 +129,8 @@
     },
     "auth": "Auth",
     "theme": "Theme",
-    "dataHandling": "Data handling"
+    "dataHandling": "Data handling",
+    "device": "Device"
   },
   "dataHandling": {
     "conversion": {
@@ -151,5 +152,11 @@
   "utils": {
     "copyContent": "Copy in clipboard",
     "copied": "Copied!"
+  },
+  "device": {
+    "functions": {
+      "resizeObservable": "Observes the size of an element and emits changes. Useful for responsive designs and dynamic layouts.",
+      "widthResizeObservable": "Observes the width of an element and emits changes. Useful for tracking horizontal resizing."
+    }
   }
 }
