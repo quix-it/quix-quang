@@ -78,6 +78,8 @@ export class MenuComponent {
     $event.stopPropagation()
     $event.preventDefault()
     this.router.navigate([menu.route])
+    this.currentMenuHover.set(null)
+    this.currentMenuHoverOrigin.set(new ElementRef(null))
   }
 
   childMenuMouseEnter() {
