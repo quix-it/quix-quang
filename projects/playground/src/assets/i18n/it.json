@@ -128,6 +128,17 @@
       "toast": "Toast"
     },
     "auth": "Autenticazione",
-    "theme": "Tema"
+    "theme": "Tema",
+    "dataHandling": "Gestione Dati"
+  },
+  "dataHandling": {
+    "functions": {
+      "blobToBase64": "Converte un oggetto Blob in una stringa Base64. Utile per codificare dati binari per l'archiviazione o la trasmissione.",
+      "base64ToDataUri": "Converte una stringa Base64 in un Data URI. Utile per incorporare dati direttamente in pagine web o applicazioni.",
+      "dataUriToBlob": "Converte un Data URI in un oggetto Blob. Utile per ricostruire dati binari da fonti incorporate."
+    }
+  },
+  "utils": {
+    "copyContent": "Copia negli appunti"
   }
 }

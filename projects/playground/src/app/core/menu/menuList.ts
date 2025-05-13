@@ -76,6 +76,10 @@ export const menuList: MenuItem[] = [
     description: 'menu.auth',
     route: 'auth',
   },
+  {
+    description: 'menu.dataHandling',
+    route: '/data-handling',
+  },
 ]
 
 export const menuTheme: MenuItem = {

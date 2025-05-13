@@ -128,6 +128,17 @@
       "toast": "Toast"
     },
     "auth": "Auth",
-    "theme": "Theme"
+    "theme": "Theme",
+    "dataHandling": "Data handling"
+  },
+  "dataHandling": {
+    "functions": {
+      "blobToBase64": "Converts a Blob object to a Base64 string. Useful for encoding binary data for storage or transmission.",
+      "base64ToDataUri": "Converts a Base64 string into a Data URI. Useful for embedding data directly into web pages or applications.",
+      "dataUriToBlob": "Converts a Data URI back into a Blob object. Useful for reconstructing binary data from embedded sources."
+    }
+  },
+  "utils": {
+    "copyContent": "Copy in clipboard"
   }
 }
