@@ -26,6 +26,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/device/device.component').then((m) => m.DeviceComponent),
   },
   {
+    path: 'form',
+    loadComponent: () => import('./pages/form/form.component').then((m) => m.FormComponent),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',

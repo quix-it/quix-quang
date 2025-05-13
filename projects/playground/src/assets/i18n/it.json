@@ -88,6 +88,20 @@
       "changeHeight": "Cambia altezza",
       "flipButton": "Nascondi pulsante",
       "resetForm": "Reset Form"
+    },
+    "functions": {
+      "fileMaxSize": "Valida che la dimensione del file non superi il massimo specificato.",
+      "fileMinSize": "Valida che la dimensione del file sia almeno il minimo specificato.",
+      "isFile": "Valida che il valore del controllo sia un file.",
+      "fileType": "Valida che il tipo di file corrisponda a uno dei tipi consentiti.",
+      "fileExtensions": "Valida che l'estensione del file corrisponda a una delle estensioni consentite.",
+      "requiredCheckbox": "Valida che la casella di controllo sia selezionata.",
+      "minDate": "Valida che la data non sia precedente alla data minima specificata.",
+      "maxDate": "Valida che la data non sia successiva alla data massima specificata.",
+      "dateBetween": "Valida che la data sia compresa nell'intervallo specificato.",
+      "isFiscalCode": "Valida che il valore sia un codice fiscale valido.",
+      "isVatNumber": "Valida che il valore sia un numero di partita IVA valido per le località specificate.",
+      "wysiwygRequired": "Valida che il contenuto dell'editor WYSIWYG non sia vuoto."
     }
   },
   "quangPaginator": {
@@ -130,7 +144,8 @@
     "auth": "Autenticazione",
     "theme": "Tema",
     "dataHandling": "Gestione Dati",
-    "device": "Device"
+    "device": "Device",
+    "form": "Validazione Form"
   },
   "dataHandling": {
     "conversion": {

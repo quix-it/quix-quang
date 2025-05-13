@@ -88,6 +88,20 @@
       "changeHeight": "Change height",
       "flipButton": "Hide button",
       "resetForm": "Reset Form"
+    },
+    "functions": {
+      "fileMaxSize": "Validates that the file size does not exceed the specified maximum.",
+      "fileMinSize": "Validates that the file size is at least the specified minimum.",
+      "isFile": "Validates that the control value is a file.",
+      "fileType": "Validates that the file type matches one of the allowed types.",
+      "fileExtensions": "Validates that the file extension matches one of the allowed extensions.",
+      "requiredCheckbox": "Validates that the checkbox is checked.",
+      "minDate": "Validates that the date is not earlier than the specified minimum date.",
+      "maxDate": "Validates that the date is not later than the specified maximum date.",
+      "dateBetween": "Validates that the date is within the specified range.",
+      "isFiscalCode": "Validates that the value is a valid fiscal code.",
+      "isVatNumber": "Validates that the value is a valid VAT number for the specified locales.",
+      "wysiwygRequired": "Validates that the WYSIWYG editor content is not empty."
     }
   },
   "quangPaginator": {
@@ -130,7 +144,8 @@
     "auth": "Auth",
     "theme": "Theme",
     "dataHandling": "Data handling",
-    "device": "Device"
+    "device": "Device",
+    "form": "Form validation"
   },
   "dataHandling": {
     "conversion": {
