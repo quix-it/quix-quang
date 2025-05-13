@@ -4,6 +4,7 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangPopoverDirective } from 'quang/overlay/popover'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
+import { QuangPopoverComponent } from 'quang/overlay/popover/popover.component'
 
 import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
 
@@ -14,7 +15,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   styleUrl: './popover-test-page.component.scss',
 })
 export class PopoverTestPageComponent {
-  protected PopoverTestPageComponent = PopoverTestPageComponent
+  protected PopoverTestPageComponent = QuangPopoverComponent
 
   testComponent = viewChild('testComponent')
 
