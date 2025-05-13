@@ -21,6 +21,7 @@ export class ComponentDocumentationComponent {
   componentType = input.required<Type<any>>()
   exampleHtml = input<string>('')
   customReadmePath = input<string | undefined>(undefined)
+  readmeOnly = input<boolean>(false)
 
   cleanedExampleHtml = computed(() =>
     this.exampleHtml()
@@ -42,7 +43,6 @@ export class ComponentDocumentationComponent {
     this.documentation.set(this.documentationService.extractComponentDocumentation(type))
 
     // Fetch README content for the component
-    console.log('this.customReadmePath()', this.customReadmePath())
     this.documentationService
       .fetchReadmeContent(type, this.customReadmePath())
       .pipe(take(1))

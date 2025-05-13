@@ -26,13 +26,12 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WysiwygTestComponent {
-  protected WysiwygTestComponent = WysiwygTestComponent
+  protected WysiwygTestComponent = QuangWysiwygComponent
 
   private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
     if (this.testComponent()) {
-      console.log('testComponent', document.getElementById('testComponent'))
       return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
     }
     return ''

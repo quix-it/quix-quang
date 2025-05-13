@@ -20,12 +20,37 @@ The `QuangTableComponent` allows for displaying data in a tabular format.
 
 ## Usage
 
+### HTML
+
 ```html
 <quang-table
   [stickyTable]="true"
   [tableConfigurations]="tableConfig()"
   (sortChanged)="onChangeSort($event)"
 />
+```
+
+### TypeScript
+
+```typescript
+import { computed, signal } from '@angular/core'
+
+tableRows = signal([
+  { id: 1, name: 'John Doe', age: 30 },
+  { id: 2, name: 'Jane Smith', age: 25 },
+  { id: 3, name: 'Alice Johnson', age: 35 },
+])
+
+tableHeaders = [
+  { key: 'id', label: 'ID', sortable: true },
+  { key: 'name', label: 'Name', sortable: true },
+  { key: 'age', label: 'Age', sortable: false },
+]
+
+tableConfig = computed(() => ({
+  headers: tableHeaders,
+  rows: tableRows(),
+}))
 ```
 
 ## Notes

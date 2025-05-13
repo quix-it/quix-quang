@@ -26,13 +26,12 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorTestComponent {
-  protected PaginatorTestComponent = PaginatorTestComponent
+  protected PaginatorTestComponent = QuangPaginatorComponent
 
   private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
     if (this.testComponent()) {
-      console.log('testComponent', document.getElementById('testComponent'))
       return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
     }
     return ''
@@ -59,9 +58,3 @@ export class PaginatorTestComponent {
     console.log(pageSize)
   }
 }
-
-// Add playground-component-documentation in the template
-// <playground-component-documentation
-//   [componentType]="PaginatorTestComponent"
-//   [customReadmePath]="componentsReadmePath"
-// ></playground-component-documentation>

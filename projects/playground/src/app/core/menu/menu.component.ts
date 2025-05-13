@@ -3,13 +3,12 @@ import { Component, ElementRef, inject, signal } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 
 import { AngularSvgIconModule } from 'angular-svg-icon'
-import { QuangPopoverDirective } from 'quang/overlay/popover'
 
 import { MenuItem, menuList } from './menuList'
 
 @Component({
   selector: 'playground-menu',
-  imports: [AngularSvgIconModule, QuangPopoverDirective, CdkConnectedOverlay, RouterLink, CdkOverlayOrigin],
+  imports: [AngularSvgIconModule, CdkConnectedOverlay, RouterLink, CdkOverlayOrigin],
   standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',

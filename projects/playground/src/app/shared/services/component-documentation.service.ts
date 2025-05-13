@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 
 // Add console logger for debugging purposes
-const DEBUG = true
+const DEBUG = false
 function debugLog(...args: any[]) {
   if (DEBUG) {
     console.log('[ComponentDocService]', ...args)
@@ -53,8 +53,6 @@ export class ComponentDocumentationService {
       Object.entries(componentMetadata.inputs).forEach(([propName, inputMetadata]: [string, any]) => {
         // Each input metadata entry can have different formats based on Angular version
         let publicName = propName
-
-        console.log('inputMetadata', inputMetadata)
 
         // Handle different metadata formats
         if (typeof inputMetadata === 'string') {

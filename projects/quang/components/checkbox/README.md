@@ -23,10 +23,24 @@ The `QuangCheckboxComponent` can be used as a standard checkbox or as a toggle s
 
 ```html
 <quang-checkbox
-  [checkType]="'checkbox'"
-  [labelPosition]="'top'"
-  [removeMargin]="false"
-  (input)="onChangedEventHandler($event)"
+  [errorMap]="errors()"
+  [isReadonly]="isReadonly()"
+  checkType="checkbox"
+  class="col-3"
+  componentLabel="form.label.toggle"
+  formControlName="toggle"
+  labelPosition="top"
+  successMessage="form.label.success"
+/>
+<quang-checkbox
+  [errorMap]="errors()"
+  [isReadonly]="isReadonly()"
+  checkType="toggle"
+  class="col-6"
+  componentLabel="form.label.checkbox"
+  formControlName="checkbox"
+  labelPosition="left"
+  successMessage="form.label.success"
 />
 ```
 

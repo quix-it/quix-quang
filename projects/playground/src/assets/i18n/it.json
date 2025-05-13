@@ -41,7 +41,11 @@
       "paginator": "Componente di paginazione",
       "select": "Componente select",
       "autocomplete": "Componente di autocomplete",
-      "table": "Componente tabella"
+      "table": "Componente tabella",
+      "readme": "Readme",
+      "usage": "Utilizzo",
+      "properties": "Proprietà",
+      "events": "Eventi"
     },
     "header": "Intestazione",
     "body": "Corpo",

@@ -18,11 +18,17 @@ The `QuangDateComponent` is based on Air Datepicker. It can be fully customized 
 ## Usage
 ```html
 <quang-date
-  [datepickerOptions]="{ dateFormat: 'dd/mm/yyyy' }"
-  [minDate]="'2023-01-01'"
-  [maxDate]="'2023-12-31'"
-  (dateChange)="onDateChange($event)"
-></quang-date>
+  [dateFormat]="dateFormat()"
+  [errorMap]="errors()"
+  [formControl]="testForm.controls.testInput"
+  [isReadonly]="isReadonly()"
+  [timepicker]="true"
+  class="col-6"
+  componentLabel="form.label.date"
+  successMessage="form.label.success"
+>
+  <img src="./assets/icons/svg/calendar.svg" />
+</quang-date>
 ```
 
 ### Note

@@ -1,10 +1,7 @@
-import { NgForOf, NgIf } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, Inject, InjectionToken, Optional, inject, signal } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 
-import { TranslocoPipe } from '@jsverse/transloco'
-import { SvgIconComponent } from 'angular-svg-icon'
 import { QuangLoaderComponent } from 'quang/loader'
 import { QuangToastComponent } from 'quang/overlay/toast'
 import { QuangTranslationService } from 'quang/translation'
@@ -18,20 +15,7 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
 
 @Component({
   selector: 'playground-root',
-  imports: [
-    RouterOutlet,
-    NgIf,
-    TranslocoPipe,
-    // QuangModalComponent,
-    QuangToastComponent,
-    // QuangTooltipDirective,
-    // QuangPopoverDirective,
-    QuangLoaderComponent,
-    NgForOf,
-    SvgIconComponent,
-    MenuComponent,
-    // WysiwygTestComponent,
-  ],
+  imports: [RouterOutlet, QuangToastComponent, QuangLoaderComponent, MenuComponent],
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

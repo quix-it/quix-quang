@@ -36,7 +36,6 @@ export class InputTestComponent {
 
   testComponentSource = computed<string>(() => {
     if (this.testComponent()) {
-      console.log('testComponent', document.getElementById('testComponent'))
       return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
     }
     return ''

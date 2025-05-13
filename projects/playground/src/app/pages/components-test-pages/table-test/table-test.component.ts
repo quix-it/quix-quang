@@ -55,7 +55,7 @@ interface People {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableTestComponent {
-  protected TableTestComponent = TableTestComponent
+  protected TableTestComponent = QuangTableComponent
 
   private readonly checkboxRenderer = viewChild<TemplateRef<any>>('checkboxRenderer')
   private readonly name3 = viewChild<TemplateRef<any>>('name3')

@@ -26,13 +26,12 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToggleTestComponent {
-  protected ToggleTestComponent = ToggleTestComponent
+  protected ToggleTestComponent = QuangCheckboxComponent
 
   testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
     if (this.testComponent()) {
-      console.log('testComponent', document.getElementById('testComponent'))
       return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
     }
     return ''

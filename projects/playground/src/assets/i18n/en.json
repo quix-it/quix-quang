@@ -41,7 +41,11 @@
       "paginator": "Paginator component",
       "select": "Select component",
       "autocomplete": "Autocomplete component",
-      "table": "Table component"
+      "table": "Table component",
+      "readme": "Readme",
+      "usage": "Usage",
+      "properties": "Properties",
+      "events": "Events"
     },
     "header": "Header",
     "body": "Body",
