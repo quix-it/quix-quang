@@ -7,6 +7,10 @@ export interface MenuItem {
 
 export const menuList: MenuItem[] = [
   {
+    description: 'menu.home',
+    route: '/',
+  },
+  {
     description: 'menu.components.title',
     children: [
       {
