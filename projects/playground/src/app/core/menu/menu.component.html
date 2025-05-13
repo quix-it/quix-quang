@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center">
+<div class="d-flex align-items-center menu">
   @for (menuItem of menuList; track $index; let last = $last) {
     <a [routerLink]="menuItem.route ? menuItem.route : undefined">
       <div

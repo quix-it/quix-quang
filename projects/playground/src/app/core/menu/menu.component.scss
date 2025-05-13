@@ -1,8 +1,23 @@
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.menu {
+  background-color: var(--bs-gray-900);
+  color: var(--bs-white);
+  padding: 0.5rem;
+  a {
+    color: var(--bs-white);
+  }
+}
+
 .menu-item {
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--bs-border-color, #000);
-  padding: 0.25rem;
+  padding: 0.25rem 0.5rem;
   &:hover {
     cursor: pointer;
   }
