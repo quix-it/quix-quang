@@ -41,9 +41,7 @@ export class MenuComponent {
     console.log(this.quangTranslationService.activeLang()?.toUpperCase())
     return {
       ...menuLanguage,
-      description: this.quangTranslationService.translate(menuLanguage.description, {
-        lang: this.quangTranslationService.activeLang()?.toUpperCase(),
-      }),
+      description: this.quangTranslationService.activeLang()?.toUpperCase(),
     }
   })
 

@@ -22,8 +22,8 @@ export const appConfig: ApplicationConfig = {
       { verbose: true, baseHref: '/quix-quang/' },
       withTranslation({
         availableLangs: ['it', 'en'],
-        defaultLang: 'it',
-        fallbackLang: 'it',
+        defaultLang: 'en',
+        fallbackLang: 'en',
       }),
       withLoaderExcludedUrls([
         {

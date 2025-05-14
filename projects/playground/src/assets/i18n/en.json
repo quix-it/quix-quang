@@ -149,7 +149,6 @@
     "network": "Network",
     "translation": "Translation",
     "language": {
-      "title": "{{lang}}",
       "it": "Italian",
       "en": "English"
     }

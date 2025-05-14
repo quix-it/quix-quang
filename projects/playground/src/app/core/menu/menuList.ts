@@ -104,7 +104,7 @@ export const menuTheme: MenuItem = {
 }
 
 export const menuLanguage: MenuItem = {
-  description: 'menu.language.title',
+  description: '',
   children: [
     {
       description: 'menu.language.en',
