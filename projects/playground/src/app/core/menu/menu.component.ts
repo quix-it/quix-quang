@@ -1,6 +1,6 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin, FlexibleConnectedPositionStrategyOrigin } from '@angular/cdk/overlay'
 import { NgTemplateOutlet } from '@angular/common'
-import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, ElementRef, computed, inject, signal } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -37,17 +37,10 @@ export class MenuComponent {
   isHoveringMenuChild = signal<boolean>(false)
   childHideTimeout = signal<number | null>(null)
   showMenuThemeModal = signal<boolean>(false)
-  menuLanguage = computed(() => {
-    console.log(this.quangTranslationService.activeLang()?.toUpperCase())
-    return {
-      ...menuLanguage,
-      description: this.quangTranslationService.activeLang()?.toUpperCase(),
-    }
-  })
-
-  ea = effect(() => {
-    console.log(this.quangTranslationService.activeLang())
-  })
+  menuLanguage = computed(() => ({
+    ...menuLanguage,
+    description: this.quangTranslationService.activeLang()?.toUpperCase(),
+  }))
 
   navigateMenu(route: string): void {
     this.router.navigate([route])
