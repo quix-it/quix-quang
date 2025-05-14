@@ -51,6 +51,31 @@ function findSpecificReadmeFiles(dir) {
 }
 
 /**
+ * Call GitHub Copilot (placeholder) to translate markdown content
+ * @param {string} text - The markdown text to translate
+ * @param {string} targetLang - The target language code (e.g., 'en', 'it')
+ * @returns {Promise<string>} - The translated text
+ */
+async function callTranslationAPI(text, targetLang) {
+  // Placeholder: In a real scenario, you would call GitHub Copilot's API or service here.
+  // For now, just return the original text and log the intended translation.
+  console.log(`[Copilot Translation] Would translate to '${targetLang}':\n${text.substring(0, 80)}...`)
+  return text
+}
+
+/**
+ * Translate a markdown file to English and Italian using an API
+ * @param {string} filePath - Path to the source markdown file
+ * @param {string} destBaseName - Base name for the destination files (without extension)
+ */
+async function translateReadmeToLanguages(filePath, destBaseName) {
+  const content = fs.readFileSync(filePath, 'utf-8')
+  const itContent = await callTranslationAPI(content, 'it')
+  const destDir = path.dirname(filePath)
+  fs.writeFileSync(path.join(destDir, `${destBaseName}.it.md`), itContent, 'utf-8')
+}
+
+/**
  * Copy specific README files to destination with new names
  */
 function copySpecificReadmeFiles() {
@@ -67,6 +92,8 @@ function copySpecificReadmeFiles() {
     try {
       fs.copyFileSync(file.path, destPath)
       console.log(`Copied: ${file.path} -> ${destPath}`)
+      // Translate the copied README to .en.md and .it.md
+      translateReadmeToLanguages(destPath, file.parentDir)
     } catch (err) {
       console.error(`Error copying ${file.path}: ${err.message}`)
     }
