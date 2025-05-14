@@ -30,6 +30,14 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/form/form.component').then((m) => m.FormComponent),
   },
   {
+    path: 'network',
+    loadComponent: () => import('./pages/network/network.component').then((m) => m.NetworkComponent),
+  },
+  {
+    path: 'translation',
+    loadComponent: () => import('./pages/translation/translation.component').then((m) => m.TranslationComponent),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',

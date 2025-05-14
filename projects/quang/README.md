@@ -45,8 +45,9 @@ Loading state management including:
 - Loading state interceptor
 - Loading service
 
-### [Networking](/projects/quang/networking)
+### [Network](/projects/quang/network)
 Network request utilities and services.
+- Interceptor utilities
 
 ### [Overlay](/projects/quang/overlay/README.md)
 Overlay-based UI components including:
@@ -54,10 +55,6 @@ Overlay-based UI components including:
 - Popovers
 - Toasts
 - Tooltips
-
-### [Shared](/projects/quang/shared)
-Shared utilities including:
-- Interceptor utilities
 
 ### [Translation](/projects/quang/translation/README.md)
 Internationalization (i18n) utilities including:

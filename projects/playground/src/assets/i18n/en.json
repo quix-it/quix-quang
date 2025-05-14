@@ -145,7 +145,9 @@
     "theme": "Theme",
     "dataHandling": "Data handling",
     "device": "Device",
-    "form": "Form validation"
+    "form": "Form validation",
+    "network": "Network",
+    "translation": "Translation"
   },
   "dataHandling": {
     "conversion": {
@@ -172,6 +174,24 @@
     "functions": {
       "resizeObservable": "Observes the size of an element and emits changes. Useful for responsive designs and dynamic layouts.",
       "widthResizeObservable": "Observes the width of an element and emits changes. Useful for tracking horizontal resizing."
+    }
+  },
+  "network": {
+    "functions": {
+      "isHttpMethod": "Checks if a string is a valid HTTP method (GET, POST, PUT, DELETE, PATCH).",
+      "getExcludedUrlsByMethod": "Creates a map of HTTP methods to sets of excluded URLs for interceptors."
+    }
+  },
+  "translation": {
+    "functions": {
+      "provideTranslation": "Provides translation configuration and environment providers for Angular applications.",
+      "withTranslation": "Returns a Quang feature for translation, using the provided configuration.",
+      "setActiveLang": "Sets the active language. If the language is not available, uses the default language.",
+      "getActiveLang": "Returns the currently active language.",
+      "translate": "Translates a key with optional parameters.",
+      "setTranslation": "Sets the translation object for a language.",
+      "setTranslationKey": "Sets a single translation key and value for a language.",
+      "translationsTokens": "Injection tokens for translation configuration: AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH. Use these to provide language and translation settings in your Angular app."
     }
   }
 }

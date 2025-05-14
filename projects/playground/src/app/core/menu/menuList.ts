@@ -88,6 +88,14 @@ export const menuList: MenuItem[] = [
     description: 'menu.form',
     route: '/form',
   },
+  {
+    description: 'menu.network',
+    route: '/network',
+  },
+  {
+    description: 'menu.translation',
+    route: '/translation',
+  },
 ]
 
 export const menuTheme: MenuItem = {
