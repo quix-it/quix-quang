@@ -1,4 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, computed, inject } from '@angular/core'
+
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../shared/components/component-documentation/component-documentation.component'
 
@@ -11,5 +13,8 @@ import { ComponentDocumentationComponent } from '../../shared/components/compone
 })
 export class HomeComponent {
   protected HomeComponent = HomeComponent
-  readmePath = '/assets/docs/root-readme.md'
+  private readonly translation = inject(QuangTranslationService)
+  readmePath = computed(() =>
+    this.translation.getActiveLang() === 'it' ? 'assets/docs/root-readme.it.md' : 'assets/docs/root-readme.md'
+  )
 }

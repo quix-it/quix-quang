@@ -9,6 +9,7 @@ export const menuList: MenuItem[] = [
   {
     description: 'menu.home',
     route: '/',
+    icons: ['img/quang-logo-bg.png'],
   },
   {
     description: 'menu.components.title',

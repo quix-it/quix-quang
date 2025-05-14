@@ -1,26 +1,6 @@
 <div class="d-flex justify-content-between align-items-center menu">
   <div class="d-flex align-items-center">
     @for (menuItem of menuList; track $index) {
-      <!-- <a [routerLink]="menuItem.route ? menuItem.route : undefined">
-        <div
-          (click)="onMenuClick($event, menuItem, origin)"
-          (mouseenter)="onMenuMouseEnter(origin, menuItem)"
-          (mouseleave)="onMenuMouseLeave()"
-          #origin="cdkOverlayOrigin"
-          cdkOverlayOrigin
-          class="menu-item"
-          routerLinkActive="menu-item-selected"
-        >
-          @if (menuItem.icons?.length) {
-            @for (icon of menuItem.icons; track $index) {
-              <svg-icon [src]="'./assets/' + icon" />
-            }
-          }
-          <p class="m-0">
-            {{ menuItem.description | transloco }}
-          </p>
-        </div>
-      </a> -->
       <ng-container
         [ngTemplateOutlet]="menuItemTemplate"
         [ngTemplateOutletContext]="{ $implicit: menuItem }"
@@ -63,7 +43,12 @@
     >
       @if (menuItem.icons?.length) {
         @for (icon of menuItem.icons; track $index) {
-          <svg-icon [src]="'./assets/' + icon" />
+          <svg-icon [src]="'assets/' + icon" />
+          <img
+            [alt]="icon"
+            [src]="'assets/' + icon"
+            class="menu-icon"
+          />
         }
       }
       <p class="m-0">
