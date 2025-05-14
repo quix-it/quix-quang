@@ -2,6 +2,7 @@ import { Component, TemplateRef, computed, inject, viewChild } from '@angular/co
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangToastService } from 'quang/overlay/toast'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 
@@ -14,9 +15,9 @@ import { ComponentDocumentationComponent } from '../../../shared/components/comp
 export class ToastTestPageComponent {
   protected ToastTestPageComponent = ToastTestPageComponent
 
-  private readonly quangToast = inject(QuangToastService)
-
+  private readonly quangTranslationService = inject(QuangTranslationService)
   private readonly customToast = viewChild<TemplateRef<any>>('customToast')
+  private readonly quangToast = inject(QuangToastService)
   private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
@@ -28,7 +29,9 @@ export class ToastTestPageComponent {
   })
 
   // Path to the components README.md file
-  componentsReadmePath = './assets/docs/toast.md'
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/toast.md' : './assets/docs/toast.it.md'
+  )
 
   openToast(type: 'success' | 'warning' | 'error', customIcon?: boolean): void {
     this.quangToast.openToast({

@@ -3,6 +3,7 @@ import { Component, computed, inject, viewChild } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
+import { QuangTranslationService } from 'quang/translation'
 import { delay, firstValueFrom } from 'rxjs'
 
 import { AppService } from '../../../app.service'
@@ -20,6 +21,7 @@ export class LoaderTestPageComponent {
   private readonly http = inject(HttpClient)
   private readonly appService = inject(AppService)
   private readonly testComponent = viewChild('testComponent')
+  private readonly quangTranslationService = inject(QuangTranslationService)
 
   testComponentSource = computed<string>(() => {
     if (this.testComponent()) {
@@ -28,7 +30,9 @@ export class LoaderTestPageComponent {
     return ''
   })
 
-  componentsReadmePath = './assets/docs/loader.md'
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/loader.md' : './assets/docs/loader.it.md'
+  )
 
   async showLoader() {
     for (let i = 0; i < 20; i++) {

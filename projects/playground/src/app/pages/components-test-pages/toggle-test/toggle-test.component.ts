@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangCheckboxComponent } from 'quang/components/checkbox/checkbox.component'
@@ -27,7 +28,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
 })
 export class ToggleTestComponent {
   protected ToggleTestComponent = QuangCheckboxComponent
-
+  private readonly quangTranslationService = inject(QuangTranslationService)
   testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
@@ -38,7 +39,9 @@ export class ToggleTestComponent {
   })
 
   // Path to the components README.md file
-  componentsReadmePath = './assets/docs/checkbox.md'
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/checkbox.md' : './assets/docs/checkbox.it.md'
+  )
 
   isReadonly = signal<boolean>(false)
 

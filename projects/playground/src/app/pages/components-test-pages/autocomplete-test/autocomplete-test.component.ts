@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
@@ -27,7 +28,12 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteTestComponent {
-  componentsReadmePath = '/assets/docs/autocomplete.md'
+  private readonly quangTranslationService = inject(QuangTranslationService)
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en'
+      ? '/assets/docs/autocomplete.md'
+      : '/assets/docs/autocomplete.it.md'
+  )
 
   // Expose QuangAutocompleteComponent for use in the template
   protected QuangAutocompleteComponent = QuangAutocompleteComponent

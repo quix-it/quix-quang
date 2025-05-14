@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, viewChild } from 
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangPaginatorComponent } from 'quang/components/paginator'
@@ -28,6 +29,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
 export class PaginatorTestComponent {
   protected PaginatorTestComponent = QuangPaginatorComponent
 
+  private readonly quangTranslationService = inject(QuangTranslationService)
   private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
@@ -37,7 +39,9 @@ export class PaginatorTestComponent {
     return ''
   })
 
-  componentsReadmePath = '/assets/docs/paginator.md'
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/paginator.md' : '/assets/docs/paginator.it.md'
+  )
 
   formBuilder = inject(NonNullableFormBuilder)
 

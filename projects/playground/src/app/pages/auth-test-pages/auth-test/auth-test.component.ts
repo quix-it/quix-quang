@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule, JsonPipe } from '@angular/common'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core'
 
 import {
   QuangAuthService,
@@ -10,6 +10,7 @@ import {
   QuangIsAuthenticatedDirective,
   QuangIsNotAuthenticatedDirective,
 } from 'quang/auth'
+import { QuangTranslationService } from 'quang/translation'
 import { catchError, map, of } from 'rxjs'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
@@ -32,7 +33,10 @@ import { ComponentDocumentationComponent } from '../../../shared/components/comp
 })
 export class AuthTestComponent {
   protected AuthTestComponent = AuthTestComponent
-  componentsReadmePath = '/assets/docs/auth.md'
+  private readonly quangTranslationService = inject(QuangTranslationService)
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/auth.md' : '/assets/docs/auth.it.md'
+  )
 
   http = inject(HttpClient)
 

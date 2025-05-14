@@ -15,6 +15,7 @@ import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angul
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangPopoverDirective } from 'quang/overlay/popover'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangCheckboxComponent } from 'quang/components/checkbox'
@@ -56,7 +57,7 @@ interface People {
 })
 export class TableTestComponent {
   protected TableTestComponent = QuangTableComponent
-
+  private readonly quangTranslationService = inject(QuangTranslationService)
   private readonly checkboxRenderer = viewChild<TemplateRef<any>>('checkboxRenderer')
   private readonly name3 = viewChild<TemplateRef<any>>('name3')
   private readonly actions = viewChild<TemplateRef<any>>('actions')
@@ -70,7 +71,9 @@ export class TableTestComponent {
     return ''
   })
 
-  componentsReadmePath = '/assets/docs/table.md'
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/table.md' : '/assets/docs/table.it.md'
+  )
 
   readonly people: People[] = [
     {

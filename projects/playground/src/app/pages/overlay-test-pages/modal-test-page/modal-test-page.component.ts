@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core'
+import { Component, computed, inject, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangModalComponent } from 'quang/overlay/modal'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 
@@ -13,7 +14,10 @@ import { ComponentDocumentationComponent } from '../../../shared/components/comp
 })
 export class ModalTestPageComponent {
   protected ModalTestPageComponent = ModalTestPageComponent
-  componentsReadmePath = '/assets/docs/modal.md'
+  private readonly quangTranslationService = inject(QuangTranslationService)
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/modal.md' : '/assets/docs/modal.it.md'
+  )
   showModal = signal<boolean>(false)
   content = signal<string>('content')
 
@@ -29,9 +33,3 @@ export class ModalTestPageComponent {
     this.content.update((content) => `${content}!!!`)
   }
 }
-
-// Add playground-component-documentation in the template
-// <playground-component-documentation
-//   [componentType]="ModalTestPageComponent"
-//   [customReadmePath]="componentsReadmePath"
-// ></playground-component-documentation>

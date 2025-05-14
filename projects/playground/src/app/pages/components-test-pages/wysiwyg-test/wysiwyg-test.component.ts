@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangWysiwygComponent, QuangWysiwygOptions } from 'quang/components/wysiwyg'
@@ -27,7 +28,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
 })
 export class WysiwygTestComponent {
   protected WysiwygTestComponent = QuangWysiwygComponent
-
+  private readonly quangTranslationService = inject(QuangTranslationService)
   private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
@@ -38,7 +39,9 @@ export class WysiwygTestComponent {
   })
 
   // Path to the components README.md file
-  componentsReadmePath = './assets/docs/wysiwyg.md'
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/wysiwyg.md' : './assets/docs/wysiwyg.it.md'
+  )
 
   isReadonly = signal<boolean>(false)
 
