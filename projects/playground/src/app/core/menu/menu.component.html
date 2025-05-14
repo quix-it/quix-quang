@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between align-items-center menu">
   <div class="d-flex align-items-center">
     @for (menuItem of menuList; track $index) {
-      <a [routerLink]="menuItem.route ? menuItem.route : undefined">
+      <!-- <a [routerLink]="menuItem.route ? menuItem.route : undefined">
         <div
           (click)="onMenuClick($event, menuItem, origin)"
           (mouseenter)="onMenuMouseEnter(origin, menuItem)"
@@ -20,10 +20,18 @@
             {{ menuItem.description | transloco }}
           </p>
         </div>
-      </a>
+      </a> -->
+      <ng-container
+        [ngTemplateOutlet]="menuItemTemplate"
+        [ngTemplateOutletContext]="{ $implicit: menuItem }"
+      />
     }
   </div>
   <div class="d-flex align-items-center">
+    <ng-container
+      [ngTemplateOutlet]="menuItemTemplate"
+      [ngTemplateOutletContext]="{ $implicit: menuLanguage() }"
+    />
     <button
       (click)="openThemeModal()"
       class="btn btn-theme"
@@ -38,6 +46,32 @@
 @if (showMenuThemeModal()) {
   <playground-theme-modal (closeModal)="closeThemeModal()" />
 }
+
+<ng-template
+  #menuItemTemplate
+  let-menuItem
+>
+  <a [routerLink]="menuItem.route ? menuItem.route : undefined">
+    <div
+      (click)="onMenuClick($event, menuItem, origin)"
+      (mouseenter)="onMenuMouseEnter(origin, menuItem)"
+      (mouseleave)="onMenuMouseLeave()"
+      #origin="cdkOverlayOrigin"
+      cdkOverlayOrigin
+      class="menu-item"
+      routerLinkActive="menu-item-selected"
+    >
+      @if (menuItem.icons?.length) {
+        @for (icon of menuItem.icons; track $index) {
+          <svg-icon [src]="'./assets/' + icon" />
+        }
+      }
+      <p class="m-0">
+        {{ menuItem.description | transloco }}
+      </p>
+    </div>
+  </a>
+</ng-template>
 
 @if (currentMenuHoverOrigin()) {
   <ng-template
@@ -54,7 +88,7 @@
       <!-- [routerLink]="[childMenu.url]" -->
       @for (childMenu of currentMenuHover()?.children; track $index) {
         <a
-          [routerLink]="[childMenu.route]"
+          [routerLink]="childMenu.route ? childMenu.route : undefined"
           class="w-full hover:shadow-sm hover:cursor-pointer"
           routerLinkActive="menu-item-selected"
         >

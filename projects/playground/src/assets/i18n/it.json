@@ -147,7 +147,12 @@
     "device": "Device",
     "form": "Validazione Form",
     "network": "Network",
-    "translation": "Traduzione"
+    "translation": "Traduzione",
+    "language": {
+      "title": "{{lang}}",
+      "it": "Italiano",
+      "en": "Inglese"
+    }
   },
   "dataHandling": {
     "conversion": {

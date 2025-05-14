@@ -102,3 +102,15 @@ export const menuTheme: MenuItem = {
   description: 'menu.theme',
   icons: ['dark-mode.svg', 'light-mode.svg'],
 }
+
+export const menuLanguage: MenuItem = {
+  description: 'menu.language.title',
+  children: [
+    {
+      description: 'menu.language.en',
+    },
+    {
+      description: 'menu.language.it',
+    },
+  ],
+}
