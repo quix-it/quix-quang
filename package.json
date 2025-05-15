@@ -23,7 +23,7 @@
     "lint:fix": "ng lint --fix",
     "format": "npx prettier . -w --ignore-unknown",
     "lint-and-format": "npm run lint:fix && npm run format",
-    "deploy:git": "ng deploy playground --base-href=/quix-quang/"
+    "deploy:git": "npm run copy-readme && ng deploy playground --base-href=/quix-quang/"
   },
   "private": true,
   "dependencies": {
