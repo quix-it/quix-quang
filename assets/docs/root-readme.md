@@ -6,7 +6,7 @@ Quang is a comprehensive Angular component and utility library designed to strea
 
 The library is organized into several functional modules, each focusing on different aspects of application development:
 
-### [Auth](/projects/quang/auth/README.md)
+### [Auth](auth/auth)
 Authentication and authorization utilities including:
 - Authentication services and providers
 - Role-based access control directives
@@ -14,7 +14,7 @@ Authentication and authorization utilities including:
 - Token storage management
 - Mobile-specific authentication features
 
-### [Components](/projects/quang/components/README.md)
+### [Components](components)
 Reusable UI components including:
 - Autocomplete
 - Checkbox
@@ -25,38 +25,38 @@ Reusable UI components including:
 - Tables
 - WYSIWYG editor
 
-### [Data Handling](/projects/quang/data-handling)
+### [Data Handling](core/data-handling)
 Utilities for:
 - Data conversion operations
 - File download helpers
 
-### [Device](/projects/quang/device)
+### [Device](core/device)
 Device and viewport management utilities including:
 - Resize observable service for responsive design
 
-### [Forms](/projects/quang/forms/README.md)
+### [Forms](core/forms)
 Form management utilities including:
 - Form group model abstractions
 - Custom form validators
 
-### [Loader](/projects/quang/loader/README.md)
+### [Loader](components/loader)
 Loading state management including:
 - Loading indicator components
 - Loading state interceptor
 - Loading service
 
-### [Network](/projects/quang/network)
+### [Network](network)
 Network request utilities and services.
 - Interceptor utilities
 
-### [Overlay](/projects/quang/overlay/README.md)
+### [Overlay](overlay)
 Overlay-based UI components including:
 - Modals
 - Popovers
 - Toasts
 - Tooltips
 
-### [Translation](/projects/quang/translation/README.md)
+### [Translation](translation)
 Internationalization (i18n) utilities including:
 - Translation loader service
 - Translation providers
