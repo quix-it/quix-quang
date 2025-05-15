@@ -18,13 +18,16 @@
               <quang-checkbox
                 [errorMap]="errors()"
                 [isReadonly]="isReadonly()"
+                #testComponent
                 checkType="toggle"
                 class="col-3"
                 componentLabel="form.label.toggle"
                 formControlName="toggle"
+                id="testComponent"
                 labelPosition="top"
+                playgroundSourceCode
                 successMessage="form.label.success"
-              ></quang-checkbox>
+              />
             </div>
             <div class="col-6 row">
               <quang-checkbox
@@ -36,7 +39,7 @@
                 formControlName="checkbox"
                 labelPosition="left"
                 successMessage="form.label.success"
-              ></quang-checkbox>
+              />
               <quang-checkbox
                 [errorMap]="errors()"
                 [isReadonly]="isReadonly()"
@@ -108,3 +111,8 @@
     </span>
   </div>
 }
+<playground-component-documentation
+  [componentType]="ToggleTestComponent"
+  [customReadmePath]="componentsReadmePath()"
+  [exampleHtml]="testComponentSource()"
+/>

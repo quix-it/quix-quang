@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { InputType, QuangInputComponent } from 'quang/components/input'
@@ -29,21 +30,22 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputTestComponent {
-  // Expose QuangInputComponent for use in the template
+  private readonly quangTranslationService = inject(QuangTranslationService)
   protected QuangInputComponent = QuangInputComponent
 
-  testComponent = viewChild('testComponent')
+  private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
     if (this.testComponent()) {
-      console.log('testComponent', document.getElementById('testComponent'))
       return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
     }
     return ''
   })
 
   // Path to the components README.md file
-  componentsReadmePath = './assets/docs/components.md'
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/input.md' : './assets/docs/input.it.md'
+  )
 
   inputTypesList: InputType[] = ['number', 'url', 'tel', 'color', 'email', 'password', 'search', 'text', 'textarea']
 

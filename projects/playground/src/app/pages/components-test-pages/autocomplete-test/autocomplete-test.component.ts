@@ -4,10 +4,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
 import { SelectOption } from 'quang/components/shared'
+
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
 
 @Component({
   selector: 'playground-autocomplete-test',
@@ -18,16 +21,24 @@ import { SelectOption } from 'quang/components/shared'
     TranslocoPipe,
     QuangAutocompleteComponent,
     ComponentDocumentationComponent,
+    SourceCodeDirective,
   ],
   templateUrl: './autocomplete-test.component.html',
   styleUrl: './autocomplete-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteTestComponent {
+  private readonly quangTranslationService = inject(QuangTranslationService)
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en'
+      ? '/assets/docs/autocomplete.md'
+      : '/assets/docs/autocomplete.it.md'
+  )
+
   // Expose QuangAutocompleteComponent for use in the template
   protected QuangAutocompleteComponent = QuangAutocompleteComponent
 
-  testComponent = viewChild('testComponent')
+  private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
     if (this.testComponent()) {

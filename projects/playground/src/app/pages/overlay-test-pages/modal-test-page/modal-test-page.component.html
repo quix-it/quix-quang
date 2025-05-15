@@ -1,5 +1,4 @@
-<p>modal-test-page works!</p>
-
+<h3>{{ 'quang.overlay.modal' | transloco }}</h3>
 <button
   (click)="openModal()"
   class="btn btn-outline-primary"
@@ -61,3 +60,9 @@
     </ng-container>
   </quang-modal>
 }
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="ModalTestPageComponent"
+    [customReadmePath]="componentsReadmePath()"
+  />
+</div>

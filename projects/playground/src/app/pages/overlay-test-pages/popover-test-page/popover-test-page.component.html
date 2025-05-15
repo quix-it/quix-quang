@@ -1,11 +1,12 @@
-<p>popover-test-page works!</p>
-
-<div class="d-flex gap-3">
+<h3>{{ 'quang.overlay.popover' | transloco }}</h3>
+<div class="d-flex gap-3 mt-4">
   <button
     [quangPopover]="popoverTest"
     [scrollCloseThreshold]="undefined"
+    #testComponent
     class="btn btn-primary popover-test-button"
     overlayPosition="top"
+    playgroundSourceCode
     showMethod="click"
   >
     {{ 'buttons.popover' | transloco }}
@@ -21,6 +22,14 @@
     {{ 'buttons.popover' | transloco }}
     <span>HOVER</span>
   </button>
+</div>
+
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="PopoverTestPageComponent"
+    [customReadmePath]="componentsReadmePath()"
+    [exampleHtml]="testComponentSource()"
+  />
 </div>
 
 <ng-template #popoverTest

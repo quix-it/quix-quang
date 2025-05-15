@@ -15,7 +15,9 @@ import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angul
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangPopoverDirective } from 'quang/overlay/popover'
+import { QuangTranslationService } from 'quang/translation'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangCheckboxComponent } from 'quang/components/checkbox'
 import {
   QuangTableComponent,
@@ -25,6 +27,8 @@ import {
   TableHeader,
   TableRow,
 } from 'quang/components/table/table.component'
+
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
 
 interface People {
   name: string
@@ -43,6 +47,8 @@ interface People {
     QuangCheckboxComponent,
     ReactiveFormsModule,
     NgIf,
+    ComponentDocumentationComponent,
+    SourceCodeDirective,
   ],
 
   templateUrl: './table-test.component.html',
@@ -50,11 +56,24 @@ interface People {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableTestComponent {
-  actions = viewChild<TemplateRef<any>>('actions')
+  protected TableTestComponent = QuangTableComponent
+  private readonly quangTranslationService = inject(QuangTranslationService)
+  private readonly checkboxRenderer = viewChild<TemplateRef<any>>('checkboxRenderer')
+  private readonly name3 = viewChild<TemplateRef<any>>('name3')
+  private readonly actions = viewChild<TemplateRef<any>>('actions')
+  private readonly testComponent = viewChild('testComponent')
 
-  name3 = viewChild<TemplateRef<any>>('name3')
+  testComponentSource = computed<string>(() => {
+    if (this.testComponent()) {
+      console.log('testComponent', document.getElementById('testComponent'))
+      return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
+    }
+    return ''
+  })
 
-  checkboxRenderer = viewChild<TemplateRef<any>>('checkboxRenderer')
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/table.md' : '/assets/docs/table.it.md'
+  )
 
   readonly people: People[] = [
     {

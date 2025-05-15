@@ -1,0 +1,54 @@
+<quang-modal
+  (backdropClick)="closeModal.emit()"
+  height="100dvh"
+  position="right"
+  width="25dvw"
+>
+  <ng-container header>
+    <h3 class="mt-3">{{ 'colors.colorScheme' | transloco }}</h3>
+    <button
+      (click)="closeModal.emit()"
+      class="btn btn-modal-close"
+      type="button"
+    >
+      <svg-icon src="assets/icons/svg/close.svg" />
+    </button>
+  </ng-container>
+  <ng-container body>
+    <div
+      class="d-flex flex-column w-25 gap-4 p-3"
+      style="position: fixed; right: 0"
+    >
+      <div class="d-flex gap-4">
+        <button
+          (click)="changeTheme('light')"
+          class="btn btn-outline-primary d-flex gap-2"
+        >
+          {{ 'colors.setLight' | transloco }}
+          <svg-icon
+            [applyClass]="true"
+            src="assets/icons/svg/light-mode.svg"
+            style="width: 20px"
+          ></svg-icon>
+        </button>
+        <button
+          (click)="changeTheme('dark')"
+          class="btn btn-primary d-flex gap-2"
+        >
+          {{ 'colors.setDark' | transloco }}
+          <svg-icon
+            [applyClass]="true"
+            src="assets/icons/svg/dark-mode.svg"
+            style="width: 20px"
+          ></svg-icon>
+        </button>
+      </div>
+      @for (color of colorScheme; track $index) {
+        <div class="d-flex gap-3">
+          <div class="color-scheme-sample bg-{{ color }}"></div>
+          {{ color | transloco }}
+        </div>
+      }
+    </div>
+  </ng-container>
+</quang-modal>

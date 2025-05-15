@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangSelectComponent } from 'quang/components/select'
@@ -29,7 +30,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
 export class SelectTestComponent {
   // Expose QuangSelectComponent for use in the template
   protected QuangSelectComponent = QuangSelectComponent
-
+  private readonly quangTranslationService = inject(QuangTranslationService)
   testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
@@ -38,6 +39,10 @@ export class SelectTestComponent {
     }
     return ''
   })
+
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/select.md' : './assets/docs/select.it.md'
+  )
 
   isReadonly = signal<boolean>(false)
 

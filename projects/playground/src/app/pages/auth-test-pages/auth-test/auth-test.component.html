@@ -57,3 +57,9 @@
 </div>
 User Info:
 <pre class="user-info">{{ user() | json }}</pre>
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="AuthTestComponent"
+    [customReadmePath]="componentsReadmePath()"
+  />
+</div>

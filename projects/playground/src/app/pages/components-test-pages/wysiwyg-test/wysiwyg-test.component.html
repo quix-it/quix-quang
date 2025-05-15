@@ -12,10 +12,13 @@
             [minHeight]="wysiwygHeight()"
             [onImageUploadError]="onImageUploadError"
             [wysiwygOptions]="wysiwygOptions"
+            #testComponent
             componentLabel="form.label.wysiwyg"
             formControlName="testInput"
+            id="testComponent"
+            playgroundSourceCode
             successMessage="form.label.success"
-          ></quang-wysiwyg>
+          />
         </div>
       }
       <div class="d-flex gap-3">
@@ -90,3 +93,8 @@
     </span>
   </div>
 }
+<playground-component-documentation
+  [componentType]="WysiwygTestComponent"
+  [customReadmePath]="componentsReadmePath()"
+  [exampleHtml]="testComponentSource()"
+/>

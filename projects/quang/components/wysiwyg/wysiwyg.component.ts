@@ -177,7 +177,6 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
         take(1)
       )
       .subscribe((sunEditorWysiwygInstance) => {
-        console.log('ciao sunEditorWysiwygInstance', sunEditorWysiwygInstance)
         if (sunEditorWysiwygInstance) {
           try {
             sunEditorWysiwygInstance.setContents(val)

@@ -12,6 +12,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { SvgIconComponent } from 'angular-svg-icon'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangDateComponent } from 'quang/components/date'
@@ -37,8 +38,12 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateTestComponent {
-  // Expose QuangDateComponent for use in the template
+  private readonly quangTranslationService = inject(QuangTranslationService)
   protected QuangDateComponent = QuangDateComponent
+
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/date.md' : '/assets/docs/date.it.md'
+  )
 
   testComponent = viewChild('testComponent')
 

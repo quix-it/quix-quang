@@ -10,7 +10,10 @@
   [stickyTable]="true"
   [tableConfigurations]="tableConfig()"
   (sortChanged)="onChangeSort($event)"
-></quang-table>
+  #testComponent
+  id="testComponent"
+  playgroundSourceCode
+/>
 <ng-template
   #actions
   let-person
@@ -76,3 +79,10 @@
     ></quang-checkbox>
   </div>
 </ng-template>
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="TableTestComponent"
+    [customReadmePath]="componentsReadmePath()"
+    [exampleHtml]="testComponentSource()"
+  />
+</div>

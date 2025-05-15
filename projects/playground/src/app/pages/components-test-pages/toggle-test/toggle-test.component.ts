@@ -1,20 +1,48 @@
 import { JsonPipe } from '@angular/common'
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTranslationService } from 'quang/translation'
 
+import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangCheckboxComponent } from 'quang/components/checkbox/checkbox.component'
+
+import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
 
 @Component({
   selector: 'playground-toggle-test',
-  imports: [FormsModule, JsonPipe, ReactiveFormsModule, QuangCheckboxComponent, TranslocoPipe],
+  imports: [
+    FormsModule,
+    JsonPipe,
+    ReactiveFormsModule,
+    QuangCheckboxComponent,
+    TranslocoPipe,
+    ComponentDocumentationComponent,
+    SourceCodeDirective,
+  ],
 
   templateUrl: './toggle-test.component.html',
   styleUrl: './toggle-test.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToggleTestComponent {
+  protected ToggleTestComponent = QuangCheckboxComponent
+  private readonly quangTranslationService = inject(QuangTranslationService)
+  testComponent = viewChild('testComponent')
+
+  testComponentSource = computed<string>(() => {
+    if (this.testComponent()) {
+      return document.getElementById('testComponent')?.getAttribute('data-source') ?? ''
+    }
+    return ''
+  })
+
+  // Path to the components README.md file
+  componentsReadmePath = computed(() =>
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/checkbox.md' : './assets/docs/checkbox.it.md'
+  )
+
   isReadonly = signal<boolean>(false)
 
   showValueAndValidity = signal<boolean>(false)

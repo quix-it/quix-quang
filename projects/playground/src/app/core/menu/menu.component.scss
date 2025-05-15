@@ -1,10 +1,36 @@
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.menu {
+  background-color: var(--bs-gray-900);
+  color: var(--bs-white);
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--bs-body-color);
+  margin-bottom: 1rem;
+  a {
+    color: var(--bs-white);
+  }
+}
+
+.btn-theme {
+  color: var(--bs-white);
+}
+
 .menu-item {
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
+  align-items: center;
   border-right: 1px solid var(--bs-border-color, #000);
-  padding: 0.25rem;
+  padding: 0.25rem 0.5rem;
   &:hover {
     cursor: pointer;
+  }
+  .menu-icon {
+    max-width: 2rem;
+    margin-right: 1rem;
   }
 }
 a {

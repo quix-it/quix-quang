@@ -9,9 +9,19 @@
       [totalItems]="30"
       (changePage)="onChangePage($event)"
       (changeSize)="onChangePageSize($event)"
-    ></quang-paginator>
+      #testComponent
+      id="testComponent"
+      playgroundSourceCode
+    />
   </div>
 </div>
 <div class="mt-3 ms-3">
   {{ testForm.value | json }}
+</div>
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="PaginatorTestComponent"
+    [customReadmePath]="componentsReadmePath()"
+    [exampleHtml]="testComponentSource()"
+  />
 </div>

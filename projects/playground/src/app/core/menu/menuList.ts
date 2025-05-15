@@ -1,5 +1,5 @@
 export interface MenuItem {
-  icon?: string
+  icons?: string[]
   description: string
   route?: string
   children?: MenuItem[]
@@ -7,69 +7,111 @@ export interface MenuItem {
 
 export const menuList: MenuItem[] = [
   {
-    description: 'Components',
+    description: 'menu.home',
+    route: '/',
+    icons: ['img/quang-logo-bg.png'],
+  },
+  {
+    description: 'menu.components.title',
     children: [
       {
         route: 'components/autocomplete',
-        description: 'Input Autocomplete',
+        description: 'menu.components.autocomplete',
       },
       {
         route: 'components/date',
-        description: 'Input Date',
+        description: 'menu.components.date',
       },
       {
         route: 'components/input',
-        description: 'Input',
+        description: 'menu.components.input',
       },
       {
         route: 'components/paginator',
-        description: 'Paginator',
+        description: 'menu.components.paginator',
       },
       {
         route: 'components/select',
-        description: 'Select Options',
+        description: 'menu.components.select',
       },
       {
         route: 'components/table',
-        description: 'Table',
+        description: 'menu.components.table',
       },
       {
         route: 'components/toggle',
-        description: 'Checkbox / Toggle',
+        description: 'menu.components.checkbox',
       },
       {
         route: 'components/wysiwyg',
-        description: 'Wysiwyg',
+        description: 'menu.components.wysiwyg',
       },
       {
         route: 'components/loader',
-        description: 'Loader',
+        description: 'menu.components.loader',
       },
     ],
   },
   {
-    description: 'Overlay',
+    description: 'menu.overlay.title',
     children: [
       {
-        description: 'Tooltip',
+        description: 'menu.overlay.tooltip',
         route: 'overlay/tooltip',
       },
       {
-        description: 'Popover',
+        description: 'menu.overlay.popover',
         route: 'overlay/popover',
       },
       {
-        description: 'Modal',
+        description: 'menu.overlay.modal',
         route: 'overlay/modal',
       },
       {
-        description: 'Toast',
+        description: 'menu.overlay.toast',
         route: 'overlay/toast',
       },
     ],
   },
   {
-    description: 'Auth',
+    description: 'menu.auth',
     route: 'auth',
   },
+  {
+    description: 'menu.dataHandling',
+    route: '/data-handling',
+  },
+  {
+    description: 'menu.device',
+    route: '/device',
+  },
+  {
+    description: 'menu.form',
+    route: '/form',
+  },
+  {
+    description: 'menu.network',
+    route: '/network',
+  },
+  {
+    description: 'menu.translation',
+    route: '/translation',
+  },
 ]
+
+export const menuTheme: MenuItem = {
+  description: 'menu.theme',
+  icons: ['dark-mode.svg', 'light-mode.svg'],
+}
+
+export const menuLanguage: MenuItem = {
+  description: '',
+  children: [
+    {
+      description: 'menu.language.en',
+    },
+    {
+      description: 'menu.language.it',
+    },
+  ],
+}

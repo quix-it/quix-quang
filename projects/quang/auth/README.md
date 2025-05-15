@@ -44,7 +44,7 @@ template.
 
 ### QuangHasEveryRoleDirective
 
-This directive shows content only if user is not authenticated.
+This directive shows content only if the user has every specified role.
 
 To use it import [QuangHasEveryRoleDirective](./directives/has-every-role.directive.ts) and put it in your template.
 
@@ -58,7 +58,7 @@ To use it import [QuangHasEveryRoleDirective](./directives/has-every-role.direct
 
 ### QuangHasAtLeastOneRoleDirective
 
-This directive shows content only if user is not authenticated.
+This directive shows content only if the user has at least one of the specified roles.
 
 To use it import [QuangHasAtLeastOneRoleDirective](./directives/has-at-least-one-role.directive.ts) and put it in your
 template.
