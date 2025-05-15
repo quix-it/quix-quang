@@ -41,11 +41,20 @@
       "paginator": "Componente di paginazione",
       "select": "Componente select",
       "autocomplete": "Componente di autocomplete",
-      "table": "Componente tabella"
+      "table": "Componente tabella",
+      "readme": "Readme",
+      "usage": "Utilizzo",
+      "properties": "Proprietà",
+      "events": "Eventi",
+      "documentation": "Documentazione"
     },
     "header": "Intestazione",
     "body": "Corpo",
     "footer": "Footer"
+  },
+  "documentation": {
+    "noInputs": "Non ci sono inputs",
+    "noOutputs": "Non ci sono outputs"
   },
   "form": {
     "label": {
@@ -79,6 +88,20 @@
       "changeHeight": "Cambia altezza",
       "flipButton": "Nascondi pulsante",
       "resetForm": "Reset Form"
+    },
+    "functions": {
+      "fileMaxSize": "Valida che la dimensione del file non superi il massimo specificato.",
+      "fileMinSize": "Valida che la dimensione del file sia almeno il minimo specificato.",
+      "isFile": "Valida che il valore del controllo sia un file.",
+      "fileType": "Valida che il tipo di file corrisponda a uno dei tipi consentiti.",
+      "fileExtensions": "Valida che l'estensione del file corrisponda a una delle estensioni consentite.",
+      "requiredCheckbox": "Valida che la casella di controllo sia selezionata.",
+      "minDate": "Valida che la data non sia precedente alla data minima specificata.",
+      "maxDate": "Valida che la data non sia successiva alla data massima specificata.",
+      "dateBetween": "Valida che la data sia compresa nell'intervallo specificato.",
+      "isFiscalCode": "Valida che il valore sia un codice fiscale valido.",
+      "isVatNumber": "Valida che il valore sia un numero di partita IVA valido per le località specificate.",
+      "wysiwygRequired": "Valida che il contenuto dell'editor WYSIWYG non sia vuoto."
     }
   },
   "quangPaginator": {
@@ -88,5 +111,91 @@
   },
   "table": {
     "noResults": "Nessun risultato trovato"
+  },
+  "quang": {
+    "overlay": {
+      "toast": "QuangToast",
+      "popover": "QuangPopover",
+      "tooltip": "QuangTooltip",
+      "modal": "QuangModal"
+    }
+  },
+  "menu": {
+    "home": "Home",
+    "components": {
+      "title": "Componenti",
+      "autocomplete": "Autocomplete",
+      "date": "DatePicker",
+      "input": "Input",
+      "paginator": "Paginator",
+      "select": "Select",
+      "table": "Table",
+      "checkbox": "Checkbox / Toggle",
+      "wysiwyg": "Wysiwyg",
+      "loader": "Loader"
+    },
+    "overlay": {
+      "title": "Overlay",
+      "tooltip": "Tooltip",
+      "popover": "Popover",
+      "modal": "Modal",
+      "toast": "Toast"
+    },
+    "auth": "Autenticazione",
+    "theme": "Tema",
+    "dataHandling": "Gestione Dati",
+    "device": "Device",
+    "form": "Validazione Form",
+    "network": "Network",
+    "translation": "Traduzione",
+    "language": {
+      "it": "Italiano",
+      "en": "Inglese"
+    }
+  },
+  "dataHandling": {
+    "conversion": {
+      "title": "Data conversion",
+      "functions": {
+        "blobToBase64": "Converte un oggetto Blob in una stringa Base64. Utile per codificare dati binari per l'archiviazione o la trasmissione.",
+        "base64ToDataUri": "Converte una stringa Base64 in un Data URI. Utile per incorporare dati direttamente in pagine web o applicazioni.",
+        "dataUriToBlob": "Converte un Data URI in un oggetto Blob. Utile per ricostruire dati binari da fonti incorporate."
+      }
+    },
+    "download": {
+      "title": "Download",
+      "functions": {
+        "downloadFile": "Avvia il download di un oggetto File con il nome file specificato.",
+        "handleDownload": "Elabora una risposta HTTP contenente un Blob e avvia un download del file. Estrae automaticamente il nome del file dagli header della risposta o ne genera uno predefinito."
+      }
+    }
+  },
+  "utils": {
+    "copyContent": "Copia negli appunti",
+    "copied": "Copiato!"
+  },
+  "device": {
+    "functions": {
+      "resizeObservable": "Osserva la dimensione di un elemento ed emette cambiamenti. Utile per design reattivi e layout dinamici.",
+      "widthResizeObservable": "Osserva la larghezza di un elemento ed emette cambiamenti. Utile per monitorare il ridimensionamento orizzontale."
+    }
+  },
+  "network": {
+    "functions": {
+      "isHttpMethod": "Verifica se una stringa è un metodo HTTP valido (GET, POST, PUT, DELETE, PATCH).",
+      "getExcludedUrlsByMethod": "Crea una mappa di metodi HTTP a insiemi di URL esclusi per gli interceptor."
+    }
+  },
+  "translation": {
+    "functions": {
+      "provideTranslation": "Fornisce la configurazione e i provider di ambiente per la traduzione nelle applicazioni Angular.",
+      "withTranslation": "Restituisce una feature Quang per la traduzione, usando la configurazione fornita.",
+      "setActiveLang": "Imposta la lingua attiva. Se la lingua non è disponibile, usa quella di default.",
+      "getActiveLang": "Restituisce la lingua attualmente attiva.",
+      "translate": "Traduce una chiave con parametri opzionali.",
+      "setTranslation": "Imposta l'oggetto di traduzione per una lingua.",
+      "setTranslationKey": "Imposta una singola chiave e valore di traduzione per una lingua.",
+      "translationsTokens": "Token di iniezione per la configurazione delle traduzioni: AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH. Usali per fornire le impostazioni di lingua e traduzione nella tua app Angular."
+    }
   }
 }

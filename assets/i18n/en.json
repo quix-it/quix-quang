@@ -41,11 +41,20 @@
       "paginator": "Paginator component",
       "select": "Select component",
       "autocomplete": "Autocomplete component",
-      "table": "Table component"
+      "table": "Table component",
+      "readme": "Readme",
+      "usage": "Usage",
+      "properties": "Properties",
+      "events": "Events",
+      "documentation": "Documentation"
     },
     "header": "Header",
     "body": "Body",
     "footer": "Footer"
+  },
+  "documentation": {
+    "noInputs": "There are no inputs",
+    "noOutputs": "There are no outputs"
   },
   "form": {
     "label": {
@@ -79,6 +88,20 @@
       "changeHeight": "Change height",
       "flipButton": "Hide button",
       "resetForm": "Reset Form"
+    },
+    "functions": {
+      "fileMaxSize": "Validates that the file size does not exceed the specified maximum.",
+      "fileMinSize": "Validates that the file size is at least the specified minimum.",
+      "isFile": "Validates that the control value is a file.",
+      "fileType": "Validates that the file type matches one of the allowed types.",
+      "fileExtensions": "Validates that the file extension matches one of the allowed extensions.",
+      "requiredCheckbox": "Validates that the checkbox is checked.",
+      "minDate": "Validates that the date is not earlier than the specified minimum date.",
+      "maxDate": "Validates that the date is not later than the specified maximum date.",
+      "dateBetween": "Validates that the date is within the specified range.",
+      "isFiscalCode": "Validates that the value is a valid fiscal code.",
+      "isVatNumber": "Validates that the value is a valid VAT number for the specified locales.",
+      "wysiwygRequired": "Validates that the WYSIWYG editor content is not empty."
     }
   },
   "quangPaginator": {
@@ -88,5 +111,91 @@
   },
   "table": {
     "noResults": "No results found"
+  },
+  "quang": {
+    "overlay": {
+      "toast": "QuangToast",
+      "popover": "QuangPopover",
+      "tooltip": "QuangTooltip",
+      "modal": "QuangModal"
+    }
+  },
+  "menu": {
+    "home": "Home",
+    "components": {
+      "title": "Components",
+      "autocomplete": "Autocomplete",
+      "date": "DatePicker",
+      "input": "Input",
+      "paginator": "Paginator",
+      "select": "Select",
+      "table": "Table",
+      "checkbox": "Checkbox / Toggle",
+      "wysiwyg": "Wysiwyg",
+      "loader": "Loader"
+    },
+    "overlay": {
+      "title": "Overlay",
+      "tooltip": "Tooltip",
+      "popover": "Popover",
+      "modal": "Modal",
+      "toast": "Toast"
+    },
+    "auth": "Auth",
+    "theme": "Theme",
+    "dataHandling": "Data handling",
+    "device": "Device",
+    "form": "Form validation",
+    "network": "Network",
+    "translation": "Translation",
+    "language": {
+      "it": "Italian",
+      "en": "English"
+    }
+  },
+  "dataHandling": {
+    "conversion": {
+      "title": "Data conversion",
+      "functions": {
+        "blobToBase64": "Converts a Blob object to a Base64 string. Useful for encoding binary data for storage or transmission.",
+        "base64ToDataUri": "Converts a Base64 string into a Data URI. Useful for embedding data directly into web pages or applications.",
+        "dataUriToBlob": "Converts a Data URI back into a Blob object. Useful for reconstructing binary data from embedded sources."
+      }
+    },
+    "download": {
+      "title": "Download",
+      "functions": {
+        "downloadFile": "Triggers a download for a given File object with the specified filename.",
+        "handleDownload": "Processes an HTTP response containing a Blob and triggers a file download. Automatically extracts the filename from the response headers or generates a default one."
+      }
+    }
+  },
+  "utils": {
+    "copyContent": "Copy in clipboard",
+    "copied": "Copied!"
+  },
+  "device": {
+    "functions": {
+      "resizeObservable": "Observes the size of an element and emits changes. Useful for responsive designs and dynamic layouts.",
+      "widthResizeObservable": "Observes the width of an element and emits changes. Useful for tracking horizontal resizing."
+    }
+  },
+  "network": {
+    "functions": {
+      "isHttpMethod": "Checks if a string is a valid HTTP method (GET, POST, PUT, DELETE, PATCH).",
+      "getExcludedUrlsByMethod": "Creates a map of HTTP methods to sets of excluded URLs for interceptors."
+    }
+  },
+  "translation": {
+    "functions": {
+      "provideTranslation": "Provides translation configuration and environment providers for Angular applications.",
+      "withTranslation": "Returns a Quang feature for translation, using the provided configuration.",
+      "setActiveLang": "Sets the active language. If the language is not available, uses the default language.",
+      "getActiveLang": "Returns the currently active language.",
+      "translate": "Translates a key with optional parameters.",
+      "setTranslation": "Sets the translation object for a language.",
+      "setTranslationKey": "Sets a single translation key and value for a language.",
+      "translationsTokens": "Injection tokens for translation configuration: AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH. Use these to provide language and translation settings in your Angular app."
+    }
   }
 }
