@@ -4,27 +4,26 @@ Quang Loader provides a simple and efficient way to implement an overlay loader 
 
 ## QuangLoaderComponent
 
-The `QuangLoaderComponent` is a component that displays a loader overlay on the page. It is highly customizable and can be used to indicate loading states in your application.
+The `QuangLoaderComponent` displays a loader overlay on the page. It is highly customizable and can be used to indicate loading states in your application.
+
+### Inputs
+
+- `showAtLeastFor`: `number` — Minimum time (in milliseconds) to show the loader for. Default: `500`.
+- You can use `ng-content` to project custom content (e.g., a custom spinner or message).
+
+> **Note:** Loader visibility is managed internally by the loader service and HTTP interceptor, not by an input property.
 
 ### Usage
 
 1. **Import the Component**:
-   Import the `QuangLoaderComponent` into your desired module or component.
-
    ```typescript
    import { QuangLoaderComponent } from 'quang/loader'
    ```
-
 2. **Add to Template**:
-   Use the `QuangLoaderComponent` in your template to display the loader (suggested App.component).
-
    ```html
    <quang-loader></quang-loader>
    ```
-
 3. **Custom Content**:
-   Replace the default spinner with custom content by using the `ng-content` projection.
-
    ```html
    <quang-loader>
      <div class="custom-spinner">Loading...</div>
@@ -33,40 +32,35 @@ The `QuangLoaderComponent` is a component that displays a loader overlay on the 
 
 ## Loader Interceptor
 
-The `quangLoaderInterceptor` is used to automatically show and hide the loader during HTTP requests.
+The `quangLoaderInterceptor` automatically shows and hides the loader during HTTP requests.
 
 ### Usage
 
 1. **Import the Interceptor**:
-   Import the `quangLoaderInterceptor` and add it to your providers.
-
    ```typescript
    import { quangLoaderInterceptor } from 'quang/loader'
 
-   providers: [{ provide: HTTP_INTERCEPTORS, useClass: quangLoaderInterceptor, multi: true }]
+   providers: [
+     { provide: HTTP_INTERCEPTORS, useClass: quangLoaderInterceptor, multi: true }
+   ]
    ```
-
 2. **Configuration**:
-   Configure the interceptor in your application to suit your needs.
+   Configure the interceptor as needed for your application.
 
 ## Loader Providers
 
-The `provideQuangLoaderExcludedUrls` function is used to configure the loader globally in your application. It allows you to customize the loader's behavior, including setting delays, custom templates, and excluding specific URLs from triggering the loader.
+The `provideQuangLoaderExcludedUrls` function configures the loader globally. It allows you to customize the loader's behavior, including setting delays, custom templates, and excluding specific URLs from triggering the loader.
 
 ### Usage
 
 1. **Import the Provider**:
-   Import the `provideQuangLoaderExcludedUrls` function and use it in your application configuration.
-
    ```typescript
    import { provideQuangLoaderExcludedUrls } from 'quang/loader';
 
    providers: [
      provideQuangLoaderExcludedUrls([
-       {
-         url: 'assets',
-         method: 'GET',
-       },
+       { url: 'assets', method: 'GET' },
+       { url: '/api/health', method: 'GET' },
      ]),
    ];
    ```

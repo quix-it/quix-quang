@@ -10,12 +10,14 @@ The `QuangTableComponent` allows for displaying data in a tabular format.
 
 ## Inputs
 
-- `headers`: Array of column headers. (Required)
-- `data`: Array of data objects to display in the table. (Required)
-- `sortable`: Enables sorting for columns. Default is `false`.
+- `tableConfigurations`: `{ headers: TableHeader[]; rows: any[] }` — Table configuration object containing headers and rows. **(Required)**
+- `stickyTable`: `boolean` — Enables sticky header/columns. Default: `false`.
+- All standard form/label/validation-related inputs inherited from `QuangBaseComponent` (if applicable):
+  - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
 ## Outputs
 
+- `sortChanged`: Emits the sort state when the user changes sorting.
 - `rowClick`: Emits the clicked row data when a row is clicked.
 
 ## Usage
@@ -27,6 +29,7 @@ The `QuangTableComponent` allows for displaying data in a tabular format.
   [stickyTable]="true"
   [tableConfigurations]="tableConfig()"
   (sortChanged)="onChangeSort($event)"
+  (rowClick)="onRowClick($event)"
 />
 ```
 
@@ -34,6 +37,8 @@ The `QuangTableComponent` allows for displaying data in a tabular format.
 
 ```typescript
 import { computed, signal } from '@angular/core'
+
+// Angular signals for table data and headers
 
 tableRows = signal([
   { id: 1, name: 'John Doe', age: 30 },

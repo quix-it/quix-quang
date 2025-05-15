@@ -15,6 +15,6 @@ Welcome to the Quang UI Components library! Below is a list of all the component
 
 ## Notes
 
-All components are styled based on Bootstrap v5.3 and extend the [`QuangBaseComponent`](./shared/quang-base-component.directive.ts), which provides common features like labels, error messages, and more.
+Most components are styled based on Bootstrap v5.3 and extend the [`QuangBaseComponent`](./shared/quang-base-component.directive.ts), which provides common features like labels, error messages, and more. Some components, such as the paginator, do not extend this base class—refer to each component's documentation for details.
 
 For global styles, remember to include the necessary SCSS files as mentioned in the individual component documentation.

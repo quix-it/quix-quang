@@ -10,12 +10,21 @@ The `QuangWysiwygComponent` is a rich text editor based on [SunEditor](https://g
 
 ## Inputs
 
-- `editorOptions`: Configuration options for the editor. (Required)
-- `placeholder`: Placeholder text for the editor. Default is `"Start typing..."`.
+- `wysiwygOptions`: `object` — Configuration options for the editor. **(Required)**
+- `minHeight`: `string | undefined` — Minimum height for the editor area. Default: `'200px'`.
+- `highlightColor`: `boolean` — Show/hide the highlight color button in the toolbar. Default: `true`.
+- `isReadonly`: `boolean` — If true, the editor is readonly.
+- `onImageUploadError`: `(errorMessage: any, result: any, core: any) => boolean` — Callback for image upload errors.
+- `onFileDrop`: `(e: any, cleanData: any, maxCharCount: any, core: any) => boolean` — Callback for file drop events.
+- Toolbar button toggles (all `boolean`, default: `true`):
+  - `font`, `fontSize`, `formatBlock`, `paragraphStyle`, `blockquote`, `bold`, `underline`, `italic`, `strike`, `fontColor`, `textStyle`, `removeFormat`, `align`, `list`, `table`, `link`, `image`, `fullScreen`, `showBlocks`
+- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
+  - `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
 ## Outputs
 
-- `contentChange`: Emits the updated content when it changes.
+- All standard outputs inherited from `QuangBaseComponent`:
+  - `componentBlur`
 
 ## Usage
 

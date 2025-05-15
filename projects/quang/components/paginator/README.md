@@ -10,21 +10,28 @@ The `QuangPaginatorComponent` provides controls for navigating through pages of 
 
 ## Inputs
 
-- `totalItems`: Total number of items to paginate. (Required)
-- `itemsPerPage`: Number of items per page. Default is `10`.
-- `currentPage`: The current page number. Default is `1`.
+- `page`: `number` — Current page number. **(Required)**
+- `pageSize`: `number` — Number of items per page. **(Required)**
+- `sizeList`: `number[]` — List of selectable page sizes. Default: `[]`.
+- `totalItems`: `number` — Total number of items to paginate. **(Required)**
+- `showTotalElementsCount`: `boolean` — Show/hide total items count. Default: `true`.
+- `totalItemsText`: `string` — Translation key for total items label. Default: `'quangPaginator.totalItems'`.
+- `sizeText`: `string` — Translation key for size label. Default: `'quangPaginator.size'`.
+- `pageRangeText`: `string` — Translation key for page range label. Default: `'quangPaginator.pageRange'`.
+- `componentId`, `componentTabIndex`, `componentClass`: Standard component inputs.
 
 ## Outputs
 
-- `pageChange`: Emits the new page number when the user navigates to a different page.
+- `changePage`: Emits the new page number when the user navigates to a different page.
+- `changeSize`: Emits the new page size when the user changes it.
 
 ## Usage
 
 ```html
 <quang-paginator
-  [page]="testForm.controls.page.value"
-  [pageSize]="testForm.controls.pageSize.value"
-  [sizeList]="sizeList"
+  [page]="1"
+  [pageSize]="10"
+  [sizeList]="[5, 10, 20]"
   [totalItems]="30"
   (changePage)="onChangePage($event)"
   (changeSize)="onChangePageSize($event)"
@@ -33,4 +40,4 @@ The `QuangPaginatorComponent` provides controls for navigating through pages of 
 
 ## Notes
 
-This component is designed to work seamlessly with lists and tables, providing a user-friendly interface for pagination.
+This component provides a user-friendly interface for pagination in lists and tables.

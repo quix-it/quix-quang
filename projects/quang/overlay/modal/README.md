@@ -10,12 +10,19 @@ The `QuangModalComponent` is an overlay component used directly in its parent co
 
 ## Inputs
 
-- `animationMode`: Specifies the animation mode for the modal. Accepts values like `'SLIDE_FROM_LEFT_TO_RIGHT'`, `'SLIDE_FROM_RIGHT_TO_LEFT'`, etc.
-- `isOpen`: Controls whether the modal is open or closed. Default is `false`.
+- `position`: `'right' | 'left' | 'center'` (required) — Position of the modal.
+- `height`: `string` — Height of the modal. Default: `'80vh'`.
+- `width`: `string` — Width of the modal. Default: `'80vw'`.
+- `padding`: `string` — Padding inside the modal. Default: `'0 1rem'`.
+- `containerClass`: `string` — Custom CSS class for the modal container.
+- `animationMode`: `'SLIDE_FROM_LEFT_TO_RIGHT' | 'SLIDE_FROM_RIGHT_TO_LEFT' | 'SLIDE_TOP_TO_BOTTOM' | 'SLIDE_BOTTOM_TO_TOP' | 'FADE'` — Animation mode for the modal.
+- `backgroundColor`: `string` — Background color for the modal.
+- `showBackdrop`: `boolean` — Whether to show the backdrop. Default: `true`.
+- Use `ng-container` with `header`, `body`, and `footer` slots for custom content.
 
 ## Outputs
 
-- `onClose`: Emits an event when the modal is closed.
+- `backdropClick`: Emits when the user clicks on the backdrop (outside the modal).
 
 ## Usage
 
@@ -28,6 +35,7 @@ The `QuangModalComponent` is an overlay component used directly in its parent co
   height="80vh"
   padding="0"
   position="center"
+  [showBackdrop]="true"
 >
   <ng-container header>
     <div class="d-flex justify-content-between mt-2">
@@ -86,4 +94,4 @@ closeModal() {
 
 ## Notes
 
-This component uses Angular CDK's `Overlay` and `Portal` modules for rendering modals dynamically.
+This component uses Angular CDK's `Overlay` and `Portal` modules for rendering modals dynamically. Refer to the component's API for all available configuration options.

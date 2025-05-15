@@ -11,13 +11,17 @@ The `QuangCheckboxComponent` can be used as a standard checkbox or as a toggle s
 
 ## Inputs
 
-- `checkType`: Specifies the type of the component. Accepts `'checkbox'` or `'toggle'`. (Required)
-- `labelPosition`: Specifies the position of the label. Accepts `'top'`, `'left'`, `'right'`, or `'bottom'`. Default is `'top'`.
-- `removeMargin`: Removes the default margin. Accepts a boolean value. Default is `false`.
+- `checkType`: `'checkbox' | 'toggle'` — Specifies the type of the component. **(Required)**
+- `labelPosition`: `'top' | 'left' | 'right' | 'bottom'` — Position of the label. Default: `'top'`.
+- `removeMargin`: `boolean` — Removes the default margin. Default: `false`.
+- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
+  - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
 ## Outputs
 
-- `onChangedEventHandler($event: Event)`: Emits the updated value when the checkbox state changes.
+- `changedHandler`: Emits the updated value when the checkbox state changes.
+- All standard outputs inherited from `QuangBaseComponent`:
+  - `componentBlur`
 
 ## Usage
 

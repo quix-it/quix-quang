@@ -16,13 +16,20 @@ The `QuangInputComponent` must be configured using the `componentType` input pro
 
 ## Inputs
 
-- `componentType`: Specifies the type of input. Accepts one of the supported types. (Required)
-- `placeholder`: Placeholder text for the input field.
-- `disabled`: Disables the input field. Default is `false`.
+- `componentType`: `'text' | 'textarea' | 'password' | 'email' | 'number' | 'url' | 'search' | 'tel' | 'color'` — Specifies the type of input. **(Required)**
+- `maxLengthText`: `number | null` — Maximum length for text input.
+- `minLengthText`: `number | null` — Minimum length for text input.
+- `minNumber`: `number | undefined` — Minimum value for number input.
+- `maxNumber`: `number | undefined` — Maximum value for number input.
+- `componentStep`: `number` — Step for number input. Default: `1`.
+- `resizable`: `boolean` — If false, disables textarea resizing. Default: `true` (only for textarea).
+- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
+  - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
 ## Outputs
 
-- `valueChange`: Emits the updated value when the input changes.
+- All standard outputs inherited from `QuangBaseComponent`:
+  - `componentBlur`
 
 ## Usage
 

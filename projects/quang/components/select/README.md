@@ -10,13 +10,15 @@ The `QuangSelectComponent` supports single or multiple selections from a dropdow
 
 ## Inputs
 
-- `options`: Array of options to display in the dropdown. (Required)
-- `multiple`: Enables multiple selection mode. Default is `false`.
-- `placeholder`: Placeholder text for the dropdown. Default is `"Select an option"`.
+- `selectOptions`: `SelectOption[]` — Array of options to display in the dropdown. **(Required)**
+- `selectionMode`: `'single' | 'multiple'` — Enables single or multiple selection mode. Default: `'single'`.
+- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
+  - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
 ## Outputs
 
-- `selectionChange`: Emits the selected value(s) when the selection changes.
+- All standard outputs inherited from `QuangBaseComponent`:
+  - `componentBlur`
 
 ## Usage
 
