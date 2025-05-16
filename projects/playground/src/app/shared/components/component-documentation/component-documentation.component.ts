@@ -4,7 +4,9 @@ import { toObservable } from '@angular/core/rxjs-interop'
 import { ReactiveFormsModule } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { AngularSvgIconModule } from 'angular-svg-icon'
 import { MarkdownComponent, MarkdownModule } from 'ngx-markdown'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 import { take } from 'rxjs'
 
 import { ComponentDocumentation, ComponentDocumentationService } from '../../services/component-documentation.service'
@@ -12,7 +14,15 @@ import { ComponentDocumentation, ComponentDocumentationService } from '../../ser
 @Component({
   selector: 'playground-component-documentation',
   standalone: true,
-  imports: [CommonModule, TranslocoPipe, ReactiveFormsModule, MarkdownModule, MarkdownComponent],
+  imports: [
+    CommonModule,
+    TranslocoPipe,
+    ReactiveFormsModule,
+    MarkdownModule,
+    MarkdownComponent,
+    QuangTooltipDirective,
+    AngularSvgIconModule,
+  ],
   templateUrl: './component-documentation.component.html',
   styleUrl: './component-documentation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,6 +32,7 @@ export class ComponentDocumentationComponent {
   exampleHtml = input<string>('')
   customReadmePath = input<string | undefined>(undefined)
   readmeOnly = input<boolean>(false)
+  buttonTooltip = signal<string>('utils.copyContent')
 
   cleanedExampleHtml = computed(() =>
     this.exampleHtml()
@@ -50,4 +61,12 @@ export class ComponentDocumentationComponent {
         this.readmeContent.set(content)
       })
   })
+
+  copyToClipboard(): void {
+    navigator.clipboard.writeText(this.cleanedExampleHtml())
+    this.buttonTooltip.set('utils.copied')
+    setTimeout(() => {
+      this.buttonTooltip.set('utils.copyContent')
+    }, 2000)
+  }
 }
