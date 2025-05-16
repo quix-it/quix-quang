@@ -2,7 +2,7 @@
   "name": "quang",
   "author": "Quix Srl",
   "homepage": "https://www.quixconsulting.com",
-  "version": "19.0.20",
+  "version": "19.0.21",
   "scripts": {
     "prepare": "husky",
     "ng": "ng",
@@ -23,7 +23,7 @@
     "lint:fix": "ng lint --fix",
     "format": "npx prettier . -w --ignore-unknown",
     "lint-and-format": "npm run lint:fix && npm run format",
-    "deploy:git": "ng deploy playground --base-href=/quix-quang/"
+    "deploy:git": "npm run copy-readme && ng deploy playground --base-href=/quix-quang/"
   },
   "private": true,
   "dependencies": {
@@ -76,5 +76,9 @@
     "prettier-plugin-organize-attributes": "^1.0.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.26.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quix-it/quix-quang.git"
   }
 }
