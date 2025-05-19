@@ -82,6 +82,10 @@ export class QuangOptionListComponent {
 
   parentID = input<string>('')
 
+  searchString = signal<string>('')
+
+  searchResetTimer: ReturnType<typeof setTimeout> | null = null
+
   selectButtonRef$ = toObservable(this.selectButtonRef)
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(() => {
@@ -204,12 +208,44 @@ export class QuangOptionListComponent {
               currentIndex = 0
               document.getElementById(this.parentID())?.focus()
               document.getElementById(this.parentID())?.click()
+            } else if (
+              (event as KeyboardEvent)?.key?.length === 1 &&
+              this.parentType() === OptionListParentType.SELECT
+            ) {
+              const key = (event as KeyboardEvent).key
+              currentIndex = this.handleSearch(key, listItems, currentIndex)
+              event.preventDefault()
             }
             break
           }
         }
       })
   })
+
+  handleSearch(key: string, listItems: HTMLLIElement[], currentIndex: number): number {
+    if (this.searchResetTimer) {
+      clearTimeout(this.searchResetTimer)
+    }
+
+    this.searchString.update((current) => current + key)
+
+    this.searchResetTimer = setTimeout(() => {
+      this.searchString.set('')
+      this.searchResetTimer = null
+    }, 500)
+
+    const searchStr = this.searchString().toLowerCase()
+    const matchIndex = this.selectOptionsList().findIndex((option) => option.label.toLowerCase().includes(searchStr))
+
+    if (matchIndex !== -1 && matchIndex !== currentIndex) {
+      listItems[currentIndex]?.classList.remove('selected')
+      listItems[matchIndex]?.classList.add('selected')
+      listItems[matchIndex]?.scrollIntoView({ behavior: this.scrollBehaviorOnOpen() })
+      return matchIndex
+    }
+
+    return currentIndex
+  }
 
   @HostListener('window:scroll') changePosition() {
     this.getOptionListWidth()
