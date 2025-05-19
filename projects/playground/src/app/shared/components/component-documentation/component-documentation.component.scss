@@ -1,0 +1,60 @@
+.documentation-container {
+  margin-top: 2rem;
+
+  .card {
+    margin-bottom: 1.5rem;
+    padding: 0;
+
+    .card-header {
+      // background-color: #f8f9fa;
+    }
+  }
+
+  .code-snippet {
+    // background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 1rem;
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+    }
+  }
+
+  .inputs-list {
+    .input-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #eee;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .input-name {
+        font-weight: 500;
+        margin-right: 1rem;
+      }
+
+      .badge {
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  .component-preview {
+    padding: 1rem;
+    border: 1px dashed #ddd;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #e7f1ff;
+}

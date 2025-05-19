@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common'
+import { NgClass, NgTemplateOutlet } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -61,7 +61,7 @@ export interface SortCol {
   selector: 'quang-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
-  imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet, NgFor],
+  imports: [TranslocoPipe, NgClass, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**

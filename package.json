@@ -2,11 +2,13 @@
   "name": "quang",
   "author": "Quix Srl",
   "homepage": "https://www.quixconsulting.com",
-  "version": "19.0.19",
+  "version": "19.0.21",
   "scripts": {
     "prepare": "husky",
     "ng": "ng",
-    "start:playground": "ng serve playground",
+    "copy-readme": "node scripts/copy-readme.js",
+    "start:playground": "npm run copy-readme && ng serve playground",
+    "build:playground": "npm run copy-readme && ng build playground",
     "build:quang": "ng build --project quang",
     "build-publish": "npm run build:quang && cd dist/quang && npm publish",
     "build-publish:prerelease": "npm run build:quang && cd dist/quang && npm publish --tag prerelease",
@@ -14,13 +16,14 @@
     "version": "npm run sync-version && git add -A",
     "postversion": "git push && git push --tags",
     "publish:prerelease": "npm version prerelease -m \"build(prerelease): version %s\" && npm run build-publish:prerelease",
-    "publish:patch": "npm version patch -m \"build(patch): version %s\" && npm run build-publish",
-    "publish:minor": "npm version minor -m \"build(minor): version %s\" && npm run build-publish",
-    "publish:major": "npm version major -m \"build(major): version %s\" && npm run build-publish",
+    "publish:patch": "npm version patch -m \"build(patch): version %s\" && npm run build-publish && npm run deploy:git",
+    "publish:minor": "npm version minor -m \"build(minor): version %s\" && npm run build-publish && npm run deploy:git",
+    "publish:major": "npm version major -m \"build(major): version %s\" && npm run build-publish && npm run deploy:git",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "format": "npx prettier . -w --ignore-unknown",
-    "lint-and-format": "npm run lint:fix && npm run format"
+    "lint-and-format": "npm run lint:fix && npm run format",
+    "deploy:git": "npm run copy-readme && ng deploy playground --base-href=/quix-quang/"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +46,7 @@
     "angular-svg-icon": "^19.1.1",
     "bootstrap": "^5.3.3",
     "date-fns": "^3.6.0",
+    "ngx-markdown": "^19.1.1",
     "rxjs": "~7.8.2",
     "suneditor": "^2.46.0",
     "tslib": "^2.8.1",
@@ -60,6 +64,7 @@
     "@eslint/js": "^9.22.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^22.13.10",
+    "angular-cli-ghpages": "^2.0.3",
     "angular-eslint": "19.2.1",
     "eslint": "^9.22.0",
     "eslint-config-love": "^117.0.0",
@@ -71,5 +76,9 @@
     "prettier-plugin-organize-attributes": "^1.0.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.26.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quix-it/quix-quang.git"
   }
 }

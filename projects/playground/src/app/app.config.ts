@@ -4,6 +4,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router'
 
 import { provideAngularSvgIcon } from 'angular-svg-icon'
+import { MERMAID_OPTIONS, provideMarkdown } from 'ngx-markdown'
 import { provideQuangConfig } from 'quang'
 import { logoutOnErrorInterceptor, withAuth, withLogoutOnError, withSessionStorage } from 'quang/auth'
 import { quangLoaderInterceptor, withLoaderExcludedUrls } from 'quang/loader'
@@ -18,11 +19,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAngularSvgIcon(),
     provideQuangConfig(
-      { verbose: true },
+      { verbose: true, baseHref: '/quix-quang/' },
       withTranslation({
         availableLangs: ['it', 'en'],
-        defaultLang: 'it',
-        fallbackLang: 'it',
+        defaultLang: 'en',
+        fallbackLang: 'en',
       }),
       withLoaderExcludedUrls([
         {
@@ -52,5 +53,14 @@ export const appConfig: ApplicationConfig = {
         withLogoutOnError([], [401, 402, 403])
       )
     ),
+    provideMarkdown({
+      mermaidOptions: {
+        provide: MERMAID_OPTIONS,
+        useValue: {
+          darkMode: true,
+          look: 'handDrawn',
+        },
+      },
+    }),
   ],
 }

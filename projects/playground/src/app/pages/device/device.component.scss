@@ -1,0 +1,30 @@
+/* Add your styles for the Device page here */
+.device-page {
+  padding: 20px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h5 {
+    margin: 0;
+  }
+  .btn-copy {
+    padding: 0;
+    &:active {
+      border-color: transparent;
+    }
+  }
+}
+
+.card-body {
+  pre {
+    background-color: var(--bs-card-cap-bg);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    position: relative;
+  }
+}

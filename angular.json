@@ -70,6 +70,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "baseHref": "/quix-quang/",
             "outputPath": "dist/playground",
             "index": "projects/playground/src/index.html",
             "browser": "projects/playground/src/main.ts",
@@ -139,6 +140,9 @@
           "options": {
             "lintFilePatterns": ["projects/playground/src/**/*.ts", "projects/playground/src/**/*.html"]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

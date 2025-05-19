@@ -1,0 +1,68 @@
+<h3>{{ 'quang.overlay.modal' | transloco }}</h3>
+<button
+  (click)="openModal()"
+  class="btn btn-outline-primary"
+>
+  {{ 'buttons.modal' | transloco }}
+</button>
+@if (showModal()) {
+  <quang-modal
+    (backdropClick)="closeModal()"
+    animationMode="SLIDE_BOTTOM_TO_TOP"
+    height="80vh"
+    padding="0"
+    position="center"
+  >
+    <ng-container header>
+      <div class="d-flex justify-content-between mt-2">
+        <h3>{{ 'title.header' | transloco }}</h3>
+        <button
+          (click)="closeModal()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          X
+        </button>
+      </div>
+    </ng-container>
+    <ng-container body>
+      <h3>{{ content() }}</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.
+      </p>
+      <img
+        alt="test"
+        src="https://picsum.photos/200/300"
+      />
+    </ng-container>
+    <ng-container footer>
+      <div class="d-flex mb-3 gap-3 w-100">
+        <h3 class="d-flex flex-column flex-grow-1">{{ 'title.footer' | transloco }}</h3>
+        <button
+          (click)="closeModal()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          {{ 'buttons.close' | transloco }}
+        </button>
+        <button
+          (click)="btnAction()"
+          class="btn btn-secondary"
+          type="button"
+        >
+          {{ 'buttons.action' | transloco }}
+        </button>
+      </div>
+    </ng-container>
+  </quang-modal>
+}
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="ModalTestPageComponent"
+    [customReadmePath]="componentsReadmePath()"
+  />
+</div>

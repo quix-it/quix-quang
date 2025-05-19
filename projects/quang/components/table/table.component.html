@@ -2,7 +2,7 @@
   [class.sticky-table]="stickyTable()"
   class="table-responsive"
 >
-  <ng-container *ngIf="_tableConfigurations().rows?.length">
+  @if (_tableConfigurations().rows.length) {
     <div
       (scroll)="tableContainer.scrollLeft = tableHeaderContainer.scrollLeft"
       #tableHeaderContainer
@@ -15,7 +15,7 @@
       >
         <thead>
           <tr>
-            <ng-container *ngFor="let header of _tableConfigurations().headers; let i = index">
+            @for (header of _tableConfigurations().headers; track $index) {
               <th
                 [class.sort-btn]="header?.sort"
                 (click)="header?.sort ? onSortColumn(header.sort!) : null"
@@ -32,18 +32,17 @@
                       $implicit: header.payload,
                     }"
                   ></ng-container>
-                  <div
-                    *ngIf="header.sort?.key"
-                    class="d-flex justify-content-between"
-                  >
-                    <ng-container
-                      [ngTemplateOutlet]="orderBtns"
-                      [ngTemplateOutletContext]="{ $implicit: header.sort }"
-                    ></ng-container>
-                  </div>
+                  @if (header.sort?.key) {
+                    <div class="d-flex justify-content-between">
+                      <ng-container
+                        [ngTemplateOutlet]="orderBtns"
+                        [ngTemplateOutletContext]="{ $implicit: header.sort }"
+                      ></ng-container>
+                    </div>
+                  }
                 </div>
               </th>
-            </ng-container>
+            }
           </tr>
         </thead>
       </table>
@@ -63,7 +62,7 @@
           id="fakeTableHeader"
         >
           <tr>
-            <ng-container *ngFor="let header of _tableConfigurations().headers; let i = index">
+            @for (header of _tableConfigurations().headers; track $index) {
               <th
                 [class.sort-btn]="header?.sort"
                 (click)="header?.sort ? onSortColumn(header.sort!) : null"
@@ -80,52 +79,52 @@
                       $implicit: header.payload,
                     }"
                   ></ng-container>
-                  <div
-                    *ngIf="header.sort?.key"
-                    class="d-flex justify-content-between"
-                  >
-                    <ng-container
-                      [ngTemplateOutlet]="orderBtns"
-                      [ngTemplateOutletContext]="{ $implicit: header.sort }"
-                    ></ng-container>
-                  </div>
+                  @if (header.sort?.key) {
+                    <div class="d-flex justify-content-between">
+                      <ng-container
+                        [ngTemplateOutlet]="orderBtns"
+                        [ngTemplateOutletContext]="{ $implicit: header.sort }"
+                      ></ng-container>
+                    </div>
+                  }
                 </div>
               </th>
-            </ng-container>
+            }
           </tr>
         </thead>
         <tbody>
-          <tr
-            [class.hover-table]="clickableRow()"
-            [class.selectedRow]="row?.rowId ? isSelected(row.rowId!) : null"
-            [ngClass]="row.css"
-            (click)="clickableRow() ? onClickRow(row) : null"
-            *ngFor="let row of _tableConfigurations().rows"
-          >
-            <td
-              [attr.colspan]="cell?.fullWidth ? _tableConfigurations().headers.length : undefined"
-              [ngClass]="cell.css!"
-              *ngFor="let cell of row.cellData"
+          @for (row of _tableConfigurations().rows; track $index) {
+            <tr
+              [class.hover-table]="clickableRow()"
+              [class.selectedRow]="row?.rowId ? isSelected(row.rowId!) : null"
+              [ngClass]="row.css"
+              (click)="clickableRow() ? onClickRow(row) : null"
             >
-              {{ !cell.renderer ? cell.text : null }}
-              <ng-container
-                [ngTemplateOutlet]="cell?.renderer ?? null"
-                [ngTemplateOutletContext]="{
-                  $implicit: cell.payload,
-                }"
-              ></ng-container>
-            </td>
-          </tr>
+              @for (cell of row.cellData; track $index) {
+                <td
+                  [attr.colspan]="cell?.fullWidth ? _tableConfigurations().headers.length : undefined"
+                  [ngClass]="cell.css!"
+                >
+                  {{ !cell.renderer ? cell.text : null }}
+                  <ng-container
+                    [ngTemplateOutlet]="cell?.renderer ?? null"
+                    [ngTemplateOutletContext]="{
+                      $implicit: cell.payload,
+                    }"
+                  ></ng-container>
+                </td>
+              }
+            </tr>
+          }
         </tbody>
       </table>
     </div>
-  </ng-container>
-  <h6
-    *ngIf="!_tableConfigurations().rows?.length"
-    class="text-center mt-3"
-  >
-    {{ noResultsText() | transloco }}
-  </h6>
+  }
+  @if (!_tableConfigurations().rows.length) {
+    <h6 class="text-center mt-3">
+      {{ noResultsText() | transloco }}
+    </h6>
+  }
 </div>
 
 <ng-template

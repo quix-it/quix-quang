@@ -1,0 +1,89 @@
+@let doc = documentation();
+@let readme = readmeContent();
+
+<div class="documentation-container">
+  <h3>{{ 'title.components.documentation' | transloco }}</h3>
+
+  <!-- README section - Added to display component's README content -->
+  @if (readme) {
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4>{{ 'title.components.readme' | transloco }}</h4>
+      </div>
+      <div class="card-body readme-content">
+        <!-- [data]="readme" -->
+        <markdown [src]="customReadmePath()"></markdown>
+      </div>
+    </div>
+  }
+
+  @if (!readmeOnly()) {
+    @if (cleanedExampleHtml()) {
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h4>{{ 'title.components.usage' | transloco }}</h4>
+          <button
+            [quangTooltip]="buttonTooltip() | transloco"
+            (click)="copyToClipboard()"
+            class="btn btn-copy"
+            overlayPosition="top-left"
+            type="button"
+          >
+            <svg-icon src="assets/icons/svg/copy.svg" />
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="code-snippet">
+            <pre><code>{{ cleanedExampleHtml() }}</code></pre>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="card mb-4 col-12 col-md-6">
+          <div class="card-header">
+            <h4>{{ 'title.components.properties' | transloco }}</h4>
+          </div>
+          <div class="card-body">
+            <div class="inputs-list">
+              @if (doc && doc.inputs && doc.inputs.length > 0) {
+                @for (prop of doc.inputs; track prop.name) {
+                  <div class="input-item">
+                    <div class="input-name">
+                      <code>{{ prop.name }}</code>
+                    </div>
+                  </div>
+                }
+              } @else {
+                <p>{{ 'documentation.noInputs' | transloco }}</p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4 col-12 col-md-6">
+          <div class="card-header">
+            <h4>{{ 'title.components.events' | transloco }}</h4>
+          </div>
+          <div class="card-body">
+            <div class="outputs-list">
+              @if (doc && doc.outputs && doc.outputs.length > 0) {
+                @for (prop of doc.outputs; track prop.name) {
+                  <div class="output-item">
+                    <div class="output-name">
+                      <code>{{ prop.name }}</code>
+                    </div>
+                  </div>
+                }
+              } @else {
+                <p>{{ 'documentation.noOutputs' | transloco }}</p>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
