@@ -2,7 +2,7 @@ import { Component, Inject, Optional, output } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
-import { QuangModalComponent } from 'dist/quang/overlay/modal'
+import { QuangModalComponent } from 'quang/overlay/modal'
 
 import { DEPLOY_URL } from '../../app.component'
 
