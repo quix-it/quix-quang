@@ -1,0 +1,34 @@
+<h3>{{ 'quang.overlay.toast' | transloco }}</h3>
+<div class="d-flex gap-3">
+  <button
+    (click)="openToast('error')"
+    class="w-100 btn btn-outline-secondary"
+  >
+    {{ 'buttons.toast.error' | transloco }}
+  </button>
+  <button
+    (click)="openToast('success')"
+    class="w-100 btn btn-outline-secondary"
+  >
+    {{ 'buttons.toast.success' | transloco }}
+  </button>
+</div>
+
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="ToastTestPageComponent"
+    [customReadmePath]="componentsReadmePath()"
+    [exampleHtml]="testComponentSource()"
+  />
+</div>
+
+<ng-template #customToast>
+  <div class="d-flex justify-content-end">
+    <button
+      class="btn btn-primary m-2 text-end"
+      type="button"
+    >
+      pulsante bello
+    </button>
+  </div>
+</ng-template>

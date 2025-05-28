@@ -14,7 +14,6 @@ import { QuangToastService } from './toast.service'
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * Toast component that can be displayed by calling the `QuangToastService.openToast()` method,

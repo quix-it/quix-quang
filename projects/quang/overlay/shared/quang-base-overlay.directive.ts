@@ -40,7 +40,7 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
 
   quangOverlayPayload = input<any>()
 
-  closeOnClickOutside: boolean = true
+  closeOnClickOutside = true
 
   overlayPosition = input<
     'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right'
@@ -189,7 +189,7 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
       this.componentOverlayRef.set(createdOverlay.attach(componentPortal))
       const componentOverlayRefInstance = this.componentOverlayRef()?.instance
       if (componentOverlayRefInstance) {
-        componentOverlayRefInstance.content = this.content
+        componentOverlayRefInstance.overlayContent = this.content
         componentOverlayRefInstance.payload = this.quangOverlayPayload
       }
     }

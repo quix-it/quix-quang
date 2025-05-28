@@ -1,9 +1,8 @@
 import { HttpInterceptorFn } from '@angular/common/http'
 import { InjectionToken, inject } from '@angular/core'
 
+import { UrlData, getExcludedUrlsByMethod, isHttpMethod } from 'quang/shared'
 import { finalize } from 'rxjs'
-
-import { UrlData, getExcludedUrlsByMethod, isHttpMethod } from '@quix/quang/shared'
 
 import { QuangLoaderService } from './loader.service'
 

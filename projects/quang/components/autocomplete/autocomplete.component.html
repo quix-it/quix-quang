@@ -18,8 +18,8 @@
     [tabIndex]="componentTabIndex()"
     [value]="_inputValue()"
     (blur)="onBlurInput($event)"
-    (click)="showOptionVisibility()"
     (input)="onChangeInput($event)"
+    (mousedown)="showOptionVisibility()"
     #selectInput
     autocomplete="off"
     class="form-control"

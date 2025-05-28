@@ -1,8 +1,7 @@
-import { APP_INITIALIZER, EnvironmentProviders, Provider, makeEnvironmentProviders } from '@angular/core'
+import { EnvironmentProviders, Provider, inject, makeEnvironmentProviders, provideAppInitializer } from '@angular/core'
 
 import { provideOAuthClient } from 'angular-oauth2-oidc'
-
-import { type QuangFeature, QuangFeatureKind, quangFeature } from '@quix/quang'
+import { type QuangFeature, QuangFeatureKind, quangFeature } from 'quang'
 
 import { type QuangAuthConfig, QuangAuthService, provideQuangAuthConfig } from './auth.service'
 
@@ -20,12 +19,10 @@ export function provideAuth(authConfig?: QuangAuthConfig, ...features: QuangAuth
       },
     }),
     ...features.map((feature) => feature.ɵproviders),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeAuthService,
-      multi: true,
-      deps: [QuangAuthService],
-    },
+    provideAppInitializer(() => {
+      const initializerFn = initializeAuthService(inject(QuangAuthService))
+      return initializerFn()
+    }),
   ])
 }
 

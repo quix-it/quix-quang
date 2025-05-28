@@ -17,7 +17,7 @@ export function handleDownload(response: HttpResponse<Blob>, defaultExtension = 
   try {
     const contentDisposition = headers.get('content-disposition') ?? ''
     const r = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-destructuring
+
     filename = r.exec(contentDisposition)![1]
     filename = filename.replace(/['"]/g, '')
   } catch (_error) {

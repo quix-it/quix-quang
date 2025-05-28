@@ -10,7 +10,7 @@ import {
 } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
-import { QUANG_LOGGING_BEHAVIOR } from '@quix/quang'
+import { QUANG_LOGGING_BEHAVIOR } from 'quang'
 
 import { QuangAuthService } from '../auth.service'
 
@@ -26,7 +26,6 @@ import { QuangAuthService } from '../auth.service'
  */
 @Directive({
   selector: '[quangHasAtLeastOneRole]',
-  standalone: true,
 })
 export class QuangHasAtLeastOneRoleDirective {
   logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })
@@ -47,7 +46,6 @@ export class QuangHasAtLeastOneRoleDirective {
 
   hideViewIfNotAllowed = effect(() => {
     if (this.logLevel === 'verbose')
-      // eslint-disable-next-line no-console
       console.debug({ userRoles: this.authService.roles(), rolesToCheck: this.targetRoles() })
     const isAllowed = this.authService.hasAtLeastOneRole(this.targetRoles())
     if (isAllowed) {

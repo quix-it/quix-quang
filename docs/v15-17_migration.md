@@ -49,7 +49,7 @@ Replace the following modules with `QuangInput` and set the appropriate `compone
 The base library used for the component has been changed from `ngx-bootstrap/datepicker` to `air-datepicker`. If the component is used, add to the global stylesheet the following:
 
 ```scss
-@import '@quix/quang/components/date/global-date.component.scss';
+@import 'quang/components/date/global-date.component.scss';
 ```
 
 ### Tag changes:
@@ -94,11 +94,11 @@ The component used to have a `returnISODate` flag that tried to handle different
 
 - Replace:
   ```typescript
-  import { QuangDialogModule, QuangToastComponent, Toast } from '@quix/quang/dialog'
+  import { QuangDialogModule, QuangToastComponent, Toast } from 'quang/dialog'
   ```
 - With:
   ```typescript
-  import { QuangToastComponent, Toast } from '@quix/quang/overlay/toast'
+  import { QuangToastComponent, Toast } from 'quang/overlay/toast'
   ```
 
 ## Loader
@@ -107,11 +107,11 @@ The component used to have a `returnISODate` flag that tried to handle different
 
 - Replace:
   ```typescript
-  import { QuangDialogModule } from '@quix/quang/dialog'
+  import { QuangDialogModule } from 'quang/dialog'
   ```
 - With:
   ```typescript
-  import { QuangLoaderComponent } from '@quix/quang/loader'
+  import { QuangLoaderComponent } from 'quang/loader'
   ```
 
 ## Modal
@@ -141,4 +141,4 @@ The component used to have a `returnISODate` flag that tried to handle different
 
 - The ESLint base configuration has been migrated from `standardjs` to `airbnb`.
   Action Required:
-- Copy the new `.eslintrc` and `.prettierrc` from either `@quix/quang` or the blank project.
+- Copy the new `.eslintrc` and `.prettierrc` from either `quang` or the blank project.

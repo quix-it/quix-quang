@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { ConnectionPositionPair, OverlayModule } from '@angular/cdk/overlay'
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core'
 
-import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
+import { QuangBaseOverlayComponent } from 'quang/overlay/shared'
 
 @Component({
   selector: 'quang-tooltip',
@@ -10,7 +10,7 @@ import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
   templateUrl: './tooltip.component.html',
   styleUrl: './tooltip.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+
   animations: [
     trigger('tooltip', [
       state('*', style({ opacity: 1 })),
@@ -20,7 +20,7 @@ import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
   ],
 })
 export class QuangTooltipComponent implements QuangBaseOverlayComponent {
-  content = input<string>('')
+  overlayContent = input.required<string>()
 
   quangTooltipPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')
 

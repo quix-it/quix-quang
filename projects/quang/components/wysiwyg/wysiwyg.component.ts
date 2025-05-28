@@ -22,9 +22,9 @@ import SunEditorCore from 'suneditor/src/lib/core'
 import { SunEditorOptions } from 'suneditor/src/options'
 import plugins from 'suneditor/src/plugins'
 
-import { QuangBaseComponent } from '@quix/quang/components/shared'
+import { QuangBaseComponent } from 'quang/components/shared'
 
-export interface QuangWysiwygOptions extends SunEditorOptions {}
+export type QuangWysiwygOptions = SunEditorOptions
 
 @Component({
   selector: 'quang-wysiwyg',
@@ -39,7 +39,6 @@ export interface QuangWysiwygOptions extends SunEditorOptions {}
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * WYSIWYG (What You See Is What You Get) component based on {@link https://github.com/JiHong88/SunEditor}.
@@ -56,7 +55,7 @@ export interface QuangWysiwygOptions extends SunEditorOptions {}
 export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit {
   _inputForWysiwyg = viewChild<ElementRef>('inputForWysiwyg')
 
-  minHeight = input<string>('200px')
+  minHeight = input<string | undefined>('200px')
 
   font = input<boolean>(true)
 
@@ -98,6 +97,9 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   showBlocks = input<boolean>(true)
 
+  onImageUploadError = input<(errorMessage: any, result: any, core: any) => boolean>()
+  onFileDrop = input<(e: any, cleanData: any, maxCharCount: any, core: any) => boolean>()
+
   wysiwygOptions = input<QuangWysiwygOptions | undefined>(undefined)
 
   _sunEditorWysiwygInstance = signal<SunEditorCore | undefined>(undefined)
@@ -105,33 +107,48 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   changeDetectorRef = signal(inject(ChangeDetectorRef))
 
-  _generateSunEditorWysiwygEffect = effect(
-    async () => {
-      if (this._inputForWysiwyg()?.nativeElement) {
+  _generateSunEditorWysiwygEffect = effect(() => {
+    try {
+      const inputForWysiwyg = this._inputForWysiwyg()?.nativeElement
+      if (inputForWysiwyg) {
         const sunEditorOptions: SunEditorOptions = {
           plugins,
+          defaultTag: 'div',
           buttonList: this._ngControl()?.control?.enabled && !this.isReadonly() ? [this.getButtonList()] : [],
           minHeight: this.minHeight(),
           width: '100%',
           ...(this.wysiwygOptions() ?? {}),
         }
 
-        if (this._sunEditorWysiwygInstance()) {
-          if (this._ngControl()?.control?.enabled) {
-            this._sunEditorWysiwygInstance()?.enable()
+        let sunEditorWysiwygInstance = this._sunEditorWysiwygInstance()
+        const ngControl = this._ngControl()
+
+        if (sunEditorWysiwygInstance) {
+          if (ngControl?.control?.enabled) {
+            sunEditorWysiwygInstance.enable()
           }
-          this._sunEditorWysiwygInstance()?.setOptions(sunEditorOptions)
+          sunEditorWysiwygInstance.setOptions(sunEditorOptions)
         } else {
-          this._sunEditorWysiwygInstance.set(sunEditor.create(this._inputForWysiwyg()?.nativeElement, sunEditorOptions))
+          sunEditorWysiwygInstance = sunEditor.create(inputForWysiwyg, sunEditorOptions)
+          this._sunEditorWysiwygInstance.set(sunEditorWysiwygInstance)
+        }
+
+        const imageUploadError = this.onImageUploadError()
+        const onFileDrop = this.onFileDrop()
+
+        if (imageUploadError && sunEditorWysiwygInstance) {
+          sunEditorWysiwygInstance.onImageUploadError = imageUploadError
+        }
+        if (onFileDrop && sunEditorWysiwygInstance) {
+          sunEditorWysiwygInstance.onDrop = onFileDrop
         }
 
         this.registerEvents()
       }
-    },
-    {
-      allowSignalWrites: true,
+    } catch (_) {
+      // we usually end up here when we are in a modal and then it starts in the right way
     }
-  )
+  })
 
   STRIP_HTML_REGEX = /<[^>]*>/g
 
@@ -156,12 +173,16 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
     this._sunEditorWysiwygInstance$
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        filter((x) => x !== undefined),
+        filter((x) => !!x),
         take(1)
       )
       .subscribe((sunEditorWysiwygInstance) => {
         if (sunEditorWysiwygInstance) {
-          sunEditorWysiwygInstance?.setContents(val)
+          try {
+            sunEditorWysiwygInstance.setContents(val)
+          } catch (_) {
+            // we usually end up here when we are in a modal and then it starts in the right way
+          }
         }
       })
   }

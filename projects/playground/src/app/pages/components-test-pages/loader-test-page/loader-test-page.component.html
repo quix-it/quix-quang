@@ -1,0 +1,33 @@
+<p>loader-test-page works!</p>
+
+<div class="d-flex gap-4 flex-wrap">
+  <button
+    (click)="showLoader()"
+    class="btn btn-secondary d-flex gap-2"
+  >
+    <svg-icon
+      [applyClass]="true"
+      src="assets/icons/svg/reload.svg"
+      style="width: 20px"
+    ></svg-icon>
+    <span>{{ 'buttons.loader' | transloco }}</span>
+  </button>
+  <button
+    (click)="testApiCall()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'buttons.apiCall' | transloco }}
+  </button>
+  <button
+    (click)="testUnauthorized()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'buttons.unauthorized' | transloco }}
+  </button>
+</div>
+
+<playground-component-documentation
+  [componentType]="LoaderTestPageComponent"
+  [customReadmePath]="componentsReadmePath()"
+  [readmeOnly]="true"
+/>

@@ -1,0 +1,98 @@
+<div class="d-flex gap-4">
+  <h3 class="d-flex flex-column w-100">{{ 'title.components.input' | transloco }}</h3>
+  <div class="d-flex flex-column w-50">
+    <quang-select
+      [selectOptions]="inputTypes()"
+      [(ngModel)]="inputType"
+      componentLabel="form.buttons.selectInputType"
+      selectionMode="single"
+    ></quang-select>
+  </div>
+</div>
+<form [formGroup]="testForm">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      @if (showInput()) {
+        <div class="row">
+          <quang-input
+            [componentType]="inputType()"
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [maxNumber]="10"
+            [minNumber]="0"
+            #testComponent
+            componentLabel="form.label.input"
+            formControlName="testInput"
+            id="testComponent"
+            playgroundSourceCode
+            successMessage="form.label.success"
+          />
+        </div>
+      }
+      <div class="d-flex gap-3 mt-3">
+        <button
+          (click)="changeFormEnabled()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
+        </button>
+        <button
+          (click)="changeFormInputRequired()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+        </button>
+        <button
+          (click)="changeVisibility()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.changeVisibility' | transloco }}
+        </button>
+        <button
+          (click)="recreateForm()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.recreateForm' | transloco }}
+        </button>
+        <button
+          (click)="setFormValues()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.setForm' | transloco }}
+        </button>
+        <button
+          (click)="checkCurrentFormValueAndValidity()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.checkForm' | transloco }}
+        </button>
+        <button
+          (click)="setReadonly()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+@if (showValueAndValidity()) {
+  <div class="d-flex flex-column mt-3 ms-3">
+    <span>
+      {{ 'form.label.formValue' | transloco: { value: testForm.value | json } }}
+    </span>
+    <span>
+      {{ 'form.label.formValidity' | transloco: { valid: this.testForm.valid } }}
+    </span>
+  </div>
+}
+
+<!-- Component Documentation Section -->
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="QuangInputComponent"
+    [customReadmePath]="componentsReadmePath()"
+    [exampleHtml]="testComponentSource()"
+  />
+</div>

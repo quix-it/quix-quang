@@ -1,0 +1,65 @@
+<h1 *quangIsAuthenticated>Is Auth</h1>
+<h1 *quangIsNotAuthenticated>Is not Auth</h1>
+<h2 *quangHasAtLeastOneRole="['test1']">Has test1 role</h2>
+<h2 *quangHasEveryRole="['test2']">Has test2 role</h2>
+<h2 *quangHasEveryRole="['test1', 'test2']">Has test1 and test2</h2>
+<h2 *quangHasAtLeastOneRole="['test1', 'test2']">Has test1 or test2 role</h2>
+<div class="d-flex gap-3">
+  <button
+    (click)="authService.logout()"
+    class="btn btn-outline-secondary"
+    type="button"
+  >
+    Logout
+  </button>
+  <button
+    (click)="authService.login()"
+    class="btn btn-outline-secondary"
+    type="button"
+  >
+    Login
+  </button>
+  <button
+    (click)="getProtectedApiResponse()"
+    class="btn btn-outline-secondary"
+    type="button"
+  >
+    Make test API call
+  </button>
+  <button
+    (click)="editRoles('add', 'test1')"
+    class="btn btn-outline-secondary"
+    type="button"
+  >
+    Add Test1 role
+  </button>
+  <button
+    (click)="editRoles('add', 'test2')"
+    class="btn btn-outline-secondary"
+    type="button"
+  >
+    Add Test2 role
+  </button>
+  <button
+    (click)="editRoles('remove', 'test1')"
+    class="btn btn-outline-secondary"
+    type="button"
+  >
+    Remove Test1 role
+  </button>
+  <button
+    (click)="editRoles('remove', 'test2')"
+    class="btn btn-outline-secondary"
+    type="button"
+  >
+    Remove Test2 role
+  </button>
+</div>
+User Info:
+<pre class="user-info">{{ user() | json }}</pre>
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="AuthTestComponent"
+    [customReadmePath]="componentsReadmePath()"
+  />
+</div>

@@ -3,7 +3,7 @@ import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
 import { ChangeDetectionStrategy, Component, TemplateRef, input, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
-import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
+import { QuangBaseOverlayComponent } from 'quang/overlay/shared'
 
 @Component({
   selector: 'quang-popover',
@@ -11,7 +11,6 @@ import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
   templateUrl: './popover.component.html',
   styleUrl: './popover.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * Popover component that can render custom content, passed from the outside as a `TemplateRef`
@@ -29,7 +28,7 @@ import { QuangBaseOverlayComponent } from '@quix/quang/overlay/shared'
       <ng-template #popoverTest> <span>test works!</span> <button type="button">click!</button> </ng-template>
  */
 export class QuangPopoverComponent implements QuangBaseOverlayComponent {
-  content = input<TemplateRef<any> | null>(null)
+  overlayContent = input<TemplateRef<any> | null>(null)
 
   positionPair = signal<ConnectionPositionPair | null>(null)
 

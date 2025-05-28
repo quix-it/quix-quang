@@ -25,6 +25,10 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   errorMap = input<ErrorData[]>([])
 
+  _errorMessagesByKey = computed(
+    () => new Map((this.errorMap() ?? []).map((errorData) => [errorData.error, errorData.message]))
+  )
+
   successMessage = input<string>('')
 
   helpMessage = input<string>('')
@@ -57,8 +61,6 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   _injector = signal<Injector>(inject(Injector))
 
-  _takeUntilDestroyed = signal(takeUntilDestroyed())
-
   _statusChange$?: Subscription
 
   getIsRequiredControl = computed(
@@ -73,7 +75,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   constructor() {
     toObservable(this.formControl)
-      .pipe(this._takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((form) => {
         if (form) {
           this.setupFormControl()
@@ -127,7 +129,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
     this._ngControl.set(this._injector().get(NgControl))
     this._statusChange$ = this._ngControl()
-      ?.control?.statusChanges.pipe(this._takeUntilDestroyed())
+      ?.control?.statusChanges.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.checkFormErrors()
       })
@@ -146,33 +148,29 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   }
 
   checkFormErrors() {
-    this._isValid.set(this._ngControl()?.control?.valid ?? false)
-    const controlErrors = this._ngControl()?.control?.errors
-    this._isTouched.set(!this._ngControl()?.control?.pristine)
-    if (controlErrors && this.errorMap()?.length) {
-      const targetError = this.errorMap()?.find(
-        (errorData) =>
-          !!Object.keys(controlErrors)?.find(
-            (controlError) => errorData.error.toLowerCase() === controlError.toLowerCase()
-          )
-      )
-      if (targetError) {
-        const [, controlErrorValue] =
-          Object.entries(controlErrors).find(
-            ([controlErrorKey]) => targetError.error.toLowerCase() === controlErrorKey.toLowerCase()
-          ) ?? []
-        this._currentErrorMessage.set(targetError.message ?? '')
-        this._currentErrorMessageExtraData.set({ [targetError.error]: controlErrorValue ?? true })
-      } else {
-        this._currentErrorMessage.set('')
-        this._currentErrorMessageExtraData.set({})
+    const control = this._ngControl()?.control
+    this._isValid.set(control?.valid ?? false)
+    this._isTouched.set(!control?.pristine)
+
+    const validationErrors = control?.errors
+
+    this._isRequired.set(validationErrors?.[Validators.required.name])
+
+    let errorName = ''
+    let errorMessage = ''
+    let errorData = true
+
+    for (const [validationErrorName, validationErrorData] of Object.entries(validationErrors ?? {})) {
+      const relatedErrorMessage = this._errorMessagesByKey().get(validationErrorName)
+      if (relatedErrorMessage) {
+        errorName = validationErrorName
+        errorMessage = relatedErrorMessage
+        errorData = validationErrorData
       }
     }
-    if (controlErrors?.[Validators.required.name]) {
-      this._isRequired.set(true)
-    } else {
-      this._isRequired.set(false)
-    }
+
+    this._currentErrorMessage.set(errorMessage)
+    this._currentErrorMessageExtraData.set({ [errorName]: errorData })
   }
 
   ngAfterViewInit(): void {

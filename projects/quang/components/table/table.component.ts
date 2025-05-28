@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common'
+import { NgClass, NgTemplateOutlet } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,9 +15,8 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { ResizeObservableService } from 'quang/device'
 import { Subscription } from 'rxjs'
-
-import { ResizeObservableService } from '@quix/quang/device'
 
 export interface TableHeader {
   text?: string
@@ -62,9 +61,8 @@ export interface SortCol {
   selector: 'quang-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
-  imports: [TranslocoPipe, NgIf, NgClass, NgTemplateOutlet, NgFor],
+  imports: [TranslocoPipe, NgClass, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * Table component for displaying data in a tabular format.
@@ -204,21 +202,17 @@ export class QuangTableComponent<T> {
       if (header.sort?.key === sort.key) {
         switch (sort.sort) {
           case SortTable.ASC:
-            // eslint-disable-next-line no-param-reassign
             header.sort.sort = SortTable.DESC
             break
           case SortTable.DESC:
-            // eslint-disable-next-line no-param-reassign
             header.sort.sort = SortTable.DEFAULT
             break
           case SortTable.DEFAULT:
           default:
-            // eslint-disable-next-line no-param-reassign
             header.sort.sort = SortTable.ASC
             break
         }
       } else {
-        // eslint-disable-next-line no-param-reassign
         header.sort = {
           ...header.sort,
           sort: SortTable.DEFAULT,

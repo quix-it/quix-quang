@@ -1,0 +1,43 @@
+<h3>{{ 'quang.overlay.popover' | transloco }}</h3>
+<div class="d-flex gap-3 mt-4">
+  <button
+    [quangPopover]="popoverTest"
+    [scrollCloseThreshold]="undefined"
+    #testComponent
+    class="btn btn-primary popover-test-button"
+    overlayPosition="top"
+    playgroundSourceCode
+    showMethod="click"
+  >
+    {{ 'buttons.popover' | transloco }}
+    <span>CLICK</span>
+  </button>
+  <button
+    [quangPopover]="popoverTest"
+    [scrollCloseThreshold]="undefined"
+    class="btn btn-outline-primary popover-test-button"
+    overlayPosition="top"
+    showMethod="hover"
+  >
+    {{ 'buttons.popover' | transloco }}
+    <span>HOVER</span>
+  </button>
+</div>
+
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="PopoverTestPageComponent"
+    [customReadmePath]="componentsReadmePath()"
+    [exampleHtml]="testComponentSource()"
+  />
+</div>
+
+<ng-template #popoverTest
+  ><span>test works!</span>
+  <button
+    class="btn btn-danger"
+    type="button"
+  >
+    click!
+  </button>
+</ng-template>

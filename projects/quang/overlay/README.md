@@ -1,59 +1,28 @@
-# Quang overlay
+# Quang Overlay Components Index
 
-The purpose of these components and directives is to provide a simple and quick way to create responsive and modern
-applications.
+Welcome to the Quang Overlay Components library! Below is a list of all the overlay components available in this folder, along with links to their detailed documentation.
 
-All the components extend the [`QuangBaseOverlayDirective`](shared/quang-base-overlay.directive.ts)
-that provides a label on top, the specific object below it, and a possible error message underneath.
+## Component Documentation
 
-To use the overlay components, you must install the `@angular/cdk` dependency.
+- [Modal Component](./modal/README.md): A modal overlay component used directly in its parent component.
+- [Popover Component](./popover/README.md): A base overlay popover with its own style.
+- [Toast Component](./toast/README.md): A toast notification component for displaying messages.
+- [Tooltip Component](./tooltip/README.md): A base overlay tooltip with its own style.
 
----
+## Notes
 
-<h4 style="color:#f03c15">IMPORTANT</h4>
+All overlay components extend the [`QuangBaseOverlayDirective`](./shared/quang-base-overlay.directive.ts), which provides common features like labels, error messages, and more.
 
-Remember to add the import
+To use these components, ensure you have installed the `@angular/cdk` dependency and included the necessary SCSS file:
 
-`node_modules/@quix/quang/overlay/global-overlay.scss`
+```scss
+@import 'node_modules/quang/overlay/global-overlay.scss';
+```
 
 or
 
-`@quix/quang/components/date/global-overlay.scss`
+```scss
+@import 'quang/overlay/global-overlay.scss';
+```
 
-in your global style (suggested "vendors" folder)
-
----
-
-In this folder you will find the following overlay components:
-
-### Modal
-
-The `QuangModalComponent` is an overlay component used directly in its father component.
-
-To use it import [QuangModalComponent](modal/modal.component.ts).
-
-Read [@example](modal/modal.component.ts) for usage.
-
-### Popover
-
-The `QuangPopoverComponent` is an base overlay popover with its own style.
-
-To use it import [QuangPopoverDirective](popover/popover.directive.ts).
-
-Read [@example](popover/popover.component.ts) for usage.
-
-### Toast
-
-The `QuangToastComponent` is an overlay component used directly in its father component.
-
-To use it import [QuangToastComponent](toast/toast.component.ts) and [QuangToastService](toast/toast.service.ts).
-
-Read [@example](toast/toast.component.ts) for usage.
-
-### Tooltip
-
-The `QuangTooltipComponent` is an base overlay tooltip with its own style.
-
-To use it import [QuangTooltipDirective](tooltip/tooltip.directive.ts)
-
-Read [@example](tooltip/tooltip.component.ts) for usage.
+in your global styles (suggested "vendors" folder).

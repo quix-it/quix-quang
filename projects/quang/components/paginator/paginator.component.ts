@@ -4,7 +4,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { makeId } from '@quix/quang/components/shared'
+import { makeId } from 'quang/components/shared'
 
 @Component({
   selector: 'quang-paginator',
@@ -12,7 +12,6 @@ import { makeId } from '@quix/quang/components/shared'
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * Paginator component for handling pagination in lists and tables.

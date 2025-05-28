@@ -20,7 +20,7 @@ import {
   QuangBaseComponent,
   QuangOptionListComponent,
   SelectOption,
-} from '@quix/quang/components/shared'
+} from 'quang/components/shared'
 
 @Component({
   selector: 'quang-autocomplete',
@@ -28,7 +28,7 @@ import {
   templateUrl: './autocomplete.component.html',
   styleUrl: './autocomplete.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -164,6 +164,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   onChangeInput(value: any): void {
+    this.showOptionVisibility()
     this.inputValue$.next(value.target?.value)
   }
 

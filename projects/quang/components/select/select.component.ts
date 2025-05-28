@@ -19,7 +19,7 @@ import {
   QuangBaseComponent,
   QuangOptionListComponent,
   SelectOption,
-} from '@quix/quang/components/shared'
+} from 'quang/components/shared'
 
 @Component({
   selector: 'quang-select',
@@ -38,7 +38,6 @@ import {
   ],
   imports: [TranslocoPipe, NgIf, NgFor, NgClass, QuangOptionListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * Select component for choosing one or multiple options from a dropdown.
@@ -125,7 +124,6 @@ export class QuangSelectComponent
       setTimeout(() => {
         this.hideOptionVisibility()
         super.onBlurHandler()
-        this.selectButton()?.nativeElement.focus()
       }, 100)
     }
   }

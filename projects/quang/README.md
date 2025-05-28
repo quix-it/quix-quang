@@ -1,25 +1,105 @@
 # Quang
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+Quang is a comprehensive Angular component and utility library designed to streamline common operations in Angular applications.
 
-## Code scaffolding
+## Project Structure
 
-Run `ng generate component component-name --project quang` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project quang`.
+The library is organized into several functional modules, each focusing on different aspects of application development:
 
-> Note: Don't forget to add `--project quang` or else it will be added to the default project in your `angular.json` file.
+### [Auth](/projects/quang/auth/README.md)
+Authentication and authorization utilities including:
+- Authentication services and providers
+- Role-based access control directives
+- Authentication guards
+- Token storage management
+- Mobile-specific authentication features
 
-## Build
+### [Components](/projects/quang/components/README.md)
+Reusable UI components including:
+- Autocomplete
+- Checkbox
+- Date inputs
+- Form inputs
+- Paginator
+- Select dropdowns
+- Tables
+- WYSIWYG editor
 
-Run `ng build quang` to build the project. The build artifacts will be stored in the `dist/` directory.
+### [Data Handling](/projects/quang/data-handling)
+Utilities for:
+- Data conversion operations
+- File download helpers
 
-## Publishing
+### [Device](/projects/quang/device)
+Device and viewport management utilities including:
+- Resize observable service for responsive design
 
-After building your library with `ng build quang`, go to the dist folder `cd dist/quang` and run `npm publish`.
+### [Forms](/projects/quang/forms/README.md)
+Form management utilities including:
+- Form group model abstractions
+- Custom form validators
 
-## Running unit tests
+### [Loader](/projects/quang/loader/README.md)
+Loading state management including:
+- Loading indicator components
+- Loading state interceptor
+- Loading service
 
-Run `ng test quang` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### [Network](/projects/quang/network)
+Network request utilities and services.
+- Interceptor utilities
 
-## Further help
+### [Overlay](/projects/quang/overlay/README.md)
+Overlay-based UI components including:
+- Modals
+- Popovers
+- Toasts
+- Tooltips
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### [Translation](/projects/quang/translation/README.md)
+Internationalization (i18n) utilities including:
+- Translation loader service
+- Translation providers
+- Translation tokens
+
+## Getting Started
+
+To use Quang in your project, install it via npm:
+
+```bash
+npm install quang
+```
+
+## Usage
+
+Quang uses standalone components, which means you can import only the specific components you need directly into your application:
+
+```typescript
+// Import services
+import { AuthService } from 'quang/auth';
+import { LoaderService } from 'quang/loader';
+
+// Import components
+import { SelectComponent } from 'quang/components/select';
+import { PaginatorComponent } from 'quang/components/paginator';
+import { LoaderComponent } from 'quang/loader';
+
+// Import directives
+import { IsAuthenticatedDirective } from 'quang/auth';
+```
+
+You can then use these components directly in your standalone components:
+
+```typescript
+@Component({
+  standalone: true,
+  imports: [SelectComponent, PaginatorComponent, LoaderComponent, IsAuthenticatedDirective],
+  // ...
+})
+export class YourComponent {
+  // ...
+}
+```
+
+For more detailed information about each component and feature, please refer to the corresponding README linked in the project structure section.
+`

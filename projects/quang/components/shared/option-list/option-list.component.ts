@@ -17,9 +17,8 @@ import {
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QUANG_LOGGING_BEHAVIOR } from 'quang'
 import { Subscription, fromEvent } from 'rxjs'
-
-import { QUANG_LOGGING_BEHAVIOR } from '@quix/quang'
 
 export interface SelectOption {
   label: string
@@ -37,7 +36,6 @@ export enum OptionListParentType {
   templateUrl: './option-list.component.html',
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 export class QuangOptionListComponent {
   logLevel = inject(QUANG_LOGGING_BEHAVIOR, { optional: true })
@@ -83,6 +81,10 @@ export class QuangOptionListComponent {
   parentType = input.required<OptionListParentType>()
 
   parentID = input<string>('')
+
+  searchString = signal<string>('')
+
+  searchResetTimer: ReturnType<typeof setTimeout> | null = null
 
   selectButtonRef$ = toObservable(this.selectButtonRef)
     .pipe(takeUntilDestroyed(this.destroyRef))
@@ -206,12 +208,44 @@ export class QuangOptionListComponent {
               currentIndex = 0
               document.getElementById(this.parentID())?.focus()
               document.getElementById(this.parentID())?.click()
+            } else if (
+              (event as KeyboardEvent)?.key?.length === 1 &&
+              this.parentType() === OptionListParentType.SELECT
+            ) {
+              const key = (event as KeyboardEvent).key
+              currentIndex = this.handleSearch(key, listItems, currentIndex)
+              event.preventDefault()
             }
             break
           }
         }
       })
   })
+
+  handleSearch(key: string, listItems: HTMLLIElement[], currentIndex: number): number {
+    if (this.searchResetTimer) {
+      clearTimeout(this.searchResetTimer)
+    }
+
+    this.searchString.update((current) => current + key)
+
+    this.searchResetTimer = setTimeout(() => {
+      this.searchString.set('')
+      this.searchResetTimer = null
+    }, 500)
+
+    const searchStr = this.searchString().toLowerCase()
+    const matchIndex = this.selectOptionsList().findIndex((option) => option.label.toLowerCase().includes(searchStr))
+
+    if (matchIndex !== -1 && matchIndex !== currentIndex) {
+      listItems[currentIndex]?.classList.remove('selected')
+      listItems[matchIndex]?.classList.add('selected')
+      listItems[matchIndex]?.scrollIntoView({ behavior: this.scrollBehaviorOnOpen() })
+      return matchIndex
+    }
+
+    return currentIndex
+  }
 
   @HostListener('window:scroll') changePosition() {
     this.getOptionListWidth()
@@ -246,7 +280,11 @@ export class QuangOptionListComponent {
     if (this.selectionMode() === 'single') {
       this.changedHandler.emit(item?.value ?? null)
     } else {
-      const values: string[] | number[] | null = this._value() as string[] | number[] | null
+      let targetValue = this._value()
+      if (!Array.isArray(targetValue) && targetValue) {
+        targetValue = [targetValue]
+      }
+      const values: string[] | number[] | null = targetValue as string[] | number[] | null
       if (values) {
         if (values.some((x) => x === item?.value)) {
           this.changedHandler.emit(values.filter((x) => x !== item?.value) as string[] | number[])
@@ -255,6 +293,8 @@ export class QuangOptionListComponent {
         } else {
           this.changedHandler.emit([...values] as string[] | number[])
         }
+      } else if (item?.value) {
+        this.changedHandler.emit([item.value] as string[] | number[])
       } else {
         this.changedHandler.emit(null)
       }
@@ -262,7 +302,7 @@ export class QuangOptionListComponent {
   }
 
   getSelected(item: SelectOption): boolean {
-    if (this.selectionMode() === 'single') {
+    if (this.selectionMode() === 'single' || !Array.isArray(this._value())) {
       return this._value() === item.value
     }
     return this._value()?.some((x: number | string | null) => x === item?.value)

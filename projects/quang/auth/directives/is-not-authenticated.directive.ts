@@ -13,7 +13,6 @@ import { QuangAuthService } from '../auth.service'
 
 @Directive({
   selector: '[quangIsNotAuthenticated]',
-  standalone: true,
 })
 export class QuangIsNotAuthenticatedDirective {
   viewContainerRef = inject(ViewContainerRef)

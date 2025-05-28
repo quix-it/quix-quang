@@ -1,0 +1,111 @@
+<div class="d-flex justify-content-between align-items-center menu">
+  <div class="d-flex align-items-center">
+    @for (menuItem of menuList; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="menuItemTemplate"
+        [ngTemplateOutletContext]="{ $implicit: menuItem }"
+      />
+    }
+  </div>
+  <div class="d-flex align-items-center">
+    <ng-container
+      [ngTemplateOutlet]="menuItemTemplate"
+      [ngTemplateOutletContext]="{ $implicit: menuLanguage() }"
+    />
+    <button
+      (click)="openThemeModal()"
+      class="btn btn-theme"
+    >
+      @for (icon of menuTheme.icons; track $index) {
+        <svg-icon [src]="'./assets/icons/svg/' + icon" />
+      }
+    </button>
+  </div>
+</div>
+
+@if (showMenuThemeModal()) {
+  <playground-theme-modal (closeModal)="closeThemeModal()" />
+}
+
+<ng-template
+  #menuItemTemplate
+  let-menuItem
+>
+  <a [routerLink]="menuItem.route ? menuItem.route : undefined">
+    <div
+      (click)="onMenuClick($event, menuItem, origin)"
+      (mouseenter)="onMenuMouseEnter(origin, menuItem)"
+      (mouseleave)="onMenuMouseLeave()"
+      #origin="cdkOverlayOrigin"
+      cdkOverlayOrigin
+      class="menu-item"
+      routerLinkActive="menu-item-selected"
+    >
+      @if (menuItem.icons?.length) {
+        @for (icon of menuItem.icons; track $index) {
+          <svg-icon [src]="'assets/' + icon" />
+          <img
+            [alt]="icon"
+            [src]="'assets/' + icon"
+            class="menu-icon"
+          />
+        }
+      }
+      <p class="m-0">
+        {{ menuItem.description | transloco }}
+      </p>
+    </div>
+  </a>
+</ng-template>
+
+@if (currentMenuHoverOrigin()) {
+  <ng-template
+    [cdkConnectedOverlayOpen]="(currentMenuHover()?.children?.length ?? 0) > 0"
+    [cdkConnectedOverlayOrigin]="currentMenuHoverOrigin()"
+    [cdkConnectedOverlayPositions]="[{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' }]"
+    cdkConnectedOverlay
+  >
+    <div
+      (mouseenter)="childMenuMouseEnter()"
+      (mouseleave)="childMenuMouseLeave(); onMenuMouseLeave()"
+      class="flex select-none flex-col items-center divide-y hover:cursor-pointer child-menu"
+    >
+      <!-- [routerLink]="[childMenu.url]" -->
+      @for (childMenu of currentMenuHover()?.children; track $index) {
+        <a
+          [routerLink]="childMenu.route ? childMenu.route : undefined"
+          class="w-full hover:shadow-sm hover:cursor-pointer"
+          routerLinkActive="menu-item-selected"
+        >
+          <div
+            (click)="onChildMenuClick($event, childMenu)"
+            class="flex h-10 w-full flex-col items-start justify-center px-3"
+          >
+            <p class="m-0 py-2">
+              {{ childMenu.description | transloco }}
+            </p>
+          </div>
+        </a>
+      }
+    </div>
+  </ng-template>
+}
+
+<ng-template
+  #children
+  let-children
+>
+  <ul class="child-menu">
+    @for (child of children; track $index) {
+      <li>
+        <button
+          (click)="navigateMenu(child.route)"
+          class="btn"
+          type="button"
+        >
+          {{ child.description }}
+        </button>
+      </li>
+    }
+  </ul>
+</ng-template>

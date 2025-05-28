@@ -1,0 +1,45 @@
+<div class="data-handling-container">
+  <h1>{{ 'menu.dataHandling' | transloco }}</h1>
+  <h4>{{ 'dataHandling.conversion.title' | transloco }}</h4>
+  @for (fn of conversionFunctions; track $index) {
+    <ng-container
+      [ngTemplateOutlet]="functionCard"
+      [ngTemplateOutletContext]="{ $implicit: fn }"
+    ></ng-container>
+  }
+  <h4>{{ 'dataHandling.download.title' | transloco }}</h4>
+
+  @for (fn of downloadFunctions; track $index) {
+    <ng-container
+      [ngTemplateOutlet]="functionCard"
+      [ngTemplateOutletContext]="{ $implicit: fn }"
+    ></ng-container>
+  }
+</div>
+
+<ng-template
+  #functionCard
+  let-fn
+>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h5>{{ fn.functionName }}</h5>
+      <button
+        [quangTooltip]="buttonTooltip() | transloco"
+        (click)="copyToClipboard(fn.import, fn.exampleUsage)"
+        class="btn btn-copy"
+        overlayPosition="top-left"
+        type="button"
+      >
+        <svg-icon src="assets/icons/svg/copy.svg" />
+      </button>
+    </div>
+    <div class="card-body">
+      <p>{{ fn.explanationKey | transloco }}</p>
+      <pre>
+          <span class="mb-3">{{ fn.import }}</span>
+          <span>{{ fn.exampleUsage }}</span>
+      </pre>
+    </div>
+  </div>
+</ng-template>

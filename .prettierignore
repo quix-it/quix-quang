@@ -1,9 +1,10 @@
 build
 coverage
 e2e
-node_modules
 .angular
 .github
 .husky
 .npm
 .vscode
+node_modules
+package-lock.json

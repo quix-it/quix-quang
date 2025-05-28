@@ -4,7 +4,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 
-import { QuangBaseComponent } from '@quix/quang/components/shared'
+import { QuangBaseComponent } from 'quang/components/shared'
 
 export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
 
@@ -21,7 +21,6 @@ export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
   ],
   imports: [TranslocoPipe, NgIf, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
 })
 /**
  * Checkbox component for rendering a `checkbox` or a `toggle` switch.

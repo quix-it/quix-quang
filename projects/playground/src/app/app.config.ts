@@ -4,11 +4,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router'
 
 import { provideAngularSvgIcon } from 'angular-svg-icon'
-
-import { provideQuangConfig } from '@quix/quang'
-import { logoutOnErrorInterceptor, withAuth, withLogoutOnError, withSessionStorage } from '@quix/quang/auth'
-import { quangLoaderInterceptor, withLoaderExcludedUrls } from '@quix/quang/loader'
-import { withTranslation } from '@quix/quang/translation'
+import { MERMAID_OPTIONS, provideMarkdown } from 'ngx-markdown'
+import { provideQuangConfig } from 'quang'
+import { logoutOnErrorInterceptor, withAuth, withLogoutOnError, withSessionStorage } from 'quang/auth'
+import { quangLoaderInterceptor, withLoaderExcludedUrls } from 'quang/loader'
+import { withTranslation } from 'quang/translation'
 
 import { routes } from './app.routes'
 
@@ -19,11 +19,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAngularSvgIcon(),
     provideQuangConfig(
-      { verbose: true },
+      { verbose: true, baseHref: '/quix-quang/' },
       withTranslation({
         availableLangs: ['it', 'en'],
-        defaultLang: 'it',
-        fallbackLang: 'it',
+        defaultLang: 'en',
+        fallbackLang: 'en',
       }),
       withLoaderExcludedUrls([
         {
@@ -53,5 +53,14 @@ export const appConfig: ApplicationConfig = {
         withLogoutOnError([], [401, 402, 403])
       )
     ),
+    provideMarkdown({
+      mermaidOptions: {
+        provide: MERMAID_OPTIONS,
+        useValue: {
+          darkMode: true,
+          look: 'handDrawn',
+        },
+      },
+    }),
   ],
 }

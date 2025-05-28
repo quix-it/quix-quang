@@ -1,8 +1,7 @@
 import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core'
 
 import { provideTransloco } from '@jsverse/transloco'
-
-import { QuangFeature, QuangFeatureKind, quangFeature } from '@quix/quang'
+import { QuangFeature, QuangFeatureKind, quangFeature } from 'quang'
 
 import { QuangTranslationLoaderService } from './translation-loader.service'
 import { QuangTranslationService } from './translation.service'

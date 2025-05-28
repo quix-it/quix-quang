@@ -49,3 +49,8 @@ sonar/sonar-project.properties
 
 .nx/cache
 .nx/workspace-data
+
+# Sentry Config File
+.sentryclirc
+
+projects/playground/src/assets/docs

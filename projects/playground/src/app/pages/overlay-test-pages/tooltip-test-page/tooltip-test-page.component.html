@@ -1,0 +1,26 @@
+<h3>{{ 'quang.overlay.tooltip' | transloco }}</h3>
+<div
+  [quangTooltip]="'buttons.tooltipMessage' | transloco"
+  #testComponent
+  class="w-100 mt-4"
+  overlayPosition="top"
+  playgroundSourceCode
+>
+  <button
+    (click)="openToast('warning', true)"
+    class="w-100 btn btn-outline-secondary"
+  >
+    {{ 'buttons.toast.warning' | transloco }}
+  </button>
+  <small class="text-muted m-0">
+    {{ 'buttons.withTooltip' | transloco }}
+  </small>
+</div>
+
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="TooltipTestPageComponent"
+    [customReadmePath]="componentsReadmePath()"
+    [exampleHtml]="testComponentSource()"
+  />
+</div>

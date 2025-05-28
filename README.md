@@ -1,27 +1,123 @@
-# QuixQuang
+# Quix Quang
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.1.
+Angular component and utility library developed by [Quix Srl](https://www.quixconsulting.com).
 
-## Development server
+## Project Structure
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This repository consists of two main parts:
 
-## Code scaffolding
+1. **Quang Library** (`/projects/quang`): A comprehensive Angular library containing various components, services, and utilities for building Angular applications:
+   - Authentication services and directives
+   - UI components (autocomplete, checkboxes, date pickers, etc.)
+   - Form utilities
+   - Loading indicators
+   - Overlay components (modals, popovers, toasts, tooltips)
+   - Translation services
+   - And more
+   
+   For detailed documentation on Quang components and modules, see the [Quang README](/projects/quang/README.md).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. **Playground** (`/projects/playground`): A testing application for demonstrating and testing the Quang library components and features.
 
-## Build
+## Getting Started
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Prerequisites
 
-## Running unit tests
+- Node.js 20 (compatible with Angular v19)
+- npm
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Installation
 
-## Running end-to-end tests
+```bash
+# Clone the repository
+git clone https://github.com/quix-it/quix-quang.git
+cd quix-quang
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Install dependencies
+npm install
+```
 
-## Further help
+## Development
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Running the Playground
+
+To start the playground application for testing and development:
+
+```bash
+npm run start:playground
+```
+
+This will serve the playground application locally at `http://localhost:4400/`.
+
+### Building the Quang Library
+
+To build the Quang library:
+
+```bash
+npm run build:quang
+```
+
+The built library will be available in the `dist/quang` directory.
+
+## Deployment
+
+### Publishing the Library
+
+Several npm scripts are available for publishing the library:
+
+```bash
+# Publish a prerelease version
+npm run publish:prerelease
+
+# Publish a patch version
+npm run publish:patch
+
+# Publish a minor version update
+npm run publish:minor
+
+# Publish a major version update
+npm run publish:major
+```
+
+### Deploying the Playground
+
+To deploy the playground application:
+
+```bash
+npm run deploy:git
+```
+
+This will deploy the playground to GitHub Pages with the base href `/quix-quang/`.
+
+## Development Workflow
+
+### Linting and Formatting
+
+```bash
+# Run linting
+npm run lint
+
+# Fix linting issues
+npm run lint:fix
+
+# Format code
+npm run format
+
+# Lint and format in one command
+npm run lint-and-format
+```
+
+## Version Management
+
+The project uses npm versioning with automatic synchronization between the root package.json and the library's package.json:
+
+```bash
+# The sync-version script is automatically run during versioning
+npm version [patch|minor|major]
+```
+
+## License
+
+[Include your license information here]
+
+`

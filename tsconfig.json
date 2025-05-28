@@ -16,8 +16,8 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "paths": {
-      "@quix/quang": ["projects/quang"],
-      "@quix/quang/*": ["projects/quang/*"]
+      "quang": ["projects/quang"],
+      "quang/*": ["projects/quang/*"]
     },
     "baseUrl": ".",
     "importHelpers": true,
