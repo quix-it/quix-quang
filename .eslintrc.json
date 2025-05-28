@@ -1,6 +1,5 @@
 {
   "root": true,
-  "ignorePatterns": ["src/app/api/**/*", "projects/**/*"],
   "overrides": [
     {
       "files": ["*.ts"],
@@ -9,39 +8,59 @@
         "createDefaultProgram": true
       },
       "extends": [
-        "standard",
-        "standard-with-typescript",
+        "airbnb-base",
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:prettier/recommended"
+        "prettier"
       ],
       "rules": {
-        "@typescript-eslint/explicit-function-return-type": ["warn"],
+        "semi": "off",
+        "import/prefer-default-export": "off",
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "no-continue": "off",
+        "max-classes-per-file": "off",
+        "import/extensions": "off",
+        "import/order": "off",
+        "@typescript-eslint/lines-between-class-members": [
+          "error",
+          {
+            "enforce": [
+              { "blankLine": "always", "prev": "*", "next": "method" },
+              { "blankLine": "always", "prev": "method", "next": "*" }
+            ]
+          }
+        ],
+        "@typescript-eslint/no-non-null-assertion": "warn",
+        "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/restrict-plus-operands": "off",
         "@typescript-eslint/consistent-type-imports": "off",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "args": "all",
+            "argsIgnorePattern": "^_",
+            "caughtErrors": "all",
+            "caughtErrorsIgnorePattern": "^_",
+            "destructuredArrayIgnorePattern": "^_",
+            "varsIgnorePattern": "^_",
+            "ignoreRestSiblings": true
+          }
+        ],
         "@angular-eslint/template/eqeqeq": "off",
         "no-underscore-dangle": "off",
         "no-control-regex": "off",
         "no-useless-constructor": "off",
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "BLANK-QUIX",
-            "style": "camelCase"
-          }
-        ],
-        "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "BLANK-QUIX",
-            "style": "kebab-case"
-          }
-        ]
+        "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "class-methods-use-this": "off",
+        "radix": "warn",
+        "no-await-in-loop": "off"
       }
     },
     {

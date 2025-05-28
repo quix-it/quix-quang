@@ -1,0 +1,86 @@
+@use '../shared/sass/input-search';
+
+::ng-deep {
+  .air-datepicker {
+    z-index: 99999;
+    .air-datepicker--pointer {
+      display: none;
+    }
+    .air-datepicker-time {
+      display: block;
+      .air-datepicker-time--current {
+        display: none;
+      }
+      .air-datepicker-time--sliders {
+        display: flex;
+        justify-content: center;
+        padding-top: 0.25rem;
+        gap: 1rem;
+        .air-datepicker-time--row {
+          width: 100%;
+          position: relative;
+          &:first-child::after {
+            content: ':';
+            display: inline;
+            font-size: 1rem;
+            position: absolute;
+            right: -0.65rem;
+          }
+          input {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            padding-left: 1rem;
+            border-color: var(--bs-border-color);
+          }
+          .form-control:focus {
+            box-shadow: unset !important;
+          }
+        }
+      }
+    }
+    &.-inline-.-only-timepicker- {
+      border: 0;
+      .air-datepicker--time {
+        border: 0;
+      }
+    }
+  }
+}
+
+:host {
+  display: block;
+
+  .input-date-container {
+    display: flex;
+  }
+
+  input {
+    flex: 1;
+
+    &.with-button-calendar {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:disabled {
+      border-radius: var(--bs-border-radius);
+    }
+  }
+
+  .btn-outline-calendar {
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    min-width: unset;
+    display: flex;
+    border-color: var(--bs-border-color);
+  }
+
+  .border-danger {
+    border-color: var(--bs-form-invalid-border-color);
+  }
+
+  .border-success {
+    border-color: var(--bs-form-valid-border-color);
+  }
+}

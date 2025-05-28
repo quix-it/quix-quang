@@ -1,0 +1,9 @@
+@use '../shared/sass/input-search';
+
+:host {
+  display: block;
+}
+
+.no-resize {
+  resize: none;
+}

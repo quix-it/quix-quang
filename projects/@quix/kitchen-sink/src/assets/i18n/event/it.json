@@ -1,9 +1,0 @@
-{
-  "source": {},
-  "bus": {
-    "code": "private readonly quixSocket: QuixEventBusService,\n\n    this.$subscriptionSocket = this.quixSocket.openSocket(\n      this._window().quixConfig.eventBusUrl,\n      'quake/jobs/events'\n    ).pipe(\n      filter(m => m !== 'socketInit')\n    ).subscribe(m => {...\n\n ngOnDestroy (): void {\n    if (this.$subscriptionSocket) {\n      this.$subscriptionSocket.unsubscribe()\n    }\n    this.quixSocket.closeSocket()\n  }"
-  },
-  "websocket": {
-    "code": "export class QuangWebsocketService {\n  private socket = new WebSocket('wss://javascript.info/article/websocket/demo/hello')\n  public messages: string[] = []\n\n  constructor () {\n    this.socket.onopen = () => {\n      this.socket.send('sended message')\n      this.messages.push('[open] connection')\n      this.messages.push('sending to server')\n      this.messages.push('sended message')\n    }\n\n    this.socket.onmessage = (ev) => {\n      this.messages.push(`[message] data receveived from server: ${ev.data}`)\n    }\n\n    this.socket.onclose = (ev) => {\n      if (ev.wasClean) {\n        this.messages.push(`connection closed, code=${ev.code} reason=${ev.reason}`)\n      } else {\n        this.messages.push('[close] connection died')\n      }\n    }\n\n    this.socket.onerror = (error) => {\n      this.messages.push(`[error] ${error.type}`)\n    }\n  }\n}"
-  }
-}

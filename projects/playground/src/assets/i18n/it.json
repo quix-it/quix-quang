@@ -1,0 +1,92 @@
+{
+  "welcomeMessage": "Benvenuto in {{title}}",
+  "buttons": {
+    "setLanguage": "Imposta lingua: {{lang}}",
+    "loader": "Loader",
+    "apiCall": "Chiamata API",
+    "modal": "Apri modale",
+    "unauthorized": "non autorizzato",
+    "login": "login",
+    "toast": {
+      "warning": "Mostra toast warning",
+      "error": "Mostra toast errore",
+      "success": "Mostra toast successo"
+    },
+    "popover": "Mostra popover",
+    "withTooltip": "fai hover per il QuangTooltip",
+    "tooltipMessage": "Con QuangTooltip ed icona custom",
+    "close": "Chiudi",
+    "action": "Azione"
+  },
+  "colors": {
+    "setDark": "Imposta tema Scuro",
+    "setLight": "Imposta tema Chiaro",
+    "colorScheme": "Schema colori (personalizzabile)",
+    "primary": "Primario",
+    "secondary": "Secondario",
+    "success": "Successo",
+    "info": "Informazioni",
+    "warning": "Warning",
+    "danger": "Errore",
+    "light": "Chiaro",
+    "dark": "Scuro"
+  },
+  "title": {
+    "components": {
+      "input": "Componente di input",
+      "date": "Componente datepicker",
+      "wysiwyg": "Componente Wysiwyg (What-You-See-Is-What-You-Get)",
+      "toggle": "Componente toggle",
+      "checkbox": "Componente checkbox",
+      "paginator": "Componente di paginazione",
+      "select": "Componente select",
+      "autocomplete": "Componente di autocomplete",
+      "table": "Componente tabella"
+    },
+    "header": "Intestazione",
+    "body": "Corpo",
+    "footer": "Footer"
+  },
+  "form": {
+    "label": {
+      "input": "Input intestazione",
+      "toggle": "Toggle intestazione",
+      "checkbox": "Checkbox intestazione",
+      "date": "Data intestazione",
+      "select": "Select singola intestazione",
+      "multipleSelect": "Select multipla intestazione",
+      "autocomplete": "Autocomplete intestazione",
+      "wysiwyg": "Wysiwyg intestazione",
+      "success": "Valido!",
+      "formValue": "Valore form: {{value}}",
+      "formValidity": "Form valido: {{valid}}"
+    },
+    "errors": {
+      "required": "Questo campo è obbligatorio",
+      "minLength": "Lunghezza minima di {{requiredLength}} caratteri",
+      "maxLength": "Lunghezza massima di {{requiredLength}} caratteri"
+    },
+    "buttons": {
+      "enabled": "Form abilitato: {{enabled}}",
+      "changeVisibility": "Cambia visibilità",
+      "recreateForm": "Ricrea form",
+      "setForm": "Compila form",
+      "checkForm": "Controlla valore e validità form",
+      "readonly": "Readonly: {{readonly}}",
+      "required": "Required: {{required}}",
+      "changeDateFormat": "Cambia formato data",
+      "selectInputType": "Seleziona tipologia di input:",
+      "changeHeight": "Cambia altezza",
+      "flipButton": "Nascondi pulsante",
+      "resetForm": "Reset Form"
+    }
+  },
+  "quangPaginator": {
+    "totalItems": "Totale",
+    "size": "Dimensione Pagina",
+    "pageRange": "{{page}} di {{amountPages}}"
+  },
+  "table": {
+    "noResults": "Nessun risultato trovato"
+  }
+}

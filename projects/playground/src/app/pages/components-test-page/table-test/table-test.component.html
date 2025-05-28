@@ -1,0 +1,78 @@
+<h3>{{ 'title.components.table' | transloco }}</h3>
+<button
+  (click)="addPerson()"
+  class="btn me-3 btn-primary"
+  type="button"
+>
+  Add person
+</button>
+<quang-table
+  [stickyTable]="true"
+  [tableConfigurations]="tableConfig()"
+  (sortChanged)="onChangeSort($event)"
+></quang-table>
+<ng-template
+  #actions
+  let-person
+>
+  <div class="d-flex justify-content-end">
+    <button
+      (click)="onEditPerson(person.id)"
+      class="btn me-3"
+      type="button"
+    >
+      <svg-icon
+        [applyClass]="true"
+        src="assets/icons/svg/edit.svg"
+      ></svg-icon>
+    </button>
+    <button
+      (click)="onDeletePerson(person.id)"
+      class="btn"
+      type="button"
+    >
+      <svg-icon
+        [applyClass]="true"
+        src="assets/icons/svg/trash.svg"
+      ></svg-icon>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template
+  #name3
+  let-name
+>
+  <div
+    [quangOverlayPayload]="name"
+    [quangPopover]="namePop"
+    overlayPosition="bottom"
+  >
+    {{ name }}
+  </div>
+</ng-template>
+
+<ng-template
+  #namePop
+  let-name
+>
+  <div class="p-2">
+    {{ name }}
+  </div>
+</ng-template>
+
+<ng-template
+  #checkboxRenderer
+  let-data
+>
+  <div
+    *ngIf="selectFormMap()?.get(data.toString()) as targetForm"
+    style="padding-bottom: 0.25rem"
+  >
+    <quang-checkbox
+      [formControl]="targetForm"
+      [removeMargin]="true"
+      checkType="checkbox"
+    ></quang-checkbox>
+  </div>
+</ng-template>

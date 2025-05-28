@@ -1,0 +1,172 @@
+<div
+  [class.sticky-table]="stickyTable()"
+  class="table-responsive"
+>
+  <ng-container *ngIf="_tableConfigurations().rows?.length">
+    <div
+      (scroll)="tableContainer.scrollLeft = tableHeaderContainer.scrollLeft"
+      #tableHeaderContainer
+      class="table-header-container"
+      id="tableHeaderContainer"
+    >
+      <table
+        #tableHeader
+        id="tableHeader"
+      >
+        <thead>
+          <tr>
+            <ng-container *ngFor="let header of _tableConfigurations().headers; let i = index">
+              <th
+                [class.sort-btn]="header?.sort"
+                (click)="header?.sort ? onSortColumn(header.sort!) : null"
+                class="align-bottom"
+              >
+                <div
+                  [ngClass]="header?.css"
+                  class="align-self-end d-flex gap-1"
+                >
+                  {{ !header.renderer ? (header.text | transloco) : null }}
+                  <ng-container
+                    [ngTemplateOutlet]="header?.renderer ?? null"
+                    [ngTemplateOutletContext]="{
+                      $implicit: header.payload,
+                    }"
+                  ></ng-container>
+                  <div
+                    *ngIf="header.sort?.key"
+                    class="d-flex justify-content-between"
+                  >
+                    <ng-container
+                      [ngTemplateOutlet]="orderBtns"
+                      [ngTemplateOutletContext]="{ $implicit: header.sort }"
+                    ></ng-container>
+                  </div>
+                </div>
+              </th>
+            </ng-container>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div
+      (scroll)="tableHeaderContainer.scrollLeft = tableContainer.scrollLeft"
+      #tableContainer
+      class="table-container"
+    >
+      <table
+        class="table"
+        id="table-content"
+      >
+        <thead
+          #fakeTableHeader
+          class="fake-table-header"
+          id="fakeTableHeader"
+        >
+          <tr>
+            <ng-container *ngFor="let header of _tableConfigurations().headers; let i = index">
+              <th
+                [class.sort-btn]="header?.sort"
+                (click)="header?.sort ? onSortColumn(header.sort!) : null"
+                class="align-bottom"
+              >
+                <div
+                  [ngClass]="header?.css"
+                  class="align-self-end d-flex gap-1"
+                >
+                  {{ !header.renderer ? (header.text | transloco) : null }}
+                  <ng-container
+                    [ngTemplateOutlet]="header?.renderer ?? null"
+                    [ngTemplateOutletContext]="{
+                      $implicit: header.payload,
+                    }"
+                  ></ng-container>
+                  <div
+                    *ngIf="header.sort?.key"
+                    class="d-flex justify-content-between"
+                  >
+                    <ng-container
+                      [ngTemplateOutlet]="orderBtns"
+                      [ngTemplateOutletContext]="{ $implicit: header.sort }"
+                    ></ng-container>
+                  </div>
+                </div>
+              </th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            [class.hover-table]="clickableRow()"
+            [class.selectedRow]="row?.rowId ? isSelected(row.rowId!) : null"
+            [ngClass]="row.css"
+            (click)="clickableRow() ? onClickRow(row) : null"
+            *ngFor="let row of _tableConfigurations().rows"
+          >
+            <td
+              [attr.colspan]="cell?.fullWidth ? _tableConfigurations().headers.length : undefined"
+              [ngClass]="cell.css!"
+              *ngFor="let cell of row.cellData"
+            >
+              {{ !cell.renderer ? cell.text : null }}
+              <ng-container
+                [ngTemplateOutlet]="cell?.renderer ?? null"
+                [ngTemplateOutletContext]="{
+                  $implicit: cell.payload,
+                }"
+              ></ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <h6
+    *ngIf="!_tableConfigurations().rows?.length"
+    class="text-center mt-3"
+  >
+    {{ noResultsText() | transloco }}
+  </h6>
+</div>
+
+<ng-template
+  #orderBtns
+  let-order
+>
+  <div
+    [class.sort-asc]="order.sort === SortTable.ASC"
+    [class.sort-default]="order.sort === SortTable.DEFAULT"
+    [class.sort-desc]="order.sort === SortTable.DESC"
+    class="sort-arrows"
+  >
+    <svg
+      class="arrow-up"
+      fill="currentColor"
+      height="10"
+      stroke="currentColor"
+      viewBox="279.5 -600.5 401 201"
+      width="10"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="m280-400 200-200 200 200H280Z"
+        fill="currentColor"
+        stroke="currentColor"
+      ></path>
+    </svg>
+    <svg
+      class="arrow-down"
+      fill="currentColor"
+      height="10"
+      stroke="currentColor"
+      viewBox="279.5 -560.5 401 201"
+      width="10"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M480-360 280-560h400L480-360Z"
+        fill="currentColor"
+        stroke="currentColor"
+      ></path>
+    </svg>
+  </div>
+</ng-template>

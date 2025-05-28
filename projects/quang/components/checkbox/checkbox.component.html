@@ -1,0 +1,52 @@
+<div
+  [class.form-check-reverse]="labelPosition() === 'left' && checkType() === 'checkbox'"
+  [class.form-switch]="checkType() === 'toggle'"
+  [class.label-bottom]="labelPosition() === 'bottom'"
+  [class.label-left]="labelPosition() === 'left' && checkType() === 'toggle'"
+  [class.label-right]="labelPosition() === 'right' && checkType() === 'toggle'"
+  [class.label-top]="labelPosition() === 'top'"
+  [class.toggle-wrapper]="checkType() === 'toggle'"
+  [ngClass]="{ 'mb-3': !removeMargin(), 'form-check': !removeMargin() }"
+>
+  <label
+    [htmlFor]="componentId()"
+    [ngClass]="{ 'cursor-pointer': !_isDisabled() }"
+    *ngIf="componentLabel()"
+    class="form-label"
+  >
+    {{ componentLabel() | transloco }}
+    <span [hidden]="!_isRequired()">*</span>
+  </label>
+  <input
+    [attr.required]="getIsRequiredControl()"
+    [attr.role]="checkType() === 'checkbox' ? 'checkbox' : 'switch'"
+    [checked]="_value()"
+    [class.is-invalid]="_showErrors()"
+    [class.is-valid]="_showSuccess()"
+    [disabled]="_isDisabled()"
+    [id]="componentId()"
+    [ngClass]="componentClass()"
+    [placeholder]="componentPlaceholder() | transloco"
+    [readOnly]="isReadonly()"
+    [tabIndex]="componentTabIndex()"
+    [value]="_value()"
+    (blur)="onBlurHandler()"
+    (input)="onChangedEventHandler($event)"
+    class="form-check-input {{ _isDisabled() ? '' : 'cursor-pointer' }}"
+    type="checkbox"
+  />
+  <div class="valid-feedback">
+    {{ successMessage() | transloco }}
+  </div>
+  <div class="invalid-feedback">
+    {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
+  </div>
+  <small
+    [hidden]="_showSuccess() || _showErrors()"
+    *ngIf="helpMessage()"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ helpMessage() | transloco }}
+  </small>
+</div>

@@ -1,0 +1,112 @@
+<h3>{{ 'title.components.autocomplete' | transloco }}</h3>
+ciao
+<form
+  [formGroup]="testForm"
+  *ngIf="showInput()"
+>
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body d-flex flex-wrap">
+      <quang-autocomplete
+        [errorMap]="errors()"
+        [isReadonly]="isReadonly()"
+        [searchTextDebounce]="500"
+        [selectOptions]="stringListFiltered()"
+        (searchTextChange)="changeTextTest($event)"
+        (selectedOption)="onSelectOption($event)"
+        class="col-6"
+        componentLabel="form.label.autocompleteAsync"
+        formControlName="testInput1"
+        successMessage="form.label.success"
+      ></quang-autocomplete>
+      <quang-autocomplete
+        [errorMap]="errors()"
+        [isReadonly]="isReadonly()"
+        [searchTextDebounce]="500"
+        [selectOptions]="fixedStringList()"
+        class="col-6"
+        componentLabel="form.label.autocompleteNotAsync"
+        formControlName="testInput2"
+        successMessage="form.label.success"
+      ></quang-autocomplete>
+      <quang-autocomplete
+        [errorMap]="errors()"
+        [isReadonly]="isReadonly()"
+        [searchTextDebounce]="500"
+        [selectOptions]="textEqualValueStringListFiltered()"
+        [syncFormWithText]="true"
+        (searchTextChange)="changeTextTestFixed($event)"
+        class="col-6"
+        componentLabel="form.label.autocompleteSuggestionAsync"
+        formControlName="testInput3"
+        successMessage="form.label.success"
+      ></quang-autocomplete>
+      <quang-autocomplete
+        [errorMap]="errors()"
+        [isReadonly]="isReadonly()"
+        [searchTextDebounce]="500"
+        [selectOptions]="textEqualValueStringList()"
+        [syncFormWithText]="true"
+        class="col-6"
+        componentLabel="form.label.autocompleteSuggestionNotAsync"
+        formControlName="testInput4"
+        successMessage="form.label.success"
+      ></quang-autocomplete>
+    </div>
+  </div>
+</form>
+<div
+  *ngIf="showValueAndValidity()"
+  class="d-flex flex-column mb-4"
+>
+  <span>
+    {{ 'form.label.formValue' | transloco: { value: testForm.value | json } }}
+  </span>
+  <span>
+    {{ 'form.label.formValidity' | transloco: { valid: this.testForm.valid } }}
+  </span>
+</div>
+<div class="d-flex gap-3">
+  <button
+    (click)="changeFormEnabled()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
+  </button>
+  <button
+    (click)="changeFormInputRequired()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+  </button>
+  <button
+    (click)="changeVisibility()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.changeVisibility' | transloco }}
+  </button>
+  <button
+    (click)="recreateForm()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.recreateForm' | transloco }}
+  </button>
+  <button
+    (click)="setFormValues()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.setForm' | transloco }}
+  </button>
+  <button
+    (click)="checkCurrentFormValueAndValidity()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.checkForm' | transloco }}
+  </button>
+  <button
+    (click)="setReadonly()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+  </button>
+</div>

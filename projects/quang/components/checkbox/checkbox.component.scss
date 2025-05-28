@@ -1,0 +1,84 @@
+:host {
+  display: block;
+}
+
+.label-top {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    margin: unset;
+    float: unset;
+  }
+}
+
+.label-bottom {
+  display: flex;
+  flex-direction: column-reverse;
+
+  input {
+    margin: unset;
+    float: unset;
+  }
+}
+
+.label-right {
+  flex-direction: row-reverse;
+  justify-content: start;
+
+  label {
+    margin-left: 0.5rem;
+    margin-bottom: 0;
+    align-self: center;
+  }
+}
+
+.label-left {
+  flex-direction: row;
+
+  label {
+    margin-bottom: 0;
+    align-self: center;
+  }
+}
+
+.toggle-wrapper {
+  display: flex;
+  padding-left: unset;
+
+  label {
+    display: block;
+  }
+
+  input {
+    margin-left: unset;
+
+    width: 3em;
+    height: 1.5em;
+  }
+}
+
+.direction-row {
+  flex-direction: row;
+
+  .form-label {
+    margin-right: 0.5rem;
+  }
+}
+
+.direction-reverse-row {
+  flex-direction: row-reverse;
+  justify-content: start;
+
+  input {
+    margin-right: 0.5rem;
+  }
+}
+
+.direction-column {
+  flex-direction: column;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

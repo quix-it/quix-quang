@@ -1,36 +1,35 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
-  "angularCompilerOptions": {
-    "allowEmptyCodegenFiles": false,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "fullTemplateTypeCheck": true,
-    "importHelpers": true,
-    "strictInjectionParameters": true,
-    "strictTemplates": true
-  },
   "compileOnSave": false,
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "declaration": false,
-    "downlevelIteration": true,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "lib": ["ES2022", "dom"],
-    "module": "ES2022",
-    "moduleResolution": "node",
     "outDir": "./dist/out-tsc",
-    "paths": {
-      "@quix/quang": ["projects/@quix/quang"],
-      "@quix/quang/*": ["projects/@quix/quang/*"]
-    },
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "sourceMap": true,
-    "strictNullChecks": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "paths": {
+      "@quix/quang": ["projects/quang"],
+      "@quix/quang/*": ["projects/quang/*"]
+    },
+    "baseUrl": ".",
+    "importHelpers": true,
     "target": "ES2022",
-    "useDefineForClassFields": false
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": ["ES2022", "dom"]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

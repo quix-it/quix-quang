@@ -1,0 +1,128 @@
+:host {
+  display: block;
+  --table-header-container-top: 0;
+  --table-header-bg: var(--bs-body-bg);
+  --table-header-border-color: var(--bs-border-color);
+  --table-header-border-width: 4px;
+  --table-row-hover-brightness: 90%;
+  --table-row-selected-brightness: 95%;
+}
+
+.table-responsive {
+  overflow: initial;
+
+  .fake-table-header {
+    height: 0;
+    overflow: hidden;
+    line-height: 0;
+    visibility: collapse;
+
+    th {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      background-color: var(--table-header-bg);
+      border: unset;
+    }
+  }
+
+  .table-header-container {
+    overflow-x: hidden;
+    z-index: 1;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    font-size: 16px;
+    overflow-y: auto;
+    margin-bottom: unset;
+
+    thead {
+      text-transform: uppercase;
+
+      th {
+        padding: 1rem 0.5rem;
+        z-index: 999;
+        background-color: var(--table-header-bg);
+        box-shadow: inset 0 calc(var(--table-header-border-width) * -1) 0 0 var(--table-header-border-color);
+      }
+    }
+
+    tbody {
+      tr {
+        &:first-child {
+          td {
+            border-top: 0;
+          }
+        }
+
+        &.hover-table:hover {
+          cursor: pointer;
+          filter: brightness(var(--table-row-hover-brightness));
+        }
+
+        &.selectedRow {
+          filter: brightness(var(--table-row-selected-brightness));
+        }
+
+        td {
+          padding: 1rem 0.5rem;
+          font-weight: 300;
+          vertical-align: middle;
+        }
+      }
+
+      tr:last-child {
+        border-bottom: transparent;
+      }
+    }
+  }
+
+  &.sticky-table {
+    position: relative;
+
+    .table-header-container {
+      position: sticky;
+      top: var(--table-header-container-top, 0);
+    }
+  }
+}
+
+.sort-arrows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sort-default {
+  opacity: 30%;
+}
+
+.sort-asc {
+  .arrow-up {
+    opacity: 100%;
+  }
+
+  .arrow-down {
+    display: none;
+  }
+}
+
+.sort-desc {
+  .arrow-up {
+    display: none;
+  }
+
+  .arrow-down {
+    opacity: 100%;
+  }
+}
+
+.sort-btn:hover {
+  cursor: pointer;
+}

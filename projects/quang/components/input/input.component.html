@@ -1,0 +1,70 @@
+<div
+  *ngIf="componentType()"
+  class="mb-3"
+>
+  <label
+    [htmlFor]="componentId()"
+    *ngIf="componentLabel()"
+    class="form-label"
+  >
+    {{ componentLabel() | transloco }}
+    <span [hidden]="!_isRequired()">*</span>
+  </label>
+  <ng-container *ngIf="componentType() !== 'textarea'">
+    <input
+      [attr.maxLength]="maxLengthText()"
+      [attr.minLength]="minLengthText()"
+      [attr.required]="getIsRequiredControl()"
+      [class.is-invalid]="_showErrors()"
+      [class.is-valid]="_showSuccess()"
+      [disabled]="_isDisabled()"
+      [id]="componentId()"
+      [max]="maxNumber()"
+      [min]="minNumber()"
+      [ngClass]="componentClass()"
+      [placeholder]="componentPlaceholder() | transloco"
+      [readOnly]="isReadonly()"
+      [step]="componentStep()"
+      [tabIndex]="componentTabIndex()"
+      [type]="componentType()"
+      [value]="_value()"
+      (blur)="onBlurHandler()"
+      (input)="onChangedEventHandler($event)"
+      autocomplete="off"
+      class="form-control"
+    />
+  </ng-container>
+  <ng-container *ngIf="componentType() === 'textarea'">
+    <textarea
+      [attr.maxLength]="maxLengthText()"
+      [attr.minLength]="minLengthText()"
+      [class.is-invalid]="_showErrors()"
+      [class.is-valid]="_showSuccess()"
+      [class.no-resize]="!resizable()"
+      [disabled]="_isDisabled()"
+      [id]="componentId()"
+      [ngClass]="componentClass()"
+      [placeholder]="componentPlaceholder() | transloco"
+      [readOnly]="isReadonly()"
+      [tabIndex]="componentTabIndex()"
+      [value]="_value()"
+      (blur)="onBlurHandler()"
+      (input)="onChangedEventHandler($event)"
+      class="form-control"
+    ></textarea>
+  </ng-container>
+  <div class="valid-feedback">
+    {{ successMessage() | transloco }}
+  </div>
+  <div class="invalid-feedback">
+    {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
+  </div>
+  <small
+    [hidden]="_showSuccess() || _showErrors()"
+    *ngIf="helpMessage()"
+    aria-live="assertive"
+    class="form-text text-muted"
+  >
+    {{ helpMessage() | transloco }}
+  </small>
+</div>

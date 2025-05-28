@@ -1,0 +1,6 @@
+// add mixins
+@mixin darkTheme {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}

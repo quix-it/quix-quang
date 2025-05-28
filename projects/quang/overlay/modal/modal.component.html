@@ -1,0 +1,21 @@
+<ng-template cdkPortal>
+  <div
+    [ngStyle]="{
+      '--quang-modal-panel-width': width(),
+      '--quang-modal-panel-height': height(),
+      '--quang-modal-panel-background': backgroundColor(),
+      '--quang-modal-panel-padding': padding(),
+    }"
+    class="dialog {{ containerClass() }} {{ animationClassEnter() }}"
+  >
+    <div class="dialog__header">
+      <ng-content select="[header]"></ng-content>
+    </div>
+    <div class="dialog__body">
+      <ng-content select="[body]"></ng-content>
+    </div>
+    <div class="dialog__footer">
+      <ng-content select="[footer]"></ng-content>
+    </div>
+  </div>
+</ng-template>

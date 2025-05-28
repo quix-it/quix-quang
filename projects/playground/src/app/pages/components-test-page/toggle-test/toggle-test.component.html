@@ -1,0 +1,100 @@
+<form
+  [formGroup]="testForm"
+  *ngIf="showInput()"
+>
+  <div class="d-flex gap-4 w-100">
+    <div class="d-flex flex-column gap-4 w-100">
+      <h3>{{ 'title.components.toggle' | transloco }}</h3>
+      <quang-checkbox
+        [errorMap]="errors()"
+        [isReadonly]="isReadonly()"
+        checkType="toggle"
+        class="col-3"
+        componentLabel="form.label.toggle"
+        formControlName="toggle"
+        labelPosition="top"
+        successMessage="form.label.success"
+      ></quang-checkbox>
+    </div>
+    <div class="d-flex flex-column gap-4 w-100">
+      <h3>{{ 'title.components.checkbox' | transloco }}</h3>
+      <div class="d-flex gap-4 w-100">
+        <quang-checkbox
+          [errorMap]="errors()"
+          [isReadonly]="isReadonly()"
+          checkType="checkbox"
+          class="w-100"
+          componentLabel="form.label.checkbox"
+          formControlName="checkbox"
+          labelPosition="left"
+          successMessage="form.label.success"
+        ></quang-checkbox>
+        <quang-checkbox
+          [errorMap]="errors()"
+          [isReadonly]="isReadonly()"
+          checkType="checkbox"
+          class="w-100"
+          componentLabel="form.label.checkbox"
+          formControlName="checkbox"
+          labelPosition="right"
+          successMessage="form.label.success"
+        ></quang-checkbox>
+      </div>
+    </div>
+  </div>
+</form>
+<div
+  *ngIf="showValueAndValidity()"
+  class="d-flex flex-column mb-4"
+>
+  <span>
+    {{ 'form.label.formValue' | transloco: { value: testForm.value | json } }}
+  </span>
+  <span>
+    {{ 'form.label.formValidity' | transloco: { valid: this.testForm.valid } }}
+  </span>
+</div>
+<div class="d-flex gap-3">
+  <button
+    (click)="changeFormEnabled()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
+  </button>
+  <button
+    (click)="changeFormInputRequired()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+  </button>
+  <button
+    (click)="changeVisibility()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.changeVisibility' | transloco }}
+  </button>
+  <button
+    (click)="recreateForm()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.recreateForm' | transloco }}
+  </button>
+  <button
+    (click)="setFormValues()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.setForm' | transloco }}
+  </button>
+  <button
+    (click)="checkCurrentFormValueAndValidity()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.checkForm' | transloco }}
+  </button>
+  <button
+    (click)="setReadonly()"
+    class="btn btn-outline-secondary"
+  >
+    {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+  </button>
+</div>

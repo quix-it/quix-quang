@@ -1,0 +1,96 @@
+.dialog {
+  background-color: var(--quang-modal-panel-background, var(--bs-body-bg, initial));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: var(--quang-modal-panel-width);
+  height: var(--quang-modal-panel-height);
+  padding: var(--quang-modal-panel-padding);
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__body {
+    flex: 1;
+    overflow: auto;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+::ng-deep {
+  .cdk-global-scrollblock {
+    overflow-y: auto;
+  }
+}
+
+@keyframes left-to-right_enter {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.left-to-right-enter-active {
+  animation: left-to-right_enter 0.5s ease-in-out forwards;
+}
+
+@keyframes right-to-left_enter {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.right-to-left-enter-active {
+  animation: right-to-left_enter 0.5s ease-in-out forwards;
+}
+
+@keyframes top-to-bottom_enter {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.top-to-bottom-enter-active {
+  animation: top-to-bottom_enter 0.5s ease-in-out forwards;
+}
+
+@keyframes bottom-to-top_enter {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.top-to-bottom-enter-active {
+  animation: bottom-to-top_enter 0.5s ease-in-out forwards;
+}
+
+@keyframes fade_enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-enter-active {
+  animation: fade_enter 0.5s ease-in-out forwards;
+}

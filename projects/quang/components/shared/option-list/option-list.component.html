@@ -1,0 +1,47 @@
+<div
+  [ngStyle]="{
+    'max-height': optionListMaxHeight(),
+    '--option-list-width': elementWidth(),
+    '--option-list-top': elementTop(),
+    '--option-list-bottom': elementBottom(),
+  }"
+  (blur)="onBlurHandler($event)"
+  #optionListContainer
+  class="option-list"
+  id="optionList"
+  tabindex="1"
+>
+  <ul>
+    @for (item of selectOptionsList(); track i; let i = $index; let last = $last) {
+      <li
+        [class.m-0]="last"
+        [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
+        [id]="'item-' + i"
+        (mousedown)="$event.stopImmediatePropagation(); onSelectItem(item)"
+        class="item"
+      >
+        <input
+          [checked]="getSelected(item)"
+          [class.d-none]="selectionMode() === 'single' || !item?.value"
+          [disabled]="true"
+          [id]="i + '-' + item.value + '-checkbox'"
+          [name]="i + '-' + item.value + '-checkbox'"
+          [ngClass]="componentClass()"
+          [tabIndex]="componentTabIndex()"
+          [value]="getSelected(item)"
+          (blur)="onBlurHandler($event)"
+          #inputCheckbox
+          class="form-check-input opacity-100"
+          type="checkbox"
+        />
+        <label
+          [class.ms-3]="selectionMode() === 'multiple' && item?.value"
+          [for]="i + '-' + item.value + '-checkbox'"
+          class="form-check-label checkbox-label w-100 opacity-100"
+        >
+          {{ translateValue() ? (item.label | transloco) : item.label }}
+        </label>
+      </li>
+    }
+  </ul>
+</div>

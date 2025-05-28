@@ -1,0 +1,8 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/quang",
+  "lib": {
+    "entryFile": "index.ts"
+  },
+  "assets": ["./components/date/global-date.component.scss", "./components/wysiwyg/global-wysiswyg.component.scss"]
+}
