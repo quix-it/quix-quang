@@ -23,4 +23,24 @@ test.describe('Toggle Component', () => {
     const validitySpan = page.locator('span', { hasText: /Form valid:/i })
     await expect(validitySpan).toContainText('true')
   })
+
+  test('should uncheck right label checkbox and value should be false', async ({ page }) => {
+    await page.goto('http://localhost:4400/quix-quang/components/toggle')
+
+    // Find the input with label "checkbox header" and label at right (labelPosition="right")
+    // The right label checkbox is the second checkbox with label "checkbox header"
+    const checkboxes = page.getByRole('checkbox', { name: /checkbox header/i })
+    const rightCheckbox = checkboxes.nth(1)
+    await expect(rightCheckbox).toBeVisible()
+
+    // Click the input (should uncheck it)
+    await rightCheckbox.click()
+
+    // Click the "check form" button to show value and validity
+    await page.getByRole('button', { name: /check form/i }).click()
+
+    // Check if value is false (the form value is rendered in a span)
+    const valueSpan = page.locator('span', { hasText: /Form value:/i })
+    await expect(valueSpan).toContainText('"checkbox": false')
+  })
 })
