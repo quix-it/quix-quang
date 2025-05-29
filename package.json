@@ -1,7 +1,7 @@
 {
   "name": "quang",
   "author": "Quix Srl",
-  "homepage": "https://www.quixconsulting.com",
+  "homepage": "https://quix-it.github.io/quix-quang/",
   "version": "19.0.26",
   "scripts": {
     "prepare": "husky",

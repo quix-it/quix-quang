@@ -5,6 +5,7 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "homepage": "https://quix-it.github.io/quix-quang/",
   "repository": {
     "type": "git",
     "url": "https://github.com/quix-it/quix-quang.git"
