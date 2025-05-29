@@ -5,6 +5,10 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quix-it/quix-quang.git"
+  },
   "peerDependencies": {
     "@angular/animations": "^19.0.3",
     "@angular/cdk": "^19.0.2",
