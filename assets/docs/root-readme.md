@@ -102,4 +102,3 @@ export class YourComponent {
 ```
 
 For more detailed information about each component and feature, please refer to the corresponding README linked in the project structure section.
-`
