@@ -35,7 +35,7 @@ export class AuthTestComponent {
   protected AuthTestComponent = AuthTestComponent
   private readonly quangTranslationService = inject(QuangTranslationService)
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/auth.md' : '/assets/docs/auth.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/auth.md' : './assets/docs/auth.it.md'
   )
 
   http = inject(HttpClient)

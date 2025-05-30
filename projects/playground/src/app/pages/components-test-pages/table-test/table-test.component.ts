@@ -72,7 +72,7 @@ export class TableTestComponent {
   })
 
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/table.md' : '/assets/docs/table.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/table.md' : './assets/docs/table.it.md'
   )
 
   readonly people: People[] = [

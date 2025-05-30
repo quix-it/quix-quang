@@ -40,7 +40,7 @@ export class PaginatorTestComponent {
   })
 
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/paginator.md' : '/assets/docs/paginator.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/paginator.md' : './assets/docs/paginator.it.md'
   )
 
   formBuilder = inject(NonNullableFormBuilder)

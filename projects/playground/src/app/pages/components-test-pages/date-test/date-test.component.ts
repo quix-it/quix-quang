@@ -42,7 +42,7 @@ export class DateTestComponent {
   protected QuangDateComponent = QuangDateComponent
 
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? '/assets/docs/date.md' : '/assets/docs/date.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/date.md' : './assets/docs/date.it.md'
   )
 
   testComponent = viewChild('testComponent')
