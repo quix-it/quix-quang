@@ -158,3 +158,13 @@ userSubscription$ = toObservable(this.authService.user)
     )
 .subscribe()
 ```
+
+## ⚠️ Important Notice: Keycloak Version Upgrades
+
+> **ATTENTION**: If you are using Keycloak as your authentication provider and planning to upgrade its version, please be aware that OIDC implementation in Keycloak is highly customized. Version upgrades may introduce breaking changes that could affect your authentication flow.
+
+Always consult the [official Keycloak upgrade documentation](https://www.keycloak.org/docs/latest/upgrading/index.html) before performing any version upgrade to ensure compatibility with your application.
+
+Testing your authentication flow thoroughly after upgrading Keycloak is strongly recommended to identify and address any potential issues.
+
+
