@@ -1,12 +1,51 @@
 <div class="autocomplete-container">
-  <label
-    [htmlFor]="componentId()"
-    *ngIf="componentLabel()"
-    class="form-label"
-  >
-    {{ componentLabel() | transloco }}
-    <span [hidden]="!_isRequired()">*</span>
-  </label>
+  @if (componentLabel()) {
+    <label
+      [htmlFor]="componentId()"
+      class="form-label"
+    >
+      {{ componentLabel() | transloco }}
+      <span [hidden]="!_isRequired()">*</span>
+    </label>
+  }
+  @if (multiple()) {
+    <div class="chip-container">
+      @for (chip of _chipList(); track $index) {
+        @if (getDescription(chip)) {
+          <div class="chip chip-hover">
+            <p [ngClass]="{ 'm-0': isReadonly() || _isDisabled() }">
+              {{ getDescription(chip) }}
+            </p>
+            @if (!isReadonly() && !_isDisabled()) {
+              <button
+                (click)="deleteChip(chip)"
+                class="btn btn-chip"
+                type="button"
+              >
+                <svg
+                  class="ionicon"
+                  fill="currentColor"
+                  height="24"
+                  viewBox="0 0 512 512"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M368 368L144 144M368 144L144 368"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="32"
+                  />
+                </svg>
+              </button>
+            }
+          </div>
+        }
+      }
+    </div>
+  }
   <input
     [attr.required]="getIsRequiredControl()"
     [class.is-invalid]="_showErrors()"
@@ -25,38 +64,40 @@
     class="form-control"
     type="text"
   />
-  <quang-option-list
-    [_isDisabled]="_isDisabled()"
-    [_value]="_value()"
-    [componentClass]="componentClass()"
-    [componentLabel]="componentLabel()"
-    [componentTabIndex]="componentTabIndex()"
-    [nullOption]="false"
-    [optionListMaxHeight]="optionListMaxHeight()"
-    [parentID]="componentId()"
-    [parentType]="ParentType"
-    [scrollBehaviorOnOpen]="scrollBehaviorOnOpen()"
-    [selectButtonRef]="selectInput"
-    [selectOptions]="_filteredOptions()"
-    [translateValue]="translateValue()"
-    (blurHandler)="onBlurOptionList($event)"
-    (changedHandler)="onValueChange($event)"
-    *ngIf="_showOptions()"
-    #optionList
-    selectionMode="single"
-  ></quang-option-list>
+  @if (_showOptions()) {
+    <quang-option-list
+      [_isDisabled]="_isDisabled()"
+      [_value]="_value()"
+      [componentClass]="componentClass()"
+      [componentLabel]="componentLabel()"
+      [componentTabIndex]="componentTabIndex()"
+      [nullOption]="false"
+      [optionListMaxHeight]="optionListMaxHeight()"
+      [parentID]="componentId()"
+      [parentType]="ParentType"
+      [scrollBehaviorOnOpen]="scrollBehaviorOnOpen()"
+      [selectButtonRef]="selectInput"
+      [selectOptions]="_filteredOptions()"
+      [translateValue]="translateValue()"
+      (blurHandler)="onBlurOptionList($event)"
+      (changedHandler)="onValueChange($event)"
+      #optionList
+      selectionMode="single"
+    />
+  }
   <div class="valid-feedback">
     {{ successMessage() | transloco }}
   </div>
   <div class="invalid-feedback">
     {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
   </div>
-  <small
-    [hidden]="_showSuccess() || _showErrors()"
-    *ngIf="helpMessage()"
-    aria-live="assertive"
-    class="form-text text-muted"
-  >
-    {{ helpMessage() | transloco }}
-  </small>
+  @if (helpMessage()) {
+    <small
+      [hidden]="_showSuccess() || _showErrors()"
+      aria-live="assertive"
+      class="form-text text-muted"
+    >
+      {{ helpMessage() | transloco }}
+    </small>
+  }
 </div>
