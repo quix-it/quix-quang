@@ -20,14 +20,17 @@
             successMessage="form.label.success"
           />
           <quang-autocomplete
+            [chipMaxLength]="12"
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
             [multiple]="true"
             [searchTextDebounce]="500"
-            [selectOptions]="fixedStringList()"
+            [selectOptions]="stringListFiltered()"
+            [syncFormWithText]="true"
             class="col-6"
             componentLabel="form.label.autocompleteNotAsync"
             formControlName="testInput2"
+            multiSelectDisplayMode="horizontal"
             successMessage="form.label.success"
           ></quang-autocomplete>
           <quang-autocomplete

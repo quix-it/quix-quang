@@ -201,7 +201,7 @@ export class AutocompleteTestComponent {
     setTimeout(() => {
       this.testForm.patchValue({
         testInput1: 'required',
-        testInput2: ['required'],
+        testInput2: ['required', 'minLength'],
       })
     }, 2000)
   }

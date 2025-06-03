@@ -1,8 +1,10 @@
-import { NgClass } from '@angular/common'
+import { NgClass, NgStyle } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   computed,
+  effect,
   forwardRef,
   input,
   output,
@@ -13,6 +15,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs'
 
 import {
@@ -24,7 +27,7 @@ import {
 
 @Component({
   selector: 'quang-autocomplete',
-  imports: [TranslocoPipe, NgClass, QuangOptionListComponent],
+  imports: [TranslocoPipe, NgClass, QuangOptionListComponent, NgStyle, QuangTooltipDirective],
   templateUrl: './autocomplete.component.html',
   styleUrl: './autocomplete.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -69,6 +72,13 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   multiple = input<boolean>(false)
 
+  /**
+   * Set the maximum length in characters of the single chip.
+   */
+  chipMaxLength = input<number>(0)
+
+  multiSelectDisplayMode = input<'vertical' | 'horizontal'>('vertical')
+
   optionList = viewChild<QuangOptionListComponent>('optionList')
 
   _showOptions = signal<boolean | null>(null)
@@ -112,7 +122,39 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   formValueChange$: Subscription | undefined = undefined
 
-  private readonly selectInput = viewChild<HTMLInputElement>('selectInput')
+  private readonly selectInput = viewChild<ElementRef>('selectInput')
+  private readonly chipContainer = viewChild<ElementRef>('chipContainer')
+  private readonly autocompleteContainer = viewChild<ElementRef>('autocompleteContainer')
+
+  inputHeight = signal<number>(0)
+  chipContainerWidth = signal<number>(0)
+
+  private readonly onChangeSelectInput = effect(() => {
+    const selectInput = this.selectInput()
+    if (selectInput) {
+      this.inputHeight.set(selectInput?.nativeElement?.getBoundingClientRect().height)
+    }
+  })
+
+  private readonly onChangeChipContainer = effect(() => {
+    const chipContainerEl = this.chipContainer()?.nativeElement
+    this.autocompleteContainer()?.nativeElement.addEventListener(
+      'wheel',
+      (e: WheelEvent) => {
+        if (e.deltaY !== 0) {
+          if (chipContainerEl) {
+            chipContainerEl.scrollLeft += e.deltaY
+          }
+          e.preventDefault()
+        }
+      },
+      { passive: false }
+    )
+  })
+
+  private readonly onChangeChipList = effect(() => {
+    if (this._chipList().length >= 0) this.setContainerChipWidth()
+  })
 
   constructor() {
     super()
@@ -199,6 +241,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     if (this.multiple()) {
       this.onSelectValue(value)
       this.onChangedHandler(this._chipList())
+      if (this._chipList().some((x) => x === value)) {
+        this.inputValue$.next('')
+      }
     } else {
       this.onChangedHandler(value)
       if (hideOptions) {
@@ -224,7 +269,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     super.writeValue(val)
     this.setInputValue(true)
     if (Array.isArray(val)) {
-      this._chipList.set(val as any[])
+      val.forEach((x) => {
+        this.onSelectValue(x)
+      })
     }
   }
 
@@ -260,9 +307,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   onSelectValue(value: any): void {
-    this._inputValue.set('')
     const newChip = this.selectOptions().find((x) => x.value === value)
-    if (newChip) {
+    if (newChip && !this._chipList().some((x) => x === newChip?.value)) {
       this.createChipList(newChip)
       this._selectedOptions.update((list) => [...list, newChip])
     }
@@ -288,6 +334,15 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   createChipList(chip: any): void {
     if (chip) {
       this._chipList.update((list) => [...list, chip.value])
+    }
+  }
+
+  private setContainerChipWidth(): void {
+    const chipContainer = this.chipContainer()
+    if (chipContainer) {
+      setTimeout(() => {
+        this.chipContainerWidth.set(Math.round(chipContainer?.nativeElement?.getBoundingClientRect().width) + 12)
+      })
     }
   }
 }

@@ -1,4 +1,8 @@
-<div class="autocomplete-container">
+<div
+  [ngStyle]="{ '--chip-max-length': chipMaxLength() ? chipMaxLength() + 'ch' : 'none' }"
+  #autocompleteContainer
+  class="autocomplete-container"
+>
   @if (componentLabel()) {
     <label
       [htmlFor]="componentId()"
@@ -8,62 +12,72 @@
       <span [hidden]="!_isRequired()">*</span>
     </label>
   }
-  @if (multiple()) {
-    <div class="chip-container">
-      @for (chip of _chipList(); track $index) {
-        @if (getDescription(chip)) {
-          <div class="chip chip-hover">
-            <p [ngClass]="{ 'm-0': isReadonly() || _isDisabled() }">
-              {{ getDescription(chip) }}
-            </p>
-            @if (!isReadonly() && !_isDisabled()) {
-              <button
-                (click)="deleteChip(chip)"
-                class="btn btn-chip"
-                type="button"
-              >
-                <svg
-                  class="ionicon"
-                  fill="currentColor"
-                  height="24"
-                  viewBox="0 0 512 512"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
+  <div [class.horizontal]="multiSelectDisplayMode() === 'horizontal'">
+    @if (multiple() && _chipList().length > 0) {
+      <div
+        [ngStyle]="{ height: multiSelectDisplayMode() === 'horizontal' ? inputHeight() + 'px' : 'auto' }"
+        #chipContainer
+        class="chip-container"
+      >
+        @for (chip of _chipList(); track $index) {
+          @if (getDescription(chip)) {
+            <div
+              [quangTooltip]="chipMaxLength() ? getDescription(chip) : ''"
+              class="chip chip-hover"
+            >
+              <p [ngClass]="{ 'm-0': isReadonly() || _isDisabled() }">
+                {{ getDescription(chip) }}
+              </p>
+              @if (!isReadonly() && !_isDisabled()) {
+                <button
+                  (click)="deleteChip(chip)"
+                  class="btn btn-chip"
+                  type="button"
                 >
-                  <path
-                    d="M368 368L144 144M368 144L144 368"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="32"
-                  />
-                </svg>
-              </button>
-            }
-          </div>
+                  <svg
+                    class="ionicon"
+                    fill="currentColor"
+                    height="24"
+                    viewBox="0 0 512 512"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M368 368L144 144M368 144L144 368"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="32"
+                    />
+                  </svg>
+                </button>
+              }
+            </div>
+          }
         }
-      }
-    </div>
-  }
-  <input
-    [attr.required]="getIsRequiredControl()"
-    [class.is-invalid]="_showErrors()"
-    [class.is-valid]="_showSuccess()"
-    [disabled]="_isDisabled() || isReadonly()"
-    [id]="componentId()"
-    [ngClass]="componentClass()"
-    [placeholder]="componentPlaceholder() | transloco"
-    [tabIndex]="componentTabIndex()"
-    [value]="_inputValue()"
-    (blur)="onBlurInput($event)"
-    (input)="onChangeInput($event)"
-    (mousedown)="showOptionVisibility()"
-    #selectInput
-    autocomplete="off"
-    class="form-control"
-    type="text"
-  />
+      </div>
+    }
+    <input
+      [attr.required]="getIsRequiredControl()"
+      [class.is-invalid]="_showErrors()"
+      [class.is-valid]="_showSuccess()"
+      [disabled]="_isDisabled() || isReadonly()"
+      [id]="componentId()"
+      [ngClass]="componentClass()"
+      [ngStyle]="{ 'padding-left': multiSelectDisplayMode() === 'horizontal' ? chipContainerWidth() + 'px' : '0.5rem' }"
+      [placeholder]="componentPlaceholder() | transloco"
+      [tabIndex]="componentTabIndex()"
+      [value]="_inputValue()"
+      (blur)="onBlurInput($event)"
+      (input)="onChangeInput($event)"
+      (mousedown)="showOptionVisibility()"
+      #selectInput
+      autocomplete="off"
+      class="form-control"
+      type="text"
+    />
+  </div>
   @if (_showOptions()) {
     <quang-option-list
       [_isDisabled]="_isDisabled()"

@@ -1,5 +1,6 @@
 :host {
   display: block;
+  --chip-max-length: none;
 }
 .autocomplete-container {
   margin-bottom: 1rem;
@@ -14,9 +15,10 @@
 }
 
 .chip-container {
-  padding: 0 0.5rem;
   display: flex;
   flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .chip {
@@ -24,17 +26,20 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.25rem 0.5rem;
-  margin: 0.25rem 0.5rem 0.25rem 0;
   border-radius: 16px;
   color: var(--bs-btn-color);
   background-color: rgba(var(--bs-primary-rgb), 0.1);
   border-width: 1px;
   border-style: solid;
   border-color: var(--bs-primary-border-subtle);
+  height: 2rem;
 
   p {
     margin: 0;
-    margin-right: 0.5rem;
+    max-width: var(--chip-max-length);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .btn-chip {
@@ -52,4 +57,32 @@
       vertical-align: sub;
     }
   }
+}
+
+.autocomplete-container:has(.horizontal) {
+  position: relative;
+}
+
+.horizontal {
+  display: flex;
+  .chip-container {
+    max-width: 70%;
+    margin-bottom: 0;
+    margin-left: 0.5rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: auto;
+    position: absolute;
+    align-items: center;
+    .chip {
+      white-space: nowrap;
+    }
+  }
+  input {
+    min-width: 30%;
+  }
+}
+
+::-webkit-scrollbar {
+  height: 0;
 }
