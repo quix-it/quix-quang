@@ -283,7 +283,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   override onBlurHandler() {
     setTimeout(() => {
       this.hideOptionVisibility()
-      if (!this._inputValue()?.length && !this.emitOnly()) {
+      if (!this._inputValue()?.length && !this.emitOnly() && !this.multiple()) {
         this._ngControl()?.control?.patchValue(null)
       }
       super.onBlurHandler()
