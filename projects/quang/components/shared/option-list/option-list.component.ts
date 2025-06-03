@@ -46,7 +46,7 @@ export class QuangOptionListComponent {
 
   selectOptions = input<SelectOption[]>([])
 
-  selectButtonRef = input.required<HTMLButtonElement | HTMLInputElement>()
+  selectButtonRef = input.required<HTMLButtonElement | HTMLInputElement | HTMLDivElement>()
 
   _value = input<any>()
 

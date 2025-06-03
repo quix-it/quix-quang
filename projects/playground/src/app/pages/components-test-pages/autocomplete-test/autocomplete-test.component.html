@@ -20,7 +20,6 @@
             successMessage="form.label.success"
           />
           <quang-autocomplete
-            [chipMaxLength]="12"
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
             [multiple]="true"
@@ -29,6 +28,7 @@
             [syncFormWithText]="true"
             class="col-6"
             componentLabel="form.label.autocompleteNotAsync"
+            componentPlaceholder="form.placeholder.autocompleteNotAsync"
             formControlName="testInput2"
             multiSelectDisplayMode="horizontal"
             successMessage="form.label.success"
@@ -49,7 +49,7 @@
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
             [searchTextDebounce]="500"
-            [selectOptions]="textEqualValueStringList()"
+            [selectOptions]="textEqualValueStringListFiltered()"
             [syncFormWithText]="true"
             class="col-6"
             componentLabel="form.label.autocompleteSuggestionNotAsync"

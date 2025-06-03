@@ -127,7 +127,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   private readonly autocompleteContainer = viewChild<ElementRef>('autocompleteContainer')
 
   inputHeight = signal<number>(0)
-  chipContainerWidth = signal<number>(0)
 
   private readonly onChangeSelectInput = effect(() => {
     const selectInput = this.selectInput()
@@ -150,10 +149,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       },
       { passive: false }
     )
-  })
-
-  private readonly onChangeChipList = effect(() => {
-    if (this._chipList().length >= 0) this.setContainerChipWidth()
   })
 
   constructor() {
@@ -334,15 +329,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   createChipList(chip: any): void {
     if (chip) {
       this._chipList.update((list) => [...list, chip.value])
-    }
-  }
-
-  private setContainerChipWidth(): void {
-    const chipContainer = this.chipContainer()
-    if (chipContainer) {
-      setTimeout(() => {
-        this.chipContainerWidth.set(Math.round(chipContainer?.nativeElement?.getBoundingClientRect().width) + 12)
-      })
     }
   }
 }
