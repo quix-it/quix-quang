@@ -30,6 +30,7 @@
               </p>
               @if (!isReadonly() && !_isDisabled()) {
                 <button
+                  [tabIndex]="$index + 1"
                   (click)="deleteChip(chip)"
                   class="btn btn-chip"
                   type="button"

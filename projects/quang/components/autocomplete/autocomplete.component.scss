@@ -52,6 +52,9 @@
     &:active {
       border-color: transparent;
     }
+    &:focus-visible {
+      border: 1px solid var(--bs-primary);
+    }
     svg {
       color: var(--bs-primary);
       vertical-align: sub;
