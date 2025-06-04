@@ -28,7 +28,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^20.0.0",
-    "@angular/cdk": "^19.2.7",
+    "@angular/cdk": "^20.0.0",
     "@angular/common": "^20.0.0",
     "@angular/compiler": "^20.0.0",
     "@angular/core": "^20.0.0",
@@ -40,13 +40,13 @@
     "@capacitor/browser": "^6.0.1",
     "@capacitor/core": "^6.1.1",
     "@jsverse/transloco": "^7.5.0",
-    "@ngrx/signals": "^19.1.0",
+    "@ngrx/signals": "^19.0.0",
     "air-datepicker": "^3.5.0",
-    "angular-oauth2-oidc": "^19.0.0",
-    "angular-svg-icon": "^19.1.1",
+    "angular-oauth2-oidc": "^20.0.0",
+    "angular-svg-icon": "^19.0.0",
     "bootstrap": "^5.3.3",
     "date-fns": "^3.6.0",
-    "ngx-markdown": "^19.1.1",
+    "ngx-markdown": "^20.0.0",
     "rxjs": "~7.8.2",
     "suneditor": "^2.46.0",
     "tslib": "^2.8.1",
@@ -79,5 +79,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/quix-it/quix-quang.git"
+  },
+  "overrides": {
+    "@ngrx/signals": {
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core"
+    }
   }
 }
