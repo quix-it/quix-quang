@@ -7,42 +7,43 @@
   class="toast fade"
   role="alert"
 >
-  <div
-    *ngIf="!_currentToast()?.hideHeader"
-    class="toast-header"
-  >
-    <span
-      [ngClass]="_currentToast()?.type"
-      *ngIf="!_currentToast()?.customIcon"
-      class="rounded me-2"
-    ></span>
-    <img
-      [src]="_currentToast()?.customIcon"
-      *ngIf="_currentToast()?.customIcon"
-      alt=""
-    />
-    <strong
-      *ngIf="_currentToast()?.title"
-      class="me-auto"
-      >{{ _currentToast()?.title | transloco }}</strong
-    >
-    <small *ngIf="_currentToast()?.date">{{ _currentToast()?.date ?? '' | date: _currentToast()?.dateFormat }}</small>
-    <button
-      (click)="close()"
-      *ngIf="_currentToast()?.showCloseButton"
-      aria-label="Close"
-      class="ms-2 mb-1 btn-close"
-      data-dismiss="toast"
-      type="button"
-    >
-      <span aria-hidden="true"></span>
-    </button>
-  </div>
-  <div
-    *ngIf="_currentToast()?.text"
-    class="toast-body"
-  >
-    {{ _currentToast()?.text?.trim() | transloco: { textValue: _currentToast()?.textValue?.trim() } }}
-  </div>
+  @if (!_currentToast()?.hideHeader) {
+    <div class="toast-header">
+      @if (!_currentToast()?.customIcon) {
+        <span
+          [ngClass]="_currentToast()?.type"
+          class="rounded me-2"
+        ></span>
+      }
+      @if (_currentToast()?.customIcon) {
+        <img
+          [src]="_currentToast()?.customIcon"
+          alt=""
+        />
+      }
+      @if (_currentToast()?.title) {
+        <strong class="me-auto">{{ _currentToast()?.title | transloco }}</strong>
+      }
+      @if (_currentToast()?.date) {
+        <small>{{ _currentToast()?.date ?? '' | date: _currentToast()?.dateFormat }}</small>
+      }
+      @if (_currentToast()?.showCloseButton) {
+        <button
+          (click)="close()"
+          aria-label="Close"
+          class="ms-2 mb-1 btn-close"
+          data-dismiss="toast"
+          type="button"
+        >
+          <span aria-hidden="true"></span>
+        </button>
+      }
+    </div>
+  }
+  @if (_currentToast()?.text) {
+    <div class="toast-body">
+      {{ _currentToast()?.text?.trim() | transloco: { textValue: _currentToast()?.textValue?.trim() } }}
+    </div>
+  }
   <ng-container *ngTemplateOutlet="_currentToast()?.customTemplate ?? null"></ng-container>
 </div>

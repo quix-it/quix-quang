@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common'
+import { NgClass } from '@angular/common'
 import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
@@ -19,7 +19,7 @@ export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgClass],
+  imports: [TranslocoPipe, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**

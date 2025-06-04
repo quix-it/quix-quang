@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common'
+import { NgClass } from '@angular/common'
 import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
@@ -20,7 +20,7 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgClass],
+  imports: [TranslocoPipe, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**

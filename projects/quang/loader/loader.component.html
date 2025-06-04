@@ -1,11 +1,10 @@
-<div
-  *ngIf="showLoader()"
-  class="loader-container"
->
-  <ng-container *ngIf="!ref?.children?.length">
-    <span class="loader"></span>
-  </ng-container>
-  <div #ref>
-    <ng-content></ng-content>
+@if (showLoader()) {
+  <div class="loader-container">
+    @if (!ref?.children?.length) {
+      <span class="loader"></span>
+    }
+    <div #ref>
+      <ng-content></ng-content>
+    </div>
   </div>
-</div>
+}

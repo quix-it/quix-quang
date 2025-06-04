@@ -14,7 +14,7 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
       "quang": ["projects/quang"],
       "quang/*": ["projects/quang/*"]

@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common'
+import { NgClass } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -24,7 +24,7 @@ import {
 
 @Component({
   selector: 'quang-autocomplete',
-  imports: [TranslocoPipe, NgClass, NgIf, QuangOptionListComponent],
+  imports: [TranslocoPipe, NgClass, QuangOptionListComponent],
   templateUrl: './autocomplete.component.html',
   styleUrl: './autocomplete.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

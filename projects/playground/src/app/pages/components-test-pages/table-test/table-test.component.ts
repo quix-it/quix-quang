@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -46,7 +45,6 @@ interface People {
     AngularSvgIconModule,
     QuangCheckboxComponent,
     ReactiveFormsModule,
-    NgIf,
     ComponentDocumentationComponent,
     SourceCodeDirective,
   ],

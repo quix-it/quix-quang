@@ -2,14 +2,15 @@
   (mouseleave)="onMouseLeaveCallback()"
   class="mb-3"
 >
-  <label
-    [htmlFor]="componentId()"
-    *ngIf="componentLabel()"
-    class="form-label w-100"
-  >
-    {{ componentLabel() | transloco }}
-    <span [hidden]="!_isRequired()">*</span>
-  </label>
+  @if (componentLabel()) {
+    <label
+      [htmlFor]="componentId()"
+      class="form-label w-100"
+    >
+      {{ componentLabel() | transloco }}
+      <span [hidden]="!_isRequired()">*</span>
+    </label>
+  }
   <div
     [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap().length"
     [class.is-valid]="_ngControl()?.valid && (_ngControl()?.dirty || _ngControl()?.touched) && successMessage()"
@@ -30,34 +31,35 @@
     >
       <div class="content">
         @if (_selectedItems()?.length) {
-          <ng-container *ngFor="let val of _selectedItems(); let last = last">
+          @for (val of _selectedItems(); track val.value; let last = $last) {
             {{ translateValue() ? (val.label | transloco) : val.label }}{{ !last ? ', ' : '' }}
-          </ng-container>
+          }
         } @else {
           <ng-container>{{ componentPlaceholder() | transloco }}</ng-container>
         }
       </div>
     </button>
 
-    <quang-option-list
-      [_isDisabled]="_isDisabled()"
-      [_value]="_value()"
-      [componentClass]="componentClass()"
-      [componentLabel]="componentLabel()"
-      [componentTabIndex]="componentTabIndex()"
-      [nullOption]="nullOption()"
-      [optionListMaxHeight]="optionListMaxHeight()"
-      [parentType]="ParentType"
-      [scrollBehaviorOnOpen]="scrollBehaviorOnOpen()"
-      [selectButtonRef]="selectButton"
-      [selectionMode]="selectionMode()"
-      [selectOptions]="selectOptions()"
-      [translateValue]="translateValue()"
-      (blurHandler)="onBlurHandler()"
-      (changedHandler)="onChangedHandler($event)"
-      *ngIf="_showOptions()"
-      #optionList
-    ></quang-option-list>
+    @if (_showOptions()) {
+      <quang-option-list
+        [_isDisabled]="_isDisabled()"
+        [_value]="_value()"
+        [componentClass]="componentClass()"
+        [componentLabel]="componentLabel()"
+        [componentTabIndex]="componentTabIndex()"
+        [nullOption]="nullOption()"
+        [optionListMaxHeight]="optionListMaxHeight()"
+        [parentType]="ParentType"
+        [scrollBehaviorOnOpen]="scrollBehaviorOnOpen()"
+        [selectButtonRef]="selectButton"
+        [selectionMode]="selectionMode()"
+        [selectOptions]="selectOptions()"
+        [translateValue]="translateValue()"
+        (blurHandler)="onBlurHandler()"
+        (changedHandler)="onChangedHandler($event)"
+        #optionList
+      ></quang-option-list>
+    }
   </div>
   <div class="valid-feedback">
     {{ successMessage() | transloco }}
@@ -65,12 +67,13 @@
   <div class="invalid-feedback">
     {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
   </div>
-  <small
-    [hidden]="_showSuccess() || _showErrors()"
-    *ngIf="helpMessage()"
-    aria-live="assertive"
-    class="form-text text-muted"
-  >
-    {{ helpMessage() | transloco }}
-  </small>
+  @if (helpMessage()) {
+    <small
+      [hidden]="_showSuccess() || _showErrors()"
+      aria-live="assertive"
+      class="form-text text-muted"
+    >
+      {{ helpMessage() | transloco }}
+    </small>
+  }
 </div>

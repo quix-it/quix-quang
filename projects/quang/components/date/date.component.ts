@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common'
+import { NgClass } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -43,7 +43,7 @@ export type QuangDatepickerOptions = AirDatepickerOptions
   templateUrl: './date.component.html',
   styleUrl: './date.component.scss',
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => QuangDateComponent), multi: true }],
-  imports: [TranslocoPipe, NgIf, NgClass],
+  imports: [TranslocoPipe, NgClass],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**

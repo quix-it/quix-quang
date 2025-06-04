@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component, Type, computed, inject, input, signal } from '@angular/core'
 import { toObservable } from '@angular/core/rxjs-interop'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -15,7 +14,6 @@ import { ComponentDocumentation, ComponentDocumentationService } from '../../ser
   selector: 'playground-component-documentation',
   standalone: true,
   imports: [
-    CommonModule,
     TranslocoPipe,
     ReactiveFormsModule,
     MarkdownModule,

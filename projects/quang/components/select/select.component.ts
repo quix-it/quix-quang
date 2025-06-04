@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf } from '@angular/common'
+import { NgClass } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -36,7 +36,7 @@ import {
       multi: false,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgFor, NgClass, QuangOptionListComponent],
+  imports: [TranslocoPipe, NgClass, QuangOptionListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
