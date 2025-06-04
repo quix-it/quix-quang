@@ -118,6 +118,4 @@ npm version [patch|minor|major]
 
 ## License
 
-[Include your license information here]
-
-`
+Quang may be freely distributed under the MIT license.

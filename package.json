@@ -1,8 +1,8 @@
 {
   "name": "quang",
   "author": "Quix Srl",
-  "homepage": "https://www.quixconsulting.com",
-  "version": "19.0.23",
+  "homepage": "https://quix-it.github.io/quix-quang/",
+  "version": "19.0.28",
   "scripts": {
     "prepare": "husky",
     "ng": "ng",
@@ -79,6 +79,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/quix-it/quix-quang.git"
+    "url": "https://github.com/quix-it/quix-quang.git"
   }
 }

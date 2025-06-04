@@ -1,9 +1,14 @@
 {
   "name": "quang",
   "sideEffects": false,
-  "version": "19.0.23",
+  "version": "19.0.28",
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "homepage": "https://quix-it.github.io/quix-quang/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quix-it/quix-quang.git"
   },
   "peerDependencies": {
     "@angular/animations": "^19.0.3",
