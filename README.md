@@ -23,7 +23,7 @@ This repository consists of two main parts:
 
 ### Prerequisites
 
-- Node.js 20 (compatible with Angular v19)
+- Node.js 20.19.2 (compatible with Angular v20)
 - npm
 
 ### Installation
