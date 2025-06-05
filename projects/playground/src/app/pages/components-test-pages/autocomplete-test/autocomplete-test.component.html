@@ -22,7 +22,6 @@
           <quang-autocomplete
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
-            [multiple]="true"
             [searchTextDebounce]="500"
             [selectOptions]="stringListFiltered()"
             [syncFormWithText]="true"
@@ -32,7 +31,7 @@
             formControlName="testInput2"
             multiSelectDisplayMode="horizontal"
             successMessage="form.label.success"
-          ></quang-autocomplete>
+          />
           <quang-autocomplete
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
@@ -44,7 +43,7 @@
             componentLabel="form.label.autocompleteSuggestionAsync"
             formControlName="testInput3"
             successMessage="form.label.success"
-          ></quang-autocomplete>
+          />
           <quang-autocomplete
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
@@ -55,7 +54,34 @@
             componentLabel="form.label.autocompleteSuggestionNotAsync"
             formControlName="testInput4"
             successMessage="form.label.success"
-          ></quang-autocomplete>
+          />
+          <quang-autocomplete
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [multiple]="true"
+            [searchTextDebounce]="500"
+            [selectOptions]="stringListFiltered()"
+            [syncFormWithText]="true"
+            class="col-6"
+            componentLabel="form.label.autocompleteMultiple"
+            componentPlaceholder="form.placeholder.autocompleteMultiple"
+            formControlName="testInputMultiple"
+            successMessage="form.label.success"
+          />
+          <quang-autocomplete
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [multiple]="true"
+            [searchTextDebounce]="500"
+            [selectOptions]="stringListFiltered()"
+            [syncFormWithText]="true"
+            class="col-6"
+            componentLabel="form.label.autocompleteMultipleHorizontal"
+            componentPlaceholder="form.placeholder.autocompleteMultipleHorizontal"
+            formControlName="testInputMultipleHorizontal"
+            multiSelectDisplayMode="horizontal"
+            successMessage="form.label.success"
+          />
         </div>
       }
       <div class="d-flex gap-3 mt-3">

@@ -158,22 +158,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     }
   })
 
-  private readonly onChangeChipContainer = effect(() => {
-    const chipContainerEl = this.chipContainer()?.nativeElement
-    this.autocompleteContainer()?.nativeElement.addEventListener(
-      'wheel',
-      (e: WheelEvent) => {
-        if (e.deltaY !== 0) {
-          if (chipContainerEl) {
-            chipContainerEl.scrollLeft += e.deltaY
-          }
-          e.preventDefault()
-        }
-      },
-      { passive: false }
-    )
-  })
-
   constructor() {
     super()
     this.inputValue$

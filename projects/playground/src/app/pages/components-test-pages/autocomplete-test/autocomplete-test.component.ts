@@ -187,10 +187,11 @@ export class AutocompleteTestComponent {
 
   testForm = this.formBuilder.group({
     testInput1: this.formBuilder.control<string | null>(null, [Validators.required]),
-    testInput2: this.formBuilder.control<string[]>([], [Validators.required]),
+    testInput2: this.formBuilder.control<string>('', [Validators.required]),
     testInput3: this.formBuilder.control<string | null>(null, [Validators.required]),
     testInput4: this.formBuilder.control<string | null>(null, [Validators.required]),
     testInputMultiple: this.formBuilder.control<number[]>([], [Validators.required]),
+    testInputMultipleHorizontal: this.formBuilder.control<number[]>([], [Validators.required]),
   })
 
   showInput = signal<boolean>(true)
@@ -201,7 +202,7 @@ export class AutocompleteTestComponent {
     setTimeout(() => {
       this.testForm.patchValue({
         testInput1: 'required',
-        testInput2: ['required', 'minLength'],
+        testInput2: 'minLength',
       })
     }, 2000)
   }
@@ -231,10 +232,11 @@ export class AutocompleteTestComponent {
   recreateForm() {
     this.testForm = this.formBuilder.group({
       testInput1: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
-      testInput2: this.formBuilder.control<string[]>([this.stringList[2].value as string], [Validators.required]),
+      testInput2: this.formBuilder.control<string>(this.stringList[2].value as string, [Validators.required]),
       testInput3: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
       testInput4: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
       testInputMultiple: this.formBuilder.control<number[]>([1, 2], [Validators.required]),
+      testInputMultipleHorizontal: this.formBuilder.control<number[]>([1, 2], [Validators.required]),
     })
   }
 
