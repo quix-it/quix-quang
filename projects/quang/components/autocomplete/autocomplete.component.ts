@@ -132,6 +132,29 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     const selectInput = this.selectInput()
     if (selectInput) {
       this.inputHeight.set(selectInput?.nativeElement?.getBoundingClientRect().height)
+      selectInput.nativeElement.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (this.multiple() && this._chipList().length > 0 && !this._inputValue()?.length && e.key === 'Backspace') {
+          e.preventDefault()
+          // this.deleteChip(this._chipList()[this._chipList().length - 1])
+          const chipContainer = this.chipContainer()?.nativeElement
+          if (chipContainer) {
+            const chips = chipContainer.querySelectorAll('.chip button.btn-chip')
+            if (chips.length > 0) {
+              const focusChip = chips[chips.length - 1]
+              focusChip.focus()
+              focusChip.addEventListener('keydown', (event: KeyboardEvent) => {
+                if (event.key === 'Backspace') {
+                  event.preventDefault()
+                  this.deleteChip(this._chipList()[this._chipList().length - 1])
+                  selectInput.nativeElement.focus()
+                } else {
+                  event.preventDefault()
+                }
+              })
+            }
+          }
+        }
+      })
     }
   })
 
@@ -323,7 +346,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
         this.onChangedHandler(this._chipList())
       }
     }
-    // this.onChanged(this._chipList())
   }
 
   createChipList(chip: any): void {
