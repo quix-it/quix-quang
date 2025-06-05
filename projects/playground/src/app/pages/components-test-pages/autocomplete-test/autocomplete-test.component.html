@@ -11,7 +11,6 @@
             [searchTextDebounce]="500"
             [selectOptions]="stringListFiltered()"
             (searchTextChange)="changeTextTest($event)"
-            (selectedOption)="onSelectOption($event)"
             #testComponent
             class="col-6"
             componentLabel="form.label.autocompleteAsync"
@@ -24,12 +23,15 @@
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
             [searchTextDebounce]="500"
-            [selectOptions]="fixedStringList()"
+            [selectOptions]="stringListFiltered()"
+            [syncFormWithText]="true"
             class="col-6"
             componentLabel="form.label.autocompleteNotAsync"
+            componentPlaceholder="form.placeholder.autocompleteNotAsync"
             formControlName="testInput2"
+            multiSelectDisplayMode="horizontal"
             successMessage="form.label.success"
-          ></quang-autocomplete>
+          />
           <quang-autocomplete
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
@@ -41,18 +43,45 @@
             componentLabel="form.label.autocompleteSuggestionAsync"
             formControlName="testInput3"
             successMessage="form.label.success"
-          ></quang-autocomplete>
+          />
           <quang-autocomplete
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"
             [searchTextDebounce]="500"
-            [selectOptions]="textEqualValueStringList()"
+            [selectOptions]="textEqualValueStringListFiltered()"
             [syncFormWithText]="true"
             class="col-6"
             componentLabel="form.label.autocompleteSuggestionNotAsync"
             formControlName="testInput4"
             successMessage="form.label.success"
-          ></quang-autocomplete>
+          />
+          <quang-autocomplete
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [multiple]="true"
+            [searchTextDebounce]="500"
+            [selectOptions]="stringListFiltered()"
+            [syncFormWithText]="true"
+            class="col-6"
+            componentLabel="form.label.autocompleteMultiple"
+            componentPlaceholder="form.placeholder.autocompleteMultiple"
+            formControlName="testInputMultiple"
+            successMessage="form.label.success"
+          />
+          <quang-autocomplete
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [multiple]="true"
+            [searchTextDebounce]="500"
+            [selectOptions]="stringListFiltered()"
+            [syncFormWithText]="true"
+            class="col-6"
+            componentLabel="form.label.autocompleteMultipleHorizontal"
+            componentPlaceholder="form.placeholder.autocompleteMultipleHorizontal"
+            formControlName="testInputMultipleHorizontal"
+            multiSelectDisplayMode="horizontal"
+            successMessage="form.label.success"
+          />
         </div>
       }
       <div class="d-flex gap-3 mt-3">

@@ -1,12 +1,13 @@
-<div
-  [ngClass]="getPopoverPosition()"
-  *ngIf="overlayContent()"
-  class="popover-container"
->
-  <ng-container
-    [ngTemplateOutlet]="overlayContent()"
-    [ngTemplateOutletContext]="{
-      $implicit: payload(),
-    }"
-  ></ng-container>
-</div>
+@if (overlayContent()) {
+  <div
+    [ngClass]="getPopoverPosition()"
+    class="popover-container"
+  >
+    <ng-container
+      [ngTemplateOutlet]="overlayContent()"
+      [ngTemplateOutletContext]="{
+        $implicit: payload(),
+      }"
+    ></ng-container>
+  </div>
+}
