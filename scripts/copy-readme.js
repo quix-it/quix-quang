@@ -81,7 +81,7 @@ function copySpecificReadmeFiles() {
       const stat = fs.statSync(filePath)
       if (stat.isDirectory()) {
         results = results.concat(walkDir(filePath))
-      } else if (/readme.*-it\.md$/i.test(file)) {
+      } else if (/readme.*.it\.md$/i.test(file)) {
         const parentDir = path.basename(path.dirname(filePath))
         results.push({ path: filePath, parentDir })
       }
@@ -103,6 +103,8 @@ function copySpecificReadmeFiles() {
   // Explicitly copy the root README.md from /quang/
   const rootReadmePath = path.join(QUANG_DIR, 'README.md')
   const destRootReadmePath = path.join(DEST_DIR, 'root-readme.md')
+  const rootReadmeItPath = path.join(QUANG_DIR, 'README.it.md')
+  const destRootReadmeItPath = path.join(DEST_DIR, 'root-readme.it.md')
 
   try {
     fs.copyFileSync(rootReadmePath, destRootReadmePath)
@@ -122,6 +124,14 @@ function copySpecificReadmeFiles() {
     console.log(`Copied root README.md: ${rootReadmePath} -> ${destRootReadmePath}`)
   } catch (err) {
     console.error(`Error copying root README.md: ${err.message}`)
+  }
+
+  // Copy the Italian root README-it.md as root-readme.it.md
+  try {
+    fs.copyFileSync(rootReadmeItPath, destRootReadmeItPath)
+    console.log(`Copied root README-it.md: ${rootReadmeItPath} -> ${destRootReadmeItPath}`)
+  } catch (err) {
+    console.error(`Error copying root README-it.md: ${err.message}`)
   }
 
   // Update URLs in the root README.md copy to use routerLink paths
