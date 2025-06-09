@@ -1,8 +1,10 @@
-import { NgClass } from '@angular/common'
+import { NgClass, NgStyle } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   computed,
+  effect,
   forwardRef,
   input,
   output,
@@ -13,6 +15,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs'
 
 import {
@@ -24,7 +27,7 @@ import {
 
 @Component({
   selector: 'quang-autocomplete',
-  imports: [TranslocoPipe, NgClass, QuangOptionListComponent],
+  imports: [TranslocoPipe, NgClass, QuangOptionListComponent, NgStyle, QuangTooltipDirective],
   templateUrl: './autocomplete.component.html',
   styleUrl: './autocomplete.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,7 +53,7 @@ import {
  *
  * `searchTextDebounce` is by default set to 300ms.
  */
-export class QuangAutocompleteComponent extends QuangBaseComponent<string | number> {
+export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | string[] | number[]> {
   // the form can't be a random text but must be one of the options if this is false
   syncFormWithText = input<boolean>(false)
 
@@ -62,18 +65,31 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   scrollBehaviorOnOpen = input<ScrollBehavior>('smooth')
 
-  optionList = viewChild<QuangOptionListComponent>('optionList')
-
   /**
    * Only emits the value without saving it in ngControl
    */
   emitOnly = input<boolean>(false)
+
+  multiple = input<boolean>(false)
+
+  /**
+   * Set the maximum length in characters of the single chip.
+   */
+  chipMaxLength = input<number>(0)
+
+  multiSelectDisplayMode = input<'vertical' | 'horizontal'>('vertical')
+
+  optionList = viewChild<QuangOptionListComponent>('optionList')
 
   _showOptions = signal<boolean | null>(null)
 
   _inputValue = signal<string>('')
 
   _optionHideTimeout = signal<any | undefined>(undefined)
+
+  _chipList = signal<string[]>([])
+
+  _selectedOptions = signal<SelectOption[]>([])
 
   inputValue$ = new Subject<string>()
 
@@ -87,7 +103,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   _filteredOptions = computed<SelectOption[]>(() => {
     const text = this._inputValue()
-    return text?.length ? this.filterOptions(text) : this.selectOptions()
+    if (this.multiple()) {
+      return this.filterOptions(text).filter((x) => !this._chipList().some((chip) => chip === x.value))
+    } else {
+      return text?.length ? this.filterOptions(text) : this.selectOptions()
+    }
   })
 
   selectedOption = output<string | number | null>()
@@ -102,6 +122,42 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   formValueChange$: Subscription | undefined = undefined
 
+  private readonly selectInput = viewChild<ElementRef>('selectInput')
+  private readonly chipContainer = viewChild<ElementRef>('chipContainer')
+  private readonly autocompleteContainer = viewChild<ElementRef>('autocompleteContainer')
+
+  inputHeight = signal<number>(0)
+
+  private readonly onChangeSelectInput = effect(() => {
+    const selectInput = this.selectInput()
+    if (selectInput) {
+      this.inputHeight.set(selectInput?.nativeElement?.getBoundingClientRect().height)
+      selectInput.nativeElement.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (this.multiple() && this._chipList().length > 0 && !this._inputValue()?.length && e.key === 'Backspace') {
+          e.preventDefault()
+          // this.deleteChip(this._chipList()[this._chipList().length - 1])
+          const chipContainer = this.chipContainer()?.nativeElement
+          if (chipContainer) {
+            const chips = chipContainer.querySelectorAll('.chip button.btn-chip')
+            if (chips.length > 0) {
+              const focusChip = chips[chips.length - 1]
+              focusChip.focus()
+              focusChip.addEventListener('keydown', (event: KeyboardEvent) => {
+                if (event.key === 'Backspace') {
+                  event.preventDefault()
+                  this.deleteChip(this._chipList()[this._chipList().length - 1])
+                  selectInput.nativeElement.focus()
+                } else {
+                  event.preventDefault()
+                }
+              })
+            }
+          }
+        }
+      })
+    }
+  })
+
   constructor() {
     super()
     this.inputValue$
@@ -114,7 +170,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
           }
         }
         this._inputValue.set(value?.toString() || '')
-        if (!this._inputValue()?.length && !this.emitOnly()) this._ngControl()?.control?.patchValue(null)
+        if (!this._inputValue()?.length && !this.emitOnly() && !this.multiple()) {
+          this._ngControl()?.control?.patchValue(null)
+        }
       })
     toObservable(this._showOptions)
       .pipe(takeUntilDestroyed())
@@ -170,36 +228,53 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   filterOptions(value: string): SelectOption[] {
     const options = this.selectOptions()
-    if (this.internalFilterOptions()) return options.filter((x) => x.label.toLowerCase().includes(value.toLowerCase()))
+    if (this.internalFilterOptions()) {
+      return options.filter((x) => x.label.toLowerCase().includes(value.toLowerCase()))
+    }
     return options
   }
 
-  override onChangedHandler(value: string | number): void {
+  override onChangedHandler(value: string | number | string[] | number[]): void {
     super.onChangedHandler(value)
     this.setInputValue()
   }
 
   onValueChange(value: string | number, hideOptions = true): void {
-    this.onChangedHandler(value)
-    if (hideOptions) {
-      this.hideOptionVisibility()
+    if (this.multiple()) {
+      this.onSelectValue(value)
+      this.onChangedHandler(this._chipList())
+      if (this._chipList().some((x) => x === value)) {
+        this.inputValue$.next('')
+      }
+    } else {
+      this.onChangedHandler(value)
+      if (hideOptions) {
+        this.hideOptionVisibility()
+      }
+      this.selectedOption.emit(value)
     }
-    this.selectedOption.emit(value)
   }
 
   checkInputValue(): void {
     const option = this.selectOptions().find((x) => x.label.toLowerCase() === this._inputValue()?.toLowerCase())
-    if (option?.value === this._value()) return
-    if (option) {
-      this.onChangedHandler(option.value ?? '')
-    } else if (!this.syncFormWithText()) {
-      this.onChangedHandler('')
+    if (!this.multiple()) {
+      if (option?.value === this._value()) return
+      if (option) {
+        this.onChangedHandler(option.value ?? '')
+      } else if (!this.syncFormWithText()) {
+        this.onChangedHandler('')
+      }
     }
   }
 
-  override writeValue(val: string | number): void {
+  override writeValue(val: string | number | string[] | number[]): void {
     super.writeValue(val)
     this.setInputValue(true)
+    if (Array.isArray(val)) {
+      val.forEach((x) => {
+        this.onSelectValue(x)
+      })
+    }
   }
 
   onBlurInput(event: FocusEvent) {
@@ -210,7 +285,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   override onBlurHandler() {
     setTimeout(() => {
       this.hideOptionVisibility()
-      if (!this._inputValue()?.length && !this.emitOnly()) {
+      if (!this._inputValue()?.length && !this.emitOnly() && !this.multiple()) {
         this._ngControl()?.control?.patchValue(null)
       }
       super.onBlurHandler()
@@ -226,5 +301,40 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       this.selectOptions().find((x) => x.value === this._value())?.label ?? (resetOnMiss ? '' : this._inputValue())
     )
     if (!this.syncFormWithText()) this.inputValue$.next(this._inputValue() ?? '')
+  }
+
+  getDescription(chip: any): string {
+    const valueChip = this.selectOptions().find((x) => x.value === chip)
+    return valueChip ? valueChip.label.toString() : ''
+  }
+
+  onSelectValue(value: any): void {
+    const newChip = this.selectOptions().find((x) => x.value === value)
+    if (newChip && !this._chipList().some((x) => x === newChip?.value)) {
+      this.createChipList(newChip)
+      this._selectedOptions.update((list) => [...list, newChip])
+    }
+  }
+
+  /**
+   * remove chip from chips list
+   * @param chipValue chip to delete
+   */
+  deleteChip(chipValue: any): void {
+    const stringChipValue = chipValue?.toString()
+    const i = this._chipList()?.findIndex((x) => x.toString() === stringChipValue)
+    if (i >= 0) {
+      const currentList = this._chipList()
+      if (Array.isArray(currentList) && currentList.length > 0) {
+        this._chipList.update((list) => (list as string[]).filter((_, index) => index !== i))
+        this.onChangedHandler(this._chipList())
+      }
+    }
+  }
+
+  createChipList(chip: any): void {
+    if (chip) {
+      this._chipList.update((list) => [...list, chip.value])
+    }
   }
 }

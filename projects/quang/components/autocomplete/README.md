@@ -10,10 +10,16 @@ The `QuangAutocompleteComponent` provides real-time suggestions as the user type
 - Supports Angular Reactive Forms and Template-driven Forms
 - Configurable debounce for search input
 - Readonly and validation support
+- **Multiple selection with chips** (with horizontal/vertical display)
+- Keyboard navigation and chip deletion (Backspace)
+- Focus management for chips (Backspace focuses last chip, second Backspace deletes it)
 
 ## Inputs
 
 - `selectOptions`: `SelectOption[]` — Array of options to display as suggestions. **(Required)**
+- `multiple`: `boolean` — Enable multiple selection mode (chips). Default: `false`.
+- `multiSelectDisplayMode`: `'vertical' | 'horizontal'` — Display chips vertically or horizontally. Default: `'vertical'`.
+- `chipMaxLength`: `number` — Maximum length (in characters) for a single chip label. Default: `0` (no limit).
 - `syncFormWithText`: `boolean` — If true, the form value is kept in sync with the input text. Default: `false`.
 - `optionListMaxHeight`: `string` — Max height for the dropdown list. Default: `'200px'`.
 - `translateValue`: `boolean` — Whether to translate option values. Default: `true`.
@@ -31,10 +37,22 @@ The `QuangAutocompleteComponent` provides real-time suggestions as the user type
 - All standard outputs inherited from `QuangBaseComponent`:
   - `componentBlur`
 
+## Multiple/Chip Mode
+
+- When `multiple` is `true`, selected options are displayed as removable chips.
+- Chips can be displayed horizontally or vertically using `multiSelectDisplayMode`.
+- Chips have a close button for removal. When the input is empty, pressing Backspace focuses the last chip; pressing Backspace again deletes it.
+- Focus is managed for accessibility: after deleting a chip, focus moves to the previous chip or input.
+- Chip container supports horizontal scrolling with the mouse wheel in horizontal mode.
+- You can limit chip label length with `chipMaxLength`.
+
 ## Usage
 
 ```html
 <quang-autocomplete
+  [multiple]="true"
+  [multiSelectDisplayMode]="'horizontal'"
+  [chipMaxLength]="12"
   [errorMap]="errors()"
   [isReadonly]="isReadonly()"
   [searchTextDebounce]="500"
