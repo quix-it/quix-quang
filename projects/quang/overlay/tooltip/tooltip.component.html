@@ -1,6 +1,8 @@
-<div
-  @tooltip
-  class="quang-tooltip"
->
-  {{ overlayContent() }}
-</div>
+@if (overlayContent()) {
+  <div
+    @tooltip
+    class="quang-tooltip"
+  >
+    {{ overlayContent() }}
+  </div>
+}

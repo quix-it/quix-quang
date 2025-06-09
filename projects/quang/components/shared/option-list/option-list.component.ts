@@ -46,7 +46,7 @@ export class QuangOptionListComponent {
 
   selectOptions = input<SelectOption[]>([])
 
-  selectButtonRef = input.required<HTMLButtonElement | HTMLInputElement>()
+  selectButtonRef = input.required<HTMLButtonElement | HTMLInputElement | HTMLDivElement>()
 
   _value = input<any>()
 
@@ -299,6 +299,7 @@ export class QuangOptionListComponent {
         this.changedHandler.emit(null)
       }
     }
+    this.getOptionListTop()
   }
 
   getSelected(item: SelectOption): boolean {
@@ -318,21 +319,23 @@ export class QuangOptionListComponent {
 
   getOptionListTop() {
     const nativeElement = this.optionListContainer()?.nativeElement
-    const diff =
-      window.innerHeight -
-      (nativeElement?.getBoundingClientRect()?.height ?? 0) -
-      (this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) -
-      (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)
-    let topValue = 'unset'
-    let bottomValue = 'unset'
-    const isTop = diff >= 0
-    if (isTop) {
-      topValue = `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.offsetHeight ?? 0)}px`
-    } else {
-      bottomValue = `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
-    }
-    nativeElement?.classList.toggle('option-list-top', !isTop)
-    this.elementTop.set(topValue)
-    this.elementBottom.set(bottomValue)
+    setTimeout(() => {
+      const diff =
+        window.innerHeight -
+        (nativeElement?.getBoundingClientRect()?.height ?? 0) -
+        (this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) -
+        (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)
+      let topValue = 'unset'
+      let bottomValue = 'unset'
+      const isTop = diff >= 0
+      if (isTop) {
+        topValue = `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
+      } else {
+        bottomValue = `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
+      }
+      nativeElement?.classList.toggle('option-list-top', !isTop)
+      this.elementTop.set(topValue)
+      this.elementBottom.set(bottomValue)
+    })
   }
 }
