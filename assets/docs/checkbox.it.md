@@ -1,29 +1,29 @@
-# QuangCheckboxComponent
+# Componente QuangCheckbox
 
-The `QuangCheckboxComponent` can be used as a standard checkbox or as a toggle switch by setting the `checkType` input.
+Il `QuangCheckboxComponent` può essere utilizzato come checkbox standard o come interruttore toggle impostando l'input `checkType`.
 
-## Features
+## Funzionalità
 
-- Standard checkbox functionality
-- Toggle switch mode
-- Configurable label position
-- Validation feedback (success and error messages)
+- Funzionalità standard di checkbox
+- Modalità interruttore toggle
+- Posizione dell'etichetta configurabile
+- Feedback di validazione (messaggi di successo ed errore)
 
-## Inputs
+## Input
 
-- `checkType`: `'checkbox' | 'toggle'` — Specifies the type of the component. **(Required)**
-- `labelPosition`: `'top' | 'left' | 'right' | 'bottom'` — Position of the label. Default: `'top'`.
-- `removeMargin`: `boolean` — Removes the default margin. Default: `false`.
-- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
+- `checkType`: `'checkbox' | 'toggle'` — Specifica il tipo di componente. **(Obbligatorio)**
+- `labelPosition`: `'top' | 'left' | 'right' | 'bottom'` — Posizione dell'etichetta. Default: `'top'`.
+- `removeMargin`: `boolean` — Rimuove il margine di default. Default: `false`.
+- Tutti gli input standard di form/etichetta/validazione ereditati da `QuangBaseComponent`:
   - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
-## Outputs
+## Output
 
-- `changedHandler`: Emits the updated value when the checkbox state changes.
-- All standard outputs inherited from `QuangBaseComponent`:
+- `changedHandler`: Emette il nuovo valore quando lo stato della checkbox cambia.
+- Tutti gli output standard ereditati da `QuangBaseComponent`:
   - `componentBlur`
 
-## Usage
+## Esempio d'uso
 
 ```html
 <quang-checkbox
@@ -48,16 +48,16 @@ The `QuangCheckboxComponent` can be used as a standard checkbox or as a toggle s
 />
 ```
 
-## Styling
+## Stili
 
-The component supports the following CSS classes for customization:
+Il componente supporta le seguenti classi CSS per la personalizzazione:
 
-- `.label-top`: Positions the label above the checkbox.
-- `.label-bottom`: Positions the label below the checkbox.
-- `.label-left`: Positions the label to the left of the checkbox.
-- `.label-right`: Positions the label to the right of the checkbox.
-- `.toggle-wrapper`: Styles the component as a toggle switch.
+- `.label-top`: Posiziona l'etichetta sopra la checkbox.
+- `.label-bottom`: Posiziona l'etichetta sotto la checkbox.
+- `.label-left`: Posiziona l'etichetta a sinistra della checkbox.
+- `.label-right`: Posiziona l'etichetta a destra della checkbox.
+- `.toggle-wrapper`: Applica lo stile di interruttore toggle.
 
-## Notes
+## Note
 
-This component extends the `QuangBaseComponent` and inherits its features, such as label, error messages, and success messages.
+Questo componente estende `QuangBaseComponent` ed eredita tutte le sue funzionalità, come etichette, messaggi di errore e messaggi di successo.

@@ -1,26 +1,26 @@
-# QuangSelectComponent
+# Componente QuangSelect
 
-The `QuangSelectComponent` supports single or multiple selections from a dropdown list.
+Il `QuangSelectComponent` supporta la selezione singola o multipla da un elenco a discesa.
 
-## Features
+## Funzionalità
 
-- Single selection
-- Multiple selection
-- Customizable options
+- Selezione singola
+- Selezione multipla
+- Opzioni personalizzabili
 
-## Inputs
+## Input
 
-- `selectOptions`: `SelectOption[]` — Array of options to display in the dropdown. **(Required)**
-- `selectionMode`: `'single' | 'multiple'` — Enables single or multiple selection mode. Default: `'single'`.
-- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
+- `selectOptions`: `SelectOption[]` — Array di opzioni da mostrare nel menu a discesa. **(Obbligatorio)**
+- `selectionMode`: `'single' | 'multiple'` — Abilita la modalità selezione singola o multipla. Default: `'single'`.
+- Tutti gli input standard di form/etichetta/validazione ereditati da `QuangBaseComponent`:
   - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
-## Outputs
+## Output
 
-- All standard outputs inherited from `QuangBaseComponent`:
+- Tutti gli output standard ereditati da `QuangBaseComponent`:
   - `componentBlur`
 
-## Usage
+## Esempio d'uso
 
 ```html
 <quang-select
@@ -49,6 +49,6 @@ The `QuangSelectComponent` supports single or multiple selections from a dropdow
 />
 ```
 
-## Notes
+## Note
 
-This component extends the `QuangBaseComponent` and inherits its features, such as label and validation messages.
+Questo componente estende `QuangBaseComponent` ed eredita tutte le sue funzionalità, come etichette e messaggi di validazione.

@@ -1,25 +1,25 @@
-# QuangPopoverComponent
+# Componente QuangPopover
 
-The `QuangPopoverComponent` is a base overlay popover with its own style, used via the `[quangPopover]` directive.
+Il `QuangPopoverComponent` è un popover overlay di base con uno stile dedicato, utilizzato tramite la direttiva `[quangPopover]`.
 
-## Features
+## Funzionalità
 
-- Popover overlay for displaying additional information
-- Configurable trigger and position (via directive)
-- Supports custom content via `TemplateRef`
+- Overlay popover per mostrare informazioni aggiuntive
+- Trigger e posizione configurabili (tramite direttiva)
+- Supporta contenuto personalizzato tramite `TemplateRef`
 
-## Inputs (via Directive)
+## Input (tramite direttiva)
 
-- `quangPopover`: `TemplateRef<any> | null` (required) — The template to display in the popover.
-- `overlayPosition`: `string` — Position of the popover. Accepts values like `'top'`, `'top-left'`, `'top-right'`, `'bottom'`, `'bottom-left'`, `'bottom-right'`, `'left'`, `'right'`
-- `showMethod`: `string` — Trigger for the popover. Accepts values like `'click'`, `'hover'`, `'focus'`.
-- `payload`: `any` — Optional data to pass to the popover template.
+- `quangPopover`: `TemplateRef<any> | null` (obbligatorio) — Il template da mostrare nel popover.
+- `overlayPosition`: `string` — Posizione del popover. Accetta valori come `'top'`, `'top-left'`, `'top-right'`, `'bottom'`, `'bottom-left'`, `'bottom-right'`, `'left'`, `'right'`.
+- `showMethod`: `string` — Trigger per il popover. Accetta valori come `'click'`, `'hover'`, `'focus'`.
+- `payload`: `any` — Dati opzionali da passare al template del popover.
 
-## Outputs
+## Output
 
-- _(none)_ — The popover closes automatically when the user clicks outside or triggers the close logic.
+- _(nessuno)_ — Il popover si chiude automaticamente quando l'utente clicca fuori o attiva la logica di chiusura.
 
-## Usage
+## Esempio d'uso
 
 ```html
 <button
@@ -27,14 +27,14 @@ The `QuangPopoverComponent` is a base overlay popover with its own style, used v
   [quangPopover]="popoverTemplate"
   [showMethod]="'click'"
 >
-  Open Popover
+  Apri Popover
 </button>
 
 <ng-template #popoverTemplate>
-  <div>Popover Content</div>
+  <div>Contenuto del Popover</div>
 </ng-template>
 ```
 
-## Notes
+## Note
 
-This component is used via the `[quangPopover]` directive and extends the `QuangBaseOverlayComponent`, inheriting features such as dynamic positioning and styling. The popover content is always provided as a `TemplateRef`.
+Questo componente viene utilizzato tramite la direttiva `[quangPopover]` ed estende `QuangBaseOverlayComponent`, ereditando funzionalità come posizionamento dinamico e stile. Il contenuto del popover è sempre fornito come `TemplateRef`.

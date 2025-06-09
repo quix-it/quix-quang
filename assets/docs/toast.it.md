@@ -1,24 +1,24 @@
-# QuangToastComponent
+# Componente QuangToast
 
-The `QuangToastComponent` is an overlay component used directly in its parent component and managed via the `QuangToastService`.
+Il `QuangToastComponent` è un componente overlay da usare direttamente nel componente genitore e gestito tramite il `QuangToastService`.
 
-## Features
+## Funzionalità
 
-- Toast notifications for displaying messages
-- Configurable duration, type, and position (via service)
-- Supports multiple toast instances and custom templates
+- Notifiche toast per la visualizzazione di messaggi
+- Durata, tipo e posizione configurabili (tramite servizio)
+- Supporta istanze multiple di toast e template personalizzati
 
-## Inputs
+## Input
 
-- `showAtLeastFor`: `number` — Minimum time (in milliseconds) to show the toast for. Default: `500`.
+- `showAtLeastFor`: `number` — Tempo minimo (in millisecondi) per cui mostrare il toast. Default: `500`.
 
-> **Note:** All toast configuration (message, type, position, timing, etc.) is provided via the `QuangToastService.openToast()` method, not as component inputs.
+> **Nota:** Tutta la configurazione del toast (messaggio, tipo, posizione, timing, ecc.) viene fornita tramite il metodo `QuangToastService.openToast()`, non come input del componente.
 
-## Outputs
+## Output
 
-- *(none)* — Toast dismissal is managed internally by the service.
+- *(nessuno)* — La chiusura del toast è gestita internamente dal servizio.
 
-## Usage
+## Esempio d'uso
 
 ### HTML
 
@@ -37,28 +37,28 @@ quangToast = inject(QuangToastService)
 openToast(type: 'success' | 'error') {
   quangToast.openToast({
     type,
-    title: type === 'success' ? 'Success' : 'Error',
+    title: type === 'success' ? 'Successo' : 'Errore',
     position: 'top-right',
-    text: 'This is a toast message',
+    text: 'Questo è un messaggio toast',
     timing: 5000,
     showCloseButton: true,
   })
 }
 ```
 
-#### ToastData Options
+#### Opzioni ToastData
 
-- `type`: `'success' | 'warning' | 'error'` (required)
+- `type`: `'success' | 'warning' | 'error'` (obbligatorio)
 - `title?`: `string`
 - `position`: `'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'center' | 'top-center' | 'bottom-center'`
-- `timing`: `number` (required)
+- `timing`: `number` (obbligatorio)
 - `text?`: `string`
 - `showCloseButton?`: `boolean`
 - `customTemplate?`: `TemplateRef<any>`
 - `customIcon?`: `string`
 - `hideHeader?`: `boolean`
-- ...and more (see service for full list)
+- ...e altro (vedi il servizio per l'elenco completo)
 
-## Notes
+## Note
 
-This component uses the `QuangToastService` for managing toast instances dynamically. All toast display logic and configuration is handled via the service.
+Questo componente utilizza il `QuangToastService` per la gestione dinamica delle istanze toast. Tutta la logica e la configurazione della visualizzazione dei toast è gestita tramite il servizio.

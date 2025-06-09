@@ -1,32 +1,32 @@
-# QuangWysiwygComponent
+# Componente QuangWysiwyg
 
-The `QuangWysiwygComponent` is a rich text editor based on [SunEditor](https://github.com/JiHong88/SunEditor), offering a wide range of formatting options for creating and editing HTML content.
+Il `QuangWysiwygComponent` è un editor di testo ricco basato su [SunEditor](https://github.com/JiHong88/SunEditor), che offre una vasta gamma di opzioni di formattazione per la creazione e la modifica di contenuti HTML.
 
-## Features
+## Funzionalità
 
-- Rich text editing
-- Wide range of formatting options
-- Supports custom toolbars and plugins
+- Modifica di testo ricco
+- Ampia gamma di opzioni di formattazione
+- Supporto per toolbar e plugin personalizzati
 
-## Inputs
+## Input
 
-- `wysiwygOptions`: `object` — Configuration options for the editor. **(Required)**
-- `minHeight`: `string | undefined` — Minimum height for the editor area. Default: `'200px'`.
-- `highlightColor`: `boolean` — Show/hide the highlight color button in the toolbar. Default: `true`.
-- `isReadonly`: `boolean` — If true, the editor is readonly.
-- `onImageUploadError`: `(errorMessage: any, result: any, core: any) => boolean` — Callback for image upload errors.
-- `onFileDrop`: `(e: any, cleanData: any, maxCharCount: any, core: any) => boolean` — Callback for file drop events.
-- Toolbar button toggles (all `boolean`, default: `true`):
+- `wysiwygOptions`: `object` — Opzioni di configurazione per l'editor. **(Obbligatorio)**
+- `minHeight`: `string | undefined` — Altezza minima dell'area editor. Default: `'200px'`.
+- `highlightColor`: `boolean` — Mostra/nasconde il pulsante colore evidenziatore nella toolbar. Default: `true`.
+- `isReadonly`: `boolean` — Se true, l'editor è di sola lettura.
+- `onImageUploadError`: `(errorMessage: any, result: any, core: any) => boolean` — Callback per errori di upload immagini.
+- `onFileDrop`: `(e: any, cleanData: any, maxCharCount: any, core: any) => boolean` — Callback per eventi di trascinamento file.
+- Toggle dei pulsanti della toolbar (tutti `boolean`, default: `true`):
   - `font`, `fontSize`, `formatBlock`, `paragraphStyle`, `blockquote`, `bold`, `underline`, `italic`, `strike`, `fontColor`, `textStyle`, `removeFormat`, `align`, `list`, `table`, `link`, `image`, `fullScreen`, `showBlocks`
-- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
+- Tutti gli input standard di form/etichetta/validazione ereditati da `QuangBaseComponent`:
   - `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
-## Outputs
+## Output
 
-- All standard outputs inherited from `QuangBaseComponent`:
+- Tutti gli output standard ereditati da `QuangBaseComponent`:
   - `componentBlur`
 
-## Usage
+## Esempio d'uso
 
 ```html
 <quang-wysiwyg
@@ -42,14 +42,14 @@ The `QuangWysiwygComponent` is a rich text editor based on [SunEditor](https://g
 />
 ```
 
-### Note
+### Nota
 
-Remember to import:
+Ricordati di importare:
 
 `node_modules/quang/components/wysiwyg/global-wysiswyg.component.scss`
 
-or
+oppure
 
 `quang/components/wysiwyg/global-wysiswyg.component.scss`
 
-in your global style (suggested "vendors" folder).
+nel tuo stile globale (consigliata la cartella "vendors").

@@ -1,88 +1,83 @@
 # Quang Auth
 
-Quang Auth provides a comprehensive set of tools and utilities based on OIDC (Open ID Connect) for managing
-authentication within your Angular application.
+Quang Auth fornisce un set completo di strumenti e utility basati su OIDC (Open ID Connect) per la gestione
+dell'autenticazione all'interno della tua applicazione Angular.
 
-This service encapsulates authentication logic, making it reusable and maintainable across different parts of your
-application.
+Questo servizio incapsula la logica di autenticazione, rendendola riutilizzabile e manutenibile in diverse parti della tua applicazione.
 
-To use this set be sure to have installed 'angular-oauth2-oidc' dependency.
+Per utilizzare questo set assicurati di aver installato la dipendenza 'angular-oauth2-oidc'.
 
-## Directives
+## Direttive
 
-This section outlines the custom directives provided by the Quang Auth.
+Questa sezione descrive le direttive personalizzate fornite da Quang Auth.
 
 ### QuangIsAuthenticatedDirective
 
-This directive shows content only after user login.
+Questa direttiva mostra il contenuto solo dopo il login dell'utente.
 
-To use it import [QuangIsAuthenticatedDirective](./directives/is-authenticated.directive.ts) and put it in your
-template.
+Per usarla importa [QuangIsAuthenticatedDirective](./directives/is-authenticated.directive.ts) e inseriscila nel tuo template.
 
-<h4 style="color:#657ED4">@example</h4>
+<h4 style="color:#657ED4">@esempio</h4>
 
 ```
 <ng-container *quangIsAuthenticated>
-    your HTML content here
+    il tuo contenuto HTML qui
 </ng-container>
 ```
 
 ### QuangIsNotAuthenticatedDirective
 
-This directive shows content only if user is not authenticated.
+Questa direttiva mostra il contenuto solo se l'utente non è autenticato.
 
-To use it import [QuangIsNotAuthenticatedDirective](./directives/is-not-authenticated.directive.ts) and put it in your
-template.
+Per usarla importa [QuangIsNotAuthenticatedDirective](./directives/is-not-authenticated.directive.ts) e inseriscila nel tuo template.
 
-<h4 style="color:#657ED4">@example</h4>
+<h4 style="color:#657ED4">@esempio</h4>
 
 ```
 <ng-container *quangIsNotAuthenticated>
-    your HTML content here
+    il tuo contenuto HTML qui
 </ng-container>
 ```
 
 ### QuangHasEveryRoleDirective
 
-This directive shows content only if the user has every specified role.
+Questa direttiva mostra il contenuto solo se l'utente possiede tutti i ruoli specificati.
 
-To use it import [QuangHasEveryRoleDirective](./directives/has-every-role.directive.ts) and put it in your template.
+Per usarla importa [QuangHasEveryRoleDirective](./directives/has-every-role.directive.ts) e inseriscila nel tuo template.
 
-<h4 style="color:#657ED4">@example</h4>
+<h4 style="color:#657ED4">@esempio</h4>
 
 ```
 <div *quangHasEveryRole="['admin', 'editor']">
-    This content will only be visible to users with 'admin' and 'editor' roles.
+    Questo contenuto sarà visibile solo agli utenti con i ruoli 'admin' e 'editor'.
 </div>
 ```
 
 ### QuangHasAtLeastOneRoleDirective
 
-This directive shows content only if the user has at least one of the specified roles.
+Questa direttiva mostra il contenuto solo se l'utente possiede almeno uno dei ruoli specificati.
 
-To use it import [QuangHasAtLeastOneRoleDirective](./directives/has-at-least-one-role.directive.ts) and put it in your
-template.
+Per usarla importa [QuangHasAtLeastOneRoleDirective](./directives/has-at-least-one-role.directive.ts) e inseriscila nel tuo template.
 
-<h4 style="color:#657ED4">@example</h4>
+<h4 style="color:#657ED4">@esempio</h4>
 
 ```
 <div *quangHasAtLeastOneRole="['admin', 'editor']">
-    This content will only be visible to users with 'admin' or 'editor' roles.
+    Questo contenuto sarà visibile solo agli utenti con ruolo 'admin' o 'editor'.
 </div>
 ```
 
-## Guards
+## Guardie
 
-Guards are used to control access to routes in your Angular application. This section details the available guards for
-protecting routes based on user authentication status.
+Le guardie vengono utilizzate per controllare l'accesso alle rotte nella tua applicazione Angular. Questa sezione descrive le guardie disponibili per proteggere le rotte in base allo stato di autenticazione dell'utente.
 
 ### IsAllowedGuard
 
-The `quangIsAllowedGuardFactory` allows access to route only if user has definited roles.
+La `quangIsAllowedGuardFactory` consente l'accesso alla rotta solo se l'utente ha i ruoli definiti.
 
 [quangIsAllowedGuardFactory](./guards/is-allowed.guard.ts)
 
-<h4 style="color:#657ED4">@example</h4>
+<h4 style="color:#657ED4">@esempio</h4>
 
 ```
 export const routes: Routes = [
@@ -90,7 +85,7 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'components-test',
     pathMatch: 'full',
-    canActivate: [quangIsAllowedGuardFactory(['adming', 'editor'], 'every')]
+    canActivate: [quangIsAllowedGuardFactory(['admin', 'editor'], 'every')]
   },
   {
     path: '**',
@@ -101,11 +96,11 @@ export const routes: Routes = [
 
 ### IsAuthenticatedGuard
 
-The `quangIsAuthenticatedGuard` allows access to route only if user is authenticated.
+La `quangIsAuthenticatedGuard` consente l'accesso alla rotta solo se l'utente è autenticato.
 
 [quangIsAuthenticatedGuard](./guards/is-authenticated.guard.ts)
 
-<h4 style="color:#657ED4">@example</h4>
+<h4 style="color:#657ED4">@esempio</h4>
 
 ```
 export const routes: Routes = [
@@ -124,33 +119,28 @@ export const routes: Routes = [
 
 ### Mobile
 
-This section covers the mobile-specific functionalities offered by the Quang Auth service.
+Questa sezione copre le funzionalità specifiche per mobile offerte dal servizio Quang Auth.
 
-Function `withMobileAuth()` in [mobile-auth-feature.ts](./mobile/mobile-auth-feature.ts) return if auth is managed in a
-mobile app.
+La funzione `withMobileAuth()` in [mobile-auth-feature.ts](./mobile/mobile-auth-feature.ts) restituisce se l'autenticazione è gestita in una app mobile.
 
 ### Auth Providers
 
 [auth-providers.ts](./auth-providers.ts)
 
-This section describes the configuration options for the Quang Auth service. It details the providers that need to be
-registered in your Angular application's configuration (app.config.ts) to enable authentication functionality.
+Questa sezione descrive le opzioni di configurazione per il servizio Quang Auth. Dettaglia i provider che devono essere registrati nella configurazione della tua applicazione Angular (app.config.ts) per abilitare la funzionalità di autenticazione.
 
 ### Auth Service
 
-[`QuangAuthService`](./auth.service.ts) provides a set of functions, models, and interfaces for interacting with the
-authentication system. This section documents the available methods, data structures, and contracts for using the Auth
-service effectively.
+[`QuangAuthService`](./auth.service.ts) fornisce una serie di funzioni, modelli e interfacce per interagire con il sistema di autenticazione. Questa sezione documenta i metodi disponibili, le strutture dati e i contratti per utilizzare efficacemente il servizio Auth.
 
-The service DOES NOT handle automatically the roles for the user. It's needed to call the `addRoles()` method to add
-roles to the user after login.
+Il servizio NON gestisce automaticamente i ruoli dell'utente. È necessario chiamare il metodo `addRoles()` per aggiungere i ruoli all'utente dopo il login.
 
 ```
 userSubscription$ = toObservable(this.authService.user)
     .pipe(
         takeUntilDestroyed(),
         tap((u) => console.log('u ---->', u)),
-        map((user) => user?.['info'].realm_access.roles as string[]), // customize with your actual handling of roles
+        map((user) => user?.['info'].realm_access.roles as string[]), // personalizza in base alla tua gestione dei ruoli
         filter((roles) => roles.length > 0),
         tap((roles) => {
             this.authService.addRoles(roles)
@@ -159,12 +149,10 @@ userSubscription$ = toObservable(this.authService.user)
 .subscribe()
 ```
 
-## ⚠️ Important Notice: Keycloak Version Upgrades
+## ⚠️ Avviso Importante: Aggiornamenti di Versione Keycloak
 
-> **ATTENTION**: If you are using Keycloak as your authentication provider and planning to upgrade its version, please be aware that OIDC implementation in Keycloak is highly customized. Version upgrades may introduce breaking changes that could affect your authentication flow.
+> **ATTENZIONE**: Se utilizzi Keycloak come provider di autenticazione e prevedi di aggiornarne la versione, tieni presente che l'implementazione OIDC in Keycloak è altamente personalizzata. Gli aggiornamenti di versione possono introdurre breaking changes che potrebbero influire sul tuo flusso di autenticazione.
 
-Always consult the [official Keycloak upgrade documentation](https://www.keycloak.org/docs/latest/upgrading/index.html) before performing any version upgrade to ensure compatibility with your application.
+Consulta sempre la [documentazione ufficiale di upgrade di Keycloak](https://www.keycloak.org/docs/latest/upgrading/index.html) prima di eseguire qualsiasi aggiornamento di versione per garantire la compatibilità con la tua applicazione.
 
-Testing your authentication flow thoroughly after upgrading Keycloak is strongly recommended to identify and address any potential issues.
-
-
+Si consiglia vivamente di testare accuratamente il flusso di autenticazione dopo l'aggiornamento di Keycloak per identificare e risolvere eventuali problemi.

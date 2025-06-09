@@ -1,8 +1,8 @@
-# QuangInputComponent
+# Componente QuangInput
 
-The `QuangInputComponent` must be configured using the `componentType` input property.
+Il `QuangInputComponent` deve essere configurato tramite la proprietà di input `componentType`.
 
-## Supported Types
+## Tipi Supportati
 
 - text
 - textarea
@@ -14,24 +14,24 @@ The `QuangInputComponent` must be configured using the `componentType` input pro
 - tel
 - color
 
-## Inputs
+## Input
 
-- `componentType`: `'text' | 'textarea' | 'password' | 'email' | 'number' | 'url' | 'search' | 'tel' | 'color'` — Specifies the type of input. **(Required)**
-- `maxLengthText`: `number | null` — Maximum length for text input.
-- `minLengthText`: `number | null` — Minimum length for text input.
-- `minNumber`: `number | undefined` — Minimum value for number input.
-- `maxNumber`: `number | undefined` — Maximum value for number input.
-- `componentStep`: `number` — Step for number input. Default: `1`.
-- `resizable`: `boolean` — If false, disables textarea resizing. Default: `true` (only for textarea).
-- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
+- `componentType`: `'text' | 'textarea' | 'password' | 'email' | 'number' | 'url' | 'search' | 'tel' | 'color'` — Specifica il tipo di input. **(Obbligatorio)**
+- `maxLengthText`: `number | null` — Lunghezza massima per l'input di testo.
+- `minLengthText`: `number | null` — Lunghezza minima per l'input di testo.
+- `minNumber`: `number | undefined` — Valore minimo per l'input numerico.
+- `maxNumber`: `number | undefined` — Valore massimo per l'input numerico.
+- `componentStep`: `number` — Step per l'input numerico. Default: `1`.
+- `resizable`: `boolean` — Se false, disabilita il ridimensionamento della textarea. Default: `true` (solo per textarea).
+- Tutti gli input standard di form/etichetta/validazione ereditati da `QuangBaseComponent`:
   - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
-## Outputs
+## Output
 
-- All standard outputs inherited from `QuangBaseComponent`:
+- Tutti gli output standard ereditati da `QuangBaseComponent`:
   - `componentBlur`
 
-## Usage
+## Esempio d'uso
 
 ```html
 <quang-input
@@ -53,6 +53,6 @@ The `QuangInputComponent` must be configured using the `componentType` input pro
 />
 ```
 
-## Notes
+## Note
 
-This component extends the `QuangBaseComponent` and inherits its features, such as label and validation messages.
+Questo componente estende `QuangBaseComponent` ed eredita tutte le sue funzionalità, come etichette e messaggi di validazione.

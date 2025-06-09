@@ -1,29 +1,29 @@
-# QuangTooltipComponent
+# Componente QuangTooltip
 
-The `QuangTooltipComponent` is a base overlay tooltip with its own style, used via the `[quangTooltip]` directive.
+Il `QuangTooltipComponent` è un tooltip overlay di base con uno stile dedicato, utilizzato tramite la direttiva `[quangTooltip]`.
 
-## Features
+## Funzionalità
 
-- Tooltip overlay for displaying additional information
-- Configurable trigger and position (via directive)
-- Supports animations for showing and hiding
+- Tooltip overlay per mostrare informazioni aggiuntive
+- Trigger e posizione configurabili (tramite direttiva)
+- Supporta animazioni per apertura e chiusura
 
-## Inputs (via Directive)
+## Input (tramite direttiva)
 
-- `quangTooltip`: `string` (required) — The content to display in the tooltip.
-- `showMethod`: `'click' | 'hover'` — Specifies the trigger for the tooltip. Default: `'hover'`.
-- `quangTooltipPosition`: `'top' | 'bottom' | 'left' | 'right'` — Position of the tooltip. Default: `'top'`.
-- `payload`: `unknown` — Optional data to pass to the tooltip.
+- `quangTooltip`: `string` (obbligatorio) — Il contenuto da mostrare nel tooltip.
+- `showMethod`: `'click' | 'hover'` — Specifica il trigger del tooltip. Default: `'hover'`.
+- `quangTooltipPosition`: `'top' | 'bottom' | 'left' | 'right'` — Posizione del tooltip. Default: `'top'`.
+- `payload`: `unknown` — Dati opzionali da passare al tooltip.
 
-## Outputs
+## Output
 
-- *(none)* — The tooltip closes automatically when the user clicks outside or triggers the close logic.
+- *(nessuno)* — Il tooltip si chiude automaticamente quando l'utente clicca fuori o attiva la logica di chiusura.
 
-## Usage
+## Esempio d'uso
 
 ```html
 <button
-  [quangTooltip]="'This is a tooltip'"
+  [quangTooltip]="'Questo è un tooltip'"
   [showMethod]="'hover'"
   [quangTooltipPosition]="'top'"
 >
@@ -31,6 +31,6 @@ The `QuangTooltipComponent` is a base overlay tooltip with its own style, used v
 </button>
 ```
 
-## Notes
+## Note
 
-This component uses Angular animations for smooth transitions and extends the `QuangBaseOverlayComponent` for dynamic positioning. The tooltip is always used via the `[quangTooltip]` directive.
+Questo componente utilizza le animazioni Angular per transizioni fluide ed estende `QuangBaseOverlayComponent` per il posizionamento dinamico. Il tooltip viene sempre utilizzato tramite la direttiva `[quangTooltip]`.

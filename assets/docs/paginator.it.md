@@ -1,31 +1,31 @@
-# QuangPaginatorComponent
+# Componente QuangPaginator
 
-The `QuangPaginatorComponent` provides controls for navigating through pages of data, supporting configurations for total items, items per page, and current page.
+Il `QuangPaginatorComponent` fornisce controlli per la navigazione tra pagine di dati, supportando la configurazione di elementi totali, elementi per pagina e pagina corrente.
 
-## Features
+## Funzionalità
 
-- Pagination controls
-- Configurable total items, items per page, and current page
-- Emits events for page changes
+- Controlli di paginazione
+- Configurazione di elementi totali, elementi per pagina e pagina corrente
+- Emette eventi per i cambi pagina
 
-## Inputs
+## Input
 
-- `page`: `number` — Current page number. **(Required)**
-- `pageSize`: `number` — Number of items per page. **(Required)**
-- `sizeList`: `number[]` — List of selectable page sizes. Default: `[]`.
-- `totalItems`: `number` — Total number of items to paginate. **(Required)**
-- `showTotalElementsCount`: `boolean` — Show/hide total items count. Default: `true`.
-- `totalItemsText`: `string` — Translation key for total items label. Default: `'quangPaginator.totalItems'`.
-- `sizeText`: `string` — Translation key for size label. Default: `'quangPaginator.size'`.
-- `pageRangeText`: `string` — Translation key for page range label. Default: `'quangPaginator.pageRange'`.
-- `componentId`, `componentTabIndex`, `componentClass`: Standard component inputs.
+- `page`: `number` — Numero della pagina corrente. **(Obbligatorio)**
+- `pageSize`: `number` — Numero di elementi per pagina. **(Obbligatorio)**
+- `sizeList`: `number[]` — Elenco delle dimensioni di pagina selezionabili. Default: `[]`.
+- `totalItems`: `number` — Numero totale di elementi da paginare. **(Obbligatorio)**
+- `showTotalElementsCount`: `boolean` — Mostra/nasconde il conteggio totale degli elementi. Default: `true`.
+- `totalItemsText`: `string` — Chiave di traduzione per l'etichetta degli elementi totali. Default: `'quangPaginator.totalItems'`.
+- `sizeText`: `string` — Chiave di traduzione per l'etichetta della dimensione. Default: `'quangPaginator.size'`.
+- `pageRangeText`: `string` — Chiave di traduzione per l'etichetta dell'intervallo di pagine. Default: `'quangPaginator.pageRange'`.
+- `componentId`, `componentTabIndex`, `componentClass`: Input standard del componente.
 
-## Outputs
+## Output
 
-- `changePage`: Emits the new page number when the user navigates to a different page.
-- `changeSize`: Emits the new page size when the user changes it.
+- `changePage`: Emette il nuovo numero di pagina quando l'utente naviga tra le pagine.
+- `changeSize`: Emette la nuova dimensione di pagina quando l'utente la modifica.
 
-## Usage
+## Esempio d'uso
 
 ```html
 <quang-paginator
@@ -38,6 +38,6 @@ The `QuangPaginatorComponent` provides controls for navigating through pages of 
 />
 ```
 
-## Notes
+## Note
 
-This component provides a user-friendly interface for pagination in lists and tables.
+Questo componente fornisce un'interfaccia intuitiva per la paginazione in liste e tabelle.

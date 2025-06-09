@@ -1,26 +1,26 @@
-# QuangTableComponent
+# Componente QuangTable
 
-The `QuangTableComponent` allows for displaying data in a tabular format.
+Il `QuangTableComponent` consente di visualizzare dati in formato tabellare.
 
-## Features
+## Funzionalità
 
-- Tabular data display
-- Customizable headers and rows
-- Supports sorting and filtering
+- Visualizzazione dati in tabella
+- Intestazioni e righe personalizzabili
+- Supporto per ordinamento e filtro
 
-## Inputs
+## Input
 
-- `tableConfigurations`: `{ headers: TableHeader[]; rows: any[] }` — Table configuration object containing headers and rows. **(Required)**
-- `stickyTable`: `boolean` — Enables sticky header/columns. Default: `false`.
-- All standard form/label/validation-related inputs inherited from `QuangBaseComponent` (if applicable):
+- `tableConfigurations`: `{ headers: TableHeader[]; rows: any[] }` — Oggetto di configurazione della tabella con intestazioni e righe. **(Obbligatorio)**
+- `stickyTable`: `boolean` — Abilita header/colonne sticky. Default: `false`.
+- Tutti gli input standard di form/etichetta/validazione ereditati da `QuangBaseComponent` (se applicabile):
   - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
-## Outputs
+## Output
 
-- `sortChanged`: Emits the sort state when the user changes sorting.
-- `rowClick`: Emits the clicked row data when a row is clicked.
+- `sortChanged`: Emette lo stato di ordinamento quando l'utente cambia l'ordinamento.
+- `rowClick`: Emette i dati della riga cliccata quando una riga viene selezionata.
 
-## Usage
+## Esempio d'uso
 
 ### HTML
 
@@ -38,7 +38,7 @@ The `QuangTableComponent` allows for displaying data in a tabular format.
 ```typescript
 import { computed, signal } from '@angular/core'
 
-// Angular signals for table data and headers
+// Segnali Angular per dati e intestazioni della tabella
 
 tableRows = signal([
   { id: 1, name: 'John Doe', age: 30 },
@@ -48,8 +48,8 @@ tableRows = signal([
 
 tableHeaders = [
   { key: 'id', label: 'ID', sortable: true },
-  { key: 'name', label: 'Name', sortable: true },
-  { key: 'age', label: 'Age', sortable: false },
+  { key: 'name', label: 'Nome', sortable: true },
+  { key: 'age', label: 'Età', sortable: false },
 ]
 
 tableConfig = computed(() => ({
@@ -58,6 +58,6 @@ tableConfig = computed(() => ({
 }))
 ```
 
-## Notes
+## Note
 
-This component is highly customizable and can be styled to match your application's design.
+Questo componente è altamente personalizzabile e può essere stilizzato per adattarsi al design della tua applicazione.

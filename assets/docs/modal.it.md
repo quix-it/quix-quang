@@ -1,30 +1,30 @@
-# QuangModalComponent
+# Componente QuangModal
 
-The `QuangModalComponent` is an overlay component used directly in its parent component.
+Il `QuangModalComponent` è un componente overlay da utilizzare direttamente nel componente genitore.
 
-## Features
+## Funzionalità
 
-- Modal overlay for displaying content
-- Configurable size and position
-- Supports animations for opening and closing
+- Overlay modale per mostrare contenuti
+- Dimensioni e posizione configurabili
+- Supporta animazioni per apertura e chiusura
 
-## Inputs
+## Input
 
-- `position`: `'right' | 'left' | 'center'` (required) — Position of the modal.
-- `height`: `string` — Height of the modal. Default: `'80vh'`.
-- `width`: `string` — Width of the modal. Default: `'80vw'`.
-- `padding`: `string` — Padding inside the modal. Default: `'0 1rem'`.
-- `containerClass`: `string` — Custom CSS class for the modal container.
-- `animationMode`: `'SLIDE_FROM_LEFT_TO_RIGHT' | 'SLIDE_FROM_RIGHT_TO_LEFT' | 'SLIDE_TOP_TO_BOTTOM' | 'SLIDE_BOTTOM_TO_TOP' | 'FADE'` — Animation mode for the modal.
-- `backgroundColor`: `string` — Background color for the modal.
-- `showBackdrop`: `boolean` — Whether to show the backdrop. Default: `true`.
-- Use `ng-container` with `header`, `body`, and `footer` slots for custom content.
+- `position`: `'right' | 'left' | 'center'` (obbligatorio) — Posizione del modal.
+- `height`: `string` — Altezza del modal. Default: `'80vh'`.
+- `width`: `string` — Larghezza del modal. Default: `'80vw'`.
+- `padding`: `string` — Padding interno del modal. Default: `'0 1rem'`.
+- `containerClass`: `string` — Classe CSS personalizzata per il contenitore del modal.
+- `animationMode`: `'SLIDE_FROM_LEFT_TO_RIGHT' | 'SLIDE_FROM_RIGHT_TO_LEFT' | 'SLIDE_TOP_TO_BOTTOM' | 'SLIDE_BOTTOM_TO_TOP' | 'FADE'` — Modalità di animazione del modal.
+- `backgroundColor`: `string` — Colore di sfondo del modal.
+- `showBackdrop`: `boolean` — Mostra/nasconde il backdrop. Default: `true`.
+- Usa `ng-container` con slot `header`, `body` e `footer` per contenuti personalizzati.
 
-## Outputs
+## Output
 
-- `backdropClick`: Emits when the user clicks on the backdrop (outside the modal).
+- `backdropClick`: Emette un evento quando l'utente clicca sul backdrop (fuori dal modal).
 
-## Usage
+## Esempio d'uso
 
 ### HTML
 
@@ -81,7 +81,7 @@ The `QuangModalComponent` is an overlay component used directly in its parent co
 import { signal } from '@angular/core';
 
 showModal = signal(false);
-content = signal('Modal Content');
+content = signal('Contenuto del Modal');
 
 openModal() {
   showModal.set(true);
@@ -92,6 +92,6 @@ closeModal() {
 }
 ```
 
-## Notes
+## Note
 
-This component uses Angular CDK's `Overlay` and `Portal` modules for rendering modals dynamically. Refer to the component's API for all available configuration options.
+Questo componente utilizza i moduli `Overlay` e `Portal` di Angular CDK per il rendering dinamico dei modali. Consulta l'API del componente per tutte le opzioni di configurazione disponibili.

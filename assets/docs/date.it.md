@@ -1,27 +1,27 @@
-# QuangDateComponent
+# Componente QuangDate
 
-The `QuangDateComponent` is based on Air Datepicker. It can be fully customized using the input property `datepickerOptions`.
+Il `QuangDateComponent` si basa su Air Datepicker. Può essere completamente personalizzato tramite la proprietà di input `datepickerOptions`.
 
-## Features
-- Fully customizable datepicker
-- Based on Air Datepicker
-- Supports date ranges and localization
+## Funzionalità
+- Datepicker completamente personalizzabile
+- Basato su Air Datepicker
+- Supporta intervalli di date e localizzazione
 
-## Inputs
+## Input
 
-- `datepickerOptions`: `object` — Configuration options for the datepicker. **(Required)**
-- `minDate`: `Date | string` — Minimum selectable date.
-- `maxDate`: `Date | string` — Maximum selectable date.
-- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
+- `datepickerOptions`: `object` — Opzioni di configurazione per il datepicker. **(Obbligatorio)**
+- `minDate`: `Date | string` — Data minima selezionabile.
+- `maxDate`: `Date | string` — Data massima selezionabile.
+- Tutti gli input standard di form/etichetta/validazione ereditati da `QuangBaseComponent`:
   - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
-## Outputs
+## Output
 
-- `dateChange`: Emits the selected date when it changes.
-- All standard outputs inherited from `QuangBaseComponent`:
+- `dateChange`: Emette la data selezionata quando cambia.
+- Tutti gli output standard ereditati da `QuangBaseComponent`:
   - `componentBlur`
 
-## Usage
+## Esempio d'uso
 ```html
 <quang-date
   [minDate]="minDate"
@@ -38,17 +38,17 @@ The `QuangDateComponent` is based on Air Datepicker. It can be fully customized 
 </quang-date>
 ```
 
-### Note
-Remember to add the import:
+### Nota
+Ricordati di aggiungere l'import:
 
 `node_modules/quang/components/date/global-date.component.scss`
 
-or
+oppure
 
 `quang/components/date/global-date.component.scss`
 
-in your global style (suggested "vendors" folder).
+nel tuo stile globale (consigliata la cartella "vendors").
 
-## Notes
+## Note
 
-This component extends the `QuangBaseComponent` and inherits its features, such as label, error messages, and success messages.
+Questo componente estende `QuangBaseComponent` ed eredita tutte le sue funzionalità, come etichette, messaggi di errore e messaggi di successo.

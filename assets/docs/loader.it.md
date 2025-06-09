@@ -1,42 +1,42 @@
 # Quang Loader
 
-Quang Loader provides a simple and efficient way to implement an overlay loader in your project. It includes a default spinner but also supports custom content.
+Quang Loader offre un modo semplice ed efficiente per implementare un loader sovrapposto nel tuo progetto. Include uno spinner di default ma supporta anche contenuti personalizzati.
 
 ## QuangLoaderComponent
 
-The `QuangLoaderComponent` displays a loader overlay on the page. It is highly customizable and can be used to indicate loading states in your application.
+Il `QuangLoaderComponent` mostra un overlay di caricamento sulla pagina. È altamente personalizzabile e può essere usato per indicare stati di caricamento nell'applicazione.
 
-### Inputs
+### Input
 
-- `showAtLeastFor`: `number` — Minimum time (in milliseconds) to show the loader for. Default: `500`.
-- You can use `ng-content` to project custom content (e.g., a custom spinner or message).
+- `showAtLeastFor`: `number` — Tempo minimo (in millisecondi) per cui mostrare il loader. Default: `500`.
+- Puoi usare `ng-content` per proiettare contenuti personalizzati (ad esempio uno spinner o un messaggio custom).
 
-> **Note:** Loader visibility is managed internally by the loader service and HTTP interceptor, not by an input property.
+> **Nota:** La visibilità del loader è gestita internamente dal servizio loader e dall'interceptor HTTP, non tramite una proprietà di input.
 
-### Usage
+### Esempio d'uso
 
-1. **Import the Component**:
+1. **Importa il componente**:
    ```typescript
    import { QuangLoaderComponent } from 'quang/loader'
    ```
-2. **Add to Template**:
+2. **Aggiungi al template**:
    ```html
    <quang-loader></quang-loader>
    ```
-3. **Custom Content**:
+3. **Contenuto personalizzato**:
    ```html
    <quang-loader>
-     <div class="custom-spinner">Loading...</div>
+     <div class="custom-spinner">Caricamento...</div>
    </quang-loader>
    ```
 
 ## Loader Interceptor
 
-The `quangLoaderInterceptor` automatically shows and hides the loader during HTTP requests.
+Il `quangLoaderInterceptor` mostra e nasconde automaticamente il loader durante le richieste HTTP.
 
-### Usage
+### Esempio d'uso
 
-1. **Import the Interceptor**:
+1. **Importa l'interceptor**:
    ```typescript
    import { quangLoaderInterceptor } from 'quang/loader'
 
@@ -44,16 +44,16 @@ The `quangLoaderInterceptor` automatically shows and hides the loader during HTT
      { provide: HTTP_INTERCEPTORS, useClass: quangLoaderInterceptor, multi: true }
    ]
    ```
-2. **Configuration**:
-   Configure the interceptor as needed for your application.
+2. **Configurazione**:
+   Configura l'interceptor secondo le esigenze della tua applicazione.
 
 ## Loader Providers
 
-The `provideQuangLoaderExcludedUrls` function configures the loader globally. It allows you to customize the loader's behavior, including setting delays, custom templates, and excluding specific URLs from triggering the loader.
+La funzione `provideQuangLoaderExcludedUrls` configura il loader globalmente. Permette di personalizzare il comportamento del loader, inclusi ritardi, template custom e l'esclusione di specifiche URL dal trigger del loader.
 
-### Usage
+### Esempio d'uso
 
-1. **Import the Provider**:
+1. **Importa il provider**:
    ```typescript
    import { provideQuangLoaderExcludedUrls } from 'quang/loader';
 
@@ -65,11 +65,11 @@ The `provideQuangLoaderExcludedUrls` function configures the loader globally. It
    ];
    ```
 
-### Excluding URLs from the Loader
+### Escludere URL dal Loader
 
-To exclude specific URLs from triggering the loader, use the `provideQuangLoaderExcludedUrls` function. This function accepts an array of URL objects. Any HTTP request matching these URLs will not activate the loader.
+Per escludere specifiche URL dal trigger del loader, usa la funzione `provideQuangLoaderExcludedUrls`. Questa funzione accetta un array di oggetti URL. Qualsiasi richiesta HTTP che corrisponde a queste URL non attiverà il loader.
 
-Example:
+Esempio:
 
 ```typescript
 provideQuangLoaderExcludedUrls([
@@ -78,4 +78,4 @@ provideQuangLoaderExcludedUrls([
 ]);
 ```
 
-In this example, requests to `assets` and `/api/health` with the `GET` method will not show the loader, ensuring that static assets or health check endpoints do not interfere with the user experience.
+In questo esempio, le richieste a `assets` e `/api/health` con metodo `GET` non mostreranno il loader, assicurando che asset statici o endpoint di health check non interferiscano con l'esperienza utente.
