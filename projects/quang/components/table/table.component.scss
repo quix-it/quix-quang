@@ -12,18 +12,20 @@
   overflow: initial;
 
   .fake-table-header {
-    height: 0;
-    overflow: hidden;
-    line-height: 0;
-    visibility: collapse;
+    height: 0 !important;
+    overflow: hidden !important;
+    line-height: 0 !important;
+    visibility: collapse !important;
 
-    th {
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
+    * {
+      padding: 0 !important;
+      margin: 0 !important;
       background-color: var(--table-header-bg);
-      border: unset;
+      border: unset !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      line-height: 0 !important;
+      visibility: collapse !important;
     }
   }
 
