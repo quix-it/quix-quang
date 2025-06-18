@@ -100,9 +100,7 @@ export class QuangSelectComponent
         filter(([autoselect, options]) => autoselect === true && options.length === 1)
       )
       .subscribe(([_, options]) => {
-        console.log('ciaooooo ->', this._value())
         if (this._value() === null || this._value() === undefined || this._value() === '') {
-          console.log('options[0].value', options[0].value)
           this.onChangedHandler(options[0].value)
         }
       })
