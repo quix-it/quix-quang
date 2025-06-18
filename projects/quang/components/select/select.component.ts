@@ -10,9 +10,11 @@ import {
   signal,
   viewChild,
 } from '@angular/core'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { combineLatest, filter } from 'rxjs'
 
 import {
   OptionListParentType,
@@ -86,7 +88,25 @@ export class QuangSelectComponent
 
   nullOption = input<boolean>(true)
 
+  autoSelectSingleOption = input<boolean>(false)
+
   readonly ParentType = OptionListParentType.SELECT
+
+  constructor() {
+    super()
+    combineLatest([toObservable(this.autoSelectSingleOption), toObservable(this.selectOptions)])
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter(([autoselect, options]) => autoselect === true && options.length === 1)
+      )
+      .subscribe(([_, options]) => {
+        console.log('ciaooooo ->', this._value())
+        if (this._value() === null || this._value() === undefined || this._value() === '') {
+          console.log('options[0].value', options[0].value)
+          this.onChangedHandler(options[0].value)
+        }
+      })
+  }
 
   changeOptionsVisibility(skipTimeout = false): void {
     if (this.isReadonly()) return

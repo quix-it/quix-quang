@@ -48,101 +48,98 @@ export class SelectTestComponent {
 
   showValueAndValidity = signal<boolean>(false)
 
+  singleList: SelectOption[] = [
+    {
+      value: 'required',
+      label: 'This field is required.',
+    },
+  ]
+
   stringList: SelectOption[] = [
     {
-      code: 'required',
-      description: 'This field is required.',
+      value: 'required',
+      label: 'This field is required.',
     },
     {
-      code: 'minLength',
-      description: 'This field must be at least 10 characters long.',
+      value: 'minLength',
+      label: 'This field must be at least 10 characters long.',
     },
     {
-      code: 'maxLength',
-      description: 'This field must be at most 30 characters long.',
+      value: 'maxLength',
+      label: 'This field must be at most 30 characters long.',
     },
     {
-      code: 'pattern',
-      description: 'This field must match the following pattern: [a-zA-Z0-9]+',
+      value: 'pattern',
+      label: 'This field must match the following pattern: [a-zA-Z0-9]+',
     },
     {
-      code: 'email',
-      description: 'This field must be a valid email address.',
+      value: 'email',
+      label: 'This field must be a valid email address.',
     },
     {
-      code: 'min',
-      description: 'This field must be greater than or equal to 10.',
+      value: 'min',
+      label: 'This field must be greater than or equal to 10.',
     },
     {
-      code: 'max',
-      description: 'This field must be less than or equal to 30.',
+      value: 'max',
+      label: 'This field must be less than or equal to 30.',
     },
     {
-      code: 'unique',
-      description: 'This field must be unique.',
+      value: 'unique',
+      label: 'This field must be unique.',
     },
     {
-      code: 'custom',
-      description: 'This field does not meet the custom validation rule.',
+      value: 'custom',
+      label: 'This field does not meet the custom validation rule.',
     },
     {
-      code: 'async',
-      description: 'This field does not meet the async validation rule.',
+      value: 'async',
+      label: 'This field does not meet the async validation rule.',
     },
-  ].map(
-    (x): SelectOption => ({
-      label: x.description,
-      value: x.code,
-    })
-  )
+  ]
 
   numberList: SelectOption[] = [
     {
-      code: 1,
-      description: 'This field is required.',
+      value: 1,
+      label: 'This field is required.',
     },
     {
-      code: 2,
-      description: 'This field must be at least 10 characters long.',
+      value: 2,
+      label: 'This field must be at least 10 characters long.',
     },
     {
-      code: 3,
-      description: 'This field must be at most 30 characters long.',
+      value: 3,
+      label: 'This field must be at most 30 characters long.',
     },
     {
-      code: 4,
-      description: 'This field must match the following pattern: [a-zA-Z0-9]+',
+      value: 4,
+      label: 'This field must match the following pattern: [a-zA-Z0-9]+',
     },
     {
-      code: 5,
-      description: 'This field must be a valid email address.',
+      value: 5,
+      label: 'This field must be a valid email address.',
     },
     {
-      code: 6,
-      description: 'This field must be greater than or equal to 10.',
+      value: 6,
+      label: 'This field must be greater than or equal to 10.',
     },
     {
-      code: 7,
-      description: 'This field must be less than or equal to 30.',
+      value: 7,
+      label: 'This field must be less than or equal to 30.',
     },
     {
-      code: 8,
-      description: 'This field must be unique.',
+      value: 8,
+      label: 'This field must be unique.',
     },
     {
-      code: 9,
-      description: 'This field does not meet the custom validation rule.',
+      value: 9,
+      label: 'This field does not meet the custom validation rule.',
     },
     {
-      code: 10,
-      description: 'This field does not meet the async validation rule.',
+      value: 10,
+      label: 'This field does not meet the async validation rule.',
     },
-  ].map(
-    (x): SelectOption => ({
-      label: x.description,
-      value: x.code,
-    })
-  )
+  ]
 
   formBuilder = inject(NonNullableFormBuilder)
 
