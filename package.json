@@ -6,7 +6,7 @@
     "start:playground": "ng serve playground --open",
     "build:quang": "ng build --project quang",
     "prepare": "husky",
-    "build-publish": "npm run build:quang && cd dist/quang && npm publish",
+    "build-publish": "npm run build:quang && cd dist/quang && npm publish --tag prerelease",
     "build-publish:prerelease": "npm run build:quang && cd dist/quang && npm publish --tag prerelease",
     "sync-version": "jq '.version = \"'$npm_package_version'\"' projects/quang/package.json > temp.json && mv temp.json projects/quang/package.json",
     "version": "npm run sync-version && git add -A",
