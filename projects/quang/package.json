@@ -1,7 +1,7 @@
 {
   "name": "@quix/quang",
   "sideEffects": false,
-  "version": "17.1.9",
+  "version": "17.1.10",
   "dependencies": {
     "tslib": "^2.3.0"
   },
