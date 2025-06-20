@@ -9,8 +9,8 @@
   box-shadow: var(--box-shadow-bg);
   background: var(--bs-body-bg, #fff);
   border: var(--bs-popover-border-width) solid var(--bs-border-color, #000);
-  pointer-events: none;
   position: relative;
+  padding: 1rem;
   pointer-events: all;
 
   &.center-bottom {
