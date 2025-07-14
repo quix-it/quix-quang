@@ -17,7 +17,7 @@ The `QuangPaginatorComponent` provides controls for navigating through pages of 
 - `showTotalElementsCount`: `boolean` — Show/hide total items count. Default: `true`.
 - `totalItemsText`: `string` — Translation key for total items label. Default: `'quangPaginator.totalItems'`.
 - `sizeText`: `string` — Translation key for size label. Default: `'quangPaginator.size'`.
-- `pageRangeText`: `string` — Translation key for page range label. Default: `'quangPaginator.pageRange'`.
+- `pageRangeText`: `string` — Translation key for page range label. Default: `'quangPaginator.pageRange'`. If the translation is overwritten, it should contain `{{page}}` and `{{amountPages}}` placeholders to display the correct numeric values.
 - `componentId`, `componentTabIndex`, `componentClass`: Standard component inputs.
 
 ## Outputs
