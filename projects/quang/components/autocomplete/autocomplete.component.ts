@@ -97,11 +97,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     .pipe(takeUntilDestroyed())
     .subscribe(() => {
       const value = this._value()
-      console.log('selectOptionsChange', this.selectOptions())
       if (!this.multiple() && !this._inputValue()) {
         this.setInputValue()
       } else if (this.multiple() && Array.isArray(value) && value.length > 0) {
-        console.log('value', value)
         for (const valueElement of value) {
           this.onSelectValue(valueElement)
         }
