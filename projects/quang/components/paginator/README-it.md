@@ -17,7 +17,7 @@ Il `QuangPaginatorComponent` fornisce controlli per la navigazione tra pagine di
 - `showTotalElementsCount`: `boolean` — Mostra/nasconde il conteggio totale degli elementi. Default: `true`.
 - `totalItemsText`: `string` — Chiave di traduzione per l'etichetta degli elementi totali. Default: `'quangPaginator.totalItems'`.
 - `sizeText`: `string` — Chiave di traduzione per l'etichetta della dimensione. Default: `'quangPaginator.size'`.
-- `pageRangeText`: `string` — Chiave di traduzione per l'etichetta dell'intervallo di pagine. Default: `'quangPaginator.pageRange'`.
+- `pageRangeText`: `string` — Chiave di traduzione per l'etichetta dell'intervallo di pagine. Default: `'quangPaginator.pageRange'`. Se la traduzione viene sovrascritta, dovrebbe contenere i placeholder `{{page}}` e `{{amountPages}}` per visualizzare i valori numerici corretti.
 - `componentId`, `componentTabIndex`, `componentClass`: Input standard del componente.
 
 ## Output
