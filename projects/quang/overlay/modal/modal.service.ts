@@ -1,35 +1,19 @@
-import { ApplicationRef, ComponentRef, EnvironmentInjector, Injectable, Type, createComponent } from '@angular/core'
+import { ApplicationRef, EnvironmentInjector, Injectable, Type, createComponent, inject } from '@angular/core'
 
-import { ModalAnimationMode, QuangModalComponent } from './modal.component'
+import { QuangModalComponent } from './modal.component'
 
-export interface ModalOptions {
-  position: 'right' | 'left' | 'center'
-  height?: string
-  width?: string
-  padding?: string
-  containerClass?: string
-  animationMode?: ModalAnimationMode
-  backgroundColor?: string
-  showBackdrop?: boolean
-}
-
-interface ModalInstance {
-  id: string
-  modalRef: ComponentRef<QuangModalComponent>
-  contentRef: ComponentRef<unknown>
-}
+import { ModalInstance } from './models/ModalInstance'
+import { ModalOptions } from './models/ModalOptions'
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuangModalService {
+  private readonly environmentInjector = inject(EnvironmentInjector)
+  private readonly appRef = inject(ApplicationRef)
+
   private modalInstances: ModalInstance[] = []
   private idCounter = 0
-
-  constructor(
-    private environmentInjector: EnvironmentInjector,
-    private appRef: ApplicationRef
-  ) {}
 
   showModal(component: Type<unknown>, options: ModalOptions): string {
     const id = this.generateId()

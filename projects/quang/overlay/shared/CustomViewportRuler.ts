@@ -5,7 +5,6 @@ import { Inject, Injectable, NgZone, OnDestroy, Optional } from '@angular/core'
 
 import { Observable, Subject, auditTime } from 'rxjs'
 
-/* eslint-disable */
 /**
  * Class cloe of [ViewportRuler](https://github.com/angular/components/blob/master/src/cdk/scrolling/viewport-ruler.ts)
  * To fix the wrong reported size of the viewport on mobile devices with hidden url bars
