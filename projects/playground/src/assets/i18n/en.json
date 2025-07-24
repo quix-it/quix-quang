@@ -117,7 +117,8 @@
       "toast": "QuangToast",
       "popover": "QuangPopover",
       "tooltip": "QuangTooltip",
-      "modal": "QuangModal"
+      "modal": "QuangModal",
+      "modal.service": "QuangModalService"
     }
   },
   "menu": {
@@ -139,6 +140,7 @@
       "tooltip": "Tooltip",
       "popover": "Popover",
       "modal": "Modal",
+      "modalService": "Modal Service",
       "toast": "Toast"
     },
     "auth": "Auth",

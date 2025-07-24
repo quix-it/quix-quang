@@ -1,6 +1,7 @@
 import { Platform } from '@angular/cdk/platform'
 import { DEFAULT_RESIZE_TIME, ViewportScrollPosition } from '@angular/cdk/scrolling'
-import { DOCUMENT, Inject, Injectable, NgZone, OnDestroy, Optional } from '@angular/core'
+import { DOCUMENT } from '@angular/common'
+import { Inject, Injectable, NgZone, OnDestroy, Optional } from '@angular/core'
 
 import { Observable, Subject, auditTime } from 'rxjs'
 

@@ -68,6 +68,10 @@ export const menuList: MenuItem[] = [
         route: 'overlay/modal',
       },
       {
+        description: 'menu.overlay.modalService',
+        route: 'overlay/modal-service',
+      },
+      {
         description: 'menu.overlay.toast',
         route: 'overlay/toast',
       },

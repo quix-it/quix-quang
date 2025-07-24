@@ -15,6 +15,7 @@ import { ComponentDocumentationComponent } from '../../../shared/components/comp
 export class ModalTestPageComponent {
   protected ModalTestPageComponent = ModalTestPageComponent
   private readonly quangTranslationService = inject(QuangTranslationService)
+
   componentsReadmePath = computed(() =>
     this.quangTranslationService.activeLang() === 'en' ? './assets/docs/modal.md' : './assets/docs/modal.it.md'
   )

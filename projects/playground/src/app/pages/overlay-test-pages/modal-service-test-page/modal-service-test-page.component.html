@@ -1,0 +1,72 @@
+<h3>{{ 'quang.overlay.modal.service' | transloco }}</h3>
+
+<div class="row g-3 mb-3">
+  <div class="col-auto">
+    <button
+      (click)="openServiceModal('center')"
+      class="btn btn-primary"
+    >
+      Open Center Modal
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      (click)="openServiceModal('left')"
+      class="btn btn-primary"
+    >
+      Open Left Modal
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      (click)="openServiceModal('right')"
+      class="btn btn-primary"
+    >
+      Open Right Modal
+    </button>
+  </div>
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-auto">
+    <button
+      [disabled]="openModalIds().length === 0"
+      (click)="closeLastModal()"
+      class="btn btn-warning"
+    >
+      Close Last Modal
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      [disabled]="openModalIds().length === 0"
+      (click)="closeAllModals()"
+      class="btn btn-danger"
+    >
+      Close All Modals
+    </button>
+  </div>
+</div>
+
+@if (openModalIds().length > 0) {
+  <div class="alert alert-info">
+    <strong>Open Modals ({{ openModalIds().length }}):</strong>
+    <div class="mt-2">
+      @for (id of openModalIds(); track id) {
+        <button
+          (click)="closeModalById(id)"
+          class="btn btn-sm btn-outline-secondary me-2 mb-1"
+        >
+          Close {{ id }}
+        </button>
+      }
+    </div>
+  </div>
+}
+
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="ModalServiceTestPageComponent"
+    [customReadmePath]="componentsReadmePath()"
+  />
+</div>
