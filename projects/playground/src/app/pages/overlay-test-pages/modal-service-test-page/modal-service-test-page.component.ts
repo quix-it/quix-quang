@@ -1,8 +1,9 @@
-import { Component, computed, inject, signal } from '@angular/core'
+import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangModalService } from 'quang/overlay/modal'
 import { QuangTranslationService } from 'quang/translation'
+import { Subscription } from 'rxjs'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { TestModalContentComponent } from '../modal-test-page/test-modal-content.component'
@@ -13,10 +14,12 @@ import { TestModalContentComponent } from '../modal-test-page/test-modal-content
   templateUrl: './modal-service-test-page.component.html',
   styleUrl: './modal-service-test-page.component.scss',
 })
-export class ModalServiceTestPageComponent {
+export class ModalServiceTestPageComponent implements OnInit, OnDestroy {
   protected ModalServiceTestPageComponent = ModalServiceTestPageComponent
   private readonly quangTranslationService = inject(QuangTranslationService)
   private readonly modalService = inject(QuangModalService)
+
+  private modalClosedSubscription?: Subscription
 
   componentsReadmePath = computed(() =>
     this.quangTranslationService.activeLang() === 'en'
@@ -24,37 +27,64 @@ export class ModalServiceTestPageComponent {
       : './assets/docs/modal-service.it.md'
   )
 
-  // Store modal IDs for testing
+  // Store modal IDs for tracking multiple modals
   openModalIds = signal<string[]>([])
 
-  // Service modal tests
-  openServiceModal(position: 'left' | 'right' | 'center' = 'center'): void {
-    const modalId = this.modalService.showModal(TestModalContentComponent, {
-      position,
-      height: '60vh',
-      width: '50vw',
-      animationMode: 'FADE',
-      showBackdrop: true,
+  ngOnInit(): void {
+    // Subscribe to modal closed events
+    this.modalClosedSubscription = this.modalService.modalClosed$.subscribe((modalId) => {
+      this.removeModalFromList(modalId)
     })
+  }
 
-    this.openModalIds.update((ids) => [...ids, modalId])
+  ngOnDestroy(): void {
+    this.modalClosedSubscription?.unsubscribe()
+  }
+
+  // Service modal tests - supports multiple modals
+  openServiceModal(position: 'left' | 'right' | 'center' = 'center'): void {
+    const modalId = this.modalService.showModal(
+      TestModalContentComponent,
+      {
+        position,
+        height: '60vh',
+        width: '50vw',
+        animationMode: 'FADE',
+        showBackdrop: true,
+      },
+      {
+        // Pass callback to track modals opened from within modals
+        onModalCreated: (newModalId: string) => this.addModalToList(newModalId),
+      }
+    )
+
+    // Add the new modal ID to the list
+    this.addModalToList(modalId)
   }
 
   closeLastModal(): void {
     this.modalService.hideModal()
-    this.openModalIds.update((ids) => ids.slice(0, -1))
+    // Note: Modal will be removed from list automatically via modalClosed$ subscription
   }
 
   closeModalById(id: string): void {
     this.modalService.hideModal(id)
-    this.openModalIds.update((ids) => ids.filter((modalId) => modalId !== id))
+    // Note: Modal will be removed from list automatically via modalClosed$ subscription
   }
 
   closeAllModals(): void {
     // Close all modals by calling hideModal repeatedly
     while (this.openModalIds().length > 0) {
       this.modalService.hideModal()
-      this.openModalIds.update((ids) => ids.slice(0, -1))
+      // Note: Modals will be removed from list automatically via modalClosed$ subscription
     }
+  }
+
+  private addModalToList(modalId: string): void {
+    this.openModalIds.update((ids) => [...ids, modalId])
+  }
+
+  private removeModalFromList(modalId: string): void {
+    this.openModalIds.update((ids) => ids.filter((id) => id !== modalId))
   }
 }

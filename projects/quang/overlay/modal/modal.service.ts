@@ -1,5 +1,7 @@
 import { ApplicationRef, EnvironmentInjector, Injectable, Type, createComponent, inject } from '@angular/core'
 
+import { Subject } from 'rxjs'
+
 import { QuangModalComponent } from './modal.component'
 
 import { ModalInstance } from './models/ModalInstance'
@@ -15,13 +17,24 @@ export class QuangModalService {
   private modalInstances: ModalInstance[] = []
   private idCounter = 0
 
-  showModal(component: Type<unknown>, options: ModalOptions): string {
+  // Subject to emit when modals are closed
+  private modalClosedSubject = new Subject<string>()
+  public modalClosed$ = this.modalClosedSubject.asObservable()
+
+  showModal<T = unknown>(component: Type<T>, options: ModalOptions, componentInputs?: Record<string, unknown>): string {
     const id = this.generateId()
 
     // Create the content component instance first
     const contentRef = createComponent(component, {
       environmentInjector: this.environmentInjector,
     })
+
+    // Set component inputs if provided
+    if (componentInputs) {
+      Object.entries(componentInputs).forEach(([key, value]) => {
+        contentRef.setInput(key, value)
+      })
+    }
 
     // Create the modal component instance with content projected in body slot
     const modalRef = createComponent(QuangModalComponent, {
@@ -71,14 +84,19 @@ export class QuangModalService {
       // Find and remove modal by id
       const index = this.modalInstances.findIndex((instance) => instance.id === id)
       if (index !== -1) {
-        this.destroyModalInstance(this.modalInstances[index])
+        const modalToClose = this.modalInstances[index]
+        this.destroyModalInstance(modalToClose)
         this.modalInstances.splice(index, 1)
+        // Emit modal closed event
+        this.modalClosedSubject.next(id)
       }
     } else {
       // Remove last modal (LIFO - Last In First Out)
       const lastModal = this.modalInstances.pop()
       if (lastModal) {
         this.destroyModalInstance(lastModal)
+        // Emit modal closed event
+        this.modalClosedSubject.next(lastModal.id)
       }
     }
   }
