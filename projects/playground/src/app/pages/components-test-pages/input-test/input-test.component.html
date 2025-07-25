@@ -21,13 +21,22 @@
             [isReadonly]="isReadonly()"
             [maxNumber]="10"
             [minNumber]="0"
+            (showPassword)="onToggleShowPassword($event)"
             #testComponent
             componentLabel="form.label.input"
             formControlName="testInput"
             id="testComponent"
             playgroundSourceCode
             successMessage="form.label.success"
-          />
+          >
+            @if (inputType() === 'password') {
+              @if (showPassword()) {
+                <svg-icon src="assets/icons/svg/visibility_off.svg" />
+              } @else {
+                <svg-icon src="assets/icons/svg/visibility.svg" />
+              }
+            }
+          </quang-input>
         </div>
       }
       <div class="d-flex gap-3 mt-3">
