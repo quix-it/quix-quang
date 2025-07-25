@@ -1,37 +1,47 @@
 <div class="p-3">
-  <h4>Dynamic Modal Content</h4>
-  <p>This content was loaded dynamically using the QuangModalService!</p>
+  <h4>{{ 'quang.overlay.modalService.dynamicModalContent' | transloco }}</h4>
+  <p>{{ 'quang.overlay.modalService.contentDescription' | transloco }}</p>
   <div class="mb-2">
     <button
       (click)="closeFirstModal()"
       class="btn btn-primary"
       type="button"
     >
-      close first modal
+      {{ 'quang.overlay.modalService.closeLastModal' | transloco }}
     </button>
   </div>
 
   <div class="mb-2">
-    <strong>Open Additional Modals:</strong>
+    <strong>{{ 'quang.overlay.modalService.openAdditionalModals' | transloco }}</strong>
   </div>
   <div class="d-flex gap-2 flex-wrap">
     <button
       (click)="openAnotherModal('center')"
       class="btn btn-outline-primary btn-sm"
     >
-      + Center Modal
+      {{ 'quang.overlay.modalService.centerModal' | transloco }}
     </button>
     <button
       (click)="openAnotherModal('left')"
       class="btn btn-outline-primary btn-sm"
     >
-      + Left Modal
+      {{ 'quang.overlay.modalService.leftModal' | transloco }}
     </button>
     <button
       (click)="openAnotherModal('right')"
       class="btn btn-outline-primary btn-sm"
     >
-      + Right Modal
+      {{ 'quang.overlay.modalService.rightModal' | transloco }}
     </button>
   </div>
+
+  @if (modalCount() > 1) {
+    <div class="mt-2">
+      <small class="text-muted">
+        {{ 'quang.overlay.modalService.totalOpenModals' | transloco }} {{ modalCount() }}
+        <br />
+        {{ 'quang.overlay.modalService.modalIds' | transloco }} {{ openModalIds().join(', ') }}
+      </small>
+    </div>
+  }
 </div>

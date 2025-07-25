@@ -1,8 +1,8 @@
 <h3>{{ 'quang.overlay.modal.service' | transloco }}</h3>
 
 <div class="alert alert-info mb-3">
-  <strong>Multiple Modal Support:</strong> You can open multiple modals simultaneously. Test opening modals from inside
-  other modals!
+  <strong>{{ 'quang.overlay.modalService.multipleModalSupport' | transloco }}</strong>
+  {{ 'quang.overlay.modalService.supportDescription' | transloco }}
 </div>
 
 <div class="row g-3 mb-3">
@@ -11,7 +11,7 @@
       (click)="openServiceModal('center')"
       class="btn btn-primary"
     >
-      Open Center Modal
+      {{ 'quang.overlay.modalService.openCenterModal' | transloco }}
     </button>
   </div>
   <div class="col-auto">
@@ -19,7 +19,7 @@
       (click)="openServiceModal('left')"
       class="btn btn-primary"
     >
-      Open Left Modal
+      {{ 'quang.overlay.modalService.openLeftModal' | transloco }}
     </button>
   </div>
   <div class="col-auto">
@@ -27,14 +27,14 @@
       (click)="openServiceModal('right')"
       class="btn btn-primary"
     >
-      Open Right Modal
+      {{ 'quang.overlay.modalService.openRightModal' | transloco }}
     </button>
   </div>
 </div>
 
 @if (hasOpenModals()) {
   <div class="alert alert-success">
-    <strong>Open Modals ({{ modalCount() }}):</strong>
+    <strong>{{ 'quang.overlay.modalService.openModals' | transloco }} ({{ modalCount() }}):</strong>
     <div class="mt-2">
       @for (id of openModalIds(); track id) {
         <div class="btn btn-sm btn-outline-secondary me-2 mb-1">{{ id }}</div>

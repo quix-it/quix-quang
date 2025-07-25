@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core'
 
+import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangModalService } from 'quang/overlay/modal'
 
 import { TestModalContent2Component } from '../test-modal-content-2/test-modal-content-2.component'
 
 @Component({
   selector: 'playground-test-modal-content',
+  imports: [TranslocoPipe],
   templateUrl: './test-modal-content.component.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,14 +40,11 @@ export class TestModalContentComponent {
         height: '60vh',
         width: '45vw',
         animationMode: 'FADE',
-        showBackdrop: true,
+        showBackdrop: false,
       },
       {
         onModalCreated: this.onModalCreated(),
       }
     )
-
-    // The modal service now handles state automatically via signals
-    // No need to manually track modal IDs here
   }
 }

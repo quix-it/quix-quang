@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core'
 
+import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangModalService } from 'quang/overlay/modal'
 
 import { TestModalContentComponent } from '../test-modal-content/test-modal-content.component'
 
 @Component({
   selector: 'playground-test-modal-content-2',
+  imports: [TranslocoPipe],
   templateUrl: './test-modal-content-2.component.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,8 +35,6 @@ export class TestModalContent2Component {
         onModalCreated: this.onModalCreated(),
       }
     )
-
-    // The modal service now handles state automatically via signals
   }
 
   closeFirstModal(): void {

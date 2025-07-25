@@ -118,7 +118,27 @@
       "popover": "QuangPopover",
       "tooltip": "QuangTooltip",
       "modal": "QuangModal",
-      "modal.service": "QuangModalService"
+      "modal.service": "QuangModalService",
+      "modalService": {
+        "multipleModalSupport": "Supporto Modal Multipli:",
+        "supportDescription": "Puoi aprire più modal contemporaneamente. Prova ad aprire modal dall'interno di altri modal!",
+        "openCenterModal": "Apri Modal Centrale",
+        "openLeftModal": "Apri Modal Sinistro",
+        "openRightModal": "Apri Modal Destro",
+        "openModals": "Modal Aperti",
+        "dynamicModalContent": "Contenuto Modal Dinamico",
+        "contentDescription": "Questo contenuto è stato caricato dinamicamente usando QuangModalService!",
+        "counter": "Contatore",
+        "increment": "Incrementa",
+        "decrement": "Decrementa",
+        "openAdditionalModals": "Apri Modal Aggiuntivi:",
+        "centerModal": "+ Modal Centrale",
+        "leftModal": "+ Modal Sinistro",
+        "rightModal": "+ Modal Destro",
+        "closeLastModal": "Chiudi Ultimo Modal",
+        "totalOpenModals": "Totale modal aperti:",
+        "modalIds": "ID Modal:"
+      }
     }
   },
   "menu": {

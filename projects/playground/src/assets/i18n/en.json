@@ -118,7 +118,27 @@
       "popover": "QuangPopover",
       "tooltip": "QuangTooltip",
       "modal": "QuangModal",
-      "modal.service": "QuangModalService"
+      "modal.service": "QuangModalService",
+      "modalService": {
+        "multipleModalSupport": "Multiple Modal Support:",
+        "supportDescription": "You can open multiple modals simultaneously. Test opening modals from inside other modals!",
+        "openCenterModal": "Open Center Modal",
+        "openLeftModal": "Open Left Modal",
+        "openRightModal": "Open Right Modal",
+        "openModals": "Open Modals",
+        "dynamicModalContent": "Dynamic Modal Content",
+        "contentDescription": "This content was loaded dynamically using the QuangModalService!",
+        "counter": "Counter",
+        "increment": "Increment",
+        "decrement": "Decrement",
+        "openAdditionalModals": "Open Additional Modals:",
+        "centerModal": "+ Center Modal",
+        "leftModal": "+ Left Modal",
+        "rightModal": "+ Right Modal",
+        "closeLastModal": "Close Last Modal",
+        "totalOpenModals": "Total open modals:",
+        "modalIds": "Modal IDs:"
+      }
     }
   },
   "menu": {
