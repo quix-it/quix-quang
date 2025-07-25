@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, InjectionToken } from '@angular/core'
+import { ChangeDetectionStrategy, Component, InjectionToken, inject } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 
 import { QuangLoaderComponent } from 'quang/loader'
 import { QuangToastComponent } from 'quang/overlay/toast'
+
+import { ThemeService } from './shared/services/theme.service'
 
 import { MenuComponent } from './core/menu/menu.component'
 
@@ -16,4 +18,11 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+  private readonly themeService = inject(ThemeService)
+
+  constructor() {
+    const theme = localStorage.getItem('theme') || 'light'
+    this.themeService.changeTheme(theme as 'light' | 'dark')
+  }
+}
