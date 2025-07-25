@@ -135,7 +135,7 @@
         "centerModal": "+ Modal Centrale",
         "leftModal": "+ Modal Sinistro",
         "rightModal": "+ Modal Destro",
-        "closeLastModal": "Chiudi Ultimo Modal",
+        "closeFirstModal": "Chiudi Primo Modal",
         "totalOpenModals": "Totale modal aperti:",
         "modalIds": "ID Modal:"
       }
