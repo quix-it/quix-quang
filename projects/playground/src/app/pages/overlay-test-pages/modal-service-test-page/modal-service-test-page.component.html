@@ -32,38 +32,12 @@
   </div>
 </div>
 
-<div class="row g-3 mb-3">
-  <div class="col-auto">
-    <button
-      [disabled]="openModalIds().length === 0"
-      (click)="closeLastModal()"
-      class="btn btn-warning"
-    >
-      Close Last Modal
-    </button>
-  </div>
-  <div class="col-auto">
-    <button
-      [disabled]="openModalIds().length === 0"
-      (click)="closeAllModals()"
-      class="btn btn-danger"
-    >
-      Close All Modals
-    </button>
-  </div>
-</div>
-
-@if (openModalIds().length > 0) {
+@if (hasOpenModals()) {
   <div class="alert alert-success">
-    <strong>Open Modals ({{ openModalIds().length }}):</strong>
+    <strong>Open Modals ({{ modalCount() }}):</strong>
     <div class="mt-2">
       @for (id of openModalIds(); track id) {
-        <button
-          (click)="closeModalById(id)"
-          class="btn btn-sm btn-outline-secondary me-2 mb-1"
-        >
-          Close {{ id }}
-        </button>
+        <div class="btn btn-sm btn-outline-secondary me-2 mb-1">{{ id }}</div>
       }
     </div>
   </div>

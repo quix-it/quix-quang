@@ -1,4 +1,13 @@
-import { ApplicationRef, EnvironmentInjector, Injectable, Type, createComponent, inject } from '@angular/core'
+import {
+  ApplicationRef,
+  EnvironmentInjector,
+  Injectable,
+  Type,
+  computed,
+  createComponent,
+  inject,
+  signal,
+} from '@angular/core'
 
 import { Subject } from 'rxjs'
 
@@ -14,8 +23,13 @@ export class QuangModalService {
   private readonly environmentInjector = inject(EnvironmentInjector)
   private readonly appRef = inject(ApplicationRef)
 
-  private modalInstances: ModalInstance[] = []
-  private idCounter = 0
+  private modalInstances = signal<ModalInstance[]>([])
+  private idCounter = signal(0)
+
+  // Computed properties for easier access
+  public modalCount = computed(() => this.modalInstances().length)
+  public hasOpenModals = computed(() => this.modalInstances().length > 0)
+  public modalIds = computed(() => this.modalInstances().map((instance) => instance.id))
 
   // Subject to emit when modals are closed
   private modalClosedSubject = new Subject<string>()
@@ -74,7 +88,7 @@ export class QuangModalService {
       modalRef,
       contentRef,
     }
-    this.modalInstances.push(modalInstance)
+    this.modalInstances.update((instances) => [...instances, modalInstance])
 
     return id
   }
@@ -82,19 +96,22 @@ export class QuangModalService {
   hideModal(id?: string): void {
     if (id) {
       // Find and remove modal by id
-      const index = this.modalInstances.findIndex((instance) => instance.id === id)
+      const instances = this.modalInstances()
+      const index = instances.findIndex((instance: ModalInstance) => instance.id === id)
       if (index !== -1) {
-        const modalToClose = this.modalInstances[index]
+        const modalToClose = instances[index]
         this.destroyModalInstance(modalToClose)
-        this.modalInstances.splice(index, 1)
+        this.modalInstances.update((instances) => instances.filter((_, i) => i !== index))
         // Emit modal closed event
         this.modalClosedSubject.next(id)
       }
     } else {
       // Remove last modal (LIFO - Last In First Out)
-      const lastModal = this.modalInstances.pop()
+      const instances = this.modalInstances()
+      const lastModal = instances[instances.length - 1]
       if (lastModal) {
         this.destroyModalInstance(lastModal)
+        this.modalInstances.update((instances) => instances.slice(0, -1))
         // Emit modal closed event
         this.modalClosedSubject.next(lastModal.id)
       }
@@ -120,6 +137,7 @@ export class QuangModalService {
   }
 
   private generateId(): string {
-    return `modal-${++this.idCounter}-${Date.now()}`
+    this.idCounter.update((count) => count + 1)
+    return `modal-${this.idCounter()}-${Date.now()}`
   }
 }

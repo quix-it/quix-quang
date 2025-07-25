@@ -1,0 +1,56 @@
+<div class="p-3">
+  <h4>Dynamic Modal Content</h4>
+  <p>This content was loaded dynamically using the QuangModalService!</p>
+  <p>Counter: {{ counter() }}</p>
+
+  <div class="mb-3">
+    <button
+      (click)="increment()"
+      class="btn btn-primary me-2"
+    >
+      Increment
+    </button>
+    <button
+      (click)="decrement()"
+      class="btn btn-secondary"
+    >
+      Decrement
+    </button>
+  </div>
+
+  <hr />
+
+  <div class="mb-2">
+    <strong>Open Additional Modals:</strong>
+  </div>
+  <div class="d-flex gap-2 flex-wrap">
+    <button
+      (click)="openAnotherModal('center')"
+      class="btn btn-outline-primary btn-sm"
+    >
+      + Center Modal
+    </button>
+    <button
+      (click)="openAnotherModal('left')"
+      class="btn btn-outline-primary btn-sm"
+    >
+      + Left Modal
+    </button>
+    <button
+      (click)="openAnotherModal('right')"
+      class="btn btn-outline-primary btn-sm"
+    >
+      + Right Modal
+    </button>
+  </div>
+
+  @if (modalCount() > 1) {
+    <div class="mt-2">
+      <small class="text-muted">
+        Total open modals: {{ modalCount() }}
+        <br />
+        Modal IDs: {{ openModalIds().join(', ') }}
+      </small>
+    </div>
+  }
+</div>
