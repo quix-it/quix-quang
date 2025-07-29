@@ -3,7 +3,39 @@
 :host {
   display: block;
 }
-
 .no-resize {
   resize: none;
+}
+
+.btn-outline-password {
+  border-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  min-width: unset;
+  display: flex;
+  border-color: var(--bs-border-color);
+}
+
+.input-container {
+  display: flex;
+}
+
+input {
+  flex: 1;
+
+  &.with-button-password {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  &:disabled {
+    border-radius: var(--bs-border-radius);
+  }
+}
+
+.border-danger {
+  border-color: var(--bs-form-invalid-border-color);
+}
+
+.border-success {
+  border-color: var(--bs-form-valid-border-color);
 }
