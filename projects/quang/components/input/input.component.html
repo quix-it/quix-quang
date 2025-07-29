@@ -1,13 +1,14 @@
 @if (componentType()) {
   <div class="mb-3">
-    <label
-      [htmlFor]="componentId()"
-      *ngIf="componentLabel()"
-      class="form-label"
-    >
-      {{ componentLabel() | transloco }}
-      <span [hidden]="!_isRequired()">*</span>
-    </label>
+    @if (componentLabel()) {
+      <label
+        [htmlFor]="componentId()"
+        class="form-label"
+      >
+        {{ componentLabel() | transloco }}
+        <span [hidden]="!_isRequired()">*</span>
+      </label>
+    }
     @if (componentType() !== 'textarea') {
       <div class="input-container">
         <input

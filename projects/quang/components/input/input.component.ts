@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, forwardRef, input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, forwardRef, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
