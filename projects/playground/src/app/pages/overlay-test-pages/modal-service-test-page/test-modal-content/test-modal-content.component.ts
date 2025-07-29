@@ -40,7 +40,7 @@ export class TestModalContentComponent {
         height: '60vh',
         width: '45vw',
         animationMode: 'FADE',
-        showBackdrop: false,
+        showBackdrop: true,
       },
       {
         onModalCreated: this.onModalCreated(),

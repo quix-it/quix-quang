@@ -17,7 +17,7 @@ export class ModalTestPageComponent {
   private readonly quangTranslationService = inject(QuangTranslationService)
 
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/modal.md' : './assets/docs/modal.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/modal.md' : './assets/docs/modal-it.md'
   )
   showModal = signal<boolean>(false)
   content = signal<string>('content')

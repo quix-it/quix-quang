@@ -30,7 +30,7 @@ export class ToastTestPageComponent {
 
   // Path to the components README.md file
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/toast.md' : './assets/docs/toast.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/toast.md' : './assets/docs/toast-it.md'
   )
 
   openToast(type: 'success' | 'warning' | 'error', customIcon?: boolean): void {

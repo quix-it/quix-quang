@@ -46,7 +46,7 @@ export class InputTestComponent {
 
   // Path to the components README.md file
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/input.md' : './assets/docs/input.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/input.md' : './assets/docs/input-it.md'
   )
 
   inputTypesList: InputType[] = ['number', 'url', 'tel', 'color', 'email', 'password', 'search', 'text', 'textarea']

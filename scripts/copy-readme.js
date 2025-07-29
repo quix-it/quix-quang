@@ -34,15 +34,14 @@ function findSpecificReadmeFiles(dir) {
       // Recursively search subdirectories
       results = results.concat(findSpecificReadmeFiles(filePath))
     } else if (
-      file.toLowerCase() === 'readme.md' &&
-      !filePath.includes('components/README.md') &&
-      !filePath.includes('overlay/README.md')
+      file.toLowerCase().includes('readme')
     ) {
       // Found a specific README.md file, include its path and parent directory name
       const parentDir = path.basename(path.dirname(filePath))
       results.push({
         path: filePath,
         parentDir: parentDir,
+        fileName: file.replace('.md',''),
       })
     }
   }
@@ -61,37 +60,9 @@ function copySpecificReadmeFiles() {
 
   // Copy each README file with a new name based on its parent directory
   readmeFiles.forEach((file) => {
-    const destFileName = `${file.parentDir}.md`
+    const destFileName = `${file.parentDir + file.fileName.replace('README', '')}.md`
     const destPath = path.join(DEST_DIR, destFileName)
 
-    try {
-      fs.copyFileSync(file.path, destPath)
-      console.log(`Copied: ${file.path} -> ${destPath}`)
-    } catch (err) {
-      console.error(`Error copying ${file.path}: ${err.message}`)
-    }
-  })
-
-  // Also copy any README files with '-it' in their name (e.g., README-it.md)
-  const walkDir = (dir) => {
-    let results = []
-    const files = fs.readdirSync(dir)
-    for (const file of files) {
-      const filePath = path.join(dir, file)
-      const stat = fs.statSync(filePath)
-      if (stat.isDirectory()) {
-        results = results.concat(walkDir(filePath))
-      } else if (/readme.*.it\.md$/i.test(file)) {
-        const parentDir = path.basename(path.dirname(filePath))
-        results.push({ path: filePath, parentDir })
-      }
-    }
-    return results
-  }
-  const itReadmes = walkDir(QUANG_DIR)
-  itReadmes.forEach((file) => {
-    const destFileName = `${file.parentDir}.it.md`
-    const destPath = path.join(DEST_DIR, destFileName)
     try {
       fs.copyFileSync(file.path, destPath)
       console.log(`Copied: ${file.path} -> ${destPath}`)
@@ -103,8 +74,8 @@ function copySpecificReadmeFiles() {
   // Explicitly copy the root README.md from /quang/
   const rootReadmePath = path.join(QUANG_DIR, 'README.md')
   const destRootReadmePath = path.join(DEST_DIR, 'root-readme.md')
-  const rootReadmeItPath = path.join(QUANG_DIR, 'README.it.md')
-  const destRootReadmeItPath = path.join(DEST_DIR, 'root-readme.it.md')
+  const rootReadmeItPath = path.join(QUANG_DIR, 'README-it.md')
+  const destRootReadmeItPath = path.join(DEST_DIR, 'root-readme-it.md')
 
   try {
     fs.copyFileSync(rootReadmePath, destRootReadmePath)
@@ -126,7 +97,7 @@ function copySpecificReadmeFiles() {
     console.error(`Error copying root README.md: ${err.message}`)
   }
 
-  // Copy the Italian root README-it.md as root-readme.it.md
+  // Copy the Italian root README-it.md as root-readme-it.md
   try {
     fs.copyFileSync(rootReadmeItPath, destRootReadmeItPath)
     console.log(`Copied root README-it.md: ${rootReadmeItPath} -> ${destRootReadmeItPath}`)

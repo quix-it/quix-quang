@@ -21,7 +21,7 @@ export class ModalServiceTestPageComponent {
   componentsReadmePath = computed(() =>
     this.quangTranslationService.activeLang() === 'en'
       ? './assets/docs/modal-service.md'
-      : './assets/docs/modal-service.it.md'
+      : './assets/docs/modal-service-it.md'
   )
 
   // Use signals from the modal service instead of local state
