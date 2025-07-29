@@ -41,7 +41,7 @@ export class SelectTestComponent {
   })
 
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/select.md' : './assets/docs/select.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/select.md' : './assets/docs/select-it.md'
   )
 
   isReadonly = signal<boolean>(false)

@@ -1,10 +1,10 @@
 import { Platform } from '@angular/cdk/platform'
 import { DEFAULT_RESIZE_TIME, ViewportScrollPosition } from '@angular/cdk/scrolling'
-import { DOCUMENT, Inject, Injectable, NgZone, OnDestroy, Optional } from '@angular/core'
+import { DOCUMENT } from '@angular/common'
+import { Injectable, NgZone, OnDestroy, inject } from '@angular/core'
 
 import { Observable, Subject, auditTime } from 'rxjs'
 
-/* eslint-disable */
 /**
  * Class cloe of [ViewportRuler](https://github.com/angular/components/blob/master/src/cdk/scrolling/viewport-ruler.ts)
  * To fix the wrong reported size of the viewport on mobile devices with hidden url bars
@@ -25,21 +25,19 @@ import { Observable, Subject, auditTime } from 'rxjs'
 @Injectable({ providedIn: 'root' })
 export class CustomViewportRuler implements OnDestroy {
   /** Used to reference correct document/window */
-  protected _document: Document
+  // protected _document: Document
   /** Cached viewport dimensions. */
   private _viewportSize: { width: number; height: number } | null = null
   /** Stream of viewport change events. */
   private readonly _change = new Subject<Event>()
 
-  constructor(
-    private _platform: Platform,
-    ngZone: NgZone,
-    @Optional() @Inject(DOCUMENT) document: any
-  ) {
-    this._document = document
+  private readonly _platform = inject(Platform)
+  private readonly ngZone = inject(NgZone)
+  private readonly _document = inject(DOCUMENT, { optional: true }) || document
 
-    ngZone.runOutsideAngular(() => {
-      if (_platform.isBrowser) {
+  constructor() {
+    this.ngZone.runOutsideAngular(() => {
+      if (this._platform.isBrowser) {
         const window = this._getWindow()
 
         // Note that bind the events ourselves, rather than going through something like RxJS's

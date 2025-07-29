@@ -31,7 +31,7 @@ export class AutocompleteTestComponent {
   componentsReadmePath = computed(() =>
     this.quangTranslationService.activeLang() === 'en'
       ? './assets/docs/autocomplete.md'
-      : './assets/docs/autocomplete.it.md'
+      : './assets/docs/autocomplete-it.md'
   )
 
   // Expose QuangAutocompleteComponent for use in the template

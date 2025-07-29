@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router'
 
+import { ModalServiceTestPageComponent } from './modal-service-test-page/modal-service-test-page.component'
+
 import { ModalTestPageComponent } from './modal-test-page/modal-test-page.component'
 import { PopoverTestPageComponent } from './popover-test-page/popover-test-page.component'
 import { ToastTestPageComponent } from './toast-test-page/toast-test-page.component'
@@ -17,6 +19,10 @@ const routes: Routes = [
   {
     path: 'modal',
     component: ModalTestPageComponent,
+  },
+  {
+    path: 'modal-service',
+    component: ModalServiceTestPageComponent,
   },
   {
     path: 'toast',
