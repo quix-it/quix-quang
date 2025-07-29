@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common'
-import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, forwardRef, input } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
@@ -42,6 +42,18 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
 
   resizable = input(true)
 
+  buttonClass = input<string>('')
+
+  showHidePasswordButton = input(true)
+
+  showPassword = output<boolean>()
+
+  private onShowPassword = signal<boolean>(false)
+
+  componentInputType = computed<InputType>(() =>
+    this.componentType() === 'password' && this.onShowPassword() ? 'text' : this.componentType()
+  )
+
   constructor() {
     super()
     toObservable(this.componentType)
@@ -49,5 +61,10 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
       .subscribe(() => {
         this.setupFormControl()
       })
+  }
+
+  onTogglePasswordVisibility(): void {
+    this.onShowPassword.update((current) => !current)
+    this.showPassword.emit(this.onShowPassword())
   }
 }
