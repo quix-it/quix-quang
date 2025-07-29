@@ -1,63 +1,73 @@
 # QuangCheckboxComponent
 
-The `QuangCheckboxComponent` can be used as a standard checkbox or as a toggle switch by setting the `checkType` input.
-
-## Features
-
-- Standard checkbox functionality
-- Toggle switch mode
-- Configurable label position
-- Validation feedback (success and error messages)
+The `QuangCheckboxComponent` is a versatile checkbox and toggle switch component that provides flexible label positioning, comprehensive validation feedback, and seamless integration with Angular forms. It supports both traditional checkbox and modern toggle switch modes with extensive customization options.
 
 ## Inputs
 
-- `checkType`: `'checkbox' | 'toggle'` — Specifies the type of the component. **(Required)**
-- `labelPosition`: `'top' | 'left' | 'right' | 'bottom'` — Position of the label. Default: `'top'`.
-- `removeMargin`: `boolean` — Removes the default margin. Default: `false`.
-- All standard form/label/validation-related inputs inherited from `QuangBaseComponent`:
-  - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
+- `checkType`: `'checkbox' | 'toggle'` — Specifies the input type. Checkbox renders as traditional checkmark input, toggle renders as modern switch control. **(Required)**
+- `labelPosition`: `'top' | 'left' | 'right' | 'bottom'` — Position of the label relative to the input control. Affects layout direction and spacing. Default: `'top'`
+- `removeMargin`: `boolean` — Removes default bottom margin and form-check class. Useful for custom layouts or tight spacing requirements. Default: `false`
+- `isReadonly`: `boolean` — Set component to read-only mode. Inherited from `QuangBaseComponent`
+- `componentLabel`: `string` — Label text for the component. Inherited from `QuangBaseComponent`
+- `componentPlaceholder`: `string` — Placeholder text for the input. Inherited from `QuangBaseComponent`
+- `componentTabIndex`: `number` — Tab index for accessibility. Inherited from `QuangBaseComponent`
+- `componentClass`: `string | string[]` — Additional CSS classes. Inherited from `QuangBaseComponent`
+- `errorMap`: `{[key: string]: string}` — Custom error messages. Inherited from `QuangBaseComponent`
+- `successMessage`: `string` — Success message to display. Inherited from `QuangBaseComponent`
+- `helpMessage`: `string` — Help text for the component. Inherited from `QuangBaseComponent`
+- `formControl`: `FormControl` — Form control for reactive forms. Inherited from `QuangBaseComponent`
 
 ## Outputs
 
-- `changedHandler`: Emits the updated value when the checkbox state changes.
-- All standard outputs inherited from `QuangBaseComponent`:
-  - `componentBlur`
+- `changedHandler`: `EventEmitter<boolean>` — Emitted when checkbox state changes. Provides the new boolean value (true for checked, false for unchecked)
+- `componentBlur`: `EventEmitter<void>` — Emitted when component loses focus. Inherited from `QuangBaseComponent`
 
 ## Usage
 
+### Basic Checkbox
+
 ```html
 <quang-checkbox
-  [errorMap]="errors()"
-  [isReadonly]="isReadonly()"
   checkType="checkbox"
-  class="col-3"
-  componentLabel="form.label.toggle"
-  formControlName="toggle"
-  labelPosition="top"
-  successMessage="form.label.success"
-/>
-<quang-checkbox
-  [errorMap]="errors()"
-  [isReadonly]="isReadonly()"
-  checkType="toggle"
-  class="col-6"
-  componentLabel="form.label.checkbox"
-  formControlName="checkbox"
-  labelPosition="left"
-  successMessage="form.label.success"
-/>
+  componentLabel="form.label.agreeToTerms"
+  formControlName="agreeToTerms"
+>
+</quang-checkbox>
 ```
 
-## Styling
+### Toggle Switch
 
-The component supports the following CSS classes for customization:
+```html
+<quang-checkbox
+  checkType="toggle"
+  componentLabel="form.label.enableNotifications"
+  labelPosition="left"
+  formControlName="notifications"
+>
+</quang-checkbox>
+```
 
-- `.label-top`: Positions the label above the checkbox.
-- `.label-bottom`: Positions the label below the checkbox.
-- `.label-left`: Positions the label to the left of the checkbox.
-- `.label-right`: Positions the label to the right of the checkbox.
-- `.toggle-wrapper`: Styles the component as a toggle switch.
+#### TypeScript Example
 
-## Notes
+```typescript
+export class MyComponent {
+  form = this.fb.group({
+    agreeToTerms: [false, Validators.requiredTrue],
+    enableNotifications: [true]
+  })
 
-This component extends the `QuangBaseComponent` and inherits its features, such as label, error messages, and success messages.
+  onToggleChange(isChecked: boolean): void {
+    console.log('Checkbox state changed:', isChecked)
+    // Handle state change
+  }
+}
+```
+
+### Translation Integration
+
+The component uses QuangTranslationService for all text content:
+
+- **Automatic Translation**: All labels, help text, and error messages are automatically translated
+- **Key Support**: Use translation keys for all text content
+- **Fallback Handling**: Provides graceful fallback when translations are unavailable
+- **Dynamic Language**: Responds to language changes without component reload
