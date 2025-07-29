@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
@@ -24,6 +25,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
     QuangSelectComponent,
     ComponentDocumentationComponent,
     SourceCodeDirective,
+    AngularSvgIconModule,
   ],
   templateUrl: './input-test.component.html',
   styleUrl: './input-test.component.scss',
@@ -102,6 +104,11 @@ export class InputTestComponent {
   })
 
   showInput = signal(true)
+  showPassword = signal(false)
+
+  onToggleShowPassword(event: boolean): void {
+    this.showPassword.set(event)
+  }
 
   changeFormEnabled() {
     if (this.testForm.enabled) this.testForm.disable()

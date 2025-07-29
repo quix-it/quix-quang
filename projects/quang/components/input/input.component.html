@@ -10,28 +10,45 @@
       </label>
     }
     @if (componentType() !== 'textarea') {
-      <input
-        [attr.maxLength]="maxLengthText()"
-        [attr.minLength]="minLengthText()"
-        [attr.required]="getIsRequiredControl()"
-        [class.is-invalid]="_showErrors()"
-        [class.is-valid]="_showSuccess()"
-        [disabled]="_isDisabled()"
-        [id]="componentId()"
-        [max]="maxNumber()"
-        [min]="minNumber()"
-        [ngClass]="componentClass()"
-        [placeholder]="componentPlaceholder() | transloco"
-        [readOnly]="isReadonly()"
-        [step]="componentStep()"
-        [tabIndex]="componentTabIndex()"
-        [type]="componentType()"
-        [value]="_value()"
-        (blur)="onBlurHandler()"
-        (input)="onChangedEventHandler($event)"
-        autocomplete="off"
-        class="form-control"
-      />
+      <div class="input-container">
+        <input
+          [attr.maxLength]="maxLengthText()"
+          [attr.minLength]="minLengthText()"
+          [attr.required]="getIsRequiredControl()"
+          [class.is-invalid]="_showErrors()"
+          [class.is-valid]="_showSuccess()"
+          [class.with-button-password]="showHidePasswordButton()"
+          [disabled]="_isDisabled()"
+          [id]="componentId()"
+          [max]="maxNumber()"
+          [min]="minNumber()"
+          [ngClass]="componentClass()"
+          [placeholder]="componentPlaceholder() | transloco"
+          [readOnly]="isReadonly()"
+          [step]="componentStep()"
+          [tabIndex]="componentTabIndex()"
+          [type]="componentInputType()"
+          [value]="_value()"
+          (blur)="onBlurHandler()"
+          (input)="onChangedEventHandler($event)"
+          autocomplete="off"
+          class="form-control"
+        />
+        @if (componentType() === 'password' && showHidePasswordButton()) {
+          <button
+            [class.border-danger]="_showErrors()"
+            [class.border-success]="_showSuccess()"
+            [ngClass]="buttonClass()"
+            (click)="_ngControl()?.disabled ? null : onTogglePasswordVisibility()"
+            #calendarButton
+            aria-label="calendar-button"
+            class="btn btn-outline-secondary btn-outline-password"
+            type="button"
+          >
+            <ng-content></ng-content>
+          </button>
+        }
+      </div>
     }
     @if (componentType() === 'textarea') {
       <textarea
