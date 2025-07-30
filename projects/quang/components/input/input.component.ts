@@ -1,5 +1,5 @@
 import { NgClass, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, forwardRef, input, output, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
@@ -46,12 +46,10 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
 
   showHidePasswordButton = input(true)
 
-  showPassword = output<boolean>()
-
-  private onShowPassword = signal<boolean>(false)
+  showPassword = signal<boolean>(false)
 
   componentInputType = computed<InputType>(() =>
-    this.componentType() === 'password' && this.onShowPassword() ? 'text' : this.componentType()
+    this.componentType() === 'password' && this.showPassword() ? 'text' : this.componentType()
   )
 
   constructor() {
@@ -64,7 +62,6 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
   }
 
   onTogglePasswordVisibility(): void {
-    this.onShowPassword.update((current) => !current)
-    this.showPassword.emit(this.onShowPassword())
+    this.showPassword.update((current) => !current)
   }
 }

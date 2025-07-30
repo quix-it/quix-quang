@@ -35,7 +35,9 @@ The component supports the following input types, each with specific behaviors a
 #### Password (`componentType="password"`)
 
 - **Toggle visibility**: Built-in show/hide password functionality
-- **Icon support**: Custom icons through content projection
+- **Icon support**: Uses content projection through slots for customizing the show/hide icons
+  - `[show-password]` slot: Content to display when password is hidden (show password icon)
+  - `[hide-password]` slot: Content to display when password is visible (hide password icon)
 - **Security**: Masks input by default, reveals on toggle
 
 #### Number (`componentType="number"`)
@@ -121,11 +123,9 @@ The component supports the following input types, each with specific behaviors a
   componentType="password"
   formControlName="password"
 >
-  @if (showPassword()) {
-  <svg-icon src="assets/icons/svg/visibility_off.svg" />
-  } @else {
-  <svg-icon src="assets/icons/svg/visibility.svg" />
-  }
+  <!-- Content for the show/hide password button -->
+  <svg-icon src="assets/icons/svg/visibility.svg" show-password />
+  <svg-icon src="assets/icons/svg/visibility_off.svg" hide-password />
 </quang-input>
 ```
 

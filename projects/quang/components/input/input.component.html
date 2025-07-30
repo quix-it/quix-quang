@@ -46,7 +46,11 @@
           class="btn btn-outline-secondary btn-outline-password"
           type="button"
         >
-          <ng-content></ng-content>
+          @if (showPassword()) {
+            <ng-content select="[hide-password]"></ng-content>
+          } @else {
+            <ng-content select="[show-password]"></ng-content>
+          }
         </button>
       }
     </div>
