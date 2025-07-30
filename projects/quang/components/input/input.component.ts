@@ -44,7 +44,7 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
 
   buttonClass = input<string>('')
 
-  showHidePasswordButton = input(true)
+  showHidePasswordButton = input(false)
 
   showPassword = signal<boolean>(false)
 
