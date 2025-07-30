@@ -3,40 +3,35 @@
   [ngClass]="componentClass()"
   class="paginatorContainer"
 >
-  <div
-    *ngIf="showTotalElementsCount()"
-    class="me-3 pagination-label"
-  >
-    {{ totalItemsText() | transloco }} {{ totalItems() }}
-  </div>
-  <div
-    *ngIf="sizeList().length > 0"
-    class="me-3"
-  >
-    <label
-      class="form-label pagination-label mb-0 text-center"
-      for="pageSize"
-    >
-      {{ sizeText() | transloco }}
-    </label>
-    <select
-      [id]="componentId() + '-quang-page-size'"
-      [tabIndex]="componentTabIndex()"
-      (change)="onChangeSize($event)"
-      #input
-      autocomplete="off"
-      class="form-select page-size"
-      id="pageSize"
-      name="pageSize"
-    >
-      <option
-        [selected]="pageSize === this._pageSize()"
-        *ngFor="let pageSize of sizeList()"
+  @if (showTotalElementsCount()) {
+    <div class="me-3 pagination-label">{{ totalItemsText() | transloco }} {{ totalItems() }}</div>
+  }
+  @if (sizeList().length > 0) {
+    <div class="me-3">
+      <label
+        class="form-label pagination-label mb-0 text-center"
+        for="pageSize"
       >
-        {{ pageSize }}
-      </option>
-    </select>
-  </div>
+        {{ sizeText() | transloco }}
+      </label>
+      <select
+        [id]="componentId() + '-quang-page-size'"
+        [tabIndex]="componentTabIndex()"
+        (change)="onChangeSize($event)"
+        #input
+        autocomplete="off"
+        class="form-select page-size"
+        id="pageSize"
+        name="pageSize"
+      >
+        @for (pageSize of sizeList(); track pageSize) {
+          <option [selected]="pageSize === this._pageSize()">
+            {{ pageSize }}
+          </option>
+        }
+      </select>
+    </div>
+  }
   <div class="pagination-label text-center">
     {{ pageRangeText() | transloco: { page: page(), amountPages: _totalPages() } }}
   </div>

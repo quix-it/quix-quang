@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf } from '@angular/common'
+import { NgClass } from '@angular/common'
 import { ChangeDetectionStrategy, Component, OnInit, computed, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
@@ -8,7 +8,7 @@ import { makeId } from 'quang/components/shared'
 
 @Component({
   selector: 'quang-paginator',
-  imports: [TranslocoPipe, NgIf, NgFor, NgClass],
+  imports: [TranslocoPipe, NgClass],
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

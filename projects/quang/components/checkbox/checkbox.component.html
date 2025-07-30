@@ -8,15 +8,16 @@
   [class.toggle-wrapper]="checkType() === 'toggle'"
   [ngClass]="{ 'mb-3': !removeMargin(), 'form-check': !removeMargin() }"
 >
-  <label
-    [htmlFor]="componentId()"
-    [ngClass]="{ 'cursor-pointer': !_isDisabled() }"
-    *ngIf="componentLabel()"
-    class="form-label"
-  >
-    {{ componentLabel() | transloco }}
-    <span [hidden]="!_isRequired()">*</span>
-  </label>
+  @if (componentLabel()) {
+    <label
+      [htmlFor]="componentId()"
+      [ngClass]="{ 'cursor-pointer': !_isDisabled() }"
+      class="form-label"
+    >
+      {{ componentLabel() | transloco }}
+      <span [hidden]="!_isRequired()">*</span>
+    </label>
+  }
   <input
     [attr.required]="getIsRequiredControl()"
     [attr.role]="checkType() === 'checkbox' ? 'checkbox' : 'switch'"
@@ -41,12 +42,13 @@
   <div class="invalid-feedback">
     {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
   </div>
-  <small
-    [hidden]="_showSuccess() || _showErrors()"
-    *ngIf="helpMessage()"
-    aria-live="assertive"
-    class="form-text text-muted"
-  >
-    {{ helpMessage() | transloco }}
-  </small>
+  @if (helpMessage()) {
+    <small
+      [hidden]="_showSuccess() || _showErrors()"
+      aria-live="assertive"
+      class="form-text text-muted"
+    >
+      {{ helpMessage() | transloco }}
+    </small>
+  }
 </div>
