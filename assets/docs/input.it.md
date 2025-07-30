@@ -35,7 +35,9 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 #### Password (`componentType="password"`)
 
 - **Visibilità a levetta**: funzionalità integrata di mostra/nascondi password
-- **Supporto icone**: icone personalizzate tramite proiezione del contenuto
+- **Supporto icone**: utilizza la proiezione di contenuto tramite slot per personalizzare le icone mostra/nascondi
+  - Slot `[show-password]`: Contenuto da visualizzare quando la password è nascosta (icona mostra password)
+  - Slot `[hide-password]`: Contenuto da visualizzare quando la password è visibile (icona nascondi password)
 - **Sicurezza**: maschera l'input per impostazione predefinita, rivela all'attivazione
 
 #### Number (`componentType="number"`)
@@ -101,15 +103,18 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 
 ### Input di testo di base
 
-````html
+```html
 <quang-input
   [errorMap]="errors()"
   componentLabel="form.label.input"
   componentType="text"
   formControlName="testInput"
 />
+```
 
-### Password Input with Toggle ```html
+### Input Password con pulsante mostra/nascondi
+
+```html
 <quang-input
   [errorMap]="errors()"
   [showHidePasswordButton]="true"
@@ -118,15 +123,13 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
   componentType="password"
   formControlName="password"
 >
-  @if (showPassword()) {
-  <svg-icon src="assets/icons/svg/visibility_off.svg" />
-  } @else {
-  <svg-icon src="assets/icons/svg/visibility.svg" />
-  }
+  <!-- Contenuto per il pulsante mostra/nascondi password -->
+  <svg-icon src="assets/icons/svg/visibility.svg" show-password />
+  <svg-icon src="assets/icons/svg/visibility_off.svg" hide-password />
 </quang-input>
-````
+```
 
-#### TypeScript Example
+#### Esempio TypeScript
 
 ```typescript
 export class MyComponent {
@@ -142,7 +145,7 @@ export class MyComponent {
 }
 ```
 
-### Number Input with Constraints
+### Input numerico con vincoli
 
 ```html
 <quang-input
