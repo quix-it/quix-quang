@@ -294,7 +294,11 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   }
 
   setupInputStringToDate(value: string) {
-    let targetDate = parse(value, this.valueFormat(), new Date())
+    let targetValueFormat = this.valueFormat()
+    if (value.length !== targetValueFormat.length) {
+      targetValueFormat = targetValueFormat.replace('yyyy', 'yy')
+    }
+    let targetDate = parse(value, targetValueFormat, new Date())
     if (!this.showTimepicker()) {
       targetDate = this.dateToUtc(targetDate)
     }
@@ -345,18 +349,18 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       const [dateFrom, dateTo] = valueInput.split(this.multipleDatesSeparator())
       value.dateFrom = dateFrom ?? ''
       value.dateTo = dateTo ?? ''
-      if (!value.dateFrom || !isMatch(value.dateFrom, this.valueFormat())) {
+      if (!value.dateFrom || !this.checkDateMatch(value.dateFrom)) {
         value.dateFrom = null
       } else {
         value.dateFrom = this.setupInputStringToDate(value.dateFrom).toISOString()
       }
-      if (!value.dateTo || !isMatch(value.dateTo, this.valueFormat())) {
+      if (!value.dateTo || !this.checkDateMatch(value.dateTo)) {
         value.dateTo = null
       } else {
         value.dateTo = this.setupInputStringToDate(value.dateTo).toISOString()
       }
       this.onChangedHandler(value)
-    } else if (isMatch(value, this.valueFormat())) {
+    } else if (this.checkDateMatch(value)) {
       this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
     } else {
       this.onChangedHandler(null)
@@ -454,5 +458,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
         }
       }
     }
+  }
+
+  checkDateMatch(date: string): boolean {
+    return isMatch(date, this.valueFormat()) || isMatch(date, this.valueFormat().replace('yyyy', 'yy'))
   }
 }
