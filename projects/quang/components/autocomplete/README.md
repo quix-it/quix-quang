@@ -20,9 +20,10 @@ The `QuangAutocompleteComponent` is a comprehensive autocomplete input with real
 - `componentPlaceholder`: `string` — Placeholder text for the input. Inherited from `QuangBaseComponent`
 - `componentTabIndex`: `number` — Tab index for accessibility. Inherited from `QuangBaseComponent`
 - `componentClass`: `string | string[]` — Additional CSS classes. Inherited from `QuangBaseComponent`
-- `errorMap`: `{[key: string]: string}` — Custom error messages. Inherited from `QuangBaseComponent`
+- `errorMap`: `ErrorData[]` — Custom error messages. Inherited from `QuangBaseComponent`
 - `successMessage`: `string` — Success message to display. Inherited from `QuangBaseComponent`
-- `helpMessage`: `string` — Help text for the component. Inherited from `QuangBaseComponent`
+- `helpMessage`: `string` — Help text displayed as a tooltip or below the input. Inherited from `QuangBaseComponent`
+- `helpMessageTooltip`: `boolean` — If true, help message is shown as a tooltip (with icon); if false, help message is shown inline below the input. Default: `false`. Inherited from `QuangBaseComponent`
 - `formControl`: `FormControl` — Form control for reactive forms. Inherited from `QuangBaseComponent`
 
 ## Outputs
@@ -39,8 +40,31 @@ The `QuangAutocompleteComponent` is a comprehensive autocomplete input with real
 <quang-autocomplete
   [selectOptions]="countryOptions"
   formControlName="country"
+/>
+```
+
+### Help Message as Tooltip
+
+```html
+<quang-autocomplete
+  [selectOptions]="countryOptions"
+  [helpMessage]="'form.help.country'"
+  [helpMessageTooltip]="true"
+  formControlName="country"
 >
+  <svg-icon src="assets/icons/svg/help.svg" help-icon />
 </quang-autocomplete>
+```
+
+### Help Message Inline
+
+```html
+<quang-autocomplete
+  [selectOptions]="countryOptions"
+  [helpMessage]="'form.help.country'"
+  [helpMessageTooltip]="false"
+  formControlName="country"
+/>
 ```
 
 ### Multiple Selection with Chips
