@@ -5,10 +5,17 @@
   @if (componentLabel()) {
     <label
       [htmlFor]="componentId()"
-      class="form-label w-100"
+      class="form-label d-flex gap-2"
     >
-      {{ componentLabel() | transloco }}
-      <span [hidden]="!_isRequired()">*</span>
+      <div>
+        <span>{{ componentLabel() | transloco }}</span>
+        <span [hidden]="!_isRequired()">*</span>
+      </div>
+      @if (helpMessage() && helpMessageTooltip()) {
+        <div [quangTooltip]="helpMessage() | transloco">
+          <ng-content select="[help-icon]" />
+        </div>
+      }
     </label>
   }
   <div
@@ -67,7 +74,7 @@
   <div class="invalid-feedback">
     {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
   </div>
-  @if (helpMessage()) {
+  @if (helpMessage() && !helpMessageTooltip()) {
     <small
       [hidden]="_showSuccess() || _showErrors()"
       aria-live="assertive"

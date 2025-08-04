@@ -14,6 +14,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 import { combineLatest, filter } from 'rxjs'
 
 import {
@@ -38,7 +39,7 @@ import {
       multi: false,
     },
   ],
-  imports: [TranslocoPipe, NgClass, QuangOptionListComponent],
+  imports: [TranslocoPipe, NgClass, QuangOptionListComponent, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
