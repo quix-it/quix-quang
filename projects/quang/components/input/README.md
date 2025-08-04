@@ -89,7 +89,7 @@ The component supports the following input types, each with specific behaviors a
 - `componentPlaceholder`: `string` — Placeholder text (supports i18n keys)
 - `componentTabIndex`: `number` — Tab index for accessibility
 - `componentClass`: `string` — Additional CSS classes for the input element
-- `errorMap`: `Record<string, any>` — Validation error messages
+- `errorMap`: `ErrorData[]` — Validation error messages
 - `successMessage`: `string` — Success message text
 - `helpMessage`: `string` — Help text displayed as a tooltip or below the input
 - `helpMessageTooltip`: `boolean` — If true, help message is shown as a tooltip (with icon); if false, help message is shown inline below the input. Default: `false`

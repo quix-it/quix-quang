@@ -89,7 +89,7 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 - `componentPlaceholder`: `string` — Testo del segnaposto (supporta chiavi i18n)
 - `componentTabIndex`: `number` — Indice di tabulazione per l'accessibilità
 - `componentClass`: `string` — Classi CSS aggiuntive per l'elemento di input
-- `errorMap`: `Record<string, any>` — Messaggi di errore di validazione
+- `errorMap`: `ErrorData[]` — Messaggi di errore di validazione
 - `successMessage`: `string` — Testo del messaggio di successo
 - `helpMessage`: `string` — Testo di aiuto visualizzato come tooltip o sotto l'input
 - `helpMessageTooltip`: `boolean` — Se true, il messaggio di aiuto viene mostrato come tooltip (con icona); se false, il messaggio di aiuto viene mostrato inline sotto l'input. Predefinito: `false`
