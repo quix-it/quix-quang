@@ -17,6 +17,7 @@ The `QuangCheckboxComponent` is a versatile checkbox and toggle switch component
 - `helpMessage`: `string` — Help text displayed as a tooltip or below the input. Inherited from `QuangBaseComponent`
 - `helpMessageTooltip`: `boolean` — If true, help message is shown as a tooltip (with icon); if false, help message is shown inline below the input. Default: `false`. Inherited from `QuangBaseComponent`
 - `formControl`: `FormControl` — Form control for reactive forms. Inherited from `QuangBaseComponent`
+- Tooltip icon projection: to display the tooltip icon, use `<ng-content select="[help-icon]" />` in the component template.
 
 ## Outputs
 

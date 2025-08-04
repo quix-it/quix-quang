@@ -2,7 +2,6 @@
 
 Il `QuangWysiwygComponent` è un editor di testo ricco basato su [SunEditor](https://github.com/JiHong88/SunEditor), che offre una vasta gamma di opzioni di formattazione per la creazione e la modifica di contenuti HTML.
 
-
 ## Input
 
 - `wysiwygOptions`: `object` — Opzioni di configurazione per l'editor (obbligatorio)
@@ -14,6 +13,7 @@ Il `QuangWysiwygComponent` è un editor di testo ricco basato su [SunEditor](htt
 - Toggle dei pulsanti della toolbar (tutti `boolean`, default: `true`): `font`, `fontSize`, `formatBlock`, `paragraphStyle`, `blockquote`, `bold`, `underline`, `italic`, `strike`, `fontColor`, `textStyle`, `removeFormat`, `align`, `list`, `table`, `link`, `image`, `fullScreen`, `showBlocks`
 
 Tutti gli input standard ereditati da `QuangBaseComponent`:
+
 - `componentLabel`: `string` — Etichetta (supporta chiavi i18n)
 - `componentPlaceholder`: `string` — Placeholder (supporta chiavi i18n)
 - `componentTabIndex`: `number` — Indice tab per accessibilità
@@ -23,17 +23,17 @@ Tutti gli input standard ereditati da `QuangBaseComponent`:
 - `helpMessage`: `string` — Messaggio di aiuto visualizzato sotto l'editor
 - `helpMessageTooltip`: `boolean` — Se true, mostra il messaggio di aiuto come tooltip (con icona proiettata); se false, mostra il messaggio inline sotto l'editor. Default: `false`
 - `formControl`: `FormControl` — Controllo form reattivo Angular
-
+- Visualizzazione icona tooltip: per visualizzare l'icona del tooltip, usa `<ng-content select="[help-icon]" />` nel template del componente.
 
 ## Output
 
 - Tutti gli output standard ereditati da `QuangBaseComponent`:
   - `componentBlur`: emesso quando l'editor perde il focus
 
-
 ## Utilizzo
 
 ### Editor Base
+
 ```html
 <quang-wysiwyg
   [errorMap]="errors()"
@@ -49,26 +49,32 @@ Tutti gli input standard ereditati da `QuangBaseComponent`:
 ```
 
 ### Messaggio di Aiuto Inline
+
 ```html
 <quang-wysiwyg
+  [helpMessageTooltip]="false"
   [wysiwygOptions]="wysiwygOptions"
   componentLabel="form.label.wysiwyg"
-  helpMessage="form.help.wysiwyg"
-  [helpMessageTooltip]="false"
   formControlName="testInput"
+  helpMessage="form.help.wysiwyg"
 />
 ```
 
 ### Messaggio di Aiuto Tooltip
+
 ```html
 <quang-wysiwyg
+  [helpMessageTooltip]="true"
   [wysiwygOptions]="wysiwygOptions"
   componentLabel="form.label.wysiwyg"
-  helpMessage="form.help.wysiwyg"
-  [helpMessageTooltip]="true"
   formControlName="testInput"
+  helpMessage="form.help.wysiwyg"
 >
-  <span help-icon class="ms-1"><i class="fas fa-question-circle"></i></span>
+  <span
+    class="ms-1"
+    help-icon
+    ><i class="fas fa-question-circle"></i
+  ></span>
 </quang-wysiwyg>
 ```
 

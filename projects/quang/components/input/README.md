@@ -82,6 +82,7 @@ The component supports the following input types, each with specific behaviors a
 - `showHidePasswordButton`: `boolean` — Shows/hides the password toggle button. Default: `true`. **Only applies to**: `password`
 - `buttonClass`: `string` — Additional CSS classes for the password toggle button. **Only applies to**: `password`
 
+
 ### Universal Inputs
 
 - `isReadonly`: `boolean` — Makes the input read-only
@@ -94,6 +95,7 @@ The component supports the following input types, each with specific behaviors a
 - `helpMessage`: `string` — Help text displayed as a tooltip or below the input
 - `helpMessageTooltip`: `boolean` — If true, help message is shown as a tooltip (with icon); if false, help message is shown inline below the input. Default: `false`
 - `formControl`: `FormControl` — Angular reactive form control
+- Tooltip icon projection: to display the tooltip icon, use `<ng-content select="[help-icon]" />` in the component template.
 
 ## Outputs
 

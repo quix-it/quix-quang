@@ -23,7 +23,7 @@ All standard inputs inherited from `QuangBaseComponent`:
 - `helpMessage`: `string` — Help text displayed below the editor
 - `helpMessageTooltip`: `boolean` — If true, displays help message as a tooltip (with projected icon); if false, displays help message inline below the editor. Default: `false`
 - `formControl`: `FormControl` — Angular reactive form control
-
+- Tooltip icon projection: to display the tooltip icon, use `<ng-content select="[help-icon]" />` in the component template.
 
 ## Output
 

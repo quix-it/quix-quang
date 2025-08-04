@@ -17,6 +17,7 @@ Il `QuangCheckboxComponent` è un componente versatile per checkbox e interrutto
 - `helpMessage`: `string` — Testo di aiuto visualizzato come tooltip o sotto l'input. Ereditato da `QuangBaseComponent`
 - `helpMessageTooltip`: `boolean` — Se true, il messaggio di aiuto viene mostrato come tooltip (con icona); se false, il messaggio di aiuto viene mostrato inline sotto l'input. Predefinito: `false`. Ereditato da `QuangBaseComponent`
 - `formControl`: `FormControl` — Controllo form per form reattivi. Ereditato da `QuangBaseComponent`
+- Visualizzazione icona tooltip: per visualizzare l'icona del tooltip, usa `<ng-content select="[help-icon]" />` nel template del componente.
 
 ## Output
 

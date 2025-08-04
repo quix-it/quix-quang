@@ -82,6 +82,7 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 - `showHidePasswordButton`: `boolean` — Mostra/nasconde il pulsante di attivazione/disattivazione della password. Predefinito: `true`. **Si applica solo a**: `password`
 - `buttonClass`: `string` — Classi CSS aggiuntive per il pulsante di attivazione/disattivazione della password. **Si applica solo a**: `password`
 
+
 ### Input universali
 
 - `isReadonly`: `boolean` — Rende l'input di sola lettura
@@ -94,6 +95,7 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 - `helpMessage`: `string` — Testo di aiuto visualizzato come tooltip o sotto l'input
 - `helpMessageTooltip`: `boolean` — Se true, il messaggio di aiuto viene mostrato come tooltip (con icona); se false, il messaggio di aiuto viene mostrato inline sotto l'input. Predefinito: `false`
 - `formControl`: `FormControl` — Controllo di form reattivo di Angular
+- Visualizzazione icona tooltip: per visualizzare l'icona del tooltip, usa `<ng-content select="[help-icon]" />` nel template del componente.
 
 ## Output
 
