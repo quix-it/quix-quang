@@ -62,45 +62,90 @@ Tutti gli input standard ereditati da `QuangBaseComponent`:
 - `componentPlaceholder`: `string` — Testo placeholder (supporta chiavi i18n)
 - `componentTabIndex`: `number` — Indice tab per accessibilità
 - `componentClass`: `string` — Classi CSS aggiuntive per elemento input
-- `errorMap`: `Record<string, any>` — Messaggi errore validazione
+- `errorMap`: `ErrorData[]` — Messaggi errore validazione
 - `successMessage`: `string` — Testo messaggio successo
 - `helpMessage`: `string` — Testo aiuto visualizzato sotto l'input
+- `helpMessageTooltip`: `boolean` — Se true, mostra il messaggio di aiuto come tooltip (con icona proiettata); se false, mostra il messaggio inline sotto l'input. Default: `false`
 - `formControl`: `FormControl` — Controllo form reattivo Angular
+
 
 ## Output
 
-- `dateChange`: Emette la data selezionata quando cambia.
+- `dateChange`: Emette la data selezionata o l'intervallo quando cambia.
+  - Modalità data singola: emette `Date | null`
+  - Modalità intervallo: emette `DateRange | null` con `{ dateFrom: string | null, dateTo: string | null }`
 - Tutti gli output standard ereditati da `QuangBaseComponent`:
-  - `componentBlur`
+  - `componentBlur`: emesso quando l'input perde il focus
+
 
 ## Esempio d'uso
+
+### Selettore Data Base
 ```html
 <quang-date
-  [minDate]="minDate"
-  [maxDate]="maxDate"
   [errorMap]="errors()"
-  [formControl]="testForm.controls.testInput"
-  [isReadonly]="isReadonly()"
-  [timepicker]="true"
-  class="col-6"
-  componentLabel="form.label.date"
-  successMessage="form.label.success"
+  componentLabel="form.label.birthdate"
+  formControlName="birthdate"
 >
-  <img src="./assets/icons/svg/calendar.svg" />
+  <svg-icon src="assets/icons/svg/calendar.svg" />
 </quang-date>
 ```
 
-### Nota
-Ricordati di aggiungere l'import:
+### Selettore Data con Orario
+```html
+<quang-date
+  [errorMap]="errors()"
+  [maxDate]="maxDate"
+  [minDate]="minDate"
+  [timepicker]="true"
+  componentLabel="form.label.appointment"
+  dateFormat="dd/MM/yyyy"
+  formControlName="appointmentDateTime"
+  timeFormat="HH:mm"
+>
+  <img
+    alt="Calendar"
+    src="assets/icons/svg/calendar.svg"
+  />
+</quang-date>
+```
 
-`node_modules/quang/components/date/global-date.component.scss`
+### Selezione Intervallo Date
+```html
+<quang-date
+  [errorMap]="errors()"
+  [maxDate]="endDate"
+  [minDate]="startDate"
+  [rangeSelection]="true"
+  componentLabel="form.label.dateRange"
+  formControlName="dateRange"
+  multipleDatesSeparator=" a "
+>
+  <i class="fas fa-calendar-alt"></i>
+</quang-date>
+```
 
-oppure
+### Messaggio di Aiuto Inline
+```html
+<quang-date
+  componentLabel="form.label.date"
+  helpMessage="form.help.date"
+  [helpMessageTooltip]="false"
+  formControlName="date"
+>
+  <svg-icon src="assets/icons/svg/calendar.svg" />
+</quang-date>
+```
 
-`quang/components/date/global-date.component.scss`
-
-nel tuo stile globale (consigliata la cartella "vendors").
-
-## Note
-
-Questo componente estende `QuangBaseComponent` ed eredita tutte le sue funzionalità, come etichette, messaggi di errore e messaggi di successo.
+### Messaggio di Aiuto Tooltip
+```html
+<quang-date
+  componentLabel="form.label.date"
+  helpMessage="form.help.date"
+  [helpMessageTooltip]="true"
+  formControlName="date"
+>
+  <svg-icon src="assets/icons/svg/calendar.svg" />
+  <span help-icon class="ms-1"><i class="fas fa-question-circle"></i></span>
+</quang-date>
+```
