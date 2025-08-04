@@ -35,6 +35,9 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   formControl = input<FormControl>()
 
+  // If true, the help message will be shown in a tooltip. Remember to set the `helpMessage` input and add help-icon as ng-content
+  helpMessageTooltip = input<boolean>(false)
+
   componentBlur = output<void>()
 
   _value = signal<T | null>(null)

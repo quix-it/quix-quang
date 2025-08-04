@@ -4,6 +4,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 
 import { QuangBaseComponent } from 'quang/components/shared'
 
@@ -20,7 +21,7 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgClass],
+  imports: [TranslocoPipe, NgClass, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**

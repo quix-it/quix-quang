@@ -18,6 +18,8 @@
           <quang-input
             [componentType]="inputType()"
             [errorMap]="errors()"
+            [helpMessage]="helpMessage()"
+            [helpMessageTooltip]="true"
             [isReadonly]="isReadonly()"
             [maxNumber]="10"
             [minNumber]="0"
@@ -35,6 +37,10 @@
             <svg-icon
               show-password
               src="assets/icons/svg/visibility.svg"
+            />
+            <svg-icon
+              help-icon
+              src="assets/icons/svg/info.svg"
             />
           </quang-input>
         </div>

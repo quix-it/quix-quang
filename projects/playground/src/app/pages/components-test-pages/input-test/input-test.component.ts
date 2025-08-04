@@ -84,6 +84,8 @@ export class InputTestComponent {
     // }
   ])
 
+  helpMessage = signal<string>('form.helpMessage.inputTest')
+
   testForm = this.formBuilder.group({
     testInput: this.formBuilder.control<string>('', [
       Validators.required,

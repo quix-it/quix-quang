@@ -3,10 +3,17 @@
     @if (componentLabel()) {
       <label
         [htmlFor]="componentId()"
-        class="form-label"
+        class="form-label d-flex gap-2"
       >
-        {{ componentLabel() | transloco }}
-        <span [hidden]="!_isRequired()">*</span>
+        <div>
+          <span>{{ componentLabel() | transloco }}</span>
+          <span [hidden]="!_isRequired()">*</span>
+        </div>
+        @if (helpMessage() && helpMessageTooltip()) {
+          <div [quangTooltip]="helpMessage() | transloco">
+            <ng-content select="[help-icon]" />
+          </div>
+        }
       </label>
     }
     @if (componentType() !== 'textarea') {
@@ -49,9 +56,9 @@
             type="button"
           >
             @if (showPassword()) {
-              <ng-content select="[hide-password]"></ng-content>
+              <ng-content select="[hide-password]" />
             } @else {
-              <ng-content select="[show-password]"></ng-content>
+              <ng-content select="[show-password]" />
             }
           </button>
         }
@@ -82,7 +89,7 @@
     <div class="invalid-feedback">
       {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
     </div>
-    @if (helpMessage()) {
+    @if (helpMessage() && !helpMessageTooltip()) {
       <small
         [hidden]="_showSuccess() || _showErrors()"
         aria-live="assertive"
