@@ -75,6 +75,9 @@
       "minLength": "This field must be at least {{requiredLength}} characters long",
       "maxLength": "This field must be at most {{requiredLength}} characters long"
     },
+    "helpMessage": {
+      "inputTest": "This is a help message for the input test component. It can be customized."
+    },
     "buttons": {
       "enabled": "Form enabled: {{enabled}}",
       "changeVisibility": "Change visibility",

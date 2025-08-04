@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router'
 
 import { QuangLoaderComponent } from 'quang/loader'
 import { QuangToastComponent } from 'quang/overlay/toast'
+import { QuangTranslationService } from 'quang/translation'
 
 import { ThemeService } from './shared/services/theme.service'
 
@@ -20,9 +21,12 @@ export const DEPLOY_URL = new InjectionToken<string>('DEPLOY_URL')
 })
 export class AppComponent {
   private readonly themeService = inject(ThemeService)
+  private readonly quangTranslationService = inject(QuangTranslationService)
 
   constructor() {
     const theme = localStorage.getItem('theme') || 'light'
     this.themeService.changeTheme(theme as 'light' | 'dark')
+    const language = localStorage.getItem('language') || 'en'
+    this.quangTranslationService.setActiveLang(language)
   }
 }

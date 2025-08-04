@@ -82,6 +82,7 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 - `showHidePasswordButton`: `boolean` — Mostra/nasconde il pulsante di attivazione/disattivazione della password. Predefinito: `true`. **Si applica solo a**: `password`
 - `buttonClass`: `string` — Classi CSS aggiuntive per il pulsante di attivazione/disattivazione della password. **Si applica solo a**: `password`
 
+
 ### Input universali
 
 - `isReadonly`: `boolean` — Rende l'input di sola lettura
@@ -89,10 +90,12 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 - `componentPlaceholder`: `string` — Testo del segnaposto (supporta chiavi i18n)
 - `componentTabIndex`: `number` — Indice di tabulazione per l'accessibilità
 - `componentClass`: `string` — Classi CSS aggiuntive per l'elemento di input
-- `errorMap`: `Record<string, any>` — Messaggi di errore di validazione
+- `errorMap`: `ErrorData[]` — Messaggi di errore di validazione
 - `successMessage`: `string` — Testo del messaggio di successo
-- `helpMessage`: `string` — Testo della guida visualizzato sotto l'input
+- `helpMessage`: `string` — Testo di aiuto visualizzato come tooltip o sotto l'input
+- `helpMessageTooltip`: `boolean` — Se true, il messaggio di aiuto viene mostrato come tooltip (con icona); se false, il messaggio di aiuto viene mostrato inline sotto l'input. Predefinito: `false`
 - `formControl`: `FormControl` — Controllo di form reattivo di Angular
+- Visualizzazione icona tooltip: per visualizzare l'icona del tooltip, usa `<ng-content select="[help-icon]" />` nel template del componente.
 
 ## Output
 
@@ -124,8 +127,14 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
   formControlName="password"
 >
   <!-- Contenuto per il pulsante mostra/nascondi password -->
-  <svg-icon src="assets/icons/svg/visibility.svg" show-password />
-  <svg-icon src="assets/icons/svg/visibility_off.svg" hide-password />
+  <svg-icon
+    show-password
+    src="assets/icons/svg/visibility.svg"
+  />
+  <svg-icon
+    hide-password
+    src="assets/icons/svg/visibility_off.svg"
+  />
 </quang-input>
 ```
 

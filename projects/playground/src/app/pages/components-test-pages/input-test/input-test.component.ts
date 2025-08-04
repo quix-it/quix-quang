@@ -6,6 +6,7 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangTranslationService } from 'quang/translation'
+import { distinctUntilChanged } from 'rxjs'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { InputType, QuangInputComponent } from 'quang/components/input'
@@ -84,6 +85,8 @@ export class InputTestComponent {
     // }
   ])
 
+  helpMessage = signal<string>('form.helpMessage.inputTest')
+
   testForm = this.formBuilder.group({
     testInput: this.formBuilder.control<string>('', [
       Validators.required,
@@ -93,15 +96,17 @@ export class InputTestComponent {
     ]),
   })
 
-  testFormChange = this.testForm.controls.testInput.valueChanges.pipe(takeUntilDestroyed()).subscribe((val) => {
-    if (val && val === 'ciao') {
-      // this.testForm.controls.testInput.setErrors(null)
-    } else if (val) {
-      console.log('ciaoni')
-      // this.testForm.controls.testInput.setErrors({ noMatch: true })
-      console.log('this.testForm.controls.testInput', this.testForm.controls.testInput.errors)
-    }
-  })
+  testFormChange = this.testForm.controls.testInput.valueChanges
+    .pipe(distinctUntilChanged(), takeUntilDestroyed())
+    .subscribe((val) => {
+      if (val && val === 'ciao') {
+        // this.testForm.controls.testInput.setErrors(null)
+      } else if (val) {
+        console.log('ciaoni')
+        // this.testForm.controls.testInput.setErrors({ noMatch: true })
+        console.log('this.testForm.controls.testInput', this.testForm.controls.testInput.errors)
+      }
+    })
 
   showInput = signal(true)
   showPassword = signal(false)

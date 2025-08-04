@@ -116,5 +116,6 @@ export class MenuComponent {
   changeLanguage(menu: MenuItem): void {
     const lang = menu.description.split('.')[menu.description.split('.').length - 1]
     this.quangTranslationService.setActiveLang(lang)
+    localStorage.setItem('language', lang)
   }
 }

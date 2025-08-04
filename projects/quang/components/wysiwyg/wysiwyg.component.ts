@@ -16,6 +16,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { AbstractControl, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 import { filter, take } from 'rxjs'
 import sunEditor from 'suneditor'
 import SunEditorCore from 'suneditor/src/lib/core'
@@ -37,7 +38,7 @@ export type QuangWysiwygOptions = SunEditorOptions
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgClass],
+  imports: [TranslocoPipe, NgClass, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
