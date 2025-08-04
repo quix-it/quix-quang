@@ -10,7 +10,10 @@
       </label>
     }
     @if (componentType() !== 'textarea') {
-      <div class="input-container">
+      <div
+        [class.is-invalid]="_showErrors()"
+        class="input-container"
+      >
         <input
           [attr.maxLength]="maxLengthText()"
           [attr.minLength]="minLengthText()"
