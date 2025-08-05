@@ -1,43 +1,63 @@
 # Componente QuangCheckbox
 
-Il `QuangCheckboxComponent` è un componente versatile per checkbox e interruttori toggle che fornisce posizionamento flessibile delle etichette, feedback di validazione completo e integrazione perfetta con i form Angular. Supporta sia modalità checkbox tradizionale che interruttore toggle moderno con opzioni di personalizzazione estese.
+Il `QuangCheckboxComponent` può essere utilizzato come checkbox standard o come interruttore toggle impostando l'input `checkType`.
+
+## Funzionalità
+
+- Funzionalità standard di checkbox
+- Modalità interruttore toggle
+- Posizione dell'etichetta configurabile
+- Feedback di validazione (messaggi di successo ed errore)
 
 ## Input
 
-- `checkType`: `'checkbox' | 'toggle'` - Tipo di input (default: 'checkbox')
-- `labelPosition`: `'top' | 'left' | 'right' | 'bottom'` - Posizione dell'etichetta (default: 'top')
-- `removeMargin`: `boolean` - Rimuove margine inferiore default (default: false)
-
-Tutti gli input standard ereditati da `QuangBaseComponent`: `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
+- `checkType`: `'checkbox' | 'toggle'` — Specifica il tipo di componente. **(Obbligatorio)**
+- `labelPosition`: `'top' | 'left' | 'right' | 'bottom'` — Posizione dell'etichetta. Default: `'top'`.
+- `removeMargin`: `boolean` — Rimuove il margine di default. Default: `false`.
+- Tutti gli input standard di form/etichetta/validazione ereditati da `QuangBaseComponent`:
+  - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
 ## Output
 
-- `changedHandler`: `EventEmitter<boolean>` - Emesso quando lo stato cambia
+- `changedHandler`: Emette il nuovo valore quando lo stato della checkbox cambia.
+- Tutti gli output standard ereditati da `QuangBaseComponent`:
+  - `componentBlur`
 
-Tutti gli output standard ereditati da `QuangBaseComponent`: `componentBlur`
+## Esempio d'uso
 
-## Utilizzo
-
-### Checkbox Base
 ```html
 <quang-checkbox
-  checkType="checkbox"
   [errorMap]="errors()"
-  componentLabel="form.label.agreeToTerms"
-  formControlName="agreeToTerms">
-</quang-checkbox>
-```
-
-### Interruttore Toggle
-```html
+  [isReadonly]="isReadonly()"
+  checkType="checkbox"
+  class="col-3"
+  componentLabel="form.label.toggle"
+  formControlName="toggle"
+  labelPosition="top"
+  successMessage="form.label.success"
+/>
 <quang-checkbox
+  [errorMap]="errors()"
+  [isReadonly]="isReadonly()"
   checkType="toggle"
-  componentLabel="form.label.enableNotifications"
+  class="col-6"
+  componentLabel="form.label.checkbox"
+  formControlName="checkbox"
   labelPosition="left"
-  formControlName="notifications">
-</quang-checkbox>
+  successMessage="form.label.success"
+/>
 ```
 
-## Integrazione QuangTranslationService
+## Stili
 
-Il componente supporta la traduzione automatica di tutte le etichette, messaggi di aiuto e messaggi di errore tramite `QuangTranslationService`.
+Il componente supporta le seguenti classi CSS per la personalizzazione:
+
+- `.label-top`: Posiziona l'etichetta sopra la checkbox.
+- `.label-bottom`: Posiziona l'etichetta sotto la checkbox.
+- `.label-left`: Posiziona l'etichetta a sinistra della checkbox.
+- `.label-right`: Posiziona l'etichetta a destra della checkbox.
+- `.toggle-wrapper`: Applica lo stile di interruttore toggle.
+
+## Note
+
+Questo componente estende `QuangBaseComponent` ed eredita tutte le sue funzionalità, come etichette, messaggi di errore e messaggi di successo.

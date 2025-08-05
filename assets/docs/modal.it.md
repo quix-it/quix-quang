@@ -1,97 +1,158 @@
-# Componente QuangModal
+# QuangModalService
 
-Il `QuangModalComponent` è un componente overlay da utilizzare direttamente nel componente genitore.
+Il `QuangModalService` è un servizio che consente di creare e gestire modal programmaticamente nella tua applicazione Angular. Fornisce un'API semplice per aprire, chiudere e gestire più modal dinamicamente.
 
-## Funzionalità
+## Caratteristiche
 
-- Overlay modale per mostrare contenuti
-- Dimensioni e posizione configurabili
-- Supporta animazioni per apertura e chiusura
+- **Creazione Dinamica di Modal**: Crea modal programmaticamente passando un tipo di componente
+- **Supporto Multi-Modal**: Apri più modal simultaneamente con ID univoci
+- **Gestione LIFO**: Gestione modal last-in, first-out (chiusura del modal più recente per primo)
+- **Opzioni Configurabili**: Supporto per varie configurazioni modal (posizione, dimensione, animazione, ecc.)
+- **Chiusura Basata su ID**: Chiudi modal specifici tramite il loro ID univoco
+- **Proiezione Componenti**: Passa qualsiasi componente Angular come contenuto del modal
 
-## Input
+## Utilizzo
 
-- `position`: `'right' | 'left' | 'center'` (obbligatorio) — Posizione del modal.
-- `height`: `string` — Altezza del modal. Default: `'80vh'`.
-- `width`: `string` — Larghezza del modal. Default: `'80vw'`.
-- `padding`: `string` — Padding interno del modal. Default: `'0 1rem'`.
-- `containerClass`: `string` — Classe CSS personalizzata per il contenitore del modal.
-- `animationMode`: `'SLIDE_FROM_LEFT_TO_RIGHT' | 'SLIDE_FROM_RIGHT_TO_LEFT' | 'SLIDE_TOP_TO_BOTTOM' | 'SLIDE_BOTTOM_TO_TOP' | 'FADE'` — Modalità di animazione del modal.
-- `backgroundColor`: `string` — Colore di sfondo del modal.
-- `showBackdrop`: `boolean` — Mostra/nasconde il backdrop. Default: `true`.
-- Usa `ng-container` con slot `header`, `body` e `footer` per contenuti personalizzati.
-
-## Output
-
-- `backdropClick`: Emette un evento quando l'utente clicca sul backdrop (fuori dal modal).
-
-## Esempio d'uso
-
-### HTML
-
-```html
-<quang-modal
-  (backdropClick)="closeModal()"
-  animationMode="SLIDE_BOTTOM_TO_TOP"
-  height="80vh"
-  padding="0"
-  position="center"
-  [showBackdrop]="true"
->
-  <ng-container header>
-    <div class="d-flex justify-content-between mt-2">
-      <h3>{{ 'title.header' | transloco }}</h3>
-      <button
-        (click)="closeModal()"
-        class="btn btn-outline-secondary"
-        type="button"
-      >
-        X
-      </button>
-    </div>
-  </ng-container>
-  <ng-container body>
-    <h3>{{ content() }}</h3>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua.
-    </p>
-    <img
-      alt="test"
-      src="https://picsum.photos/200/300"
-    />
-  </ng-container>
-  <ng-container footer>
-    <div class="d-flex mb-3 gap-3 w-100">
-      <h3 class="d-flex flex-column flex-grow-1">{{ 'title.footer' | transloco }}</h3>
-      <button
-        (click)="closeModal()"
-        class="btn btn-outline-secondary"
-        type="button"
-      >
-        {{ 'buttons.close' | transloco }}
-      </button>
-    </div>
-  </ng-container>
-</quang-modal>
-```
-
-### TypeScript
+### Esempio Base
 
 ```typescript
-import { signal } from '@angular/core';
+import { Component, inject } from '@angular/core'
+import { QuangModalService } from 'quang/overlay/modal'
 
-showModal = signal(false);
-content = signal('Contenuto del Modal');
+@Component({
+  selector: 'app-example',
+  template: `
+    <button (click)="openModal()">Apri Modal</button>
+    <button (click)="closeModal()">Chiudi Ultimo Modal</button>
+  `
+})
+export class ExampleComponent {
+  private modalService = inject(QuangModalService)
+  private lastModalId?: string
 
-openModal() {
-  showModal.set(true);
-}
+  openModal() {
+    this.lastModalId = this.modalService.showModal(MyModalContentComponent, {
+      position: 'center',
+      width: '50vw',
+      height: '60vh',
+      animationMode: 'FADE'
+    })
+  }
 
-closeModal() {
-  showModal.set(false);
+  closeModal() {
+    if (this.lastModalId) {
+      this.modalService.hideModal(this.lastModalId)
+    }
+  }
 }
 ```
 
-## Note
+### Opzioni Modal
 
-Questo componente utilizza i moduli `Overlay` e `Portal` di Angular CDK per il rendering dinamico dei modali. Consulta l'API del componente per tutte le opzioni di configurazione disponibili.
+Il metodo `showModal` accetta un'interfaccia `ModalOptions` con le seguenti proprietà:
+
+```typescript
+interface ModalOptions {
+  position?: 'left' | 'right' | 'center'
+  width?: string
+  height?: string
+  animationMode?: 'FADE' | 'SLIDE_BOTTOM_TO_TOP' | 'SLIDE_TOP_TO_BOTTOM' | 'SLIDE_LEFT_TO_RIGHT' | 'SLIDE_RIGHT_TO_LEFT'
+  showBackdrop?: boolean
+  padding?: string
+}
+```
+
+### Modal Multipli
+
+Il servizio supporta l'apertura di più modal simultaneamente:
+
+```typescript
+// Apri più modal
+const modal1 = this.modalService.showModal(ContentComponent1)
+const modal2 = this.modalService.showModal(ContentComponent2)
+const modal3 = this.modalService.showModal(ContentComponent3)
+
+// Chiudi l'ultimo modal aperto (modal3)
+this.modalService.hideModal()
+
+// Chiudi un modal specifico
+this.modalService.hideModal(modal1)
+```
+
+## Riferimento API
+
+### Metodi
+
+#### `showModal<T>(component: Type<T>, options?: ModalOptions): string`
+
+Apre un nuovo modal con il componente e le opzioni specificate.
+
+**Parametri:**
+- `component`: Il componente Angular da visualizzare nel modal
+- `options`: Oggetto di configurazione opzionale per il modal
+
+**Restituisce:**
+- `string`: ID univoco del modal creato
+
+#### `hideModal(id?: string): void`
+
+Chiude un modal. Se non viene fornito un ID, chiude l'ultimo modal aperto (comportamento LIFO).
+
+**Parametri:**
+- `id`: ID univoco opzionale del modal da chiudere
+
+### Ciclo di Vita del Modal
+
+1. **Creazione**: Quando viene chiamato `showModal`, viene creata una nuova istanza modal con un ID univoco
+2. **Gestione**: I modal multipli sono gestiti in uno stack (LIFO)
+3. **Chiusura**: I modal possono essere chiusi individualmente per ID o automaticamente (ultimo aperto)
+4. **Pulizia**: Le istanze modal sono distrutte correttamente e rimosse dal DOM
+
+## Migliori Pratiche
+
+1. **Memorizza gli ID dei Modal**: Tieni traccia degli ID dei modal se devi chiudere modal specifici
+2. **Click su Backdrop**: Abilita il click sul backdrop per una migliore esperienza utente
+3. **Design Responsivo**: Usa unità relative (vw, vh, %) per larghezza e altezza
+4. **Chiusura Pulita**: Chiudi sempre i modal quando i componenti vengono distrutti
+5. **Gestione Errori**: Gestisci i casi in cui i componenti modal potrebbero non riuscire a caricarsi
+
+## Esempi
+
+### Diverse Posizioni
+
+```typescript
+// Modal centrale (predefinito)
+this.modalService.showModal(ContentComponent, { position: 'center' })
+
+// Modal lato sinistro
+this.modalService.showModal(ContentComponent, { position: 'left' })
+
+// Modal lato destro
+this.modalService.showModal(ContentComponent, { position: 'right' })
+```
+
+### Modalità di Animazione
+
+```typescript
+// Animazione fade
+this.modalService.showModal(ContentComponent, { animationMode: 'FADE' })
+
+// Scorrimento dal basso
+this.modalService.showModal(ContentComponent, { animationMode: 'SLIDE_BOTTOM_TO_TOP' })
+```
+
+### Dimensionamento Personalizzato
+
+```typescript
+// Modal grande
+this.modalService.showModal(ContentComponent, {
+  width: '80vw',
+  height: '80vh'
+})
+
+// Modal compatto
+this.modalService.showModal(ContentComponent, {
+  width: '400px',
+  height: '300px'
+})
+```

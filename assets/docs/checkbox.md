@@ -12,10 +12,12 @@ The `QuangCheckboxComponent` is a versatile checkbox and toggle switch component
 - `componentPlaceholder`: `string` — Placeholder text for the input. Inherited from `QuangBaseComponent`
 - `componentTabIndex`: `number` — Tab index for accessibility. Inherited from `QuangBaseComponent`
 - `componentClass`: `string | string[]` — Additional CSS classes. Inherited from `QuangBaseComponent`
-- `errorMap`: `{[key: string]: string}` — Custom error messages. Inherited from `QuangBaseComponent`
+- `errorMap`: `ErrorData[]` — Custom error messages. Inherited from `QuangBaseComponent`
 - `successMessage`: `string` — Success message to display. Inherited from `QuangBaseComponent`
-- `helpMessage`: `string` — Help text for the component. Inherited from `QuangBaseComponent`
+- `helpMessage`: `string` — Help text displayed as a tooltip or below the input. Inherited from `QuangBaseComponent`
+- `helpMessageTooltip`: `boolean` — If true, help message is shown as a tooltip (with icon); if false, help message is shown inline below the input. Default: `false`. Inherited from `QuangBaseComponent`
 - `formControl`: `FormControl` — Form control for reactive forms. Inherited from `QuangBaseComponent`
+- Tooltip icon projection: to display the tooltip icon, use `<ng-content select="[help-icon]" />` in the component template.
 
 ## Outputs
 
@@ -24,15 +26,38 @@ The `QuangCheckboxComponent` is a versatile checkbox and toggle switch component
 
 ## Usage
 
-### Basic Checkbox
 
+### Basic Checkbox
 ```html
 <quang-checkbox
   checkType="checkbox"
   componentLabel="form.label.agreeToTerms"
   formControlName="agreeToTerms"
+/>
+```
+
+### Help Message as Tooltip
+```html
+<quang-checkbox
+  checkType="checkbox"
+  componentLabel="form.label.agreeToTerms"
+  [helpMessage]="'form.help.agreeToTerms'"
+  [helpMessageTooltip]="true"
+  formControlName="agreeToTerms"
 >
+  <svg-icon src="assets/icons/svg/help.svg" help-icon />
 </quang-checkbox>
+```
+
+### Help Message Inline
+```html
+<quang-checkbox
+  checkType="checkbox"
+  componentLabel="form.label.agreeToTerms"
+  [helpMessage]="'form.help.agreeToTerms'"
+  [helpMessageTooltip]="false"
+  formControlName="agreeToTerms"
+/>
 ```
 
 ### Toggle Switch

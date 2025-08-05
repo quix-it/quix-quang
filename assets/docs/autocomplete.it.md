@@ -1,90 +1,74 @@
 # Componente QuangAutocomplete
 
-Il `QuangAutocompleteComponent` è un input autocomplete completo con suggerimenti in tempo reale, capacità di selezione multipla e gestione dei chip. Fornisce filtri intelligenti, navigazione da tastiera e integrazione perfetta con i form Angular supportando sia modalità di selezione singola che multipla.
+Il `QuangAutocompleteComponent` fornisce suggerimenti in tempo reale mentre l'utente digita, permettendo una selezione rapida da una lista di opzioni filtrate. È progettato per essere flessibile e personalizzabile per diversi casi d'uso nei form Angular.
+
+## Funzionalità
+
+- Suggerimenti in tempo reale durante la digitazione
+- Selezione semplice da opzioni filtrate
+- Lista suggerimenti e visualizzazione personalizzabili
+- Supporto per Reactive Forms e Template-driven Forms di Angular
+- Debounce configurabile per l'input di ricerca
+- Supporto readonly e validazione
+- **Selezione multipla con chip** (visualizzazione orizzontale/verticale)
+- Navigazione da tastiera e cancellazione chip (Backspace)
+- Gestione del focus sui chip (Backspace mette a fuoco l'ultimo chip, un secondo Backspace lo elimina)
+- Scorrimento orizzontale dei chip con la rotella del mouse in modalità orizzontale
 
 ## Input
 
-- `selectOptions`: `SelectOption[]` — Array di opzioni disponibili per la selezione. Ogni opzione dovrebbe avere proprietà `value` e `label`. **(Obbligatorio)**
-- `multiple`: `boolean` — Abilita modalità selezione multipla con visualizzazione chip. Default: `false`
-- `multiSelectDisplayMode`: `'vertical' | 'horizontal'` — Direzione layout per i chip in modalità multipla. La modalità orizzontale include supporto scroll. Default: `'vertical'`
-- `chipMaxLength`: `number` — Lunghezza massima caratteri per le etichette dei chip. Etichette più lunghe verranno troncate con puntini di sospensione. Default: `0` (nessun limite)
-- `syncFormWithText`: `boolean` — Sincronizza il valore del controllo form con il testo input mentre l'utente digita. Utile per input testo libero con suggerimenti. Default: `false`
-- `optionListMaxHeight`: `string` — Altezza massima per la lista opzioni dropdown con unità CSS. Default: `'200px'`
-- `translateValue`: `boolean` — Abilita traduzione dei valori delle opzioni tramite QuangTranslationService. Default: `true`
-- `scrollBehaviorOnOpen`: `ScrollBehavior` — Comportamento scroll all'apertura dropdown ('smooth' o 'instant'). Default: `'smooth'`
-- `emitOnly`: `boolean` — Emette solo eventi di selezione senza aggiornare il controllo form. Utile per visualizzazione suggerimenti di sola lettura. Default: `false`
-- `searchTextDebounce`: `number` — Ritardo debounce in millisecondi per input ricerca per ottimizzare le prestazioni. Default: `300`
-- `internalFilterOptions`: `boolean` — Usa logica filtro integrata. Disabilita per filtro esterno personalizzato tramite evento searchTextChange. Default: `true`
-- `isReadonly`: `boolean` — Imposta componente in modalità sola lettura. Ereditato da `QuangBaseComponent`
-- `componentLabel`: `string` — Testo etichetta per il componente. Ereditato da `QuangBaseComponent`
-- `componentPlaceholder`: `string` — Testo placeholder per l'input. Ereditato da `QuangBaseComponent`
-- `componentTabIndex`: `number` — Indice tab per accessibilità. Ereditato da `QuangBaseComponent`
-- `componentClass`: `string | string[]` — Classi CSS aggiuntive. Ereditato da `QuangBaseComponent`
-- `errorMap`: `{[key: string]: string}` — Messaggi errore personalizzati. Ereditato da `QuangBaseComponent`
-- `successMessage`: `string` — Messaggio successo da visualizzare. Ereditato da `QuangBaseComponent`
-- `helpMessage`: `string` — Testo aiuto per il componente. Ereditato da `QuangBaseComponent`
-- `formControl`: `FormControl` — Controllo form per form reattivi. Ereditato da `QuangBaseComponent`
+- `selectOptions`: `SelectOption[]` — Array di opzioni da mostrare come suggerimenti. **(Obbligatorio)**
+- `multiple`: `boolean` — Abilita la selezione multipla (chip). Default: `false`.
+- `multiSelectDisplayMode`: `'vertical' | 'horizontal'` — Visualizza i chip in verticale o orizzontale. Default: `'vertical'`.
+- `chipMaxLength`: `number` — Lunghezza massima (in caratteri) per l'etichetta di un chip. Default: `0` (nessun limite).
+- `syncFormWithText`: `boolean` — Se true, il valore del form è sincronizzato con il testo dell'input. Default: `false`.
+- `optionListMaxHeight`: `string` — Altezza massima della lista a discesa. Default: `'200px'`.
+- `translateValue`: `boolean` — Se tradurre i valori delle opzioni. Default: `true`.
+- `scrollBehaviorOnOpen`: `ScrollBehavior` — Comportamento di scroll all'apertura della lista. Default: `'smooth'`.
+- `emitOnly`: `boolean` — Se true, emette solo il valore senza salvarlo in ngControl. Default: `false`.
+- `searchTextDebounce`: `number` — Debounce in millisecondi per l'input di ricerca. Default: `300`.
+- `internalFilterOptions`: `boolean` — Se true, filtra le opzioni internamente. Default: `true`.
+- Tutti gli input standard di form/label/validazione ereditati da `QuangBaseComponent`:
+  - `isReadonly`, `componentLabel`, `componentPlaceholder`, `componentTabIndex`, `componentClass`, `errorMap`, `successMessage`, `helpMessage`, `formControl`
 
 ## Output
 
-- `selectedOption`: `EventEmitter<string | number | null>` — Emesso quando un'opzione viene selezionata in modalità singola. Fornisce il valore dell'opzione selezionata
-- `searchTextChange`: `EventEmitter<string>` — Emesso quando il testo di ricerca cambia dopo il periodo di debounce. Usare per filtri esterni o chiamate API
-- `componentBlur`: `EventEmitter<void>` — Emesso quando il componente perde il focus. Ereditato da `QuangBaseComponent`
+- `selectedOption`: Emette il valore selezionato quando viene scelta una voce.
+- `searchTextChange`: Emette il testo di ricerca corrente mentre l'utente digita.
+- Tutti gli output standard ereditati da `QuangBaseComponent`:
+  - `componentBlur`
 
-## Utilizzo
+## Modalità Multipla/Chip
 
-### Selezione Singola Base
+- Quando `multiple` è `true`, le opzioni selezionate vengono mostrate come chip rimovibili.
+- I chip possono essere visualizzati orizzontalmente o verticalmente tramite `multiSelectDisplayMode`.
+- I chip hanno un pulsante di chiusura per la rimozione. Se l'input è vuoto, premendo Backspace si mette a fuoco l'ultimo chip; premendo ancora Backspace lo si elimina.
+- Il focus è gestito per l'accessibilità: dopo la cancellazione di un chip, il focus si sposta sul chip precedente o sull'input.
+- Il contenitore dei chip supporta lo scorrimento orizzontale con la rotella del mouse in modalità orizzontale.
+- Puoi limitare la lunghezza dell'etichetta dei chip con `chipMaxLength`.
 
-```html
-<quang-autocomplete
-  [selectOptions]="countryOptions"
-  formControlName="country"
->
-</quang-autocomplete>
-```
-
-### Selezione Multipla con Chip
+## Esempio d'uso
 
 ```html
 <quang-autocomplete
-  [selectOptions]="skillOptions"
   [multiple]="true"
-  formControlName="skills"
->
-</quang-autocomplete>
+  [multiSelectDisplayMode]="'horizontal'"
+  [chipMaxLength]="12"
+  [errorMap]="errors()"
+  [isReadonly]="isReadonly()"
+  [searchTextDebounce]="500"
+  [selectOptions]="stringListFiltered()"
+  (searchTextChange)="changeTextTest($event)"
+  (selectedOption)="onSelectOption($event)"
+  class="col-6"
+  componentLabel="form.label.autocompleteAsync"
+  formControlName="testInput1"
+  successMessage="form.label.success"
+/>
 ```
 
-#### Esempio TypeScript
+## Note
 
-```typescript
-export class MyComponent {
-  countryOptions: SelectOption[] = [
-    { value: 'it', label: 'Italia' },
-    { value: 'us', label: 'Stati Uniti' },
-    { value: 'de', label: 'Germania' }
-  ]
+Questo componente estende `QuangBaseComponent` ed eredita tutte le sue funzionalità, come etichette e messaggi di validazione. Si consiglia l'uso con Reactive Forms di Angular per i migliori risultati.
 
-  skillOptions: SelectOption[] = [
-    { value: 'angular', label: 'Angular' },
-    { value: 'typescript', label: 'TypeScript' },
-    { value: 'javascript', label: 'JavaScript' }
-  ]
-
-  onOptionSelected(value: string | number | null): void {
-    console.log('Selezionato:', value)
-  }
-
-  onSearchChange(searchTerm: string): void {
-    // Gestisce filtro esterno
-  }
-}
-```
-
-### Integrazione Traduzione
-
-Il componente usa QuangTranslationService per tutto il contenuto testuale:
-
-- **Traduzione Automatica**: Etichette opzioni e messaggi componente tradotti automaticamente
-- **Supporto Chiavi**: Usa chiavi traduzione come etichette per localizzazione automatica
-- **Gestione Fallback**: Fornisce visualizzazione fallback quando traduzioni non disponibili
-- **Cambio Lingua Dinamico**: Risponde a cambi lingua senza ricaricamento componente
+Per un uso avanzato e personalizzazioni, consulta la documentazione completa e gli esempi nella libreria Quang.

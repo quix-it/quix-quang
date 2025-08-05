@@ -1,65 +1,43 @@
 # Componente QuangPaginator
 
-Il `QuangPaginatorComponent` è un controllo paginazione che fornisce navigazione attraverso grandi dataset con dimensioni pagina configurabili e supporto internazionalizzazione.
+Il `QuangPaginatorComponent` fornisce controlli per la navigazione tra pagine di dati, supportando la configurazione di elementi totali, elementi per pagina e pagina corrente.
+
+## Funzionalità
+
+- Controlli di paginazione
+- Configurazione di elementi totali, elementi per pagina e pagina corrente
+- Emette eventi per i cambi pagina
 
 ## Input
 
-- `page`: `number` — Numero pagina attiva corrente (indicizzazione basata su 1). **(Obbligatorio)**
-- `pageSize`: `number` — Numero elementi visualizzati per pagina. **(Obbligatorio)**
-- `totalItems`: `number` — Numero totale elementi nel dataset. **(Obbligatorio)**
-- `sizeList`: `number[]` — Array opzioni dimensione pagina disponibili per selezione utente. Default: `[]`
-- `showTotalElementsCount`: `boolean` — Controlla visibilità display conteggio elementi totali. Default: `true`
-- `totalItemsText`: `string` — Chiave traduzione per testo etichetta elementi totali. Default: `'quangPaginator.totalItems'`
-- `sizeText`: `string` — Chiave traduzione per etichetta selettore dimensione pagina. Default: `'quangPaginator.size'`
-- `pageRangeText`: `string` — Chiave traduzione per display intervallo pagina. Deve includere placeholder `{{page}}` e `{{amountPages}}`. Default: `'quangPaginator.pageRange'`
-- `componentId`: `string` — Identificatore unico per istanza paginatore
-- `componentTabIndex`: `number` — Indice tab base per controlli paginatore. Default: `0`
-- `componentClass`: `string | string[]` — Classi CSS aggiuntive per personalizzazione stile
+- `page`: `number` — Numero della pagina corrente. **(Obbligatorio)**
+- `pageSize`: `number` — Numero di elementi per pagina. **(Obbligatorio)**
+- `sizeList`: `number[]` — Elenco delle dimensioni di pagina selezionabili. Default: `[]`.
+- `totalItems`: `number` — Numero totale di elementi da paginare. **(Obbligatorio)**
+- `showTotalElementsCount`: `boolean` — Mostra/nasconde il conteggio totale degli elementi. Default: `true`.
+- `totalItemsText`: `string` — Chiave di traduzione per l'etichetta degli elementi totali. Default: `'quangPaginator.totalItems'`.
+- `sizeText`: `string` — Chiave di traduzione per l'etichetta della dimensione. Default: `'quangPaginator.size'`.
+- `pageRangeText`: `string` — Chiave di traduzione per l'etichetta dell'intervallo di pagine. Default: `'quangPaginator.pageRange'`. Se la traduzione viene sovrascritta, dovrebbe contenere i placeholder `{{page}}` e `{{amountPages}}` per visualizzare i valori numerici corretti.
+- `componentId`, `componentTabIndex`, `componentClass`: Input standard del componente.
 
 ## Output
 
-- `changePage`: `EventEmitter<number>` — Emesso quando utente naviga a pagina diversa
-- `changeSize`: `EventEmitter<number>` — Emesso quando utente cambia dimensione pagina
+- `changePage`: Emette il nuovo numero di pagina quando l'utente naviga tra le pagine.
+- `changeSize`: Emette la nuova dimensione di pagina quando l'utente la modifica.
 
-## Utilizzo
+## Esempio d'uso
 
 ```html
 <quang-paginator
-  [page]="currentPage"
-  [pageSize]="itemsPerPage"
-  [totalItems]="totalItemCount"
-  (changePage)="onPageChange($event)"
-  (changeSize)="onPageSizeChange($event)"
->
-</quang-paginator>
+  [page]="1"
+  [pageSize]="10"
+  [sizeList]="[5, 10, 20]"
+  [totalItems]="30"
+  (changePage)="onChangePage($event)"
+  (changeSize)="onChangePageSize($event)"
+/>
 ```
 
-#### Esempio TypeScript
+## Note
 
-```typescript
-export class MyComponent {
-  currentPage = 1
-  itemsPerPage = 20
-  totalItemCount = 150
-
-  onPageChange(page: number): void {
-    this.currentPage = page
-    // Carica dati per nuova pagina
-  }
-
-  onPageSizeChange(pageSize: number): void {
-    this.itemsPerPage = pageSize
-    this.currentPage = 1 // Reset alla prima pagina
-    // Carica dati con nuova dimensione pagina
-  }
-}
-```
-
-### Integrazione Traduzione
-
-Il componente usa QuangTranslationService per tutto contenuto testuale:
-
-- **Chiavi Default**: Usa chiavi traduzione `quangPaginator.*`
-- **Override Personalizzato**: Tutte chiavi testo possono essere sovrascritte tramite input
-- **Supporto Placeholder**: Testo intervallo pagina supporta placeholder `{{page}}` e `{{amountPages}}`
-- **Traduzione Dinamica**: Risponde a cambiamenti lingua automaticamente
+Questo componente fornisce un'interfaccia intuitiva per la paginazione in liste e tabelle.
