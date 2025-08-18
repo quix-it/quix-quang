@@ -36,7 +36,7 @@ All standard inputs inherited from `QuangBaseComponent`:
 ### Basic Editor
 ```html
 <quang-wysiwyg
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [highlightColor]="highlightColor()"
   [isReadonly]="isReadonly()"
   [minHeight]="wysiwygHeight()"

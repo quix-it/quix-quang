@@ -108,7 +108,7 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 
 ```html
 <quang-input
-  [errorMap]="errors()"
+  [errorMap]="errors"
   componentLabel="form.label.input"
   componentType="text"
   formControlName="testInput"
@@ -119,7 +119,7 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 
 ```html
 <quang-input
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [showHidePasswordButton]="true"
   (showPassword)="onToggleShowPassword($event)"
   componentLabel="form.label.password"
@@ -142,14 +142,15 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 
 ```typescript
 export class MyComponent {
+  errors: ErrorData[] = [
+    { type: 'required', message: 'Password is required' },
+    { type: 'minlength', message: 'Password must be at least 8 characters long' }
+  ]
+  
   showPassword = signal<boolean>(false)
 
   onToggleShowPassword(isVisible: boolean): void {
     this.showPassword.set(isVisible)
-  }
-
-  errors(): Record<string, any> {
-    return this.form.get('password')?.errors ?? {}
   }
 }
 ```
@@ -159,7 +160,7 @@ export class MyComponent {
 ```html
 <quang-input
   [componentStep]="5"
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [maxNumber]="100"
   [minNumber]="0"
   componentLabel="form.label.quantity"
@@ -172,7 +173,7 @@ export class MyComponent {
 
 ```html
 <quang-input
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [maxLengthText]="500"
   componentLabel="form.label.description"
   componentType="textarea"
@@ -184,7 +185,7 @@ export class MyComponent {
 
 ```html
 <quang-input
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [showHidePasswordButton]="true"
   (showPassword)="onToggleShowPassword($event)"
   componentLabel="form.label.password"
@@ -203,14 +204,15 @@ export class MyComponent {
 
 ```typescript
 export class MyComponent {
+  errors: ErrorData[] = [
+    { type: 'required', message: 'Password is required' },
+    { type: 'minlength', message: 'Password must be at least 8 characters long' }
+  ]
+  
   showPassword = signal<boolean>(false)
 
   onToggleShowPassword(isVisible: boolean): void {
     this.showPassword.set(isVisible)
-  }
-
-  errors(): Record<string, any> {
-    return this.form.get('password')?.errors ?? {}
   }
 }
 ```

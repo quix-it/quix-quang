@@ -88,7 +88,7 @@ All standard inputs inherited from `QuangBaseComponent`:
 
 ```html
 <quang-date
-  [errorMap]="errors()"
+  [errorMap]="errors"
   componentLabel="form.label.birthdate"
   formControlName="birthdate"
 >
@@ -100,7 +100,7 @@ All standard inputs inherited from `QuangBaseComponent`:
 
 ```html
 <quang-date
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [maxDate]="maxDate"
   [minDate]="minDate"
   [timepicker]="true"
@@ -120,7 +120,7 @@ All standard inputs inherited from `QuangBaseComponent`:
 
 ```html
 <quang-date
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [maxDate]="endDate"
   [minDate]="startDate"
   [rangeSelection]="true"

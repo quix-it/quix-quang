@@ -25,6 +25,14 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   errorMap = input<ErrorData[]>([])
 
+  errorMap$ = toObservable(this.errorMap)
+    .pipe(takeUntilDestroyed())
+    .subscribe(() => {
+      if (this._isTouched()) {
+        this.checkFormErrors()
+      }
+    })
+
   _errorMessagesByKey = computed(
     () => new Map((this.errorMap() ?? []).map((errorData) => [errorData.error, errorData.message]))
   )

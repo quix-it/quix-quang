@@ -83,7 +83,7 @@ Tutti gli input standard ereditati da `QuangBaseComponent`:
 ### Selettore Data Base
 ```html
 <quang-date
-  [errorMap]="errors()"
+  [errorMap]="errors"
   componentLabel="form.label.birthdate"
   formControlName="birthdate"
 >
@@ -94,7 +94,7 @@ Tutti gli input standard ereditati da `QuangBaseComponent`:
 ### Selettore Data con Orario
 ```html
 <quang-date
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [maxDate]="maxDate"
   [minDate]="minDate"
   [timepicker]="true"
@@ -113,7 +113,7 @@ Tutti gli input standard ereditati da `QuangBaseComponent`:
 ### Selezione Intervallo Date
 ```html
 <quang-date
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [maxDate]="endDate"
   [minDate]="startDate"
   [rangeSelection]="true"
