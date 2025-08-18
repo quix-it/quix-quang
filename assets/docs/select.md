@@ -32,7 +32,7 @@ All standard inputs inherited from `QuangBaseComponent`:
 ### Single Selection
 ```html
 <quang-select
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [selectOptions]="stringList"
   componentLabel="form.label.select"
   componentPlaceholder="Select an option"
@@ -45,7 +45,7 @@ All standard inputs inherited from `QuangBaseComponent`:
 ### Multiple Selection
 ```html
 <quang-select
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [selectOptions]="numberList"
   componentLabel="form.label.multipleSelect"
   componentPlaceholder="Select multiple options"
