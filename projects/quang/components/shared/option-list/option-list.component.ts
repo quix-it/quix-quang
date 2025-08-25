@@ -335,5 +335,8 @@ export class QuangOptionListComponent {
     nativeElement?.classList.toggle('option-list-top', !isTop)
     this.elementTop.set(topValue)
     this.elementBottom.set(bottomValue)
+    setTimeout(() => {
+      this.getOptionListTop()
+    })
   }
 }
