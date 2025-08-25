@@ -3,6 +3,11 @@
 ::ng-deep {
   .air-datepicker {
     z-index: 99999;
+
+    &.-inline- {
+      z-index: unset;
+    }
+
     .air-datepicker--pointer {
       display: none;
     }
