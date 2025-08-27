@@ -103,7 +103,10 @@
               @for (cell of row.cellData; track $index) {
                 <td
                   [attr.colspan]="cell?.fullWidth ? _tableConfigurations().headers.length : undefined"
-                  [ngClass]="cell.css!"
+                  [attr.data-properties]="cell.properties ? convertToString(cell.properties) : undefined"
+                  [ngClass]="cell.css"
+                  [ngStyle]="cell.style"
+                  #tdCell
                 >
                   {{ !cell.renderer ? cell.text : null }}
                   <ng-container

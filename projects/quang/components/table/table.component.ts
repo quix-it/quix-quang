@@ -1,4 +1,4 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common'
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,6 +11,7 @@ import {
   output,
   signal,
   viewChild,
+  viewChildren,
 } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
@@ -37,6 +38,8 @@ export interface TableCell {
   text?: string
   css?: string[]
   fullWidth?: boolean
+  style?: Record<string, string>
+  properties?: Record<string, any>
 }
 
 export interface TableRow<T> {
@@ -61,7 +64,7 @@ export interface SortCol {
   selector: 'quang-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
-  imports: [TranslocoPipe, NgClass, NgTemplateOutlet],
+  imports: [TranslocoPipe, NgClass, NgTemplateOutlet, NgStyle],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -94,6 +97,21 @@ export class QuangTableComponent<T> {
   _tableHeaderElement = viewChild<Element>('tableHeader')
 
   noResultsText = input<string>('quangTable.noResults')
+
+  tdWithProperties = viewChildren('tdCell', { read: ElementRef })
+
+  _tdWithPropertiesEffect = effect(() => {
+    for (const tdWithProperty of this.tdWithProperties()) {
+      const properties = tdWithProperty.nativeElement.getAttribute('data-properties')
+      if (properties) {
+        const propertiesObj = JSON.parse(properties)
+        for (const key of Object.keys(propertiesObj)) {
+          console.log('key', key, propertiesObj[key])
+          tdWithProperty.nativeElement[key] = propertiesObj[key]
+        }
+      }
+    }
+  })
 
   _tableHeaderEffect = effect(() => {
     if (this._tableHeader()) {
@@ -221,5 +239,10 @@ export class QuangTableComponent<T> {
     })
     this._tableConfigurations.set({ ...this._tableConfigurations(), headers: tableHeaders })
     this.sortChanged.emit([sort]) // it's an array to handle multisort in the future
+  }
+
+  convertToString(value?: any): string | undefined {
+    if (value === null) return undefined
+    return JSON.stringify(value)
   }
 }

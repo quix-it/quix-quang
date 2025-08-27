@@ -262,6 +262,8 @@ export class TableTestComponent {
         },
         {
           text: person.name,
+          properties: { title: person.name, spellcheck: 'true' },
+          style: { 'max-width': '150px', overflow: 'hidden', 'text-overflow': 'ellipsis', 'white-space': 'nowrap' },
         },
         {
           text: person.name,
