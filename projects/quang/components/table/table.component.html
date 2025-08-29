@@ -32,6 +32,11 @@
                       $implicit: header.payload,
                     }"
                   ></ng-container>
+                  <div class="mw-1ch">
+                    @if (sortType() === SortType.MULTIPLE && header.sort && header.sort.order !== undefined) {
+                      <span>{{ header.sort.order + 1 }}</span>
+                    }
+                  </div>
                   @if (header.sort?.key) {
                     <div class="d-flex justify-content-between">
                       <ng-container
@@ -79,6 +84,11 @@
                       $implicit: header.payload,
                     }"
                   ></ng-container>
+                  <div class="mw-1ch">
+                    @if (sortType() === SortType.MULTIPLE && header.sort && header.sort.order !== undefined) {
+                      <span>{{ header.sort.order + 1 }}</span>
+                    }
+                  </div>
                   @if (header.sort?.key) {
                     <div class="d-flex justify-content-between">
                       <ng-container
