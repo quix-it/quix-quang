@@ -6,7 +6,8 @@ Il `QuangTableComponent` consente di visualizzare dati in formato tabellare con 
 
 - Visualizzazione dati in tabella
 - Intestazioni e righe personalizzabili
-- Supporto per l'ordinamento delle colonne
+- Supporto per l'ordinamento delle colonne (singolo e multiplo)
+- Ordinamento multiplo: consente di ordinare la tabella su più colonne, mantenendo la priorità di ordinamento
 - Rendering personalizzato delle celle con template
 - Selezione e evidenziazione delle righe
 - Opzione per intestazione fissa (sticky)
@@ -58,6 +59,15 @@ interface TableCell {
 interface SortCol {
   key: string;            // Identificatore per la colonna
   sort: SortTable;        // Direzione di ordinamento (DEFAULT, ASC, DESC)
+  order?: number;         // Ordine di priorità nell'ordinamento multiplo
+}
+```
+
+### SortType
+```typescript
+export enum SortType {
+  SINGLE = 'SINGLE',      // Ordinamento su una sola colonna
+  MULTIPLE = 'MULTIPLE',  // Ordinamento su più colonne
 }
 ```
 
@@ -78,10 +88,13 @@ interface SortCol {
 - `noResultsText`: `string` — Testo da visualizzare quando non ci sono dati disponibili. Default: 'quangTable.noResults'.
   - Supporta le chiavi di traduzione se si utilizza transloco.
 
+- `sortType`: `SortType` — Modalità di ordinamento. Default: `SINGLE`.
+  - Impostare a `MULTIPLE` per abilitare l'ordinamento su più colonne. In questa modalità, l'output `sortChanged` restituirà un array ordinato di colonne con la priorità di ordinamento.
+
 ## Output
 
 - `sortChanged`: `EventEmitter<SortCol[]>` — Emette quando l'utente cambia l'ordinamento di una colonna.
-  - Restituisce un array di oggetti SortCol con lo stato di ordinamento aggiornato.
+  - In modalità `MULTIPLE`, restituisce un array ordinato di oggetti SortCol che rappresentano le colonne ordinate e la loro priorità.
 
 - `selectedRow`: `EventEmitter<TableRow<T>>` — Emette quando viene cliccata una riga (se clickableRow è true).
   - Restituisce i dati completi della riga, incluso il payload.
@@ -232,8 +245,42 @@ customTableConfig = computed(() => ({
 }))
 ```
 
+## Esempio d'uso: Ordinamento multiplo
+
+### HTML
+
+```html
+<quang-table
+  [tableConfigurations]="tableConfig()"
+  [sortType]="SortType.MULTIPLE"
+  (sortChanged)="onChangeSort($event)"
+/>
+```
+
+### TypeScript
+
+```typescript
+import { SortType } from 'quang/components/table';
+
+@Component({
+  // ...codice esistente...
+})
+export class ExampleComponent {
+  SortType = SortType;
+
+  // ...codice esistente...
+  
+  onChangeSort(sortCols: SortCol[]): void {
+    // sortCols è un array ordinato di colonne da ordinare, con la proprietà order
+    // Implementa la logica di ordinamento multiplo qui
+  }
+}
+```
+
 ## Note
 
+- In modalità ordinamento multiplo, l'ordine delle colonne viene visualizzato nell'intestazione e gestito tramite la proprietà `order`.
+- L'output `sortChanged` fornisce la sequenza di ordinamento da applicare ai dati.
 - La tabella regola automaticamente la larghezza delle colonne per adattarsi al contenuto.
 - Utilizza le classi CSS per personalizzare l'aspetto di specifiche righe, intestazioni o celle.
 - Per tabelle responsive, considera l'impostazione di larghezze appropriate per i contenitori.
