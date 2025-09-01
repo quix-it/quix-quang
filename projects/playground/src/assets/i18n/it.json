@@ -222,5 +222,8 @@
       "setTranslationKey": "Imposta una singola chiave e valore di traduzione per una lingua.",
       "translationsTokens": "Token di iniezione per la configurazione delle traduzioni: AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH. Usali per fornire le impostazioni di lingua e traduzione nella tua app Angular."
     }
+  },
+  "toggles": {
+    "multipleSorting": "Ordinamento multiplo"
   }
 }

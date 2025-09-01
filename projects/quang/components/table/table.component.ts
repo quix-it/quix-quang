@@ -55,9 +55,15 @@ export enum SortTable {
   DESC = 'DESC',
 }
 
+export enum SortType {
+  SINGLE = 'SINGLE',
+  MULTIPLE = 'MULTIPLE',
+}
+
 export interface SortCol {
   key: string
   sort: SortTable
+  order?: number
 }
 
 @Component({
@@ -81,6 +87,8 @@ export class QuangTableComponent<T> {
   selectedRows = input<string[] | number[]>()
 
   stickyTable = input<boolean>(true)
+
+  sortType = input<SortType>(SortType.SINGLE)
 
   selectedRow = output<TableRow<T>>()
 
@@ -208,41 +216,103 @@ export class QuangTableComponent<T> {
   }
 
   onSortColumn(sort: SortCol): void {
-    const tableHeaders: TableHeader[] = []
-    for (const header of this._tableConfigurations().headers) {
-      tableHeaders.push({
-        ...header,
-      })
-    }
-    tableHeaders.forEach((header) => {
-      if (!header.sort?.key) return
+    // Create a deep copy of headers to avoid direct mutation of the signal's state.
+    const tableHeaders: TableHeader[] = this._tableConfigurations().headers.map((h) => ({
+      ...h,
+      sort: h.sort ? { ...h.sort } : undefined,
+    }))
 
-      if (header.sort?.key === sort.key) {
-        switch (sort.sort) {
+    if (this.sortType() === SortType.SINGLE) {
+      let newSortToEmit: SortCol | undefined
+
+      tableHeaders.forEach((header) => {
+        if (!header.sort) return
+
+        if (header.sort.key === sort.key) {
+          switch (sort.sort) {
+            case SortTable.ASC:
+              header.sort.sort = SortTable.DESC
+              break
+            case SortTable.DESC:
+              header.sort.sort = SortTable.DEFAULT
+              break
+            case SortTable.DEFAULT:
+            default:
+              header.sort.sort = SortTable.ASC
+              break
+          }
+          header.sort.order = 0
+          if (header.sort.sort !== SortTable.DEFAULT) {
+            newSortToEmit = header.sort
+          }
+        } else {
+          header.sort.sort = SortTable.DEFAULT
+          header.sort.order = undefined
+        }
+      })
+
+      this._tableConfigurations.set({ ...this._tableConfigurations(), headers: tableHeaders })
+      this.sortChanged.emit(newSortToEmit ? [newSortToEmit] : [])
+    } else {
+      // 1. Find the clicked header and update its sort status
+      const targetHeader = tableHeaders.find((h) => h.sort?.key === sort.key)
+      if (targetHeader?.sort) {
+        switch (targetHeader.sort.sort) {
           case SortTable.ASC:
-            header.sort.sort = SortTable.DESC
+            targetHeader.sort.sort = SortTable.DESC
             break
           case SortTable.DESC:
-            header.sort.sort = SortTable.DEFAULT
+            targetHeader.sort.sort = SortTable.DEFAULT
             break
           case SortTable.DEFAULT:
           default:
-            header.sort.sort = SortTable.ASC
+            targetHeader.sort.sort = SortTable.ASC
             break
         }
-      } else {
-        header.sort = {
-          ...header.sort,
-          sort: SortTable.DEFAULT,
-        }
       }
-    })
-    this._tableConfigurations.set({ ...this._tableConfigurations(), headers: tableHeaders })
-    this.sortChanged.emit([sort]) // it's an array to handle multisort in the future
+
+      // 2. Collect all currently active sort columns (not DEFAULT)
+      const activeSorts = tableHeaders
+        .filter((h) => h.sort && h.sort.sort !== SortTable.DEFAULT)
+        .map((h) => h.sort as SortCol)
+
+      activeSorts.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+
+      // 3. If the clicked column was already in the list, remove it to re-add it at the end.
+      // This makes the last clicked column the highest priority in the sort order.
+      const existingIndex = activeSorts.findIndex((s) => s.key === sort.key)
+      if (existingIndex > -1) {
+        activeSorts.splice(existingIndex, 1)
+      }
+
+      const clickedSortObject = targetHeader?.sort
+      // 4. If the new state is not DEFAULT, add it to the end of the list.
+      if (clickedSortObject && clickedSortObject.sort !== SortTable.DEFAULT) {
+        activeSorts.push(clickedSortObject)
+      }
+
+      // 5. Re-assign the 'order' property based on the new sequence.
+      activeSorts.forEach((sort, index) => {
+        sort.order = index
+      })
+
+      // 6. Clean up the 'order' for any headers that are no longer sorted.
+      const activeSortKeys = new Set(activeSorts.map((s) => s.key))
+      tableHeaders.forEach((header) => {
+        if (header.sort && !activeSortKeys.has(header.sort.key)) {
+          header.sort.order = undefined
+        }
+      })
+
+      this._tableConfigurations.set({ ...this._tableConfigurations(), headers: tableHeaders })
+      this.sortChanged.emit(activeSorts)
+    }
   }
 
   convertToString(value?: any): string | undefined {
     if (value === null) return undefined
     return JSON.stringify(value)
   }
+
+  protected readonly SortType = SortType
 }

@@ -22,6 +22,7 @@ import {
   QuangTableComponent,
   SortCol,
   SortTable,
+  SortType,
   TableConfiguration,
   TableHeader,
   TableRow,
@@ -300,7 +301,13 @@ export class TableTestComponent {
 
   private readonly formBuilder = inject(NonNullableFormBuilder)
 
-  checkboxForm = this.formBuilder.control(false)
+  multipleSorting = this.formBuilder.control(false)
+
+  sortType = signal<SortType>(SortType.SINGLE)
+
+  sortType$ = this.multipleSorting.valueChanges.pipe(takeUntilDestroyed()).subscribe((enabled) => {
+    this.sortType.set(enabled ? SortType.MULTIPLE : SortType.SINGLE)
+  })
 
   peopleList$ = toObservable(this.peopleList)
     .pipe(takeUntilDestroyed())
@@ -350,13 +357,32 @@ export class TableTestComponent {
   }
 
   onChangeSort(sortCols: SortCol[]): void {
-    this.tableHeaders.update((headers) =>
-      headers.map((h) => ({
-        ...h,
-        sort: h.sort
-          ? { ...h.sort, sort: sortCols[0].key === h.sort.key ? sortCols[0].sort : SortTable.DEFAULT }
-          : undefined,
-      }))
+    this.tableHeaders.update((currentHeaders) =>
+      currentHeaders.map((header) => {
+        // If the header is not sortable, return it as is.
+        if (!header.sort) {
+          return header
+        }
+
+        // Find if this header has new sort info in the emitted array.
+        const newSortInfo = sortCols.find((sc) => sc.key === header.sort!.key)
+
+        if (newSortInfo) {
+          // If found, update sort direction and order.
+          return {
+            ...header,
+            sort: { ...header.sort, sort: newSortInfo.sort, order: newSortInfo.order },
+          }
+        } else {
+          // If not found, reset its sort state.
+          return {
+            ...header,
+            sort: { ...header.sort, sort: SortTable.DEFAULT, order: undefined },
+          }
+        }
+      })
     )
   }
+
+  protected readonly SortType = SortType
 }
