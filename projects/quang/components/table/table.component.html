@@ -107,14 +107,14 @@
           </tr>
         </thead>
         <tbody>
-          @for (row of _tableConfigurations().rows; track $index) {
+          @for (row of _tableConfigurations().rows; track row.rowId || $index) {
             <tr
               [class.hover-table]="clickableRow()"
-              [class.selectedRow]="row?.rowId ? isSelected(row.rowId!) : null"
+              [class.selectedRow]="row.rowId ? isSelected(row.rowId) : null"
               [ngClass]="row.css"
               (click)="clickableRow() ? onClickRow(row) : null"
             >
-              @for (cell of row.cellData; track $index) {
+              @for (cell of row.cellData; track cell.cellId || $index) {
                 <td
                   [attr.colspan]="cell?.fullWidth ? _tableConfigurations().headers.length : undefined"
                   [attr.data-properties]="cell.properties ? convertToString(cell.properties) : undefined"

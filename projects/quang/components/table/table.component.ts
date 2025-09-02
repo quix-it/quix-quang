@@ -40,6 +40,7 @@ export interface TableCell {
   fullWidth?: boolean
   style?: Record<string, string>
   properties?: Record<string, any>
+  cellId?: string | number
 }
 
 export interface TableRow<T> {
