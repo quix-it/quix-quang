@@ -87,6 +87,12 @@
         >
           {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
         </button>
+        <button
+          (click)="resetForm()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.resetForm' | transloco: { readonly: isReadonly() } }}
+        </button>
       </div>
     </div>
   </div>
