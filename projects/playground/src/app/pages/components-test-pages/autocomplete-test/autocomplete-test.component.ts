@@ -264,6 +264,10 @@ export class AutocompleteTestComponent {
     }, 500)
   }
 
+  resetForm(): void {
+    this.testForm.reset()
+  }
+
   changeTextTestFixed($event: string) {
     // test for string changes and autocompletes
     setTimeout(() => {

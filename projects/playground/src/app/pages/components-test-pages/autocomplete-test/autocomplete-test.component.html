@@ -67,7 +67,7 @@
             [isReadonly]="isReadonly()"
             [multiple]="true"
             [searchTextDebounce]="500"
-            [selectOptions]="stringListFiltered()"
+            [selectOptions]="numberList"
             [syncFormWithText]="true"
             class="col-6"
             componentLabel="form.label.autocompleteMultiple"
@@ -133,6 +133,12 @@
           class="btn btn-outline-secondary"
         >
           {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+        </button>
+        <button
+          (click)="resetForm()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.resetForm' | transloco }}
         </button>
       </div>
     </div>

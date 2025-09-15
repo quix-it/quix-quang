@@ -221,6 +221,10 @@ export class SelectTestComponent {
     this.isReadonly.set(!this.isReadonly())
   }
 
+  resetForm() {
+    this.testForm.reset()
+  }
+
   constructor() {
     setTimeout(() => {
       console.log('è il momento dei pocci')
