@@ -15,7 +15,7 @@
       >
         <thead>
           <tr>
-            @for (header of _tableConfigurations().headers; track $index) {
+            @for (header of _tableConfigurations().headers; track header.text + $index) {
               <th
                 [class.sort-btn]="header?.sort"
                 (click)="header?.sort ? onSortColumn(header.sort!) : null"
@@ -62,7 +62,7 @@
           id="fakeTableHeader"
         >
           <tr>
-            @for (header of _tableConfigurations().headers; track $index) {
+            @for (header of _tableConfigurations().headers; track header.text + $index) {
               <th
                 [class.sort-btn]="header?.sort"
                 (click)="header?.sort ? onSortColumn(header.sort!) : null"
@@ -93,14 +93,14 @@
           </tr>
         </thead>
         <tbody>
-          @for (row of _tableConfigurations().rows; track $index) {
+          @for (row of _tableConfigurations().rows; track row.rowId + $index) {
             <tr
               [class.hover-table]="clickableRow()"
               [class.selectedRow]="row?.rowId ? isSelected(row.rowId!) : null"
               [ngClass]="row.css"
               (click)="clickableRow() ? onClickRow(row) : null"
             >
-              @for (cell of row.cellData; track $index) {
+              @for (cell of row.cellData; track cell.text + $index) {
                 <td
                   [attr.colspan]="cell?.fullWidth ? _tableConfigurations().headers.length : undefined"
                   [ngClass]="cell.css!"

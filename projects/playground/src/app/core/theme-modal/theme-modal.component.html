@@ -43,7 +43,7 @@
           ></svg-icon>
         </button>
       </div>
-      @for (color of colorScheme; track $index) {
+      @for (color of colorScheme; track color) {
         <div class="d-flex gap-3">
           <div class="color-scheme-sample bg-{{ color }}"></div>
           {{ color | transloco }}

@@ -12,7 +12,7 @@
   tabindex="1"
 >
   <ul>
-    @for (item of selectOptionsList(); track i; let i = $index; let last = $last) {
+    @for (item of selectOptionsList(); track item.value; let i = $index; let last = $last) {
       <li
         [class.m-0]="last"
         [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
