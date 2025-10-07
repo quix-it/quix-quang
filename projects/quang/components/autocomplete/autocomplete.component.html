@@ -25,7 +25,7 @@
     class="container-wrap"
   >
     @if (multiple() && _chipList().length > 0) {
-      @for (chip of _chipList(); track $index) {
+      @for (chip of _chipList(); track chip) {
         @if (getDescription(chip)) {
           <div
             [quangTooltip]="chipMaxLength() ? getDescription(chip) : ''"
