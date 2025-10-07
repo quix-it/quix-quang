@@ -197,7 +197,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     }
     if (formControl) {
       this.formValueChange$ = formControl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
-        console.log('form value changes', value)
         if (this.multiple() && Array.isArray(value)) {
           this._chipList.set([])
           this._selectedOptions.set([])
