@@ -6,11 +6,9 @@
       <div class="card-body">
         <div class="row">
           <quang-date
-            [dateFormat]="dateFormat()"
             [errorMap]="errors()"
             [formControl]="testForm.controls.testInput"
             [isReadonly]="isReadonly()"
-            [timepicker]="true"
             #testComponent
             class="col-6"
             componentLabel="form.label.date"

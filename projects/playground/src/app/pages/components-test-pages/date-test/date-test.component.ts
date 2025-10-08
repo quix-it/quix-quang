@@ -93,9 +93,9 @@ export class DateTestComponent {
   }
 
   constructor() {
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.testForm.controls.testInput.setValue(new Date().toISOString())
-    }, 2000)
+    }, 2000)*/
   }
 
   getIsRequiredInput() {

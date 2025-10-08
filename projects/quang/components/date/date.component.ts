@@ -180,17 +180,28 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
   setupCalendar() {
     if (this._inputForDate()?.nativeElement) {
-      const currentValue = this._value()
+      let currentValue = this._value()
       let targetDate: AirDatepickerDate[] | undefined
       if (currentValue && typeof currentValue === 'string') {
+        if (!this.showTimepicker()) {
+          currentValue = currentValue.split('T')[0]
+        }
         targetDate = [currentValue]
       } else if (currentValue && typeof currentValue === 'object') {
         targetDate = []
         if (currentValue.dateFrom) {
-          targetDate.push(currentValue.dateFrom)
+          let targetDateFrom: string = currentValue.dateFrom
+          if (!this.showTimepicker()) {
+            targetDateFrom = currentValue.dateFrom.split('T')[0]
+          }
+          targetDate.push(targetDateFrom)
         }
         if (currentValue.dateTo) {
-          targetDate.push(currentValue.dateTo)
+          let targetDateTo: string = currentValue.dateTo
+          if (!this.showTimepicker()) {
+            targetDateTo = currentValue.dateTo.split('T')[0]
+          }
+          targetDate.push(targetDateTo)
         }
       }
       this.setCalendarPosition()
@@ -216,6 +227,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
         selectedDates: targetDate,
         position: this.targetPosition(),
         locale: this.getLocale(),
+
         onSelect: ({ date }) => {
           if (!Array.isArray(date)) {
             let selectTargetDate = date
@@ -428,6 +440,11 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   private dateToUtc(date: Date): Date {
     // convert to UTC time removing the timezone
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+  }
+
+  private dateToLocal(date: Date): Date {
+    // convert to local time adding the timezone
+    return new Date(date.getTime() + date.getTimezoneOffset() * 60000)
   }
 
   private setCalendarPosition() {
