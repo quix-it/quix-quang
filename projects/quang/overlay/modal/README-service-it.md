@@ -1,55 +1,115 @@
 # QuangModalService
 
-Il `QuangModalService` è un servizio che consente di creare e gestire modal programmaticamente nella tua applicazione Angular. Fornisce un'API semplice per aprire, chiudere e gestire più modal dinamicamente.
+Il `QuangModalService` è un servizio che consente di creare e gestire modal programmaticamente nella tua applicazione Angular. Fornisce un'API semplice per aprire, chiudere e gestire più modal dinamicamente con supporto per dati di ritorno.
 
 ## Caratteristiche
 
 - **Creazione Dinamica di Modal**: Crea modal programmaticamente passando un tipo di componente
 - **Supporto Multi-Modal**: Apri più modal simultaneamente con ID univoci
-- **Gestione LIFO**: Gestione modal last-in, first-out (chiusura del modal più recente per primo)
+- **Dati di Ritorno**: Ricevi dati dai modal (es. quale pulsante è stato cliccato)
+- **Basato su Observable**: Sottoscrivi ai risultati del modal usando Observable RxJS
+- **Helper ModalRef**: Classe iniettabile per chiudere facilmente il modal con dati
+- **Gestione LIFO**: Gestione modal last-in, first-out
 - **Opzioni Configurabili**: Supporto per varie configurazioni modal (posizione, dimensione, animazione, ecc.)
-- **Chiusura Basata su ID**: Chiudi modal specifici tramite il loro ID univoco
-- **Proiezione Componenti**: Passa qualsiasi componente Angular come contenuto del modal
 
 ## Utilizzo
 
-### Esempio Base
+### Esempio Base con Dati di Ritorno
 
 ```typescript
 import { Component, inject } from '@angular/core'
-import { QuangModalService } from 'quang/overlay/modal'
+import { QuangModalService, ModalRef } from 'quang/overlay/modal'
 
+// Componente Modal
+@Component({
+  selector: 'app-confirm-modal',
+  template: `
+    <h2>Conferma Azione</h2>
+    <button (click)="onConfirm()">Sì</button>
+    <button (click)="onCancel()">No</button>
+  `
+})
+export class ConfirmModalComponent {
+  private modalRef = inject(ModalRef)
+
+  onConfirm() {
+    this.modalRef.close({ action: 'confirm', confirmed: true })
+  }
+
+  onCancel() {
+    this.modalRef.close({ action: 'cancel', confirmed: false })
+  }
+}
+
+// Componente Principale
 @Component({
   selector: 'app-example',
-  template: `
-    <button (click)="openModal()">Apri Modal</button>
-    <button (click)="closeModal()">Chiudi Ultimo Modal</button>
-  `
+  template: `<button (click)="openModal()">Apri Modal</button>`
 })
 export class ExampleComponent {
   private modalService = inject(QuangModalService)
-  private lastModalId?: string
 
   openModal() {
-    this.lastModalId = this.modalService.showModal(MyModalContentComponent, {
+    this.modalService.showModal(ConfirmModalComponent, {
       position: 'center',
-      width: '50vw',
-      height: '60vh',
-      animationMode: 'FADE'
+      width: '400px'
+    }).subscribe(result => {
+      if (result) {
+        const { confirmed } = result as { confirmed: boolean }
+        if (confirmed) this.performAction()
+      }
     })
   }
 
-  closeModal() {
-    if (this.lastModalId) {
-      this.modalService.hideModal(this.lastModalId)
-    }
-  }
+  private performAction() { }
 }
 ```
 
-### Opzioni Modal
+### Modal Multipli con Dati
 
-Il metodo `showModal` accetta un'interfaccia `ModalOptions` con le seguenti proprietà:
+```typescript
+this.modalService.showModal(FormComponent, options).subscribe(result => {
+  if (result) {
+    const { action, data } = result as { action: string; data: any }
+    switch (action) {
+      case 'save': this.save(data); break
+      case 'cancel': console.log('Annullato'); break
+    }
+  }
+})
+```
+
+## Riferimento API
+
+### QuangModalService
+
+#### `showModal<T>(component: Type<T>, options?: ModalOptions, componentInputs?: Record<string, unknown>): Observable<object | undefined>`
+
+Apre un modal e restituisce un Observable che emette alla chiusura.
+
+**Restituisce:** Observable che emette i dati di ritorno o `undefined` se chiuso senza dati.
+
+#### `close(id: string, data?: object): void`
+
+Chiude un modal specifico con dati di ritorno opzionali.
+
+#### `hideModal(id?: string): void`
+
+Chiude un modal (LIFO se non viene fornito ID). Emette `undefined`.
+
+### ModalRef
+
+Classe iniettabile per i componenti modal.
+
+#### `close(data?: object): void`
+
+Chiude il modal con dati di ritorno opzionali.
+
+#### `getId(): string`
+
+Restituisce l'ID univoco del modal.
+
+### Opzioni Modal
 
 ```typescript
 interface ModalOptions {
@@ -62,97 +122,75 @@ interface ModalOptions {
 }
 ```
 
-### Modal Multipli
-
-Il servizio supporta l'apertura di più modal simultaneamente:
-
-```typescript
-// Apri più modal
-const modal1 = this.modalService.showModal(ContentComponent1)
-const modal2 = this.modalService.showModal(ContentComponent2)
-const modal3 = this.modalService.showModal(ContentComponent3)
-
-// Chiudi l'ultimo modal aperto (modal3)
-this.modalService.hideModal()
-
-// Chiudi un modal specifico
-this.modalService.hideModal(modal1)
-```
-
-## Riferimento API
-
-### Metodi
-
-#### `showModal<T>(component: Type<T>, options?: ModalOptions): string`
-
-Apre un nuovo modal con il componente e le opzioni specificate.
-
-**Parametri:**
-- `component`: Il componente Angular da visualizzare nel modal
-- `options`: Oggetto di configurazione opzionale per il modal
-
-**Restituisce:**
-- `string`: ID univoco del modal creato
-
-#### `hideModal(id?: string): void`
-
-Chiude un modal. Se non viene fornito un ID, chiude l'ultimo modal aperto (comportamento LIFO).
-
-**Parametri:**
-- `id`: ID univoco opzionale del modal da chiudere
-
-### Ciclo di Vita del Modal
-
-1. **Creazione**: Quando viene chiamato `showModal`, viene creata una nuova istanza modal con un ID univoco
-2. **Gestione**: I modal multipli sono gestiti in uno stack (LIFO)
-3. **Chiusura**: I modal possono essere chiusi individualmente per ID o automaticamente (ultimo aperto)
-4. **Pulizia**: Le istanze modal sono distrutte correttamente e rimosse dal DOM
-
 ## Migliori Pratiche
 
-1. **Memorizza gli ID dei Modal**: Tieni traccia degli ID dei modal se devi chiudere modal specifici
-2. **Click su Backdrop**: Abilita il click sul backdrop per una migliore esperienza utente
-3. **Design Responsivo**: Usa unità relative (vw, vh, %) per larghezza e altezza
-4. **Chiusura Pulita**: Chiudi sempre i modal quando i componenti vengono distrutti
-5. **Gestione Errori**: Gestisci i casi in cui i componenti modal potrebbero non riuscire a caricarsi
+1. **Usa ModalRef** nei componenti modal per chiusura facile con dati
+2. **Sottoscrivi ai risultati** per gestire i dati di ritorno
+3. **Tipizza i tuoi dati** usando interfacce per type safety
+4. **Gestisci undefined** - il modal può chiudersi senza dati (click backdrop)
+5. **Usa unità relative** (vw, vh, %) per design responsivo
 
 ## Esempi
 
-### Diverse Posizioni
+### Modal Form
 
 ```typescript
-// Modal centrale (predefinito)
-this.modalService.showModal(ContentComponent, { position: 'center' })
+@Component({
+  template: `
+    <input [(ngModel)]="name" placeholder="Nome" />
+    <button (click)="save()">Salva</button>
+    <button (click)="cancel()">Annulla</button>
+  `
+})
+export class FormModal {
+  private modalRef = inject(ModalRef)
+  name = ''
+  
+  save() {
+    this.modalRef.close({ action: 'save', name: this.name })
+  }
+  
+  cancel() {
+    this.modalRef.close({ action: 'cancel' })
+  }
+}
 
-// Modal lato sinistro
-this.modalService.showModal(ContentComponent, { position: 'left' })
-
-// Modal lato destro
-this.modalService.showModal(ContentComponent, { position: 'right' })
+// Uso
+this.modalService.showModal(FormModal, { position: 'center' })
+  .subscribe(result => {
+    if (result && (result as any).action === 'save') {
+      console.log('Salvato:', (result as any).name)
+    }
+  })
 ```
 
-### Modalità di Animazione
+### Ritorni Type-Safe
 
 ```typescript
-// Animazione fade
-this.modalService.showModal(ContentComponent, { animationMode: 'FADE' })
+interface ConfirmResult {
+  confirmed: boolean
+  action: 'yes' | 'no'
+}
 
-// Scorrimento dal basso
-this.modalService.showModal(ContentComponent, { animationMode: 'SLIDE_BOTTOM_TO_TOP' })
+this.modalService.showModal(ConfirmComponent, options)
+  .subscribe(result => {
+    if (result) {
+      const { confirmed, action } = result as ConfirmResult
+      // TypeScript conosce la struttura
+    }
+  })
 ```
 
-### Dimensionamento Personalizzato
+### Modal Sequenziali
 
 ```typescript
-// Modal grande
-this.modalService.showModal(ContentComponent, {
-  width: '80vw',
-  height: '80vh'
-})
-
-// Modal compatto
-this.modalService.showModal(ContentComponent, {
-  width: '400px',
-  height: '300px'
-})
+this.modalService.showModal(FirstModal, options)
+  .subscribe(firstResult => {
+    if (firstResult) {
+      this.modalService.showModal(SecondModal, options, { data: firstResult })
+        .subscribe(secondResult => {
+          console.log({ firstResult, secondResult })
+        })
+    }
+  })
 ```

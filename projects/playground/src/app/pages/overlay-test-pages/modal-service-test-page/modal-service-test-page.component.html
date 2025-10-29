@@ -43,6 +43,19 @@
   </div>
 }
 
+@if (lastModalResult()) {
+  <div class="alert alert-warning">
+    <strong>Last Modal Result:</strong>
+    <pre class="mb-0 mt-2"><code>{{ lastModalResult() | json }}</code></pre>
+    <button
+      (click)="lastModalResult.set(undefined)"
+      class="btn btn-sm btn-secondary mt-2"
+    >
+      Clear Result
+    </button>
+  </div>
+}
+
 <div class="mt-5 border-top pt-4">
   <playground-component-documentation
     [componentType]="ModalServiceTestPageComponent"
