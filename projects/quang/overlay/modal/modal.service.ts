@@ -113,6 +113,11 @@ export class QuangModalService {
     return { id, closeCallback: closeSubject.asObservable() }
   }
 
+  /**
+   * Closes a modal by its ID and emits optional data.
+   * @param id The ID of the modal to close.
+   * @param data Optional data to emit on close.
+   */
   close(id: string, data?: object): void {
     const instances = this.modalInstances()
     const instance = instances.find((inst) => inst.id === id)
@@ -129,6 +134,10 @@ export class QuangModalService {
     }
   }
 
+  /**
+   * Hides a modal by its ID.
+   * @param id The ID of the modal to hide. If not provided, hides the last opened modal.
+   */
   hideModal(id?: string): void {
     if (id) {
       // Find and remove modal by id
