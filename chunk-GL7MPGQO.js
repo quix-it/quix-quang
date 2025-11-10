@@ -1,0 +1,1 @@
+import{e as t}from"./chunk-YEACZCH6.js";import{ja as o,ma as n}from"./chunk-BHYPKTCC.js";var p=new o("QUANG_LOGGING_BEHAVIOR");function s(e,r){return{\u0275kind:e,\u0275providers:r}}function a(e,...r){return n([{provide:t,useValue:e?.baseHref??"/"},{provide:p,useValue:e?.verbose?"verbose":"normal"},r.map(i=>i.\u0275providers)])}export{p as a,s as b,a as c};
