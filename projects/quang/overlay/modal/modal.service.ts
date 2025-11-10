@@ -14,8 +14,8 @@ import { Observable, Subject } from 'rxjs'
 
 import { QuangModalComponent } from './modal.component'
 
+import { ModalOptions } from './models'
 import { ModalInstance } from './models/ModalInstance'
-import { ModalOptions } from './models/ModalOptions'
 
 import { MODAL_ID, ModalRef } from './modal-ref'
 
@@ -42,7 +42,7 @@ export class QuangModalService {
     component: Type<T>,
     options: ModalOptions,
     componentInputs?: Record<string, unknown>
-  ): Observable<object | undefined> {
+  ): { id: string; closeCallback: Observable<object | undefined> } {
     const id = this.generateId()
 
     // Create a Subject for this modal's close event
@@ -110,7 +110,7 @@ export class QuangModalService {
       closeSubject,
     }
     this.modalInstances.update((instances) => [...instances, modalInstance])
-    return closeSubject.asObservable()
+    return { id, closeCallback: closeSubject.asObservable() }
   }
 
   close(id: string, data?: object): void {

@@ -35,32 +35,18 @@ export class ModalServiceTestPageComponent {
 
   // Service modal tests - supports multiple modals
   openServiceModal(position: 'left' | 'right' | 'center' = 'center'): void {
-    this.modalService
-      .showModal(
-        TestModalContentComponent,
-        {
-          position,
-          height: '60vh',
-          width: '50vw',
-          animationMode: 'FADE',
-          showBackdrop: true,
-        },
-        {
-          // Pass callback to track modals opened from within modals
-          onModalCreated: (newModalId: string) => {
-            // The modal service now handles state automatically via signals
-            console.log(`New modal created from within modal: ${newModalId}`)
-          },
-        }
-      )
-      .subscribe({
-        next: (result) => {
-          this.lastModalResult.set(result)
-        },
-      })
-  }
-
-  closeModal(): void {
-    this.modalService.hideModal()
+    const modalData = this.modalService.showModal(TestModalContentComponent, {
+      position,
+      height: '60vh',
+      width: '50vw',
+      animationMode: 'FADE',
+      showBackdrop: true,
+    })
+    modalData.closeCallback.subscribe({
+      next: (result) => {
+        console.log('Modal chiusa con risultato:', result)
+        this.lastModalResult.set(result)
+      },
+    })
   }
 }
