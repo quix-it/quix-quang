@@ -53,4 +53,30 @@
       </small>
     </div>
   }
+
+  <hr />
+
+  <div class="mb-2">
+    <strong>Test Return Data</strong>
+  </div>
+  <div class="d-flex gap-2 flex-wrap">
+    <button
+      (click)="closeWithData('save')"
+      class="btn btn-success btn-sm"
+    >
+      Save & Close
+    </button>
+    <button
+      (click)="closeWithData('cancel')"
+      class="btn btn-secondary btn-sm"
+    >
+      Cancel
+    </button>
+    <button
+      (click)="closeWithData('delete')"
+      class="btn btn-danger btn-sm"
+    >
+      Delete & Close
+    </button>
+  </div>
 </div>

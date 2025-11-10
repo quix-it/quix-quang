@@ -2,6 +2,7 @@ import {
   ApplicationRef,
   EnvironmentInjector,
   Injectable,
+  Injector,
   Type,
   computed,
   createComponent,
@@ -9,12 +10,14 @@ import {
   signal,
 } from '@angular/core'
 
-import { Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 
 import { QuangModalComponent } from './modal.component'
 
+import { ModalOptions } from './models'
 import { ModalInstance } from './models/ModalInstance'
-import { ModalOptions } from './models/ModalOptions'
+
+import { MODAL_ID, ModalRef } from './modal-ref'
 
 @Injectable({
   providedIn: 'root',
@@ -35,11 +38,28 @@ export class QuangModalService {
   private modalClosedSubject = new Subject<string>()
   public modalClosed$ = this.modalClosedSubject.asObservable()
 
-  showModal<T = unknown>(component: Type<T>, options: ModalOptions, componentInputs?: Record<string, unknown>): string {
+  showModal<T = unknown>(
+    component: Type<T>,
+    options: ModalOptions,
+    componentInputs?: Record<string, unknown>
+  ): { id: string; closeCallback: Observable<object | undefined> } {
     const id = this.generateId()
 
-    // Create the content component instance first
+    // Create a Subject for this modal's close event
+    const closeSubject = new Subject<object | undefined>()
+
+    // Create an injector that provides the modal ID and ModalRef
+    const modalInjector = Injector.create({
+      providers: [
+        { provide: MODAL_ID, useValue: id },
+        { provide: ModalRef, useClass: ModalRef },
+      ],
+      parent: this.environmentInjector,
+    })
+
+    // Create the content component instance first with the modal injector
     const contentRef = createComponent(component, {
+      elementInjector: modalInjector,
       environmentInjector: this.environmentInjector,
     })
 
@@ -72,7 +92,7 @@ export class QuangModalService {
 
     // Subscribe to backdrop click to close modal
     modalRef.instance.backdropClick.subscribe(() => {
-      this.hideModal(id)
+      this.close(id)
     })
 
     // Attach components to the application
@@ -87,12 +107,37 @@ export class QuangModalService {
       id,
       modalRef,
       contentRef,
+      closeSubject,
     }
     this.modalInstances.update((instances) => [...instances, modalInstance])
-
-    return id
+    return { id, closeCallback: closeSubject.asObservable() }
   }
 
+  /**
+   * Closes a modal by its ID and emits optional data.
+   * @param id The ID of the modal to close.
+   * @param data Optional data to emit on close.
+   */
+  close(id: string, data?: object): void {
+    const instances = this.modalInstances()
+    const instance = instances.find((inst) => inst.id === id)
+
+    if (instance) {
+      // Emit the data through the subject before destroying
+      instance.closeSubject.next(data)
+      instance.closeSubject.complete()
+
+      // Remove the modal
+      this.hideModal(id)
+    } else {
+      console.warn('[QuangModalService] Modal not found:', id)
+    }
+  }
+
+  /**
+   * Hides a modal by its ID.
+   * @param id The ID of the modal to hide. If not provided, hides the last opened modal.
+   */
   hideModal(id?: string): void {
     if (id) {
       // Find and remove modal by id
@@ -100,20 +145,34 @@ export class QuangModalService {
       const index = instances.findIndex((instance: ModalInstance) => instance.id === id)
       if (index !== -1) {
         const modalToClose = instances[index]
+        // Complete the subject if not already completed
+        if (!modalToClose.closeSubject.closed) {
+          modalToClose.closeSubject.next(undefined)
+          modalToClose.closeSubject.complete()
+        }
         this.destroyModalInstance(modalToClose)
         this.modalInstances.update((instances) => instances.filter((_, i) => i !== index))
         // Emit modal closed event
         this.modalClosedSubject.next(id)
+      } else {
+        console.warn('[QuangModalService] Modal not found in instances:', id)
       }
     } else {
       // Remove last modal (LIFO - Last In First Out)
       const instances = this.modalInstances()
       const lastModal = instances[instances.length - 1]
       if (lastModal) {
+        // Complete the subject if not already completed
+        if (!lastModal.closeSubject.closed) {
+          lastModal.closeSubject.next(undefined)
+          lastModal.closeSubject.complete()
+        }
         this.destroyModalInstance(lastModal)
         this.modalInstances.update((instances) => instances.slice(0, -1))
         // Emit modal closed event
         this.modalClosedSubject.next(lastModal.id)
+      } else {
+        console.warn('[QuangModalService] No modals to hide')
       }
     }
   }

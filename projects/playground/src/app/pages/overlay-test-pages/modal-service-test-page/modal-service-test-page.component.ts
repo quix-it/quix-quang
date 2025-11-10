@@ -1,4 +1,5 @@
-import { Component, computed, inject } from '@angular/core'
+import { JsonPipe } from '@angular/common'
+import { Component, computed, inject, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangModalService } from 'quang/overlay/modal'
@@ -9,7 +10,7 @@ import { TestModalContentComponent } from './test-modal-content/test-modal-conte
 
 @Component({
   selector: 'playground-modal-service-test-page',
-  imports: [TranslocoPipe, ComponentDocumentationComponent],
+  imports: [TranslocoPipe, ComponentDocumentationComponent, JsonPipe],
   templateUrl: './modal-service-test-page.component.html',
   styleUrl: './modal-service-test-page.component.scss',
 })
@@ -29,28 +30,23 @@ export class ModalServiceTestPageComponent {
   readonly modalCount = this.modalService.modalCount
   readonly hasOpenModals = this.modalService.hasOpenModals
 
+  // Signal to track last modal result
+  lastModalResult = signal<object | undefined>(undefined)
+
   // Service modal tests - supports multiple modals
   openServiceModal(position: 'left' | 'right' | 'center' = 'center'): void {
-    this.modalService.showModal(
-      TestModalContentComponent,
-      {
-        position,
-        height: '60vh',
-        width: '50vw',
-        animationMode: 'FADE',
-        showBackdrop: true,
+    const modalData = this.modalService.showModal(TestModalContentComponent, {
+      position,
+      height: '60vh',
+      width: '50vw',
+      animationMode: 'FADE',
+      showBackdrop: true,
+    })
+    modalData.closeCallback.subscribe({
+      next: (result) => {
+        console.log('Modal chiusa con risultato:', result)
+        this.lastModalResult.set(result)
       },
-      {
-        // Pass callback to track modals opened from within modals
-        onModalCreated: (newModalId: string) => {
-          // The modal service now handles state automatically via signals
-          console.log(`New modal created from within modal: ${newModalId}`)
-        },
-      }
-    )
-  }
-
-  closeModal(): void {
-    this.modalService.hideModal()
+    })
   }
 }

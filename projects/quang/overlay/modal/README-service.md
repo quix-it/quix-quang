@@ -1,55 +1,128 @@
 # QuangModalService
 
-The `QuangModalService` is a service that allows you to programmatically create and manage modals in your Angular application. It provides a simple API to open, close, and manage multiple modals dynamically.
+The `QuangModalService` is a service that allows you to programmatically create and manage modals in your Angular application. It provides a simple API to open, close, and manage multiple modals dynamically with return data support.
 
 ## Features
 
 - **Dynamic Modal Creation**: Create modals programmatically by passing a component type
 - **Multiple Modal Support**: Open multiple modals simultaneously with unique IDs
-- **LIFO Management**: Last-in, first-out modal management (closing the most recent modal first)
+- **Return Data**: Get data back from modals (e.g., which button was clicked)
+- **Observable-based**: Subscribe to modal results using RxJS Observables
+- **ModalRef Helper**: Injectable class for easy modal closure with data
+- **LIFO Management**: Last-in, first-out modal management
 - **Configurable Options**: Support for various modal configurations (position, size, animation, etc.)
-- **ID-based Closure**: Close specific modals by their unique ID
-- **Component Projection**: Pass any Angular component as modal content
 
 ## Usage
 
-### Basic Example
+### Basic Example with Return Data
 
 ```typescript
 import { Component, inject } from '@angular/core'
-import { QuangModalService } from 'quang/overlay/modal'
+import { QuangModalService, ModalRef } from 'quang/overlay/modal'
 
+// Modal Component
+@Component({
+  selector: 'app-confirm-modal',
+  template: `
+    <h2>Confirm Action</h2>
+    <button (click)="onConfirm()">Yes</button>
+    <button (click)="onCancel()">No</button>
+  `
+})
+export class ConfirmModalComponent {
+  private modalRef = inject(ModalRef)
+
+  onConfirm() {
+    this.modalRef.close({ action: 'confirm', confirmed: true })
+  }
+
+  onCancel() {
+    this.modalRef.close({ action: 'cancel', confirmed: false })
+  }
+}
+
+// Main Component
 @Component({
   selector: 'app-example',
-  template: `
-    <button (click)="openModal()">Open Modal</button>
-    <button (click)="closeModal()">Close Last Modal</button>
-  `
+  template: `<button (click)="openModal()">Open Modal</button>`
 })
 export class ExampleComponent {
   private modalService = inject(QuangModalService)
-  private lastModalId?: string
 
   openModal() {
-    this.lastModalId = this.modalService.showModal(MyModalContentComponent, {
+    const { id, closeCallback } = this.modalService.showModal(ConfirmModalComponent, {
       position: 'center',
-      width: '50vw',
-      height: '60vh',
-      animationMode: 'FADE'
+      width: '400px'
     })
+    
+    // Subscribe to close events
+    closeCallback.subscribe(result => {
+      if (result) {
+        const { confirmed } = result as { confirmed: boolean }
+        if (confirmed) this.performAction()
+      }
+    })
+    
+    // Optionally store the modal ID for later reference
+    console.log(`Modal opened with ID: ${id}`)
   }
 
-  closeModal() {
-    if (this.lastModalId) {
-      this.modalService.hideModal(this.lastModalId)
-    }
-  }
+  private performAction() { }
 }
 ```
 
-### Modal Options
+### Multiple Modals with Data
 
-The `showModal` method accepts a `ModalOptions` interface with the following properties:
+```typescript
+const { id, closeCallback } = this.modalService.showModal(FormComponent, options)
+
+closeCallback.subscribe(result => {
+  if (result) {
+    const { action, data } = result as { action: string; data: any }
+    switch (action) {
+      case 'save': this.save(data); break
+      case 'cancel': console.log('Cancelled'); break
+    }
+  }
+})
+
+// You can use the ID to close the modal programmatically if needed
+console.log(`Modal ID: ${id}`)
+```
+
+## API Reference
+
+### QuangModalService
+
+#### `showModal<T>(component: Type<T>, options: ModalOptions, componentInputs?: Record<string, unknown>): { id: string; closeCallback: Observable<object | undefined> }`
+
+Opens a modal and returns an object containing the modal ID and a closeCallback Observable.
+
+**Returns:** An object with:
+- `id: string` — Unique identifier for the modal instance, useful for programmatic close operations
+- `closeCallback: Observable<object | undefined>` — Observable that emits when the modal closes, with optional return data or `undefined` if closed without data
+
+#### `close(id: string, data?: object): void`
+
+Closes a specific modal with optional return data. The ID can be obtained from the `showModal` return value.
+
+#### `hideModal(id?: string): void`
+
+Closes a modal. If an ID is provided, closes that specific modal. If no ID is provided, closes the last modal (LIFO - Last In First Out). Emits `undefined` to closeCallback.
+
+### ModalRef
+
+Injectable class for modal components.
+
+#### `close(data?: object): void`
+
+Closes the modal with optional return data.
+
+#### `getId(): string`
+
+Returns the modal's unique ID.
+
+### Modal Options
 
 ```typescript
 interface ModalOptions {
@@ -62,97 +135,99 @@ interface ModalOptions {
 }
 ```
 
-### Multiple Modals
-
-The service supports opening multiple modals simultaneously:
-
-```typescript
-// Open multiple modals
-const modal1 = this.modalService.showModal(ContentComponent1)
-const modal2 = this.modalService.showModal(ContentComponent2)
-const modal3 = this.modalService.showModal(ContentComponent3)
-
-// Close the last opened modal (modal3)
-this.modalService.hideModal()
-
-// Close a specific modal
-this.modalService.hideModal(modal1)
-```
-
-## API Reference
-
-### Methods
-
-#### `showModal<T>(component: Type<T>, options?: ModalOptions): string`
-
-Opens a new modal with the specified component and options.
-
-**Parameters:**
-- `component`: The Angular component to display in the modal
-- `options`: Optional configuration object for the modal
-
-**Returns:**
-- `string`: Unique ID of the created modal
-
-#### `hideModal(id?: string): void`
-
-Closes a modal. If no ID is provided, closes the last opened modal (LIFO behavior).
-
-**Parameters:**
-- `id`: Optional unique ID of the modal to close
-
-### Modal Lifecycle
-
-1. **Creation**: When `showModal` is called, a new modal instance is created with a unique ID
-2. **Management**: Multiple modals are managed in a stack (LIFO)
-3. **Closure**: Modals can be closed individually by ID or automatically (last opened)
-4. **Cleanup**: Modal instances are properly destroyed and removed from the DOM
-
 ## Best Practices
 
-1. **Store Modal IDs**: Keep track of modal IDs if you need to close specific modals
-2. **Backdrop Clicks**: Enable backdrop clicking for better user experience
-3. **Responsive Design**: Use relative units (vw, vh, %) for width and height
-4. **Clean Closure**: Always close modals when components are destroyed
-5. **Error Handling**: Handle cases where modal components might fail to load
+1. **Use ModalRef** in modal components for easy closure with data
+2. **Subscribe to results** to handle return data
+3. **Type your data** using interfaces for type safety
+4. **Handle undefined** - modal can close without data (backdrop click)
+5. **Use relative units** (vw, vh, %) for responsive design
 
 ## Examples
 
-### Different Positions
+### Form Modal
 
 ```typescript
-// Center modal (default)
-this.modalService.showModal(ContentComponent, { position: 'center' })
+@Component({
+  template: `
+    <input [(ngModel)]="name" placeholder="Name" />
+    <button (click)="save()">Save</button>
+    <button (click)="cancel()">Cancel</button>
+  `
+})
+export class FormModal {
+  private modalRef = inject(ModalRef)
+  name = ''
+  
+  save() {
+    this.modalRef.close({ action: 'save', name: this.name })
+  }
+  
+  cancel() {
+    this.modalRef.close({ action: 'cancel' })
+  }
+}
 
-// Left side modal
-this.modalService.showModal(ContentComponent, { position: 'left' })
+// Usage
+const { id, closeCallback } = this.modalService.showModal(FormModal, { position: 'center' })
 
-// Right side modal
-this.modalService.showModal(ContentComponent, { position: 'right' })
-```
-
-### Animation Modes
-
-```typescript
-// Fade animation
-this.modalService.showModal(ContentComponent, { animationMode: 'FADE' })
-
-// Slide from bottom
-this.modalService.showModal(ContentComponent, { animationMode: 'SLIDE_BOTTOM_TO_TOP' })
-```
-
-### Custom Sizing
-
-```typescript
-// Large modal
-this.modalService.showModal(ContentComponent, {
-  width: '80vw',
-  height: '80vh'
+closeCallback.subscribe(result => {
+  if (result && (result as any).action === 'save') {
+    console.log('Saved:', (result as any).name)
+  }
 })
 
-// Compact modal
-this.modalService.showModal(ContentComponent, {
-  width: '400px',
-  height: '300px'
+// Store ID if you need to close it programmatically
+console.log(`Form Modal ID: ${id}`)
+```
+
+### Type-Safe Returns
+
+```typescript
+interface ConfirmResult {
+  confirmed: boolean
+  action: 'yes' | 'no'
+}
+
+const { id, closeCallback } = this.modalService.showModal(ConfirmComponent, options)
+
+closeCallback.subscribe(result => {
+  if (result) {
+    const { confirmed, action } = result as ConfirmResult
+    // TypeScript knows the structure
+  }
 })
+```
+
+### Sequential Modals
+
+```typescript
+const { id: firstId, closeCallback: firstCallback } = this.modalService.showModal(FirstModal, options)
+
+firstCallback.subscribe(firstResult => {
+  if (firstResult) {
+    const { id: secondId, closeCallback: secondCallback } = this.modalService.showModal(SecondModal, options, { data: firstResult })
+    
+    secondCallback.subscribe(secondResult => {
+      console.log({ firstResult, secondResult })
+    })
+  }
+})
+```
+
+### Programmatic Modal Close
+
+```typescript
+// Open modal and get its ID
+const { id, closeCallback } = this.modalService.showModal(ConfirmComponent, options)
+
+// Subscribe to results
+closeCallback.subscribe(result => {
+  console.log('Modal closed with result:', result)
+})
+
+// Close the modal programmatically after 5 seconds
+setTimeout(() => {
+  this.modalService.close(id, { action: 'timeout' })
+}, 5000)
 ```

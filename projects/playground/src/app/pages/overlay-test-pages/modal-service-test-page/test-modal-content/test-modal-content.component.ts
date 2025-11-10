@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
-import { QuangModalService } from 'quang/overlay/modal'
+import { ModalRef, QuangModalService } from 'quang/overlay/modal'
 
 import { TestModalContent2Component } from '../test-modal-content-2/test-modal-content-2.component'
 
@@ -14,9 +14,7 @@ import { TestModalContent2Component } from '../test-modal-content-2/test-modal-c
 })
 export class TestModalContentComponent {
   private readonly modalService = inject(QuangModalService)
-
-  // Callback function to notify main page of new modals (still used for compatibility)
-  onModalCreated = input<(modalId: string) => void>()
+  private readonly modalRef = inject(ModalRef)
 
   counter = signal(0)
 
@@ -33,18 +31,25 @@ export class TestModalContentComponent {
   }
 
   openAnotherModal(position: 'left' | 'right' | 'center' = 'center'): void {
-    this.modalService.showModal(
-      TestModalContent2Component,
-      {
-        position,
-        height: '60vh',
-        width: '45vw',
-        animationMode: 'FADE',
-        showBackdrop: true,
+    const modalData = this.modalService.showModal(TestModalContent2Component, {
+      position,
+      height: '60vh',
+      width: '45vw',
+      animationMode: 'FADE',
+      showBackdrop: true,
+    })
+    modalData.closeCallback.subscribe({
+      next: (result) => {
+        console.log('Modal 2 chiusa con risultato:', result)
       },
-      {
-        onModalCreated: this.onModalCreated(),
-      }
-    )
+    })
+  }
+
+  closeWithData(action: 'save' | 'cancel' | 'delete'): void {
+    this.modalRef.close({
+      action,
+      counter: this.counter(),
+      timestamp: new Date().toISOString(),
+    })
   }
 }
