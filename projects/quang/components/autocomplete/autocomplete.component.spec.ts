@@ -1,11 +1,12 @@
 import { Component, DebugElement, Injectable } from '@angular/core'
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing'
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { By } from '@angular/platform-browser'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 
 import { TranslocoLoader, provideTransloco } from '@jsverse/transloco'
 import { Observable, of } from 'rxjs'
+import { vi } from 'vitest'
 
 import { QuangAutocompleteComponent } from './autocomplete.component'
 import { SelectOption } from 'quang/components/shared'
@@ -121,6 +122,7 @@ describe('QuangAutocompleteComponent', () => {
   let inputElement: HTMLInputElement
 
   beforeEach(async () => {
+    vi.useFakeTimers()
     await TestBed.configureTestingModule({
       imports: [TestHostComponent, NoopAnimationsModule],
       providers: [getTranslocoTestingProviders()],
@@ -137,6 +139,7 @@ describe('QuangAutocompleteComponent', () => {
 
   afterEach(() => {
     hostFixture.destroy()
+    vi.useRealTimers()
   })
 
   describe('Initialization', () => {
@@ -163,16 +166,16 @@ describe('QuangAutocompleteComponent', () => {
   })
 
   describe('User Input', () => {
-    it('should update input value on typing', fakeAsync(() => {
+    it('should update input value on typing', async () => {
       // Directly set the internal signal to test the binding
       // The real typing goes through debounce, but we can test the signal directly
       autocompleteComponent._inputValue.set('Option')
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._inputValue()).toBe('Option')
-    }))
+    })
 
-    it('should emit searchTextChange on input', fakeAsync(() => {
+    it('should emit searchTextChange on input', async () => {
       // Subscribe to the searchTextChange output before triggering
       let emittedValue = ''
       const sub = autocompleteComponent.searchTextChange.subscribe((val: string) => {
@@ -190,88 +193,88 @@ describe('QuangAutocompleteComponent', () => {
       expect(autocompleteComponent._inputValue()).toBe('test')
 
       // Wait for debounce timer (TestHostComponent sets debounce to 50ms)
-      tick(100)
+      await vi.advanceTimersByTimeAsync(100)
 
       sub.unsubscribe()
       expect(emittedValue).toBe('test')
-    }))
+    })
 
-    it('should show options on mousedown', fakeAsync(() => {
+    it('should show options on mousedown', async () => {
       inputElement.dispatchEvent(new MouseEvent('mousedown'))
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._showOptions()).toBe(true)
-    }))
+    })
 
-    it('should filter options based on input', fakeAsync(() => {
+    it('should filter options based on input', async () => {
       autocompleteComponent._inputValue.set('Option 1')
       hostFixture.detectChanges()
 
       const filteredOptions = autocompleteComponent._filteredOptions()
       expect(filteredOptions.length).toBe(1)
       expect(filteredOptions[0].label).toBe('Option 1')
-    }))
+    })
 
-    it('should filter options case-insensitively', fakeAsync(() => {
+    it('should filter options case-insensitively', async () => {
       autocompleteComponent._inputValue.set('option')
       hostFixture.detectChanges()
 
       const filteredOptions = autocompleteComponent._filteredOptions()
       expect(filteredOptions.length).toBe(3)
-    }))
+    })
   })
 
   describe('Option Selection', () => {
-    it('should update form value when option is selected', fakeAsync(() => {
+    it('should update form value when option is selected', async () => {
       autocompleteComponent.onValueChange('opt1')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(hostComponent.form.get('autocomplete')?.value).toBe('opt1')
-    }))
+    })
 
-    it('should emit selectedOption when option is selected', fakeAsync(() => {
+    it('should emit selectedOption when option is selected', async () => {
       autocompleteComponent.onValueChange('opt2')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(hostComponent.selectedValue).toBe('opt2')
-    }))
+    })
 
-    it('should hide options after selection', fakeAsync(() => {
+    it('should hide options after selection', async () => {
       autocompleteComponent.showOptionVisibility()
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
       expect(autocompleteComponent._showOptions()).toBe(true)
 
       autocompleteComponent.onValueChange('opt1')
-      tick(100)
+      await vi.advanceTimersByTimeAsync(100)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._showOptions()).toBe(false)
-    }))
+    })
 
-    it('should update input value to selected option label', fakeAsync(() => {
+    it('should update input value to selected option label', async () => {
       hostComponent.form.get('autocomplete')?.setValue('opt1')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._inputValue()).toBe('Option 1')
-    }))
+    })
   })
 
   describe('Form Control Integration', () => {
-    it('should update component when form control value changes', fakeAsync(() => {
+    it('should update component when form control value changes', async () => {
       hostComponent.form.get('autocomplete')?.setValue('opt2')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._value()).toBe('opt2')
       expect(autocompleteComponent._inputValue()).toBe('Option 2')
-    }))
+    })
 
-    it('should update input text when form is patched with new value (bug fix: QUANG-254)', fakeAsync(() => {
+    it('should update input text when form is patched with new value (bug fix: QUANG-254)', async () => {
       // This test verifies the fix for the bug where after patching a form,
       // the autocomplete input text wasn't updated correctly, causing incorrect filtering
 
@@ -281,7 +284,7 @@ describe('QuangAutocompleteComponent', () => {
 
       // Patch the form with a value
       hostComponent.form.patchValue({ autocomplete: 'opt1' })
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       // Both the internal value and input text should be updated
@@ -290,7 +293,7 @@ describe('QuangAutocompleteComponent', () => {
 
       // Patch again with a different value
       hostComponent.form.patchValue({ autocomplete: 'opt2' })
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       // Input text should reflect the new value
@@ -301,61 +304,61 @@ describe('QuangAutocompleteComponent', () => {
       const filteredOptions = autocompleteComponent._filteredOptions()
       expect(filteredOptions.length).toBe(1)
       expect(filteredOptions[0].value).toBe('opt2')
-    }))
+    })
 
-    it('should mark form as touched on blur', fakeAsync(() => {
+    it('should mark form as touched on blur', async () => {
       expect(hostComponent.form.get('autocomplete')?.touched).toBe(false)
 
       // Call blur handler directly as the component does
       autocompleteComponent.onBlurHandler()
-      tick(150)
+      await vi.advanceTimersByTimeAsync(150)
       hostFixture.detectChanges()
 
       expect(hostComponent.form.get('autocomplete')?.touched).toBe(true)
-    }))
+    })
 
-    it('should clear form value when input is cleared and blurred', fakeAsync(() => {
+    it('should clear form value when input is cleared and blurred', async () => {
       hostComponent.form.get('autocomplete')?.setValue('opt1')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       // The component uses checkInputValue when options hide
       // If input doesn't match an option and syncFormWithText is false, it clears
       autocompleteComponent._inputValue.set('')
       autocompleteComponent.checkInputValue()
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       // When input is empty and no match, the form value should be cleared to empty string
       expect(hostComponent.form.get('autocomplete')?.value).toBe('')
-    }))
+    })
 
-    it('should disable input when form control is disabled', fakeAsync(() => {
+    it('should disable input when form control is disabled', async () => {
       hostComponent.form.get('autocomplete')?.disable()
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(inputElement.disabled).toBe(true)
-    }))
+    })
   })
 
   describe('Validation', () => {
-    it('should show required indicator when required', fakeAsync(() => {
+    it('should show required indicator when required', async () => {
       hostComponent.form.get('autocomplete')?.setValidators([Validators.required])
       hostComponent.form.get('autocomplete')?.updateValueAndValidity()
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       const requiredIndicator = hostFixture.nativeElement.querySelector('label span')
       expect(requiredIndicator).toBeTruthy()
-    }))
+    })
 
-    it('should show error message when invalid and touched', fakeAsync(() => {
+    it('should show error message when invalid and touched', async () => {
       hostComponent.form.get('autocomplete')?.setValidators([Validators.required])
       hostComponent.form.get('autocomplete')?.updateValueAndValidity()
       hostComponent.form.get('autocomplete')?.markAsTouched()
       hostComponent.form.get('autocomplete')?.markAsDirty()
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       // Trigger checkFormErrors to update internal state
@@ -363,17 +366,17 @@ describe('QuangAutocompleteComponent', () => {
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._showErrors()).toBe(true)
-    }))
+    })
 
-    it('should hide error message when valid', fakeAsync(() => {
+    it('should hide error message when valid', async () => {
       hostComponent.form.get('autocomplete')?.setValidators([Validators.required])
       hostComponent.form.get('autocomplete')?.setValue('opt1')
       hostComponent.form.get('autocomplete')?.markAsTouched()
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._showErrors()).toBe(false)
-    }))
+    })
   })
 
   describe('Helper Methods', () => {
@@ -387,14 +390,14 @@ describe('QuangAutocompleteComponent', () => {
       expect(description).toBe('')
     })
 
-    it('should check input value against options on blur', fakeAsync(() => {
+    it('should check input value against options on blur', async () => {
       autocompleteComponent._inputValue.set('Option 1')
       autocompleteComponent.checkInputValue()
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(hostComponent.form.get('autocomplete')?.value).toBe('opt1')
-    }))
+    })
   })
 })
 
@@ -405,6 +408,7 @@ describe('QuangAutocompleteComponent - Multiple Selection', () => {
   let autocompleteComponent: QuangAutocompleteComponent
 
   beforeEach(async () => {
+    vi.useFakeTimers()
     await TestBed.configureTestingModule({
       imports: [TestHostMultipleComponent, NoopAnimationsModule],
       providers: [getTranslocoTestingProviders()],
@@ -420,6 +424,7 @@ describe('QuangAutocompleteComponent - Multiple Selection', () => {
 
   afterEach(() => {
     hostFixture.destroy()
+    vi.useRealTimers()
   })
 
   describe('Multiple Selection Mode', () => {
@@ -427,85 +432,85 @@ describe('QuangAutocompleteComponent - Multiple Selection', () => {
       expect(autocompleteComponent.multiple()).toBe(true)
     })
 
-    it('should add chip when option is selected', fakeAsync(() => {
+    it('should add chip when option is selected', async () => {
       autocompleteComponent.onValueChange('opt1')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._chipList()).toContain('opt1')
-    }))
+    })
 
-    it('should add multiple chips', fakeAsync(() => {
+    it('should add multiple chips', async () => {
       autocompleteComponent.onValueChange('opt1')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       autocompleteComponent.onValueChange('opt2')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._chipList().length).toBe(2)
       expect(autocompleteComponent._chipList()).toContain('opt1')
       expect(autocompleteComponent._chipList()).toContain('opt2')
-    }))
+    })
 
-    it('should not add duplicate chips', fakeAsync(() => {
+    it('should not add duplicate chips', async () => {
       autocompleteComponent.onValueChange('opt1')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       autocompleteComponent.onValueChange('opt1')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._chipList().filter((c) => c === 'opt1').length).toBe(1)
-    }))
+    })
 
-    it('should delete chip', fakeAsync(() => {
+    it('should delete chip', async () => {
       autocompleteComponent.onValueChange('opt1')
       autocompleteComponent.onValueChange('opt2')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       autocompleteComponent.deleteChip('opt1')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._chipList()).not.toContain('opt1')
       expect(autocompleteComponent._chipList()).toContain('opt2')
-    }))
+    })
 
-    it('should update form control with chip list', fakeAsync(() => {
+    it('should update form control with chip list', async () => {
       autocompleteComponent.onValueChange('opt1')
       autocompleteComponent.onValueChange('opt2')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(hostComponent.form.get('autocomplete')?.value).toEqual(['opt1', 'opt2'])
-    }))
+    })
 
-    it('should filter out selected options from dropdown', fakeAsync(() => {
+    it('should filter out selected options from dropdown', async () => {
       autocompleteComponent._chipList.set(['opt1'])
       autocompleteComponent._inputValue.set('')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       const filteredOptions = autocompleteComponent._filteredOptions()
       expect(filteredOptions.find((o) => o.value === 'opt1')).toBeUndefined()
-    }))
+    })
 
-    it('should render chips in template', fakeAsync(() => {
+    it('should render chips in template', async () => {
       autocompleteComponent.onValueChange('opt1')
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       const chips = hostFixture.nativeElement.querySelectorAll('.chip')
       expect(chips.length).toBe(1)
-    }))
+    })
 
-    it('should initialize with existing array value', fakeAsync(() => {
+    it('should initialize with existing array value', async () => {
       hostComponent.form.get('autocomplete')?.setValue(['opt1', 'opt2'])
-      tick()
+      await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._chipList().length).toBe(2)
-    }))
+    })
   })
 })
 
@@ -514,6 +519,7 @@ describe('QuangAutocompleteComponent - Internal Filter Options', () => {
   let autocompleteComponent: QuangAutocompleteComponent
 
   beforeEach(async () => {
+    vi.useFakeTimers()
     await TestBed.configureTestingModule({
       imports: [TestHostComponent, NoopAnimationsModule],
       providers: [getTranslocoTestingProviders()],
@@ -527,26 +533,27 @@ describe('QuangAutocompleteComponent - Internal Filter Options', () => {
 
   afterEach(() => {
     fixture.destroy()
+    vi.useRealTimers()
   })
 
-  it('should filter options internally by default', fakeAsync(() => {
+  it('should filter options internally by default', async () => {
     autocompleteComponent._inputValue.set('Another')
-    tick()
+    await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
     const filtered = autocompleteComponent._filteredOptions()
     expect(filtered.length).toBe(1)
     expect(filtered[0].value).toBe('another')
-  }))
+  })
 
-  it('should return all options when input is empty', fakeAsync(() => {
+  it('should return all options when input is empty', async () => {
     autocompleteComponent._inputValue.set('')
-    tick()
+    await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
     const filtered = autocompleteComponent._filteredOptions()
     expect(filtered.length).toBe(4)
-  }))
+  })
 })
 
 describe('QuangAutocompleteComponent - SyncFormWithText', () => {
@@ -579,6 +586,7 @@ describe('QuangAutocompleteComponent - SyncFormWithText', () => {
   let hostComponent: SyncFormTestHostComponent
 
   beforeEach(async () => {
+    vi.useFakeTimers()
     await TestBed.configureTestingModule({
       imports: [SyncFormTestHostComponent, NoopAnimationsModule],
       providers: [getTranslocoTestingProviders()],
@@ -591,9 +599,10 @@ describe('QuangAutocompleteComponent - SyncFormWithText', () => {
 
   afterEach(() => {
     fixture.destroy()
+    vi.useRealTimers()
   })
 
-  it('should sync form with typed text', fakeAsync(() => {
+  it('should sync form with typed text', async () => {
     const autocompleteComp = fixture.debugElement.query(By.directive(QuangAutocompleteComponent))
       .componentInstance as QuangAutocompleteComponent
 
@@ -601,13 +610,13 @@ describe('QuangAutocompleteComponent - SyncFormWithText', () => {
     const mockEvent = { target: { value: 'custom text' } } as unknown as Event
     autocompleteComp.onChangeInput(mockEvent)
     // Wait for debounce - SyncFormTestHostComponent sets debounce to 50ms
-    tick(100)
+    await vi.advanceTimersByTimeAsync(100)
     fixture.detectChanges()
 
     // When syncFormWithText is true, the component calls onValueChange
     // which then calls onChangedHandler to update the form
     expect(hostComponent.form.get('autocomplete')?.value).toBe('custom text')
-  }))
+  })
 })
 
 describe('QuangAutocompleteComponent - EmitOnly Mode', () => {
@@ -648,6 +657,7 @@ describe('QuangAutocompleteComponent - EmitOnly Mode', () => {
   let autocompleteComponent: QuangAutocompleteComponent
 
   beforeEach(async () => {
+    vi.useFakeTimers()
     await TestBed.configureTestingModule({
       imports: [EmitOnlyTestHostComponent, NoopAnimationsModule],
       providers: [getTranslocoTestingProviders()],
@@ -662,19 +672,20 @@ describe('QuangAutocompleteComponent - EmitOnly Mode', () => {
 
   afterEach(() => {
     fixture.destroy()
+    vi.useRealTimers()
   })
 
   it('should be in emit only mode', () => {
     expect(autocompleteComponent.emitOnly()).toBe(true)
   })
 
-  it('should emit selected option without clearing input on blur', fakeAsync(() => {
+  it('should emit selected option without clearing input on blur', async () => {
     autocompleteComponent.onValueChange('opt1')
-    tick()
+    await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
     expect(hostComponent.selectedValue).toBe('opt1')
-  }))
+  })
 })
 
 describe('QuangAutocompleteComponent - Visibility Control', () => {
@@ -682,6 +693,7 @@ describe('QuangAutocompleteComponent - Visibility Control', () => {
   let autocompleteComponent: QuangAutocompleteComponent
 
   beforeEach(async () => {
+    vi.useFakeTimers()
     await TestBed.configureTestingModule({
       imports: [TestHostComponent, NoopAnimationsModule],
       providers: [getTranslocoTestingProviders()],
@@ -695,50 +707,51 @@ describe('QuangAutocompleteComponent - Visibility Control', () => {
 
   afterEach(() => {
     fixture.destroy()
+    vi.useRealTimers()
   })
 
-  it('should show options on showOptionVisibility', fakeAsync(() => {
+  it('should show options on showOptionVisibility', async () => {
     autocompleteComponent.showOptionVisibility()
-    tick()
+    await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
     expect(autocompleteComponent._showOptions()).toBe(true)
-  }))
+  })
 
-  it('should hide options on hideOptionVisibility', fakeAsync(() => {
+  it('should hide options on hideOptionVisibility', async () => {
     autocompleteComponent.showOptionVisibility()
-    tick()
+    await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
     expect(autocompleteComponent._showOptions()).toBe(true)
 
     autocompleteComponent.hideOptionVisibility()
-    tick(100)
+    await vi.advanceTimersByTimeAsync(100)
     fixture.detectChanges()
 
     expect(autocompleteComponent._showOptions()).toBe(false)
-  }))
+  })
 
-  it('should clear pending hide timeout when showing options', fakeAsync(() => {
+  it('should clear pending hide timeout when showing options', async () => {
     autocompleteComponent.hideOptionVisibility()
-    tick(10) // Partial timeout
+    await vi.advanceTimersByTimeAsync(10) // Partial timeout
     autocompleteComponent.showOptionVisibility()
-    tick(100)
+    await vi.advanceTimersByTimeAsync(100)
     fixture.detectChanges()
 
     expect(autocompleteComponent._showOptions()).toBe(true)
-  }))
+  })
 
-  it('should hide options immediately when skipTimeout is true', fakeAsync(() => {
+  it('should hide options immediately when skipTimeout is true', async () => {
     autocompleteComponent.showOptionVisibility()
-    tick()
+    await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
     autocompleteComponent.hideOptionVisibility(true)
-    tick(10)
+    await vi.advanceTimersByTimeAsync(10)
     fixture.detectChanges()
 
     expect(autocompleteComponent._showOptions()).toBe(false)
-  }))
+  })
 })
 
 describe('QuangAutocompleteComponent - WriteValue', () => {
@@ -746,6 +759,7 @@ describe('QuangAutocompleteComponent - WriteValue', () => {
   let autocompleteComponent: QuangAutocompleteComponent
 
   beforeEach(async () => {
+    vi.useFakeTimers()
     await TestBed.configureTestingModule({
       imports: [TestHostComponent, NoopAnimationsModule],
       providers: [getTranslocoTestingProviders()],
@@ -759,32 +773,33 @@ describe('QuangAutocompleteComponent - WriteValue', () => {
 
   afterEach(() => {
     fixture.destroy()
+    vi.useRealTimers()
   })
 
-  it('should handle writeValue with string value', fakeAsync(() => {
+  it('should handle writeValue with string value', async () => {
     autocompleteComponent.writeValue('opt1')
-    tick()
+    await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
     expect(autocompleteComponent._value()).toBe('opt1')
     expect(autocompleteComponent._inputValue()).toBe('Option 1')
-  }))
+  })
 
-  it('should handle writeValue with number value', fakeAsync(() => {
+  it('should handle writeValue with number value', async () => {
     // Test with existing options that have number values
     autocompleteComponent.writeValue(123)
-    tick()
+    await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
     expect(autocompleteComponent._value()).toBe(123)
-  }))
+  })
 
-  it('should reset input value when value not found and resetOnMiss is true', fakeAsync(() => {
+  it('should reset input value when value not found and resetOnMiss is true', async () => {
     autocompleteComponent._inputValue.set('Some text')
     autocompleteComponent.writeValue('nonexistent')
-    tick()
+    await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
     expect(autocompleteComponent._inputValue()).toBe('')
-  }))
+  })
 })
