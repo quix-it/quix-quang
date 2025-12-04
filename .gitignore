@@ -54,3 +54,5 @@ sonar/sonar-project.properties
 .sentryclirc
 
 projects/playground/src/assets/docs
+
+.history
