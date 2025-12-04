@@ -225,7 +225,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
             this.onSelectValue(x)
           })
         } else if (!this.multiple() && (typeof value === 'string' || typeof value === 'number')) {
-          this.setInputValue()
+          // When syncFormWithText is true and user is actively searching (options visible),
+          // don't overwrite their typed text with the option label from an externally set value
+          if (!(this.syncFormWithText() && this._showOptions())) {
+            this.setInputValue()
+          }
         }
         if (!this.syncFormWithText() && !value) {
           this._inputValue.set('')
@@ -305,6 +309,17 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   }
 
   override writeValue(val: string | number | string[] | number[]): void {
+    // When syncFormWithText is true and user is actively typing/searching,
+    // don't let external writeValue calls (e.g., from state management) overwrite the input.
+    // This prevents the issue where selecting an option, then typing to search for another,
+    // causes the input to revert to the previously selected option's label.
+    if (this.syncFormWithText() && this._showOptions() && !Array.isArray(val)) {
+      // User is actively searching - preserve their typed text
+      // Only update _value without touching _inputValue
+      super.writeValue(val)
+      return
+    }
+
     super.writeValue(val)
     this.setInputValue(true)
     if (Array.isArray(val)) {

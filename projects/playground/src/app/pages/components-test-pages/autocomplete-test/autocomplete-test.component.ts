@@ -192,6 +192,7 @@ export class AutocompleteTestComponent {
     testInput4: this.formBuilder.control<string | null>(null, [Validators.required]),
     testInputMultiple: this.formBuilder.control<number[]>([], [Validators.required]),
     testInputMultipleHorizontal: this.formBuilder.control<number[]>([], [Validators.required]),
+    testInputFixedWithInternalFilter: this.formBuilder.control<string | null>(null, [Validators.required]),
   })
 
   showInput = signal<boolean>(true)
@@ -237,6 +238,7 @@ export class AutocompleteTestComponent {
       testInput4: this.formBuilder.control<string | null>(this.stringList[2].value as string, [Validators.required]),
       testInputMultiple: this.formBuilder.control<number[]>([1, 2], [Validators.required]),
       testInputMultipleHorizontal: this.formBuilder.control<number[]>([1, 2], [Validators.required]),
+      testInputFixedWithInternalFilter: this.formBuilder.control<string | null>(null, [Validators.required]),
     })
   }
 

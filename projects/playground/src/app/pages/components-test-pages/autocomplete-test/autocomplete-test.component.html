@@ -82,6 +82,13 @@
             multiSelectDisplayMode="horizontal"
             successMessage="form.label.success"
           />
+          <quang-autocomplete
+            [internalFilterOptions]="true"
+            [selectOptions]="fixedStringList()"
+            [syncFormWithText]="true"
+            componentLabel="form.label.autocompleteFixedWithInternalFilter"
+            formControlName="testInputFixedWithInternalFilter"
+          />
         </div>
       }
       <div class="d-flex gap-3 mt-3">

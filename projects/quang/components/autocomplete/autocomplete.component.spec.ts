@@ -803,3 +803,140 @@ describe('QuangAutocompleteComponent - WriteValue', () => {
     expect(autocompleteComponent._inputValue()).toBe('')
   })
 })
+
+describe('QuangAutocompleteComponent - Bug Fix: Click after clearing input', () => {
+  let fixture: ComponentFixture<TestHostComponent>
+  let hostComponent: TestHostComponent
+  let autocompleteComponent: QuangAutocompleteComponent
+
+  beforeEach(async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [TestHostComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    fixture = TestBed.createComponent(TestHostComponent)
+    hostComponent = fixture.componentInstance
+    fixture.detectChanges()
+
+    autocompleteComponent = fixture.debugElement.query(By.directive(QuangAutocompleteComponent)).componentInstance
+  })
+
+  afterEach(() => {
+    fixture.destroy()
+    vi.useRealTimers()
+  })
+
+  it('should allow selecting an option after clearing input text (bug scenario)', async () => {
+    // Scenario: After form submit and patch, user clears input and clicks new option
+    // Bug: clicking option did nothing because onBlurHandler patched null after selection
+
+    // Step 1: Set initial value via form patch (simulating form submit + reload)
+    hostComponent.form.patchValue({ autocomplete: 'opt1' })
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    expect(autocompleteComponent._value()).toBe('opt1')
+    expect(autocompleteComponent._inputValue()).toBe('Option 1')
+
+    // Step 2: User clears the input text
+    autocompleteComponent._inputValue.set('')
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // Step 3: User clicks on a different option
+    // The click should work even after input is cleared
+    autocompleteComponent.onValueChange('opt2')
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    expect(autocompleteComponent._value()).toBe('opt2')
+    expect(autocompleteComponent._inputValue()).toBe('Option 2')
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('opt2')
+
+    // Step 4: Ensure the blur handler doesn't override the selection
+    // (This is where the bug manifested - the 100ms timeout would patch null)
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should still be opt2, not reverted to null
+    expect(autocompleteComponent._value()).toBe('opt2')
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('opt2')
+  })
+
+  it('should not revert value when blur happens after option selection', async () => {
+    // This test specifically checks the timing issue between blur and click
+
+    // Set up with a value
+    hostComponent.form.patchValue({ autocomplete: 'opt1' })
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // Clear input (user deleted text)
+    autocompleteComponent._inputValue.set('')
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // Simulate blur happening (this starts the 100ms timeout)
+    autocompleteComponent.onBlurHandler()
+
+    // Immediately select a new value (click happens before timeout)
+    autocompleteComponent.onValueChange('opt3')
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    expect(autocompleteComponent._value()).toBe('opt3')
+
+    // Now let the blur timeout complete
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // The selection should persist, not be overwritten by blur's patch(null)
+    expect(autocompleteComponent._value()).toBe('opt3')
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('opt3')
+  })
+
+  it('should work with syncFormWithText=true and internalFilterOptions=true', async () => {
+    // Configure to match the playground test case
+    hostComponent.syncFormWithText = true
+    fixture.detectChanges()
+    await vi.advanceTimersByTimeAsync(0)
+
+    // Step 1: Select an option
+    autocompleteComponent.onValueChange('opt1')
+    await vi.advanceTimersByTimeAsync(60) // wait for debounce
+    fixture.detectChanges()
+
+    expect(autocompleteComponent._value()).toBe('opt1')
+    expect(autocompleteComponent._inputValue()).toBe('Option 1')
+
+    // Step 2: Simulate form reset (like after submit)
+    hostComponent.form.reset()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    expect(autocompleteComponent._value()).toBe(null)
+    expect(autocompleteComponent._inputValue()).toBe('')
+
+    // Step 3: User opens options (shows all options since input is empty)
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    expect(autocompleteComponent._showOptions()).toBe(true)
+    expect(autocompleteComponent._filteredOptions().length).toBe(4) // all options
+
+    // Step 4: User clicks on an option - THIS IS THE BUG SCENARIO
+    autocompleteComponent.onValueChange('opt2')
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // The selection should work
+    expect(autocompleteComponent._value()).toBe('opt2')
+    expect(autocompleteComponent._inputValue()).toBe('Option 2')
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('opt2')
+  })
+})
