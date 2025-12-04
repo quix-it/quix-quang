@@ -15,6 +15,7 @@
     "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "node",
+    "types": ["vitest/globals"],
     "paths": {
       "quang": ["projects/quang"],
       "quang/*": ["projects/quang/*"]

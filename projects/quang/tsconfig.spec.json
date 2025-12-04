@@ -2,11 +2,12 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
-    "types": ["jest", "node"],
+    "types": ["vitest/globals", "node"],
     "module": "ES2022",
     "target": "ES2022",
     "esModuleInterop": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["**/*.spec.ts", "**/*.d.ts", "setup-jest.ts"]
+  "files": ["test-setup.ts"],
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
