@@ -179,13 +179,18 @@ describe('QuangAutocompleteComponent', () => {
         emittedValue = val
       })
 
+      // Verify initial state
+      expect(autocompleteComponent._inputValue()).toBe('')
+
       // Simulate onChangeInput being called (which is triggered by (input) binding)
       const mockEvent = { target: { value: 'test' } } as unknown as Event
       autocompleteComponent.onChangeInput(mockEvent)
 
-      // Use tick with the default debounce time (300ms, since it's read at construction before input binding)
-      tick(300)
-      hostFixture.detectChanges()
+      // Check the signal was updated immediately
+      expect(autocompleteComponent._inputValue()).toBe('test')
+
+      // Wait for debounce timer (TestHostComponent sets debounce to 50ms)
+      tick(100)
 
       sub.unsubscribe()
       expect(emittedValue).toBe('test')
@@ -264,6 +269,38 @@ describe('QuangAutocompleteComponent', () => {
 
       expect(autocompleteComponent._value()).toBe('opt2')
       expect(autocompleteComponent._inputValue()).toBe('Option 2')
+    }))
+
+    it('should update input text when form is patched with new value (bug fix: QUANG-254)', fakeAsync(() => {
+      // This test verifies the fix for the bug where after patching a form,
+      // the autocomplete input text wasn't updated correctly, causing incorrect filtering
+
+      // Initial state - no value
+      expect(autocompleteComponent._inputValue()).toBe('')
+      expect(autocompleteComponent._value()).toBe(null)
+
+      // Patch the form with a value
+      hostComponent.form.patchValue({ autocomplete: 'opt1' })
+      tick()
+      hostFixture.detectChanges()
+
+      // Both the internal value and input text should be updated
+      expect(autocompleteComponent._value()).toBe('opt1')
+      expect(autocompleteComponent._inputValue()).toBe('Option 1')
+
+      // Patch again with a different value
+      hostComponent.form.patchValue({ autocomplete: 'opt2' })
+      tick()
+      hostFixture.detectChanges()
+
+      // Input text should reflect the new value
+      expect(autocompleteComponent._value()).toBe('opt2')
+      expect(autocompleteComponent._inputValue()).toBe('Option 2')
+
+      // Verify filtering uses the current input value
+      const filteredOptions = autocompleteComponent._filteredOptions()
+      expect(filteredOptions.length).toBe(1)
+      expect(filteredOptions[0].value).toBe('opt2')
     }))
 
     it('should mark form as touched on blur', fakeAsync(() => {
@@ -560,10 +597,11 @@ describe('QuangAutocompleteComponent - SyncFormWithText', () => {
     const autocompleteComp = fixture.debugElement.query(By.directive(QuangAutocompleteComponent))
       .componentInstance as QuangAutocompleteComponent
 
-    // Simulate typing - onChangeInput pushes to inputValue$ subject
-    autocompleteComp.inputValue$.next('custom text')
-    // Wait for debounce - default is 300ms (signal input read at construction time)
-    tick(350)
+    // Simulate typing via onChangeInput (which sets _inputValue and triggers debounced emission)
+    const mockEvent = { target: { value: 'custom text' } } as unknown as Event
+    autocompleteComp.onChangeInput(mockEvent)
+    // Wait for debounce - SyncFormTestHostComponent sets debounce to 50ms
+    tick(100)
     fixture.detectChanges()
 
     // When syncFormWithText is true, the component calls onValueChange

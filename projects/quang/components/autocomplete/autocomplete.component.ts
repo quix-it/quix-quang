@@ -16,7 +16,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangTooltipDirective } from 'quang/overlay/tooltip'
-import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs'
+import { Subscription } from 'rxjs'
 
 import {
   OptionListParentType,
@@ -91,8 +91,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   _selectedOptions = signal<SelectOption[]>([])
 
-  inputValue$ = new Subject<string>()
-
   selectOptionsChange = toObservable(this.selectOptions)
     .pipe(takeUntilDestroyed())
     .subscribe(() => {
@@ -133,6 +131,10 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   inputHeight = signal<number>(0)
 
+  private _searchDebounceTimer: ReturnType<typeof setTimeout> | null = null
+  private _lastEmittedSearchText: string | null = null
+  private _isDestroyed = false
+
   private readonly onChangeSelectInput = effect(() => {
     const selectInput = this.selectInput()
     if (selectInput) {
@@ -165,20 +167,13 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   constructor() {
     super()
-    this.inputValue$
-      .pipe(takeUntilDestroyed(), debounceTime(this.searchTextDebounce()), distinctUntilChanged())
-      .subscribe((value) => {
-        if (value !== this._inputValue()) {
-          this.searchTextChange.emit(value?.toString() || '')
-          if (this.syncFormWithText()) {
-            this.onValueChange(value, false)
-          }
-        }
-        this._inputValue.set(value?.toString() || '')
-        if (!this._inputValue()?.length && !this.emitOnly() && !this.multiple()) {
-          this._ngControl()?.control?.patchValue(null)
-        }
-      })
+    // Cleanup on destroy
+    this.destroyRef.onDestroy(() => {
+      this._isDestroyed = true
+      if (this._searchDebounceTimer) {
+        clearTimeout(this._searchDebounceTimer)
+      }
+    })
     toObservable(this._showOptions)
       .pipe(takeUntilDestroyed())
       .subscribe((data) => {
@@ -186,6 +181,32 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
           this.checkInputValue()
         }
       })
+  }
+
+  /**
+   * Handle debounced search text change emission
+   * @param value The input value to emit after debounce
+   */
+  private emitDebouncedSearchText(value: string): void {
+    // Clear any pending debounce timer
+    if (this._searchDebounceTimer) {
+      clearTimeout(this._searchDebounceTimer)
+    }
+    // Set up new debounce timer
+    this._searchDebounceTimer = setTimeout(() => {
+      if (this._isDestroyed) return
+      // Check distinctUntilChanged
+      if (value !== this._lastEmittedSearchText) {
+        this._lastEmittedSearchText = value
+        this.searchTextChange.emit(value || '')
+        if (this.syncFormWithText()) {
+          this.onValueChange(value, false)
+        }
+        if (!value?.length && !this.emitOnly() && !this.multiple()) {
+          this._ngControl()?.control?.patchValue(null)
+        }
+      }
+    }, this.searchTextDebounce())
   }
 
   override setupFormControl(): void {
@@ -235,9 +256,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     )
   }
 
-  onChangeInput(value: any): void {
+  onChangeInput(event: Event): void {
     this.showOptionVisibility()
-    this.inputValue$.next(value.target?.value)
+    const value = (event.target as HTMLInputElement)?.value ?? ''
+    this._inputValue.set(value)
+    this.emitDebouncedSearchText(value)
   }
 
   filterOptions(value: string): SelectOption[] {
@@ -258,7 +281,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       this.onSelectValue(value)
       this.onChangedHandler(this._chipList())
       if (this._chipList().some((x) => x === value)) {
-        this.inputValue$.next('')
+        this._inputValue.set('')
       }
     } else {
       this.onChangedHandler(value)
@@ -314,7 +337,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     this._inputValue.set(
       this.selectOptions().find((x) => x.value === this._value())?.label ?? (resetOnMiss ? '' : this._inputValue())
     )
-    if (!this.syncFormWithText()) this.inputValue$.next(this._inputValue() ?? '')
   }
 
   getDescription(chip: any): string {
