@@ -384,10 +384,19 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       this.onTouched()
     }
 
-    this.onBlurHandler()
+    // Only focus the input if the active element is still within this component
+    // (e.g., user selected a date via keyboard or mouse click on the calendar).
+    // Avoids infinite focus loop when tabbing between multiple datepickers.
+    const activeElement = document.activeElement
+    const calendarElement = this._airDatepickerInstance()?.$datepicker
+    const inputElement = this._inputForDate()?.nativeElement
+    const isCalendarFocused = calendarElement?.contains(activeElement)
 
-    // Focus back to input after closing the picker
-    this._inputForDate()?.nativeElement?.focus()
+    if (isCalendarFocused || this.isMouseInsideCalendar()) {
+      inputElement?.focus()
+    }
+
+    this.onBlurHandler()
   }
 
   formatDate(val: string | DateRange | null): string {
