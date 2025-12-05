@@ -232,9 +232,13 @@ export class QuangOptionListComponent {
             break
           }
           case 'Tab': {
-            // Allow Tab to close dropdown and move focus naturally
-            // Emit event so parent can handle focus transition
-            this.tabPressed.emit({ shiftKey: (event as KeyboardEvent).shiftKey })
+            // Only handle Tab when focus is on the option list itself
+            // If focus is on the parent input, let the input's blur handler deal with it
+            if (document.activeElement?.id === optionListContainer?.nativeElement?.id) {
+              // Allow Tab to close dropdown and move focus naturally
+              // Emit event so parent can handle focus transition
+              this.tabPressed.emit({ shiftKey: (event as KeyboardEvent).shiftKey })
+            }
             break
           }
           default: {

@@ -1365,6 +1365,69 @@ describe('QuangAutocompleteComponent - AutoSelectOnExactMatch', () => {
     expect(autocompleteComponent._value()).toBe('IT')
   })
 
+  it('should preserve form value when user tabs away and back without typing (bug fix: tab navigation)', async () => {
+    // This test reproduces a bug where:
+    // 1. User selects an option → form has value, input shows label
+    // 2. User tabs forward to leave the autocomplete
+    // 3. User tabs back to the autocomplete → text is selected (browser behavior)
+    // 4. User tabs away again (without typing) → the autocomplete value is emptied
+    //
+    // Expected: Form value should be preserved when tabbing away without modifications
+
+    // Step 1: Select "Italy" option
+    autocompleteComponent.onValueChange('IT')
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Verify initial state
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+
+    // Step 2: Simulate tabbing away (blur without dropdown interaction)
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should be preserved after first blur
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+
+    // Step 3: Simulate tabbing back to the autocomplete (focus)
+    // When the input gets focus, showOptionVisibility is typically called
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // At this point, the browser would select all text, but _userSearchText should have "Italy"
+    expect(autocompleteComponent['_userSearchText']()).toBe('Italy')
+    expect(autocompleteComponent['_isSearching']()).toBe(true)
+
+    // Step 4: Tab away again WITHOUT typing anything
+    // This is where the bug occurred - the value was being cleared
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // CRITICAL: Value should still be preserved
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+    expect(autocompleteComponent._value()).toBe('IT')
+
+    // Step 5: Do it multiple times to ensure consistent behavior
+    for (let i = 0; i < 3; i++) {
+      autocompleteComponent.showOptionVisibility()
+      await vi.advanceTimersByTimeAsync(0)
+      fixture.detectChanges()
+
+      autocompleteComponent.onBlurHandler()
+      await vi.advanceTimersByTimeAsync(150)
+      fixture.detectChanges()
+
+      expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+      expect(autocompleteComponent._inputValue()).toBe('Italy')
+    }
+  })
+
   it('should highlight option only when exact match is found while typing', async () => {
     // This test verifies that _highlightedValue correctly tracks matching options during typing
     // This keeps the option list highlighting in sync with what will be selected on blur
@@ -2428,5 +2491,280 @@ describe('QuangAutocompleteComponent - InternalFilterOptions', () => {
     // Should still find Italy after trimming
     expect(autocompleteComponent._filteredOptions().length).toBe(1)
     expect(autocompleteComponent._filteredOptions()[0].label).toBe('Italy')
+  })
+})
+
+describe('QuangAutocompleteComponent - E2E Tab Navigation', () => {
+  @Component({
+    template: `
+      <form [formGroup]="form">
+        <input
+          id="before-input"
+          type="text"
+        />
+        <quang-autocomplete
+          [searchTextDebounce]="50"
+          [selectOptions]="options"
+          formControlName="autocomplete"
+        />
+        <input
+          id="after-input"
+          type="text"
+        />
+      </form>
+    `,
+    standalone: true,
+    imports: [ReactiveFormsModule, QuangAutocompleteComponent],
+  })
+  class TabNavigationTestHostComponent {
+    form = new FormGroup({
+      autocomplete: new FormControl<string | null>(null),
+    })
+
+    options: SelectOption[] = [
+      { label: 'Italy', value: 'IT' },
+      { label: 'France', value: 'FR' },
+      { label: 'Germany', value: 'DE' },
+    ]
+  }
+
+  let fixture: ComponentFixture<TabNavigationTestHostComponent>
+  let hostComponent: TabNavigationTestHostComponent
+  let autocompleteComponent: QuangAutocompleteComponent
+  let inputElement: HTMLInputElement
+  let beforeInput: HTMLInputElement
+  let afterInput: HTMLInputElement
+
+  beforeEach(async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [TabNavigationTestHostComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    fixture = TestBed.createComponent(TabNavigationTestHostComponent)
+    hostComponent = fixture.componentInstance
+    fixture.detectChanges()
+    autocompleteComponent = fixture.debugElement.query(By.directive(QuangAutocompleteComponent)).componentInstance
+    inputElement = fixture.nativeElement.querySelector('quang-autocomplete input')
+    beforeInput = fixture.nativeElement.querySelector('#before-input')
+    afterInput = fixture.nativeElement.querySelector('#after-input')
+  })
+
+  afterEach(() => {
+    fixture.destroy()
+    vi.useRealTimers()
+  })
+
+  it('should preserve value when tabbing through the autocomplete with a selected value', async () => {
+    // Step 1: Select an option
+    autocompleteComponent.onValueChange('IT')
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(inputElement.value).toBe('Italy')
+
+    // Step 2: Focus the input and show options (simulates clicking or tabbing to it)
+    inputElement.focus()
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // Step 3: Dispatch Tab keydown on input
+    // This tests that the option-list's document-level Tab handler
+    // does NOT interfere when focus is on the input
+    const tabEvent = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true })
+    inputElement.dispatchEvent(tabEvent)
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // Verify search state is preserved (bug fix: option-list was incorrectly handling Tab)
+    expect(autocompleteComponent['_isSearching']()).toBe(true)
+    expect(autocompleteComponent['_userSearchText']()).toBe('Italy')
+
+    // Step 4: Simulate blur (tab moves focus away)
+    const blurEvent = new FocusEvent('blur', { relatedTarget: afterInput })
+    autocompleteComponent.onBlurInput(blurEvent)
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should be preserved
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+  })
+
+  it('should preserve value after multiple tab cycles (tab away, tab back, tab away)', async () => {
+    // Step 1: Select an option
+    autocompleteComponent.onValueChange('FR')
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('FR')
+
+    // Cycle 1: Focus -> Tab away
+    inputElement.focus()
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    const blurEvent1 = new FocusEvent('blur', { relatedTarget: afterInput })
+    autocompleteComponent.onBlurInput(blurEvent1)
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('FR')
+
+    // Cycle 2: Tab back (focus) -> Tab away
+    inputElement.focus()
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // At this point, _userSearchText should be "France"
+    expect(autocompleteComponent['_userSearchText']()).toBe('France')
+
+    const blurEvent2 = new FocusEvent('blur', { relatedTarget: afterInput })
+    autocompleteComponent.onBlurInput(blurEvent2)
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('FR')
+
+    // Cycle 3: Shift+Tab back (focus) -> Shift+Tab away
+    inputElement.focus()
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    const blurEvent3 = new FocusEvent('blur', { relatedTarget: beforeInput })
+    autocompleteComponent.onBlurInput(blurEvent3)
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should STILL be preserved after all cycles
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('FR')
+    expect(autocompleteComponent._inputValue()).toBe('France')
+  })
+
+  it('should handle the case where text is selected and user tabs away immediately', async () => {
+    // This tests the specific bug scenario:
+    // 1. Select option -> value is "IT", input shows "Italy"
+    // 2. Tab away
+    // 3. Tab back -> browser selects all text "Italy"
+    // 4. Tab away immediately without typing -> value should NOT be cleared
+
+    // Step 1: Select an option
+    autocompleteComponent.onValueChange('IT')
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Step 2: First blur (tab away)
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+
+    // Step 3: Focus again (tab back) - browser would select all text
+    inputElement.focus()
+    inputElement.select() // Simulate browser selecting all text
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // Verify the internal state
+    expect(autocompleteComponent['_isSearching']()).toBe(true)
+    expect(autocompleteComponent['_userSearchText']()).toBe('Italy')
+
+    // Step 4: Immediately tab away (blur) without any typing
+    const blurEvent = new FocusEvent('blur', { relatedTarget: afterInput })
+    autocompleteComponent.onBlurInput(blurEvent)
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // CRITICAL: Value should be preserved
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+  })
+
+  it('should clear value only when user actually deletes the text', async () => {
+    // Select an option
+    autocompleteComponent.onValueChange('DE')
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('DE')
+
+    // Focus the input
+    inputElement.focus()
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // User actually clears the input by typing (simulating Ctrl+A then Delete)
+    const clearEvent = { target: { value: '' } } as unknown as Event
+    autocompleteComponent.onChangeInput(clearEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Now blur
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // NOW the value should be cleared because user explicitly deleted the text
+    expect(hostComponent.form.get('autocomplete')?.value).toBe(null)
+  })
+
+  it('should preserve value when focus event fires multiple times', async () => {
+    // Select an option
+    autocompleteComponent.onValueChange('IT')
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Simulate multiple focus events (can happen with some browser behaviors)
+    for (let i = 0; i < 3; i++) {
+      inputElement.focus()
+      autocompleteComponent.showOptionVisibility()
+      await vi.advanceTimersByTimeAsync(0)
+      fixture.detectChanges()
+    }
+
+    // Now blur
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should be preserved
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+  })
+
+  it('should handle rapid tab navigation (focus-blur cycles)', async () => {
+    // Select an option
+    autocompleteComponent.onValueChange('FR')
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Rapid focus-blur cycles (simulating fast tabbing)
+    for (let i = 0; i < 5; i++) {
+      inputElement.focus()
+      autocompleteComponent.showOptionVisibility()
+      await vi.advanceTimersByTimeAsync(10) // Very short time
+
+      const blurEvent = new FocusEvent('blur', { relatedTarget: afterInput })
+      autocompleteComponent.onBlurInput(blurEvent)
+      await vi.advanceTimersByTimeAsync(10)
+      fixture.detectChanges()
+    }
+
+    // Wait for all debounces to complete
+    await vi.advanceTimersByTimeAsync(200)
+    fixture.detectChanges()
+
+    // Value should be preserved
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('FR')
+    expect(autocompleteComponent._inputValue()).toBe('France')
   })
 })

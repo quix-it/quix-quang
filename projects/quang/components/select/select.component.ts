@@ -67,9 +67,8 @@ export class QuangSelectComponent
 
   selectButton = viewChild<ElementRef<HTMLButtonElement>>('selectButton')
 
+  /** Whether the option list is currently visible */
   _showOptions = signal<boolean>(false)
-
-  _optionHideTimeout = signal<any | undefined>(undefined)
 
   _selectedItems = computed(() => {
     if (this._value() !== null) {
@@ -106,43 +105,27 @@ export class QuangSelectComponent
       })
   }
 
-  changeOptionsVisibility(skipTimeout = false): void {
+  changeOptionsVisibility(): void {
     if (this.isReadonly()) return
     if (this._showOptions()) {
-      this._showOptions.set(skipTimeout)
+      this.hideOptionVisibility()
     } else {
       this.showOptionVisibility()
     }
   }
 
   showOptionVisibility(): void {
-    if (this._optionHideTimeout()) {
-      clearTimeout(this._optionHideTimeout())
-      this._optionHideTimeout.set(null)
-    }
     this._showOptions.set(true)
   }
 
-  hideOptionVisibility(skipTimeout = false): void {
-    if (this._optionHideTimeout()) {
-      clearTimeout(this._optionHideTimeout())
-    }
-    this._optionHideTimeout.set(
-      setTimeout(
-        () => {
-          this._showOptions.set(false)
-        },
-        skipTimeout ? 0 : 50
-      )
-    )
+  hideOptionVisibility(): void {
+    this._showOptions.set(false)
   }
 
   override onBlurHandler() {
     if (this.selectionMode() === 'single') {
-      setTimeout(() => {
-        this.hideOptionVisibility()
-        super.onBlurHandler()
-      }, 100)
+      this.hideOptionVisibility()
+      super.onBlurHandler()
     }
   }
 
@@ -198,7 +181,7 @@ export class QuangSelectComponent
    * Closes dropdown and returns focus to button.
    */
   onEscapePressed(): void {
-    this.hideOptionVisibility(true)
+    this.hideOptionVisibility()
     this.focusButton()
   }
 
@@ -207,7 +190,7 @@ export class QuangSelectComponent
    * Closes dropdown and allows natural tab navigation.
    */
   onTabPressed(_event: { shiftKey: boolean }): void {
-    this.hideOptionVisibility(true)
+    this.hideOptionVisibility()
   }
 
   /**
