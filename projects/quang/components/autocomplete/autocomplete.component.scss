@@ -19,6 +19,12 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 
+  .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
   &.chips-bottom {
     flex-direction: column;
 

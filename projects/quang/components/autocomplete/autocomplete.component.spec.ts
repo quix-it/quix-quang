@@ -2768,3 +2768,110 @@ describe('QuangAutocompleteComponent - E2E Tab Navigation', () => {
     expect(autocompleteComponent._inputValue()).toBe('France')
   })
 })
+
+// Test host component for chipsPosition
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <quang-autocomplete
+        [chipsPosition]="chipsPosition"
+        [multiple]="true"
+        [searchTextDebounce]="50"
+        [selectOptions]="options"
+        formControlName="autocomplete"
+      />
+    </form>
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangAutocompleteComponent],
+})
+class TestHostChipsPositionComponent {
+  form = new FormGroup({
+    autocomplete: new FormControl<string[]>(['opt1', 'opt2']),
+  })
+
+  options: SelectOption[] = [
+    { label: 'Option 1', value: 'opt1' },
+    { label: 'Option 2', value: 'opt2' },
+    { label: 'Option 3', value: 'opt3' },
+  ]
+
+  chipsPosition: 'top' | 'bottom' = 'top'
+}
+
+describe('QuangAutocompleteComponent - Chips Position Snapshot Tests', () => {
+  let hostFixture: ComponentFixture<TestHostChipsPositionComponent>
+  let hostComponent: TestHostChipsPositionComponent
+
+  beforeEach(async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [TestHostChipsPositionComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    hostFixture = TestBed.createComponent(TestHostChipsPositionComponent)
+    hostComponent = hostFixture.componentInstance
+    hostFixture.detectChanges()
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+  })
+
+  afterEach(() => {
+    hostFixture.destroy()
+    vi.useRealTimers()
+  })
+
+  it('should match snapshot with chips at top position', async () => {
+    hostComponent.chipsPosition = 'top'
+    hostFixture.detectChanges()
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+
+    const containerWrap = hostFixture.nativeElement.querySelector('.container-wrap')
+    expect(containerWrap.innerHTML).toMatchSnapshot()
+  })
+
+  it('should match snapshot with chips at bottom position', async () => {
+    hostComponent.chipsPosition = 'bottom'
+    hostFixture.detectChanges()
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+
+    const containerWrap = hostFixture.nativeElement.querySelector('.container-wrap')
+    expect(containerWrap.innerHTML).toMatchSnapshot()
+  })
+
+  it('should have chips-container with horizontal flex layout', async () => {
+    hostComponent.chipsPosition = 'top'
+    hostFixture.detectChanges()
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+
+    const chipsContainer = hostFixture.nativeElement.querySelector('.chips-container')
+    expect(chipsContainer).toBeTruthy()
+
+    const chips = chipsContainer.querySelectorAll('.chip')
+    expect(chips.length).toBe(2)
+  })
+
+  it('should add chips-bottom class when chipsPosition is bottom', async () => {
+    hostComponent.chipsPosition = 'bottom'
+    hostFixture.detectChanges()
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+
+    const containerWrap = hostFixture.nativeElement.querySelector('.container-wrap')
+    expect(containerWrap.classList.contains('chips-bottom')).toBe(true)
+  })
+
+  it('should not have chips-bottom class when chipsPosition is top', async () => {
+    hostComponent.chipsPosition = 'top'
+    hostFixture.detectChanges()
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+
+    const containerWrap = hostFixture.nativeElement.querySelector('.container-wrap')
+    expect(containerWrap.classList.contains('chips-bottom')).toBe(false)
+  })
+})
