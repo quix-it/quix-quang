@@ -52,7 +52,7 @@ import {
     },
   ],
 })
-export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | string[] | number[]> {
+export class QuangAutocompleteComponent extends QuangBaseComponent<string | number | string[] | number[] | null> {
   // ============================================
   // INPUTS - Configuration properties
   // ============================================
@@ -314,12 +314,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   /** Effect to handle input element setup and keyboard events */
   private readonly onChangeSelectInputEffect = effect(() => {
     const selectInput = this.selectInput()
-    if (selectInput) {
-      this.inputHeight.set(selectInput.nativeElement.getBoundingClientRect().height)
-      selectInput.nativeElement.addEventListener('keydown', (e: KeyboardEvent) => {
-        this.handleInputKeydown(e, selectInput.nativeElement)
-      })
-    }
+    if (!selectInput) return
+    this.inputHeight.set(selectInput.nativeElement.getBoundingClientRect().height)
+    selectInput.nativeElement.addEventListener('keydown', (e: KeyboardEvent) => {
+      this.handleInputKeydown(e, selectInput.nativeElement)
+    })
   })
 
   /** Subscription to options changes */
@@ -337,14 +336,13 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       // for immediate processing. This subscription is kept for backwards compatibility
       // but the _isSearching check prevents double-processing since onBlurHandler
       // already sets _isSearching to false before this subscription fires.
-      if (!data && data !== null && this._isSearching()) {
-        // Only process if still in search mode (which means onBlurHandler didn't run)
-        this.processTextToFormValue(this._userSearchText(), {
-          exitSearchMode: true,
-          updateOnMatch: true,
-          clearSearchText: true,
-        })
-      }
+      if (!(!data && data !== null && this._isSearching())) return
+      // Only process if still in search mode (which means onBlurHandler didn't run)
+      this.processTextToFormValue(this._userSearchText(), {
+        exitSearchMode: true,
+        updateOnMatch: true,
+        clearSearchText: true,
+      })
     })
 
   // ============================================
@@ -355,9 +353,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     super()
     this.destroyRef.onDestroy(() => {
       this._isDestroyed = true
-      if (this._searchDebounceTimer) {
-        clearTimeout(this._searchDebounceTimer)
-      }
+      if (!this._searchDebounceTimer) return
+      clearTimeout(this._searchDebounceTimer)
     })
   }
 
@@ -374,16 +371,16 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       this.formValueChangeSubscription = undefined
     }
 
-    if (formControl) {
-      this.formValueChangeSubscription = formControl.valueChanges
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((value: string | number | string[] | number[] | null) => {
-          this.handleFormValueChange(value)
-        })
-    }
+    if (!formControl) return
+
+    this.formValueChangeSubscription = formControl.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value: string | number | string[] | number[] | null) => {
+        this.handleFormValueChange(value)
+      })
   }
 
-  override writeValue(val: string | number | string[] | number[]): void {
+  override writeValue(val: string | number | string[] | number[] | null): void {
     // Simply update the value - _inputValue is computed and will automatically
     // show the correct display text based on _value and _isSearching state.
     super.writeValue(val)
@@ -396,10 +393,10 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     }
   }
 
-  override onChangedHandler(value: string | number | string[] | number[]): void {
+  override onChangedHandler(value: string | number | string[] | number[] | null): void {
     super.onChangedHandler(value)
     // Exit search mode - _inputValue will now derive from _value
-    // Note: Don't clear _userSearchText here - it's needed for checkInputValue matching
+    // Note: Don't clear _userSearchText here - it's needed for processTextToFormValue matching
     this._isSearching.set(false)
   }
 
@@ -430,11 +427,10 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     // Initialize _userSearchText with current input value when showing options
     // This ensures that if user focuses and blurs without typing, the value is preserved
     // Also enter search mode to enable filtering
-    if (!this._isSearching()) {
-      const currentInputValue = this._inputValue()
-      this._userSearchText.set(currentInputValue || '')
-      this._isSearching.set(true)
-    }
+    if (this._isSearching()) return
+    const currentInputValue = this._inputValue()
+    this._userSearchText.set(currentInputValue || '')
+    this._isSearching.set(true)
   }
 
   /**
@@ -461,29 +457,45 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * @param value The selected option's value
    * @param hideOptions Whether to hide the dropdown after selection
    */
-  onValueChange(value: string | number, hideOptions = true): void {
+  onValueChange(value: string | number | null, hideOptions = true): void {
+    // When allowFreeText is true and a null/undefined value is received (e.g., from selecting
+    // a non-existent option in the dropdown), use the typed text as the value instead of clearing
+    if ((value === null || value === undefined) && this._allowFreeTextInternal()) {
+      const typedText = this._userSearchText()?.trim()
+      if (typedText) {
+        this.onChangedHandler(typedText)
+        if (hideOptions) {
+          this.hideOptionVisibility()
+          this.focusInput()
+        }
+        this.selectedOption.emit(typedText)
+        return
+      }
+    }
+
     if (this.multiple()) {
-      this.handleSelectValue(value)
+      this.handleSelectValue(value as string | number)
       this.onChangedHandler(this._chipList())
       if (this._chipList().some((x) => x === value)) {
         this._userSearchText.set('')
         this._isSearching.set(false)
       }
-    } else {
-      // Update _userSearchText to the selected option's label
-      // This enables checkInputValue to match correctly on blur
-      const selectedOption = this.selectOptions().find((x) => x.value === value)
-      if (selectedOption) {
-        this._userSearchText.set(selectedOption.label)
-      }
-      this.onChangedHandler(value)
-      if (hideOptions) {
-        this.hideOptionVisibility()
-        // Return focus to input after selection
-        this.focusInput()
-      }
-      this.selectedOption.emit(value)
+      return
     }
+
+    // Update _userSearchText to the selected option's label
+    // This enables processTextToFormValue to match correctly on blur
+    const selectedOption = this.selectOptions().find((x) => x.value === value)
+    if (selectedOption) {
+      this._userSearchText.set(selectedOption.label)
+    }
+    this.onChangedHandler(value)
+    if (hideOptions) {
+      this.hideOptionVisibility()
+      // Return focus to input after selection
+      this.focusInput()
+    }
+    this.selectedOption.emit(value)
   }
 
   /**
@@ -514,11 +526,21 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
         }
         break
       case 'Enter':
-        // If dropdown is open and an option is highlighted, select it
-        // Otherwise allow form submission
-        if (this._showOptions()) {
-          // Let the option-list handle Enter key selection
-          // The option-list will emit the selection via changedHandler
+        // When allowFreeText is true and dropdown is open, handle Enter specially
+        if (this._showOptions() && this._allowFreeTextInternal()) {
+          // Check if there are any filtered options
+          const filteredOptions = this._filteredOptions()
+          if (filteredOptions.length === 0) {
+            // No options to select - use the typed text as the value
+            event.preventDefault()
+            this.processTextToFormValue(this._userSearchText(), {
+              exitSearchMode: true,
+              updateOnMatch: true,
+              clearSearchText: false,
+            })
+            this.hideOptionVisibility()
+          }
+          // If there are filtered options, let option-list handle the selection
         }
         break
     }
@@ -553,9 +575,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    */
   focusInput(): void {
     const inputEl = this.selectInput()?.nativeElement
-    if (inputEl) {
-      inputEl.focus()
-    }
+    if (!inputEl) return
+    inputEl.focus()
   }
 
   /**
@@ -565,9 +586,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   onBlurInput(event: FocusEvent): void {
     const relatedTarget = event.relatedTarget as HTMLElement | null
     const optionListId = this.optionList()?.optionListContainer()?.nativeElement?.id
-    if (relatedTarget?.id !== optionListId) {
-      this.onBlurHandler()
-    }
+    if (relatedTarget?.id === optionListId) return
+    this.onBlurHandler()
   }
 
   /**
@@ -575,9 +595,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * @param event The blur event (truthy if should hide)
    */
   onBlurOptionList(event: FocusEvent | boolean): void {
-    if (event) {
-      this.hideOptionVisibility()
-    }
+    if (!event) return
+    this.hideOptionVisibility()
   }
 
   /**
@@ -597,10 +616,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   deleteChip(chipValue: string | number): void {
     const stringChipValue = chipValue?.toString()
     const index = this._chipList().findIndex((x) => x.toString() === stringChipValue)
-    if (index >= 0) {
-      this._chipList.update((list) => list.filter((_, i) => i !== index))
-      this.onChangedHandler(this._chipList())
-    }
+    if (index < 0) return
+    this._chipList.update((list) => list.filter((_, i) => i !== index))
+    this.onChangedHandler(this._chipList())
   }
 
   // ============================================
@@ -614,10 +632,10 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    */
   protected filterOptions(value: string): SelectOption[] {
     const options = this.selectOptions()
-    if (this.internalFilterOptions()) {
-      return options.filter((x) => x.label.toLowerCase().includes(value.toLowerCase()))
-    }
-    return options
+    const trimmedValue = value?.trim()
+    return this.internalFilterOptions() && trimmedValue
+      ? options.filter((x) => x.label.toLowerCase().includes(trimmedValue.toLowerCase()))
+      : options
   }
 
   // ============================================
@@ -664,9 +682,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       const shouldUseFreeText = this._allowFreeTextInternal() && searchText && options.updateOnMatch
 
       // Clear logic differs between typing and blur:
-      // - On blur (exitSearchMode=true): clear when no valid selection and free text not allowed
+      // - On blur (exitSearchMode=true): clear when input is empty (regardless of allowFreeText setting)
+      // - On blur: also clear when no valid selection and free text not allowed
       // - During typing (exitSearchMode=false): only clear when updateOnMatch is true and text doesn't match
-      const shouldClearOnBlur =
+      const shouldClearOnBlurEmpty = options.exitSearchMode && !searchText
+      const shouldClearOnBlurNoMatch =
         options.exitSearchMode && !this._allowFreeTextInternal() && (!matchingOption || !this.autoSelectOnExactMatch())
       const shouldClearWhileTyping =
         !options.exitSearchMode && options.updateOnMatch && !matchingOption && !this._allowFreeTextInternal()
@@ -685,9 +705,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
         } else {
           this.onValueChange(searchText, false)
         }
-      } else if (shouldClearOnBlur) {
-        // On blur, no valid selection possible: clear the value
-        this.onChangedHandler('')
+      } else if (shouldClearOnBlurEmpty || shouldClearOnBlurNoMatch) {
+        // On blur with empty input or no valid selection: clear the value to null
+        this.onChangedHandler(null)
       } else if (shouldClearWhileTyping) {
         // While typing, text doesn't match any option: clear the value but stay in search mode
         this.updateValueWithoutExitingSearchMode('')
@@ -703,24 +723,25 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * Handles keyboard events on the input element.
    */
   private handleInputKeydown(e: KeyboardEvent, inputElement: HTMLInputElement): void {
-    if (this.multiple() && this._chipList().length > 0 && !this._inputValue()?.length && e.key === 'Backspace') {
-      e.preventDefault()
-      const chipContainerEl = this.chipContainer()?.nativeElement
-      if (chipContainerEl) {
-        const chips = chipContainerEl.querySelectorAll('.chip button.btn-chip') as NodeListOf<HTMLButtonElement>
-        if (chips.length > 0) {
-          const lastChip = chips[chips.length - 1]
-          lastChip.focus()
-          lastChip.addEventListener('keydown', (event: KeyboardEvent) => {
-            if (event.key === 'Backspace') {
-              event.preventDefault()
-              this.deleteChip(this._chipList()[this._chipList().length - 1])
-              inputElement.focus()
-            } else {
-              event.preventDefault()
-            }
-          })
-        }
+    if (!(this.multiple() && this._chipList().length > 0 && !this._inputValue()?.length && e.key === 'Backspace')) {
+      return
+    }
+    e.preventDefault()
+    const chipContainerEl = this.chipContainer()?.nativeElement
+    if (chipContainerEl) {
+      const chips = chipContainerEl.querySelectorAll('.chip button.btn-chip') as NodeListOf<HTMLButtonElement>
+      if (chips.length > 0) {
+        const lastChip = chips[chips.length - 1]
+        lastChip.focus()
+        lastChip.addEventListener('keydown', (event: KeyboardEvent) => {
+          if (event.key === 'Backspace') {
+            event.preventDefault()
+            this.deleteChip(this._chipList()[this._chipList().length - 1])
+            inputElement.focus()
+            return
+          }
+          event.preventDefault()
+        })
       }
     }
   }
@@ -742,14 +763,15 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * Handles form value changes from external sources.
    */
   private handleFormValueChange(value: string | number | string[] | number[] | null): void {
-    if (this.multiple() && Array.isArray(value)) {
-      this._chipList.set([])
-      this._selectedOptions.set([])
-      value.forEach((x) => {
-        this.handleSelectValue(x)
-      })
+    if (!(this.multiple() && Array.isArray(value))) {
+      return
     }
-    // Note: Don't clear _userSearchText here - it's managed by checkInputValue
+    this._chipList.set([])
+    this._selectedOptions.set([])
+    value.forEach((x) => {
+      this.handleSelectValue(x)
+    })
+    // Note: Don't clear _userSearchText here - it's managed by processTextToFormValue
     // which runs when options are hidden and needs _userSearchText for matching.
   }
 
@@ -767,7 +789,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   /**
    * Emits search text change after debounce.
    * When `updateValueOnType` is true, also updates the form value using the same
-   * matching logic as checkInputValue (auto-select matching options, or use free text).
+   * matching logic as processTextToFormValue (auto-select matching options, or use free text).
    */
   private emitDebouncedSearchText(value: string): void {
     if (this._searchDebounceTimer) {
@@ -779,19 +801,20 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
         return
       }
 
-      if (value !== this._lastEmittedSearchText) {
-        this._lastEmittedSearchText = value
-        this.searchTextChange.emit(value || '')
-
-        // Update form value based on what the user typed
-        // - When updateValueOnType is true: update on both match and no-match
-        // - When updateValueOnType is false: only clear the value when text doesn't match
-        this.processTextToFormValue(value, {
-          exitSearchMode: false,
-          updateOnMatch: this.updateValueOnType(),
-          clearSearchText: false,
-        })
+      if (value === this._lastEmittedSearchText) {
+        return
       }
+      this._lastEmittedSearchText = value
+      this.searchTextChange.emit(value || '')
+
+      // Update form value based on what the user typed
+      // - When updateValueOnType is true: update on both match and no-match
+      // - When updateValueOnType is false: only clear the value when text doesn't match
+      this.processTextToFormValue(value, {
+        exitSearchMode: false,
+        updateOnMatch: this.updateValueOnType(),
+        clearSearchText: false,
+      })
     }, this.searchTextDebounce())
   }
 
@@ -800,8 +823,8 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * This is used when clearing the value during typing - we want to update the form
    * but keep the user in search mode so they can continue typing.
    */
-  private updateValueWithoutExitingSearchMode(value: string | number | string[] | number[]): void {
-    this._value.set(value as string | number | string[] | number[] | null)
+  private updateValueWithoutExitingSearchMode(value: string | number | string[] | number[] | null): void {
+    this._value.set(value)
     if (this.onChange) {
       this.onChange(value as string)
     }
