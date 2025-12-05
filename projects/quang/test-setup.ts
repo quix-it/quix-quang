@@ -13,4 +13,9 @@ if (typeof ResizeObserver === 'undefined') {
   }
 }
 
+// Mock scrollIntoView for jsdom (not implemented in JSDOM)
+if (typeof Element.prototype.scrollIntoView === 'undefined') {
+  Element.prototype.scrollIntoView = function () {}
+}
+
 getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting())

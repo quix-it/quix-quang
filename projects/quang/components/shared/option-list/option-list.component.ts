@@ -138,25 +138,27 @@ export class QuangOptionListComponent {
 
   optionList$ = effect(() => {
     const optionListContainer = this.optionListContainer()
-    if (optionListContainer && this.parentType() === OptionListParentType.SELECT) {
+    const parentType = this.parentType()
+
+    // Focus the option list container when opened (only for SELECT)
+    if (optionListContainer && parentType === OptionListParentType.SELECT) {
       optionListContainer?.nativeElement.focus()
-      const optionListContainerNativeElement = optionListContainer?.nativeElement
-      if (optionListContainerNativeElement) {
-        const ul = optionListContainerNativeElement?.children[0] as HTMLUListElement
-        const listItem = ul?.children.item(this.selectedElementIndex()) as HTMLLIElement | undefined
-        if (listItem) {
-          setTimeout(() => {
-            listItem.scrollIntoView({ behavior: this.scrollBehaviorOnOpen() })
-          }, 0)
-        }
-      }
     }
+
     const ul = optionListContainer?.nativeElement?.children[0] as HTMLUListElement | undefined
     const listItems = (ul?.children ?? []) as HTMLLIElement[]
     let currentIndex = this.selectedElementIndex()
     listItems?.[currentIndex]?.classList.add('selected')
     // Initialize focusedItemIndex with current selection
     this.focusedItemIndex.set(currentIndex)
+
+    // Scroll to selected item when option list opens
+    const listItem = listItems[currentIndex]
+    if (listItem) {
+      setTimeout(() => {
+        listItem.scrollIntoView({ behavior: this.scrollBehaviorOnOpen(), block: 'nearest' })
+      }, 0)
+    }
 
     if (this.onKeyDown) {
       this.onKeyDown.unsubscribe()
@@ -176,49 +178,26 @@ export class QuangOptionListComponent {
             } else {
               currentIndex += 1
             }
-            if (currentIndex === 0) {
-              event.preventDefault()
-              optionListContainer?.nativeElement?.scroll(0, 0)
-            }
-            const optionListBottom = optionListContainer?.nativeElement?.getBoundingClientRect()?.bottom ?? 0
-            const itemListHeight = optionListContainer?.nativeElement?.children?.[0]?.children
-              ?.item(currentIndex)
-              ?.getBoundingClientRect()?.height
-            const itemListBottom = optionListContainer?.nativeElement?.children?.[0]?.children
-              ?.item(currentIndex)
-              ?.getBoundingClientRect()?.bottom
-            if (optionListBottom > (itemListBottom ?? 0) + (itemListHeight ?? 0)) event.preventDefault()
+            event.preventDefault()
 
             listItems[currentIndex]?.classList.add('selected')
+            // Scroll item into view if not visible
+            listItems[currentIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
             // Update focusedItemIndex for aria-activedescendant
             this.focusedItemIndex.set(currentIndex)
-            if (
-              (optionListContainer?.nativeElement?.scrollTop ?? 0) >=
-              (optionListContainer?.nativeElement?.scrollHeight ?? 0) -
-                (optionListContainer?.nativeElement?.offsetHeight ?? 0)
-            ) {
-              event.preventDefault()
-            }
             break
           }
           case 'ArrowUp': {
             if (this.parentType() === OptionListParentType.AUTOCOMPLETE) optionListContainer?.nativeElement.focus()
             if (currentIndex !== this.selectedElementIndex()) listItems[currentIndex]?.classList.remove('selected')
             if (currentIndex !== 0) currentIndex -= 1
-            const optionListTop = optionListContainer?.nativeElement?.getBoundingClientRect()?.top ?? 0
-            const itemListHeight = optionListContainer?.nativeElement?.children?.[0]?.children
-              ?.item(currentIndex)
-              ?.getBoundingClientRect()?.height
-            const itemListTop = optionListContainer?.nativeElement?.children?.[0]?.children
-              ?.item(currentIndex)
-              ?.getBoundingClientRect()?.top
-            if (optionListTop < (itemListTop ?? 0) - (itemListHeight ?? 0)) event.preventDefault()
+            event.preventDefault()
+
             listItems[currentIndex]?.classList.add('selected')
+            // Scroll item into view if not visible
+            listItems[currentIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
             // Update focusedItemIndex for aria-activedescendant
             this.focusedItemIndex.set(currentIndex)
-            if (!optionListContainer?.nativeElement?.scrollTop) {
-              event.preventDefault()
-            }
             break
           }
           case 'Enter': {
