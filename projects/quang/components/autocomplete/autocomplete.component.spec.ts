@@ -167,11 +167,12 @@ describe('QuangAutocompleteComponent', () => {
 
   describe('User Input', () => {
     it('should update input value on typing', async () => {
-      // Directly set the internal signal to test the binding
-      // The real typing goes through debounce, but we can test the signal directly
-      autocompleteComponent._inputValue.set('Option')
+      // Simulate user typing - this enters search mode and sets _userSearchText
+      autocompleteComponent['_isSearching'].set(true)
+      autocompleteComponent['_userSearchText'].set('Option')
       hostFixture.detectChanges()
 
+      // _inputValue is computed: when searching, it returns _userSearchText
       expect(autocompleteComponent._inputValue()).toBe('Option')
     })
 
@@ -208,7 +209,9 @@ describe('QuangAutocompleteComponent', () => {
     })
 
     it('should filter options based on input', async () => {
-      autocompleteComponent._inputValue.set('Option 1')
+      // Enter search mode and set search text
+      autocompleteComponent['_isSearching'].set(true)
+      autocompleteComponent['_userSearchText'].set('Option 1')
       hostFixture.detectChanges()
 
       const filteredOptions = autocompleteComponent._filteredOptions()
@@ -217,7 +220,9 @@ describe('QuangAutocompleteComponent', () => {
     })
 
     it('should filter options case-insensitively', async () => {
-      autocompleteComponent._inputValue.set('option')
+      // Enter search mode and set search text
+      autocompleteComponent['_isSearching'].set(true)
+      autocompleteComponent['_userSearchText'].set('option')
       hostFixture.detectChanges()
 
       const filteredOptions = autocompleteComponent._filteredOptions()
@@ -300,10 +305,19 @@ describe('QuangAutocompleteComponent', () => {
       expect(autocompleteComponent._value()).toBe('opt2')
       expect(autocompleteComponent._inputValue()).toBe('Option 2')
 
-      // Verify filtering uses the current input value
+      // When not searching, all options should be shown in the dropdown
+      // (the input displays the selected value's label, but dropdown shows all options)
       const filteredOptions = autocompleteComponent._filteredOptions()
-      expect(filteredOptions.length).toBe(1)
-      expect(filteredOptions[0].value).toBe('opt2')
+      expect(filteredOptions.length).toBe(4) // All options shown when not searching
+
+      // When user starts typing/searching, then filtering happens
+      autocompleteComponent['_isSearching'].set(true)
+      autocompleteComponent['_userSearchText'].set('Option 2')
+      hostFixture.detectChanges()
+
+      const filteredAfterSearch = autocompleteComponent._filteredOptions()
+      expect(filteredAfterSearch.length).toBe(1)
+      expect(filteredAfterSearch[0].value).toBe('opt2')
     })
 
     it('should mark form as touched on blur', async () => {
@@ -322,10 +336,16 @@ describe('QuangAutocompleteComponent', () => {
       await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
-      // The component uses checkInputValue when options hide
+      // The component uses processTextToFormValue when options hide
       // If input doesn't match an option and syncFormWithText is false, it clears
-      autocompleteComponent._inputValue.set('')
-      autocompleteComponent.checkInputValue()
+      // Simulate user clearing the input (entering search mode with empty text)
+      autocompleteComponent['_isSearching'].set(true)
+      autocompleteComponent['_userSearchText'].set('')
+      autocompleteComponent['processTextToFormValue']('', {
+        exitSearchMode: true,
+        updateOnMatch: true,
+        clearSearchText: true,
+      })
       await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
@@ -391,8 +411,14 @@ describe('QuangAutocompleteComponent', () => {
     })
 
     it('should check input value against options on blur', async () => {
-      autocompleteComponent._inputValue.set('Option 1')
-      autocompleteComponent.checkInputValue()
+      // Simulate user typing 'Option 1' (entering search mode)
+      autocompleteComponent['_isSearching'].set(true)
+      autocompleteComponent['_userSearchText'].set('Option 1')
+      autocompleteComponent['processTextToFormValue']('Option 1', {
+        exitSearchMode: true,
+        updateOnMatch: true,
+        clearSearchText: true,
+      })
       await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
@@ -487,7 +513,8 @@ describe('QuangAutocompleteComponent - Multiple Selection', () => {
 
     it('should filter out selected options from dropdown', async () => {
       autocompleteComponent._chipList.set(['opt1'])
-      autocompleteComponent._inputValue.set('')
+      // Not in search mode, so _filteredOptions uses empty search text
+      autocompleteComponent['_isSearching'].set(false)
       await vi.advanceTimersByTimeAsync(0)
       hostFixture.detectChanges()
 
@@ -537,7 +564,9 @@ describe('QuangAutocompleteComponent - Internal Filter Options', () => {
   })
 
   it('should filter options internally by default', async () => {
-    autocompleteComponent._inputValue.set('Another')
+    // Enter search mode and set search text
+    autocompleteComponent['_isSearching'].set(true)
+    autocompleteComponent['_userSearchText'].set('Another')
     await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
@@ -547,7 +576,8 @@ describe('QuangAutocompleteComponent - Internal Filter Options', () => {
   })
 
   it('should return all options when input is empty', async () => {
-    autocompleteComponent._inputValue.set('')
+    // When not searching (or searching with empty text), show all options
+    autocompleteComponent['_isSearching'].set(false)
     await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
@@ -564,6 +594,7 @@ describe('QuangAutocompleteComponent - SyncFormWithText', () => {
           [searchTextDebounce]="50"
           [selectOptions]="options"
           [syncFormWithText]="true"
+          [updateValueOnType]="true"
           formControlName="autocomplete"
         />
       </form>
@@ -616,6 +647,112 @@ describe('QuangAutocompleteComponent - SyncFormWithText', () => {
     // When syncFormWithText is true, the component calls onValueChange
     // which then calls onChangedHandler to update the form
     expect(hostComponent.form.get('autocomplete')?.value).toBe('custom text')
+  })
+})
+
+describe('QuangAutocompleteComponent - AllowFreeText', () => {
+  @Component({
+    template: `
+      <form [formGroup]="form">
+        <quang-autocomplete
+          [allowFreeText]="true"
+          [searchTextDebounce]="50"
+          [selectOptions]="options"
+          [updateValueOnType]="true"
+          formControlName="autocomplete"
+        />
+      </form>
+    `,
+    standalone: true,
+    imports: [ReactiveFormsModule, QuangAutocompleteComponent],
+  })
+  class AllowFreeTextTestHostComponent {
+    form = new FormGroup({
+      autocomplete: new FormControl<string | null>(null),
+    })
+
+    options: SelectOption[] = [
+      { label: 'Option 1', value: 'opt1' },
+      { label: 'Option 2', value: 'opt2' },
+    ]
+  }
+
+  let fixture: ComponentFixture<AllowFreeTextTestHostComponent>
+  let hostComponent: AllowFreeTextTestHostComponent
+  let autocompleteComponent: QuangAutocompleteComponent
+
+  beforeEach(async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [AllowFreeTextTestHostComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    fixture = TestBed.createComponent(AllowFreeTextTestHostComponent)
+    hostComponent = fixture.componentInstance
+    fixture.detectChanges()
+    autocompleteComponent = fixture.debugElement.query(By.directive(QuangAutocompleteComponent)).componentInstance
+  })
+
+  afterEach(() => {
+    fixture.destroy()
+    vi.useRealTimers()
+  })
+
+  it('should allow any text as form value when allowFreeText is true', async () => {
+    // Simulate typing custom text that doesn't match any option
+    const mockEvent = { target: { value: 'my custom text' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+
+    // Wait for debounce
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Form should have the custom text as its value
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('my custom text')
+  })
+
+  it('should display custom text in input when value does not match any option', async () => {
+    // Set form value to custom text that doesn't match any option
+    hostComponent.form.patchValue({ autocomplete: 'custom value' })
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // _inputValue should display the custom text (since no option matches)
+    expect(autocompleteComponent._inputValue()).toBe('custom value')
+  })
+
+  it('should still display option label when value matches an option', async () => {
+    // Set form value to an existing option value
+    hostComponent.form.patchValue({ autocomplete: 'opt1' })
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // _inputValue should display the option's label
+    expect(autocompleteComponent._inputValue()).toBe('Option 1')
+  })
+
+  it('should not clear form value on blur when text does not match an option', async () => {
+    // Type custom text
+    const mockEvent = { target: { value: 'unmatched text' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('unmatched text')
+
+    // Simulate blur (which triggers checkInputValue)
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should NOT be cleared because allowFreeText is true
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('unmatched text')
+  })
+
+  it('should work with _allowFreeTextInternal computed', () => {
+    // The internal computed should reflect allowFreeText being true
+    expect(autocompleteComponent['_allowFreeTextInternal']()).toBe(true)
   })
 })
 
@@ -746,7 +883,7 @@ describe('QuangAutocompleteComponent - Visibility Control', () => {
     await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
-    autocompleteComponent.hideOptionVisibility(true)
+    autocompleteComponent.hideOptionVisibility()
     await vi.advanceTimersByTimeAsync(10)
     fixture.detectChanges()
 
@@ -794,12 +931,38 @@ describe('QuangAutocompleteComponent - WriteValue', () => {
     expect(autocompleteComponent._value()).toBe(123)
   })
 
-  it('should reset input value when value not found and resetOnMiss is true', async () => {
-    autocompleteComponent._inputValue.set('Some text')
+  it('should preserve user search text when writeValue is called during active search', async () => {
+    // Set up: user types something, triggering search mode
+    autocompleteComponent['_isSearching'].set(true)
+    autocompleteComponent['_userSearchText'].set('Some text')
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // When writeValue is called while user is searching,
+    // their typed text should be preserved (this is key for NGRX compatibility)
     autocompleteComponent.writeValue('nonexistent')
     await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
+    // _value is updated but _inputValue still shows user's search text
+    // because _isSearching is still true
+    expect(autocompleteComponent._value()).toBe('nonexistent')
+    expect(autocompleteComponent._inputValue()).toBe('Some text')
+  })
+
+  it('should derive input from value when not searching and value not found', async () => {
+    // Not in search mode
+    autocompleteComponent['_isSearching'].set(false)
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // writeValue with nonexistent value
+    autocompleteComponent.writeValue('nonexistent')
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    // Since 'nonexistent' doesn't match any option and we're not searching,
+    // _inputValue should be '' (derived from _value with no matching option)
     expect(autocompleteComponent._inputValue()).toBe('')
   })
 })
@@ -840,8 +1003,9 @@ describe('QuangAutocompleteComponent - Bug Fix: Click after clearing input', () 
     expect(autocompleteComponent._value()).toBe('opt1')
     expect(autocompleteComponent._inputValue()).toBe('Option 1')
 
-    // Step 2: User clears the input text
-    autocompleteComponent._inputValue.set('')
+    // Step 2: User clears the input text by typing (entering search mode)
+    autocompleteComponent['_isSearching'].set(true)
+    autocompleteComponent['_userSearchText'].set('')
     autocompleteComponent.showOptionVisibility()
     await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
@@ -874,8 +1038,9 @@ describe('QuangAutocompleteComponent - Bug Fix: Click after clearing input', () 
     await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
 
-    // Clear input (user deleted text)
-    autocompleteComponent._inputValue.set('')
+    // Clear input (user deleted text) - enter search mode
+    autocompleteComponent['_isSearching'].set(true)
+    autocompleteComponent['_userSearchText'].set('')
     autocompleteComponent.showOptionVisibility()
     await vi.advanceTimersByTimeAsync(0)
     fixture.detectChanges()
@@ -938,5 +1103,527 @@ describe('QuangAutocompleteComponent - Bug Fix: Click after clearing input', () 
     expect(autocompleteComponent._value()).toBe('opt2')
     expect(autocompleteComponent._inputValue()).toBe('Option 2')
     expect(hostComponent.form.get('autocomplete')?.value).toBe('opt2')
+  })
+})
+
+describe('QuangAutocompleteComponent - AutoSelectOnExactMatch', () => {
+  @Component({
+    template: `
+      <form [formGroup]="form">
+        <quang-autocomplete
+          [autoSelectOnExactMatch]="autoSelectOnExactMatch"
+          [searchTextDebounce]="50"
+          [selectOptions]="options"
+          formControlName="autocomplete"
+        />
+      </form>
+    `,
+    standalone: true,
+    imports: [ReactiveFormsModule, QuangAutocompleteComponent],
+  })
+  class AutoSelectTestHostComponent {
+    form = new FormGroup({
+      autocomplete: new FormControl<string | null>(null),
+    })
+
+    options: SelectOption[] = [
+      { label: 'Option 1', value: 'opt1' },
+      { label: 'Option 2', value: 'opt2' },
+      { label: 'Italy', value: 'IT' },
+    ]
+
+    autoSelectOnExactMatch = true
+  }
+
+  let fixture: ComponentFixture<AutoSelectTestHostComponent>
+  let hostComponent: AutoSelectTestHostComponent
+  let autocompleteComponent: QuangAutocompleteComponent
+
+  beforeEach(async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [AutoSelectTestHostComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    fixture = TestBed.createComponent(AutoSelectTestHostComponent)
+    hostComponent = fixture.componentInstance
+    fixture.detectChanges()
+    autocompleteComponent = fixture.debugElement.query(By.directive(QuangAutocompleteComponent)).componentInstance
+  })
+
+  afterEach(() => {
+    fixture.destroy()
+    vi.useRealTimers()
+  })
+
+  it('should auto-select option when user types exact label (case-insensitive)', async () => {
+    // Type "italy" in lowercase
+    const mockEvent = { target: { value: 'italy' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Trigger blur which calls checkInputValue
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Should auto-select "Italy" option with value "IT"
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+  })
+
+  it('should auto-select option when user types exact label with extra whitespace', async () => {
+    // Type "  Italy  " with whitespace
+    const mockEvent = { target: { value: '  Italy  ' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Trigger blur
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Should auto-select "Italy" option
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+  })
+
+  it('should auto-select option when user types exact label in UPPERCASE', async () => {
+    // Type "OPTION 1" in uppercase
+    const mockEvent = { target: { value: 'OPTION 1' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Trigger blur
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Should auto-select "Option 1" option
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('opt1')
+  })
+
+  it('should NOT auto-select when autoSelectOnExactMatch is false', async () => {
+    // Disable auto-select
+    hostComponent.autoSelectOnExactMatch = false
+    fixture.detectChanges()
+
+    // Type "Italy"
+    const mockEvent = { target: { value: 'Italy' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Trigger blur
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should be cleared since it doesn't match and autoSelect is disabled
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('')
+  })
+
+  it('should clear value when text does not match any option label', async () => {
+    // Type something that doesn't match
+    const mockEvent = { target: { value: 'nonexistent' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Trigger blur
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should be cleared
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('')
+  })
+
+  it('should not change value when it already matches the found option', async () => {
+    // Pre-select an option
+    hostComponent.form.patchValue({ autocomplete: 'IT' })
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+
+    // Type the same label
+    const mockEvent = { target: { value: 'Italy' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Trigger blur
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should remain the same
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+  })
+
+  it('should handle partial matches correctly (not auto-select)', async () => {
+    // Type "Option" which partially matches multiple options but isn't exact
+    const mockEvent = { target: { value: 'Option' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Trigger blur
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Value should be cleared since "Option" doesn't exactly match any label
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('')
+  })
+
+  it('should clear form value when user modifies text to no longer match an option (on blur)', async () => {
+    // Step 1: Type "italy" which matches an option
+    const mockEvent1 = { target: { value: 'italy' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent1)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Trigger blur to select the option
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Verify "Italy" was selected (value = 'IT')
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+
+    // Step 2: User clicks back on input and deletes the 'y', making it "ital"
+    const mockEvent2 = { target: { value: 'ital' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent2)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // With updateValueOnType=false (default), form value should NOT be cleared while typing
+    // It should still have 'IT' until the user blurs
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+
+    // Step 3: Trigger blur - NOW the form should be cleared because "ital" doesn't match
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Form value should be cleared on blur because "ital" doesn't match any option
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('')
+  })
+
+  it('should preserve form value when user focuses and blurs without typing (bug fix)', async () => {
+    // This test reproduces a bug where:
+    // 1. User selects "Italy" → form has 'IT', component shows "Italy"
+    // 2. User clicks on the component (focus) but doesn't type anything
+    // 3. User clicks outside (blur) → component was clearing but form had 'IT'
+    //
+    // Expected: Both the component display and form value should remain unchanged
+
+    // Step 1: Select "Italy" option
+    autocompleteComponent.onValueChange('IT')
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Verify initial state
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+    expect(autocompleteComponent._value()).toBe('IT')
+
+    // Step 2: Simulate user clicking on input (focus) - this shows options
+    // but user does NOT type anything
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    expect(autocompleteComponent._showOptions()).toBe(true)
+
+    // Step 3: Simulate blur (user clicks outside without typing anything)
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150) // Wait for blur timeout
+    fixture.detectChanges()
+
+    // CRITICAL: Both form value and component display should be preserved
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+    expect(autocompleteComponent._value()).toBe('IT')
+
+    // Step 4: Do it again to ensure consistent behavior
+    autocompleteComponent.showOptionVisibility()
+    await vi.advanceTimersByTimeAsync(0)
+    fixture.detectChanges()
+
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Should still be preserved
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+    expect(autocompleteComponent._value()).toBe('IT')
+  })
+
+  it('should highlight option only when exact match is found while typing', async () => {
+    // This test verifies that _highlightedValue correctly tracks matching options during typing
+    // This keeps the option list highlighting in sync with what will be selected on blur
+
+    // Step 1: Select "Italy" option initially
+    autocompleteComponent.onValueChange('IT')
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Verify highlighted value matches selected value when not searching
+    expect(autocompleteComponent['_highlightedValue']()).toBe('IT')
+
+    // Step 2: Start typing "Ital" (partial match - should NOT highlight)
+    const mockEvent1 = { target: { value: 'Ital' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent1)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Should NOT highlight any option since "Ital" is not an exact match
+    expect(autocompleteComponent['_highlightedValue']()).toBe(null)
+
+    // Step 3: Complete typing "Italy" (exact match - should highlight)
+    const mockEvent2 = { target: { value: 'Italy' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent2)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Should highlight 'IT' since "Italy" exactly matches the label
+    expect(autocompleteComponent['_highlightedValue']()).toBe('IT')
+
+    // Step 4: Delete a character to "Ital" again
+    const mockEvent3 = { target: { value: 'Ital' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent3)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Should NOT highlight anymore
+    expect(autocompleteComponent['_highlightedValue']()).toBe(null)
+
+    // Step 5: Type back to "Italy"
+    const mockEvent4 = { target: { value: 'Italy' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent4)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Should highlight 'IT' again
+    expect(autocompleteComponent['_highlightedValue']()).toBe('IT')
+
+    // Step 6: Blur - should select the highlighted option
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+    expect(autocompleteComponent._inputValue()).toBe('Italy')
+  })
+})
+
+describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
+  @Component({
+    template: `
+      <form [formGroup]="form">
+        <quang-autocomplete
+          [allowFreeText]="allowFreeText"
+          [autoSelectOnExactMatch]="autoSelectOnExactMatch"
+          [searchTextDebounce]="50"
+          [selectOptions]="options"
+          [updateValueOnType]="updateValueOnType"
+          formControlName="autocomplete"
+        />
+      </form>
+    `,
+    standalone: true,
+    imports: [ReactiveFormsModule, QuangAutocompleteComponent],
+  })
+  class UpdateValueOnTypeTestHostComponent {
+    form = new FormGroup({
+      autocomplete: new FormControl<string | null>(null),
+    })
+
+    options: SelectOption[] = [
+      { label: 'Italy', value: 'IT' },
+      { label: 'France', value: 'FR' },
+      { label: 'Germany', value: 'DE' },
+    ]
+
+    updateValueOnType = false
+    allowFreeText = false
+    autoSelectOnExactMatch = true
+  }
+
+  let fixture: ComponentFixture<UpdateValueOnTypeTestHostComponent>
+  let hostComponent: UpdateValueOnTypeTestHostComponent
+  let autocompleteComponent: QuangAutocompleteComponent
+
+  beforeEach(async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [UpdateValueOnTypeTestHostComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    fixture = TestBed.createComponent(UpdateValueOnTypeTestHostComponent)
+    hostComponent = fixture.componentInstance
+    fixture.detectChanges()
+    autocompleteComponent = fixture.debugElement.query(By.directive(QuangAutocompleteComponent)).componentInstance
+  })
+
+  afterEach(() => {
+    fixture.destroy()
+    vi.useRealTimers()
+  })
+
+  it('should NOT update form value while typing when updateValueOnType is false (default)', async () => {
+    // Default is false
+    expect(hostComponent.updateValueOnType).toBe(false)
+
+    // Type an exact match
+    const mockEvent = { target: { value: 'Italy' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Form value should still be null (not updated during typing)
+    expect(hostComponent.form.get('autocomplete')?.value).toBeNull()
+  })
+
+  it('should update form value while typing when updateValueOnType is true and exact match found', async () => {
+    hostComponent.updateValueOnType = true
+    fixture.detectChanges()
+
+    // Type an exact match
+    const mockEvent = { target: { value: 'Italy' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Form value should be updated during typing
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+  })
+
+  it('should update form value while typing with free text when updateValueOnType is true', async () => {
+    hostComponent.updateValueOnType = true
+    hostComponent.allowFreeText = true
+    fixture.detectChanges()
+
+    // Type custom text that doesn't match any option
+    const mockEvent = { target: { value: 'custom value' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Form value should be updated with free text
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('custom value')
+  })
+
+  it('should NOT update form value while typing with free text when updateValueOnType is false', async () => {
+    hostComponent.updateValueOnType = false
+    hostComponent.allowFreeText = true
+    fixture.detectChanges()
+
+    // Type custom text
+    const mockEvent = { target: { value: 'custom value' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Form value should still be null
+    expect(hostComponent.form.get('autocomplete')?.value).toBeNull()
+
+    // Now trigger blur - value should update
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('custom value')
+  })
+
+  it('should auto-select exact match on blur regardless of updateValueOnType setting', async () => {
+    hostComponent.updateValueOnType = false
+    fixture.detectChanges()
+
+    // Type an exact match
+    const mockEvent = { target: { value: 'France' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Value not updated yet (updateValueOnType is false)
+    expect(hostComponent.form.get('autocomplete')?.value).toBeNull()
+
+    // Trigger blur
+    autocompleteComponent.onBlurHandler()
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+
+    // Now value should be set
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('FR')
+  })
+
+  it('should respect autoSelectOnExactMatch=false when updateValueOnType is true', async () => {
+    hostComponent.updateValueOnType = true
+    hostComponent.autoSelectOnExactMatch = false
+    hostComponent.allowFreeText = true
+    fixture.detectChanges()
+
+    // Type an exact match
+    const mockEvent = { target: { value: 'Germany' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Since autoSelectOnExactMatch is false and allowFreeText is true,
+    // it should set the text as the value, not the option value
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('Germany')
+  })
+
+  it('should NOT update form value when autoSelectOnExactMatch=false and allowFreeText=false', async () => {
+    hostComponent.updateValueOnType = true
+    hostComponent.autoSelectOnExactMatch = false
+    hostComponent.allowFreeText = false
+    fixture.detectChanges()
+
+    // Type an exact match
+    const mockEvent = { target: { value: 'Germany' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Since autoSelectOnExactMatch is false and allowFreeText is false,
+    // nothing should be updated
+    expect(hostComponent.form.get('autocomplete')?.value).toBeNull()
+  })
+
+  it('should handle case-insensitive matching when updateValueOnType is true', async () => {
+    hostComponent.updateValueOnType = true
+    fixture.detectChanges()
+
+    // Type in lowercase
+    const mockEvent = { target: { value: 'italy' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Should match 'Italy' and set value to 'IT'
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
+  })
+
+  it('should handle whitespace-trimmed matching when updateValueOnType is true', async () => {
+    hostComponent.updateValueOnType = true
+    fixture.detectChanges()
+
+    // Type with extra whitespace
+    const mockEvent = { target: { value: '  France  ' } } as unknown as Event
+    autocompleteComponent.onChangeInput(mockEvent)
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+
+    // Should match 'France' and set value to 'FR'
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('FR')
   })
 })
