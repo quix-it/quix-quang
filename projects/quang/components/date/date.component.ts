@@ -385,6 +385,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
     }
 
     this.onBlurHandler()
+
+    // Focus back to input after closing the picker
+    this._inputForDate()?.nativeElement?.focus()
   }
 
   formatDate(val: string | DateRange | null): string {
