@@ -172,7 +172,64 @@
   },
   "utils": {
     "copyContent": "Copia negli appunti",
-    "copied": "Copiato!"
+    "copied": "Copiato!",
+    "exampleViewer": {
+      "result": "Risultato",
+      "typescript": "TypeScript",
+      "html": "HTML"
+    }
+  },
+  "examples": {
+    "autocomplete": {
+      "description": "Un componente autocomplete flessibile con supporto per dati asincroni, inserimento testo libero e selezione multipla.",
+      "toc": "Esempi",
+      "api": "Riferimento API",
+      "simple": {
+        "title": "Autocomplete Semplice",
+        "description": "Autocomplete base con una lista fissa di opzioni. Usa il filtro interno per cercare tra le opzioni mentre l'utente digita.",
+        "label": "Seleziona un paese",
+        "selectedValue": "Valore selezionato",
+        "none": "nessuno"
+      },
+      "async": {
+        "title": "Caricamento Dati Asincrono",
+        "description": "Autocomplete che recupera le opzioni da un server quando l'utente digita. Usa l'output searchTextChange per attivare chiamate API con debouncing.",
+        "label": "Cerca un paese",
+        "placeholder": "Inizia a digitare per cercare...",
+        "selectedValue": "Valore selezionato",
+        "loading": "Caricamento...",
+        "none": "nessuno"
+      },
+      "freeText": {
+        "title": "Inserimento Testo Libero",
+        "description": "Autocomplete che permette agli utenti di inserire qualsiasi valore testuale, non solo opzioni dalla lista. Utile per tag o voci personalizzate.",
+        "label": "Inserisci o seleziona un tag",
+        "placeholder": "Digita un tag personalizzato o seleziona dalla lista...",
+        "value": "Valore",
+        "fromList": "Dalla lista",
+        "customText": "Testo personalizzato",
+        "none": "nessuno"
+      },
+      "multiple": {
+        "title": "Selezione Multipla",
+        "description": "Autocomplete che permette di selezionare più valori. Supporta modalità di visualizzazione verticale e orizzontale per gli elementi selezionati.",
+        "labelVertical": "Seleziona tecnologie (verticale)",
+        "labelHorizontal": "Seleziona tecnologie (orizzontale)",
+        "selected": "Selezionati"
+      },
+      "interactive": {
+        "title": "Playground Interattivo",
+        "description": "Esplora tutte le opzioni dell'autocomplete in modo interattivo. Attiva o disattiva le checkbox per abilitare o disabilitare le diverse funzionalità e vedere come influenzano il comportamento del componente.",
+        "optionsTitle": "Opzioni del Componente",
+        "behavior": "Comportamento",
+        "state": "Stato",
+        "label": "Seleziona un paese",
+        "currentValue": "Valore attuale del form",
+        "selectOptionsTitle": "Opzioni di Selezione",
+        "addOption": "Aggiungi Opzione",
+        "noOptions": "Nessuna opzione disponibile. Clicca 'Aggiungi Opzione' per crearne una."
+      }
+    }
   },
   "device": {
     "functions": {

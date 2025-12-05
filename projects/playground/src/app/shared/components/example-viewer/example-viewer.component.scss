@@ -1,0 +1,92 @@
+.example-viewer {
+  margin-bottom: 2rem;
+}
+
+.example-header {
+  margin-bottom: 0.75rem;
+
+  .example-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bs-body-color);
+  }
+
+  .example-description {
+    margin: 0.5rem 0 0;
+    color: var(--bs-secondary-color);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+.example-card {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--bs-body-bg);
+}
+
+.example-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--bs-border-color);
+  background: var(--bs-tertiary-bg);
+
+  .tab-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--bs-secondary-color);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--bs-body-color);
+      background: var(--bs-secondary-bg);
+    }
+
+    &.active {
+      color: var(--bs-primary);
+      background: var(--bs-body-bg);
+      border-bottom: 2px solid var(--bs-primary);
+      margin-bottom: -1px;
+    }
+
+    &.copy-button {
+      margin-left: auto;
+      padding: 0.75rem;
+
+      &:hover {
+        background: var(--bs-secondary-bg);
+      }
+    }
+  }
+}
+
+.example-content {
+  .example-result {
+    padding: 1.5rem;
+  }
+
+  .code-block {
+    margin: 0;
+    padding: 1rem;
+    background: var(--bs-dark-bg-subtle);
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre;
+
+    code {
+      color: var(--bs-code-color);
+    }
+  }
+}

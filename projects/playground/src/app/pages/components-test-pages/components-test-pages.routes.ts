@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router'
 
+import { AutocompleteShowcaseComponent } from './autocomplete-test/autocomplete-showcase.component'
 import { AutocompleteTestComponent } from './autocomplete-test/autocomplete-test.component'
 import { DateTestComponent } from './date-test/date-test.component'
 import { InputTestComponent } from './input-test/input-test.component'
@@ -13,6 +14,10 @@ import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
 const routes: Routes = [
   {
     path: 'autocomplete',
+    component: AutocompleteShowcaseComponent,
+  },
+  {
+    path: 'autocomplete/test',
     component: AutocompleteTestComponent,
   },
   {
