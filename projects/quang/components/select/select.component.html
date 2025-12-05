@@ -17,6 +17,8 @@
     class="option-list-container"
   >
     <button
+      [attr.aria-controls]="_showOptions() ? 'optionList' : null"
+      [attr.aria-expanded]="_showOptions()"
       [attr.required]="getIsRequiredControl()"
       [class.is-invalid]="_ngControl()?.invalid && (_ngControl()?.dirty || _ngControl()?.touched) && errorMap().length"
       [class.is-valid]="_ngControl()?.valid && (_ngControl()?.dirty || _ngControl()?.touched) && successMessage()"
@@ -25,7 +27,9 @@
       [ngClass]="componentClass()"
       [tabIndex]="componentTabIndex()"
       (click)="changeOptionsVisibility()"
+      (keydown)="onButtonKeydown($event)"
       #selectButton
+      aria-haspopup="listbox"
       class="form-select"
       type="button"
     >
@@ -57,6 +61,8 @@
         [translateValue]="translateValue()"
         (blurHandler)="onBlurHandler()"
         (changedHandler)="onChangedHandler($event)"
+        (escapePressed)="onEscapePressed()"
+        (tabPressed)="onTabPressed($event)"
         #optionList
       ></quang-option-list>
     }

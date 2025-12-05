@@ -150,12 +150,73 @@ export class QuangSelectComponent
     super.onChangedHandler(value)
     if (this.selectionMode() === 'single') {
       this.hideOptionVisibility()
+      // Return focus to button after selection
+      this.focusButton()
     }
   }
 
   onMouseLeaveCallback() {
     if (this.selectionMode() === 'multiple') {
       this.hideOptionVisibility()
+    }
+  }
+
+  /**
+   * Handles keydown events on the select button for accessibility.
+   * @param event The keyboard event
+   */
+  onButtonKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'ArrowDown':
+      case 'ArrowUp':
+        // Open dropdown if closed
+        if (!this._showOptions()) {
+          event.preventDefault()
+          this.showOptionVisibility()
+        }
+        break
+      case ' ':
+      case 'Enter':
+        // Toggle dropdown with Space or Enter
+        if (!this._showOptions()) {
+          event.preventDefault()
+          this.showOptionVisibility()
+        }
+        break
+      case 'Escape':
+        // Close dropdown and keep focus on button
+        if (this._showOptions()) {
+          event.preventDefault()
+          this.onEscapePressed()
+        }
+        break
+    }
+  }
+
+  /**
+   * Handles Escape key press from option list.
+   * Closes dropdown and returns focus to button.
+   */
+  onEscapePressed(): void {
+    this.hideOptionVisibility(true)
+    this.focusButton()
+  }
+
+  /**
+   * Handles Tab key press from option list.
+   * Closes dropdown and allows natural tab navigation.
+   */
+  onTabPressed(_event: { shiftKey: boolean }): void {
+    this.hideOptionVisibility(true)
+  }
+
+  /**
+   * Sets focus to the select button element.
+   */
+  focusButton(): void {
+    const buttonEl = this.selectButton()?.nativeElement
+    if (buttonEl) {
+      buttonEl.focus()
     }
   }
 }

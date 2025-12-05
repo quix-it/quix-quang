@@ -59,6 +59,9 @@
     }
 
     <input
+      [attr.aria-activedescendant]="_showOptions() ? optionList()?.getActiveDescendantId() : null"
+      [attr.aria-controls]="_showOptions() ? 'optionList' : null"
+      [attr.aria-expanded]="_showOptions()"
       [attr.required]="getIsRequiredControl()"
       [class.form-control]="multiSelectDisplayMode() !== 'horizontal'"
       [class.is-invalid]="_showErrors()"
@@ -71,9 +74,13 @@
       [value]="_inputValue()"
       (blur)="onBlurInput($event)"
       (input)="onChangeInput($event)"
+      (keydown)="onInputKeydown($event)"
       (mousedown)="showOptionVisibility()"
       #selectInput
+      aria-autocomplete="list"
+      aria-haspopup="listbox"
       autocomplete="off"
+      role="combobox"
       type="text"
     />
   </div>
@@ -94,6 +101,8 @@
       [translateValue]="translateValue()"
       (blurHandler)="onBlurOptionList($event)"
       (changedHandler)="onValueChange($event)"
+      (escapePressed)="onEscapePressed()"
+      (tabPressed)="onTabPressed($event)"
       #optionList
       selectionMode="single"
     />

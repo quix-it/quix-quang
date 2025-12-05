@@ -74,6 +74,12 @@ export class QuangOptionListComponent {
 
   blurHandler = output<any>()
 
+  /** Emitted when user presses Escape - parent should close dropdown and return focus to trigger */
+  escapePressed = output<void>()
+
+  /** Emitted when user presses Tab - parent should handle focus transition */
+  tabPressed = output<{ shiftKey: boolean }>()
+
   optionListContainer = viewChild<ElementRef<HTMLDivElement>>('optionListContainer')
 
   destroyRef = inject(DestroyRef)
@@ -116,6 +122,20 @@ export class QuangOptionListComponent {
     () => this.selectOptionsList()?.findIndex((x) => x?.value === this._value()) ?? 0
   )
 
+  /** Signal to track currently focused item index for aria-activedescendant */
+  focusedItemIndex = signal<number>(-1)
+
+  /**
+   * Returns the ID of the currently focused item for aria-activedescendant
+   */
+  getActiveDescendantId(): string | null {
+    const index = this.focusedItemIndex()
+    if (index >= 0 && index < this.selectOptionsList().length) {
+      return `item-${index}`
+    }
+    return null
+  }
+
   optionList$ = effect(() => {
     const optionListContainer = this.optionListContainer()
     if (optionListContainer && this.parentType() === OptionListParentType.SELECT) {
@@ -135,6 +155,8 @@ export class QuangOptionListComponent {
     const listItems = (ul?.children ?? []) as HTMLLIElement[]
     let currentIndex = this.selectedElementIndex()
     listItems?.[currentIndex]?.classList.add('selected')
+    // Initialize focusedItemIndex with current selection
+    this.focusedItemIndex.set(currentIndex)
 
     if (this.onKeyDown) {
       this.onKeyDown.unsubscribe()
@@ -168,6 +190,8 @@ export class QuangOptionListComponent {
             if (optionListBottom > (itemListBottom ?? 0) + (itemListHeight ?? 0)) event.preventDefault()
 
             listItems[currentIndex]?.classList.add('selected')
+            // Update focusedItemIndex for aria-activedescendant
+            this.focusedItemIndex.set(currentIndex)
             if (
               (optionListContainer?.nativeElement?.scrollTop ?? 0) >=
               (optionListContainer?.nativeElement?.scrollHeight ?? 0) -
@@ -190,13 +214,27 @@ export class QuangOptionListComponent {
               ?.getBoundingClientRect()?.top
             if (optionListTop < (itemListTop ?? 0) - (itemListHeight ?? 0)) event.preventDefault()
             listItems[currentIndex]?.classList.add('selected')
+            // Update focusedItemIndex for aria-activedescendant
+            this.focusedItemIndex.set(currentIndex)
             if (!optionListContainer?.nativeElement?.scrollTop) {
               event.preventDefault()
             }
             break
           }
           case 'Enter': {
+            event.preventDefault()
             this.onSelectItem(this.selectOptionsList()[currentIndex])
+            break
+          }
+          case 'Escape': {
+            event.preventDefault()
+            this.escapePressed.emit()
+            break
+          }
+          case 'Tab': {
+            // Allow Tab to close dropdown and move focus naturally
+            // Emit event so parent can handle focus transition
+            this.tabPressed.emit({ shiftKey: (event as KeyboardEvent).shiftKey })
             break
           }
           default: {

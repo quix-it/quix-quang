@@ -479,8 +479,82 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       this.onChangedHandler(value)
       if (hideOptions) {
         this.hideOptionVisibility()
+        // Return focus to input after selection
+        this.focusInput()
       }
       this.selectedOption.emit(value)
+    }
+  }
+
+  /**
+   * Handles keydown events on the input element for accessibility.
+   * @param event The keyboard event
+   */
+  onInputKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'ArrowDown':
+        // Open dropdown if closed, or let option-list handle navigation
+        if (!this._showOptions()) {
+          event.preventDefault()
+          this.showOptionVisibility()
+        }
+        break
+      case 'ArrowUp':
+        // Open dropdown if closed
+        if (!this._showOptions()) {
+          event.preventDefault()
+          this.showOptionVisibility()
+        }
+        break
+      case 'Escape':
+        // Close dropdown and keep focus on input
+        if (this._showOptions()) {
+          event.preventDefault()
+          this.onEscapePressed()
+        }
+        break
+      case 'Enter':
+        // If dropdown is open and an option is highlighted, select it
+        // Otherwise allow form submission
+        if (this._showOptions()) {
+          // Let the option-list handle Enter key selection
+          // The option-list will emit the selection via changedHandler
+        }
+        break
+    }
+  }
+
+  /**
+   * Handles Escape key press from option list.
+   * Closes dropdown and returns focus to input.
+   */
+  onEscapePressed(): void {
+    this.hideOptionVisibility()
+    this.focusInput()
+  }
+
+  /**
+   * Handles Tab key press from option list.
+   * Closes dropdown and allows natural tab navigation.
+   */
+  onTabPressed(_event: { shiftKey: boolean }): void {
+    // Close the dropdown, tab will naturally move focus
+    this.hideOptionVisibility()
+    // Process any pending input value
+    this.processTextToFormValue(this._userSearchText(), {
+      exitSearchMode: true,
+      updateOnMatch: true,
+      clearSearchText: true,
+    })
+  }
+
+  /**
+   * Sets focus to the input element.
+   */
+  focusInput(): void {
+    const inputEl = this.selectInput()?.nativeElement
+    if (inputEl) {
+      inputEl.focus()
     }
   }
 
