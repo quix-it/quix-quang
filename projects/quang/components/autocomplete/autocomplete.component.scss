@@ -65,6 +65,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.25rem;
   padding: 0.25rem 0.5rem;
   border-radius: 16px;
   color: var(--bs-btn-color);
@@ -72,14 +73,23 @@
   border-width: 1px;
   border-style: solid;
   border-color: var(--bs-primary-border-subtle);
-  height: 2rem;
+  min-height: 2rem;
+  max-width: 100%;
 
   p {
     margin: 0;
     max-width: var(--chip-max-length);
-    white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  // When chipMaxLength is set, use single-line truncation with ellipsis
+  &.chip-truncate {
+    p {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 
   .btn-chip {

@@ -101,6 +101,7 @@
     @for (chip of _chipList(); track chip) {
       @if (getDescription(chip)) {
         <div
+          [ngClass]="{ 'chip-truncate': chipMaxLength() }"
           [quangTooltip]="chipMaxLength() ? getDescription(chip) : ''"
           class="chip chip-hover"
         >
