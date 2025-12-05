@@ -212,10 +212,11 @@
       },
       "multiple": {
         "title": "Multiple Selection",
-        "description": "Autocomplete that allows selecting multiple values. Supports vertical and horizontal display modes for selected items.",
+        "description": "Autocomplete that allows selecting multiple values. Supports vertical and horizontal display modes for selected items, and chips can be positioned above or below the input.",
         "labelVertical": "Select technologies (vertical)",
         "labelHorizontal": "Select technologies (horizontal)",
-        "selected": "Selected"
+        "selected": "Selected",
+        "chipsPosition": "Chips Position"
       },
       "interactive": {
         "title": "Interactive Playground",

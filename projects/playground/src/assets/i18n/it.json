@@ -212,10 +212,11 @@
       },
       "multiple": {
         "title": "Selezione Multipla",
-        "description": "Autocomplete che permette di selezionare più valori. Supporta modalità di visualizzazione verticale e orizzontale per gli elementi selezionati.",
+        "description": "Autocomplete che permette di selezionare più valori. Supporta modalità di visualizzazione verticale e orizzontale per gli elementi selezionati, e i chip possono essere posizionati sopra o sotto l'input.",
         "labelVertical": "Seleziona tecnologie (verticale)",
         "labelHorizontal": "Seleziona tecnologie (orizzontale)",
-        "selected": "Selezionati"
+        "selected": "Selezionati",
+        "chipsPosition": "Posizione Chips"
       },
       "interactive": {
         "title": "Playground Interattivo",

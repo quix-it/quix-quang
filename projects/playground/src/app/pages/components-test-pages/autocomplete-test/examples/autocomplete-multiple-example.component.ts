@@ -12,9 +12,34 @@ import { SelectOption } from 'quang/components/shared'
   standalone: true,
   imports: [ReactiveFormsModule, QuangAutocompleteComponent, JsonPipe, TranslocoPipe],
   template: `
+    <div class="mb-3">
+      <span class="form-label d-block">{{ 'examples.autocomplete.multiple.chipsPosition' | transloco }}</span>
+      <div
+        class="btn-group"
+        role="group"
+      >
+        <button
+          [class.active]="chipsPosition() === 'top'"
+          (click)="chipsPosition.set('top')"
+          class="btn btn-outline-primary btn-sm"
+          type="button"
+        >
+          Top
+        </button>
+        <button
+          [class.active]="chipsPosition() === 'bottom'"
+          (click)="chipsPosition.set('bottom')"
+          class="btn btn-outline-primary btn-sm"
+          type="button"
+        >
+          Bottom
+        </button>
+      </div>
+    </div>
     <div class="row">
       <div class="col-6">
         <quang-autocomplete
+          [chipsPosition]="chipsPosition()"
           [componentLabel]="'examples.autocomplete.multiple.labelVertical' | transloco"
           [formControl]="controlVertical"
           [internalFilterOptions]="true"
@@ -28,6 +53,7 @@ import { SelectOption } from 'quang/components/shared'
       </div>
       <div class="col-6">
         <quang-autocomplete
+          [chipsPosition]="chipsPosition()"
           [componentLabel]="'examples.autocomplete.multiple.labelHorizontal' | transloco"
           [formControl]="controlHorizontal"
           [internalFilterOptions]="true"
@@ -46,6 +72,7 @@ import { SelectOption } from 'quang/components/shared'
 export class AutocompleteMultipleExampleComponent {
   controlVertical = new FormControl<string[]>([])
   controlHorizontal = new FormControl<string[]>([])
+  chipsPosition = signal<'top' | 'bottom'>('top')
 
   options = signal<SelectOption[]>([
     { label: 'TypeScript', value: 'typescript' },
@@ -84,13 +111,23 @@ export class AutocompleteMultipleComponent {
   ])
 }`
 
-export const AUTOCOMPLETE_MULTIPLE_HTML = `<!-- Vertical display mode -->
+export const AUTOCOMPLETE_MULTIPLE_HTML = `<!-- Chips at top (default) -->
 <quang-autocomplete
   [multiple]="true"
   [internalFilterOptions]="true"
   [selectOptions]="options()"
   componentLabel="Select technologies"
-  multiSelectDisplayMode="vertical"
+  chipsPosition="top"
+  [formControl]="control"
+/>
+
+<!-- Chips at bottom -->
+<quang-autocomplete
+  [multiple]="true"
+  [internalFilterOptions]="true"
+  [selectOptions]="options()"
+  componentLabel="Select technologies"
+  chipsPosition="bottom"
   [formControl]="control"
 />
 

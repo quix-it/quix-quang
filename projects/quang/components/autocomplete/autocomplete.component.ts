@@ -1,4 +1,4 @@
-import { NgClass, NgStyle } from '@angular/common'
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
@@ -36,7 +36,7 @@ import {
  */
 @Component({
   selector: 'quang-autocomplete',
-  imports: [TranslocoPipe, NgClass, QuangOptionListComponent, NgStyle, QuangTooltipDirective],
+  imports: [TranslocoPipe, NgClass, NgTemplateOutlet, QuangOptionListComponent, NgStyle, QuangTooltipDirective],
   templateUrl: './autocomplete.component.html',
   styleUrl: './autocomplete.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -138,6 +138,14 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * @default 'vertical'
    */
   multiSelectDisplayMode = input<'vertical' | 'horizontal'>('vertical')
+
+  /**
+   * Position of chips relative to the input in multiple selection mode.
+   * - 'top': Chips are displayed above the input (default)
+   * - 'bottom': Chips are displayed below the input
+   * @default 'top'
+   */
+  chipsPosition = input<'top' | 'bottom'>('top')
 
   /**
    * Debounce time in milliseconds for search text changes.
