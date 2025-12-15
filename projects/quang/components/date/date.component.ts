@@ -144,12 +144,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
   targetPosition = signal<AirDatepickerPosition>('bottom left')
 
-  _generateAirDatepickerEffect = effect(
-    () => {
-      this.setupCalendar()
-    },
-    { allowSignalWrites: true }
-  )
+  _generateAirDatepickerEffect = effect(() => {
+    this.setupCalendar()
+  })
 
   valueFormat = computed(() =>
     this.showOnlyTimepicker()
