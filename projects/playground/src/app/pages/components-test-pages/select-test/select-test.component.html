@@ -98,6 +98,39 @@
   </div>
 </form>
 
+<!-- Auto-Updating Options Test -->
+<div class="card mt-4">
+  <div class="card-header">
+    <h5>Auto-Updating Options Test</h5>
+  </div>
+  <div class="card-body">
+    <p class="text-muted">
+      This test verifies that the select component handles gracefully when options are updated frequently.
+    </p>
+    <div class="row">
+      <div class="col-6">
+        <quang-select
+          [selectOptions]="autoUpdateOptionsList()"
+          class="w-100"
+          componentLabel="Dynamic Options (Updates Every 500ms)"
+          componentPlaceholder="Select a time period"
+          selectionMode="single"
+          successMessage="form.label.success"
+        ></quang-select>
+      </div>
+      <div class="col-6">
+        <div class="alert alert-info">
+          <strong>Current Timestamp:</strong>
+          <br />
+          {{ autoUpdateTimestamp() | date: 'HH:mm:ss.SSS' }}
+          <br />
+          <small class="text-muted">The "Now" option label updates every 500ms</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 @if (showValueAndValidity()) {
   <div class="d-flex flex-column mt-3 ms-3">
     <span>

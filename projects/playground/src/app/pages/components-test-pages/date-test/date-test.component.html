@@ -91,6 +91,97 @@
     </div>
   }
 </form>
+
+<!-- Range Mode Example -->
+<div class="card mt-4">
+  <div class="card-header">
+    <h5>Range Mode</h5>
+  </div>
+  <div class="card-body">
+    <p class="text-muted">Select a date range by choosing a start and end date.</p>
+    <form [formGroup]="testForm">
+      <div class="row">
+        <div class="col-12">
+          <quang-date
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [rangeSelection]="true"
+            class="w-100"
+            componentLabel="form.label.dateRange"
+            formControlName="testInputRange"
+            successMessage="form.label.success"
+          >
+            <svg-icon src="./assets/icons/svg/calendar.svg" />
+          </quang-date>
+        </div>
+      </div>
+      <div class="d-flex flex-column mt-3">
+        <span><strong>Range Value:</strong></span>
+        <span class="text-muted">{{ testForm.get('testInputRange')?.value | json }}</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Event Date: Single vs Repeatable (Range) using the same control -->
+<div class="card mt-4">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <h5 class="mb-0">Event Date</h5>
+    <div class="form-check form-switch">
+      <input
+        [checked]="isRepeatable()"
+        (change)="toggleRepeatable()"
+        class="form-check-input"
+        id="repeatableSwitch"
+        type="checkbox"
+      />
+      <label
+        class="form-check-label"
+        for="repeatableSwitch"
+        >Repeatable</label
+      >
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="text-muted">Uses the same form group; toggles range selection by configuration.</p>
+    <div class="row">
+      <div class="col-12">
+        @if (!isRepeatable()) {
+          <!-- Single date mode: bind to eventDateGroup.controls.dateFrom -->
+          <quang-date
+            [errorMap]="errors()"
+            [formControl]="eventDateGroup.controls.dateFrom"
+            [isReadonly]="isReadonly()"
+            class="w-100"
+            componentLabel="form.label.eventDate"
+            successMessage="form.label.success"
+          >
+            <svg-icon src="./assets/icons/svg/calendar.svg" />
+          </quang-date>
+        } @else {
+          <!-- Range mode: bind to eventDateRangeControl -->
+          <quang-date
+            [errorMap]="errors()"
+            [formControl]="eventDateRangeControl"
+            [isReadonly]="isReadonly()"
+            [rangeSelection]="true"
+            class="w-100"
+            componentLabel="form.label.eventDate"
+            successMessage="form.label.success"
+          >
+            <svg-icon src="./assets/icons/svg/calendar.svg" />
+          </quang-date>
+        }
+      </div>
+    </div>
+    <div class="d-flex flex-column mt-3">
+      <span><strong>Event Date Group Value:</strong></span>
+      <span class="text-muted">{{ eventDateGroup.value | json }}</span>
+      <span class="text-muted">Range Mode: {{ isRepeatable() }}</span>
+    </div>
+  </div>
+</div>
+
 @if (showValueAndValidity()) {
   <div class="d-flex flex-column mt-3 ms-3">
     <span>

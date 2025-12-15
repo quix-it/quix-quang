@@ -1,5 +1,6 @@
 import { JsonPipe } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core'
+import { DatePipe } from '@angular/common'
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, viewChild } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
@@ -17,6 +18,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   imports: [
     FormsModule,
     JsonPipe,
+    DatePipe,
     ReactiveFormsModule,
     TranslocoPipe,
     QuangSelectComponent,
@@ -141,6 +143,23 @@ export class SelectTestComponent {
     },
   ]
 
+  // Auto-updating options list for testing graceful handling of dynamic changes
+  autoUpdateTimestamp = signal<number>(Date.now())
+  autoUpdateOptionsList = signal<SelectOption[]>([
+    {
+      value: 'yesterday',
+      label: 'Yesterday',
+    },
+    {
+      value: 'today',
+      label: 'Today',
+    },
+    {
+      value: 'now',
+      label: `Now (${new Date().toLocaleTimeString()})`,
+    },
+  ])
+
   formBuilder = inject(NonNullableFormBuilder)
 
   errors = signal([
@@ -226,9 +245,33 @@ export class SelectTestComponent {
   }
 
   constructor() {
+    // Set up auto-update effect for the "now" option label
+    effect(() => {
+      this.autoUpdateTimestamp()
+      this.autoUpdateOptionsList.update((options) => {
+        const nowOption = options.find((opt) => opt.value === 'now')
+        if (nowOption) {
+          return options.map((opt) =>
+            opt.value === 'now'
+              ? {
+                  ...opt,
+                  label: `Now (${new Date().toLocaleTimeString()})`,
+                }
+              : opt
+          )
+        }
+        return options
+      })
+    })
+
     setTimeout(() => {
       console.log('è il momento dei pocci')
-      this.testForm.controls.testInputMultiple.patchValue(1 as any)
+      this.testForm.controls.testInputMultiple.patchValue([1])
     }, 5000)
+
+    // Update the timestamp signal every 500ms to trigger the effect
+    setInterval(() => {
+      this.autoUpdateTimestamp.set(Date.now())
+    }, 500)
   }
 }
