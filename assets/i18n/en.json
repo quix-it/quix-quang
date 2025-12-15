@@ -197,7 +197,65 @@
   },
   "utils": {
     "copyContent": "Copy in clipboard",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "exampleViewer": {
+      "result": "Result",
+      "typescript": "TypeScript",
+      "html": "HTML"
+    }
+  },
+  "examples": {
+    "autocomplete": {
+      "description": "A flexible autocomplete component with support for async data, free text input, and multiple selection.",
+      "toc": "Examples",
+      "api": "API Reference",
+      "simple": {
+        "title": "Simple Autocomplete",
+        "description": "Basic autocomplete with a fixed list of options. Uses internal filtering to search through options as the user types.",
+        "label": "Select a country",
+        "selectedValue": "Selected value",
+        "none": "none"
+      },
+      "async": {
+        "title": "Async Data Fetching",
+        "description": "Autocomplete that fetches options from a server when the user types. Use searchTextChange output to trigger API calls with debouncing.",
+        "label": "Search for a country",
+        "placeholder": "Start typing to search...",
+        "selectedValue": "Selected value",
+        "loading": "Loading...",
+        "none": "none"
+      },
+      "freeText": {
+        "title": "Free Text Input",
+        "description": "Autocomplete that allows users to enter any text value, not just options from the list. Useful for tags or custom entries.",
+        "label": "Enter or select a tag",
+        "placeholder": "Type a custom tag or select from list...",
+        "value": "Value",
+        "fromList": "From list",
+        "customText": "Custom text",
+        "none": "none"
+      },
+      "multiple": {
+        "title": "Multiple Selection",
+        "description": "Autocomplete that allows selecting multiple values. Supports vertical and horizontal display modes for selected items, and chips can be positioned above or below the input.",
+        "labelVertical": "Select technologies (vertical)",
+        "labelHorizontal": "Select technologies (horizontal)",
+        "selected": "Selected",
+        "chipsPosition": "Chips Position"
+      },
+      "interactive": {
+        "title": "Interactive Playground",
+        "description": "Explore all autocomplete options interactively. Toggle the checkboxes to enable or disable different features and see how they affect the component behavior.",
+        "optionsTitle": "Component Options",
+        "behavior": "Behavior",
+        "state": "State",
+        "label": "Select a country",
+        "currentValue": "Current form value",
+        "selectOptionsTitle": "Select Options",
+        "addOption": "Add Option",
+        "noOptions": "No options available. Click 'Add Option' to create one."
+      }
+    }
   },
   "device": {
     "functions": {

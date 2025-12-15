@@ -5,16 +5,19 @@ Il `QuangAutocompleteComponent` è un input autocomplete completo con suggerimen
 ## Input
 
 - `selectOptions`: `SelectOption[]` — Array di opzioni disponibili per la selezione. Ogni opzione dovrebbe avere proprietà `value` e `label`. **(Obbligatorio)**
+- `allowFreeText`: `boolean` — Quando true, permette qualsiasi testo in input come valore form valido, non solo valori delle opzioni. Il valore del form si sincronizzerà con qualsiasi testo digitato dall'utente. Quando false, il valore del form deve corrispondere a uno dei valori delle opzioni. Default: `false`
+- `autoSelectOnExactMatch`: `boolean` — Quando true e `allowFreeText` è false, seleziona automaticamente un'opzione se il testo digitato dall'utente corrisponde esattamente all'etichetta di un'opzione (case-insensitive, trimmed). Migliora l'esperienza utente selezionando automaticamente quando l'utente digita un'etichetta completa. Default: `true`
+- `updateValueOnType`: `boolean` — Quando true, aggiorna il valore del form mentre l'utente digita (dopo debounce). Quando false, il valore del form viene aggiornato solo quando l'utente seleziona un'opzione dal dropdown o quando l'input perde il focus (blur). Default: `false`
 - `multiple`: `boolean` — Abilita modalità selezione multipla con visualizzazione chip. Default: `false`
 - `multiSelectDisplayMode`: `'vertical' | 'horizontal'` — Direzione layout per i chip in modalità multipla. La modalità orizzontale include supporto scroll. Default: `'vertical'`
 - `chipMaxLength`: `number` — Lunghezza massima caratteri per le etichette dei chip. Etichette più lunghe verranno troncate con puntini di sospensione. Default: `0` (nessun limite)
-- `syncFormWithText`: `boolean` — Sincronizza il valore del controllo form con il testo input mentre l'utente digita. Utile per input testo libero con suggerimenti. Default: `false`
 - `optionListMaxHeight`: `string` — Altezza massima per la lista opzioni dropdown con unità CSS. Default: `'200px'`
 - `translateValue`: `boolean` — Abilita traduzione dei valori delle opzioni tramite QuangTranslationService. Default: `true`
 - `scrollBehaviorOnOpen`: `ScrollBehavior` — Comportamento scroll all'apertura dropdown ('smooth' o 'instant'). Default: `'smooth'`
 - `emitOnly`: `boolean` — Emette solo eventi di selezione senza aggiornare il controllo form. Utile per visualizzazione suggerimenti di sola lettura. Default: `false`
 - `searchTextDebounce`: `number` — Ritardo debounce in millisecondi per input ricerca per ottimizzare le prestazioni. Default: `300`
 - `internalFilterOptions`: `boolean` — Usa logica filtro integrata. Disabilita per filtro esterno personalizzato tramite evento searchTextChange. Default: `true`
+- `syncFormWithText`: `boolean` — **@deprecated** Usare `allowFreeText` invece. Sincronizza il valore del controllo form con il testo input mentre l'utente digita. Default: `false`
 - `isReadonly`: `boolean` — Imposta componente in modalità sola lettura. Ereditato da `QuangBaseComponent`
 - `componentLabel`: `string` — Testo etichetta per il componente. Ereditato da `QuangBaseComponent`
 - `componentPlaceholder`: `string` — Testo placeholder per l'input. Ereditato da `QuangBaseComponent`
