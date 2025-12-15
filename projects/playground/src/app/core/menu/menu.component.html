@@ -34,12 +34,14 @@
   <a [routerLink]="menuItem.route ? menuItem.route : undefined">
     <div
       (click)="onMenuClick($event, menuItem, origin)"
+      (keyup.enter)="onMenuClick($any($event), menuItem, origin)"
       (mouseenter)="onMenuMouseEnter(origin, menuItem)"
       (mouseleave)="onMenuMouseLeave()"
       #origin="cdkOverlayOrigin"
       cdkOverlayOrigin
       class="menu-item"
       routerLinkActive="menu-item-selected"
+      tabindex="0"
     >
       @if (menuItem.icons?.length) {
         @for (icon of menuItem.icons; track $index) {
@@ -78,7 +80,9 @@
           routerLinkActive="menu-item-selected"
         >
           <div
+            [tabindex]="$index + 1"
             (click)="onChildMenuClick($event, childMenu)"
+            (keyup.enter)="onChildMenuClick($any($event), childMenu)"
             class="flex h-10 w-full flex-col items-start justify-center px-3"
           >
             <p class="m-0 py-2">

@@ -58,6 +58,15 @@ interface TableCell {
 interface SortCol {
   key: string;            // Identifier for the column
   sort: SortTable;        // Sort direction (DEFAULT, ASC, DESC)
+  order?: number;         // Priority order for multiple sorting
+}
+```
+
+### SortType
+```typescript
+export enum SortType {
+  SINGLE = 'SINGLE',      // Single column sorting
+  MULTIPLE = 'MULTIPLE',  // Multiple column sorting
 }
 ```
 
@@ -78,10 +87,13 @@ interface SortCol {
 - `noResultsText`: `string` — Text to display when no data is available. Default: 'quangTable.noResults'.
   - This supports translation keys if using transloco.
 
+- `sortType`: `SortType` — Sorting mode. Default: `SINGLE`.
+  - Set to `MULTIPLE` to enable sorting by multiple columns. The `sortChanged` output will emit an ordered array of columns with their sorting priority.
+
 ## Outputs
 
 - `sortChanged`: `EventEmitter<SortCol[]>` — Emits when the user changes the sorting of a column.
-  - Returns an array of SortCol objects with the updated sorting state.
+  - In `MULTIPLE` mode, returns an ordered array of SortCol objects representing the sorted columns and their priority.
 
 - `selectedRow`: `EventEmitter<TableRow<T>>` — Emits when a row is clicked (if clickableRow is true).
   - Returns the full row data including payload.
@@ -232,8 +244,42 @@ customTableConfig = computed(() => ({
 }))
 ```
 
+## Example Usage: Multiple Sorting
+
+### HTML
+
+```html
+<quang-table
+  [tableConfigurations]="tableConfig()"
+  [sortType]="SortType.MULTIPLE"
+  (sortChanged)="onChangeSort($event)"
+/>
+```
+
+### TypeScript
+
+```typescript
+import { SortType } from 'quang/components/table';
+
+@Component({
+  // ...existing code...
+})
+export class ExampleComponent {
+  SortType = SortType;
+
+  // ...existing code...
+
+  onChangeSort(sortCols: SortCol[]): void {
+    // sortCols is an ordered array of columns to sort by, with the 'order' property
+    // Implement your multiple sorting logic here
+  }
+}
+```
+
 ## Notes
 
 - The table automatically adjusts column widths to match content.
 - Use CSS classes to customize the appearance of specific rows, headers, or cells.
 - For responsive tables, consider setting appropriate container widths.
+- In multiple sorting mode, the order of columns is shown in the header and managed via the `order` property.
+- The `sortChanged` output provides the sorting sequence to apply to your data.

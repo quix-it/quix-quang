@@ -7,6 +7,7 @@
         <div class="row">
           <quang-autocomplete
             [errorMap]="errors()"
+            [helpMessageTooltip]="true"
             [isReadonly]="isReadonly()"
             [searchTextDebounce]="500"
             [selectOptions]="stringListFiltered()"
@@ -15,10 +16,16 @@
             class="col-6"
             componentLabel="form.label.autocompleteAsync"
             formControlName="testInput1"
+            helpMessage="form.helpMessage.inputTest"
             id="testComponent"
             playgroundSourceCode
             successMessage="form.label.success"
-          />
+          >
+            <svg-icon
+              help-icon
+              src="assets/icons/svg/info.svg"
+            />
+          </quang-autocomplete>
           <quang-autocomplete
             [errorMap]="errors()"
             [isReadonly]="isReadonly()"

@@ -31,7 +31,7 @@ export class TooltipTestPageComponent {
 
   // Path to the components README.md file
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/tooltip.md' : './assets/docs/tooltip.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/tooltip.md' : './assets/docs/tooltip-it.md'
   )
 
   openToast(type: 'success' | 'warning' | 'error', customIcon?: boolean): void {

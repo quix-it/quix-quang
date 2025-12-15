@@ -23,10 +23,12 @@ Il `QuangAutocompleteComponent` è un input autocomplete completo con suggerimen
 - `componentPlaceholder`: `string` — Testo placeholder per l'input. Ereditato da `QuangBaseComponent`
 - `componentTabIndex`: `number` — Indice tab per accessibilità. Ereditato da `QuangBaseComponent`
 - `componentClass`: `string | string[]` — Classi CSS aggiuntive. Ereditato da `QuangBaseComponent`
-- `errorMap`: `{[key: string]: string}` — Messaggi errore personalizzati. Ereditato da `QuangBaseComponent`
+- `errorMap`: `ErrorData[]` — Messaggi errore personalizzati. Ereditato da `QuangBaseComponent`
 - `successMessage`: `string` — Messaggio successo da visualizzare. Ereditato da `QuangBaseComponent`
-- `helpMessage`: `string` — Testo aiuto per il componente. Ereditato da `QuangBaseComponent`
+- `helpMessage`: `string` — Testo di aiuto visualizzato come tooltip o sotto l'input. Ereditato da `QuangBaseComponent`
+- `helpMessageTooltip`: `boolean` — Se true, il messaggio di aiuto viene mostrato come tooltip (con icona); se false, il messaggio di aiuto viene mostrato inline sotto l'input. Predefinito: `false`. Ereditato da `QuangBaseComponent`
 - `formControl`: `FormControl` — Controllo form per form reattivi. Ereditato da `QuangBaseComponent`
+- Visualizzazione icona tooltip: per visualizzare l'icona del tooltip, usa `<ng-content select="[help-icon]" />` nel template del componente.
 
 ## Output
 
@@ -42,8 +44,31 @@ Il `QuangAutocompleteComponent` è un input autocomplete completo con suggerimen
 <quang-autocomplete
   [selectOptions]="countryOptions"
   formControlName="country"
+/>
+```
+
+### Messaggio di aiuto come Tooltip
+
+```html
+<quang-autocomplete
+  [selectOptions]="countryOptions"
+  [helpMessage]="'form.help.country'"
+  [helpMessageTooltip]="true"
+  formControlName="country"
 >
+  <svg-icon src="assets/icons/svg/help.svg" help-icon />
 </quang-autocomplete>
+```
+
+### Messaggio di aiuto Inline
+
+```html
+<quang-autocomplete
+  [selectOptions]="countryOptions"
+  [helpMessage]="'form.help.country'"
+  [helpMessageTooltip]="false"
+  formControlName="country"
+/>
 ```
 
 ### Selezione Multipla con Chip

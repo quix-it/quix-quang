@@ -75,6 +75,9 @@
       "minLength": "This field must be at least {{requiredLength}} characters long",
       "maxLength": "This field must be at most {{requiredLength}} characters long"
     },
+    "helpMessage": {
+      "inputTest": "This is a help message for the input test component. It can be customized."
+    },
     "buttons": {
       "enabled": "Form enabled: {{enabled}}",
       "changeVisibility": "Change visibility",
@@ -117,7 +120,28 @@
       "toast": "QuangToast",
       "popover": "QuangPopover",
       "tooltip": "QuangTooltip",
-      "modal": "QuangModal"
+      "modal": "QuangModal",
+      "modal.service": "QuangModalService",
+      "modalService": {
+        "multipleModalSupport": "Multiple Modal Support:",
+        "supportDescription": "You can open multiple modals simultaneously. Test opening modals from inside other modals!",
+        "openCenterModal": "Open Center Modal",
+        "openLeftModal": "Open Left Modal",
+        "openRightModal": "Open Right Modal",
+        "openModals": "Open Modals",
+        "dynamicModalContent": "Dynamic Modal Content",
+        "contentDescription": "This content was loaded dynamically using the QuangModalService!",
+        "counter": "Counter",
+        "increment": "Increment",
+        "decrement": "Decrement",
+        "openAdditionalModals": "Open Additional Modals:",
+        "centerModal": "+ Center Modal",
+        "leftModal": "+ Left Modal",
+        "rightModal": "+ Right Modal",
+        "closeFirstModal": "Close First Modal",
+        "totalOpenModals": "Total open modals:",
+        "modalIds": "Modal IDs:"
+      }
     }
   },
   "menu": {
@@ -139,6 +163,7 @@
       "tooltip": "Tooltip",
       "popover": "Popover",
       "modal": "Modal",
+      "modalService": "Modal Service",
       "toast": "Toast"
     },
     "auth": "Auth",
@@ -255,5 +280,8 @@
       "setTranslationKey": "Sets a single translation key and value for a language.",
       "translationsTokens": "Injection tokens for translation configuration: AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH. Use these to provide language and translation settings in your Angular app."
     }
+  },
+  "toggles": {
+    "multipleSorting": "Multiple sorting"
   }
 }

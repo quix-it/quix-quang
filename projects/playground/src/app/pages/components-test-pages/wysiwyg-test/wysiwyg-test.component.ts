@@ -40,7 +40,7 @@ export class WysiwygTestComponent {
 
   // Path to the components README.md file
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/wysiwyg.md' : './assets/docs/wysiwyg.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/wysiwyg.md' : './assets/docs/wysiwyg-it.md'
   )
 
   isReadonly = signal<boolean>(false)

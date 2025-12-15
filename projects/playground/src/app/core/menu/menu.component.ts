@@ -30,6 +30,7 @@ import { MenuItem, menuLanguage, menuList, menuTheme } from './menuList'
 export class MenuComponent {
   private readonly router = inject(Router)
   private readonly quangTranslationService = inject(QuangTranslationService)
+
   readonly menuList: MenuItem[] = menuList
   readonly menuTheme = menuTheme
   currentMenuHover = signal<MenuItem | null>(null)
@@ -115,5 +116,6 @@ export class MenuComponent {
   changeLanguage(menu: MenuItem): void {
     const lang = menu.description.split('.')[menu.description.split('.').length - 1]
     this.quangTranslationService.setActiveLang(lang)
+    localStorage.setItem('language', lang)
   }
 }

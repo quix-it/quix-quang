@@ -25,6 +25,14 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   errorMap = input<ErrorData[]>([])
 
+  errorMap$ = toObservable(this.errorMap)
+    .pipe(takeUntilDestroyed())
+    .subscribe(() => {
+      if (this._isTouched()) {
+        this.checkFormErrors()
+      }
+    })
+
   _errorMessagesByKey = computed(
     () => new Map((this.errorMap() ?? []).map((errorData) => [errorData.error, errorData.message]))
   )
@@ -34,6 +42,9 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   helpMessage = input<string>('')
 
   formControl = input<FormControl>()
+
+  // If true, the help message will be shown in a tooltip. Remember to set the `helpMessage` input and add help-icon as ng-content
+  helpMessageTooltip = input<boolean>(false)
 
   componentBlur = output<void>()
 

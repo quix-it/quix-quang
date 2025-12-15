@@ -26,6 +26,7 @@ import en from 'air-datepicker/locale/en'
 import fr from 'air-datepicker/locale/fr'
 import it from 'air-datepicker/locale/it'
 import { format, isMatch, parse } from 'date-fns'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 import { QuangTranslationService } from 'quang/translation'
 import { debounceTime, fromEvent } from 'rxjs'
 
@@ -43,7 +44,7 @@ export type QuangDatepickerOptions = AirDatepickerOptions
   templateUrl: './date.component.html',
   styleUrl: './date.component.scss',
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => QuangDateComponent), multi: true }],
-  imports: [TranslocoPipe, NgClass],
+  imports: [TranslocoPipe, NgClass, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**

@@ -3,11 +3,12 @@ import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signa
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangTranslationService } from 'quang/translation'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
-import { SelectOption } from 'quang/components/shared'
+import { ErrorData, SelectOption } from 'quang/components/shared'
 
 import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
 
@@ -21,6 +22,7 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
     QuangAutocompleteComponent,
     ComponentDocumentationComponent,
     SourceCodeDirective,
+    AngularSvgIconModule,
   ],
   templateUrl: './autocomplete-test.component.html',
   styleUrl: './autocomplete-test.component.scss',
@@ -31,7 +33,7 @@ export class AutocompleteTestComponent {
   componentsReadmePath = computed(() =>
     this.quangTranslationService.activeLang() === 'en'
       ? './assets/docs/autocomplete.md'
-      : './assets/docs/autocomplete.it.md'
+      : './assets/docs/autocomplete-it.md'
   )
 
   // Expose QuangAutocompleteComponent for use in the template
@@ -170,7 +172,7 @@ export class AutocompleteTestComponent {
 
   formBuilder = inject(NonNullableFormBuilder)
 
-  errors = signal([
+  errors = signal<ErrorData[]>([
     {
       error: Validators.required.name,
       message: 'form.errors.required',
