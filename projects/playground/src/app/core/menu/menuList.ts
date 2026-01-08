@@ -35,6 +35,10 @@ export const menuList: MenuItem[] = [
         description: 'menu.components.select',
       },
       {
+        route: 'components/radio-group',
+        description: 'menu.components.radioGroup',
+      },
+      {
         route: 'components/table',
         description: 'menu.components.table',
       },

@@ -6,6 +6,8 @@ import { DateTestComponent } from './date-test/date-test.component'
 import { InputTestComponent } from './input-test/input-test.component'
 import { LoaderTestPageComponent } from './loader-test-page/loader-test-page.component'
 import { PaginatorTestComponent } from './paginator-test/paginator-test.component'
+import { RadioGroupShowcaseComponent } from './radio-group-test/radio-group-showcase.component'
+import { RadioGroupTestComponent } from './radio-group-test/radio-group-test.component'
 import { SelectTestComponent } from './select-test/select-test.component'
 import { TableTestComponent } from './table-test/table-test.component'
 import { ToggleTestComponent } from './toggle-test/toggle-test.component'
@@ -35,6 +37,14 @@ const routes: Routes = [
   {
     path: 'select',
     component: SelectTestComponent,
+  },
+  {
+    path: 'radio-group',
+    component: RadioGroupShowcaseComponent,
+  },
+  {
+    path: 'radio-group/test',
+    component: RadioGroupTestComponent,
   },
   {
     path: 'table',

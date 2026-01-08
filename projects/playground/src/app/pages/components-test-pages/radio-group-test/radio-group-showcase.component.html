@@ -1,0 +1,67 @@
+<div class="radio-group-showcase">
+  <div class="showcase-header">
+    <h2>{{ 'title.components.radioGroup' | transloco }}</h2>
+    <p class="lead">
+      {{ 'examples.radioGroup.description' | transloco }}
+    </p>
+  </div>
+
+  <nav class="showcase-toc">
+    <h5>{{ 'examples.radioGroup.toc' | transloco }}</h5>
+    <ul>
+      <li>
+        <a
+          (click)="scrollTo($event, 'standard')"
+          href="#"
+          >{{ 'examples.radioGroup.standard.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'template')"
+          href="#"
+          >{{ 'examples.radioGroup.template.title' | transloco }}</a
+        >
+      </li>
+    </ul>
+  </nav>
+
+  <section class="showcase-examples">
+    <div
+      class="example-section"
+      id="standard"
+    >
+      <playground-example-viewer
+        [description]="'examples.radioGroup.standard.description' | transloco"
+        [htmlCode]="standardHtml"
+        [title]="'examples.radioGroup.standard.title' | transloco"
+        [tsCode]="standardTs"
+      >
+        <playground-radio-group-standard-example />
+      </playground-example-viewer>
+    </div>
+
+    <div
+      class="example-section"
+      id="template"
+    >
+      <playground-example-viewer
+        [description]="'examples.radioGroup.template.description' | transloco"
+        [htmlCode]="templateHtml"
+        [title]="'examples.radioGroup.template.title' | transloco"
+        [tsCode]="templateTs"
+      >
+        <playground-radio-group-template-example />
+      </playground-example-viewer>
+    </div>
+  </section>
+
+  <section class="showcase-api">
+    <h3>{{ 'examples.radioGroup.api' | transloco }}</h3>
+    <playground-component-documentation
+      [componentType]="QuangRadioGroupComponent"
+      [customReadmePath]="componentsReadmePath()"
+      [readmeOnly]="true"
+    />
+  </section>
+</div>

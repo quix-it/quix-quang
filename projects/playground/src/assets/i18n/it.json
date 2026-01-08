@@ -40,6 +40,7 @@
       "checkbox": "Componente checkbox",
       "paginator": "Componente di paginazione",
       "select": "Componente select",
+      "radioGroup": "Componente radio group",
       "autocomplete": "Componente di autocomplete",
       "table": "Componente tabella",
       "readme": "Readme",
@@ -67,6 +68,7 @@
       "autocomplete": "Autocomplete intestazione",
       "wysiwyg": "Wysiwyg intestazione",
       "success": "Valido!",
+      "help": "Testo di aiuto",
       "formValue": "Valore form: {{value}}",
       "formValidity": "Form valido: {{valid}}"
     },
@@ -83,6 +85,8 @@
       "checkForm": "Controlla valore e validità form",
       "readonly": "Readonly: {{readonly}}",
       "required": "Required: {{required}}",
+      "showSuccess": "Mostra successMessage: {{showSuccess}}",
+      "showHelperText": "Mostra helpMessage: {{showHelperText}}",
       "changeDateFormat": "Cambia formato data",
       "selectInputType": "Seleziona tipologia di input:",
       "changeHeight": "Cambia altezza",
@@ -129,6 +133,7 @@
       "input": "Input",
       "paginator": "Paginator",
       "select": "Select",
+      "radioGroup": "Radio group",
       "table": "Table",
       "checkbox": "Checkbox / Toggle",
       "wysiwyg": "Wysiwyg",
@@ -180,6 +185,19 @@
     }
   },
   "examples": {
+    "radioGroup": {
+      "description": "Un componente radio group con opzioni standard e template opzionali per singola opzione.",
+      "toc": "Esempi",
+      "api": "Riferimento API",
+      "standard": {
+        "title": "Opzioni standard",
+        "description": "Renderizza le opzioni con label e stato disabilitato usando il layout predefinito."
+      },
+      "template": {
+        "title": "Opzioni con template",
+        "description": "Sostituisci il rendering di specifiche opzioni usando il template renderer per opzione."
+      }
+    },
     "autocomplete": {
       "description": "Un componente autocomplete flessibile con supporto per dati asincroni, inserimento testo libero e selezione multipla.",
       "toc": "Esempi",

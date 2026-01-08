@@ -40,6 +40,7 @@
       "checkbox": "Checkbox component",
       "paginator": "Paginator component",
       "select": "Select component",
+      "radioGroup": "Radio group component",
       "autocomplete": "Autocomplete component",
       "table": "Table component",
       "readme": "Readme",
@@ -67,6 +68,7 @@
       "autocomplete": "Autocomplete header",
       "wysiwyg": "Wysiwyg header",
       "success": "Valid!",
+      "help": "Helper text",
       "formValue": "Form value: {{value}}",
       "formValidity": "Form valid: {{valid}}"
     },
@@ -83,6 +85,8 @@
       "checkForm": "Check form value and validity",
       "readonly": "Readonly: {{readonly}}",
       "required": "Required: {{required}}",
+      "showSuccess": "Show successMessage: {{showSuccess}}",
+      "showHelperText": "Show helpMessage: {{showHelperText}}",
       "changeDateFormat": "Change date format",
       "selectInputType": "Select input type:",
       "changeHeight": "Change height",
@@ -129,6 +133,7 @@
       "input": "Input",
       "paginator": "Paginator",
       "select": "Select",
+      "radioGroup": "Radio group",
       "table": "Table",
       "checkbox": "Checkbox / Toggle",
       "wysiwyg": "Wysiwyg",
@@ -180,6 +185,19 @@
     }
   },
   "examples": {
+    "radioGroup": {
+      "description": "A radio group component with standard options and optional per-option templates.",
+      "toc": "Examples",
+      "api": "API Reference",
+      "standard": {
+        "title": "Standard options",
+        "description": "Render options with labels and disabled states using the built-in layout."
+      },
+      "template": {
+        "title": "Template-based options",
+        "description": "Override the rendering of specific options using the per-option renderer template."
+      }
+    },
     "autocomplete": {
       "description": "A flexible autocomplete component with support for async data, free text input, and multiple selection.",
       "toc": "Examples",
