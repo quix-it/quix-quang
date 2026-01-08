@@ -49,7 +49,7 @@ const getTranslocoTestingProviders = () =>
 })
 class TestHostComponent {
   @ViewChild('optTpl', { read: TemplateRef })
-  optTpl?: TemplateRef<QuangRadioOptionTemplateContext>
+  optTpl?: TemplateRef<QuangRadioOptionTemplateContext<string>>
 
   form = new FormGroup({
     choice: new FormControl<string | null>(null),
