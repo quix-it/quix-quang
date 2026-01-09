@@ -227,6 +227,21 @@
     }
   },
   "examples": {
+    "select": {
+      "description": "A select component supporting single and multiple selections.",
+      "single": {
+        "title": "Single selection",
+        "description": "A required single-select bound to a reactive form control."
+      },
+      "multiple": {
+        "title": "Multiple selection",
+        "description": "A required multi-select bound to an array form control."
+      },
+      "dynamic": {
+        "title": "Dynamic options",
+        "description": "Options update frequently to validate the component handles dynamic changes gracefully."
+      }
+    },
     "radioGroup": {
       "description": "A radio group component with standard options and optional per-option templates.",
       "toc": "Examples",

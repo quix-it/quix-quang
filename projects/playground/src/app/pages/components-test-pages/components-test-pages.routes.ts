@@ -8,7 +8,8 @@ import { LoaderTestPageComponent } from './loader-test-page/loader-test-page.com
 import { PaginatorTestComponent } from './paginator-test/paginator-test.component'
 import { RadioGroupShowcaseComponent } from './radio-group-test/showcase/radio-group-showcase.component'
 import { RadioGroupTestComponent } from './radio-group-test/test/radio-group-test.component'
-import { SelectTestComponent } from './select-test/select-test.component'
+import { SelectShowcaseComponent } from './select-test/showcase/select-showcase/select-showcase.component'
+import { SelectTestComponent } from './select-test/test/select-test.component'
 import { TableTestComponent } from './table-test/table-test.component'
 import { ToggleShowcaseComponent } from './toggle-test/showcase/toggle-showcase.component'
 import { ToggleTestComponent } from './toggle-test/toggle-test.component'
@@ -37,6 +38,10 @@ const routes: Routes = [
   },
   {
     path: 'select',
+    component: SelectShowcaseComponent,
+  },
+  {
+    path: 'select/test',
     component: SelectTestComponent,
   },
   {

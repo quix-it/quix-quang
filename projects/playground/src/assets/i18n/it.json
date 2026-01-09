@@ -227,6 +227,21 @@
     }
   },
   "examples": {
+    "select": {
+      "description": "Un componente select che supporta selezione singola e multipla.",
+      "single": {
+        "title": "Selezione singola",
+        "description": "Select obbligatoria a scelta singola collegata a un controllo di form reattivo."
+      },
+      "multiple": {
+        "title": "Selezione multipla",
+        "description": "Select obbligatoria a scelta multipla collegata a un controllo array."
+      },
+      "dynamic": {
+        "title": "Opzioni dinamiche",
+        "description": "Le opzioni si aggiornano frequentemente per verificare che il componente gestisca bene i cambiamenti dinamici."
+      }
+    },
     "radioGroup": {
       "description": "Un componente radio group con opzioni standard e template opzionali per singola opzione.",
       "toc": "Esempi",
