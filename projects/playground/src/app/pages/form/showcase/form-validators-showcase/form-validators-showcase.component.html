@@ -1,5 +1,7 @@
-<div class="form-page">
-  <h1>{{ 'menu.form' | transloco }}</h1>
+<div class="playground-showcase form-showcase">
+  <div class="showcase-header">
+    <h2>{{ 'menu.form' | transloco }} / {{ 'menu.formValidators' | transloco }}</h2>
+  </div>
 
   @for (fn of formFunctions; track $index) {
     <ng-container

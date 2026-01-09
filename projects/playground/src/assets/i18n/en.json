@@ -74,6 +74,8 @@
     },
     "errors": {
       "required": "This field is required",
+      "requiredTrue": "This field must be checked",
+      "noMatch": "The value is not valid",
       "minLength": "This field must be at least {{requiredLength}} characters long",
       "maxLength": "This field must be at most {{requiredLength}} characters long"
     },
@@ -106,6 +108,19 @@
       "isFiscalCode": "Validates that the value is a valid fiscal code.",
       "isVatNumber": "Validates that the value is a valid VAT number for the specified locales.",
       "wysiwygRequired": "Validates that the WYSIWYG editor content is not empty."
+    },
+    "showcase": {
+      "toc": {
+        "validators": "Validators",
+        "liveExample": "Live example"
+      },
+      "sections": {
+        "validatorsTitle": "Validators"
+      },
+      "liveExample": {
+        "title": "Live form example",
+        "description": "Submit invalid values and see the errors after markAllAsTouched()."
+      }
     }
   },
   "quangPaginator": {
@@ -151,6 +166,10 @@
     "dataHandling": "Data handling",
     "device": "Device",
     "form": "Form validation",
+    "formShowcase": "Showcase",
+    "formTest": "Test",
+    "formValidators": "Validators",
+    "formExample": "Live example",
     "network": "Network",
     "translation": "Translation",
     "language": {
@@ -184,6 +203,29 @@
       "html": "HTML"
     }
   },
+  "shared": {
+    "onThisPage": "On this page",
+    "api": "API"
+  },
+  "toggle": {
+    "showcase": {
+      "subtitle": "Checkbox and toggle are the same component with different presentation.",
+      "toc": {
+        "basic": "Basic",
+        "interactive": "Interactive"
+      }
+    },
+    "examples": {
+      "basic": {
+        "title": "Basic",
+        "description": "Simple required checkbox and toggle in a reactive form."
+      },
+      "interactive": {
+        "title": "Interactive playground",
+        "description": "Try different configurations (type, label position, readonly, required, disabled) and see how validation behaves."
+      }
+    }
+  },
   "examples": {
     "radioGroup": {
       "description": "A radio group component with standard options and optional per-option templates.",
@@ -196,6 +238,16 @@
       "template": {
         "title": "Template-based options",
         "description": "Override the rendering of specific options using the per-option renderer template."
+      }
+    },
+    "checkbox": {
+      "interactive": {
+        "helper": "Use the buttons to change the component configuration at runtime.",
+        "buttons": {
+          "toggleType": "Toggle type (current: {{type}})",
+          "labelPosition": "Label position (current: {{position}})",
+          "setValue": "Set value to true"
+        }
       }
     },
     "autocomplete": {

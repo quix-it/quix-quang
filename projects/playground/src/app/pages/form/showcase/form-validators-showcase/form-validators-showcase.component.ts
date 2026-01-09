@@ -6,14 +6,14 @@ import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 
 @Component({
-  selector: 'playground-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss'],
+  selector: 'playground-form-validators-showcase',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, TranslocoPipe, AngularSvgIconModule, QuangTooltipDirective, NgTemplateOutlet],
+  templateUrl: './form-validators-showcase.component.html',
+  styleUrl: './form-validators-showcase.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormComponent {
+export class FormValidatorsShowcaseComponent {
   buttonTooltip = signal<string>('utils.copyContent')
 
   formFunctions = [

@@ -91,7 +91,16 @@ export const menuList: MenuItem[] = [
   },
   {
     description: 'menu.form',
-    route: '/form',
+    children: [
+      {
+        description: 'menu.formValidators',
+        route: '/form/validators',
+      },
+      {
+        description: 'menu.formExample',
+        route: '/form/example',
+      },
+    ],
   },
   {
     description: 'menu.network',
