@@ -240,6 +240,10 @@
       "dynamic": {
         "title": "Dynamic options",
         "description": "Options update frequently to validate the component handles dynamic changes gracefully."
+      },
+      "template": {
+        "title": "Template-based options",
+        "description": "Override the rendering of specific options using the per-option renderer template."
       }
     },
     "radioGroup": {
@@ -314,6 +318,10 @@
         "selectOptionsTitle": "Select Options",
         "addOption": "Add Option",
         "noOptions": "No options available. Click 'Add Option' to create one."
+      },
+      "template": {
+        "title": "Template-based options",
+        "description": "Override the rendering of specific options using the per-option renderer template."
       }
     }
   },

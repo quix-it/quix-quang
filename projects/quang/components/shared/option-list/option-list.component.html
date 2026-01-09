@@ -51,7 +51,13 @@
           [for]="i + '-' + item.value + '-checkbox'"
           class="form-check-label checkbox-label w-100 opacity-100"
         >
-          {{ translateValue() ? (item.label | transloco) : item.label }}
+          @if (!item.renderer) {
+            {{ translateValue() ? (item.label | transloco) : item.label }}
+          }
+          <ng-container
+            [ngTemplateOutlet]="item.renderer ?? null"
+            [ngTemplateOutletContext]="{ $implicit: item, selected: getSelected(item), index: i }"
+          ></ng-container>
         </label>
       </li>
     }

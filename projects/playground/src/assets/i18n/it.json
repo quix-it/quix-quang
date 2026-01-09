@@ -240,6 +240,10 @@
       "dynamic": {
         "title": "Opzioni dinamiche",
         "description": "Le opzioni si aggiornano frequentemente per verificare che il componente gestisca bene i cambiamenti dinamici."
+      },
+      "template": {
+        "title": "Opzioni con template",
+        "description": "Sostituisci il rendering di specifiche opzioni usando un template per-opzione."
       }
     },
     "radioGroup": {
@@ -314,6 +318,10 @@
         "selectOptionsTitle": "Opzioni di Selezione",
         "addOption": "Aggiungi Opzione",
         "noOptions": "Nessuna opzione disponibile. Clicca 'Aggiungi Opzione' per crearne una."
+      },
+      "template": {
+        "title": "Opzioni con template",
+        "description": "Sostituisci il rendering di specifiche opzioni usando un template per-opzione."
       }
     }
   },

@@ -14,9 +14,12 @@ import {
   SELECT_MULTIPLE_EXAMPLE_TS,
   SELECT_SINGLE_EXAMPLE_HTML,
   SELECT_SINGLE_EXAMPLE_TS,
+  SELECT_TEMPLATE_EXAMPLE_HTML,
+  SELECT_TEMPLATE_EXAMPLE_TS,
   SelectDynamicOptionsExampleComponent,
   SelectMultipleExampleComponent,
   SelectSingleExampleComponent,
+  SelectTemplateExampleComponent,
 } from '../../examples'
 
 @Component({
@@ -29,6 +32,7 @@ import {
     SelectSingleExampleComponent,
     SelectMultipleExampleComponent,
     SelectDynamicOptionsExampleComponent,
+    SelectTemplateExampleComponent,
   ],
   templateUrl: './select-showcase.component.html',
   styleUrl: './select-showcase.component.scss',
@@ -51,6 +55,9 @@ export class SelectShowcaseComponent {
 
   protected readonly dynamicTs = SELECT_DYNAMIC_OPTIONS_EXAMPLE_TS
   protected readonly dynamicHtml = SELECT_DYNAMIC_OPTIONS_EXAMPLE_HTML
+
+  protected readonly templateTs = SELECT_TEMPLATE_EXAMPLE_TS
+  protected readonly templateHtml = SELECT_TEMPLATE_EXAMPLE_HTML
 
   protected scrollTo(event: Event, elementId: string): void {
     event.preventDefault()

@@ -19,11 +19,14 @@ import {
   AUTOCOMPLETE_MULTIPLE_TS,
   AUTOCOMPLETE_SIMPLE_HTML,
   AUTOCOMPLETE_SIMPLE_TS,
+  AUTOCOMPLETE_TEMPLATE_HTML,
+  AUTOCOMPLETE_TEMPLATE_TS,
   AutocompleteAsyncExampleComponent,
   AutocompleteFreeTextExampleComponent,
   AutocompleteInteractiveExampleComponent,
   AutocompleteMultipleExampleComponent,
   AutocompleteSimpleExampleComponent,
+  AutocompleteTemplateExampleComponent,
 } from '../examples'
 
 @Component({
@@ -38,6 +41,7 @@ import {
     AutocompleteFreeTextExampleComponent,
     AutocompleteMultipleExampleComponent,
     AutocompleteInteractiveExampleComponent,
+    AutocompleteTemplateExampleComponent,
   ],
   templateUrl: './autocomplete-showcase.component.html',
   styleUrl: './autocomplete-showcase.component.scss',
@@ -66,6 +70,9 @@ export class AutocompleteShowcaseComponent {
   protected readonly multipleHtml = AUTOCOMPLETE_MULTIPLE_HTML
   protected readonly interactiveTs = AUTOCOMPLETE_INTERACTIVE_TS
   protected readonly interactiveHtml = AUTOCOMPLETE_INTERACTIVE_HTML
+
+  protected readonly templateTs = AUTOCOMPLETE_TEMPLATE_TS
+  protected readonly templateHtml = AUTOCOMPLETE_TEMPLATE_HTML
 
   // ==================== PROTECTED METHODS ====================
   protected scrollTo(event: Event, elementId: string): void {

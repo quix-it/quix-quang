@@ -30,6 +30,13 @@
       </li>
       <li>
         <a
+          (click)="scrollTo($event, 'template')"
+          href="#template"
+          >{{ 'examples.select.template.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
           (click)="scrollTo($event, 'api')"
           href="#api"
           >{{ 'shared.api' | transloco }}</a
@@ -69,6 +76,17 @@
         [tsCode]="dynamicTs"
       >
         <playground-select-dynamic-options-example />
+      </playground-example-viewer>
+    </section>
+
+    <section id="template">
+      <playground-example-viewer
+        [description]="'examples.select.template.description' | transloco"
+        [htmlCode]="templateHtml"
+        [title]="'examples.select.template.title' | transloco"
+        [tsCode]="templateTs"
+      >
+        <playground-select-template-example />
       </playground-example-viewer>
     </section>
   </section>

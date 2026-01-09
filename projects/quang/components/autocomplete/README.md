@@ -57,6 +57,40 @@ The `QuangAutocompleteComponent` is a comprehensive autocomplete input with real
 </quang-autocomplete>
 ```
 
+### Template-based options
+
+Each `SelectOption` can provide a `renderer` (similar to `quang-table` and `quang-radio-group`), which is used instead of the plain label in the suggestions list.
+
+```html
+<ng-template
+  #customOption
+  let-opt
+  let-selected="selected"
+>
+  <span class="d-flex gap-2 align-items-center">
+    <strong>{{ opt.label }}</strong>
+    <small class="text-muted">selected: {{ selected }}</small>
+  </span>
+</ng-template>
+
+<quang-autocomplete
+  [selectOptions]="templatedOptions"
+  formControlName="country"
+/>
+```
+
+```ts
+import { TemplateRef, viewChild } from '@angular/core'
+import { SelectOption, QuangSelectOptionTemplateContext } from 'quang/components/shared'
+
+customOptionTemplate = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('customOption')
+
+templatedOptions: SelectOption[] = [
+  { value: 'us', label: 'United States' },
+  { value: 'ca', label: 'Canada', renderer: this.customOptionTemplate() },
+]
+```
+
 #### TypeScript Example
 
 ```typescript
