@@ -10,6 +10,7 @@ import { RadioGroupShowcaseComponent } from './radio-group-test/showcase/radio-g
 import { RadioGroupTestComponent } from './radio-group-test/test/radio-group-test.component'
 import { SelectTestComponent } from './select-test/select-test.component'
 import { TableTestComponent } from './table-test/table-test.component'
+import { ToggleShowcaseComponent } from './toggle-test/showcase/toggle-showcase.component'
 import { ToggleTestComponent } from './toggle-test/toggle-test.component'
 import { WysiwygTestComponent } from './wysiwyg-test/wysiwyg-test.component'
 
@@ -52,6 +53,10 @@ const routes: Routes = [
   },
   {
     path: 'toggle',
+    component: ToggleShowcaseComponent,
+  },
+  {
+    path: 'toggle/test',
     component: ToggleTestComponent,
   },
   {
