@@ -78,10 +78,16 @@
       selectionMode="single"
     />
   }
-  <div class="valid-feedback">
+  <div
+    [class.d-block]="_showSuccess()"
+    class="valid-feedback"
+  >
     {{ successMessage() | transloco }}
   </div>
-  <div class="invalid-feedback">
+  <div
+    [class.d-block]="_showErrors()"
+    class="invalid-feedback"
+  >
     {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
   </div>
   @if (helpMessage()) {

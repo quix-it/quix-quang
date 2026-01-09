@@ -386,6 +386,11 @@ describe('QuangAutocompleteComponent', () => {
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._showErrors()).toBe(true)
+
+      const invalidFeedback = hostFixture.nativeElement.querySelector('.invalid-feedback') as HTMLDivElement | null
+      expect(invalidFeedback).toBeTruthy()
+      expect(invalidFeedback?.classList.contains('d-block')).toBe(true)
+      expect(invalidFeedback?.textContent).toContain('This field is required')
     })
 
     it('should hide error message when valid', async () => {
