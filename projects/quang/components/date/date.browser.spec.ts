@@ -11,7 +11,7 @@ import 'zone.js'
 import { QuangDateComponent } from './date.component'
 
 @Component({
-  selector: 'test-two-datepickers',
+  selector: 'quang-two-datepickers-test',
   standalone: true,
   imports: [QuangDateComponent, ReactiveFormsModule],
   template: `
@@ -38,7 +38,7 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
 
   beforeEach(async () => {
     // Create and append the host element for the test component
-    container = document.createElement('test-two-datepickers')
+    container = document.createElement('quang-two-datepickers-test')
     document.body.appendChild(container)
 
     // Bootstrap the test component
