@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangTranslationService } from 'quang/translation'
 
-import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
-import { ExampleViewerComponent } from '../../../shared/components/example-viewer/example-viewer.component'
+import { ComponentDocumentationComponent } from '../../../../shared/components/component-documentation/component-documentation.component'
+import { ExampleViewerComponent } from '../../../../shared/components/example-viewer/example-viewer.component'
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
 
 // Import all examples and their code snippets
@@ -24,7 +24,7 @@ import {
   AutocompleteInteractiveExampleComponent,
   AutocompleteMultipleExampleComponent,
   AutocompleteSimpleExampleComponent,
-} from './examples'
+} from '../examples'
 
 @Component({
   selector: 'playground-autocomplete-showcase',

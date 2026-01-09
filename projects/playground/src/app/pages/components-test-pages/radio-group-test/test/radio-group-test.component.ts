@@ -5,10 +5,10 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangTranslationService } from 'quang/translation'
 
-import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
+import { ComponentDocumentationComponent } from '../../../../shared/components/component-documentation/component-documentation.component'
 import { QuangRadioGroupComponent, QuangRadioOptionTemplateContext, RadioOption } from 'quang/components/radio-group'
 
-import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+import { SourceCodeDirective } from '../../../../shared/directives/source-code.directive'
 
 @Component({
   selector: 'playground-radio-group-test',

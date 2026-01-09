@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangTranslationService } from 'quang/translation'
 
-import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
-import { ExampleViewerComponent } from '../../../shared/components/example-viewer/example-viewer.component'
+import { ComponentDocumentationComponent } from '../../../../shared/components/component-documentation/component-documentation.component'
+import { ExampleViewerComponent } from '../../../../shared/components/example-viewer/example-viewer.component'
 import { QuangRadioGroupComponent } from 'quang/components/radio-group'
 
 import {
@@ -14,7 +14,7 @@ import {
   RADIO_GROUP_TEMPLATE_TS,
   RadioGroupStandardExampleComponent,
   RadioGroupTemplateExampleComponent,
-} from './examples'
+} from '../examples'
 
 @Component({
   selector: 'playground-radio-group-showcase',
