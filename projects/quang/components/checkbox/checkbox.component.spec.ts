@@ -48,6 +48,7 @@ const mustBeFalseValidator = (control: AbstractControl<boolean | null>): Validat
       <quang-checkbox
         [errorMap]="errors"
         checkType="checkbox"
+        componentLabel="checkbox.required"
         formControlName="requiredCheck"
       />
       <quang-checkbox
@@ -117,5 +118,14 @@ describe('QuangCheckboxComponent', () => {
     const checkboxInputsAfter = fixture.debugElement.queryAll(By.css('quang-checkbox input.form-check-input'))
     expect((checkboxInputsAfter[0].nativeElement as HTMLInputElement).classList.contains('is-invalid')).toBe(true)
     expect((checkboxInputsAfter[1].nativeElement as HTMLInputElement).classList.contains('is-invalid')).toBe(true)
+  })
+
+  it('should show required asterisk for requiredTrue controls', () => {
+    const label = fixture.debugElement.query(By.css('quang-checkbox label.form-label'))
+    expect(label).toBeTruthy()
+
+    const asterisk = label.query(By.css('span'))
+    expect(asterisk).toBeTruthy()
+    expect((asterisk.nativeElement as HTMLSpanElement).hidden).toBe(false)
   })
 })
