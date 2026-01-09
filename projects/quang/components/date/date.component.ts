@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Optional,
   computed,
   effect,
   forwardRef,
@@ -120,7 +119,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
   hasNoContent = computed(() => this.contentTemplate()?.nativeElement.children.length === 0)
 
-  @Optional() _quangTranslationService = signal<QuangTranslationService | undefined>(inject(QuangTranslationService))
+  _quangTranslationService = signal<QuangTranslationService | undefined>(
+    inject(QuangTranslationService, { optional: true }) ?? undefined
+  )
 
   _quangTranslationActiveLang = computed(() => this._quangTranslationService()?.activeLang() ?? null)
 

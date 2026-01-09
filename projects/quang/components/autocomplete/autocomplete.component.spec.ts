@@ -2778,6 +2778,7 @@ describe('QuangAutocompleteComponent - E2E Tab Navigation', () => {
         [multiple]="true"
         [searchTextDebounce]="50"
         [selectOptions]="options"
+        componentId="chips-position-autocomplete"
         formControlName="autocomplete"
       />
     </form>
