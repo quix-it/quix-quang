@@ -67,9 +67,14 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   _eventsChange$?: Subscription
 
-  getIsRequiredControl = computed(
-    () => !!(this._ngControl()?.control as any)?._rawValidators?.find((x: any) => x.name === 'required')
-  )
+  getIsRequiredControl = computed(() => {
+    const control = this._ngControl()?.control
+    if (!control) {
+      return false
+    }
+
+    return control.hasValidator(Validators.required) || control.hasValidator(Validators.requiredTrue)
+  })
 
   onChange?: (value: T) => void
 
@@ -177,9 +182,11 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
     this._isValid.set(control?.valid ?? false)
     this._isTouched.set(!!(control?.touched || control?.dirty))
 
-    const validationErrors = control?.errors
+    this._isRequired.set(
+      !!control && (control.hasValidator(Validators.required) || control.hasValidator(Validators.requiredTrue))
+    )
 
-    this._isRequired.set(validationErrors?.[Validators.required.name])
+    const validationErrors = control?.errors
 
     let errorName = ''
     let errorMessage = ''
