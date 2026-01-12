@@ -30,6 +30,7 @@
       (blur)="onBlurHandler()"
       (focus)="interceptInputInteraction($event)"
       (input)="onChangeText($event)"
+      (keydown)="onInputKeydown($event)"
       (mouseenter)="isMouseInsideCalendar.set(true)"
       (mouseleave)="isMouseInsideCalendar.set(false)"
       (search)="onCancel()"

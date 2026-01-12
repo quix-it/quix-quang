@@ -175,6 +175,8 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
   isMouseOutsideCalendar = computed(() => !this.isMouseInsideCalendar())
 
+  private _shouldRefocusInputOnHide = signal(false)
+
   setupCalendar() {
     if (this._inputForDate()?.nativeElement) {
       let currentValue = this._value()
@@ -204,6 +206,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       this.setCalendarPosition()
       const airDatepickerOpts: QuangDatepickerOptions = {
         autoClose: true,
+        showEvent: 'click',
         classes: this.calendarClasses(),
         dateFormat: this.dateFormat(),
         inline: this.showInline(),
@@ -226,6 +229,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
         locale: this.getLocale(),
 
         onSelect: ({ date }) => {
+          this._shouldRefocusInputOnHide.set(true)
           if (!Array.isArray(date)) {
             let selectTargetDate = date
             if (!this.showTimepicker()) {
@@ -382,15 +386,17 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       this.onTouched()
     }
 
-    // Only focus the input if the active element is still within this component
-    // (e.g., user selected a date via keyboard or mouse click on the calendar).
+    // Only focus the input when the user actually interacted with the calendar.
     // Avoids infinite focus loop when tabbing between multiple datepickers.
     const activeElement = document.activeElement
     const calendarElement = this._airDatepickerInstance()?.$datepicker
     const inputElement = this._inputForDate()?.nativeElement
     const isCalendarFocused = calendarElement?.contains(activeElement)
 
-    if (isCalendarFocused || this.isMouseInsideCalendar()) {
+    const shouldRefocus = this._shouldRefocusInputOnHide() || isCalendarFocused || this.isMouseInsideCalendar()
+    this._shouldRefocusInputOnHide.set(false)
+
+    if (shouldRefocus) {
       inputElement?.focus()
     }
 
@@ -416,8 +422,35 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   }
 
   openDatePicker() {
-    if (this._inputForDate()?.nativeElement) {
-      this._inputForDate()?.nativeElement.focus()
+    const inputEl = this._inputForDate()?.nativeElement
+    if (!inputEl || this._isDisabled()) {
+      return
+    }
+
+    inputEl.focus()
+
+    if (!this._airDatepickerInstance()) {
+      this.setupCalendar()
+    }
+
+    this._airDatepickerInstance()?.show()
+  }
+
+  onInputKeydown(event: KeyboardEvent) {
+    if (this._isDisabled()) {
+      return
+    }
+
+    const dp = this._airDatepickerInstance()
+    if (event.key === 'Escape' && dp?.visible) {
+      event.preventDefault()
+      dp.hide()
+      return
+    }
+
+    if (event.key === 'Enter' || event.key === 'ArrowDown') {
+      event.preventDefault()
+      this.openDatePicker()
     }
   }
 
