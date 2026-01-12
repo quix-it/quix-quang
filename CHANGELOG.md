@@ -14,6 +14,7 @@ The format is based on Keep a Changelog, and this project follows Conventional C
 
 - New `QuangRadioGroupComponent` with standard and template-based options.
 - Select/Autocomplete: support template-based option rendering via `SelectOption.renderer`.
+- Date picker: keyboard support for opening the calendar (`Enter`/`ArrowDown`) and closing it (`Escape`).
 - Playground: Radio Group showcase/examples/test pages.
 - Playground: Toggle showcase/examples/test pages.
 - Playground: new template-based option examples for Select and Autocomplete.
@@ -32,6 +33,8 @@ The format is based on Keep a Changelog, and this project follows Conventional C
 - Autocomplete now shows validation feedback text reliably (Bootstrap feedback visibility).
 - Input feedback blocks are positioned to render correctly with Bootstrap.
 - Checkbox layout alignment for label positions (top/left/right/bottom) is more consistent.
+- Select/Autocomplete: option list scrollbar is now always visible on macOS.
+- Date picker: improved focus handling to avoid infinite focus loops when tabbing between multiple date pickers.
 - Date browser focus test uses a stable component selector.
 - Vitest config fixes.
 - Dependency/publish tooling fixes (including @chevrotain updates).
