@@ -35,9 +35,13 @@ export class SelectSingleExampleComponent {
   ])
 
   protected readonly options: SelectOption[] = [
-    { value: 'minLength', label: 'Min length' },
-    { value: 'maxLength', label: 'Max length' },
-    { value: 'pattern', label: 'Pattern' },
+    { value: 'a', label: 'Option A' },
+    { value: 'b', label: 'Option B' },
+    { value: 'c', label: 'Option C' },
+    { value: 'd', label: 'Option D' },
+    { value: 'e', label: 'Option E' },
+    { value: 'f', label: 'Option F' },
+    { value: 'g', label: 'Option G' },
   ]
 
   protected readonly form = this.fb.group({

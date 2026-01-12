@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common'
+import { NgClass, NgTemplateOutlet } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -38,7 +38,7 @@ import {
       multi: false,
     },
   ],
-  imports: [TranslocoPipe, NgClass, QuangOptionListComponent],
+  imports: [TranslocoPipe, NgClass, NgTemplateOutlet, QuangOptionListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -201,5 +201,9 @@ export class QuangSelectComponent
     if (buttonEl) {
       buttonEl.focus()
     }
+  }
+
+  getOptionIndex(option: SelectOption): number {
+    return this.selectOptions().findIndex((x) => x.value === option.value)
   }
 }

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, computed, viewChild } from '@angular/core'
+import { JsonPipe } from '@angular/common'
+import { ChangeDetectionStrategy, Component, TemplateRef, computed, signal, viewChild } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
@@ -7,8 +8,26 @@ import { QuangSelectOptionTemplateContext, SelectOption } from 'quang/components
 @Component({
   selector: 'playground-autocomplete-template-example',
   standalone: true,
-  imports: [ReactiveFormsModule, QuangAutocompleteComponent],
+  imports: [ReactiveFormsModule, QuangAutocompleteComponent, JsonPipe],
   template: `
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <p class="mb-0 text-muted small">Toggle selection mode to see templated options in both modes.</p>
+      <div class="form-check form-switch">
+        <input
+          [checked]="isMultiple()"
+          (change)="toggleSelectionMode()"
+          class="form-check-input"
+          id="autocompleteTemplateSelectionMode"
+          type="checkbox"
+        />
+        <label
+          class="form-check-label"
+          for="autocompleteTemplateSelectionMode"
+          >Multiple</label
+        >
+      </div>
+    </div>
+
     <ng-template
       #optTpl
       let-opt
@@ -30,17 +49,33 @@ import { QuangSelectOptionTemplateContext, SelectOption } from 'quang/components
       [componentLabel]="'Autocomplete (templated options)'"
       [formControl]="control"
       [internalFilterOptions]="true"
+      [multiple]="isMultiple()"
       [selectOptions]="options()"
     />
 
-    <p class="mt-2 text-muted small">Selected value: {{ control.value ?? 'none' }}</p>
+    <p class="mt-2 text-muted small">Selected value: {{ control.value === null ? 'none' : (control.value | json) }}</p>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteTemplateExampleComponent {
-  control = new FormControl<string | number | null>(null)
+  control = new FormControl<string | number | (string | number)[] | null>(null)
+
+  protected readonly isMultiple = signal(false)
 
   private readonly optTpl = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('optTpl')
+
+  toggleSelectionMode(): void {
+    this.isMultiple.update((current) => !current)
+
+    const currentValue = this.control.value
+
+    if (this.isMultiple()) {
+      this.control.setValue(Array.isArray(currentValue) ? currentValue : currentValue != null ? [currentValue] : [])
+      return
+    }
+
+    this.control.setValue(Array.isArray(currentValue) ? (currentValue[0] ?? null) : currentValue)
+  }
 
   options = computed<SelectOption[]>(() => [
     { value: 'IT', label: 'Italy' },
@@ -49,7 +84,7 @@ export class AutocompleteTemplateExampleComponent {
   ])
 }
 
-export const AUTOCOMPLETE_TEMPLATE_TS = `import { ChangeDetectionStrategy, Component, TemplateRef, computed, viewChild } from '@angular/core'
+export const AUTOCOMPLETE_TEMPLATE_TS = `import { ChangeDetectionStrategy, Component, TemplateRef, computed, signal, viewChild } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
@@ -59,6 +94,20 @@ import { QuangSelectOptionTemplateContext, SelectOption } from 'quang/components
   selector: 'app-autocomplete-template',
   imports: [ReactiveFormsModule, QuangAutocompleteComponent],
   template: \`
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <p class="mb-0 text-muted small">Toggle selection mode to see templated options in both modes.</p>
+      <div class="form-check form-switch">
+        <input
+          [checked]="isMultiple()"
+          (change)="toggleSelectionMode()"
+          class="form-check-input"
+          id="autocompleteTemplateSelectionMode"
+          type="checkbox"
+        />
+        <label class="form-check-label" for="autocompleteTemplateSelectionMode">Multiple</label>
+      </div>
+    </div>
+
     <ng-template #optTpl let-opt let-selected="selected">
       <span class="d-flex gap-2 align-items-center">
         <span
@@ -75,6 +124,7 @@ import { QuangSelectOptionTemplateContext, SelectOption } from 'quang/components
     <quang-autocomplete
       [internalFilterOptions]="true"
       [selectOptions]="options()"
+      [multiple]="isMultiple()"
       componentLabel="Autocomplete (templated options)"
       [formControl]="control"
     />
@@ -82,9 +132,24 @@ import { QuangSelectOptionTemplateContext, SelectOption } from 'quang/components
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteTemplateExampleComponent {
-  control = new FormControl<string | number | null>(null)
+  control = new FormControl<string | number | (string | number)[] | null>(null)
+
+  protected readonly isMultiple = signal(false)
 
   private readonly optTpl = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('optTpl')
+
+  toggleSelectionMode(): void {
+    this.isMultiple.update((current) => !current)
+
+    const currentValue = this.control.value
+
+    if (this.isMultiple()) {
+      this.control.setValue(Array.isArray(currentValue) ? currentValue : currentValue != null ? [currentValue] : [])
+      return
+    }
+
+    this.control.setValue(Array.isArray(currentValue) ? (currentValue[0] ?? null) : currentValue)
+  }
 
   options = computed<SelectOption[]>(() => [
     { value: 'IT', label: 'Italy' },
@@ -110,6 +175,7 @@ export const AUTOCOMPLETE_TEMPLATE_HTML = `<ng-template #optTpl let-opt let-sele
 <quang-autocomplete
   [internalFilterOptions]="true"
   [selectOptions]="options()"
+  [multiple]="isMultiple()"
   componentLabel="Autocomplete (templated options)"
   [formControl]="control"
 />`

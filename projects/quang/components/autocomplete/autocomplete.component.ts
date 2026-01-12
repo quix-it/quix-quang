@@ -613,8 +613,16 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * @returns The chip's display label
    */
   getDescription(chipValue: string | number): string {
-    const option = this.selectOptions().find((x) => x.value === chipValue)
+    const option = this.selectOptions().find((x) => x.value?.toString() === chipValue?.toString())
     return option?.label?.toString() ?? ''
+  }
+
+  getOptionByValue(value: string | number): SelectOption | undefined {
+    return this.selectOptions().find((x) => x.value?.toString() === value?.toString())
+  }
+
+  getOptionIndex(option: SelectOption): number {
+    return this.selectOptions().findIndex((x) => x.value === option.value)
   }
 
   /**
