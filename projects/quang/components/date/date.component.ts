@@ -257,6 +257,16 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
             datepicker.onmouseleave = () => {
               this.isMouseInsideCalendar.set(false)
             }
+            datepicker.onkeydown = (evt: KeyboardEvent) => {
+              if (evt.key !== 'Enter' || this.showInline()) {
+                return
+              }
+
+              // Air-datepicker keyboard selection doesn't always auto-close reliably.
+              // Close on Enter to keep behavior consistent with autoClose and focus expectations.
+              this._shouldRefocusInputOnHide.set(true)
+              setTimeout(() => this._airDatepickerInstance()?.hide(), 0)
+            }
           }
           if (isAnimationComplete || !this.showTimepicker()) {
             return
@@ -398,7 +408,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
     this._shouldRefocusInputOnHide.set(false)
 
     if (shouldRefocus) {
-      inputElement?.focus()
+      setTimeout(() => inputElement?.focus(), 0)
     }
 
     this.onBlurHandler()
@@ -466,14 +476,27 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   getLocale(): AirDatepickerLocale {
     switch (this._activeLanguage()?.toLowerCase()) {
       case 'en':
-        return (en as any).default || en
+        return this.unwrapLocaleModule(en)
       case 'it':
-        return (it as any).default || it
+        return this.unwrapLocaleModule(it)
       case 'fr':
-        return (fr as any).default || fr
+        return this.unwrapLocaleModule(fr)
       default:
-        return (en as any).default || en
+        return this.unwrapLocaleModule(en)
     }
+  }
+
+  private unwrapLocaleModule(localeModule: unknown): AirDatepickerLocale {
+    if (typeof localeModule === 'object' && localeModule !== null && 'default' in localeModule) {
+      const moduleWithDefault = localeModule as { default?: unknown }
+      if (moduleWithDefault.default) {
+        return moduleWithDefault.default as AirDatepickerLocale
+      }
+
+      return localeModule as unknown as AirDatepickerLocale
+    }
+
+    return localeModule as AirDatepickerLocale
   }
 
   onCancel(): void {
