@@ -1,17 +1,15 @@
-/* Add your styles for the Form page here */
-.form-page {
-  padding: 20px;
-}
-
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   h5 {
     margin: 0;
   }
+
   .btn-copy {
     padding: 0;
+
     &:active {
       border-color: transparent;
     }

@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangTranslationService } from 'quang/translation'
 
-import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
-import { ExampleViewerComponent } from '../../../shared/components/example-viewer/example-viewer.component'
+import { ComponentDocumentationComponent } from '../../../../shared/components/component-documentation/component-documentation.component'
+import { ExampleViewerComponent } from '../../../../shared/components/example-viewer/example-viewer.component'
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
 
 // Import all examples and their code snippets
@@ -19,12 +19,15 @@ import {
   AUTOCOMPLETE_MULTIPLE_TS,
   AUTOCOMPLETE_SIMPLE_HTML,
   AUTOCOMPLETE_SIMPLE_TS,
+  AUTOCOMPLETE_TEMPLATE_HTML,
+  AUTOCOMPLETE_TEMPLATE_TS,
   AutocompleteAsyncExampleComponent,
   AutocompleteFreeTextExampleComponent,
   AutocompleteInteractiveExampleComponent,
   AutocompleteMultipleExampleComponent,
   AutocompleteSimpleExampleComponent,
-} from './examples'
+  AutocompleteTemplateExampleComponent,
+} from '../examples'
 
 @Component({
   selector: 'playground-autocomplete-showcase',
@@ -38,6 +41,7 @@ import {
     AutocompleteFreeTextExampleComponent,
     AutocompleteMultipleExampleComponent,
     AutocompleteInteractiveExampleComponent,
+    AutocompleteTemplateExampleComponent,
   ],
   templateUrl: './autocomplete-showcase.component.html',
   styleUrl: './autocomplete-showcase.component.scss',
@@ -66,6 +70,9 @@ export class AutocompleteShowcaseComponent {
   protected readonly multipleHtml = AUTOCOMPLETE_MULTIPLE_HTML
   protected readonly interactiveTs = AUTOCOMPLETE_INTERACTIVE_TS
   protected readonly interactiveHtml = AUTOCOMPLETE_INTERACTIVE_HTML
+
+  protected readonly templateTs = AUTOCOMPLETE_TEMPLATE_TS
+  protected readonly templateHtml = AUTOCOMPLETE_TEMPLATE_HTML
 
   // ==================== PROTECTED METHODS ====================
   protected scrollTo(event: Event, elementId: string): void {

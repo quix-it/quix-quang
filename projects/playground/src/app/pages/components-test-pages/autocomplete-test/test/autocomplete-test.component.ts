@@ -6,11 +6,11 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangTranslationService } from 'quang/translation'
 
-import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
+import { ComponentDocumentationComponent } from '../../../../shared/components/component-documentation/component-documentation.component'
 import { QuangAutocompleteComponent } from 'quang/components/autocomplete'
 import { ErrorData, SelectOption } from 'quang/components/shared'
 
-import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+import { SourceCodeDirective } from '../../../../shared/directives/source-code.directive'
 
 @Component({
   selector: 'playground-autocomplete-test',

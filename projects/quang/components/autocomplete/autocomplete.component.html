@@ -85,10 +85,16 @@
       selectionMode="single"
     />
   }
-  <div class="valid-feedback">
+  <div
+    [class.d-block]="_showSuccess()"
+    class="valid-feedback"
+  >
     {{ successMessage() | transloco }}
   </div>
-  <div class="invalid-feedback">
+  <div
+    [class.d-block]="_showErrors()"
+    class="invalid-feedback"
+  >
     {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
   </div>
   @if (helpMessage() && !helpMessageTooltip()) {
@@ -113,7 +119,18 @@
           class="chip chip-hover"
         >
           <p [ngClass]="{ 'm-0': isReadonly() || _isDisabled() }">
-            {{ getDescription(chip) }}
+            @if (getOptionByValue(chip); as opt) {
+              @if (opt.renderer) {
+                <ng-container
+                  [ngTemplateOutlet]="opt.renderer"
+                  [ngTemplateOutletContext]="{ $implicit: opt, selected: true, index: getOptionIndex(opt) }"
+                ></ng-container>
+              } @else {
+                {{ getDescription(chip) }}
+              }
+            } @else {
+              {{ getDescription(chip) }}
+            }
           </p>
           @if (!isReadonly() && !_isDisabled()) {
             <button

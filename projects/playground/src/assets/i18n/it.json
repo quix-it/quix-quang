@@ -40,6 +40,7 @@
       "checkbox": "Componente checkbox",
       "paginator": "Componente di paginazione",
       "select": "Componente select",
+      "radioGroup": "Componente radio group",
       "autocomplete": "Componente di autocomplete",
       "table": "Componente tabella",
       "readme": "Readme",
@@ -67,11 +68,14 @@
       "autocomplete": "Autocomplete intestazione",
       "wysiwyg": "Wysiwyg intestazione",
       "success": "Valido!",
+      "help": "Testo di aiuto",
       "formValue": "Valore form: {{value}}",
       "formValidity": "Form valido: {{valid}}"
     },
     "errors": {
       "required": "Questo campo è obbligatorio",
+      "requiredTrue": "Questo campo deve essere selezionato",
+      "noMatch": "Il valore non è valido",
       "minLength": "Lunghezza minima di {{requiredLength}} caratteri",
       "maxLength": "Lunghezza massima di {{requiredLength}} caratteri"
     },
@@ -86,6 +90,8 @@
       "checkForm": "Controlla valore e validità form",
       "readonly": "Readonly: {{readonly}}",
       "required": "Required: {{required}}",
+      "showSuccess": "Mostra successMessage: {{showSuccess}}",
+      "showHelperText": "Mostra helpMessage: {{showHelperText}}",
       "changeDateFormat": "Cambia formato data",
       "selectInputType": "Seleziona tipologia di input:",
       "changeHeight": "Cambia altezza",
@@ -105,6 +111,19 @@
       "isFiscalCode": "Valida che il valore sia un codice fiscale valido.",
       "isVatNumber": "Valida che il valore sia un numero di partita IVA valido per le località specificate.",
       "wysiwygRequired": "Valida che il contenuto dell'editor WYSIWYG non sia vuoto."
+    },
+    "showcase": {
+      "toc": {
+        "validators": "Validator",
+        "liveExample": "Esempio live"
+      },
+      "sections": {
+        "validatorsTitle": "Validator"
+      },
+      "liveExample": {
+        "title": "Esempio form live",
+        "description": "Invia valori non validi e vedi gli errori dopo markAllAsTouched()."
+      }
     }
   },
   "quangPaginator": {
@@ -153,6 +172,7 @@
       "input": "Input",
       "paginator": "Paginator",
       "select": "Select",
+      "radioGroup": "Radio group",
       "table": "Table",
       "checkbox": "Checkbox / Toggle",
       "wysiwyg": "Wysiwyg",
@@ -171,6 +191,10 @@
     "dataHandling": "Gestione Dati",
     "device": "Device",
     "form": "Validazione Form",
+    "formShowcase": "Showcase",
+    "formTest": "Test",
+    "formValidators": "Validator",
+    "formExample": "Esempio live",
     "network": "Network",
     "translation": "Traduzione",
     "language": {
@@ -204,7 +228,72 @@
       "html": "HTML"
     }
   },
+  "shared": {
+    "onThisPage": "In questa pagina",
+    "api": "API"
+  },
+  "toggle": {
+    "showcase": {
+      "subtitle": "Checkbox e toggle sono lo stesso componente con una presentazione diversa.",
+      "toc": {
+        "basic": "Base",
+        "interactive": "Interattivo"
+      }
+    },
+    "examples": {
+      "basic": {
+        "title": "Base",
+        "description": "Checkbox e toggle obbligatori in un form reattivo."
+      },
+      "interactive": {
+        "title": "Playground interattivo",
+        "description": "Prova diverse configurazioni (tipo, posizione label, readonly, required, disabled) e osserva la validazione."
+      }
+    }
+  },
   "examples": {
+    "select": {
+      "description": "Un componente select che supporta selezione singola e multipla.",
+      "single": {
+        "title": "Selezione singola",
+        "description": "Select obbligatoria a scelta singola collegata a un controllo di form reattivo."
+      },
+      "multiple": {
+        "title": "Selezione multipla",
+        "description": "Select obbligatoria a scelta multipla collegata a un controllo array."
+      },
+      "dynamic": {
+        "title": "Opzioni dinamiche",
+        "description": "Le opzioni si aggiornano frequentemente per verificare che il componente gestisca bene i cambiamenti dinamici."
+      },
+      "template": {
+        "title": "Opzioni con template",
+        "description": "Sostituisci il rendering di specifiche opzioni usando un template per-opzione."
+      }
+    },
+    "radioGroup": {
+      "description": "Un componente radio group con opzioni standard e template opzionali per singola opzione.",
+      "toc": "Esempi",
+      "api": "Riferimento API",
+      "standard": {
+        "title": "Opzioni standard",
+        "description": "Renderizza le opzioni con label e stato disabilitato usando il layout predefinito."
+      },
+      "template": {
+        "title": "Opzioni con template",
+        "description": "Sostituisci il rendering di specifiche opzioni usando il template renderer per opzione."
+      }
+    },
+    "checkbox": {
+      "interactive": {
+        "helper": "Usa i pulsanti per cambiare la configurazione del componente a runtime.",
+        "buttons": {
+          "toggleType": "Cambia tipo (attuale: {{type}})",
+          "labelPosition": "Posizione label (attuale: {{position}})",
+          "setValue": "Imposta valore a true"
+        }
+      }
+    },
     "autocomplete": {
       "description": "Un componente autocomplete flessibile con supporto per dati asincroni, inserimento testo libero e selezione multipla.",
       "toc": "Esempi",
@@ -254,6 +343,10 @@
         "selectOptionsTitle": "Opzioni di Selezione",
         "addOption": "Aggiungi Opzione",
         "noOptions": "Nessuna opzione disponibile. Clicca 'Aggiungi Opzione' per crearne una."
+      },
+      "template": {
+        "title": "Opzioni con template",
+        "description": "Sostituisci il rendering di specifiche opzioni usando un template per-opzione."
       }
     }
   },

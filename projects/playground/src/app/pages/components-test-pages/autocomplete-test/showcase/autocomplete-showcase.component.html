@@ -1,4 +1,4 @@
-<div class="autocomplete-showcase">
+<div class="playground-showcase">
   <!-- Page Header -->
   <div class="showcase-header">
     <h2>{{ 'title.components.autocomplete' | transloco }}</h2>
@@ -44,6 +44,13 @@
           (click)="scrollTo($event, 'interactive')"
           href="#"
           >{{ 'examples.autocomplete.interactive.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'template')"
+          href="#"
+          >{{ 'examples.autocomplete.template.title' | transloco }}</a
         >
       </li>
     </ul>
@@ -123,6 +130,21 @@
         [tsCode]="interactiveTs"
       >
         <playground-autocomplete-interactive-example />
+      </playground-example-viewer>
+    </div>
+
+    <!-- Template-based options -->
+    <div
+      class="example-section"
+      id="template"
+    >
+      <playground-example-viewer
+        [description]="'examples.autocomplete.template.description' | transloco"
+        [htmlCode]="templateHtml"
+        [title]="'examples.autocomplete.template.title' | transloco"
+        [tsCode]="templateTs"
+      >
+        <playground-autocomplete-template-example />
       </playground-example-viewer>
     </div>
   </section>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, viewChild } from '@angular/core'
+import { Component, ElementRef, TemplateRef, viewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
@@ -12,6 +12,16 @@ import { OptionListParentType, QuangOptionListComponent, SelectOption } from './
 @Component({
   template: `
     <button #buttonRef>Open</button>
+
+    <ng-template
+      #optTpl
+      let-index="index"
+      let-opt
+      let-selected="selected"
+    >
+      <span class="custom-opt">Custom {{ opt.label }} selected: {{ selected }} index: {{ index }}</span>
+    </ng-template>
+
     <quang-option-list
       [_value]="value"
       [nullOption]="nullOption"
@@ -29,6 +39,8 @@ import { OptionListParentType, QuangOptionListComponent, SelectOption } from './
 })
 class TestHostComponent {
   buttonRef = viewChild<ElementRef<HTMLButtonElement>>('buttonRef')
+
+  optTpl = viewChild<TemplateRef<any>>('optTpl')
 
   get buttonElement(): HTMLButtonElement {
     return this.buttonRef()?.nativeElement as HTMLButtonElement
@@ -55,6 +67,14 @@ class TestHostComponent {
 
   onBlur(event: unknown): void {
     this.blurEvent = event
+  }
+
+  setTemplatedOptions(): void {
+    this.options = [
+      { label: 'Italy', value: 'IT' },
+      { label: 'France', value: 'FR', renderer: this.optTpl() },
+      { label: 'Germany', value: 'DE' },
+    ]
   }
 }
 
@@ -161,6 +181,18 @@ describe('QuangOptionListComponent - Basic Rendering', () => {
     expect(options.length).toBe(4)
     expect(options[0]).toEqual({ label: '', value: null })
     expect(options[1]).toEqual({ label: 'Italy', value: 'IT' })
+  })
+
+  it('should render option renderer when provided', () => {
+    hostComponent.value = 'FR'
+    hostComponent.setTemplatedOptions()
+    fixture.detectChanges()
+
+    const custom = fixture.nativeElement.querySelector('.custom-opt') as HTMLElement | null
+    expect(custom).toBeTruthy()
+    expect(custom?.textContent).toContain('Custom France')
+    expect(custom?.textContent).toContain('selected: true')
+    expect(custom?.textContent).toContain('index: 2')
   })
 })
 

@@ -78,15 +78,20 @@
   .code-block {
     margin: 0;
     padding: 1rem;
-    background: var(--bs-dark-bg-subtle);
     font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
     font-size: 0.8125rem;
     line-height: 1.6;
     overflow-x: auto;
     white-space: pre;
 
+    /* Prism's default theme adds a text-shadow that can look blurry
+     * on our themed backgrounds (especially in dark mode).
+     */
+    text-shadow: none;
+
     code {
-      color: var(--bs-code-color);
+      color: inherit;
+      text-shadow: none;
     }
   }
 }

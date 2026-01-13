@@ -1,5 +1,4 @@
-import { JsonPipe } from '@angular/common'
-import { DatePipe } from '@angular/common'
+import { DatePipe, JsonPipe } from '@angular/common'
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, viewChild } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
@@ -7,11 +6,11 @@ import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangTranslationService } from 'quang/translation'
 
-import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
+import { ComponentDocumentationComponent } from '../../../../shared/components/component-documentation/component-documentation.component'
 import { QuangSelectComponent } from 'quang/components/select'
 import { SelectOption } from 'quang/components/shared'
 
-import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+import { SourceCodeDirective } from '../../../../shared/directives/source-code.directive'
 
 @Component({
   selector: 'playground-select-test',
@@ -30,9 +29,9 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectTestComponent {
-  // Expose QuangSelectComponent for use in the template
   protected QuangSelectComponent = QuangSelectComponent
   private readonly quangTranslationService = inject(QuangTranslationService)
+
   testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {
@@ -47,7 +46,6 @@ export class SelectTestComponent {
   )
 
   isReadonly = signal<boolean>(false)
-
   showValueAndValidity = signal<boolean>(false)
 
   singleList: SelectOption[] = [
@@ -143,7 +141,6 @@ export class SelectTestComponent {
     },
   ]
 
-  // Auto-updating options list for testing graceful handling of dynamic changes
   autoUpdateTimestamp = signal<number>(Date.now())
   autoUpdateOptionsList = signal<SelectOption[]>([
     {
@@ -245,7 +242,6 @@ export class SelectTestComponent {
   }
 
   constructor() {
-    // Set up auto-update effect for the "now" option label
     effect(() => {
       this.autoUpdateTimestamp()
       this.autoUpdateOptionsList.update((options) => {
@@ -269,7 +265,6 @@ export class SelectTestComponent {
       this.testForm.controls.testInputMultiple.patchValue([1])
     }, 5000)
 
-    // Update the timestamp signal every 500ms to trigger the effect
     setInterval(() => {
       this.autoUpdateTimestamp.set(Date.now())
     }, 500)

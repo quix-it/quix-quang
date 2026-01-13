@@ -1,0 +1,69 @@
+<div class="playground-showcase toggle-showcase">
+  <header class="showcase-header">
+    <h1>{{ 'menu.components.checkbox' | transloco }}</h1>
+    <p>{{ 'toggle.showcase.subtitle' | transloco }}</p>
+  </header>
+
+  <nav class="showcase-toc">
+    <h2>{{ 'shared.onThisPage' | transloco }}</h2>
+    <ul>
+      <li>
+        <a
+          (click)="scrollTo($event, 'basic')"
+          href="#basic"
+          >{{ 'toggle.showcase.toc.basic' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'interactive')"
+          href="#interactive"
+          >{{ 'toggle.showcase.toc.interactive' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'api')"
+          href="#api"
+          >{{ 'shared.api' | transloco }}</a
+        >
+      </li>
+    </ul>
+  </nav>
+
+  <section class="showcase-examples">
+    <section id="basic">
+      <playground-example-viewer
+        [description]="'toggle.examples.basic.description' | transloco"
+        [htmlCode]="basicHtml"
+        [title]="'toggle.examples.basic.title' | transloco"
+        [tsCode]="basicTs"
+      >
+        <playground-toggle-basic-example />
+      </playground-example-viewer>
+    </section>
+
+    <section id="interactive">
+      <playground-example-viewer
+        [description]="'toggle.examples.interactive.description' | transloco"
+        [htmlCode]="interactiveHtml"
+        [title]="'toggle.examples.interactive.title' | transloco"
+        [tsCode]="interactiveTs"
+      >
+        <playground-toggle-interactive-example />
+      </playground-example-viewer>
+    </section>
+  </section>
+
+  <section
+    class="showcase-api"
+    id="api"
+  >
+    <h2>{{ 'shared.api' | transloco }}</h2>
+    <playground-component-documentation
+      [componentType]="checkboxComponentType"
+      [customReadmePath]="componentsReadmePath()"
+      [readmeOnly]="true"
+    />
+  </section>
+</div>

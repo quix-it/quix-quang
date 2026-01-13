@@ -11,7 +11,7 @@ import 'zone.js'
 import { QuangDateComponent } from './date.component'
 
 @Component({
-  selector: 'test-two-datepickers',
+  selector: 'quang-two-datepickers-test',
   standalone: true,
   imports: [QuangDateComponent, ReactiveFormsModule],
   template: `
@@ -38,7 +38,7 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
 
   beforeEach(async () => {
     // Create and append the host element for the test component
-    container = document.createElement('test-two-datepickers')
+    container = document.createElement('quang-two-datepickers-test')
     document.body.appendChild(container)
 
     // Bootstrap the test component
@@ -74,8 +74,8 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
     expect(input1).toBeTruthy()
     expect(input2).toBeTruthy()
 
-    // Focus the first datepicker - this should open its calendar
-    input1.focus()
+    // Click the first datepicker - this should open its calendar
+    input1.click()
     await wait(300)
 
     // Verify calendar opened
@@ -124,8 +124,8 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
 
     expect(input1).toBeTruthy()
 
-    // Focus the first datepicker to open calendar
-    input1.focus()
+    // Click the first datepicker to open calendar
+    input1.click()
     await wait(400) // Give more time for onShow to complete
 
     // Find the calendar container and a day cell
@@ -151,6 +151,10 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
       dayCell.click()
       await wait(400)
 
+      // After selecting a date, the picker should be hidden (not re-opened)
+      const activeCalendarsAfterSelect = document.querySelectorAll('.air-datepicker.-active-')
+      expect(activeCalendarsAfterSelect.length).toBe(0)
+
       // After mouse click with mouse inside calendar, focus should return to input
       // But if mouse tracking wasn't set up, focus goes to body (acceptable)
       const activeElement = document.activeElement
@@ -167,8 +171,17 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
 
     expect(input1).toBeTruthy()
 
-    // Focus the first datepicker to open calendar
     input1.focus()
+    await wait(50)
+
+    // Open calendar with keyboard intent
+    const openEvent = new KeyboardEvent('keydown', {
+      key: 'Enter',
+      code: 'Enter',
+      bubbles: true,
+      cancelable: true,
+    })
+    input1.dispatchEvent(openEvent)
     await wait(300)
 
     // Find the calendar element
@@ -186,6 +199,10 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
     calendar.dispatchEvent(enterEvent)
 
     await wait(300)
+
+    // Picker should stay hidden after selection
+    const activeCalendarsAfterSelect = document.querySelectorAll('.air-datepicker.-active-')
+    expect(activeCalendarsAfterSelect.length).toBe(0)
 
     // Focus should return to the input after keyboard selection
     // Note: This depends on calendar being focused during keyboard interaction
