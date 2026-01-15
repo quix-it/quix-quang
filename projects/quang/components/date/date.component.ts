@@ -470,13 +470,6 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   }
 
   onHideCalendar(): void {
-    // if (this.showInline()) {
-    //   // Inline mode should never parse from the (hidden) input on hide.
-    //   // Value is propagated through `onSelect` / timepicker input handlers.
-    //   this.propagateValueToControl()
-    //   return
-    // }
-
     const valueInput: string = this._inputForDate()?.nativeElement.value
     let value: string | DateRange = valueInput
     if (this.rangeSelection()) {
@@ -527,6 +520,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       return format(val, this.valueFormat())
     }
     if (val && typeof val === 'object') {
+      if (!val.dateFrom && !val.dateTo) {
+        return ''
+      }
       let dateFromFormat = ''
       let dateToFormat = ''
       if (val.dateFrom) {
