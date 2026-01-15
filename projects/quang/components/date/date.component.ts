@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common'
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   computed,
@@ -11,6 +12,8 @@ import {
   signal,
   viewChild,
 } from '@angular/core'
+import { NgZone } from '@angular/core'
+import { ApplicationRef } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
@@ -58,6 +61,11 @@ export type QuangDatepickerOptions = AirDatepickerOptions
  * events might cause the component to malfunction.
  */
 export class QuangDateComponent extends QuangBaseComponent<string | DateRange | null> {
+  private readonly _ngZone = inject(NgZone)
+  private readonly _cdr = inject(ChangeDetectorRef)
+  private readonly _appRef = inject(ApplicationRef)
+  private _tickScheduled = false
+
   /**
    * Format to use to show on the input field.
    * The format is based on the standard {@link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table}
@@ -141,6 +149,10 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
   _airDatepickerInstance = signal<AirDatepicker | undefined>(undefined)
 
+  // AirDatepicker doesn't reliably support toggling `inline` at runtime via `update()`.
+  // Track the mode used to create the current instance and recreate when it changes.
+  private readonly _airDatepickerInlineMode = signal<boolean | null>(null)
+
   searchTextDebounce = input<number>(500)
 
   targetPosition = signal<AirDatepickerPosition>('bottom left')
@@ -178,112 +190,159 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   private _shouldRefocusInputOnHide = signal(false)
 
   setupCalendar() {
-    if (this._inputForDate()?.nativeElement) {
-      let currentValue = this._value()
-      let targetDate: AirDatepickerDate[] | undefined
-      if (currentValue && typeof currentValue === 'string') {
-        if (!this.showTimepicker()) {
-          currentValue = currentValue.split('T')[0]
-        }
-        targetDate = [currentValue]
-      } else if (currentValue && typeof currentValue === 'object') {
-        targetDate = []
-        if (currentValue.dateFrom) {
-          let targetDateFrom: string = currentValue.dateFrom
-          if (!this.showTimepicker()) {
-            targetDateFrom = currentValue.dateFrom.split('T')[0]
-          }
-          targetDate.push(targetDateFrom)
-        }
-        if (currentValue.dateTo) {
-          let targetDateTo: string = currentValue.dateTo
-          if (!this.showTimepicker()) {
-            targetDateTo = currentValue.dateTo.split('T')[0]
-          }
-          targetDate.push(targetDateTo)
-        }
-      }
-      this.setCalendarPosition()
-      const airDatepickerOpts: QuangDatepickerOptions = {
-        autoClose: true,
-        showEvent: 'click',
-        classes: this.calendarClasses(),
-        dateFormat: this.dateFormat(),
-        inline: this.showInline(),
-        isMobile: false,
-        multipleDatesSeparator: this.multipleDatesSeparator(),
-        range: this.rangeSelection(),
-        timepicker: this.showTimepicker(),
-        onlyTimepicker: this.showOnlyTimepicker(),
-        timeFormat: this.timeFormat(),
-        minHours: this.minHour(),
-        maxHours: this.maxHour(),
-        minMinutes: this.minMinute(),
-        maxMinutes: this.maxMinute(),
-        minDate: this.minDate(),
-        maxDate: this.maxDate(),
-        toggleSelected: false,
-        multipleDates: false,
-        selectedDates: targetDate,
-        position: this.targetPosition(),
-        locale: this.getLocale(),
+    if (!this._inputForDate()?.nativeElement) return
 
-        onSelect: ({ date }) => {
+    const desiredInlineMode = this.showInline()
+
+    const existingInstance = this._airDatepickerInstance()
+    const existingInlineMode = this._airDatepickerInlineMode()
+
+    if (existingInstance && existingInlineMode !== null && existingInlineMode !== desiredInlineMode) {
+      const maybeDestroy = existingInstance as unknown as { destroy?: () => void }
+      maybeDestroy.destroy?.()
+      this._airDatepickerInstance.set(undefined)
+    }
+
+    let currentValue = this._value()
+    let targetDate: AirDatepickerDate[] | undefined
+    if (currentValue && typeof currentValue === 'string') {
+      if (!this.showTimepicker()) {
+        currentValue = currentValue.split('T')[0]
+      }
+      targetDate = [currentValue]
+    } else if (currentValue && typeof currentValue === 'object') {
+      targetDate = []
+      if (currentValue.dateFrom) {
+        const targetDateFrom: string = this.showTimepicker()
+          ? currentValue.dateFrom
+          : currentValue.dateFrom.split('T')[0]
+        targetDate.push(targetDateFrom)
+      }
+      if (currentValue.dateTo) {
+        const targetDateTo: string = this.showTimepicker() ? currentValue.dateTo : currentValue.dateTo.split('T')[0]
+        targetDate.push(targetDateTo)
+      }
+    }
+
+    this.setCalendarPosition()
+
+    const userDatepickerOptions = this.datepickerOptions() ?? {}
+    const userOnSelect = userDatepickerOptions.onSelect
+    const userOnHide = userDatepickerOptions.onHide
+    const userOnShow = userDatepickerOptions.onShow
+
+    const airDatepickerOpts: QuangDatepickerOptions = {
+      ...userDatepickerOptions,
+      autoClose: !this.showInline(),
+      showEvent: 'click',
+      classes: this.calendarClasses(),
+      dateFormat: this.dateFormat(),
+      inline: this.showInline(),
+      isMobile: false,
+      multipleDatesSeparator: this.multipleDatesSeparator(),
+      range: this.rangeSelection(),
+      timepicker: this.showTimepicker(),
+      onlyTimepicker: this.showOnlyTimepicker(),
+      timeFormat: this.timeFormat(),
+      minHours: this.minHour(),
+      maxHours: this.maxHour(),
+      minMinutes: this.minMinute(),
+      maxMinutes: this.maxMinute(),
+      minDate: this.minDate(),
+      maxDate: this.maxDate(),
+      toggleSelected: false,
+      multipleDates: false,
+      selectedDates: targetDate,
+      position: this.targetPosition(),
+      locale: this.getLocale(),
+
+      onSelect: (args) => {
+        const { date } = args
+        // AirDatepicker callbacks may fire outside Angular's zone in some app setups.
+        // Ensure CVA propagation happens inside the zone so the connected FormControl updates reliably.
+        this._ngZone.run(() => {
           this._shouldRefocusInputOnHide.set(true)
-          if (!Array.isArray(date)) {
-            let selectTargetDate = date
-            if (!this.showTimepicker()) {
-              selectTargetDate = this.dateToUtc(date)
+
+          if (Array.isArray(date)) {
+            // Range selection: AirDatepicker emits partial selections too (only start date).
+            // Committing `_value` for partial selections can trigger `setupCalendar()` re-sync and
+            // break the second click. Only commit once the range is complete.
+            const [from, to] = date
+            if (!from || !to) {
+              return
             }
+
+            const value: DateRange = {
+              dateFrom: (this.showTimepicker() ? from : this.dateToUtc(from)).toISOString(),
+              dateTo: (this.showTimepicker() ? to : this.dateToUtc(to)).toISOString(),
+            }
+            this.onChangedHandler(value)
+          } else if (date) {
+            const selectTargetDate = this.showTimepicker() ? date : this.dateToUtc(date)
             this.onChangedHandler(selectTargetDate.toISOString())
           }
+
           if (this.showInline()) {
-            this.onHideCalendar()
+            // Inline mode should update the connected control immediately.
+            // Do not rely on `onHideCalendar()` because inline never hides and the input may be visually hidden.
+            this.propagateValueToControl()
           }
-        },
-        onHide: (isAnimationComplete: boolean) => {
-          if (isAnimationComplete) {
-            this.onHideCalendar()
-          }
-        },
-        ...(this.datepickerOptions() ?? {}),
-        onShow: (isAnimationComplete) => {
-          const datepicker = this._airDatepickerInstance()?.$datepicker
-          if (datepicker) {
-            datepicker.onmouseenter = () => {
-              this.isMouseInsideCalendar.set(true)
-            }
-            datepicker.onmouseleave = () => {
-              this.isMouseInsideCalendar.set(false)
-            }
-          }
-          if (isAnimationComplete || !this.showTimepicker()) {
-            return
-          }
-          this.setupTimepicker()
-        },
-      }
+        })
 
-      if (this._airDatepickerInstance()) {
-        if (this._airDatepickerInstance()?.visible) {
-          this._airDatepickerInstance()?.update(airDatepickerOpts)
-        } else {
-          this._airDatepickerInstance()?.update(airDatepickerOpts, { silent: true })
+        userOnSelect?.(args)
+      },
+      onHide: (isAnimationComplete: boolean) => {
+        if (isAnimationComplete) {
+          this.onHideCalendar()
         }
 
-        if (!targetDate) {
-          this._airDatepickerInstance()?.setFocusDate(false)
-          this._airDatepickerInstance()?.clear({ silent: true })
-        } else {
-          this._airDatepickerInstance()?.selectDate(targetDate, { updateTime: true })
+        userOnHide?.(isAnimationComplete)
+      },
+      onShow: (isAnimationComplete) => {
+        const datepicker = this._airDatepickerInstance()?.$datepicker
+        if (datepicker) {
+          datepicker.onmouseenter = () => {
+            this.isMouseInsideCalendar.set(true)
+          }
+          datepicker.onmouseleave = () => {
+            this.isMouseInsideCalendar.set(false)
+          }
         }
-      } else {
-        this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
-      }
-
-      if (this.showInline()) {
+        if (isAnimationComplete || !this.showTimepicker()) {
+          return
+        }
         this.setupTimepicker()
+
+        userOnShow?.(isAnimationComplete)
+      },
+    }
+
+    if (this._airDatepickerInstance()) {
+      if (this._airDatepickerInstance()?.visible) {
+        this._airDatepickerInstance()?.update(airDatepickerOpts)
+      } else {
+        this._airDatepickerInstance()?.update(airDatepickerOpts, { silent: true })
       }
+
+      if (targetDate) {
+        this._airDatepickerInstance()?.selectDate(targetDate, { updateTime: true, silent: true })
+      } else {
+        this._airDatepickerInstance()?.setFocusDate(false)
+        this._airDatepickerInstance()?.clear({ silent: true })
+      }
+    } else {
+      this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
+    }
+
+    this._airDatepickerInlineMode.set(desiredInlineMode)
+
+    if (desiredInlineMode) {
+      // Ensure inline calendar is visible after re-creation/update.
+      this._airDatepickerInstance()?.show?.()
+    }
+
+    if (this.showInline()) {
+      this.setupTimepicker()
     }
   }
 
@@ -293,14 +352,26 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       // TODO: check format for DateRange
       if (value.length === this.valueFormat().length && isMatch(value, this.valueFormat())) {
         this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
+
+        if (this.showInline()) {
+          this.propagateValueToControl()
+        }
       }
     } else {
       this.onChangedHandler(value)
+
+      if (this.showInline()) {
+        this.propagateValueToControl()
+      }
     }
   }
 
   override onBlurHandler() {
     super.onBlurHandler()
+
+    if (this.showInline()) {
+      return
+    }
 
     if (this.isMouseOutsideCalendar() && this._airDatepickerInstance()?.visible) {
       this._airDatepickerInstance()?.hide()
@@ -312,9 +383,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
     if (value.length !== targetValueFormat.length) {
       targetValueFormat = targetValueFormat.replace('yyyy', 'yy')
     }
-    let targetDate = parse(value, targetValueFormat, new Date())
+    const targetDate = parse(value, targetValueFormat, new Date())
     if (!this.showTimepicker()) {
-      targetDate = this.dateToUtc(targetDate)
+      return this.dateToUtc(targetDate)
     }
     return targetDate
   }
@@ -355,7 +426,57 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
     this._value.set(targetDate)
   }
 
+  private propagateValueToControl(): void {
+    if (this.formControl()?.getRawValue() !== this._value()) {
+      super.onChangedHandler(this._value())
+    } else if (this.onTouched) {
+      this.onTouched()
+    }
+
+    this.requestRender()
+  }
+
+  private requestRender(): void {
+    // Inline datepicker interactions can happen outside Angular-managed events.
+    // Marking the view dirty is not always enough in zoneless/event-coalesced setups,
+    // so we coalesce a manual tick.
+    this._cdr.markForCheck()
+
+    if (this._tickScheduled) {
+      return
+    }
+
+    this._tickScheduled = true
+    queueMicrotask(() => {
+      this._tickScheduled = false
+      this._appRef.tick()
+    })
+  }
+
+  private syncValueFromDatepickerSelection(): void {
+    if (!this.showInline()) {
+      return
+    }
+
+    const datepickerInstance = this._airDatepickerInstance() as unknown as { selectedDates?: Date[] } | undefined
+    const selectedDate = datepickerInstance?.selectedDates?.[0]
+    if (!(selectedDate instanceof Date)) {
+      return
+    }
+
+    const targetDate = this.showTimepicker() ? selectedDate : this.dateToUtc(selectedDate)
+    this.onChangedHandler(targetDate.toISOString())
+    this.propagateValueToControl()
+  }
+
   onHideCalendar(): void {
+    // if (this.showInline()) {
+    //   // Inline mode should never parse from the (hidden) input on hide.
+    //   // Value is propagated through `onSelect` / timepicker input handlers.
+    //   this.propagateValueToControl()
+    //   return
+    // }
+
     const valueInput: string = this._inputForDate()?.nativeElement.value
     let value: string | DateRange = valueInput
     if (this.rangeSelection()) {
@@ -363,16 +484,14 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       const [dateFrom, dateTo] = valueInput.split(this.multipleDatesSeparator())
       value.dateFrom = dateFrom ?? ''
       value.dateTo = dateTo ?? ''
-      if (!value.dateFrom || !this.checkDateMatch(value.dateFrom)) {
-        value.dateFrom = null
-      } else {
-        value.dateFrom = this.setupInputStringToDate(value.dateFrom).toISOString()
-      }
-      if (!value.dateTo || !this.checkDateMatch(value.dateTo)) {
-        value.dateTo = null
-      } else {
-        value.dateTo = this.setupInputStringToDate(value.dateTo).toISOString()
-      }
+      value.dateFrom =
+        !value.dateFrom || !this.checkDateMatch(value.dateFrom)
+          ? null
+          : this.setupInputStringToDate(value.dateFrom).toISOString()
+      value.dateTo =
+        !value.dateTo || !this.checkDateMatch(value.dateTo)
+          ? null
+          : this.setupInputStringToDate(value.dateTo).toISOString()
       this.onChangedHandler(value)
     } else if (this.checkDateMatch(value)) {
       this.onChangedHandler(this.setupInputStringToDate(value).toISOString())
@@ -380,10 +499,10 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       this.onChangedHandler(null)
     }
 
-    if (this.formControl()?.getRawValue() !== this._value()) {
-      super.onChangedHandler(this._value())
-    } else if (this.onTouched) {
-      this.onTouched()
+    this.propagateValueToControl()
+
+    if (this.showInline()) {
+      return
     }
 
     // Only focus the input when the user actually interacted with the calendar.
@@ -441,10 +560,10 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       return
     }
 
-    const dp = this._airDatepickerInstance()
-    if (event.key === 'Escape' && dp?.visible) {
+    const datepickerInstance = this._airDatepickerInstance()
+    if (event.key === 'Escape' && datepickerInstance?.visible) {
       event.preventDefault()
-      dp.hide()
+      datepickerInstance.hide()
       return
     }
 
@@ -465,13 +584,13 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   getLocale(): AirDatepickerLocale {
     switch (this._activeLanguage()?.toLowerCase()) {
       case 'en':
-        return (en as any).default || en
+        return (en as unknown as { default?: AirDatepickerLocale }).default ?? (en as unknown as AirDatepickerLocale)
       case 'it':
-        return (it as any).default || it
+        return (it as unknown as { default?: AirDatepickerLocale }).default ?? (it as unknown as AirDatepickerLocale)
       case 'fr':
-        return (fr as any).default || fr
+        return (fr as unknown as { default?: AirDatepickerLocale }).default ?? (fr as unknown as AirDatepickerLocale)
       default:
-        return (en as any).default || en
+        return (en as unknown as { default?: AirDatepickerLocale }).default ?? (en as unknown as AirDatepickerLocale)
     }
   }
 
@@ -482,11 +601,6 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   private dateToUtc(date: Date): Date {
     // convert to UTC time removing the timezone
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
-  }
-
-  private dateToLocal(date: Date): Date {
-    // convert to local time adding the timezone
-    return new Date(date.getTime() + date.getTimezoneOffset() * 60000)
   }
 
   private setCalendarPosition() {
@@ -501,8 +615,30 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   }
 
   private setupTimepicker() {
-    const timepicker = document.getElementsByClassName('air-datepicker-time')?.[0]
-    if (timepicker) {
+    const datepickerRoot = this._airDatepickerInstance()?.$datepicker as HTMLElement | undefined
+    if (!datepickerRoot) {
+      return
+    }
+
+    // AirDatepicker may re-render time inputs; use delegated listeners so we don't lose handlers.
+    if (!datepickerRoot.dataset['quangTimepickerListeners']) {
+      datepickerRoot.dataset['quangTimepickerListeners'] = 'true'
+
+      datepickerRoot.addEventListener(
+        'input',
+        () => {
+          if (!this.showInline()) {
+            return
+          }
+          // Let AirDatepicker update its internal selection first.
+          setTimeout(() => this._ngZone.run(() => this.syncValueFromDatepickerSelection()), 0)
+        },
+        { capture: true }
+      )
+    }
+
+    const timepickers = datepickerRoot.getElementsByClassName('air-datepicker-time')
+    for (const timepicker of Array.from(timepickers)) {
       const inputs = timepicker.getElementsByTagName('input')
       for (const input of Array.from(inputs)) {
         input.setAttribute('type', 'number')
@@ -512,7 +648,7 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
           evt.stopImmediatePropagation()
         }
         input.onblur = () => {
-          if (this.isMouseOutsideCalendar()) {
+          if (!this.showInline() && this.isMouseOutsideCalendar()) {
             this._airDatepickerInstance()?.hide()
           }
         }

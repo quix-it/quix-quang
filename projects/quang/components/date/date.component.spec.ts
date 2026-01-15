@@ -22,7 +22,11 @@ vi.mock('air-datepicker', () => {
   class AirDatepickerMock {
     visible = false
     $datepicker = document.createElement('div')
-    constructor(_el: unknown, _opts: unknown) {}
+    selectedDates: Date[] = []
+    opts: any
+    constructor(_el: unknown, opts: unknown) {
+      this.opts = opts
+    }
     update(_opts: unknown, _updateOpts?: unknown) {}
     setFocusDate(_value: unknown) {}
     clear(_opts?: unknown) {}
@@ -111,6 +115,23 @@ class TestHostComponent {
   }
 }
 
+@Component({
+  template: `
+    <quang-date
+      [formControl]="control"
+      [showInline]="true"
+      [showOnlyTimepicker]="true"
+      componentId="timeOnly"
+      componentLabel="Time"
+    />
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangDateComponent],
+})
+class InlineTimeOnlyHostComponent {
+  control = new FormControl<string | null>('2026-01-15T10:12:00.000Z')
+}
+
 describe('QuangDateComponent', () => {
   let fixture: ComponentFixture<TestHostComponent>
 
@@ -144,5 +165,48 @@ describe('QuangDateComponent', () => {
     const inputsAfter = fixture.debugElement.queryAll(By.css('quang-date input.form-control'))
     expect((inputsAfter[0].nativeElement as HTMLInputElement).classList.contains('is-invalid')).toBe(true)
     expect((inputsAfter[1].nativeElement as HTMLInputElement).classList.contains('is-invalid')).toBe(true)
+  })
+})
+
+describe('QuangDateComponent - inline mode', () => {
+  it('should propagate value to the form control in inline time-only mode when timepicker inputs change', async () => {
+    vi.useFakeTimers()
+
+    await TestBed.configureTestingModule({
+      imports: [InlineTimeOnlyHostComponent],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    const fixture = TestBed.createComponent(InlineTimeOnlyHostComponent)
+    fixture.detectChanges()
+
+    const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
+    const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
+    const dp = dateCmp._airDatepickerInstance() as any
+
+    // Provide a fake timepicker DOM under the current datepicker instance root.
+    const timepickerRoot = document.createElement('div')
+    timepickerRoot.className = 'air-datepicker-time'
+    const h = document.createElement('input')
+    const m = document.createElement('input')
+    timepickerRoot.appendChild(h)
+    timepickerRoot.appendChild(m)
+    dp.$datepicker.appendChild(timepickerRoot)
+
+    // Re-run setup to attach handlers onto the newly created inputs.
+    dateCmp['setupTimepicker']()
+
+    // Simulate that AirDatepicker updated its internal selected date (after user changes time).
+    dp.selectedDates = [new Date('2026-01-15T11:24:00.000Z')]
+
+    // Trigger the handler that the component attaches in setupTimepicker.
+    h.dispatchEvent(new Event('input', { bubbles: true }))
+
+    vi.runAllTimers()
+    fixture.detectChanges()
+
+    expect(fixture.componentInstance.control.value).toBe('2026-01-15T11:24:00.000Z')
+
+    vi.useRealTimers()
   })
 })

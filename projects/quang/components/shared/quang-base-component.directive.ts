@@ -96,8 +96,8 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
     this.onChange = fn
   }
 
-  writeValue(val: T): void {
-    this._value.set(val)
+  writeValue(value: T): void {
+    this._value.set(value)
   }
 
   registerOnTouched(fn: () => void): void {

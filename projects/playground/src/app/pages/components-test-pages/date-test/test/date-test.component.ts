@@ -14,10 +14,10 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { SvgIconComponent } from 'angular-svg-icon'
 import { QuangTranslationService } from 'quang/translation'
 
-import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
+import { ComponentDocumentationComponent } from '../../../../shared/components/component-documentation/component-documentation.component'
 import { DateRange, QuangDateComponent } from 'quang/components/date'
 
-import { SourceCodeDirective } from '../../../shared/directives/source-code.directive'
+import { SourceCodeDirective } from '../../../../shared/directives/source-code.directive'
 
 @Component({
   selector: 'playground-date-test',
