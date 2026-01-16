@@ -61,10 +61,14 @@
           </div>
         }
         @case ('ts') {
-          <pre class="code-block"><code>{{ tsCode() }}</code></pre>
+          <pre
+            class="code-block language-typescript"
+          ><code class="language-typescript" [innerHTML]="highlightedTs()"></code></pre>
         }
         @case ('html') {
-          <pre class="code-block"><code>{{ htmlCode() }}</code></pre>
+          <pre
+            class="code-block language-html"
+          ><code class="language-html" [innerHTML]="highlightedHtml()"></code></pre>
         }
       }
     </div>

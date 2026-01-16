@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core'
+import { Component, Injectable, TemplateRef, viewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { By } from '@angular/platform-browser'
@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { QuangSelectComponent } from './select.component'
-import { SelectOption } from 'quang/components/shared'
+import { QuangSelectOptionTemplateContext, SelectOption } from 'quang/components/shared'
 
 // Mock transloco loader for testing
 @Injectable()
@@ -55,6 +55,48 @@ class TestHostComponent {
   ]
 }
 
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <ng-template
+        #optTpl
+        let-opt
+        let-selected="selected"
+      >
+        <span class="custom-opt">Custom {{ opt.label }} selected: {{ selected }}</span>
+      </ng-template>
+
+      <quang-select
+        [selectOptions]="options"
+        formControlName="country"
+      />
+    </form>
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangSelectComponent],
+})
+class TestHostTemplatedComponent {
+  form = new FormGroup({
+    country: new FormControl<string | null>(null),
+  })
+
+  private readonly optTpl = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('optTpl')
+
+  options: SelectOption[] = [
+    { label: 'Italy', value: 'IT' },
+    { label: 'France', value: 'FR' },
+    { label: 'Germany', value: 'DE' },
+  ]
+
+  setTemplatedOptions(): void {
+    this.options = [
+      { label: 'Italy', value: 'IT' },
+      { label: 'France', value: 'FR', renderer: this.optTpl() },
+      { label: 'Germany', value: 'DE' },
+    ]
+  }
+}
+
 describe('QuangSelectComponent', () => {
   let fixture: ComponentFixture<TestHostComponent>
   let hostComponent: TestHostComponent
@@ -68,7 +110,7 @@ describe('QuangSelectComponent', () => {
     Element.prototype.scrollIntoView = vi.fn()
 
     await TestBed.configureTestingModule({
-      imports: [TestHostComponent, NoopAnimationsModule],
+      imports: [TestHostComponent, TestHostTemplatedComponent, NoopAnimationsModule],
       providers: [getTranslocoTestingProviders()],
     }).compileComponents()
 
@@ -144,5 +186,21 @@ describe('QuangSelectComponent', () => {
 
     // Button should be focused
     expect(document.activeElement).toBe(buttonElement)
+  })
+
+  it('should render selected option renderer template in the field when provided', async () => {
+    const templatedFixture = TestBed.createComponent(TestHostTemplatedComponent)
+    templatedFixture.detectChanges()
+
+    const templatedHost = templatedFixture.componentInstance
+    templatedHost.setTemplatedOptions()
+    templatedHost.form.get('country')?.setValue('FR')
+    templatedFixture.detectChanges()
+    await vi.advanceTimersByTimeAsync(0)
+
+    const custom = templatedFixture.nativeElement.querySelector('.custom-opt') as HTMLElement | null
+    expect(custom).toBeTruthy()
+    expect(custom?.textContent).toContain('Custom France')
+    expect(custom?.textContent).toContain('selected: true')
   })
 })

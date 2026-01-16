@@ -3,6 +3,12 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, signal } f
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
+import * as Prism from 'prismjs'
+
+import 'prismjs/components/prism-clike'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-markup'
+import 'prismjs/components/prism-typescript'
 
 @Component({
   selector: 'playground-example-viewer',
@@ -44,6 +50,29 @@ export class ExampleViewerComponent {
   protected hasTsCode = computed(() => this.tsCode().trim().length > 0)
   protected hasHtmlCode = computed(() => this.htmlCode().trim().length > 0)
   protected showCodeTabs = computed(() => this.hasTsCode() || this.hasHtmlCode())
+
+  protected highlightedTs = computed(() => {
+    const code = this.tsCode()
+    const grammar = Prism.languages['typescript']
+    if (!code || !grammar) return this.escapeHtml(code)
+    return Prism.highlight(code, grammar, 'typescript')
+  })
+
+  protected highlightedHtml = computed(() => {
+    const code = this.htmlCode()
+    const grammar = Prism.languages['markup']
+    if (!code || !grammar) return this.escapeHtml(code)
+    return Prism.highlight(code, grammar, 'markup')
+  })
+
+  private escapeHtml(code: string): string {
+    return code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;')
+  }
 
   // ==================== PROTECTED METHODS ====================
   protected setActiveTab(tab: 'result' | 'ts' | 'html'): void {

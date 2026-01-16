@@ -35,6 +35,10 @@ export const menuList: MenuItem[] = [
         description: 'menu.components.select',
       },
       {
+        route: 'components/radio-group',
+        description: 'menu.components.radioGroup',
+      },
+      {
         route: 'components/table',
         description: 'menu.components.table',
       },
@@ -91,7 +95,16 @@ export const menuList: MenuItem[] = [
   },
   {
     description: 'menu.form',
-    route: '/form',
+    children: [
+      {
+        description: 'menu.formValidators',
+        route: '/form/validators',
+      },
+      {
+        description: 'menu.formExample',
+        route: '/form/example',
+      },
+    ],
   },
   {
     description: 'menu.network',

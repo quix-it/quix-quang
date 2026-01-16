@@ -55,6 +55,40 @@ All standard inputs inherited from `QuangBaseComponent`:
 </quang-select>
 ```
 
+### Template-based options
+
+Each `SelectOption` can provide a `renderer` (similar to `quang-table` and `quang-radio-group`), which is used instead of the plain label.
+
+```html
+<ng-template
+  #customOption
+  let-opt
+  let-selected="selected"
+>
+  <span>
+    <strong>{{ opt.label }}</strong>
+    <small class="text-muted">selected: {{ selected }}</small>
+  </span>
+</ng-template>
+
+<quang-select
+  [selectOptions]="templatedOptions"
+  formControlName="testInput"
+/>
+```
+
+```ts
+import { TemplateRef, viewChild } from '@angular/core'
+import { SelectOption, QuangSelectOptionTemplateContext } from 'quang/components/shared'
+
+customOptionTemplate = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('customOption')
+
+templatedOptions: SelectOption[] = [
+  { value: 'IT', label: 'Italy' },
+  { value: 'FR', label: 'France', renderer: this.customOptionTemplate() },
+]
+```
+
 ### Inline Help Message
 ```html
 <quang-select
@@ -79,7 +113,6 @@ All standard inputs inherited from `QuangBaseComponent`:
   <span help-icon class="ms-1"><i class="fas fa-question-circle"></i></span>
 </quang-select>
 ```
-
 
 ## QuangTranslationService Integration
 

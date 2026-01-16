@@ -1,16 +1,22 @@
 /// <reference types="vitest" />
 import angular from '@analogjs/vite-plugin-angular'
+import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
 
+const workspaceRoot = fileURLToPath(new URL('.', import.meta.url))
+
 export default defineConfig(({ mode }) => ({
+  root: workspaceRoot,
   plugins: [
     angular({
-      tsconfig: 'projects/quang/tsconfig.spec.json',
+      tsconfig: resolve(workspaceRoot, 'projects/quang/tsconfig.spec.json'),
     }),
     viteTsConfigPaths(),
   ],
   test: {
+    root: workspaceRoot,
     globals: true,
     setupFiles: ['projects/quang/test-setup.ts'],
     environment: 'jsdom',

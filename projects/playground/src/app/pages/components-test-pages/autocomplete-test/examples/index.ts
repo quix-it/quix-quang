@@ -32,3 +32,10 @@ export {
   AUTOCOMPLETE_INTERACTIVE_TS,
   AUTOCOMPLETE_INTERACTIVE_HTML,
 } from './autocomplete-interactive-example.component'
+
+// Template-based options example
+export {
+  AutocompleteTemplateExampleComponent,
+  AUTOCOMPLETE_TEMPLATE_TS,
+  AUTOCOMPLETE_TEMPLATE_HTML,
+} from './autocomplete-template-example.component'

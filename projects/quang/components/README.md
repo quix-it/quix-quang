@@ -10,6 +10,7 @@ Welcome to the Quang UI Components library! Below is a list of all the component
 - [Input Component](./input/README.md): Configurable input field supporting various types like text, password, email, and more.
 - [Paginator Component](./paginator/README.md): Provides controls for navigating through pages of data.
 - [Select Component](./select/README.md): Supports single or multiple selections from a dropdown list.
+- [Radio Group Component](./radio-group/README.md): Renders a group of radio buttons with reactive-forms support.
 - [Table Component](./table/README.md): Allows for displaying data in a tabular format.
 - [WYSIWYG Component](./wysiwyg/README.md): A rich text editor based on SunEditor, offering a wide range of formatting options.
 
