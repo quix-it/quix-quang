@@ -57,6 +57,40 @@ Il `QuangAutocompleteComponent` è un input autocomplete completo con suggerimen
 </quang-autocomplete>
 ```
 
+### Opzioni con template
+
+Ogni `SelectOption` può fornire un `renderer` (simile a `quang-table` e `quang-radio-group`), che viene utilizzato al posto dell’etichetta standard nella lista dei suggerimenti.
+
+```html
+<ng-template
+  #customOption
+  let-opt
+  let-selected="selected"
+>
+  <span class="d-flex gap-2 align-items-center">
+    <strong>{{ opt.label }}</strong>
+    <small class="text-muted">selezionato: {{ selected }}</small>
+  </span>
+</ng-template>
+
+<quang-autocomplete
+  [selectOptions]="templatedOptions"
+  formControlName="country"
+/>
+```
+
+```ts
+import { TemplateRef, viewChild } from '@angular/core'
+import { SelectOption, QuangSelectOptionTemplateContext } from 'quang/components/shared'
+
+customOptionTemplate = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('customOption')
+
+templatedOptions: SelectOption[] = [
+  { value: 'us', label: 'Stati Uniti' },
+  { value: 'ca', label: 'Canada', renderer: this.customOptionTemplate() },
+]
+```
+
 #### Esempio TypeScript
 
 ```typescript
