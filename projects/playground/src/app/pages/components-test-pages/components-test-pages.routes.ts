@@ -2,7 +2,8 @@ import { Routes } from '@angular/router'
 
 import { AutocompleteShowcaseComponent } from './autocomplete-test/showcase/autocomplete-showcase.component'
 import { AutocompleteTestComponent } from './autocomplete-test/test/autocomplete-test.component'
-import { DateTestComponent } from './date-test/date-test.component'
+import { DateShowcaseComponent } from './date-test/showcase/date-showcase.component'
+import { DateTestComponent } from './date-test/test/date-test.component'
 import { InputTestComponent } from './input-test/input-test.component'
 import { LoaderTestPageComponent } from './loader-test-page/loader-test-page.component'
 import { PaginatorTestComponent } from './paginator-test/paginator-test.component'
@@ -26,6 +27,10 @@ const routes: Routes = [
   },
   {
     path: 'date',
+    component: DateShowcaseComponent,
+  },
+  {
+    path: 'date/test',
     component: DateTestComponent,
   },
   {

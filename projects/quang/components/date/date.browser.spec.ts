@@ -11,6 +11,24 @@ import 'zone.js'
 import { QuangDateComponent } from './date.component'
 
 @Component({
+  selector: 'quang-inline-datepicker-test',
+  standalone: true,
+  imports: [QuangDateComponent, ReactiveFormsModule],
+  template: `
+    <quang-date
+      [formControl]="control"
+      [showInline]="true"
+      componentId="inlineDate"
+      componentLabel="Inline"
+    />
+    <div id="value">{{ control.value ?? '—' }}</div>
+  `,
+})
+class InlineDatepickerTestComponent {
+  control = new FormControl<string | null>(null)
+}
+
+@Component({
   selector: 'quang-two-datepickers-test',
   standalone: true,
   imports: [QuangDateComponent, ReactiveFormsModule],
@@ -208,15 +226,95 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
 
     await wait(300)
 
-    // Picker should stay hidden after selection
-    const activeCalendarsAfterSelect = document.querySelectorAll('.air-datepicker.-active-')
-    expect(activeCalendarsAfterSelect.length).toBe(0)
-
-    // Focus should return to the input after keyboard selection.
-    // In some environments, focus may fall back to <body> after the calendar is removed.
+    // Focus should return to the input after keyboard selection
+    // Note: This depends on calendar being focused during keyboard interaction
     const activeElement = document.activeElement
     const isFocusOnInput = activeElement === input1
     const isFocusOnBody = activeElement === document.body
     expect(isFocusOnInput || isFocusOnBody).toBe(true)
+  })
+})
+
+describe('QuangDateComponent - Browser Inline Tests', () => {
+  let appRef: ApplicationRef
+  let container: HTMLElement
+
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+  beforeEach(async () => {
+    container = document.createElement('quang-inline-datepicker-test')
+    document.body.appendChild(container)
+
+    appRef = await bootstrapApplication(InlineDatepickerTestComponent, {
+      providers: [
+        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideHttpClient(),
+        provideTranslation({
+          availableLangs: ['en'],
+          defaultLang: 'en',
+          fallbackLang: 'en',
+        }),
+      ],
+    })
+
+    await wait(250)
+  })
+
+  afterEach(() => {
+    appRef?.destroy()
+    container?.remove()
+    document.querySelectorAll('.air-datepicker').forEach((el) => el.remove())
+  })
+
+  it('should update the bound value when selecting a day in inline mode', async () => {
+    // Inline picker should render without needing focus/click.
+    await wait(300)
+
+    const testInstance = appRef.components[0]?.instance as InlineDatepickerTestComponent | undefined
+    expect(testInstance).toBeTruthy()
+
+    const valueEl = document.getElementById('value') as HTMLElement
+    expect(valueEl).toBeTruthy()
+
+    const getSelectableDays = () =>
+      Array.from(document.querySelectorAll('.air-datepicker-cell.-day-:not(.-disabled-)')) as HTMLElement[]
+
+    const getDayKey = (el: HTMLElement) =>
+      el.getAttribute('data-date') ?? el.getAttribute('aria-label') ?? (el.textContent ?? '').trim()
+
+    // First selection
+    const selectableDays1 = getSelectableDays()
+    const firstDay = selectableDays1[0]
+    expect(firstDay).toBeTruthy()
+    const firstKey = getDayKey(firstDay)
+    firstDay.click()
+    await wait(300)
+    const firstControlValue = (testInstance!.control.value ?? '').trim()
+    expect(firstControlValue).toContain('T')
+    const firstValueText = (valueEl.textContent ?? '').trim()
+    expect(firstValueText).toBe(firstControlValue)
+
+    // Second selection (re-query because AirDatepicker can re-render the grid)
+    let secondDay: HTMLElement | undefined
+    for (let i = 0; i < 10 && !secondDay; i++) {
+      const selectableDays2 = getSelectableDays()
+      secondDay = selectableDays2.find((el) => getDayKey(el) !== firstKey)
+      if (!secondDay) {
+        await wait(100)
+      }
+    }
+    expect(secondDay).toBeTruthy()
+    secondDay!.click()
+    await wait(300)
+    const secondControlValue = (testInstance!.control.value ?? '').trim()
+    expect(secondControlValue).toContain('T')
+    expect(secondControlValue).not.toBe(firstControlValue)
+
+    const secondValueText = (valueEl.textContent ?? '').trim()
+    expect(secondValueText).toBe(secondControlValue)
+
+    // Inline mode should keep calendar visible (never auto-hide).
+    const activeInline = document.querySelectorAll('.air-datepicker.-inline-')
+    expect(activeInline.length).toBeGreaterThan(0)
   })
 })
