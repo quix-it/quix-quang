@@ -1,0 +1,113 @@
+<h3>{{ 'title.components.radioGroup' | transloco }}</h3>
+
+<ng-template
+  #optTpl
+  let-opt
+  let-selected="selected"
+>
+  <span class="d-flex gap-2 align-items-center">
+    <strong>Custom {{ opt.value }}</strong>
+    <small class="text-muted">selected: {{ selected }}</small>
+  </span>
+</ng-template>
+
+<form [formGroup]="testForm">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6">
+          <h6 class="mb-2">Standard options</h6>
+          <quang-radio-group
+            [errorMap]="errors()"
+            [helpMessage]="isShowingHelperText() ? ('form.label.help' | transloco) : ''"
+            [isReadonly]="isReadonly()"
+            [radioOptions]="options()"
+            [radioPosition]="radioPosition()"
+            [successMessage]="isShowingSuccess() ? ('form.label.success' | transloco) : ''"
+            #testComponent
+            componentLabel="Radio group (standard)"
+            formControlName="standardChoice"
+            id="testComponent"
+            playgroundSourceCode
+          />
+
+          <hr class="my-3" />
+
+          <h6 class="mb-2">Template-based options</h6>
+          <quang-radio-group
+            [errorMap]="errors()"
+            [helpMessage]="isShowingHelperText() ? ('form.label.help' | transloco) : ''"
+            [isReadonly]="isReadonly()"
+            [radioOptions]="templatedOptions()"
+            [radioPosition]="radioPosition()"
+            [successMessage]="isShowingSuccess() ? ('form.label.success' | transloco) : ''"
+            componentLabel="Radio group (template)"
+            formControlName="templatedChoice"
+          />
+        </div>
+
+        <div class="col-6">
+          <div class="alert alert-info">
+            <strong>Current value:</strong>
+            <pre class="mb-0">{{ testForm.value | json }}</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex gap-3 mt-3">
+        <button
+          (click)="toggleDisabled()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
+        </button>
+        <button
+          (click)="toggleReadonly()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+        </button>
+        <button
+          (click)="toggleShowSuccess()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          {{ 'form.buttons.showSuccess' | transloco: { showSuccess: isShowingSuccess() } }}
+        </button>
+        <button
+          (click)="toggleShowHelperText()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          {{ 'form.buttons.showHelperText' | transloco: { showHelperText: isShowingHelperText() } }}
+        </button>
+        <button
+          (click)="toggleRadioPosition()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          Toggle position ({{ radioPosition() }})
+        </button>
+        <button
+          (click)="resetForm()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          {{ 'form.buttons.resetForm' | transloco }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Component Documentation Section -->
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="QuangRadioGroupComponent"
+    [customReadmePath]="componentsReadmePath()"
+    [exampleHtml]="testComponentSource()"
+  />
+</div>

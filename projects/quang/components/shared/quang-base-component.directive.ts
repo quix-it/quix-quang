@@ -63,9 +63,18 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   _statusChange$?: Subscription
 
-  getIsRequiredControl = computed(
-    () => !!(this._ngControl()?.control as any)?._rawValidators?.find((x: any) => x.name === 'required')
-  )
+  _valueChange$?: Subscription
+
+  _eventsChange$?: Subscription
+
+  getIsRequiredControl = computed(() => {
+    const control = this._ngControl()?.control
+    if (!control) {
+      return false
+    }
+
+    return control.hasValidator(Validators.required) || control.hasValidator(Validators.requiredTrue)
+  })
 
   onChange?: (value: T) => void
 
@@ -87,8 +96,8 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
     this.onChange = fn
   }
 
-  writeValue(val: T): void {
-    this._value.set(val)
+  writeValue(value: T): void {
+    this._value.set(value)
   }
 
   registerOnTouched(fn: () => void): void {
@@ -127,15 +136,36 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
       this._statusChange$ = undefined
     }
 
-    this._ngControl.set(this._injector().get(NgControl))
-    this._statusChange$ = this._ngControl()
-      ?.control?.statusChanges.pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.checkFormErrors()
-      })
+    if (this._valueChange$) {
+      this._valueChange$.unsubscribe()
+      this._valueChange$ = undefined
+    }
 
-    this._isTouched.set(this._ngControl()?.touched ?? false)
-    this._isDisabled.set(this.isReadonly() || this._ngControl()?.disabled || false)
+    if (this._eventsChange$) {
+      this._eventsChange$.unsubscribe()
+      this._eventsChange$ = undefined
+    }
+
+    this._ngControl.set(this._injector().get(NgControl))
+
+    const control = this._ngControl()?.control
+
+    this._statusChange$ = control?.statusChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.checkFormErrors()
+    })
+
+    this._valueChange$ = control?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.checkFormErrors()
+    })
+
+    // `markAllAsTouched()` updates the control's `touched` state without emitting `statusChanges`.
+    // Angular exposes an `events` stream that includes touched/pristine changes.
+    this._eventsChange$ = (control as any)?.events?.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.checkFormErrors()
+    })
+
+    this._isTouched.set(!!(control?.touched || control?.dirty))
+    this._isDisabled.set(this.isReadonly() || control?.disabled || false)
     this.checkFormErrors()
   }
 
@@ -150,11 +180,13 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   checkFormErrors() {
     const control = this._ngControl()?.control
     this._isValid.set(control?.valid ?? false)
-    this._isTouched.set(!control?.pristine)
+    this._isTouched.set(!!(control?.touched || control?.dirty))
+
+    this._isRequired.set(
+      !!control && (control.hasValidator(Validators.required) || control.hasValidator(Validators.requiredTrue))
+    )
 
     const validationErrors = control?.errors
-
-    this._isRequired.set(validationErrors?.[Validators.required.name])
 
     let errorName = ''
     let errorMessage = ''

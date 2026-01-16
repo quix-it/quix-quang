@@ -1,0 +1,211 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`QuangDateComponent - snapshots > should match snapshot (default with content) 1`] = `
+<div
+  id="root2"
+  ng-version="19.2.15"
+>
+  <quang-date
+    class="ng-untouched ng-pristine ng-valid"
+    componentid="snapDefault"
+    componentlabel="snap.label"
+    ng-reflect-component-id="snapDefault"
+    ng-reflect-component-label="snap.label"
+    ng-reflect-form="[object Object]"
+    ng-reflect-form-control="[object Object]"
+  >
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="snapDefault"
+      >
+         snap.label 
+        <span
+          hidden=""
+        >
+          *
+        </span>
+      </label>
+      <!--container-->
+      <div
+        class="input-date-container"
+      >
+        <input
+          autocomplete="off"
+          class="form-control with-button-calendar"
+          id="snapDefault"
+          ng-reflect-ng-class=""
+          placeholder=""
+          required="false"
+          tabindex="0"
+          type="search"
+        />
+        <button
+          aria-label="calendar-button"
+          class="btn btn-outline-secondary btn-outline-calendar"
+          ng-reflect-ng-class=""
+          required="false"
+          type="button"
+        >
+          <span
+            class="icon"
+          />
+        </button>
+      </div>
+      <div
+        class="valid-feedback"
+      >
+          
+      </div>
+      <div
+        class="invalid-feedback"
+      >
+          
+      </div>
+      <!--container-->
+    </div>
+  </quang-date>
+</div>
+`;
+
+exports[`QuangDateComponent - snapshots > should match snapshot (inline mode hides input/button visually) 1`] = `
+<div
+  id="root3"
+  ng-version="19.2.15"
+>
+  <quang-date
+    class="ng-untouched ng-pristine ng-valid"
+    componentid="snapInline"
+    componentlabel="snap.inline"
+    ng-reflect-component-id="snapInline"
+    ng-reflect-component-label="snap.inline"
+    ng-reflect-form="[object Object]"
+    ng-reflect-form-control="[object Object]"
+    ng-reflect-show-inline="true"
+  >
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="snapInline"
+      >
+         snap.inline 
+        <span
+          hidden=""
+        >
+          *
+        </span>
+      </label>
+      <!--container-->
+      <div
+        class="input-date-container"
+      >
+        <input
+          aria-hidden="true"
+          autocomplete="off"
+          class="form-control quang-date-inline-hidden with-button-calendar"
+          id="snapInline"
+          ng-reflect-ng-class=""
+          placeholder=""
+          required="false"
+          tabindex="0"
+          type="search"
+        />
+        <button
+          aria-hidden="true"
+          aria-label="calendar-button"
+          class="btn btn-outline-secondary btn-outline-calendar quang-date-inline-hidden"
+          ng-reflect-ng-class=""
+          required="false"
+          type="button"
+        >
+          <span
+            class="icon"
+          />
+        </button>
+      </div>
+      <div
+        class="valid-feedback"
+      >
+          
+      </div>
+      <div
+        class="invalid-feedback"
+      >
+          
+      </div>
+      <!--container-->
+    </div>
+  </quang-date>
+</div>
+`;
+
+exports[`QuangDateComponent - snapshots > should match snapshot (no content hides calendar button) 1`] = `
+<div
+  id="root4"
+  ng-version="19.2.15"
+>
+  <quang-date
+    class="ng-untouched ng-pristine ng-valid"
+    componentid="snapNoContent"
+    componentlabel="snap.noContent"
+    ng-reflect-component-id="snapNoContent"
+    ng-reflect-component-label="snap.noContent"
+    ng-reflect-form="[object Object]"
+    ng-reflect-form-control="[object Object]"
+  >
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="snapNoContent"
+      >
+         snap.noContent 
+        <span
+          hidden=""
+        >
+          *
+        </span>
+      </label>
+      <!--container-->
+      <div
+        class="input-date-container"
+      >
+        <input
+          autocomplete="off"
+          class="form-control"
+          id="snapNoContent"
+          ng-reflect-ng-class=""
+          placeholder=""
+          required="false"
+          tabindex="0"
+          type="search"
+        />
+        <button
+          aria-label="calendar-button"
+          class="btn btn-outline-secondary btn-outline-calendar"
+          hidden=""
+          ng-reflect-ng-class=""
+          required="false"
+          type="button"
+        />
+      </div>
+      <div
+        class="valid-feedback"
+      >
+          
+      </div>
+      <div
+        class="invalid-feedback"
+      >
+          
+      </div>
+      <!--container-->
+    </div>
+  </quang-date>
+</div>
+`;

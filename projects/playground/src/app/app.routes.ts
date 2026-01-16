@@ -27,7 +27,7 @@ export const routes: Routes = [
   },
   {
     path: 'form',
-    loadComponent: () => import('./pages/form/form.component').then((m) => m.FormComponent),
+    loadChildren: () => import('./pages/form/form.routes').then((m) => m.default),
   },
   {
     path: 'network',

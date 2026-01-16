@@ -1,0 +1,105 @@
+<div class="playground-showcase select-showcase">
+  <header class="showcase-header">
+    <h1>{{ 'menu.components.select' | transloco }}</h1>
+    <p class="lead">{{ 'examples.select.description' | transloco }}</p>
+  </header>
+
+  <nav class="showcase-toc">
+    <h2>{{ 'shared.onThisPage' | transloco }}</h2>
+    <ul>
+      <li>
+        <a
+          (click)="scrollTo($event, 'single')"
+          href="#single"
+          >{{ 'examples.select.single.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'multiple')"
+          href="#multiple"
+          >{{ 'examples.select.multiple.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'dynamic')"
+          href="#dynamic"
+          >{{ 'examples.select.dynamic.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'template')"
+          href="#template"
+          >{{ 'examples.select.template.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'api')"
+          href="#api"
+          >{{ 'shared.api' | transloco }}</a
+        >
+      </li>
+    </ul>
+  </nav>
+
+  <section class="showcase-examples">
+    <section id="single">
+      <playground-example-viewer
+        [description]="'examples.select.single.description' | transloco"
+        [htmlCode]="singleHtml"
+        [title]="'examples.select.single.title' | transloco"
+        [tsCode]="singleTs"
+      >
+        <playground-select-single-example />
+      </playground-example-viewer>
+    </section>
+
+    <section id="multiple">
+      <playground-example-viewer
+        [description]="'examples.select.multiple.description' | transloco"
+        [htmlCode]="multipleHtml"
+        [title]="'examples.select.multiple.title' | transloco"
+        [tsCode]="multipleTs"
+      >
+        <playground-select-multiple-example />
+      </playground-example-viewer>
+    </section>
+
+    <section id="dynamic">
+      <playground-example-viewer
+        [description]="'examples.select.dynamic.description' | transloco"
+        [htmlCode]="dynamicHtml"
+        [title]="'examples.select.dynamic.title' | transloco"
+        [tsCode]="dynamicTs"
+      >
+        <playground-select-dynamic-options-example />
+      </playground-example-viewer>
+    </section>
+
+    <section id="template">
+      <playground-example-viewer
+        [description]="'examples.select.template.description' | transloco"
+        [htmlCode]="templateHtml"
+        [title]="'examples.select.template.title' | transloco"
+        [tsCode]="templateTs"
+      >
+        <playground-select-template-example />
+      </playground-example-viewer>
+    </section>
+  </section>
+
+  <section
+    class="showcase-api"
+    id="api"
+  >
+    <h2>{{ 'shared.api' | transloco }}</h2>
+    <playground-component-documentation
+      [componentType]="QuangSelectComponent"
+      [customReadmePath]="componentsReadmePath()"
+      [readmeOnly]="true"
+    />
+  </section>
+</div>

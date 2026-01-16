@@ -1,0 +1,14 @@
+<div class="playground-showcase form-showcase">
+  <div class="showcase-header">
+    <h2>{{ 'menu.form' | transloco }} / {{ 'menu.formExample' | transloco }}</h2>
+  </div>
+
+  <playground-example-viewer
+    [description]="'form.showcase.liveExample.description' | transloco"
+    [htmlCode]="liveExampleHtml"
+    [title]="'form.showcase.liveExample.title' | transloco"
+    [tsCode]="liveExampleTs"
+  >
+    <playground-form-live-example />
+  </playground-example-viewer>
+</div>

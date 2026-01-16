@@ -7,14 +7,46 @@
 
 .form-select {
   height: 2.375rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
   &:disabled {
     background-image: unset;
   }
 }
 
 .content {
+  flex: 1;
+  min-width: 0;
   text-align: left;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.content.multiple {
+  display: block;
+  text-overflow: unset;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.selected-item {
+  display: inline-flex;
+  align-items: center;
+  max-height: 100%;
+  white-space: nowrap;
+}
+
+.separator {
+  white-space: pre;
+}
+
+:host ::ng-deep .content .d-flex {
+  display: inline-flex !important;
+}
+
+:host ::ng-deep .content * {
+  max-height: 100%;
 }

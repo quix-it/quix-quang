@@ -33,10 +33,25 @@
       class="form-select"
       type="button"
     >
-      <div class="content">
+      <div
+        [class.multiple]="selectionMode() === 'multiple'"
+        class="content"
+      >
         @if (_selectedItems()?.length) {
           @for (val of _selectedItems(); track val; let last = $last) {
-            {{ translateValue() ? (val.label | transloco) : val.label }}{{ !last ? ', ' : '' }}
+            <span class="selected-item">
+              @if (val.renderer) {
+                <ng-container
+                  [ngTemplateOutlet]="val.renderer"
+                  [ngTemplateOutletContext]="{ $implicit: val, selected: true, index: getOptionIndex(val) }"
+                ></ng-container>
+              } @else {
+                {{ translateValue() ? (val.label | transloco) : val.label }}
+              }
+            </span>
+            @if (!last) {
+              <span class="separator">, </span>
+            }
           }
         } @else {
           <ng-container>{{ componentPlaceholder() | transloco }}</ng-container>

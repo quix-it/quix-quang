@@ -46,8 +46,15 @@
     }
     &.-inline-.-only-timepicker- {
       border: 0;
+      padding: 0 !important;
+
       .air-datepicker--time {
         border: 0;
+        padding: 0 !important;
+      }
+
+      .air-datepicker-time {
+        padding: 0 !important;
       }
     }
   }
@@ -55,6 +62,21 @@
 
 :host {
   display: block;
+
+  .quang-date-inline-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+  }
 
   .input-date-container {
     display: flex;

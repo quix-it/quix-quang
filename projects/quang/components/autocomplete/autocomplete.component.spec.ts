@@ -1,4 +1,4 @@
-import { Component, DebugElement, Injectable } from '@angular/core'
+import { Component, DebugElement, Injectable, TemplateRef, viewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { By } from '@angular/platform-browser'
@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs'
 import { vi } from 'vitest'
 
 import { QuangAutocompleteComponent } from './autocomplete.component'
-import { SelectOption } from 'quang/components/shared'
+import { QuangSelectOptionTemplateContext, SelectOption } from 'quang/components/shared'
 
 // Mock transloco loader for testing
 @Injectable()
@@ -112,6 +112,51 @@ class TestHostMultipleComponent {
     { label: 'Option 2', value: 'opt2' },
     { label: 'Option 3', value: 'opt3' },
   ]
+}
+
+// Test host component for multiple selection with templated options
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <ng-template
+        #optTpl
+        let-opt
+        let-selected="selected"
+      >
+        <span class="custom-chip-opt">Custom {{ opt.label }} selected: {{ selected }}</span>
+      </ng-template>
+
+      <quang-autocomplete
+        [multiple]="true"
+        [searchTextDebounce]="50"
+        [selectOptions]="options"
+        formControlName="autocomplete"
+      />
+    </form>
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangAutocompleteComponent],
+})
+class TestHostMultipleTemplatedComponent {
+  form = new FormGroup({
+    autocomplete: new FormControl<string[]>([]),
+  })
+
+  private readonly optTpl = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('optTpl')
+
+  options: SelectOption[] = [
+    { label: 'Option 1', value: 'opt1' },
+    { label: 'Option 2', value: 'opt2' },
+    { label: 'Option 3', value: 'opt3' },
+  ]
+
+  setTemplatedOptions(): void {
+    this.options = [
+      { label: 'Option 1', value: 'opt1', renderer: this.optTpl() },
+      { label: 'Option 2', value: 'opt2' },
+      { label: 'Option 3', value: 'opt3' },
+    ]
+  }
 }
 
 describe('QuangAutocompleteComponent', () => {
@@ -386,6 +431,11 @@ describe('QuangAutocompleteComponent', () => {
       hostFixture.detectChanges()
 
       expect(autocompleteComponent._showErrors()).toBe(true)
+
+      const invalidFeedback = hostFixture.nativeElement.querySelector('.invalid-feedback') as HTMLDivElement | null
+      expect(invalidFeedback).toBeTruthy()
+      expect(invalidFeedback?.classList.contains('d-block')).toBe(true)
+      expect(invalidFeedback?.textContent).toContain('This field is required')
     })
 
     it('should hide error message when valid', async () => {
@@ -538,6 +588,44 @@ describe('QuangAutocompleteComponent - Multiple Selection', () => {
 
       expect(autocompleteComponent._chipList().length).toBe(2)
     })
+  })
+})
+
+describe('QuangAutocompleteComponent - Multiple Selection (Templated Chips)', () => {
+  let hostFixture: ComponentFixture<TestHostMultipleTemplatedComponent>
+  let autocompleteComponent: QuangAutocompleteComponent
+
+  beforeEach(async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [TestHostMultipleTemplatedComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    hostFixture = TestBed.createComponent(TestHostMultipleTemplatedComponent)
+    hostFixture.detectChanges()
+
+    const hostComponent = hostFixture.componentInstance
+    hostComponent.setTemplatedOptions()
+    hostFixture.detectChanges()
+
+    autocompleteComponent = hostFixture.debugElement.query(By.directive(QuangAutocompleteComponent)).componentInstance
+  })
+
+  afterEach(() => {
+    hostFixture.destroy()
+    vi.useRealTimers()
+  })
+
+  it('should render the selected option renderer template inside the chip', async () => {
+    autocompleteComponent.onValueChange('opt1')
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+
+    const custom = hostFixture.nativeElement.querySelector('.custom-chip-opt') as HTMLElement | null
+    expect(custom).toBeTruthy()
+    expect(custom?.textContent).toContain('Custom Option 1')
+    expect(custom?.textContent).toContain('selected: true')
   })
 })
 
@@ -2778,6 +2866,7 @@ describe('QuangAutocompleteComponent - E2E Tab Navigation', () => {
         [multiple]="true"
         [searchTextDebounce]="50"
         [selectOptions]="options"
+        componentId="chips-position-autocomplete"
         formControlName="autocomplete"
       />
     </form>

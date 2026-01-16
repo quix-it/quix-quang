@@ -52,6 +52,13 @@
             }
           </button>
         }
+
+        <div class="valid-feedback">
+          {{ successMessage() | transloco }}
+        </div>
+        <div class="invalid-feedback">
+          {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
+        </div>
       </div>
     }
     @if (componentType() === 'textarea') {
@@ -72,13 +79,14 @@
         (input)="onChangedEventHandler($event)"
         class="form-control"
       ></textarea>
+
+      <div class="valid-feedback">
+        {{ successMessage() | transloco }}
+      </div>
+      <div class="invalid-feedback">
+        {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
+      </div>
     }
-    <div class="valid-feedback">
-      {{ successMessage() | transloco }}
-    </div>
-    <div class="invalid-feedback">
-      {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
-    </div>
     @if (helpMessage()) {
       <small
         [hidden]="_showSuccess() || _showErrors()"

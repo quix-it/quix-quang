@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NgClass, NgStyle } from '@angular/common'
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
   ElementRef,
   HostListener,
+  type TemplateRef,
   computed,
   effect,
   inject,
@@ -20,9 +21,16 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { QUANG_LOGGING_BEHAVIOR } from 'quang'
 import { Subscription, fromEvent } from 'rxjs'
 
+export interface QuangSelectOptionTemplateContext {
+  $implicit: SelectOption
+  selected: boolean
+  index: number
+}
+
 export interface SelectOption {
   label: string
   value: string | number | null
+  renderer?: TemplateRef<QuangSelectOptionTemplateContext>
 }
 
 export enum OptionListParentType {
@@ -32,7 +40,7 @@ export enum OptionListParentType {
 
 @Component({
   selector: 'quang-option-list',
-  imports: [NgStyle, NgClass, TranslocoPipe],
+  imports: [NgStyle, NgClass, NgTemplateOutlet, TranslocoPipe],
   templateUrl: './option-list.component.html',
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

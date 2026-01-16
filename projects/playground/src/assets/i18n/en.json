@@ -40,6 +40,7 @@
       "checkbox": "Checkbox component",
       "paginator": "Paginator component",
       "select": "Select component",
+      "radioGroup": "Radio group component",
       "autocomplete": "Autocomplete component",
       "table": "Table component",
       "readme": "Readme",
@@ -67,11 +68,14 @@
       "autocomplete": "Autocomplete header",
       "wysiwyg": "Wysiwyg header",
       "success": "Valid!",
+      "help": "Helper text",
       "formValue": "Form value: {{value}}",
       "formValidity": "Form valid: {{valid}}"
     },
     "errors": {
       "required": "This field is required",
+      "requiredTrue": "This field must be checked",
+      "noMatch": "The value is not valid",
       "minLength": "This field must be at least {{requiredLength}} characters long",
       "maxLength": "This field must be at most {{requiredLength}} characters long"
     },
@@ -83,6 +87,8 @@
       "checkForm": "Check form value and validity",
       "readonly": "Readonly: {{readonly}}",
       "required": "Required: {{required}}",
+      "showSuccess": "Show successMessage: {{showSuccess}}",
+      "showHelperText": "Show helpMessage: {{showHelperText}}",
       "changeDateFormat": "Change date format",
       "selectInputType": "Select input type:",
       "changeHeight": "Change height",
@@ -102,6 +108,19 @@
       "isFiscalCode": "Validates that the value is a valid fiscal code.",
       "isVatNumber": "Validates that the value is a valid VAT number for the specified locales.",
       "wysiwygRequired": "Validates that the WYSIWYG editor content is not empty."
+    },
+    "showcase": {
+      "toc": {
+        "validators": "Validators",
+        "liveExample": "Live example"
+      },
+      "sections": {
+        "validatorsTitle": "Validators"
+      },
+      "liveExample": {
+        "title": "Live form example",
+        "description": "Submit invalid values and see the errors after markAllAsTouched()."
+      }
     }
   },
   "quangPaginator": {
@@ -129,6 +148,7 @@
       "input": "Input",
       "paginator": "Paginator",
       "select": "Select",
+      "radioGroup": "Radio group",
       "table": "Table",
       "checkbox": "Checkbox / Toggle",
       "wysiwyg": "Wysiwyg",
@@ -146,6 +166,10 @@
     "dataHandling": "Data handling",
     "device": "Device",
     "form": "Form validation",
+    "formShowcase": "Showcase",
+    "formTest": "Test",
+    "formValidators": "Validators",
+    "formExample": "Live example",
     "network": "Network",
     "translation": "Translation",
     "language": {
@@ -179,7 +203,72 @@
       "html": "HTML"
     }
   },
+  "shared": {
+    "onThisPage": "On this page",
+    "api": "API"
+  },
+  "toggle": {
+    "showcase": {
+      "subtitle": "Checkbox and toggle are the same component with different presentation.",
+      "toc": {
+        "basic": "Basic",
+        "interactive": "Interactive"
+      }
+    },
+    "examples": {
+      "basic": {
+        "title": "Basic",
+        "description": "Simple required checkbox and toggle in a reactive form."
+      },
+      "interactive": {
+        "title": "Interactive playground",
+        "description": "Try different configurations (type, label position, readonly, required, disabled) and see how validation behaves."
+      }
+    }
+  },
   "examples": {
+    "select": {
+      "description": "A select component supporting single and multiple selections.",
+      "single": {
+        "title": "Single selection",
+        "description": "A required single-select bound to a reactive form control."
+      },
+      "multiple": {
+        "title": "Multiple selection",
+        "description": "A required multi-select bound to an array form control."
+      },
+      "dynamic": {
+        "title": "Dynamic options",
+        "description": "Options update frequently to validate the component handles dynamic changes gracefully."
+      },
+      "template": {
+        "title": "Template-based options",
+        "description": "Override the rendering of specific options using the per-option renderer template."
+      }
+    },
+    "radioGroup": {
+      "description": "A radio group component with standard options and optional per-option templates.",
+      "toc": "Examples",
+      "api": "API Reference",
+      "standard": {
+        "title": "Standard options",
+        "description": "Render options with labels and disabled states using the built-in layout."
+      },
+      "template": {
+        "title": "Template-based options",
+        "description": "Override the rendering of specific options using the per-option renderer template."
+      }
+    },
+    "checkbox": {
+      "interactive": {
+        "helper": "Use the buttons to change the component configuration at runtime.",
+        "buttons": {
+          "toggleType": "Toggle type (current: {{type}})",
+          "labelPosition": "Label position (current: {{position}})",
+          "setValue": "Set value to true"
+        }
+      }
+    },
     "autocomplete": {
       "description": "A flexible autocomplete component with support for async data, free text input, and multiple selection.",
       "toc": "Examples",
@@ -229,6 +318,10 @@
         "selectOptionsTitle": "Select Options",
         "addOption": "Add Option",
         "noOptions": "No options available. Click 'Add Option' to create one."
+      },
+      "template": {
+        "title": "Template-based options",
+        "description": "Override the rendering of specific options using the per-option renderer template."
       }
     }
   },

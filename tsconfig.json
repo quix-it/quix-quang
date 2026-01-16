@@ -27,6 +27,17 @@
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"]
   },
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/out-tsc/**",
+    "**/.angular/**",
+    "**/coverage/**",
+    "**/lcov-report/**",
+    "**/.turbo/**",
+    "**/.nx/**",
+    "**/.cache/**"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
