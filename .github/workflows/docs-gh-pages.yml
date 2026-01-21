@@ -44,10 +44,12 @@ jobs:
           git fetch origin gh-pages
           git worktree add -B gh-pages gh-pages-worktree origin/gh-pages
 
-      - name: Publish to gh-pages root (preserve previews)
+      - name: Publish to gh-pages root (preserve preview)
         run: |
           set -euxo pipefail
-          rsync -a --delete --exclude 'previews' dist/playground/browser/ gh-pages-worktree/
+          # Keep /preview/ (pre-release preview) but remove any legacy /previews/ folder.
+          rm -rf gh-pages-worktree/previews
+          rsync -a --delete --exclude 'preview' dist/playground/browser/ gh-pages-worktree/
 
       - name: Commit and push
         run: |
