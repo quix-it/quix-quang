@@ -43,6 +43,10 @@ export const menuList: MenuItem[] = [
         description: 'menu.components.table',
       },
       {
+        route: 'components/tabs',
+        description: 'menu.components.tabs',
+      },
+      {
         route: 'components/toggle',
         description: 'menu.components.checkbox',
       },
