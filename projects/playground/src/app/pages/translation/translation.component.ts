@@ -1,4 +1,4 @@
-import { CommonModule, NgTemplateOutlet } from '@angular/common'
+import { NgTemplateOutlet } from '@angular/common'
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -11,7 +11,7 @@ import { QuangTooltipDirective } from 'quang/overlay/tooltip'
   styleUrls: ['./translation.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, TranslocoPipe, AngularSvgIconModule, QuangTooltipDirective, NgTemplateOutlet],
+  imports: [TranslocoPipe, AngularSvgIconModule, QuangTooltipDirective, NgTemplateOutlet],
 })
 export class TranslationComponent {
   buttonTooltip = signal<string>('utils.copyContent')

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CommonModule, JsonPipe } from '@angular/common'
+import { JsonPipe } from '@angular/common'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core'
 
@@ -19,7 +19,6 @@ import { ComponentDocumentationComponent } from '../../../shared/components/comp
   selector: 'playground-auth-test',
 
   imports: [
-    CommonModule,
     QuangIsAuthenticatedDirective,
     QuangIsNotAuthenticatedDirective,
     QuangHasAtLeastOneRoleDirective,

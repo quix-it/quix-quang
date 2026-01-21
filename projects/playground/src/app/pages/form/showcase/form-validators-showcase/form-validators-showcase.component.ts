@@ -1,4 +1,4 @@
-import { CommonModule, NgTemplateOutlet } from '@angular/common'
+import { NgTemplateOutlet } from '@angular/common'
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -8,7 +8,7 @@ import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 @Component({
   selector: 'playground-form-validators-showcase',
   standalone: true,
-  imports: [CommonModule, TranslocoPipe, AngularSvgIconModule, QuangTooltipDirective, NgTemplateOutlet],
+  imports: [TranslocoPipe, AngularSvgIconModule, QuangTooltipDirective, NgTemplateOutlet],
   templateUrl: './form-validators-showcase.component.html',
   styleUrl: './form-validators-showcase.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

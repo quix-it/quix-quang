@@ -1,4 +1,4 @@
-import { CommonModule, NgTemplateOutlet } from '@angular/common'
+import { NgTemplateOutlet } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -13,7 +13,7 @@ import { ResizeObservableService } from 'quang/device/resize-observable.service'
   styleUrls: ['./device.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, TranslocoPipe, AngularSvgIconModule, QuangTooltipDirective, NgTemplateOutlet],
+  imports: [TranslocoPipe, AngularSvgIconModule, QuangTooltipDirective, NgTemplateOutlet],
 })
 export class DeviceComponent {
   buttonTooltip = signal<string>('utils.copyContent')

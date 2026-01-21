@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 import { TranslocoPipe } from '@jsverse/transloco'
@@ -10,7 +9,7 @@ import { FORM_LIVE_EXAMPLE_HTML, FORM_LIVE_EXAMPLE_TS, FormLiveExampleComponent 
 @Component({
   selector: 'playground-form-example-showcase',
   standalone: true,
-  imports: [CommonModule, TranslocoPipe, ExampleViewerComponent, FormLiveExampleComponent],
+  imports: [TranslocoPipe, ExampleViewerComponent, FormLiveExampleComponent],
   templateUrl: './form-example-showcase.component.html',
   styleUrl: './form-example-showcase.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
