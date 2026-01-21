@@ -1,0 +1,6 @@
+export * from './tabs-simple-example.component'
+export * from './tabs-disabled-example.component'
+export * from './tabs-events-example.component'
+export * from './tabs-content-example.component'
+export * from './tabs-template-example.component'
+export * from './tabs-interactive-example.component'
