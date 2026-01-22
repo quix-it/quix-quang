@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project follows Conventional Commits.
 
+## [20.7.1] - 2026-01-22
+
+### Fixed
+
+- Overlay: fixed type compatibility between tooltip/popover and the shared base overlay types by making `QuangBaseOverlayComponent`/`QuangBaseOverlayDirective` generic.
+- Overlay: restored successful library builds for `quang/overlay/tooltip` after the stricter typing refactor.
+
+### Tests
+
+- Overlay: added integration-style tests for tooltip and popover directives (attach/detach, backdrop close, payload/template rendering).
+- Overlay: added coverage for toast service/component timing/close behavior and modal overlay/backdrop behavior.
+
 ## [20.7.0] - 2026-01-21
 
 ### Added
