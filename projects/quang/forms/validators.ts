@@ -176,7 +176,7 @@ export function isVatNumber(localeList: EuroLocale[]) {
 
 export function wysiwygRequired() {
   return (control: AbstractControl): ValidationErrors | null => {
-    const cleanHTML = control.value.replace(/<\/?[^>]+(>|$)/g, '')
+    const cleanHTML = control.value?.replace(/<\/?[^>]+(>|$)/g, '')
     if (!cleanHTML?.length) {
       return { required: { required: true } }
     }
