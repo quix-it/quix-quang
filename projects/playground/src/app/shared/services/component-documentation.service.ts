@@ -6,10 +6,21 @@ import { catchError } from 'rxjs/operators'
 
 // Add console logger for debugging purposes
 const DEBUG = false
-function debugLog(...args: any[]) {
+function debugLog(...args: unknown[]) {
   if (DEBUG) {
     console.log('[ComponentDocService]', ...args)
   }
+}
+
+interface AngularCompiledMetadata {
+  selectors?: unknown
+  inputs?: Record<string, unknown>
+  outputs?: Record<string, unknown>
+}
+
+interface AngularComponentType extends Type<unknown> {
+  ɵcmp?: AngularCompiledMetadata
+  propDecorators?: unknown
 }
 
 export interface PropertyDoc {
@@ -35,12 +46,20 @@ export class ComponentDocumentationService {
    * @param componentType The component class to document
    * @returns Documentation object with properties and selector
    */
-  extractComponentDocumentation(componentType: Type<any>): ComponentDocumentation {
+  extractComponentDocumentation(componentType: Type<unknown>): ComponentDocumentation {
     debugLog(`Extracting documentation for component: ${componentType.name}`)
 
     // Get component metadata using reflection
-    const componentMetadata = (componentType as any).ɵcmp
-    const selector = componentMetadata?.selectors?.[0]?.[0] || ''
+    const angularComponent = componentType as AngularComponentType
+    const componentMetadata = angularComponent.ɵcmp
+
+    let selector = ''
+    if (Array.isArray(componentMetadata?.selectors)) {
+      const firstSelector = (componentMetadata.selectors as unknown[])[0]
+      if (Array.isArray(firstSelector)) {
+        selector = (firstSelector as unknown[])[0] as string
+      }
+    }
     debugLog(`Component selector: ${selector}`)
 
     // Extract input properties
@@ -50,7 +69,7 @@ export class ComponentDocumentationService {
     // METHOD 1: Access inputs through Angular's compiled metadata
     if (componentMetadata?.inputs) {
       debugLog('METHOD 1: Found Angular compiled metadata inputs:', componentMetadata.inputs)
-      Object.entries(componentMetadata.inputs).forEach(([propName, inputMetadata]: [string, any]) => {
+      Object.entries(componentMetadata.inputs).forEach(([propName, inputMetadata]) => {
         // Each input metadata entry can have different formats based on Angular version
         let publicName = propName
 
@@ -60,12 +79,13 @@ export class ComponentDocumentationService {
           publicName = inputMetadata
         } else if (inputMetadata && typeof inputMetadata === 'object') {
           // More complex format with additional metadata
-          publicName = inputMetadata.publicName || propName
+          publicName = (inputMetadata as { publicName?: string }).publicName || propName
         }
 
         // Check for Angular 17+ style input arrays [name, flags, defaultValue]
         if (Array.isArray(inputMetadata)) {
-          publicName = inputMetadata[0] || propName
+          publicName = (inputMetadata as unknown[])[0] as string
+          if (!publicName) publicName = propName
         }
 
         inputs.push({
@@ -78,7 +98,7 @@ export class ComponentDocumentationService {
     // METHOD 1 for outputs: Access outputs through Angular's compiled metadata
     if (componentMetadata?.outputs) {
       debugLog('METHOD 1: Found Angular compiled metadata outputs:', componentMetadata.outputs)
-      Object.entries(componentMetadata.outputs).forEach(([propName, outputMetadata]: [string, any]) => {
+      Object.entries(componentMetadata.outputs).forEach(([propName, outputMetadata]) => {
         // Each output metadata entry can have different formats based on Angular version
         let publicName = propName
 
@@ -88,12 +108,13 @@ export class ComponentDocumentationService {
           publicName = outputMetadata
         } else if (outputMetadata && typeof outputMetadata === 'object') {
           // More complex format with additional metadata
-          publicName = outputMetadata.publicName || propName
+          publicName = (outputMetadata as { publicName?: string }).publicName || propName
         }
 
         // Check for Angular 17+ style output arrays [name, flags]
         if (Array.isArray(outputMetadata)) {
-          publicName = outputMetadata[0] || propName
+          publicName = (outputMetadata as unknown[])[0] as string
+          if (!publicName) publicName = propName
         }
 
         outputs.push({
@@ -146,17 +167,25 @@ export class ComponentDocumentationService {
     }
 
     // METHOD 3: Look for property decorators (older Angular versions)
-    if ((componentType as any).propDecorators) {
-      const propDecorators = (componentType as any).propDecorators
+    if (angularComponent.propDecorators && typeof angularComponent.propDecorators === 'object') {
+      const propDecorators = angularComponent.propDecorators as Record<string, unknown>
 
       Object.keys(propDecorators).forEach((propName) => {
         const decorators = propDecorators[propName]
+        if (!Array.isArray(decorators)) {
+          return
+        }
 
         // Check if one of the decorators is @Input
-        const inputDecorator = decorators.find((d: any) => d.type.name === 'Input')
+        const inputDecorator = (decorators as unknown[]).find((d) => {
+          if (!d || typeof d !== 'object') return false
+          const type = (d as { type?: unknown }).type
+          if (!type || typeof type !== 'object') return false
+          return (type as { name?: unknown }).name === 'Input'
+        }) as { args?: unknown[] } | undefined
         if (inputDecorator) {
           const args = inputDecorator.args || []
-          const publicName = args[0] || propName
+          const publicName = (args[0] as string | undefined) || propName
 
           inputs.push({
             name: publicName,
@@ -165,10 +194,15 @@ export class ComponentDocumentationService {
         }
 
         // Check if one of the decorators is @Output
-        const outputDecorator = decorators.find((d: any) => d.type.name === 'Output')
+        const outputDecorator = (decorators as unknown[]).find((d) => {
+          if (!d || typeof d !== 'object') return false
+          const type = (d as { type?: unknown }).type
+          if (!type || typeof type !== 'object') return false
+          return (type as { name?: unknown }).name === 'Output'
+        }) as { args?: unknown[] } | undefined
         if (outputDecorator) {
           const args = outputDecorator.args || []
-          const publicName = args[0] || propName
+          const publicName = (args[0] as string | undefined) || propName
 
           outputs.push({
             name: publicName,
@@ -216,7 +250,7 @@ export class ComponentDocumentationService {
    * @param customReadmePath Optional custom path to the README file
    * @returns Observable with README content or null if not found
    */
-  fetchReadmeContent(componentType: Type<any>, customReadmePath?: string): Observable<string | null> {
+  fetchReadmeContent(componentType: Type<unknown>, customReadmePath?: string): Observable<string | null> {
     debugLog(`Fetching README for component: ${componentType.name}`)
 
     // If a custom path is provided, try that first

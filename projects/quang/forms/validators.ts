@@ -1,4 +1,4 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms'
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms'
 
 import { isAfter, isBefore, isWithinInterval } from 'date-fns'
 
@@ -62,7 +62,7 @@ export const europeanVatNumber: Record<EuroLocale, RegExp> = {
   [EuroLocale.SK]: /[0-9]{10}/gm,
 }
 export function fileMaxSize(maxSize: number): ValidatorFn {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (control.value && control.value instanceof File && control.value?.size > maxSize) {
       return { maxSize: { requiredValue: maxSize } }
     }
@@ -71,7 +71,7 @@ export function fileMaxSize(maxSize: number): ValidatorFn {
 }
 
 export function fileMinSize(minSize: number): ValidatorFn {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (control.value && control.value instanceof File && control.value?.size < minSize) {
       return { minSize: { requiredValue: minSize } }
     }
@@ -80,7 +80,7 @@ export function fileMinSize(minSize: number): ValidatorFn {
 }
 
 export function isFile(): ValidatorFn {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (control.value && control.value instanceof File) {
       return null
     }
@@ -89,7 +89,7 @@ export function isFile(): ValidatorFn {
 }
 
 export function fileType(fileTypes: string[]) {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (control.value && !fileTypes.includes(control.value?.type)) {
       return { fileType: { requiredValue: fileTypes.toString() } }
     }
@@ -98,7 +98,7 @@ export function fileType(fileTypes: string[]) {
 }
 
 export function fileExtensions(list: string[]) {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (control.value && !list.includes(control.value?.name?.match(/(?:\.([^.]+))?$/g)[0])) {
       return { fileExtension: { requiredValue: list.toString() } }
     }
@@ -107,7 +107,7 @@ export function fileExtensions(list: string[]) {
 }
 
 export function requiredCheckbox() {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) {
       return { required: { requiredValue: control.value } }
     }
@@ -116,7 +116,7 @@ export function requiredCheckbox() {
 }
 
 export function minDate(dateToCompare: Date) {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (isBefore(new Date(control.value), dateToCompare)) {
       return { minDate: { requiredValue: dateToCompare } }
     }
@@ -125,7 +125,7 @@ export function minDate(dateToCompare: Date) {
 }
 
 export function maxDate(dateToCompare: Date) {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (isAfter(new Date(control.value), dateToCompare)) {
       return { maxDate: { requiredValue: dateToCompare } }
     }
@@ -134,7 +134,7 @@ export function maxDate(dateToCompare: Date) {
 }
 
 export function dateBetween(start: Date, end: Date) {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (
       !isWithinInterval(new Date(control.value), {
         start,
@@ -148,7 +148,7 @@ export function dateBetween(start: Date, end: Date) {
 }
 
 export function isFiscalCode() {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     if (
       control?.value &&
       !/^([A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1})$|([0-9]{11})$/gm.test(
@@ -162,7 +162,7 @@ export function isFiscalCode() {
 }
 
 export function isVatNumber(localeList: EuroLocale[]) {
-  return (control: AbstractControl): Record<string, any> | null => {
+  return (control: AbstractControl): ValidationErrors | null => {
     let isInvalidVat = true
     for (const locale of localeList) {
       if (europeanVatNumber[locale]?.test(control?.value)) {
@@ -175,8 +175,8 @@ export function isVatNumber(localeList: EuroLocale[]) {
 }
 
 export function wysiwygRequired() {
-  return (control: AbstractControl): Record<string, any> | null => {
-    const cleanHTML = control.value.replace(/<\/?[^>]+(>|$)/g, '')
+  return (control: AbstractControl): ValidationErrors | null => {
+    const cleanHTML = control.value?.replace(/<\/?[^>]+(>|$)/g, '')
     if (!cleanHTML?.length) {
       return { required: { required: true } }
     }

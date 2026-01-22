@@ -57,9 +57,9 @@ interface People {
 export class TableTestComponent {
   protected TableTestComponent = QuangTableComponent
   private readonly quangTranslationService = inject(QuangTranslationService)
-  private readonly checkboxRenderer = viewChild<TemplateRef<any>>('checkboxRenderer')
-  private readonly name3 = viewChild<TemplateRef<any>>('name3')
-  private readonly actions = viewChild<TemplateRef<any>>('actions')
+  private readonly checkboxRenderer = viewChild<TemplateRef<unknown>>('checkboxRenderer')
+  private readonly name3 = viewChild<TemplateRef<unknown>>('name3')
+  private readonly actions = viewChild<TemplateRef<unknown>>('actions')
   private readonly testComponent = viewChild('testComponent')
 
   testComponentSource = computed<string>(() => {

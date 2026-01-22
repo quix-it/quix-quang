@@ -23,8 +23,8 @@ export interface TableHeader {
   text?: string
   sort?: SortCol
   css?: string[]
-  renderer?: TemplateRef<any>
-  payload?: any
+  renderer?: TemplateRef<unknown>
+  payload?: unknown
 }
 
 export interface TableConfiguration<T> {
@@ -33,13 +33,13 @@ export interface TableConfiguration<T> {
 }
 
 export interface TableCell {
-  renderer?: TemplateRef<any>
-  payload?: any
+  renderer?: TemplateRef<unknown>
+  payload?: unknown
   text?: string
   css?: string[]
   fullWidth?: boolean
   style?: Record<string, string>
-  properties?: Record<string, any>
+  properties?: Record<string, unknown>
   cellId?: string | number
 }
 
@@ -310,7 +310,7 @@ export class QuangTableComponent<T> {
     }
   }
 
-  convertToString(value?: any): string | undefined {
+  convertToString(value?: unknown): string | undefined {
     if (value === null) return undefined
     return JSON.stringify(value)
   }

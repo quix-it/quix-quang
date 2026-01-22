@@ -24,7 +24,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { QuangBaseOverlayComponent } from './quang-base-overlay.component'
 
 @Directive()
-export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayComponent> implements OnDestroy {
+export abstract class QuangBaseOverlayDirective<
+  T extends QuangBaseOverlayComponent<TContent, TPayload>,
+  TContent = unknown,
+  TPayload = unknown,
+> implements OnDestroy {
   targetComponentType = signal<ComponentType<T> | undefined>(undefined)
 
   /**
@@ -36,9 +40,9 @@ export abstract class QuangBaseOverlayDirective<T extends QuangBaseOverlayCompon
 
   showMethod = input<'click' | 'hover'>('click')
 
-  content = input.required<any>()
+  content = input.required<TContent>()
 
-  quangOverlayPayload = input<any>()
+  quangOverlayPayload = input<TPayload>()
 
   closeOnClickOutside = true
 

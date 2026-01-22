@@ -26,7 +26,7 @@ import { ComponentDocumentation, ComponentDocumentationService } from '../../ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentDocumentationComponent {
-  componentType = input.required<Type<any>>()
+  componentType = input.required<Type<unknown>>()
   exampleHtml = input<string>('')
   customReadmePath = input<string | undefined>(undefined)
   readmeOnly = input<boolean>(false)

@@ -9,6 +9,7 @@ import { QuangTranslationService } from 'quang/translation'
 
 import { ThemeModalComponent } from '../theme-modal/theme-modal.component'
 
+import pkg from '../../../../../../package.json'
 import { MenuItem, menuLanguage, menuList, menuTheme } from './menuList'
 
 @Component({
@@ -33,6 +34,7 @@ export class MenuComponent {
 
   readonly menuList: MenuItem[] = menuList
   readonly menuTheme = menuTheme
+  readonly buildVersion = pkg.version
   currentMenuHover = signal<MenuItem | null>(null)
   currentMenuHoverOrigin = signal<CdkOverlayOrigin | FlexibleConnectedPositionStrategyOrigin>(new ElementRef(null))
   isHoveringMenuChild = signal<boolean>(false)

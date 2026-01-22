@@ -43,6 +43,7 @@
       "radioGroup": "Componente radio group",
       "autocomplete": "Componente di autocomplete",
       "table": "Componente tabella",
+      "tabs": "Componente tabs",
       "readme": "Readme",
       "usage": "Utilizzo",
       "properties": "Proprietà",
@@ -174,6 +175,7 @@
       "select": "Select",
       "radioGroup": "Radio group",
       "table": "Table",
+      "tabs": "Tabs",
       "checkbox": "Checkbox / Toggle",
       "wysiwyg": "Wysiwyg",
       "loader": "Loader"
@@ -283,6 +285,99 @@
         "title": "Opzioni con template",
         "description": "Sostituisci il rendering di specifiche opzioni usando il template renderer per opzione."
       }
+    },
+    "tabs": {
+      "description": "Un componente tabs che supporta tabs disabilitate, template personalizzati e binding bidirezionale dei dati.",
+      "toc": "Esempi",
+      "api": "Riferimento API",
+      "simple": {
+        "title": "Tabs Semplici",
+        "description": "Tabs base con supporto alla traduzione e integrazione con form control.",
+        "home": "Home",
+        "profile": "Profilo",
+        "settings": "Impostazioni",
+        "selectedTab": "Tab selezionata",
+        "none": "nessuna"
+      },
+      "disabled": {
+        "title": "Tab Disabilitata",
+        "description": "Le singole tabs possono essere disabilitate indipendentemente dallo stato del form control.",
+        "tab1": "Tab Abilitata",
+        "tab2": "Tab Disabilitata",
+        "tab3": "Altra Tab",
+        "selectedTab": "Tab selezionata",
+        "info": "La tab centrale è disabilitata e non può essere selezionata"
+      },
+      "events": {
+        "title": "Gestione Eventi",
+        "description": "Ascolta i cambiamenti di selezione delle tabs usando l'evento output tabChange.",
+        "overview": "Panoramica",
+        "details": "Dettagli",
+        "analytics": "Analisi",
+        "formValue": "Valore form",
+        "lastEvent": "Ultimo evento tabChange",
+        "clickCount": "Conteggio click",
+        "none": "nessuno"
+      },
+      "content": {
+        "title": "Cambio Contenuto Tab",
+        "description": "Visualizza contenuti diversi in base alla tab selezionata usando il controllo di flusso @switch.",
+        "tabOverview": "Panoramica",
+        "tabDetails": "Dettagli",
+        "tabSettings": "Impostazioni",
+        "overview": {
+          "title": "Panoramica",
+          "description": "Benvenuto nella sezione panoramica! Qui puoi trovare informazioni rapide e statistiche.",
+          "point1": "Statistiche e metriche rapide",
+          "point2": "Riepilogo attività recenti",
+          "point3": "Notifiche importanti"
+        },
+        "details": {
+          "title": "Informazioni Dettagliate",
+          "description": "Visualizza i dettagli completi sui tuoi dati.",
+          "field1": "Nome",
+          "value1": "Mario Rossi",
+          "field2": "Email",
+          "value2": "mario.rossi@esempio.it",
+          "field3": "Ruolo",
+          "value3": "Amministratore"
+        },
+        "settings": {
+          "title": "Impostazioni di Configurazione",
+          "description": "Personalizza le tue preferenze e le impostazioni dell'applicazione.",
+          "option1": "Preferenza Tema",
+          "choice1": "Modalità Chiara",
+          "choice2": "Modalità Scura",
+          "choice3": "Predefinito di Sistema",
+          "enableNotifications": "Abilita notifiche email",
+          "save": "Salva Impostazioni"
+        }
+      },
+      "template": {
+        "title": "Template Personalizzati",
+        "description": "Usa template personalizzati per renderizzare tabs con icone, badge o qualsiasi contenuto personalizzato.",
+        "dashboard": "Dashboard",
+        "messages": "Messaggi",
+        "notifications": "Notifiche",
+        "active": "Attiva",
+        "selectedTab": "Tab selezionata"
+      },
+      "interactive": {
+        "title": "Esempio Interattivo",
+        "description": "Testa tutte le funzionalità includendo disabilitato, readonly, validazione e integrazione form.",
+        "tab1": "Tab 1",
+        "tab2": "Tab 2",
+        "tab3": "Tab 3",
+        "selectedTab": "Tab selezionata",
+        "none": "nessuna",
+        "markAsTouched": "Segna come Toccato"
+      },
+      "tab1": "Prima Tab",
+      "tab2": "Seconda Tab",
+      "tab3": "Terza Tab",
+      "custom1": "Personalizzata 1",
+      "custom2": "Personalizzata 2",
+      "custom3": "Personalizzata 3"
     },
     "checkbox": {
       "interactive": {

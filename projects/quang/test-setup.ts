@@ -7,15 +7,23 @@ import '@analogjs/vitest-angular/setup-zone'
 // Polyfill ResizeObserver for jsdom
 if (typeof ResizeObserver === 'undefined') {
   global.ResizeObserver = class ResizeObserver {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
+    observe(): void {
+      return
+    }
+    unobserve(): void {
+      return
+    }
+    disconnect(): void {
+      return
+    }
   }
 }
 
 // Mock scrollIntoView for jsdom (not implemented in JSDOM)
 if (typeof Element.prototype.scrollIntoView === 'undefined') {
-  Element.prototype.scrollIntoView = function () {}
+  Element.prototype.scrollIntoView = function (): void {
+    return
+  }
 }
 
 getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting())

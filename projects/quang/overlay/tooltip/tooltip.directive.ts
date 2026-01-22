@@ -8,7 +8,7 @@ import { QuangTooltipComponent } from './tooltip.component'
 @Directive({
   selector: '[quangTooltip]',
 })
-export class QuangTooltipDirective extends QuangBaseOverlayDirective<QuangTooltipComponent> {
+export class QuangTooltipDirective extends QuangBaseOverlayDirective<QuangTooltipComponent, string, unknown> {
   override targetComponentType = signal<ComponentType<QuangTooltipComponent> | undefined>(QuangTooltipComponent)
 
   override content = input.required<string>({ alias: 'quangTooltip' })

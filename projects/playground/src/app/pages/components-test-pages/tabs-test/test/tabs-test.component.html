@@ -1,0 +1,97 @@
+<h3>{{ 'title.components.tabs' | transloco }}</h3>
+
+<ng-template
+  #customTabTpl
+  let-selected="selected"
+  let-tab
+>
+  <button
+    [class.selected]="selected"
+    class="flex-grow-1 btn btn-only-text"
+    type="button"
+  >
+    <span class="d-flex gap-2 align-items-center justify-content-center">
+      <strong>🎨 {{ tab.label | transloco }}</strong>
+      @if (selected) {
+        <small class="badge bg-primary">Active</small>
+      }
+    </span>
+  </button>
+</ng-template>
+
+<form [formGroup]="testForm">
+  <div class="card">
+    <div class="card-header">
+      <h5>Standard Tabs</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8">
+          <quang-tabs
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [tabs]="standardTabs()"
+            (tabChange)="onTabChange($event)"
+            componentLabel="Select a tab"
+            formControlName="selectedTab"
+          />
+
+          <div class="mt-4 p-3 bg-light rounded">
+            <h6>Tab Content Area</h6>
+            <p>
+              Current tab: <strong>{{ testForm.value.selectedTab }}</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="alert alert-info">
+            <strong>Form Value:</strong>
+            <pre class="mb-2">{{ testForm.value | json }}</pre>
+            <strong>Last tabChange event:</strong>
+            <pre class="mb-0">{{ lastTabChangeEvent() ?? 'none' }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      <h5>Tabs with Custom Template</h5>
+    </div>
+    <div class="card-body">
+      <quang-tabs
+        [isReadonly]="isReadonly()"
+        [tabs]="customTabs()"
+        (tabChange)="onTabChange($event)"
+        componentLabel="Custom styled tabs"
+        formControlName="selectedTab"
+      />
+    </div>
+  </div>
+
+  <div class="d-flex gap-3 mt-4">
+    <button
+      (click)="toggleDisabled()"
+      class="btn btn-outline-secondary"
+      type="button"
+    >
+      {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
+    </button>
+    <button
+      (click)="toggleReadonly()"
+      class="btn btn-outline-secondary"
+      type="button"
+    >
+      {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+    </button>
+    <button
+      (click)="resetForm()"
+      class="btn btn-outline-secondary"
+      type="button"
+    >
+      {{ 'form.buttons.resetForm' | transloco }}
+    </button>
+  </div>
+</form>

@@ -98,8 +98,8 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   showBlocks = input<boolean>(true)
 
-  onImageUploadError = input<(errorMessage: any, result: any, core: any) => boolean>()
-  onFileDrop = input<(e: any, cleanData: any, maxCharCount: any, core: any) => boolean>()
+  onImageUploadError = input<(errorMessage: unknown, result: unknown, core: unknown) => boolean>()
+  onFileDrop = input<(e: unknown, cleanData: unknown, maxCharCount: unknown, core: unknown) => boolean>()
 
   wysiwygOptions = input<QuangWysiwygOptions | undefined>(undefined)
 

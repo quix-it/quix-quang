@@ -1,0 +1,18 @@
+#tabs-container {
+  button {
+    border-radius: 0;
+    border-bottom: 1px solid var(--bs-border-color);
+    &.selected {
+      border-bottom: 4px solid var(--bs-border-color);
+      font-weight: 700;
+    }
+    &:not(.selected) {
+      padding-bottom: calc(0.5rem + 3px);
+    }
+  }
+
+  .btn:disabled {
+    border-color: transparent;
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+}

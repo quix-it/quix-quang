@@ -2,13 +2,13 @@ import { AfterViewInit, DestroyRef, Directive, Injector, computed, inject, input
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angular/forms'
 
-import { Subscription } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 
 import { ErrorData } from './ErrorData'
 import { makeId } from './makeId'
 
 @Directive()
-export abstract class QuangBaseComponent<T = any> implements ControlValueAccessor, AfterViewInit {
+export abstract class QuangBaseComponent<T = unknown> implements ControlValueAccessor, AfterViewInit {
   componentId = input<string>(makeId(10))
 
   isReadonly = input<boolean>(false)
@@ -66,7 +66,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   _currentErrorMessage = signal<string>('')
 
-  _currentErrorMessageExtraData = signal<Record<string, any>>({})
+  _currentErrorMessageExtraData = signal<Record<string, unknown>>({})
 
   _ngControl = signal<NgControl | null>(null)
 
@@ -171,7 +171,8 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
     // `markAllAsTouched()` updates the control's `touched` state without emitting `statusChanges`.
     // Angular exposes an `events` stream that includes touched/pristine changes.
-    this._eventsChange$ = (control as any)?.events?.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+    const controlEvents = (control as unknown as { events?: Observable<unknown> })?.events
+    this._eventsChange$ = controlEvents?.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.checkFormErrors()
     })
 

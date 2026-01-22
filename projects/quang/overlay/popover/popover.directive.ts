@@ -8,8 +8,12 @@ import { QuangPopoverComponent } from './popover.component'
 @Directive({
   selector: '[quangPopover]',
 })
-export class QuangPopoverDirective extends QuangBaseOverlayDirective<QuangPopoverComponent> {
+export class QuangPopoverDirective extends QuangBaseOverlayDirective<
+  QuangPopoverComponent,
+  TemplateRef<unknown> | null,
+  unknown
+> {
   override targetComponentType = signal<ComponentType<QuangPopoverComponent> | undefined>(QuangPopoverComponent)
 
-  override content = input.required<TemplateRef<any> | null>({ alias: 'quangPopover' })
+  override content = input.required<TemplateRef<unknown> | null>({ alias: 'quangPopover' })
 }
