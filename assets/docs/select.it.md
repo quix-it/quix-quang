@@ -39,6 +39,40 @@ Tutti gli output standard ereditati da `QuangBaseComponent`: `componentBlur`
 </quang-select>
 ```
 
+### Opzioni con template
+
+Ogni `SelectOption` può fornire un `renderer` (simile a `quang-table` e `quang-radio-group`), che viene utilizzato al posto dell’etichetta standard.
+
+```html
+<ng-template
+  #customOption
+  let-opt
+  let-selected="selected"
+>
+  <span>
+    <strong>{{ opt.label }}</strong>
+    <small class="text-muted">selezionato: {{ selected }}</small>
+  </span>
+</ng-template>
+
+<quang-select
+  [selectOptions]="templatedOptions"
+  formControlName="testInput"
+/>
+```
+
+```ts
+import { TemplateRef, viewChild } from '@angular/core'
+import { SelectOption, QuangSelectOptionTemplateContext } from 'quang/components/shared'
+
+customOptionTemplate = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('customOption')
+
+templatedOptions: SelectOption[] = [
+  { value: 'IT', label: 'Italy' },
+  { value: 'FR', label: 'France', renderer: this.customOptionTemplate() },
+]
+```
+
 ## Integrazione QuangTranslationService
 
 Il componente supporta la traduzione automatica di tutte le etichette, messaggi di aiuto e messaggi di errore tramite `QuangTranslationService`.
