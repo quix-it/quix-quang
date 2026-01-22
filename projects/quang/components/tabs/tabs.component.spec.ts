@@ -37,18 +37,18 @@ const getTranslocoTestingProviders = () =>
     <form [formGroup]="form">
       <ng-template
         #tabTpl
-        let-tab
-        let-selected="selected"
         let-index="index"
+        let-selected="selected"
+        let-tab
       >
         <span class="custom-tab">Custom {{ tab.id }} {{ selected }} {{ index }}</span>
       </ng-template>
 
       <quang-tabs
-        [tabs]="tabs"
-        [isReadonly]="isReadonly()"
         [componentClass]="componentClass"
         [componentTabIndex]="componentTabIndex"
+        [isReadonly]="isReadonly()"
+        [tabs]="tabs"
         (tabChange)="onTabChange($event)"
         formControlName="selectedTab"
       />
@@ -59,7 +59,7 @@ const getTranslocoTestingProviders = () =>
 })
 class TestHostComponent {
   @ViewChild('tabTpl', { read: TemplateRef })
-  tabTpl?: TemplateRef<any>
+  tabTpl?: TemplateRef<unknown>
 
   form = new FormGroup({
     selectedTab: new FormControl<string>('tab1'),
@@ -101,8 +101,8 @@ class TestHostComponent {
 @Component({
   template: `
     <quang-tabs
-      [tabs]="tabs"
       [formControl]="control"
+      [tabs]="tabs"
     />
   `,
   standalone: true,
@@ -584,7 +584,7 @@ describe('QuangTabsComponent', () => {
     })
 
     it('should handle null form value', () => {
-      host.form.patchValue({ selectedTab: null as any })
+      host.form.patchValue({ selectedTab: null as unknown as string })
       fixture.detectChanges()
 
       const buttons = fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>

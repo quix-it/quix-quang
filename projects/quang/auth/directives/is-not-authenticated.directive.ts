@@ -17,9 +17,9 @@ import { QuangAuthService } from '../auth.service'
 export class QuangIsNotAuthenticatedDirective {
   viewContainerRef = inject(ViewContainerRef)
 
-  templateRef = inject(TemplateRef)
+  templateRef = inject<TemplateRef<unknown>>(TemplateRef)
 
-  embeddedViewRef: EmbeddedViewRef<any> | null = null
+  embeddedViewRef: EmbeddedViewRef<unknown> | null = null
 
   authService = inject(QuangAuthService)
 

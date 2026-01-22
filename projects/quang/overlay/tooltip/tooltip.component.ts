@@ -19,7 +19,7 @@ import { QuangBaseOverlayComponent } from 'quang/overlay/shared'
     ]),
   ],
 })
-export class QuangTooltipComponent implements QuangBaseOverlayComponent {
+export class QuangTooltipComponent implements QuangBaseOverlayComponent<string, unknown> {
   overlayContent = input.required<string>()
 
   quangTooltipPosition = input<'top' | 'bottom' | 'left' | 'right'>('top')

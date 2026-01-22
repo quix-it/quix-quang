@@ -1,7 +1,7 @@
 import { signal, ɵɵFactoryDeclaration, ɵɵInjectableDeclaration } from '@angular/core'
 
 export class PaginatorIntl {
-  readonly changes = signal<any | undefined>(undefined)
+  readonly changes = signal<number>(0)
 
   itemsPerPageLabel = ''
 

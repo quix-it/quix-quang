@@ -76,7 +76,7 @@ export class WysiwygTestComponent {
     height: undefined,
   }
 
-  onImageUploadError = (errorMessage: any, result: any, core: any) => {
+  onImageUploadError = (errorMessage: unknown, result: unknown, core: unknown) => {
     console.log('onImageUploadError', errorMessage, result, core)
     return true
   }

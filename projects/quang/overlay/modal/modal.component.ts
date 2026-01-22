@@ -104,11 +104,11 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
 
   private readonly destroyRef = inject(DestroyRef)
 
+  private readonly overlay = inject(Overlay)
+
   private overlayConfig?: OverlayConfig
 
   private overlayRef?: OverlayRef
-
-  constructor(private readonly overlay: Overlay) {}
 
   ngAfterViewInit(): void {
     this.overlayConfig = new OverlayConfig({

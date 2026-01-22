@@ -61,7 +61,7 @@ import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsTemplateExampleComponent {
-  private readonly customTabTpl = viewChild<TemplateRef<any>>('customTabTpl')
+  private readonly customTabTpl = viewChild<TemplateRef<unknown>>('customTabTpl')
 
   control = new FormControl<string>('dashboard')
 

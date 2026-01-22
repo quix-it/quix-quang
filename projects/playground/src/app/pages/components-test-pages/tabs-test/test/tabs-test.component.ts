@@ -1,18 +1,10 @@
-import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, TemplateRef, computed, inject, signal, viewChild } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { JsonPipe } from '@angular/common'
+import { ChangeDetectionStrategy, Component, TemplateRef, computed, inject, signal, viewChild } from '@angular/core'
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 
+import { TranslocoPipe } from '@jsverse/transloco'
 
-
-import { TranslocoPipe } from '@jsverse/transloco';
-
-
-
-import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs';
-
-
-
-
+import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs'
 
 @Component({
   selector: 'playground-tabs-test',
@@ -22,7 +14,7 @@ import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsTestComponent {
-  private readonly customTabTpl = viewChild<TemplateRef<any>>('customTabTpl')
+  private readonly customTabTpl = viewChild<TemplateRef<unknown>>('customTabTpl')
 
   formBuilder = inject(NonNullableFormBuilder)
 

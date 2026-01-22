@@ -10,7 +10,7 @@ export interface TabConfiguration {
   id: string
   label: string
   disabled?: boolean
-  renderer?: TemplateRef<any>
+  renderer?: TemplateRef<unknown>
 }
 
 @Component({

@@ -11,8 +11,8 @@ import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs'
   imports: [ReactiveFormsModule, QuangTabsComponent, TranslocoPipe],
   template: `
     <quang-tabs
-      [tabs]="tabs"
       [formControl]="selectedTab"
+      [tabs]="tabs"
     />
 
     <!-- Content based on selected tab -->
@@ -43,15 +43,21 @@ import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs'
               <table class="table table-striped">
                 <tbody>
                   <tr>
-                    <td><strong>{{ 'examples.tabs.content.details.field1' | transloco }}</strong></td>
+                    <td>
+                      <strong>{{ 'examples.tabs.content.details.field1' | transloco }}</strong>
+                    </td>
                     <td>{{ 'examples.tabs.content.details.value1' | transloco }}</td>
                   </tr>
                   <tr>
-                    <td><strong>{{ 'examples.tabs.content.details.field2' | transloco }}</strong></td>
+                    <td>
+                      <strong>{{ 'examples.tabs.content.details.field2' | transloco }}</strong>
+                    </td>
                     <td>{{ 'examples.tabs.content.details.value2' | transloco }}</td>
                   </tr>
                   <tr>
-                    <td><strong>{{ 'examples.tabs.content.details.field3' | transloco }}</strong></td>
+                    <td>
+                      <strong>{{ 'examples.tabs.content.details.field3' | transloco }}</strong>
+                    </td>
                     <td>{{ 'examples.tabs.content.details.value3' | transloco }}</td>
                   </tr>
                 </tbody>
@@ -68,20 +74,37 @@ import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs'
               <p>{{ 'examples.tabs.content.settings.description' | transloco }}</p>
               <form>
                 <div class="mb-3">
-                  <label class="form-label">{{ 'examples.tabs.content.settings.option1' | transloco }}</label>
-                  <select class="form-select">
+                  <label
+                    class="form-label"
+                    for="option1Select"
+                    >{{ 'examples.tabs.content.settings.option1' | transloco }}</label
+                  >
+                  <select
+                    class="form-select"
+                    id="option1Select"
+                  >
                     <option>{{ 'examples.tabs.content.settings.choice1' | transloco }}</option>
                     <option>{{ 'examples.tabs.content.settings.choice2' | transloco }}</option>
                     <option>{{ 'examples.tabs.content.settings.choice3' | transloco }}</option>
                   </select>
                 </div>
                 <div class="form-check mb-3">
-                  <input class="form-check-input" type="checkbox" id="notificationsCheck">
-                  <label class="form-check-label" for="notificationsCheck">
+                  <input
+                    class="form-check-input"
+                    id="notificationsCheck"
+                    type="checkbox"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="notificationsCheck"
+                  >
                     {{ 'examples.tabs.content.settings.enableNotifications' | transloco }}
                   </label>
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                >
                   {{ 'examples.tabs.content.settings.save' | transloco }}
                 </button>
               </form>
