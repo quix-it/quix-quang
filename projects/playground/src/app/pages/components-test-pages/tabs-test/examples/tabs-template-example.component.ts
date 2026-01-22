@@ -12,18 +12,20 @@ import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs'
   template: `
     <ng-template
       #customTabTpl
-      let-tab
+      let-onSelect="onSelect"
       let-selected="selected"
+      let-tab
     >
       <button
         [class.selected]="selected"
+        (click)="onSelect(tab)"
         class="flex-grow-1 btn btn-only-text custom-tab"
         type="button"
       >
         <span class="d-flex gap-2 align-items-center justify-content-center">
           <span>{{ tab.icon }}</span>
           <strong>{{ tab.label | transloco }}</strong>
-          @if(selected) {
+          @if (selected) {
             <small class="badge bg-primary">{{ 'examples.tabs.template.active' | transloco }}</small>
           }
         </span>
@@ -31,8 +33,8 @@ import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs'
     </ng-template>
 
     <quang-tabs
-      [tabs]="tabs"
       [formControl]="control"
+      [tabs]="tabs"
       componentLabel="Tabs with custom templates"
     />
     <div class="mt-3 p-3 bg-light rounded">
@@ -65,8 +67,8 @@ export class TabsTemplateExampleComponent {
 
   get tabs(): TabConfiguration[] {
     return [
-      { id: 'dashboard', label: 'examples.tabs.template.dashboard',  renderer: this.customTabTpl() },
-      { id: 'messages', label: 'examples.tabs.template.messages',  renderer: this.customTabTpl() },
+      { id: 'dashboard', label: 'examples.tabs.template.dashboard', renderer: this.customTabTpl() },
+      { id: 'messages', label: 'examples.tabs.template.messages', renderer: this.customTabTpl() },
       { id: 'notifications', label: 'examples.tabs.template.notifications', renderer: this.customTabTpl() },
     ]
   }
@@ -81,9 +83,10 @@ import { QuangTabsComponent, TabConfiguration } from 'quang/components/tabs'
   selector: 'app-tabs-template',
   imports: [ReactiveFormsModule, QuangTabsComponent],
   template: \`
-    <ng-template #customTabTpl let-tab let-selected="selected">
+    <ng-template #customTabTpl let-tab="$implicit" let-selected="selected" let-onSelect="onSelect">
       <button
         [class.selected]="selected"
+        (click)="onSelect(tab)"
         class="flex-grow-1 btn btn-only-text"
       >
         <span>{{ tab.icon }} {{ tab.label }}</span>
@@ -111,9 +114,10 @@ export class TabsTemplateComponent {
   }
 }`
 
-export const TABS_TEMPLATE_HTML = `<ng-template #customTabTpl let-tab let-selected="selected">
+export const TABS_TEMPLATE_HTML = `<ng-template #customTabTpl let-tab="$implicit" let-selected="selected" let-onSelect="onSelect">
   <button
     [class.selected]="selected"
+    (click)="onSelect(tab)"
     class="flex-grow-1 btn btn-only-text"
   >
     <span>{{ tab.icon }} {{ tab.label }}</span>

@@ -2,11 +2,16 @@
   class="d-flex mt-4 flex-column flex-lg-row"
   id="tabs-container"
 >
-  @for(tab of tabs(); track tab.id) {
-    @if(tab.renderer) {
+  @for (tab of tabs(); track tab.id) {
+    @if (tab.renderer) {
       <ng-container
         [ngTemplateOutlet]="tab.renderer"
-        [ngTemplateOutletContext]="{ $implicit: tab, selected: isTabSelected(tab), index: getTabIndex(tab) }"
+        [ngTemplateOutletContext]="{
+          $implicit: tab,
+          selected: isTabSelected(tab),
+          index: getTabIndex(tab),
+          onSelect: onSelectTab.bind(this),
+        }"
       ></ng-container>
     } @else {
       <button
