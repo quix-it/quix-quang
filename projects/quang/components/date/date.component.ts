@@ -348,6 +348,27 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
     if (this.showInline()) {
       this.setupTimepicker()
     }
+
+    this.handleDisabledState()
+  }
+
+  private handleDisabledState() {
+    const isDisabled = this._isDisabled()
+    const datepickerInstance = this._airDatepickerInstance()
+    if (!datepickerInstance) return
+
+    const datepickerEl = datepickerInstance.$datepicker
+    if (!datepickerEl) return
+
+    const inputs = datepickerEl.querySelectorAll('input')
+
+    if (isDisabled) {
+      datepickerEl.classList.add('quang-calendar-disabled')
+      Array.from(inputs).forEach((input) => ((input as HTMLInputElement).disabled = true))
+    } else {
+      datepickerEl.classList.remove('quang-calendar-disabled')
+      Array.from(inputs).forEach((input) => ((input as HTMLInputElement).disabled = false))
+    }
   }
 
   onChangeText($event: Event): void {
