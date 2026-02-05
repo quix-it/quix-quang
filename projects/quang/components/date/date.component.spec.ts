@@ -504,6 +504,8 @@ describe('QuangDateComponent - inline mode', () => {
     timepickerRoot.className = 'air-datepicker-time'
     const h = document.createElement('input')
     const m = document.createElement('input')
+    h.value = '11'
+    m.value = '24'
     timepickerRoot.appendChild(h)
     timepickerRoot.appendChild(m)
     dp.$datepicker.appendChild(timepickerRoot)
@@ -814,11 +816,11 @@ describe('QuangDateComponent - showOnlyTimepicker', () => {
   it('should set formControl to null if both timepicker inputs are cleared', async () => {
     vi.useFakeTimers()
     await TestBed.configureTestingModule({
-      imports: [NormalizeTimeOnlyHostComponent],
+      imports: [InlineTimeOnlyHostComponent],
       providers: [getTranslocoTestingProviders()],
     }).compileComponents()
 
-    const fixture = TestBed.createComponent(NormalizeTimeOnlyHostComponent)
+    const fixture = TestBed.createComponent(InlineTimeOnlyHostComponent)
     fixture.detectChanges()
 
     const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
