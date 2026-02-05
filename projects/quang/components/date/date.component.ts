@@ -330,6 +330,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       } else {
         this._airDatepickerInstance()?.setFocusDate(false)
         this._airDatepickerInstance()?.clear({ silent: true })
+        if (this.showOnlyTimepicker()) {
+          this.setTimepickerInputValues('')
+        }
       }
     } else {
       this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
@@ -668,5 +671,20 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
   checkDateMatch(date: string): boolean {
     return isMatch(date, this.valueFormat()) || isMatch(date, this.valueFormat().replace('yyyy', 'yy'))
+  }
+
+  private setTimepickerInputValues(value: string) {
+    const datepickerRoot = this._airDatepickerInstance()?.$datepicker as HTMLElement | undefined
+    if (!datepickerRoot) {
+      return
+    }
+
+    const timepickers = datepickerRoot.getElementsByClassName('air-datepicker-time')
+    for (const timepicker of Array.from(timepickers)) {
+      const inputs = timepicker.getElementsByTagName('input')
+      for (const input of Array.from(inputs)) {
+        input.value = value
+      }
+    }
   }
 }
