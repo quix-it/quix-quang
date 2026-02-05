@@ -775,3 +775,39 @@ describe('QuangDateComponent - onChangeText', () => {
     expect((dateCmp as unknown as QuangDateComponentPrivateApi)._value()).toBe(null)
   })
 })
+
+describe('QuangDateComponent - showOnlyTimepicker', () => {
+  it('should clear both inputs (hours/minutes) if formControl.value is null starting from a value', async () => {
+    await TestBed.configureTestingModule({
+      imports: [NormalizeTimeOnlyHostComponent],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    const fixture = TestBed.createComponent(NormalizeTimeOnlyHostComponent)
+    fixture.detectChanges()
+
+    const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
+    const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
+
+    // Simulate AirDatepicker time inputs structure
+    const timepickerRoot = document.createElement('div')
+    timepickerRoot.className = 'air-datepicker-time'
+    const h = document.createElement('input')
+    const m = document.createElement('input')
+    // The inputs would have values from the initial state
+    h.value = '10'
+    m.value = '12'
+    timepickerRoot.appendChild(h)
+    timepickerRoot.appendChild(m)
+    dp.$datepicker.appendChild(timepickerRoot)
+
+    fixture.componentInstance.control.setValue(null)
+    fixture.detectChanges()
+    await fixture.whenStable()
+    await new Promise<void>((resolve) => queueMicrotask(() => resolve()))
+
+    expect(h.value).toBe('')
+    expect(m.value).toBe('')
+  })
+})
