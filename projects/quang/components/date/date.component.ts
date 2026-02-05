@@ -462,6 +462,21 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       return
     }
 
+    if (this.showOnlyTimepicker()) {
+      const datepickerRoot = this._airDatepickerInstance()?.$datepicker as HTMLElement | undefined
+      if (datepickerRoot) {
+        const timeInputs = datepickerRoot.querySelectorAll('.air-datepicker-time input')
+        if (
+          timeInputs.length > 0 &&
+          Array.from(timeInputs).every((input) => (input as HTMLInputElement).value === '')
+        ) {
+          this.onChangedHandler(null)
+          this.propagateValueToControl()
+          return
+        }
+      }
+    }
+
     const datepickerInstance = this._airDatepickerInstance() as unknown as { selectedDates?: Date[] } | undefined
     const selectedDate = datepickerInstance?.selectedDates?.[0]
     if (!(selectedDate instanceof Date)) {

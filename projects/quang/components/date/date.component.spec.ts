@@ -810,4 +810,49 @@ describe('QuangDateComponent - showOnlyTimepicker', () => {
     expect(h.value).toBe('')
     expect(m.value).toBe('')
   })
+
+  it('should set formControl to null if both timepicker inputs are cleared', async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [NormalizeTimeOnlyHostComponent],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    const fixture = TestBed.createComponent(NormalizeTimeOnlyHostComponent)
+    fixture.detectChanges()
+
+    const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
+    const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
+
+    // Simulate AirDatepicker time inputs structure
+    const timepickerRoot = document.createElement('div')
+    timepickerRoot.className = 'air-datepicker-time'
+    const h = document.createElement('input')
+    const m = document.createElement('input')
+    h.value = '10'
+    m.value = '12'
+    timepickerRoot.appendChild(h)
+    timepickerRoot.appendChild(m)
+    dp.$datepicker.appendChild(timepickerRoot)
+
+    // Re-run setup to attach listeners
+    dateCmp['setupTimepicker']()
+
+    expect(fixture.componentInstance.control.value).toBeTruthy()
+
+    // Clear inputs
+    h.value = ''
+    m.value = ''
+
+    // Dispatch input event to trigger sync
+    h.dispatchEvent(new Event('input', { bubbles: true }))
+
+    vi.runAllTimers()
+    fixture.detectChanges()
+
+    expect(fixture.componentInstance.control.value).toBe(null)
+
+    vi.useRealTimers()
+  })
 })
