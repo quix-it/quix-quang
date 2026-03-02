@@ -5,6 +5,7 @@ Il `QuangTabsComponent` è un componente di navigazione a tab flessibile che for
 ## Input
 
 - `tabs`: `TabConfiguration[]` — Array di configurazioni delle tab. Ogni tab deve avere un `id` e una `label`, e può opzionalmente includere lo stato `disabled` o un `renderer` personalizzato. **(Obbligatorio)**
+- `tabsOrientation`: `TabsOrientation` — Controlla l'allineamento delle tab. `TabsOrientation.Horizontal` (default) mostra le tab in riga, mentre `TabsOrientation.Vertical` le dispone in colonna
 - `isReadonly`: `boolean` — Imposta il componente in modalità sola lettura. Quando true, tutte le tab diventano non interattive. Ereditato da `QuangBaseComponent`
 - `componentTabIndex`: `number` — Indice tab per accessibilità. Ereditato da `QuangBaseComponent`
 - `componentClass`: `string | string[]` — Classi CSS aggiuntive. Ereditato da `QuangBaseComponent`
@@ -19,10 +20,19 @@ Il `QuangTabsComponent` è un componente di navigazione a tab flessibile che for
 
 ```typescript
 interface TabConfiguration {
-  id: string              // Identificatore univoco per la tab
-  label: string          // Chiave di traduzione o testo dell'etichetta
-  disabled?: boolean     // Se true, la tab è disabilitata e non interattiva
-  renderer?: TemplateRef<any>  // Template personalizzato opzionale per il rendering della tab
+  id: string // Identificatore univoco per la tab
+  label: string // Chiave di traduzione o testo dell'etichetta
+  disabled?: boolean // Se true, la tab è disabilitata e non interattiva
+  renderer?: TemplateRef<any> // Template personalizzato opzionale per il rendering della tab
+}
+```
+
+## Enum TabsOrientation
+
+```typescript
+enum TabsOrientation {
+  Horizontal = 'horizontal',
+  Vertical = 'vertical',
 }
 ```
 
@@ -32,8 +42,8 @@ interface TabConfiguration {
 
 ```html
 <quang-tabs
-  [tabs]="tabs"
   [formControl]="selectedTab"
+  [tabs]="tabs"
 />
 ```
 
@@ -53,8 +63,8 @@ export class MyComponent {
 
 ```html
 <quang-tabs
-  [tabs]="tabs"
   [formControl]="selectedTab"
+  [tabs]="tabs"
 />
 ```
 
@@ -74,8 +84,8 @@ export class MyComponent {
 
 ```html
 <quang-tabs
-  [tabs]="tabs"
   [formControl]="selectedTab"
+  [tabs]="tabs"
   (tabChange)="onTabChange($event)"
 />
 ```
@@ -103,66 +113,65 @@ Visualizza contenuti diversi in base alla tab selezionata usando il controllo di
 
 ```html
 <quang-tabs
-  [tabs]="tabs"
   [formControl]="selectedTab"
+  [tabs]="tabs"
 />
 
 <!-- Il contenuto cambia in base alla tab selezionata -->
 <div class="mt-4">
-  @switch (selectedTab.value) {
-    @case ('overview') {
-      <div class="card">
-        <div class="card-header">
-          <h5>Panoramica</h5>
+  @switch (selectedTab.value) { @case ('overview') {
+  <div class="card">
+    <div class="card-header">
+      <h5>Panoramica</h5>
+    </div>
+    <div class="card-body">
+      <p>Benvenuto nella sezione panoramica!</p>
+      <ul>
+        <li>Statistiche rapide</li>
+        <li>Attività recenti</li>
+      </ul>
+    </div>
+  </div>
+  } @case ('details') {
+  <div class="card">
+    <div class="card-header">
+      <h5>Dettagli</h5>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><strong>Nome:</strong></td>
+            <td>Mario Rossi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  } @case ('settings') {
+  <div class="card">
+    <div class="card-header">
+      <h5>Impostazioni</h5>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="mb-3">
+          <label>Tema</label>
+          <select class="form-select">
+            <option>Chiaro</option>
+            <option>Scuro</option>
+          </select>
         </div>
-        <div class="card-body">
-          <p>Benvenuto nella sezione panoramica!</p>
-          <ul>
-            <li>Statistiche rapide</li>
-            <li>Attività recenti</li>
-          </ul>
-        </div>
-      </div>
-    }
-    @case ('details') {
-      <div class="card">
-        <div class="card-header">
-          <h5>Dettagli</h5>
-        </div>
-        <div class="card-body">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td><strong>Nome:</strong></td>
-                <td>Mario Rossi</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    }
-    @case ('settings') {
-      <div class="card">
-        <div class="card-header">
-          <h5>Impostazioni</h5>
-        </div>
-        <div class="card-body">
-          <form>
-            <div class="mb-3">
-              <label>Tema</label>
-              <select class="form-select">
-                <option>Chiaro</option>
-                <option>Scuro</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary">
-              Salva
-            </button>
-          </form>
-        </div>
-      </div>
-    }
-  }
+        <button
+          class="btn btn-primary"
+          type="submit"
+        >
+          Salva
+        </button>
+      </form>
+    </div>
+  </div>
+  } }
 </div>
 ```
 
@@ -178,13 +187,62 @@ export class MyComponent {
 }
 ```
 
+### Contenuto + Toggle Orientamento
+
+Usa `tabsOrientation` per passare dinamicamente tra tab orizzontali e verticali:
+
+```html
+<div class="form-check form-switch mb-3">
+  <input
+    [checked]="verticalOrientationEnabled()"
+    (change)="toggleOrientation()"
+    class="form-check-input"
+    id="verticalOrientationToggle"
+    type="checkbox"
+  />
+  <label
+    class="form-check-label"
+    for="verticalOrientationToggle"
+  >
+    Allineamento verticale
+  </label>
+</div>
+
+<quang-tabs
+  [formControl]="selectedTab"
+  [tabs]="tabs"
+  [tabsOrientation]="tabsOrientation()"
+/>
+```
+
+```typescript
+export class MyComponent {
+  selectedTab = new FormControl<string>('overview')
+  verticalOrientationEnabled = signal<boolean>(false)
+
+  tabsOrientation = computed(() =>
+    this.verticalOrientationEnabled() ? TabsOrientation.Vertical : TabsOrientation.Horizontal
+  )
+
+  tabs: TabConfiguration[] = [
+    { id: 'overview', label: 'Panoramica' },
+    { id: 'details', label: 'Dettagli' },
+    { id: 'settings', label: 'Impostazioni' },
+  ]
+
+  toggleOrientation(): void {
+    this.verticalOrientationEnabled.set(!this.verticalOrientationEnabled())
+  }
+}
+```
+
 ### Template Personalizzati per le Tab
 
 ```html
 <ng-template
   #customTabTpl
-  let-tab
   let-selected="selected"
+  let-tab
 >
   <button
     [class.selected]="selected"
@@ -195,15 +253,15 @@ export class MyComponent {
       <span>{{ tab.icon }}</span>
       <strong>{{ tab.label | transloco }}</strong>
       @if(selected) {
-        <small class="badge bg-primary">Attiva</small>
+      <small class="badge bg-primary">Attiva</small>
       }
     </span>
   </button>
 </ng-template>
 
 <quang-tabs
-  [tabs]="tabs"
   [formControl]="selectedTab"
+  [tabs]="tabs"
 />
 ```
 
@@ -214,15 +272,15 @@ export class MyComponent {
 
   get tabs(): TabConfiguration[] {
     return [
-      { 
-        id: 'dashboard', 
-        label: 'Dashboard', 
-        renderer: this.customTabTpl() 
+      {
+        id: 'dashboard',
+        label: 'Dashboard',
+        renderer: this.customTabTpl(),
       },
-      { 
-        id: 'messages', 
-        label: 'Messaggi', 
-        renderer: this.customTabTpl() 
+      {
+        id: 'messages',
+        label: 'Messaggi',
+        renderer: this.customTabTpl(),
       },
     ]
   }
@@ -242,9 +300,8 @@ export class MyComponent {
 
 ```typescript
 export class MyComponent {
-
   form = this.fb.group({
-    selectedSection: [null, Validators.required]
+    selectedSection: [null, Validators.required],
   })
 
   tabs: TabConfiguration[] = [
@@ -259,14 +316,12 @@ export class MyComponent {
 
 ```html
 <quang-tabs
-  [tabs]="tabs"
   [formControl]="selectedTab"
   [isReadonly]="isReadonly()"
+  [tabs]="tabs"
 />
 
-<button (click)="toggleReadonly()">
-  Attiva/Disattiva Sola Lettura
-</button>
+<button (click)="toggleReadonly()">Attiva/Disattiva Sola Lettura</button>
 ```
 
 ```typescript
@@ -301,9 +356,9 @@ Quando si usano template personalizzati, è disponibile il seguente contesto:
 
 ```typescript
 interface QuangTabTemplateContext {
-  $implicit: TabConfiguration  // L'oggetto di configurazione della tab
-  selected: boolean           // Se questa tab è attualmente selezionata
-  index: number              // L'indice della tab nell'array
+  $implicit: TabConfiguration // L'oggetto di configurazione della tab
+  selected: boolean // Se questa tab è attualmente selezionata
+  index: number // L'indice della tab nell'array
 }
 ```
 
@@ -312,9 +367,9 @@ Esempio di utilizzo nel template:
 ```html
 <ng-template
   #tabTpl
-  let-tab
-  let-selected="selected"
   let-index="index"
+  let-selected="selected"
+  let-tab
 >
   <!-- tab: TabConfiguration -->
   <!-- selected: boolean -->
@@ -326,6 +381,7 @@ Esempio di utilizzo nel template:
 ## Stile
 
 Il componente usa le classi Bootstrap 5.3 per lo stile. Le tab predefinite hanno:
+
 - Bordo inferiore che diventa più spesso (4px) quando selezionato
 - Transizioni fluide sui cambiamenti di stato
 - Stato disabilitato con opacità ridotta
