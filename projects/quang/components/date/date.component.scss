@@ -8,6 +8,11 @@
       z-index: unset;
     }
 
+    &.quang-calendar-disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
     .air-datepicker--pointer {
       display: none;
     }
@@ -19,11 +24,11 @@
       .air-datepicker-time--sliders {
         display: flex;
         justify-content: center;
-        padding-top: 0.25rem;
         gap: 1rem;
         .air-datepicker-time--row {
           width: 100%;
           position: relative;
+          height: 100%;
           &:first-child::after {
             content: ':';
             display: inline;
@@ -34,9 +39,10 @@
           input {
             width: 100%;
             text-align: center;
-            padding: 0;
-            padding-left: 1rem;
+            padding: 0.375rem 0.75rem;
+            padding-left: 1.5rem;
             border-color: var(--bs-border-color);
+            height: 38px;
           }
           .form-control:focus {
             box-shadow: unset !important;
@@ -47,6 +53,7 @@
     &.-inline-.-only-timepicker- {
       border: 0;
       padding: 0 !important;
+      background-color: transparent;
 
       .air-datepicker--time {
         border: 0;

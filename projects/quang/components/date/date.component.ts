@@ -330,6 +330,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
       } else {
         this._airDatepickerInstance()?.setFocusDate(false)
         this._airDatepickerInstance()?.clear({ silent: true })
+        if (this.showOnlyTimepicker()) {
+          this.setTimepickerInputValues('')
+        }
       }
     } else {
       this._airDatepickerInstance.set(new AirDatepicker(this._inputForDate()?.nativeElement, airDatepickerOpts))
@@ -344,6 +347,27 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
     if (this.showInline()) {
       this.setupTimepicker()
+    }
+
+    this.handleDisabledState()
+  }
+
+  private handleDisabledState() {
+    const isDisabled = this._isDisabled()
+    const datepickerInstance = this._airDatepickerInstance()
+    if (!datepickerInstance) return
+
+    const datepickerEl = datepickerInstance.$datepicker
+    if (!datepickerEl) return
+
+    const inputs = datepickerEl.querySelectorAll('input')
+
+    if (isDisabled) {
+      datepickerEl.classList.add('quang-calendar-disabled')
+      Array.from(inputs).forEach((input) => ((input as HTMLInputElement).disabled = true))
+    } else {
+      datepickerEl.classList.remove('quang-calendar-disabled')
+      Array.from(inputs).forEach((input) => ((input as HTMLInputElement).disabled = false))
     }
   }
 
@@ -457,6 +481,21 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
   private syncValueFromDatepickerSelection(): void {
     if (!this.showInline()) {
       return
+    }
+
+    if (this.showOnlyTimepicker()) {
+      const datepickerRoot = this._airDatepickerInstance()?.$datepicker as HTMLElement | undefined
+      if (datepickerRoot) {
+        const timeInputs = datepickerRoot.querySelectorAll('.air-datepicker-time input')
+        if (
+          timeInputs.length > 0 &&
+          Array.from(timeInputs).every((input) => (input as HTMLInputElement).value === '')
+        ) {
+          this.onChangedHandler(null)
+          this.propagateValueToControl()
+          return
+        }
+      }
     }
 
     const datepickerInstance = this._airDatepickerInstance() as unknown as { selectedDates?: Date[] } | undefined
@@ -668,5 +707,20 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
 
   checkDateMatch(date: string): boolean {
     return isMatch(date, this.valueFormat()) || isMatch(date, this.valueFormat().replace('yyyy', 'yy'))
+  }
+
+  private setTimepickerInputValues(value: string) {
+    const datepickerRoot = this._airDatepickerInstance()?.$datepicker as HTMLElement | undefined
+    if (!datepickerRoot) {
+      return
+    }
+
+    const timepickers = datepickerRoot.getElementsByClassName('air-datepicker-time')
+    for (const timepicker of Array.from(timepickers)) {
+      const inputs = timepicker.getElementsByTagName('input')
+      for (const input of Array.from(inputs)) {
+        input.value = value
+      }
+    }
   }
 }
