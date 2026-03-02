@@ -9,21 +9,27 @@ import { QuangTabsComponent } from 'quang/components/tabs'
 
 // Import all examples and their code snippets
 import {
-  TABS_SIMPLE_HTML,
-  TABS_SIMPLE_TS,
+  TABS_CONTENT_HTML,
+  TABS_CONTENT_ORIENTATION_HTML,
+  TABS_CONTENT_ORIENTATION_TS,
+  TABS_CONTENT_TS,
   TABS_DISABLED_HTML,
   TABS_DISABLED_TS,
   TABS_EVENTS_HTML,
   TABS_EVENTS_TS,
-  TABS_TEMPLATE_HTML,
-  TABS_TEMPLATE_TS,
   TABS_INTERACTIVE_HTML,
   TABS_INTERACTIVE_TS,
-  TabsSimpleExampleComponent,
+  TABS_SIMPLE_HTML,
+  TABS_SIMPLE_TS,
+  TABS_TEMPLATE_HTML,
+  TABS_TEMPLATE_TS,
+  TabsContentExampleComponent,
+  TabsContentOrientationExampleComponent,
   TabsDisabledExampleComponent,
   TabsEventsExampleComponent,
+  TabsInteractiveExampleComponent,
+  TabsSimpleExampleComponent,
   TabsTemplateExampleComponent,
-  TabsInteractiveExampleComponent, TabsContentExampleComponent, TABS_CONTENT_TS, TABS_CONTENT_HTML,
 } from '../examples'
 
 @Component({
@@ -39,6 +45,7 @@ import {
     TabsTemplateExampleComponent,
     TabsInteractiveExampleComponent,
     TabsContentExampleComponent,
+    TabsContentOrientationExampleComponent,
   ],
   templateUrl: './tabs-showcase.component.html',
   styleUrl: './tabs-showcase.component.scss',
@@ -51,9 +58,7 @@ export class TabsShowcaseComponent {
   protected readonly QuangTabsComponent = QuangTabsComponent
 
   protected componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en'
-      ? './assets/docs/tabs.md'
-      : './assets/docs/tabs.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/tabs.md' : './assets/docs/tabs.it.md'
   )
 
   // ==================== CODE SNIPPETS ====================
@@ -65,6 +70,8 @@ export class TabsShowcaseComponent {
   protected readonly eventsHtml = TABS_EVENTS_HTML
   protected readonly contentTs = TABS_CONTENT_TS
   protected readonly contentHtml = TABS_CONTENT_HTML
+  protected readonly contentOrientationTs = TABS_CONTENT_ORIENTATION_TS
+  protected readonly contentOrientationHtml = TABS_CONTENT_ORIENTATION_HTML
   protected readonly templateTs = TABS_TEMPLATE_TS
   protected readonly templateHtml = TABS_TEMPLATE_HTML
   protected readonly interactiveTs = TABS_INTERACTIVE_TS
