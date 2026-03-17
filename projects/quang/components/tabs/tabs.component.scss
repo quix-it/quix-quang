@@ -15,4 +15,11 @@
     border-color: transparent;
     border-bottom: 1px solid var(--bs-border-color);
   }
+
+  .btn:hover {
+    --bs-btn-hover-border-color: transparent !important;
+  }
+  .btn:active {
+    --bs-btn-active-border-color: transparent !important;
+  }
 }

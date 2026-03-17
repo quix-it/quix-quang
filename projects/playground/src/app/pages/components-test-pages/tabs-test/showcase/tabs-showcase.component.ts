@@ -10,6 +10,8 @@ import { QuangTabsComponent } from 'quang/components/tabs'
 // Import all examples and their code snippets
 import {
   TABS_CONTENT_HTML,
+  TABS_CONTENT_ORIENTATION_HTML,
+  TABS_CONTENT_ORIENTATION_TS,
   TABS_CONTENT_TS,
   TABS_DISABLED_HTML,
   TABS_DISABLED_TS,
@@ -22,6 +24,7 @@ import {
   TABS_TEMPLATE_HTML,
   TABS_TEMPLATE_TS,
   TabsContentExampleComponent,
+  TabsContentOrientationExampleComponent,
   TabsDisabledExampleComponent,
   TabsEventsExampleComponent,
   TabsInteractiveExampleComponent,
@@ -42,6 +45,7 @@ import {
     TabsTemplateExampleComponent,
     TabsInteractiveExampleComponent,
     TabsContentExampleComponent,
+    TabsContentOrientationExampleComponent,
   ],
   templateUrl: './tabs-showcase.component.html',
   styleUrl: './tabs-showcase.component.scss',
@@ -66,6 +70,8 @@ export class TabsShowcaseComponent {
   protected readonly eventsHtml = TABS_EVENTS_HTML
   protected readonly contentTs = TABS_CONTENT_TS
   protected readonly contentHtml = TABS_CONTENT_HTML
+  protected readonly contentOrientationTs = TABS_CONTENT_ORIENTATION_TS
+  protected readonly contentOrientationHtml = TABS_CONTENT_ORIENTATION_HTML
   protected readonly templateTs = TABS_TEMPLATE_TS
   protected readonly templateHtml = TABS_TEMPLATE_HTML
   protected readonly interactiveTs = TABS_INTERACTIVE_TS

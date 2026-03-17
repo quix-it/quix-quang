@@ -6,6 +6,10 @@ import { TranslocoPipe } from '@jsverse/transloco'
 
 import { QuangBaseComponent } from 'quang/components/shared'
 
+export enum TabsOrientation {
+  Horizontal = 'horizontal',
+  Vertical = 'vertical',
+}
 export interface TabConfiguration {
   id: string
   label: string
@@ -29,6 +33,7 @@ export interface TabConfiguration {
 })
 export class QuangTabsComponent extends QuangBaseComponent<string> {
   tabs = input.required<TabConfiguration[]>()
+  tabsOrientation = input<TabsOrientation>(TabsOrientation.Horizontal)
 
   tabChange = output<string>()
 
@@ -49,4 +54,6 @@ export class QuangTabsComponent extends QuangBaseComponent<string> {
     this.onChangedHandler(tab.id)
     this.tabChange.emit(tab.id)
   }
+
+  protected TabsOrientation = TabsOrientation
 }

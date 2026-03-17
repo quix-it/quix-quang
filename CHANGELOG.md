@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project follows Conventional Commits.
 
+## [20.7.2] - 2026-03-02
+
+### Added
+
+- Tabs: implemented `tabsOrientation` support in `quang-tabs` to explicitly control horizontal/vertical tab alignment.
+- Playground Tabs: added a new dedicated `tabs-content-orientation` showcase example with a toggle to switch `quang-tabs` between horizontal and vertical orientation.
+
+### Changed
+
+- Playground Tabs showcase: moved the new orientation example to appear immediately after "Tab Content Switching" to keep related examples grouped.
+
+### Fixed
+
+- Tabs: fixed button styling for hover and active states to ensure consistent visual feedback.
+
+### Docs
+
+- Tabs docs (EN/IT): documented `tabsOrientation` input behavior and `TabsOrientation` enum values.
+- Tabs docs (EN/IT): added a "Content + Orientation Toggle" usage example in both component READMEs and playground docs.
+
 ## [20.7.1] - 2026-01-22
 
 ### Fixed
