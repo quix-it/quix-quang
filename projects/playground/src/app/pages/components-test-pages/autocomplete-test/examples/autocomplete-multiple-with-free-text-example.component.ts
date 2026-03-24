@@ -116,6 +116,7 @@ export class AutocompleteMultipleWithFreeTextComponent {
 export const AUTOCOMPLETE_MULTIPLE_WITH_FREE_TEXT_HTML = `<!-- Chips at top (default) -->
 <quang-autocomplete
   [multiple]="true"
+  [allowFreeText]="true"
   [internalFilterOptions]="true"
   [selectOptions]="options()"
   componentLabel="Select technologies"
