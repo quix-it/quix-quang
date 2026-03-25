@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project follows Conventional Commits.
 
+## [20.7.5] - 2026-03-24
+
+### Added
+
+- Playground Autocomplete: new "Multiple Selection with Free Text" example showcasing the ability to select from options and add custom text as chips with Enter key.
+- Translations: added English and Italian localization keys for the new autocomplete multiple-with-free-text example.
+
+### Fixed
+
+- Autocomplete (multiple + allowFreeText): pressing Enter now correctly adds custom text as a chip without overwriting existing selections (QUANG-267).
+- Autocomplete (multiple + allowFreeText): custom text no longer clears previously selected chips when user types new values (QUANG-267).
+- Autocomplete: improved chip description fallback to display free-text chip values when no matching option exists.
+- Autocomplete: fixed chip filtering to safely compare values using string conversion, preventing duplicate chips and edge case mismatches.
+
+### Tests
+
+- Added comprehensive regression tests for multiple selection + free text mode to prevent future regressions on chip persistence and custom text addition.
+
 ## [20.7.2] - 2026-03-02
 
 ### Added

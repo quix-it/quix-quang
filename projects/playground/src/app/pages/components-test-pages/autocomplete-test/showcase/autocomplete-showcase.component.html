@@ -41,6 +41,13 @@
       </li>
       <li>
         <a
+          (click)="scrollTo($event, 'multiple-free-text')"
+          href="#"
+          >{{ 'examples.autocomplete.multipleWithFreeText.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
           (click)="scrollTo($event, 'interactive')"
           href="#"
           >{{ 'examples.autocomplete.interactive.title' | transloco }}</a
@@ -115,6 +122,21 @@
         [tsCode]="multipleTs"
       >
         <playground-autocomplete-multiple-example />
+      </playground-example-viewer>
+    </div>
+
+    <!-- Multiple Selection with Free Text -->
+    <div
+      class="example-section"
+      id="multiple-free-text"
+    >
+      <playground-example-viewer
+        [description]="'examples.autocomplete.multipleWithFreeText.description' | transloco"
+        [htmlCode]="multipleWithFreeTextHtml"
+        [title]="'examples.autocomplete.multipleWithFreeText.title' | transloco"
+        [tsCode]="multipleWithFreeTextTs"
+      >
+        <playground-autocomplete-multiple-with-free-text-example />
       </playground-example-viewer>
     </div>
 

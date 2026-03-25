@@ -239,7 +239,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   readonly _filteredOptions = computed<SelectOption[]>(() => {
     const searchText = this._isSearching() ? this._userSearchText() : ''
     if (this.multiple()) {
-      return this.filterOptions(searchText).filter((x) => !this._chipList().some((chip) => chip === x.value))
+      return this.filterOptions(searchText).filter(
+        (x) => !this._chipList().some((chip) => chip?.toString() === x.value?.toString())
+      )
     }
     return searchText?.length ? this.filterOptions(searchText) : this.selectOptions()
   })
@@ -466,6 +468,26 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * @param hideOptions Whether to hide the dropdown after selection
    */
   onValueChange(value: string | number | null, hideOptions = true): void {
+    if (this.multiple()) {
+      const valueToHandle = this.resolveValueForMultipleMode(value)
+      if (!valueToHandle?.toString().trim()) {
+        return
+      }
+
+      this.handleSelectValue(valueToHandle)
+      this.onChangedHandler(this._chipList())
+
+      if (hideOptions) {
+        this.hideOptionVisibility()
+        this.focusInput()
+      }
+
+      this._userSearchText.set('')
+      this._isSearching.set(false)
+      this.selectedOption.emit(valueToHandle)
+      return
+    }
+
     // When allowFreeText is true and a null/undefined value is received (e.g., from selecting
     // a non-existent option in the dropdown), use the typed text as the value instead of clearing
     if ((value === null || value === undefined) && this._allowFreeTextInternal()) {
@@ -479,16 +501,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
         this.selectedOption.emit(typedText)
         return
       }
-    }
-
-    if (this.multiple()) {
-      this.handleSelectValue(value as string | number)
-      this.onChangedHandler(this._chipList())
-      if (this._chipList().some((x) => x === value)) {
-        this._userSearchText.set('')
-        this._isSearching.set(false)
-      }
-      return
     }
 
     // Update _userSearchText to the selected option's label
@@ -534,12 +546,24 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
         }
         break
       case 'Enter':
-        // When allowFreeText is true and dropdown is open, handle Enter specially
+        // In multiple+freeText mode, Enter should add either an exact matching option
+        // or the typed custom text as a chip.
+        if (this._showOptions() && this._allowFreeTextInternal() && this.multiple()) {
+          const searchText = this._userSearchText()?.trim()
+          if (!searchText) {
+            break
+          }
+
+          event.preventDefault()
+          const matchingOption = this.findMatchingOption(searchText)
+          this.onValueChange(matchingOption?.value ?? null)
+          break
+        }
+
+        // When allowFreeText is true and dropdown is open, handle Enter specially in single mode
         if (this._showOptions() && this._allowFreeTextInternal()) {
-          // Check if there are any filtered options
           const filteredOptions = this._filteredOptions()
           if (filteredOptions.length === 0) {
-            // No options to select - use the typed text as the value
             event.preventDefault()
             this.processTextToFormValue(this._userSearchText(), {
               exitSearchMode: true,
@@ -548,7 +572,6 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
             })
             this.hideOptionVisibility()
           }
-          // If there are filtered options, let option-list handle the selection
         }
         break
     }
@@ -614,7 +637,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    */
   getDescription(chipValue: string | number): string {
     const option = this.selectOptions().find((x) => x.value?.toString() === chipValue?.toString())
-    return option?.label?.toString() ?? ''
+    return option?.label?.toString() ?? chipValue?.toString() ?? ''
   }
 
   getOptionByValue(value: string | number): SelectOption | undefined {
@@ -795,11 +818,42 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * Handles selecting a value (adding to chip list in multiple mode).
    */
   private handleSelectValue(value: string | number): void {
+    const stringValue = value?.toString()
+    if (!stringValue) {
+      return
+    }
+
+    if (this._chipList().some((x) => x.toString() === stringValue)) {
+      return
+    }
+
     const option = this.selectOptions().find((x) => x.value === value)
-    if (option && !this._chipList().some((x) => x === option.value)) {
+    if (option) {
       this._chipList.update((list) => [...list, option.value as string])
       this._selectedOptions.update((list) => [...list, option])
+      return
     }
+
+    if (this._allowFreeTextInternal()) {
+      this._chipList.update((list) => [...list, stringValue])
+    }
+  }
+
+  /**
+   * Resolves the value to add in multiple mode.
+   * If no option value is provided and free text is enabled, use the currently typed text.
+   */
+  private resolveValueForMultipleMode(value: string | number | null): string | number | null {
+    if (value !== null && value !== undefined) {
+      return value
+    }
+
+    if (!this._allowFreeTextInternal()) {
+      return null
+    }
+
+    const typedText = this._userSearchText()?.trim()
+    return typedText || null
   }
 
   /**
