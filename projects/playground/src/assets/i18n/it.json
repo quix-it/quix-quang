@@ -427,6 +427,10 @@
         "selected": "Selezionati",
         "chipsPosition": "Posizione Chips"
       },
+      "multipleWithFreeText": {
+        "title": "Selezione Multipla con Testo Libero",
+        "description": "Autocomplete che permette di selezionare più valori dalle opzioni o aggiungere qualsiasi testo personalizzato come chip. Premi Invio per aggiungere testo personalizzato come nuovo chip preservando le selezioni precedenti."
+      },
       "interactive": {
         "title": "Playground Interattivo",
         "description": "Esplora tutte le opzioni dell'autocomplete in modo interattivo. Attiva o disattiva le checkbox per abilitare o disabilitare le diverse funzionalità e vedere come influenzano il comportamento del componente.",

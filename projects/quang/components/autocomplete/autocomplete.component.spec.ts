@@ -114,6 +114,34 @@ class TestHostMultipleComponent {
   ]
 }
 
+// Test host component for multiple selection with free text
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <quang-autocomplete
+        [allowFreeText]="true"
+        [multiple]="true"
+        [searchTextDebounce]="50"
+        [selectOptions]="options"
+        formControlName="autocomplete"
+      />
+    </form>
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangAutocompleteComponent],
+})
+class TestHostMultipleAllowFreeTextComponent {
+  form = new FormGroup({
+    autocomplete: new FormControl<string[]>([]),
+  })
+
+  options: SelectOption[] = [
+    { label: 'Option 1', value: 'opt1' },
+    { label: 'Option 2', value: 'opt2' },
+    { label: 'Option 3', value: 'opt3' },
+  ]
+}
+
 // Test host component for multiple selection with templated options
 @Component({
   template: `
@@ -455,9 +483,9 @@ describe('QuangAutocompleteComponent', () => {
       expect(description).toBe('Option 1')
     })
 
-    it('should return empty string for unknown chip value', () => {
+    it('should return chip value for unknown chip value', () => {
       const description = autocompleteComponent.getDescription('unknown')
-      expect(description).toBe('')
+      expect(description).toBe('unknown')
     })
 
     it('should check input value against options on blur', async () => {
@@ -626,6 +654,58 @@ describe('QuangAutocompleteComponent - Multiple Selection (Templated Chips)', ()
     expect(custom).toBeTruthy()
     expect(custom?.textContent).toContain('Custom Option 1')
     expect(custom?.textContent).toContain('selected: true')
+  })
+})
+
+describe('QuangAutocompleteComponent - Multiple Selection + AllowFreeText', () => {
+  let hostFixture: ComponentFixture<TestHostMultipleAllowFreeTextComponent>
+  let hostComponent: TestHostMultipleAllowFreeTextComponent
+  let autocompleteComponent: QuangAutocompleteComponent
+
+  beforeEach(async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [TestHostMultipleAllowFreeTextComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    hostFixture = TestBed.createComponent(TestHostMultipleAllowFreeTextComponent)
+    hostComponent = hostFixture.componentInstance
+    hostFixture.detectChanges()
+    autocompleteComponent = hostFixture.debugElement.query(By.directive(QuangAutocompleteComponent)).componentInstance
+  })
+
+  afterEach(() => {
+    hostFixture.destroy()
+    vi.useRealTimers()
+  })
+
+  it('should add custom text as chip on Enter', async () => {
+    autocompleteComponent.showOptionVisibility()
+    autocompleteComponent['_userSearchText'].set('custom chip')
+    autocompleteComponent.onInputKeydown(new KeyboardEvent('keydown', { key: 'Enter' }))
+
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+
+    expect(autocompleteComponent._chipList()).toEqual(['custom chip'])
+    expect(hostComponent.form.get('autocomplete')?.value).toEqual(['custom chip'])
+  })
+
+  it('should keep previous chips when adding custom text', async () => {
+    autocompleteComponent.onValueChange('opt1')
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+
+    autocompleteComponent.showOptionVisibility()
+    autocompleteComponent['_userSearchText'].set('custom chip')
+    autocompleteComponent.onInputKeydown(new KeyboardEvent('keydown', { key: 'Enter' }))
+
+    await vi.advanceTimersByTimeAsync(0)
+    hostFixture.detectChanges()
+
+    expect(autocompleteComponent._chipList()).toEqual(['opt1', 'custom chip'])
+    expect(hostComponent.form.get('autocomplete')?.value).toEqual(['opt1', 'custom chip'])
   })
 })
 

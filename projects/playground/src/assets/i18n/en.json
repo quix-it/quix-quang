@@ -427,6 +427,10 @@
         "selected": "Selected",
         "chipsPosition": "Chips Position"
       },
+      "multipleWithFreeText": {
+        "title": "Multiple Selection with Free Text",
+        "description": "Autocomplete that allows selecting multiple values from options or adding any custom text as chips. Press Enter to add custom text as a new chip while preserving existing selections."
+      },
       "interactive": {
         "title": "Interactive Playground",
         "description": "Explore all autocomplete options interactively. Toggle the checkboxes to enable or disable different features and see how they affect the component behavior.",

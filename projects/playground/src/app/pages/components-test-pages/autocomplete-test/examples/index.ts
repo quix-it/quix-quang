@@ -26,6 +26,13 @@ export {
   AUTOCOMPLETE_MULTIPLE_HTML,
 } from './autocomplete-multiple-example.component'
 
+// Multiple selection with free text autocomplete example
+export {
+  AutocompleteMultipleWithFreeTextExampleComponent,
+  AUTOCOMPLETE_MULTIPLE_WITH_FREE_TEXT_TS,
+  AUTOCOMPLETE_MULTIPLE_WITH_FREE_TEXT_HTML,
+} from './autocomplete-multiple-with-free-text-example.component'
+
 // Interactive example with toggles
 export {
   AutocompleteInteractiveExampleComponent,
