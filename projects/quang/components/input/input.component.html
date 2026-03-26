@@ -11,10 +11,10 @@
         </div>
         @if (helpMessage() && helpMessageTooltip()) {
           <div
-            [class.pointer]="showTooltipMethod() === 'click'"
-            [overlayPosition]="tooltipPosition()"
+            [overlayPosition]="helpTooltipPosition()"
             [quangTooltip]="helpMessage() | transloco"
-            [showMethod]="showTooltipMethod()"
+            [showMethod]="showHelpTooltipMethod()"
+            class="pointer"
           >
             <ng-content select="[help-icon]" />
           </div>

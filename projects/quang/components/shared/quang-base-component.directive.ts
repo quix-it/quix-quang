@@ -23,11 +23,11 @@ export abstract class QuangBaseComponent<T = unknown> implements ControlValueAcc
 
   componentPlaceholder = input<string>('')
 
-  tooltipPosition = input<
+  helpTooltipPosition = input<
     'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right'
   >('top')
 
-  showTooltipMethod = input<'click' | 'hover'>('hover')
+  showHelpTooltipMethod = input<'click' | 'hover'>('hover')
 
   errorMap = input<ErrorData[]>([])
 
