@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project follows Conventional Commits.
 
+## [20.8.0] - 2026-04-08
+
+### Added
+
+Components (Autocomplete, Checkbox, Date, Input, Radio Group, Select, Wysiwyg): added helpTooltipPosition and showHelpTooltipMethod inputs to QuangBaseComponent for configurable help tooltip placement and trigger mode.
+
+- helpTooltipPosition: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right' (default: 'top').
+- showHelpTooltipMethod: 'click' | 'hover' (default: 'hover').
+
 ## [20.7.5] - 2026-03-24
 
 ### Added
