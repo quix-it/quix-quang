@@ -23,6 +23,12 @@ export abstract class QuangBaseComponent<T = unknown> implements ControlValueAcc
 
   componentPlaceholder = input<string>('')
 
+  helpTooltipPosition = input<
+    'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right'
+  >('top')
+
+  showHelpTooltipMethod = input<'click' | 'hover'>('hover')
+
   errorMap = input<ErrorData[]>([])
 
   errorMap$ = toObservable(this.errorMap)

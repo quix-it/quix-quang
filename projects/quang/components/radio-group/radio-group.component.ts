@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, TemplateRef, computed, forwardRef, 
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 
 import { QuangBaseComponent } from 'quang/components/shared'
 
@@ -32,7 +33,7 @@ export interface RadioOption<T extends string | number | null = string | number 
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgClass, NgTemplateOutlet],
+  imports: [TranslocoPipe, NgClass, NgTemplateOutlet, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuangRadioGroupComponent extends QuangBaseComponent<string | number | null> {
