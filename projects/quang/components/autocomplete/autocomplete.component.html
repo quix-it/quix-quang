@@ -13,7 +13,12 @@
         <span [hidden]="!_isRequired()">*</span>
       </div>
       @if (helpMessage() && helpMessageTooltip()) {
-        <div [quangTooltip]="helpMessage() | transloco">
+        <div
+          [overlayPosition]="helpTooltipPosition()"
+          [quangTooltip]="helpMessage() | transloco"
+          [showMethod]="showHelpTooltipMethod()"
+          class="pointer"
+        >
           <ng-content select="[help-icon]" />
         </div>
       }
