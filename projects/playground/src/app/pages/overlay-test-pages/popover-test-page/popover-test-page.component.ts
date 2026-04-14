@@ -29,6 +29,6 @@ export class PopoverTestPageComponent {
   })
 
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/popover.md' : './assets/docs/popover.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/popover.md' : './assets/docs/popover-it.md'
   )
 }

@@ -16,8 +16,11 @@
       @if (showInput()) {
         <div class="row">
           <quang-input
+            [class.col-6]="inputType() === 'password'"
             [componentType]="inputType()"
             [errorMap]="errors()"
+            [helpMessage]="helpMessage()"
+            [helpMessageTooltip]="true"
             [isReadonly]="isReadonly()"
             [maxNumber]="10"
             [minNumber]="0"
@@ -26,17 +29,41 @@
             formControlName="testInput"
             id="testComponent"
             playgroundSourceCode
+            showTooltipMethod="click"
             successMessage="form.label.success"
           >
             <svg-icon
-              hide-password
-              src="assets/icons/svg/visibility_off.svg"
-            />
-            <svg-icon
-              show-password
-              src="assets/icons/svg/visibility.svg"
+              help-icon
+              src="assets/icons/svg/info.svg"
             />
           </quang-input>
+          @if (inputType() === 'password') {
+            <quang-input
+              [class.col-6]="inputType() === 'password'"
+              [componentType]="inputType()"
+              [errorMap]="errors()"
+              [helpMessage]="helpMessage()"
+              [isReadonly]="isReadonly()"
+              [maxNumber]="10"
+              [minNumber]="0"
+              [showHidePasswordButton]="true"
+              #testComponent
+              componentLabel="form.label.input"
+              formControlName="testInput"
+              id="testComponent"
+              playgroundSourceCode
+              successMessage="form.label.success"
+            >
+              <svg-icon
+                hide-password
+                src="assets/icons/svg/visibility_off.svg"
+              />
+              <svg-icon
+                show-password
+                src="assets/icons/svg/visibility.svg"
+              />
+            </quang-input>
+          }
         </div>
       }
       <div class="d-flex gap-3 mt-3">

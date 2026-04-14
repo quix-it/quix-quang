@@ -40,7 +40,7 @@ export class WysiwygTestComponent {
 
   // Path to the components README.md file
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/wysiwyg.md' : './assets/docs/wysiwyg.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/wysiwyg.md' : './assets/docs/wysiwyg-it.md'
   )
 
   isReadonly = signal<boolean>(false)
@@ -76,7 +76,7 @@ export class WysiwygTestComponent {
     height: undefined,
   }
 
-  onImageUploadError = (errorMessage: any, result: any, core: any) => {
+  onImageUploadError = (errorMessage: unknown, result: unknown, core: unknown) => {
     console.log('onImageUploadError', errorMessage, result, core)
     return true
   }

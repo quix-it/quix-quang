@@ -4,9 +4,100 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project follows Conventional Commits.
 
-## [Unreleased]
+## [20.8.0] - 2026-04-08
 
-- _Nothing yet._
+### Added
+
+Components (Autocomplete, Checkbox, Date, Input, Radio Group, Select, Wysiwyg): added helpTooltipPosition and showHelpTooltipMethod inputs to QuangBaseComponent for configurable help tooltip placement and trigger mode.
+
+- helpTooltipPosition: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right' (default: 'top').
+- showHelpTooltipMethod: 'click' | 'hover' (default: 'hover').
+
+## [20.7.5] - 2026-03-24
+
+### Added
+
+- Playground Autocomplete: new "Multiple Selection with Free Text" example showcasing the ability to select from options and add custom text as chips with Enter key.
+- Translations: added English and Italian localization keys for the new autocomplete multiple-with-free-text example.
+
+### Fixed
+
+- Autocomplete (multiple + allowFreeText): pressing Enter now correctly adds custom text as a chip without overwriting existing selections (QUANG-267).
+- Autocomplete (multiple + allowFreeText): custom text no longer clears previously selected chips when user types new values (QUANG-267).
+- Autocomplete: improved chip description fallback to display free-text chip values when no matching option exists.
+- Autocomplete: fixed chip filtering to safely compare values using string conversion, preventing duplicate chips and edge case mismatches.
+
+### Tests
+
+- Added comprehensive regression tests for multiple selection + free text mode to prevent future regressions on chip persistence and custom text addition.
+
+## [20.7.2] - 2026-03-02
+
+### Added
+
+- Tabs: implemented `tabsOrientation` support in `quang-tabs` to explicitly control horizontal/vertical tab alignment.
+- Playground Tabs: added a new dedicated `tabs-content-orientation` showcase example with a toggle to switch `quang-tabs` between horizontal and vertical orientation.
+
+### Changed
+
+- Playground Tabs showcase: moved the new orientation example to appear immediately after "Tab Content Switching" to keep related examples grouped.
+
+### Fixed
+
+- Tabs: fixed button styling for hover and active states to ensure consistent visual feedback.
+
+### Docs
+
+- Tabs docs (EN/IT): documented `tabsOrientation` input behavior and `TabsOrientation` enum values.
+- Tabs docs (EN/IT): added a "Content + Orientation Toggle" usage example in both component READMEs and playground docs.
+
+## [20.7.1] - 2026-01-22
+
+### Fixed
+
+- Overlay: fixed type compatibility between tooltip/popover and the shared base overlay types by making `QuangBaseOverlayComponent`/`QuangBaseOverlayDirective` generic.
+- Overlay: restored successful library builds for `quang/overlay/tooltip` after the stricter typing refactor.
+
+### Tests
+
+- Overlay: added integration-style tests for tooltip and popover directives (attach/detach, backdrop close, payload/template rendering).
+- Overlay: added coverage for toast service/component timing/close behavior and modal overlay/backdrop behavior.
+
+## [20.7.0] - 2026-01-21
+
+### Added
+
+- New `QuangTabsComponent` for tab navigation with standard and template-based rendering.
+  - Support for disabled states (global and per-tab).
+  - Support for readonly mode.
+  - Custom tab templates via `TabConfiguration.renderer`.
+  - Two-way data binding with reactive forms (ControlValueAccessor).
+  - `tabChange` output event for tab selection changes.
+  - Translation support via Transloco for tab labels.
+  - Bootstrap 5.3 styling with responsive layout (column on mobile, row on desktop).
+  - Accessibility features (button type, keyboard navigation, tabindex support).
+- Playground: Tabs showcase page with 6 comprehensive examples:
+  - Simple tabs with translation support.
+  - Tabs with individual disabled states.
+  - Event handling with `tabChange` output.
+  - Tab content switching with `@switch` control flow.
+  - Custom tab templates with icons and badges.
+  - Interactive example with form integration and validation.
+- Playground: Tabs test page for compatibility/regression testing.
+- Docs: Complete English and Italian README for QuangTabsComponent.
+- Docs: 6 usage examples covering all features (basic usage, disabled tabs, events, content switching, custom templates, form integration).
+
+### Changed
+
+- Playground: Added Tabs component to navigation menu under Components section.
+- Translations: Added English and Italian translations for tabs showcase examples.
+
+### Tests
+
+- Comprehensive test suite for QuangTabsComponent with 60+ test cases.
+- Test coverage exceeding 90% (statement, branch, function, and line coverage).
+- Snapshot tests for DOM regression prevention.
+- Tests covering: initialization, selection, events, disabled states, readonly mode, custom templates, form integration, accessibility, and edge cases.
 
 ## [19.4.0] - 2026-01-09
 

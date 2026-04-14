@@ -6,10 +6,10 @@ import { Component, input, signal } from '@angular/core'
 
   template: ``,
 })
-export abstract class QuangBaseOverlayComponent {
-  overlayContent = input.required<any>()
+export abstract class QuangBaseOverlayComponent<TContent = unknown, TPayload = unknown> {
+  overlayContent = input.required<TContent>()
 
-  payload = input<any>()
+  payload = input<TPayload>()
 
   positionPair = signal<ConnectionPositionPair | null>(null)
 }

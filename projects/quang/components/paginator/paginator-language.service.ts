@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 
 import { TranslocoService } from '@jsverse/transloco'
 
@@ -8,7 +8,9 @@ import { PaginatorIntl } from './paginatorIntl'
   providedIn: 'root',
 })
 export class QuangPaginatorLanguageService extends PaginatorIntl {
-  constructor(private readonly transloco: TranslocoService) {
+  private readonly transloco = inject(TranslocoService)
+
+  constructor() {
     super()
     this.transloco.langChanges$.subscribe(() => {
       this.getAndInitTranslations()
@@ -28,7 +30,7 @@ export class QuangPaginatorLanguageService extends PaginatorIntl {
       .subscribe((t) => {
         ;[this.itemsPerPageLabel, this.nextPageLabel, this.previousPageLabel, this.firstPageLabel, this.lastPageLabel] =
           t
-        this.changes.update((x) => x)
+        this.changes.update((x) => x + 1)
       })
   }
 }

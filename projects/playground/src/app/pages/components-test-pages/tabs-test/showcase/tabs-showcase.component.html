@@ -1,0 +1,176 @@
+<div class="playground-showcase">
+  <!-- Page Header -->
+  <div class="showcase-header">
+    <h2>{{ 'title.components.tabs' | transloco }}</h2>
+    <p class="lead">
+      {{ 'examples.tabs.description' | transloco }}
+    </p>
+  </div>
+
+  <!-- Table of Contents -->
+  <nav class="showcase-toc">
+    <h5>{{ 'examples.tabs.toc' | transloco }}</h5>
+    <ul>
+      <li>
+        <a
+          (click)="scrollTo($event, 'simple')"
+          href="#"
+          >{{ 'examples.tabs.simple.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'disabled')"
+          href="#"
+          >{{ 'examples.tabs.disabled.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'events')"
+          href="#"
+          >{{ 'examples.tabs.events.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'template')"
+          href="#"
+          >{{ 'examples.tabs.template.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'interactive')"
+          href="#"
+          >{{ 'examples.tabs.interactive.title' | transloco }}</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'content-orientation')"
+          href="#"
+          >Content + orientation toggle</a
+        >
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Examples Section -->
+  <section class="showcase-examples">
+    <!-- Simple Tabs -->
+    <div
+      class="example-section"
+      id="simple"
+    >
+      <playground-example-viewer
+        [description]="'examples.tabs.simple.description' | transloco"
+        [htmlCode]="simpleHtml"
+        [title]="'examples.tabs.simple.title' | transloco"
+        [tsCode]="simpleTs"
+      >
+        <playground-tabs-simple-example />
+      </playground-example-viewer>
+    </div>
+
+    <!-- Disabled Tabs -->
+    <div
+      class="example-section"
+      id="disabled"
+    >
+      <playground-example-viewer
+        [description]="'examples.tabs.disabled.description' | transloco"
+        [htmlCode]="disabledHtml"
+        [title]="'examples.tabs.disabled.title' | transloco"
+        [tsCode]="disabledTs"
+      >
+        <playground-tabs-disabled-example />
+      </playground-example-viewer>
+    </div>
+
+    <!-- Events -->
+    <div
+      class="example-section"
+      id="events"
+    >
+      <playground-example-viewer
+        [description]="'examples.tabs.events.description' | transloco"
+        [htmlCode]="eventsHtml"
+        [title]="'examples.tabs.events.title' | transloco"
+        [tsCode]="eventsTs"
+      >
+        <playground-tabs-events-example />
+      </playground-example-viewer>
+    </div>
+
+    <!-- Tab Content Switching -->
+    <div
+      class="example-section"
+      id="content"
+    >
+      <playground-example-viewer
+        [description]="'examples.tabs.content.description' | transloco"
+        [htmlCode]="contentHtml"
+        [title]="'examples.tabs.content.title' | transloco"
+        [tsCode]="contentTs"
+      >
+        <playground-tabs-content-example />
+      </playground-example-viewer>
+    </div>
+
+    <!-- Content + Orientation Toggle -->
+    <div
+      class="example-section"
+      id="content-orientation"
+    >
+      <playground-example-viewer
+        [htmlCode]="contentOrientationHtml"
+        [tsCode]="contentOrientationTs"
+        description="Content tab example with a toggle to enable vertical tab orientation"
+        title="Content + orientation toggle"
+      >
+        <playground-tabs-content-orientation-example></playground-tabs-content-orientation-example>
+      </playground-example-viewer>
+    </div>
+
+    <!-- Template-based tabs -->
+    <div
+      class="example-section"
+      id="template"
+    >
+      <playground-example-viewer
+        [description]="'examples.tabs.template.description' | transloco"
+        [htmlCode]="templateHtml"
+        [title]="'examples.tabs.template.title' | transloco"
+        [tsCode]="templateTs"
+      >
+        <playground-tabs-template-example />
+      </playground-example-viewer>
+    </div>
+
+    <!-- Interactive Example with Toggles -->
+    <div
+      class="example-section"
+      id="interactive"
+    >
+      <playground-example-viewer
+        [description]="'examples.tabs.interactive.description' | transloco"
+        [htmlCode]="interactiveHtml"
+        [title]="'examples.tabs.interactive.title' | transloco"
+        [tsCode]="interactiveTs"
+      >
+        <playground-tabs-interactive-example />
+      </playground-example-viewer>
+    </div>
+  </section>
+
+  <!-- API Documentation -->
+  <section class="showcase-api">
+    <h3>{{ 'examples.tabs.api' | transloco }}</h3>
+    <playground-component-documentation
+      [componentType]="QuangTabsComponent"
+      [customReadmePath]="componentsReadmePath()"
+      [readmeOnly]="true"
+    />
+  </section>
+</div>

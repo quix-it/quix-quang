@@ -71,8 +71,11 @@ export class QuangPaginatorComponent implements OnInit {
     this._pageSize.set(this.pageSize())
   }
 
-  onChangeSize(event: any): void {
-    this._pageSize.set(parseInt(event.target.value))
+  onChangeSize(event: Event): void {
+    const target = event.target
+    const value = target instanceof HTMLSelectElement ? target.value : undefined
+    if (!value) return
+    this._pageSize.set(parseInt(value))
     this.changeSize.emit(this._pageSize())
     this.goToFirstPage()
   }

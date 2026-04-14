@@ -43,6 +43,7 @@
       "radioGroup": "Radio group component",
       "autocomplete": "Autocomplete component",
       "table": "Table component",
+      "tabs": "Tabs component",
       "readme": "Readme",
       "usage": "Usage",
       "properties": "Properties",
@@ -78,6 +79,9 @@
       "noMatch": "The value is not valid",
       "minLength": "This field must be at least {{requiredLength}} characters long",
       "maxLength": "This field must be at most {{requiredLength}} characters long"
+    },
+    "helpMessage": {
+      "inputTest": "This is a help message for the input test component. It can be customized."
     },
     "buttons": {
       "enabled": "Form enabled: {{enabled}}",
@@ -136,7 +140,28 @@
       "toast": "QuangToast",
       "popover": "QuangPopover",
       "tooltip": "QuangTooltip",
-      "modal": "QuangModal"
+      "modal": "QuangModal",
+      "modal.service": "QuangModalService",
+      "modalService": {
+        "multipleModalSupport": "Multiple Modal Support:",
+        "supportDescription": "You can open multiple modals simultaneously. Test opening modals from inside other modals!",
+        "openCenterModal": "Open Center Modal",
+        "openLeftModal": "Open Left Modal",
+        "openRightModal": "Open Right Modal",
+        "openModals": "Open Modals",
+        "dynamicModalContent": "Dynamic Modal Content",
+        "contentDescription": "This content was loaded dynamically using the QuangModalService!",
+        "counter": "Counter",
+        "increment": "Increment",
+        "decrement": "Decrement",
+        "openAdditionalModals": "Open Additional Modals:",
+        "centerModal": "+ Center Modal",
+        "leftModal": "+ Left Modal",
+        "rightModal": "+ Right Modal",
+        "closeFirstModal": "Close First Modal",
+        "totalOpenModals": "Total open modals:",
+        "modalIds": "Modal IDs:"
+      }
     }
   },
   "menu": {
@@ -150,6 +175,7 @@
       "select": "Select",
       "radioGroup": "Radio group",
       "table": "Table",
+      "tabs": "Tabs",
       "checkbox": "Checkbox / Toggle",
       "wysiwyg": "Wysiwyg",
       "loader": "Loader"
@@ -159,6 +185,7 @@
       "tooltip": "Tooltip",
       "popover": "Popover",
       "modal": "Modal",
+      "modalService": "Modal Service",
       "toast": "Toast"
     },
     "auth": "Auth",
@@ -259,6 +286,99 @@
         "description": "Override the rendering of specific options using the per-option renderer template."
       }
     },
+    "tabs": {
+      "description": "A tabs component that supports disabled tabs, custom templates, and two-way data binding.",
+      "toc": "Examples",
+      "api": "API Reference",
+      "simple": {
+        "title": "Simple Tabs",
+        "description": "Basic tabs with translation support and form control integration.",
+        "home": "Home",
+        "profile": "Profile",
+        "settings": "Settings",
+        "selectedTab": "Selected tab",
+        "none": "none"
+      },
+      "disabled": {
+        "title": "Disabled Tab",
+        "description": "Individual tabs can be disabled independently from the form control state.",
+        "tab1": "Enabled Tab",
+        "tab2": "Disabled Tab",
+        "tab3": "Another Tab",
+        "selectedTab": "Selected tab",
+        "info": "The middle tab is disabled and cannot be selected"
+      },
+      "events": {
+        "title": "Event Handling",
+        "description": "Listen to tab selection changes using the tabChange output event.",
+        "overview": "Overview",
+        "details": "Details",
+        "analytics": "Analytics",
+        "formValue": "Form value",
+        "lastEvent": "Last tabChange event",
+        "clickCount": "Click count",
+        "none": "none"
+      },
+      "content": {
+        "title": "Tab Content Switching",
+        "description": "Display different content based on the selected tab using @switch control flow.",
+        "tabOverview": "Overview",
+        "tabDetails": "Details",
+        "tabSettings": "Settings",
+        "overview": {
+          "title": "Overview",
+          "description": "Welcome to the overview section! Here you can find quick information and statistics.",
+          "point1": "Quick statistics and metrics",
+          "point2": "Recent activity summary",
+          "point3": "Important notifications"
+        },
+        "details": {
+          "title": "Detailed Information",
+          "description": "View comprehensive details about your data.",
+          "field1": "Name",
+          "value1": "John Doe",
+          "field2": "Email",
+          "value2": "john.doe@example.com",
+          "field3": "Role",
+          "value3": "Administrator"
+        },
+        "settings": {
+          "title": "Configuration Settings",
+          "description": "Customize your preferences and application settings.",
+          "option1": "Theme Preference",
+          "choice1": "Light Mode",
+          "choice2": "Dark Mode",
+          "choice3": "System Default",
+          "enableNotifications": "Enable email notifications",
+          "save": "Save Settings"
+        }
+      },
+      "template": {
+        "title": "Custom Templates",
+        "description": "Use custom templates to render tabs with icons, badges, or any custom content.",
+        "dashboard": "Dashboard",
+        "messages": "Messages",
+        "notifications": "Notifications",
+        "active": "Active",
+        "selectedTab": "Selected tab"
+      },
+      "interactive": {
+        "title": "Interactive Example",
+        "description": "Test all features including disabled, readonly, validation, and form integration.",
+        "tab1": "Tab 1",
+        "tab2": "Tab 2",
+        "tab3": "Tab 3",
+        "selectedTab": "Selected tab",
+        "none": "none",
+        "markAsTouched": "Mark as Touched"
+      },
+      "tab1": "First Tab",
+      "tab2": "Second Tab",
+      "tab3": "Third Tab",
+      "custom1": "Custom 1",
+      "custom2": "Custom 2",
+      "custom3": "Custom 3"
+    },
     "checkbox": {
       "interactive": {
         "helper": "Use the buttons to change the component configuration at runtime.",
@@ -307,6 +427,10 @@
         "selected": "Selected",
         "chipsPosition": "Chips Position"
       },
+      "multipleWithFreeText": {
+        "title": "Multiple Selection with Free Text",
+        "description": "Autocomplete that allows selecting multiple values from options or adding any custom text as chips. Press Enter to add custom text as a new chip while preserving existing selections."
+      },
       "interactive": {
         "title": "Interactive Playground",
         "description": "Explore all autocomplete options interactively. Toggle the checkboxes to enable or disable different features and see how they affect the component behavior.",
@@ -348,5 +472,8 @@
       "setTranslationKey": "Sets a single translation key and value for a language.",
       "translationsTokens": "Injection tokens for translation configuration: AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH. Use these to provide language and translation settings in your Angular app."
     }
+  },
+  "toggles": {
+    "multipleSorting": "Multiple sorting"
   }
 }

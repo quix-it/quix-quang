@@ -16,7 +16,7 @@ export class ToastTestPageComponent {
   protected ToastTestPageComponent = ToastTestPageComponent
 
   private readonly quangTranslationService = inject(QuangTranslationService)
-  private readonly customToast = viewChild<TemplateRef<any>>('customToast')
+  private readonly customToast = viewChild<TemplateRef<unknown>>('customToast')
   private readonly quangToast = inject(QuangToastService)
   private readonly testComponent = viewChild('testComponent')
 
@@ -30,7 +30,7 @@ export class ToastTestPageComponent {
 
   // Path to the components README.md file
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/toast.md' : './assets/docs/toast.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/toast.md' : './assets/docs/toast-it.md'
   )
 
   openToast(type: 'success' | 'warning' | 'error', customIcon?: boolean): void {

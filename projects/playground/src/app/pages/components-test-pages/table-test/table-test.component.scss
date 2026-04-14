@@ -4,3 +4,14 @@
 quang-table {
   --table-header-border-width: 2px;
 }
+
+.multipleSortingToggle {
+  ::ng-deep .toggle-wrapper {
+    margin-bottom: unset !important;
+  }
+  ::ng-deep .label-left {
+    ::ng-deep label {
+      margin-right: 5px !important;
+    }
+  }
+}

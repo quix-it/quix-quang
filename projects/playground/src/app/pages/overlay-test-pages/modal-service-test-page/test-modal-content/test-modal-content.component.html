@@ -1,0 +1,82 @@
+<div class="p-3">
+  <h4>{{ 'quang.overlay.modalService.dynamicModalContent' | transloco }}</h4>
+  <p>{{ 'quang.overlay.modalService.contentDescription' | transloco }}</p>
+  <p>{{ 'quang.overlay.modalService.counter' | transloco }}: {{ counter() }}</p>
+
+  <div class="mb-3">
+    <button
+      (click)="increment()"
+      class="btn btn-primary me-2"
+    >
+      {{ 'quang.overlay.modalService.increment' | transloco }}
+    </button>
+    <button
+      (click)="decrement()"
+      class="btn btn-secondary"
+    >
+      {{ 'quang.overlay.modalService.decrement' | transloco }}
+    </button>
+  </div>
+
+  <hr />
+
+  <div class="mb-2">
+    <strong>{{ 'quang.overlay.modalService.openAdditionalModals' | transloco }}</strong>
+  </div>
+  <div class="d-flex gap-2 flex-wrap">
+    <button
+      (click)="openAnotherModal('center')"
+      class="btn btn-outline-primary btn-sm"
+    >
+      {{ 'quang.overlay.modalService.centerModal' | transloco }}
+    </button>
+    <button
+      (click)="openAnotherModal('left')"
+      class="btn btn-outline-primary btn-sm"
+    >
+      {{ 'quang.overlay.modalService.leftModal' | transloco }}
+    </button>
+    <button
+      (click)="openAnotherModal('right')"
+      class="btn btn-outline-primary btn-sm"
+    >
+      {{ 'quang.overlay.modalService.rightModal' | transloco }}
+    </button>
+  </div>
+
+  @if (modalCount() > 1) {
+    <div class="mt-2">
+      <small class="text-muted">
+        {{ 'quang.overlay.modalService.totalOpenModals' | transloco }} {{ modalCount() }}
+        <br />
+        {{ 'quang.overlay.modalService.modalIds' | transloco }} {{ openModalIds().join(', ') }}
+      </small>
+    </div>
+  }
+
+  <hr />
+
+  <div class="mb-2">
+    <strong>Test Return Data</strong>
+  </div>
+  <div class="d-flex gap-2 flex-wrap">
+    <button
+      (click)="closeWithData('save')"
+      class="btn btn-success btn-sm"
+    >
+      Save & Close
+    </button>
+    <button
+      (click)="closeWithData('cancel')"
+      class="btn btn-secondary btn-sm"
+    >
+      Cancel
+    </button>
+    <button
+      (click)="closeWithData('delete')"
+      class="btn btn-danger btn-sm"
+    >
+      Delete & Close
+    </button>
+  </div>
+</div>

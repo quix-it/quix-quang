@@ -16,6 +16,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { AbstractControl, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 import { filter, take } from 'rxjs'
 import sunEditor from 'suneditor'
 import SunEditorCore from 'suneditor/src/lib/core'
@@ -37,7 +38,7 @@ export type QuangWysiwygOptions = SunEditorOptions
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgClass],
+  imports: [TranslocoPipe, NgClass, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -97,8 +98,8 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
 
   showBlocks = input<boolean>(true)
 
-  onImageUploadError = input<(errorMessage: any, result: any, core: any) => boolean>()
-  onFileDrop = input<(e: any, cleanData: any, maxCharCount: any, core: any) => boolean>()
+  onImageUploadError = input<(errorMessage: unknown, result: unknown, core: unknown) => boolean>()
+  onFileDrop = input<(e: unknown, cleanData: unknown, maxCharCount: unknown, core: unknown) => boolean>()
 
   wysiwygOptions = input<QuangWysiwygOptions | undefined>(undefined)
 

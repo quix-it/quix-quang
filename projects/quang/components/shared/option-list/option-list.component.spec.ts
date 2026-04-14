@@ -40,7 +40,7 @@ import { OptionListParentType, QuangOptionListComponent, SelectOption } from './
 class TestHostComponent {
   buttonRef = viewChild<ElementRef<HTMLButtonElement>>('buttonRef')
 
-  optTpl = viewChild<TemplateRef<any>>('optTpl')
+  optTpl = viewChild<TemplateRef<unknown>>('optTpl')
 
   get buttonElement(): HTMLButtonElement {
     return this.buttonRef()?.nativeElement as HTMLButtonElement

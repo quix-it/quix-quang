@@ -3,14 +3,29 @@
     @if (componentLabel()) {
       <label
         [htmlFor]="componentId()"
-        class="form-label"
+        class="form-label d-flex gap-2"
       >
-        {{ componentLabel() | transloco }}
-        <span [hidden]="!_isRequired()">*</span>
+        <div>
+          <span>{{ componentLabel() | transloco }}</span>
+          <span [hidden]="!_isRequired()">*</span>
+        </div>
+        @if (helpMessage() && helpMessageTooltip()) {
+          <div
+            [overlayPosition]="helpTooltipPosition()"
+            [quangTooltip]="helpMessage() | transloco"
+            [showMethod]="showHelpTooltipMethod()"
+            class="pointer"
+          >
+            <ng-content select="[help-icon]" />
+          </div>
+        }
       </label>
     }
     @if (componentType() !== 'textarea') {
-      <div class="input-container">
+      <div
+        [class.is-invalid]="_showErrors()"
+        class="input-container"
+      >
         <input
           [attr.maxLength]="maxLengthText()"
           [attr.minLength]="minLengthText()"
@@ -46,19 +61,12 @@
             type="button"
           >
             @if (showPassword()) {
-              <ng-content select="[hide-password]"></ng-content>
+              <ng-content select="[hide-password]" />
             } @else {
-              <ng-content select="[show-password]"></ng-content>
+              <ng-content select="[show-password]" />
             }
           </button>
         }
-
-        <div class="valid-feedback">
-          {{ successMessage() | transloco }}
-        </div>
-        <div class="invalid-feedback">
-          {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
-        </div>
       </div>
     }
     @if (componentType() === 'textarea') {
@@ -79,15 +87,14 @@
         (input)="onChangedEventHandler($event)"
         class="form-control"
       ></textarea>
-
-      <div class="valid-feedback">
-        {{ successMessage() | transloco }}
-      </div>
-      <div class="invalid-feedback">
-        {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
-      </div>
     }
-    @if (helpMessage()) {
+    <div class="valid-feedback">
+      {{ successMessage() | transloco }}
+    </div>
+    <div class="invalid-feedback">
+      {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
+    </div>
+    @if (helpMessage() && !helpMessageTooltip()) {
       <small
         [hidden]="_showSuccess() || _showErrors()"
         aria-live="assertive"

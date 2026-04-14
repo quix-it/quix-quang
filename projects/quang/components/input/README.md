@@ -82,6 +82,7 @@ The component supports the following input types, each with specific behaviors a
 - `showHidePasswordButton`: `boolean` — Shows/hides the password toggle button. Default: `true`. **Only applies to**: `password`
 - `buttonClass`: `string` — Additional CSS classes for the password toggle button. **Only applies to**: `password`
 
+
 ### Universal Inputs
 
 - `isReadonly`: `boolean` — Makes the input read-only
@@ -89,10 +90,12 @@ The component supports the following input types, each with specific behaviors a
 - `componentPlaceholder`: `string` — Placeholder text (supports i18n keys)
 - `componentTabIndex`: `number` — Tab index for accessibility
 - `componentClass`: `string` — Additional CSS classes for the input element
-- `errorMap`: `Record<string, any>` — Validation error messages
+- `errorMap`: `ErrorData[]` — Validation error messages
 - `successMessage`: `string` — Success message text
-- `helpMessage`: `string` — Help text displayed below the input
+- `helpMessage`: `string` — Help text displayed as a tooltip or below the input
+- `helpMessageTooltip`: `boolean` — If true, help message is shown as a tooltip (with icon); if false, help message is shown inline below the input. Default: `false`
 - `formControl`: `FormControl` — Angular reactive form control
+- Tooltip icon projection: to display the tooltip icon, use `<ng-content select="[help-icon]" />` in the component template.
 
 ## Outputs
 
@@ -105,9 +108,37 @@ The component supports the following input types, each with specific behaviors a
 
 ```html
 <quang-input
-  [errorMap]="errors()"
+  [errorMap]="errors"
   componentLabel="form.label.input"
   componentType="text"
+  formControlName="testInput"
+/>
+```
+
+### Help Message as Tooltip
+
+```html
+<quang-input
+  [errorMap]="errors"
+  componentLabel="form.label.input"
+  componentType="text"
+  [helpMessage]="'form.help.input'"
+  [helpMessageTooltip]="true"
+  formControlName="testInput"
+>
+  <svg-icon src="assets/icons/svg/help.svg" help-icon />
+</quang-input>
+```
+
+### Help Message Inline
+
+```html
+<quang-input
+  [errorMap]="errors"
+  componentLabel="form.label.input"
+  componentType="text"
+  [helpMessage]="'form.help.input'"
+  [helpMessageTooltip]="false"
   formControlName="testInput"
 />
 ```
@@ -116,7 +147,7 @@ The component supports the following input types, each with specific behaviors a
 
 ```html
 <quang-input
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [showHidePasswordButton]="true"
   (showPassword)="onToggleShowPassword($event)"
   componentLabel="form.label.password"
@@ -133,14 +164,15 @@ The component supports the following input types, each with specific behaviors a
 
 ```typescript
 export class MyComponent {
+  errors: ErrorData[] = [
+    { type: 'required', message: 'Password is required' },
+    { type: 'minlength', message: 'Password must be at least 8 characters long' }
+  ]
+  
   showPassword = signal<boolean>(false)
 
   onToggleShowPassword(isVisible: boolean): void {
     this.showPassword.set(isVisible)
-  }
-
-  errors(): Record<string, any> {
-    return this.form.get('password')?.errors ?? {}
   }
 }
 ```
@@ -150,7 +182,7 @@ export class MyComponent {
 ```html
 <quang-input
   [componentStep]="5"
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [maxNumber]="100"
   [minNumber]="0"
   componentLabel="form.label.quantity"
@@ -163,7 +195,7 @@ export class MyComponent {
 
 ```html
 <quang-input
-  [errorMap]="errors()"
+  [errorMap]="errors"
   [maxLengthText]="500"
   componentLabel="form.label.description"
   componentType="textarea"

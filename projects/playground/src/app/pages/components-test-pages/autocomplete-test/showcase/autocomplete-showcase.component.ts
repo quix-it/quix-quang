@@ -17,6 +17,8 @@ import {
   AUTOCOMPLETE_INTERACTIVE_TS,
   AUTOCOMPLETE_MULTIPLE_HTML,
   AUTOCOMPLETE_MULTIPLE_TS,
+  AUTOCOMPLETE_MULTIPLE_WITH_FREE_TEXT_HTML,
+  AUTOCOMPLETE_MULTIPLE_WITH_FREE_TEXT_TS,
   AUTOCOMPLETE_SIMPLE_HTML,
   AUTOCOMPLETE_SIMPLE_TS,
   AUTOCOMPLETE_TEMPLATE_HTML,
@@ -25,6 +27,7 @@ import {
   AutocompleteFreeTextExampleComponent,
   AutocompleteInteractiveExampleComponent,
   AutocompleteMultipleExampleComponent,
+  AutocompleteMultipleWithFreeTextExampleComponent,
   AutocompleteSimpleExampleComponent,
   AutocompleteTemplateExampleComponent,
 } from '../examples'
@@ -40,6 +43,7 @@ import {
     AutocompleteAsyncExampleComponent,
     AutocompleteFreeTextExampleComponent,
     AutocompleteMultipleExampleComponent,
+    AutocompleteMultipleWithFreeTextExampleComponent,
     AutocompleteInteractiveExampleComponent,
     AutocompleteTemplateExampleComponent,
   ],
@@ -68,6 +72,8 @@ export class AutocompleteShowcaseComponent {
   protected readonly freeTextHtml = AUTOCOMPLETE_FREE_TEXT_HTML
   protected readonly multipleTs = AUTOCOMPLETE_MULTIPLE_TS
   protected readonly multipleHtml = AUTOCOMPLETE_MULTIPLE_HTML
+  protected readonly multipleWithFreeTextTs = AUTOCOMPLETE_MULTIPLE_WITH_FREE_TEXT_TS
+  protected readonly multipleWithFreeTextHtml = AUTOCOMPLETE_MULTIPLE_WITH_FREE_TEXT_HTML
   protected readonly interactiveTs = AUTOCOMPLETE_INTERACTIVE_TS
   protected readonly interactiveHtml = AUTOCOMPLETE_INTERACTIVE_HTML
 

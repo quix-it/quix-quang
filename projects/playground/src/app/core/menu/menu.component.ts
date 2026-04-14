@@ -9,6 +9,7 @@ import { QuangTranslationService } from 'quang/translation'
 
 import { ThemeModalComponent } from '../theme-modal/theme-modal.component'
 
+import pkg from '../../../../../../package.json'
 import { MenuItem, menuLanguage, menuList, menuTheme } from './menuList'
 
 @Component({
@@ -30,8 +31,10 @@ import { MenuItem, menuLanguage, menuList, menuTheme } from './menuList'
 export class MenuComponent {
   private readonly router = inject(Router)
   private readonly quangTranslationService = inject(QuangTranslationService)
+
   readonly menuList: MenuItem[] = menuList
   readonly menuTheme = menuTheme
+  readonly buildVersion = pkg.version
   currentMenuHover = signal<MenuItem | null>(null)
   currentMenuHoverOrigin = signal<CdkOverlayOrigin | FlexibleConnectedPositionStrategyOrigin>(new ElementRef(null))
   isHoveringMenuChild = signal<boolean>(false)
@@ -115,5 +118,6 @@ export class MenuComponent {
   changeLanguage(menu: MenuItem): void {
     const lang = menu.description.split('.')[menu.description.split('.').length - 1]
     this.quangTranslationService.setActiveLang(lang)
+    localStorage.setItem('language', lang)
   }
 }

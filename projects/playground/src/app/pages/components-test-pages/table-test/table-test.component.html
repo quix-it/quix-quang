@@ -1,12 +1,22 @@
 <h3>{{ 'title.components.table' | transloco }}</h3>
-<button
-  (click)="addPerson()"
-  class="btn me-3 btn-primary"
-  type="button"
->
-  Add person
-</button>
+<div class="d-flex align-items-center">
+  <button
+    (click)="addPerson()"
+    class="btn me-3 btn-primary"
+    type="button"
+  >
+    Add person
+  </button>
+  <quang-checkbox
+    [componentLabel]="'toggles.multipleSorting' | transloco"
+    [formControl]="multipleSorting"
+    checkType="toggle"
+    class="multipleSortingToggle"
+    labelPosition="left"
+  ></quang-checkbox>
+</div>
 <quang-table
+  [sortType]="sortType()"
   [stickyTable]="true"
   [tableConfigurations]="tableConfig()"
   (sortChanged)="onChangeSort($event)"

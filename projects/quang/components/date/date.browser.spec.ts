@@ -206,7 +206,15 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
     const calendar = document.querySelector('.air-datepicker') as HTMLElement
     expect(calendar).toBeTruthy()
 
-    // Focus should move to calendar for keyboard navigation
+    // Focus should move to calendar for keyboard navigation.
+    // Air-datepicker handles keyboard interaction on the focused day cell, not on the container.
+    const focusedCell =
+      (calendar.querySelector('.air-datepicker-cell.-focus-') as HTMLElement | null) ||
+      (calendar.querySelector('.air-datepicker-cell.-current-') as HTMLElement | null) ||
+      (calendar.querySelector('.air-datepicker-cell') as HTMLElement | null)
+
+    expect(focusedCell).toBeTruthy()
+
     // Simulate Enter key to select the focused date
     const enterEvent = new KeyboardEvent('keydown', {
       key: 'Enter',
@@ -214,7 +222,7 @@ describe('QuangDateComponent - Browser Focus Tests', () => {
       bubbles: true,
       cancelable: true,
     })
-    calendar.dispatchEvent(enterEvent)
+    focusedCell?.dispatchEvent(enterEvent)
 
     await wait(300)
 

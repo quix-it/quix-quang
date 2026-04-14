@@ -40,7 +40,7 @@ export class ToggleTestComponent {
 
   // Path to the components README.md file
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/checkbox.md' : './assets/docs/checkbox.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/checkbox.md' : './assets/docs/checkbox-it.md'
   )
 
   isReadonly = signal<boolean>(false)

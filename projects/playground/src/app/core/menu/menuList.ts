@@ -43,6 +43,10 @@ export const menuList: MenuItem[] = [
         description: 'menu.components.table',
       },
       {
+        route: 'components/tabs',
+        description: 'menu.components.tabs',
+      },
+      {
         route: 'components/toggle',
         description: 'menu.components.checkbox',
       },
@@ -70,6 +74,10 @@ export const menuList: MenuItem[] = [
       {
         description: 'menu.overlay.modal',
         route: 'overlay/modal',
+      },
+      {
+        description: 'menu.overlay.modalService',
+        route: 'overlay/modal-service',
       },
       {
         description: 'menu.overlay.toast',

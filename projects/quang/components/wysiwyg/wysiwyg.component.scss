@@ -2,6 +2,10 @@
   display: block;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 ::ng-deep {
   .se-toolbar {
     color: var(--bs-body-color) !important;

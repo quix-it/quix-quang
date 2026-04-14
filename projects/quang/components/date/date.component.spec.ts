@@ -23,21 +23,31 @@ vi.mock('air-datepicker', () => {
     visible = false
     $datepicker = document.createElement('div')
     selectedDates: Date[] = []
-    opts: any
+    opts: unknown
     constructor(_el: unknown, opts: unknown) {
       this.opts = opts
     }
-    update(_opts: unknown, _updateOpts?: unknown) {}
-    setFocusDate(_value: unknown) {}
-    clear(_opts?: unknown) {}
+    update(_opts: unknown, _updateOpts?: unknown): void {
+      return
+    }
+    setFocusDate(_value: unknown): void {
+      return
+    }
+    clear(_opts?: unknown): void {
+      return
+    }
     show() {
       this.visible = true
     }
     hide() {
       this.visible = false
     }
-    destroy() {}
-    selectDate(_date: unknown, _opts?: unknown) {}
+    destroy(): void {
+      return
+    }
+    selectDate(_date: unknown, _opts?: unknown): void {
+      return
+    }
   }
 
   return {
@@ -69,6 +79,27 @@ const getTranslocoTestingProviders = () =>
 
 const noMatchValidator = (control: AbstractControl<string | null>): ValidationErrors | null => {
   return control.value === 'ok' ? null : { noMatch: true }
+}
+
+interface DateRangeValue {
+  dateFrom: string | null
+  dateTo: string | null
+}
+
+interface AirDatepickerLike {
+  opts: {
+    onSelect: (arg: { date: unknown }) => void
+  }
+  $datepicker: HTMLElement
+  selectedDates: Date[]
+  show: () => void
+  hide: () => void
+  visible: boolean
+}
+
+interface QuangDateComponentPrivateApi {
+  _value: () => unknown
+  propagateValueToControl: () => void
 }
 
 @Component({
@@ -197,7 +228,7 @@ class SnapshotNoContentHostComponent {
   imports: [ReactiveFormsModule, QuangDateComponent],
 })
 class RangeHostComponent {
-  control = new FormControl<any>(null)
+  control = new FormControl<DateRangeValue | null>(null)
 }
 
 @Component({
@@ -217,7 +248,9 @@ class RangeHostComponent {
 })
 class DatepickerOptionsHostComponent {
   control = new FormControl<string | null>(null)
-  opts: any
+  opts?: {
+    onSelect?: (...args: unknown[]) => void
+  }
 }
 
 @Component({
@@ -248,7 +281,7 @@ class NonInlineParseHostComponent {
   imports: [ReactiveFormsModule, QuangDateComponent],
 })
 class NonInlineRangeParseHostComponent {
-  control = new FormControl<any>(null)
+  control = new FormControl<DateRangeValue | null>(null)
 }
 
 @Component({
@@ -358,21 +391,22 @@ describe('QuangDateComponent - range selection', () => {
 
     const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
     const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
-    const dp = dateCmp._airDatepickerInstance() as any
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
+    const dateCmpPrivate = dateCmp as unknown as QuangDateComponentPrivateApi
 
-    expect((dateCmp as any)._value()).toBe(null)
+    expect(dateCmpPrivate._value()).toBe(null)
 
     // Partial range: only start date selected.
     dp.opts.onSelect({ date: [new Date('2026-01-15T12:00:00.000Z'), null] })
     fixture.detectChanges()
 
-    expect((dateCmp as any)._value()).toBe(null)
+    expect(dateCmpPrivate._value()).toBe(null)
 
     // Complete range: start + end.
     dp.opts.onSelect({ date: [new Date('2026-01-15T12:00:00.000Z'), new Date('2026-01-20T12:00:00.000Z')] })
     fixture.detectChanges()
 
-    const value = (dateCmp as any)._value() as { dateFrom: string; dateTo: string }
+    const value = dateCmpPrivate._value() as unknown as { dateFrom: string; dateTo: string }
     expect(value).toBeTruthy()
     expect(value.dateFrom).toContain('T00:00:00.000Z')
     expect(value.dateTo).toContain('T00:00:00.000Z')
@@ -412,7 +446,7 @@ describe('QuangDateComponent - datepickerOptions chaining', () => {
 
     const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
     const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
-    const dp = dateCmp._airDatepickerInstance() as any
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
 
     expect(host.control.value).toBe(null)
 
@@ -437,7 +471,7 @@ describe('QuangDateComponent - datepickerOptions chaining', () => {
 
     const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
     const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
-    const dp = dateCmp._airDatepickerInstance() as any
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
 
     tickSpy.mockClear()
 
@@ -463,13 +497,15 @@ describe('QuangDateComponent - inline mode', () => {
 
     const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
     const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
-    const dp = dateCmp._airDatepickerInstance() as any
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
 
     // Provide a fake timepicker DOM under the current datepicker instance root.
     const timepickerRoot = document.createElement('div')
     timepickerRoot.className = 'air-datepicker-time'
     const h = document.createElement('input')
     const m = document.createElement('input')
+    h.value = '11'
+    m.value = '24'
     timepickerRoot.appendChild(h)
     timepickerRoot.appendChild(m)
     dp.$datepicker.appendChild(timepickerRoot)
@@ -584,7 +620,7 @@ describe('QuangDateComponent - keyboard interactions', () => {
 
     const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
     const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
-    const dp = dateCmp._airDatepickerInstance() as any
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
 
     const showSpy = vi.spyOn(dp, 'show')
     const hideSpy = vi.spyOn(dp, 'hide')
@@ -639,7 +675,7 @@ describe('QuangDateComponent - locale and normalization', () => {
 
     // Set a value with a different date; component should keep current date and replace only time.
     dateCmp.onChangedHandler('1999-01-01T11:24:00.000Z')
-    ;(dateCmp as any).propagateValueToControl()
+    ;(dateCmp as unknown as QuangDateComponentPrivateApi).propagateValueToControl()
     fixture.detectChanges()
 
     await new Promise<void>((resolve) => queueMicrotask(() => resolve()))
@@ -668,7 +704,7 @@ describe('QuangDateComponent - onChangeText', () => {
     fixture.detectChanges()
 
     // Non-inline: CVA propagation happens on hide/blur, but internal value should be updated.
-    expect((dateCmp as any)._value()).toBe('2026-01-15T00:00:00.000Z')
+    expect((dateCmp as unknown as QuangDateComponentPrivateApi)._value()).toBe('2026-01-15T00:00:00.000Z')
     expect(fixture.componentInstance.control.value).toBe(null)
   })
 
@@ -732,12 +768,93 @@ describe('QuangDateComponent - onChangeText', () => {
     inputEl.value = '1/1/2026'
     dateCmp.onChangeText({ target: inputEl } as unknown as Event)
     fixture.detectChanges()
-    expect((dateCmp as any)._value()).toBe(null)
+    expect((dateCmp as unknown as QuangDateComponentPrivateApi)._value()).toBe(null)
 
     // Same length but invalid => ignored.
     inputEl.value = '99/99/9999'
     dateCmp.onChangeText({ target: inputEl } as unknown as Event)
     fixture.detectChanges()
-    expect((dateCmp as any)._value()).toBe(null)
+    expect((dateCmp as unknown as QuangDateComponentPrivateApi)._value()).toBe(null)
+  })
+})
+
+describe('QuangDateComponent - showOnlyTimepicker', () => {
+  it('should clear both inputs (hours/minutes) if formControl.value is null starting from a value', async () => {
+    await TestBed.configureTestingModule({
+      imports: [NormalizeTimeOnlyHostComponent],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    const fixture = TestBed.createComponent(NormalizeTimeOnlyHostComponent)
+    fixture.detectChanges()
+
+    const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
+    const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
+
+    // Simulate AirDatepicker time inputs structure
+    const timepickerRoot = document.createElement('div')
+    timepickerRoot.className = 'air-datepicker-time'
+    const h = document.createElement('input')
+    const m = document.createElement('input')
+    // The inputs would have values from the initial state
+    h.value = '10'
+    m.value = '12'
+    timepickerRoot.appendChild(h)
+    timepickerRoot.appendChild(m)
+    dp.$datepicker.appendChild(timepickerRoot)
+
+    fixture.componentInstance.control.setValue(null)
+    fixture.detectChanges()
+    await fixture.whenStable()
+    await new Promise<void>((resolve) => queueMicrotask(() => resolve()))
+
+    expect(h.value).toBe('')
+    expect(m.value).toBe('')
+  })
+
+  it('should set formControl to null if both timepicker inputs are cleared', async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [InlineTimeOnlyHostComponent],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    const fixture = TestBed.createComponent(InlineTimeOnlyHostComponent)
+    fixture.detectChanges()
+
+    const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
+    const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
+
+    // Simulate AirDatepicker time inputs structure
+    const timepickerRoot = document.createElement('div')
+    timepickerRoot.className = 'air-datepicker-time'
+    const h = document.createElement('input')
+    const m = document.createElement('input')
+    h.value = '10'
+    m.value = '12'
+    timepickerRoot.appendChild(h)
+    timepickerRoot.appendChild(m)
+    dp.$datepicker.appendChild(timepickerRoot)
+
+    // Re-run setup to attach listeners
+    dateCmp['setupTimepicker']()
+
+    expect(fixture.componentInstance.control.value).toBeTruthy()
+
+    // Clear inputs
+    h.value = ''
+    m.value = ''
+
+    // Dispatch input event to trigger sync
+    h.dispatchEvent(new Event('input', { bubbles: true }))
+
+    vi.runAllTimers()
+    fixture.detectChanges()
+
+    expect(fixture.componentInstance.control.value).toBe(null)
+
+    vi.useRealTimers()
   })
 })

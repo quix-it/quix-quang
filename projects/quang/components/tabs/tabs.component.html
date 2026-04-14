@@ -1,0 +1,29 @@
+<div
+  [class.flex-column]="tabsOrientation() === TabsOrientation.Vertical"
+  class="d-flex mt-4"
+  id="tabs-container"
+>
+  @for (tab of tabs(); track tab.id) {
+    @if (tab.renderer) {
+      <ng-container
+        [ngTemplateOutlet]="tab.renderer"
+        [ngTemplateOutletContext]="{
+          $implicit: tab,
+          selected: isTabSelected(tab),
+          index: getTabIndex(tab),
+          onSelect: onSelectTab.bind(this),
+        }"
+      ></ng-container>
+    } @else {
+      <button
+        [class.selected]="isTabSelected(tab)"
+        [disabled]="isTabDisabled(tab)"
+        (click)="onSelectTab(tab)"
+        class="flex-grow-1 btn btn-only-text"
+        type="button"
+      >
+        {{ tab.label | transloco }}
+      </button>
+    }
+  }
+</div>

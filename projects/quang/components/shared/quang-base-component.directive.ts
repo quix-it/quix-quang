@@ -2,13 +2,13 @@ import { AfterViewInit, DestroyRef, Directive, Injector, computed, inject, input
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angular/forms'
 
-import { Subscription } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 
 import { ErrorData } from './ErrorData'
 import { makeId } from './makeId'
 
 @Directive()
-export abstract class QuangBaseComponent<T = any> implements ControlValueAccessor, AfterViewInit {
+export abstract class QuangBaseComponent<T = unknown> implements ControlValueAccessor, AfterViewInit {
   componentId = input<string>(makeId(10))
 
   isReadonly = input<boolean>(false)
@@ -23,7 +23,21 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   componentPlaceholder = input<string>('')
 
+  helpTooltipPosition = input<
+    'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right'
+  >('top')
+
+  showHelpTooltipMethod = input<'click' | 'hover'>('hover')
+
   errorMap = input<ErrorData[]>([])
+
+  errorMap$ = toObservable(this.errorMap)
+    .pipe(takeUntilDestroyed())
+    .subscribe(() => {
+      if (this._isTouched()) {
+        this.checkFormErrors()
+      }
+    })
 
   _errorMessagesByKey = computed(
     () => new Map((this.errorMap() ?? []).map((errorData) => [errorData.error, errorData.message]))
@@ -34,6 +48,9 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
   helpMessage = input<string>('')
 
   formControl = input<FormControl>()
+
+  // If true, the help message will be shown in a tooltip. Remember to set the `helpMessage` input and add help-icon as ng-content
+  helpMessageTooltip = input<boolean>(false)
 
   componentBlur = output<void>()
 
@@ -55,7 +72,7 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
   _currentErrorMessage = signal<string>('')
 
-  _currentErrorMessageExtraData = signal<Record<string, any>>({})
+  _currentErrorMessageExtraData = signal<Record<string, unknown>>({})
 
   _ngControl = signal<NgControl | null>(null)
 
@@ -160,7 +177,8 @@ export abstract class QuangBaseComponent<T = any> implements ControlValueAccesso
 
     // `markAllAsTouched()` updates the control's `touched` state without emitting `statusChanges`.
     // Angular exposes an `events` stream that includes touched/pristine changes.
-    this._eventsChange$ = (control as any)?.events?.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+    const controlEvents = (control as unknown as { events?: Observable<unknown> })?.events
+    this._eventsChange$ = controlEvents?.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.checkFormErrors()
     })
 

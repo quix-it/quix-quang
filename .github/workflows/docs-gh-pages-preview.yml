@@ -1,0 +1,76 @@
+name: Deploy Docs Preview (pre-release tags)
+
+on:
+  push:
+    tags:
+      # Supports tags like 20.6.1-0, 20.6.1-beta.2, v20.6.1-0, v20.6.1-beta.2
+      - '*.*.*-*'
+      - 'v*.*.*-*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gh-pages-docs-preview
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.2
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Prepare docs content
+        run: npm run copy-readme
+
+      - name: Build playground for preview
+        run: |
+          set -euxo pipefail
+          npx ng build playground --configuration production --base-href="/quix-quang/preview/"
+
+      - name: Checkout gh-pages (worktree)
+        run: |
+          set -euxo pipefail
+          git fetch origin gh-pages
+          git worktree add -B gh-pages gh-pages-worktree origin/gh-pages
+
+      - name: Publish preview to gh-pages
+        run: |
+          set -euxo pipefail
+          # Remove legacy multi-preview folder (we keep a single /preview/ now).
+          rm -rf gh-pages-worktree/previews
+          DEST="gh-pages-worktree/preview"
+          rm -rf "$DEST"
+          mkdir -p "$DEST"
+          rsync -a --delete dist/playground/browser/ "$DEST/"
+
+      - name: Commit and push
+        run: |
+          set -euxo pipefail
+          cd gh-pages-worktree
+
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "No changes to publish."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          git commit -m "docs(preview): ${GITHUB_REF_NAME}"
+          git push origin HEAD:gh-pages
