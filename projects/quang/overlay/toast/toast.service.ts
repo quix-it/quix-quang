@@ -56,8 +56,12 @@ export class QuangToastService {
   }
 
   public closeToast(): void {
+    const currentTimeout = this.currentTimeout()
+    if (currentTimeout) {
+      clearTimeout(currentTimeout)
+    }
     this.currentToast.set(null)
-    patchState(this.toastState, { count: this.count() - 1 })
+    patchState(this.toastState, { count: Math.max(0, this.count() - 1), currentTimeout: null })
   }
 
   public currentToast = signal<ToastData | null>(null)
