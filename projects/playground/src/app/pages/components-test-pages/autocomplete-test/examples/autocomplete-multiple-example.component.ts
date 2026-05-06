@@ -45,6 +45,7 @@ import { SelectOption } from 'quang/components/shared'
           [internalFilterOptions]="true"
           [multiple]="true"
           [selectOptions]="options()"
+          helpMessage="test"
           multiSelectDisplayMode="vertical"
         />
         <p class="mt-2 text-muted small">

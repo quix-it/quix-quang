@@ -1,95 +1,97 @@
-<div
-  [ngStyle]="{ '--chip-max-length': chipMaxLength() ? chipMaxLength() + 'ch' : 'none' }"
-  #autocompleteContainer
-  class="autocomplete-container"
->
-  @if (componentLabel()) {
-    <label
-      [htmlFor]="componentId()"
-      class="form-label d-flex gap-2"
-    >
-      <div>
-        <span>{{ componentLabel() | transloco }}</span>
-        <span [hidden]="!_isRequired()">*</span>
-      </div>
-      @if (helpMessage() && helpMessageTooltip()) {
-        <div
-          [overlayPosition]="helpTooltipPosition()"
-          [quangTooltip]="helpMessage() | transloco"
-          [showMethod]="showHelpTooltipMethod()"
-          class="pointer"
-        >
-          <ng-content select="[help-icon]" />
-        </div>
-      }
-    </label>
-  }
+<div class="d-flex flex-column mb-3">
   <div
-    [ngClass]="{
-      horizontal: multiSelectDisplayMode() === 'horizontal',
-      'form-control': multiSelectDisplayMode() === 'horizontal',
-      'chips-bottom': chipsPosition() === 'bottom',
-    }"
-    #chipContainer
-    class="container-wrap"
+    [ngStyle]="{ '--chip-max-length': chipMaxLength() ? chipMaxLength() + 'ch' : 'none' }"
+    #autocompleteContainer
+    class="autocomplete-container"
   >
-    @if (multiple() && _chipList().length > 0 && chipsPosition() === 'top') {
-      <ng-container *ngTemplateOutlet="chipsTemplate" />
+    @if (componentLabel()) {
+      <label
+        [htmlFor]="componentId()"
+        class="form-label d-flex gap-2"
+      >
+        <div>
+          <span>{{ componentLabel() | transloco }}</span>
+          <span [hidden]="!_isRequired()">*</span>
+        </div>
+        @if (helpMessage() && helpMessageTooltip()) {
+          <div
+            [overlayPosition]="helpTooltipPosition()"
+            [quangTooltip]="helpMessage() | transloco"
+            [showMethod]="showHelpTooltipMethod()"
+            class="pointer"
+          >
+            <ng-content select="[help-icon]" />
+          </div>
+        }
+      </label>
     }
+    <div
+      [ngClass]="{
+        horizontal: multiSelectDisplayMode() === 'horizontal',
+        'form-control': multiSelectDisplayMode() === 'horizontal',
+        'chips-bottom': chipsPosition() === 'bottom',
+      }"
+      #chipContainer
+      class="container-wrap"
+    >
+      @if (multiple() && _chipList().length > 0 && chipsPosition() === 'top') {
+        <ng-container *ngTemplateOutlet="chipsTemplate" />
+      }
 
-    <input
-      [attr.aria-activedescendant]="_showOptions() ? optionList()?.getActiveDescendantId() : null"
-      [attr.aria-controls]="_showOptions() ? 'optionList' : null"
-      [attr.aria-expanded]="_showOptions()"
-      [attr.required]="getIsRequiredControl()"
-      [class.form-control]="multiSelectDisplayMode() !== 'horizontal'"
-      [class.is-invalid]="_showErrors()"
-      [class.is-valid]="_showSuccess()"
-      [disabled]="_isDisabled() || isReadonly()"
-      [id]="componentId()"
-      [ngClass]="componentClass()"
-      [placeholder]="componentPlaceholder() | transloco"
-      [tabIndex]="componentTabIndex()"
-      [value]="_inputValue()"
-      (blur)="onBlurInput($event)"
-      (input)="onChangeInput($event)"
-      (keydown)="onInputKeydown($event)"
-      (mousedown)="showOptionVisibility()"
-      #selectInput
-      aria-autocomplete="list"
-      aria-haspopup="listbox"
-      autocomplete="off"
-      role="combobox"
-      type="text"
-    />
+      <input
+        [attr.aria-activedescendant]="_showOptions() ? optionList()?.getActiveDescendantId() : null"
+        [attr.aria-controls]="_showOptions() ? 'optionList' : null"
+        [attr.aria-expanded]="_showOptions()"
+        [attr.required]="getIsRequiredControl()"
+        [class.form-control]="multiSelectDisplayMode() !== 'horizontal'"
+        [class.is-invalid]="_showErrors()"
+        [class.is-valid]="_showSuccess()"
+        [disabled]="_isDisabled() || isReadonly()"
+        [id]="componentId()"
+        [ngClass]="componentClass()"
+        [placeholder]="componentPlaceholder() | transloco"
+        [tabIndex]="componentTabIndex()"
+        [value]="_inputValue()"
+        (blur)="onBlurInput($event)"
+        (input)="onChangeInput($event)"
+        (keydown)="onInputKeydown($event)"
+        (mousedown)="showOptionVisibility()"
+        #selectInput
+        aria-autocomplete="list"
+        aria-haspopup="listbox"
+        autocomplete="off"
+        role="combobox"
+        type="text"
+      />
 
-    @if (multiple() && _chipList().length > 0 && chipsPosition() === 'bottom') {
-      <ng-container *ngTemplateOutlet="chipsTemplate" />
+      @if (multiple() && _chipList().length > 0 && chipsPosition() === 'bottom') {
+        <ng-container *ngTemplateOutlet="chipsTemplate" />
+      }
+    </div>
+    @if (_showOptions()) {
+      <quang-option-list
+        [_isDisabled]="_isDisabled()"
+        [_value]="_highlightedValue()"
+        [componentClass]="componentClass()"
+        [componentLabel]="componentLabel()"
+        [componentTabIndex]="componentTabIndex()"
+        [nullOption]="false"
+        [optionListMaxHeight]="optionListMaxHeight()"
+        [parentID]="componentId()"
+        [parentType]="ParentType"
+        [scrollBehaviorOnOpen]="scrollBehaviorOnOpen()"
+        [selectButtonRef]="autocompleteContainer"
+        [selectOptions]="_filteredOptions()"
+        [translateValue]="translateValue()"
+        (blurHandler)="onBlurOptionList($event)"
+        (changedHandler)="onValueChange($event)"
+        (escapePressed)="onEscapePressed()"
+        (tabPressed)="onTabPressed($event)"
+        #optionList
+        selectionMode="single"
+      />
     }
   </div>
-  @if (_showOptions()) {
-    <quang-option-list
-      [_isDisabled]="_isDisabled()"
-      [_value]="_highlightedValue()"
-      [componentClass]="componentClass()"
-      [componentLabel]="componentLabel()"
-      [componentTabIndex]="componentTabIndex()"
-      [nullOption]="false"
-      [optionListMaxHeight]="optionListMaxHeight()"
-      [parentID]="componentId()"
-      [parentType]="ParentType"
-      [scrollBehaviorOnOpen]="scrollBehaviorOnOpen()"
-      [selectButtonRef]="autocompleteContainer"
-      [selectOptions]="_filteredOptions()"
-      [translateValue]="translateValue()"
-      (blurHandler)="onBlurOptionList($event)"
-      (changedHandler)="onValueChange($event)"
-      (escapePressed)="onEscapePressed()"
-      (tabPressed)="onTabPressed($event)"
-      #optionList
-      selectionMode="single"
-    />
-  }
   <div
     [class.d-block]="_showSuccess()"
     class="valid-feedback"
@@ -112,7 +114,6 @@
     </small>
   }
 </div>
-
 <!-- Chips template for reuse in top/bottom positions -->
 <ng-template #chipsTemplate>
   <div class="chips-container">
