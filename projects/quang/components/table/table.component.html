@@ -22,7 +22,7 @@
                 class="align-bottom"
               >
                 <div
-                  [ngClass]="header?.css"
+                  [ngClass]="$safeNavigationMigration(header?.css)"
                   class="align-self-end d-flex gap-1"
                 >
                   {{ !header.renderer ? (header.text | transloco) : null }}
@@ -76,7 +76,7 @@
                 class="align-bottom"
               >
                 <div
-                  [ngClass]="header?.css"
+                  [ngClass]="$safeNavigationMigration(header?.css)"
                   class="align-self-end d-flex gap-1"
                 >
                   {{ !header.renderer ? (header.text | transloco) : null }}

@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http'
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi, withXhr } from '@angular/common/http'
 import { ApplicationConfig } from '@angular/core'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { provideRouter } from '@angular/router'
@@ -17,7 +17,11 @@ const resolvedBaseHref = globalThis.document?.querySelector('base')?.getAttribut
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptorsFromDi(), withInterceptors([quangLoaderInterceptor, logoutOnErrorInterceptor])),
+    provideHttpClient(
+      withXhr(),
+      withInterceptorsFromDi(),
+      withInterceptors([quangLoaderInterceptor, logoutOnErrorInterceptor])
+    ),
     provideRouter(routes),
     provideAngularSvgIcon(),
     provideQuangConfig(
