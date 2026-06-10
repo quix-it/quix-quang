@@ -45,8 +45,8 @@
     "@capacitor/browser": "^7.0.0",
     "@capacitor/core": "^7.0.0",
     "@jsverse/transloco": "^7.5.0",
-    "@ngrx/signals": "^21.0.1",
-    "air-datepicker": "^3.5.0",
+    "@ngrx/signals": "^21.1.1",
+    "air-datepicker": "^3.6.0",
     "angular-oauth2-oidc": "^20.0.2",
     "angular-svg-icon": "^19.1.1",
     "bootstrap": "^5.3.3",
@@ -75,7 +75,7 @@
     "@vitest/browser": "^4.0.15",
     "@vitest/browser-playwright": "^4.0.15",
     "@vitest/coverage-v8": "^4.0.15",
-    "angular-cli-ghpages": "^2.0.3",
+    "angular-cli-ghpages": "^3.1.0",
     "angular-eslint": "^22.0.0",
     "eslint": "^9.22.0",
     "eslint-config-love": "^117.0.0",
@@ -96,6 +96,9 @@
   "overrides": {
     "@angular/build": {
       "vitest": "^4.0.15"
+    },
+    "@ngrx/signals": {
+      "@angular/core": "^22.0.0"
     }
   },
   "repository": {
