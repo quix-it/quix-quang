@@ -371,7 +371,7 @@ export class QuangOptionListComponent {
       bottomValue = `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
     }
     nativeElement?.classList.toggle('option-list-top', !isTop)
-    console.log(topValue)
+    // console.log(topValue)
     this.elementTop.set(topValue)
     this.elementBottom.set(bottomValue)
   }
