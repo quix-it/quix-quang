@@ -1,7 +1,6 @@
 <div class="d-flex flex-column mb-3">
   <div
     [ngStyle]="{ '--chip-max-length': chipMaxLength() ? chipMaxLength() + 'ch' : 'none' }"
-    #autocompleteContainer
     class="autocomplete-container"
   >
     @if (componentLabel()) {
@@ -56,6 +55,7 @@
         (input)="onChangeInput($event)"
         (keydown)="onInputKeydown($event)"
         (mousedown)="showOptionVisibility()"
+        #autocompleteContainerInput
         #selectInput
         aria-autocomplete="list"
         aria-haspopup="listbox"
@@ -68,7 +68,7 @@
         <ng-container *ngTemplateOutlet="chipsTemplate" />
       }
     </div>
-    @if (_showOptions()) {
+    @if (_showOptions() && _filteredOptions().length > 0) {
       <quang-option-list
         [_isDisabled]="_isDisabled()"
         [_value]="_highlightedValue()"
@@ -80,7 +80,7 @@
         [parentID]="componentId()"
         [parentType]="ParentType"
         [scrollBehaviorOnOpen]="scrollBehaviorOnOpen()"
-        [selectButtonRef]="autocompleteContainer"
+        [selectButtonRef]="multiSelectDisplayMode() === 'horizontal' ? chipContainer : autocompleteContainerInput"
         [selectOptions]="_filteredOptions()"
         [translateValue]="translateValue()"
         (blurHandler)="onBlurOptionList($event)"
