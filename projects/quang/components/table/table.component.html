@@ -15,7 +15,7 @@
       >
         <thead>
           <tr>
-            @for (header of _tableConfigurations().headers; track $index) {
+            @for (header of _tableConfigurations().headers; track (header.text ?? '') + $index) {
               <th
                 [class.sort-btn]="header?.sort"
                 (click)="header?.sort ? onSortColumn(header.sort!) : null"
@@ -32,6 +32,13 @@
                       $implicit: header.payload,
                     }"
                   ></ng-container>
+                  @if (sortType() === SortType.MULTIPLE) {
+                    <div class="mw-1ch">
+                      @if (header.sort && header.sort.order !== undefined) {
+                        <span>{{ header.sort.order + 1 }}</span>
+                      }
+                    </div>
+                  }
                   @if (header.sort?.key) {
                     <div class="d-flex justify-content-between">
                       <ng-container
@@ -62,7 +69,7 @@
           id="fakeTableHeader"
         >
           <tr>
-            @for (header of _tableConfigurations().headers; track $index) {
+            @for (header of _tableConfigurations().headers; track (header.text ?? '') + $index) {
               <th
                 [class.sort-btn]="header?.sort"
                 (click)="header?.sort ? onSortColumn(header.sort!) : null"
@@ -79,6 +86,13 @@
                       $implicit: header.payload,
                     }"
                   ></ng-container>
+                  @if (sortType() === SortType.MULTIPLE) {
+                    <div class="mw-1ch">
+                      @if (header.sort && header.sort.order !== undefined) {
+                        <span>{{ header.sort.order + 1 }}</span>
+                      }
+                    </div>
+                  }
                   @if (header.sort?.key) {
                     <div class="d-flex justify-content-between">
                       <ng-container
@@ -93,17 +107,20 @@
           </tr>
         </thead>
         <tbody>
-          @for (row of _tableConfigurations().rows; track $index) {
+          @for (row of _tableConfigurations().rows; track (row.rowId?.toString() ?? '') + $index) {
             <tr
               [class.hover-table]="clickableRow()"
-              [class.selectedRow]="row?.rowId ? isSelected(row.rowId!) : null"
+              [class.selectedRow]="row.rowId ? isSelected(row.rowId) : null"
               [ngClass]="row.css"
               (click)="clickableRow() ? onClickRow(row) : null"
             >
-              @for (cell of row.cellData; track $index) {
+              @for (cell of row.cellData; track (cell.text ?? '') + $index) {
                 <td
                   [attr.colspan]="cell?.fullWidth ? _tableConfigurations().headers.length : undefined"
-                  [ngClass]="cell.css!"
+                  [attr.data-properties]="cell.properties ? convertToString(cell.properties) : undefined"
+                  [ngClass]="cell.css"
+                  [ngStyle]="cell.style"
+                  #tdCell
                 >
                   {{ !cell.renderer ? cell.text : null }}
                   <ng-container

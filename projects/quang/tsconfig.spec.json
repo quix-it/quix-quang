@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/spec",
+    "types": ["vitest/globals", "node"],
+    "module": "ES2022",
+    "target": "ES2022",
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true
+  },
+  "files": ["test-setup.ts"],
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
+}

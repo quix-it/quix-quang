@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core'
 import { toObservable, toSignal } from '@angular/core/rxjs-interop'
 
@@ -17,7 +16,7 @@ import { QuangLoaderService } from './loader.service'
  */
 @Component({
   selector: 'quang-loader',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,14 @@
+/* PrismJS theme for light mode */
+@import 'prismjs/themes/prism.css';
+
+/* Prism default theme adds a semi-transparent background to some tokens
+ * (operators/urls/etc). On our layout it looks like “highlighted boxes”,
+ * so we disable it to keep the block background uniform.
+ */
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  background: none;
+}

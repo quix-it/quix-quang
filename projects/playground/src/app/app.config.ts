@@ -12,6 +12,8 @@ import { withTranslation } from 'quang/translation'
 
 import { routes } from './app.routes'
 
+const resolvedBaseHref = globalThis.document?.querySelector('base')?.getAttribute('href') ?? '/'
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
@@ -19,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAngularSvgIcon(),
     provideQuangConfig(
-      { verbose: true, baseHref: '/quix-quang/' },
+      { verbose: true, baseHref: resolvedBaseHref },
       withTranslation({
         availableLangs: ['it', 'en'],
         defaultLang: 'en',

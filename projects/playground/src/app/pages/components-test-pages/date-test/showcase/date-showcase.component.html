@@ -1,0 +1,128 @@
+<div class="playground-showcase">
+  <div class="showcase-header">
+    <h2>{{ 'title.components.date' | transloco }}</h2>
+    <p class="lead">Datepicker examples (date, time, range) using <code>quang-date</code>.</p>
+  </div>
+
+  <nav class="showcase-toc">
+    <h5>Contents</h5>
+    <ul>
+      <li>
+        <a
+          (click)="scrollTo($event, 'full')"
+          href="#"
+          >Full datepicker (date + time)</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'no-time')"
+          href="#"
+          >Date only (no time)</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'time-only')"
+          href="#"
+          >Time only</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'range')"
+          href="#"
+          >Range</a
+        >
+      </li>
+      <li>
+        <a
+          (click)="scrollTo($event, 'switch')"
+          href="#"
+          >Switch date ↔ range</a
+        >
+      </li>
+    </ul>
+  </nav>
+
+  <section class="showcase-examples">
+    <div
+      class="example-section"
+      id="full"
+    >
+      <playground-example-viewer
+        [htmlCode]="fullHtml"
+        [tsCode]="fullTs"
+        description="Basic date selection with timepicker enabled."
+        title="Full datepicker (date + time)"
+      >
+        <playground-date-full-example />
+      </playground-example-viewer>
+    </div>
+
+    <div
+      class="example-section"
+      id="no-time"
+    >
+      <playground-example-viewer
+        [htmlCode]="noTimeHtml"
+        [tsCode]="noTimeTs"
+        description="Date selection without time."
+        title="Date only (no time)"
+      >
+        <playground-date-no-time-example />
+      </playground-example-viewer>
+    </div>
+
+    <div
+      class="example-section"
+      id="time-only"
+    >
+      <playground-example-viewer
+        [htmlCode]="timeOnlyHtml"
+        [tsCode]="timeOnlyTs"
+        description="Only the timepicker UI. An initial date value is used to keep the day while editing time."
+        title="Time only"
+      >
+        <playground-date-time-only-example />
+      </playground-example-viewer>
+    </div>
+
+    <div
+      class="example-section"
+      id="range"
+    >
+      <playground-example-viewer
+        [htmlCode]="rangeHtml"
+        [tsCode]="rangeTs"
+        description="Range selection using the built-in range mode (DateRange value)."
+        title="Range"
+      >
+        <playground-date-range-example />
+      </playground-example-viewer>
+    </div>
+
+    <div
+      class="example-section"
+      id="switch"
+    >
+      <playground-example-viewer
+        [htmlCode]="switchHtml"
+        [tsCode]="switchTs"
+        description="Toggle between a single date and a date range using separate controls."
+        title="Switch date ↔ range"
+      >
+        <playground-date-switch-date-range-example />
+      </playground-example-viewer>
+    </div>
+  </section>
+
+  <section class="showcase-api">
+    <h3>API</h3>
+    <playground-component-documentation
+      [componentType]="QuangDateComponent"
+      [customReadmePath]="componentsReadmePath()"
+      [readmeOnly]="true"
+    />
+  </section>
+</div>

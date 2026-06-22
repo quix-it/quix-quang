@@ -31,7 +31,7 @@ export class LoaderTestPageComponent {
   })
 
   componentsReadmePath = computed(() =>
-    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/loader.md' : './assets/docs/loader.it.md'
+    this.quangTranslationService.activeLang() === 'en' ? './assets/docs/loader.md' : './assets/docs/loader-it.md'
   )
 
   async showLoader() {

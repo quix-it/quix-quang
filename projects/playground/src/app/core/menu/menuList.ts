@@ -35,8 +35,16 @@ export const menuList: MenuItem[] = [
         description: 'menu.components.select',
       },
       {
+        route: 'components/radio-group',
+        description: 'menu.components.radioGroup',
+      },
+      {
         route: 'components/table',
         description: 'menu.components.table',
+      },
+      {
+        route: 'components/tabs',
+        description: 'menu.components.tabs',
       },
       {
         route: 'components/toggle',
@@ -68,6 +76,10 @@ export const menuList: MenuItem[] = [
         route: 'overlay/modal',
       },
       {
+        description: 'menu.overlay.modalService',
+        route: 'overlay/modal-service',
+      },
+      {
         description: 'menu.overlay.toast',
         route: 'overlay/toast',
       },
@@ -87,7 +99,16 @@ export const menuList: MenuItem[] = [
   },
   {
     description: 'menu.form',
-    route: '/form',
+    children: [
+      {
+        description: 'menu.formValidators',
+        route: '/form/validators',
+      },
+      {
+        description: 'menu.formExample',
+        route: '/form/example',
+      },
+    ],
   },
   {
     description: 'menu.network',

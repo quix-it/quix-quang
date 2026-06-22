@@ -1,0 +1,207 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`QuangDateComponent - snapshots > should match snapshot (default with content) 1`] = `
+<div
+  id="root2"
+  ng-version="20.3.15"
+>
+  <quang-date
+    class="ng-untouched ng-pristine ng-valid"
+    componentid="snapDefault"
+    componentlabel="snap.label"
+  >
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label d-flex gap-2"
+        for="snapDefault"
+      >
+        <div>
+          <span>
+            snap.label
+          </span>
+          <span
+            hidden=""
+          >
+            *
+          </span>
+        </div>
+        <!--container-->
+      </label>
+      <!--container-->
+      <div
+        class="input-date-container"
+      >
+        <input
+          autocomplete="off"
+          class="form-control with-button-calendar"
+          id="snapDefault"
+          placeholder=""
+          required="false"
+          tabindex="0"
+          type="search"
+        />
+        <button
+          aria-label="calendar-button"
+          class="btn btn-outline-secondary btn-outline-calendar"
+          required="false"
+          type="button"
+        >
+          <span
+            class="icon"
+          />
+        </button>
+      </div>
+      <div
+        class="valid-feedback"
+      >
+          
+      </div>
+      <div
+        class="invalid-feedback"
+      >
+          
+      </div>
+      <!--container-->
+    </div>
+  </quang-date>
+</div>
+`;
+
+exports[`QuangDateComponent - snapshots > should match snapshot (inline mode hides input/button visually) 1`] = `
+<div
+  id="root3"
+  ng-version="20.3.15"
+>
+  <quang-date
+    class="ng-untouched ng-pristine ng-valid"
+    componentid="snapInline"
+    componentlabel="snap.inline"
+  >
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label d-flex gap-2"
+        for="snapInline"
+      >
+        <div>
+          <span>
+            snap.inline
+          </span>
+          <span
+            hidden=""
+          >
+            *
+          </span>
+        </div>
+        <!--container-->
+      </label>
+      <!--container-->
+      <div
+        class="input-date-container"
+      >
+        <input
+          aria-hidden="true"
+          autocomplete="off"
+          class="form-control quang-date-inline-hidden with-button-calendar"
+          id="snapInline"
+          placeholder=""
+          required="false"
+          tabindex="0"
+          type="search"
+        />
+        <button
+          aria-hidden="true"
+          aria-label="calendar-button"
+          class="btn btn-outline-secondary btn-outline-calendar quang-date-inline-hidden"
+          required="false"
+          type="button"
+        >
+          <span
+            class="icon"
+          />
+        </button>
+      </div>
+      <div
+        class="valid-feedback"
+      >
+          
+      </div>
+      <div
+        class="invalid-feedback"
+      >
+          
+      </div>
+      <!--container-->
+    </div>
+  </quang-date>
+</div>
+`;
+
+exports[`QuangDateComponent - snapshots > should match snapshot (no content hides calendar button) 1`] = `
+<div
+  id="root4"
+  ng-version="20.3.15"
+>
+  <quang-date
+    class="ng-untouched ng-pristine ng-valid"
+    componentid="snapNoContent"
+    componentlabel="snap.noContent"
+  >
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label d-flex gap-2"
+        for="snapNoContent"
+      >
+        <div>
+          <span>
+            snap.noContent
+          </span>
+          <span
+            hidden=""
+          >
+            *
+          </span>
+        </div>
+        <!--container-->
+      </label>
+      <!--container-->
+      <div
+        class="input-date-container"
+      >
+        <input
+          autocomplete="off"
+          class="form-control"
+          id="snapNoContent"
+          placeholder=""
+          required="false"
+          tabindex="0"
+          type="search"
+        />
+        <button
+          aria-label="calendar-button"
+          class="btn btn-outline-secondary btn-outline-calendar"
+          hidden=""
+          required="false"
+          type="button"
+        />
+      </div>
+      <div
+        class="valid-feedback"
+      >
+          
+      </div>
+      <div
+        class="invalid-feedback"
+      >
+          
+      </div>
+      <!--container-->
+    </div>
+  </quang-date>
+</div>
+`;

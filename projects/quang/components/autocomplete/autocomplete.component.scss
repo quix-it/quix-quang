@@ -1,7 +1,120 @@
 :host {
   display: block;
+  --chip-max-length: none;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
 .autocomplete-container {
   margin-bottom: 1rem;
   position: relative;
+}
+
+.chip:has(.btn-chip:disabled) {
+  &:hover {
+    filter: unset;
+    cursor: unset;
+  }
+}
+
+.container-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &.chips-bottom {
+    flex-direction: column;
+
+    input {
+      order: -1;
+    }
+  }
+
+  &.horizontal {
+    display: flex;
+    .chip-container {
+      max-width: 70%;
+      margin-bottom: 0;
+      margin-left: 0.5rem;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      overflow-x: auto;
+      position: absolute;
+      align-items: center;
+      .chip {
+        white-space: nowrap;
+      }
+    }
+    input {
+      min-width: 30%;
+      flex: 1 1 0;
+      width: auto;
+      border: none;
+      // border-bottom: 1px solid var(--bs-border-color);
+      &:focus-visible {
+        outline: none;
+      }
+    }
+  }
+}
+
+.chip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 16px;
+  color: var(--bs-btn-color);
+  background-color: rgba(var(--bs-primary-rgb), 0.1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--bs-primary-border-subtle);
+  min-height: 2rem;
+  max-width: 100%;
+
+  p {
+    margin: 0;
+    max-width: var(--chip-max-length);
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  // When chipMaxLength is set, use single-line truncation with ellipsis
+  &.chip-truncate {
+    p {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .btn-chip {
+    text-align: end;
+    padding: 0;
+    min-width: unset;
+    &:hover {
+      opacity: 80%;
+    }
+    &:active {
+      border-color: transparent;
+    }
+    svg {
+      color: var(--bs-primary);
+      vertical-align: sub;
+    }
+  }
+  &:has(.btn-chip:focus-visible) {
+    // border-color: var(--bs-primary);
+    border-width: 2px;
+    filter: brightness(80%);
+  }
 }

@@ -2,7 +2,7 @@
   "name": "quang",
   "author": "Quix Srl",
   "homepage": "https://quix-it.github.io/quix-quang/",
-  "version": "19.0.28",
+  "version": "19.5.0",
   "scripts": {
     "prepare": "husky",
     "ng": "ng",
@@ -10,20 +10,25 @@
     "start:playground": "npm run copy-readme && ng serve playground",
     "build:playground": "npm run copy-readme && ng build playground",
     "build:quang": "ng build --project quang",
-    "build-publish": "npm run build:quang && cd dist/quang && npm publish",
+    "build-publish": "npm run build:quang && node scripts/npm-publish.js",
     "build-publish:prerelease": "npm run build:quang && cd dist/quang && npm publish --tag prerelease",
     "sync-version": "jq '.version = \"'$npm_package_version'\"' projects/quang/package.json > temp.json && mv temp.json projects/quang/package.json",
     "version": "npm run sync-version && git add -A",
     "postversion": "git push && git push --tags",
-    "publish:prerelease": "npm version prerelease -m \"build(prerelease): version %s\" && npm run build-publish:prerelease",
-    "publish:patch": "npm version patch -m \"build(patch): version %s\" && npm run build-publish && npm run deploy:git",
-    "publish:minor": "npm version minor -m \"build(minor): version %s\" && npm run build-publish && npm run deploy:git",
-    "publish:major": "npm version major -m \"build(major): version %s\" && npm run build-publish && npm run deploy:git",
+    "cleanup": "rm -rf dist && rm -rf .angular && rm -rf node_modules && npm ci",
+    "publish:prerelease": "npm run cleanup && npm version prerelease -m \"build(prerelease): version %s\" && npm run build-publish:prerelease",
+    "publish:patch": "npm run cleanup && npm version patch -m \"build(patch): version %s\" && npm run build-publish && npm run deploy:git",
+    "publish:minor": "npm run cleanup && npm version minor -m \"build(minor): version %s\" && npm run build-publish && npm run deploy:git",
+    "publish:major": "npm run cleanup && npm version major -m \"build(major): version %s\" && npm run build-publish && npm run deploy:git",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "format": "npx prettier . -w --ignore-unknown",
     "lint-and-format": "npm run lint:fix && npm run format",
-    "deploy:git": "npm run copy-readme && ng deploy playground --base-href=/quix-quang/"
+    "deploy:git": "npm run copy-readme && ng deploy playground --base-href=/quix-quang/",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage",
+    "test:browser": "vitest --config vitest.browser.config.ts"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +51,7 @@
     "angular-svg-icon": "^19.1.1",
     "bootstrap": "^5.3.3",
     "date-fns": "^3.6.0",
+    "prismjs": "^1.29.0",
     "ngx-markdown": "^19.1.1",
     "rxjs": "~7.8.2",
     "suneditor": "^2.46.0",
@@ -53,6 +59,8 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.2.0-beta.2",
+    "@analogjs/vitest-angular": "^2.2.0-beta.2",
     "@angular/build": "^19.2.1",
     "@angular/cli": "^19.2.1",
     "@angular/compiler": "^19.2.1",
@@ -64,18 +72,32 @@
     "@eslint/js": "^9.22.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^22.13.10",
+    "@types/prismjs": "^1.26.5",
+    "@vitest/browser": "^4.0.15",
+    "@vitest/browser-playwright": "^4.0.15",
+    "@vitest/coverage-v8": "^4.0.15",
     "angular-cli-ghpages": "^2.0.3",
     "angular-eslint": "19.2.1",
     "eslint": "^9.22.0",
     "eslint-config-love": "^117.0.0",
     "husky": "^9.1.7",
+    "jsdom": "^27.2.0",
     "lint-staged": "^15.4.3",
     "ng-lint-staged": "^12.0.4",
     "ng-packagr": "^19.2.1",
+    "playwright": "^1.57.0",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-attributes": "^1.0.0",
+    "ts-node": "^10.9.2",
     "typescript": "~5.8.2",
-    "typescript-eslint": "^8.26.1"
+    "typescript-eslint": "^8.26.1",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^4.0.15"
+  },
+  "overrides": {
+    "@angular/build": {
+      "vitest": "^4.0.15"
+    }
   },
   "repository": {
     "type": "git",

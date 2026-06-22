@@ -1,9 +1,10 @@
-import { NgClass, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
+import { NgClass } from '@angular/common'
+import { ChangeDetectionStrategy, Component, computed, forwardRef, input, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 
 import { QuangBaseComponent } from 'quang/components/shared'
 
@@ -20,7 +21,7 @@ export type InputType = 'text' | 'textarea' | 'password' | 'email' | 'number' | 
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgClass],
+  imports: [TranslocoPipe, NgClass, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -42,6 +43,16 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
 
   resizable = input(true)
 
+  buttonClass = input<string>('')
+
+  showHidePasswordButton = input(false)
+
+  showPassword = signal<boolean>(false)
+
+  componentInputType = computed<InputType>(() =>
+    this.componentType() === 'password' && this.showPassword() ? 'text' : this.componentType()
+  )
+
   constructor() {
     super()
     toObservable(this.componentType)
@@ -49,5 +60,9 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
       .subscribe(() => {
         this.setupFormControl()
       })
+  }
+
+  onTogglePasswordVisibility(): void {
+    this.showPassword.update((current) => !current)
   }
 }

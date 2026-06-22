@@ -1,0 +1,76 @@
+<div class="example-viewer">
+  <div class="example-header">
+    <h4 class="example-title">{{ title() }}</h4>
+    @if (description()) {
+      <p class="example-description">{{ description() }}</p>
+    }
+  </div>
+
+  <div class="example-card">
+    @if (showCodeTabs()) {
+      <div class="example-tabs">
+        <button
+          [class.active]="activeTab() === 'result'"
+          (click)="setActiveTab('result')"
+          class="tab-button"
+          type="button"
+        >
+          ▶ {{ 'utils.exampleViewer.result' | transloco }}
+        </button>
+        @if (hasTsCode()) {
+          <button
+            [class.active]="activeTab() === 'ts'"
+            (click)="setActiveTab('ts')"
+            class="tab-button"
+            type="button"
+          >
+            &lt;/&gt; {{ 'utils.exampleViewer.typescript' | transloco }}
+          </button>
+        }
+        @if (hasHtmlCode()) {
+          <button
+            [class.active]="activeTab() === 'html'"
+            (click)="setActiveTab('html')"
+            class="tab-button"
+            type="button"
+          >
+            &lt;/&gt; {{ 'utils.exampleViewer.html' | transloco }}
+          </button>
+        }
+        @if (activeTab() !== 'result') {
+          <button
+            [title]="copyTooltip()"
+            (click)="copyCode()"
+            class="tab-button copy-button"
+            type="button"
+          >
+            <svg-icon
+              [svgStyle]="{ 'width.px': 16, 'height.px': 16 }"
+              name="copy"
+            />
+          </button>
+        }
+      </div>
+    }
+
+    <div class="example-content">
+      @switch (activeTab()) {
+        @case ('result') {
+          <div class="example-result">
+            <ng-content />
+          </div>
+        }
+        @case ('ts') {
+          <pre
+            class="code-block language-typescript"
+          ><code class="language-typescript" [innerHTML]="highlightedTs()"></code></pre>
+        }
+        @case ('html') {
+          <pre
+            class="code-block language-html"
+          ><code class="language-html" [innerHTML]="highlightedHtml()"></code></pre>
+        }
+      }
+    </div>
+  </div>
+</div>

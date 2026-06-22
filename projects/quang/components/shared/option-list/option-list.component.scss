@@ -10,7 +10,9 @@
   border: 1px solid var(--bs-border-color);
   border-top: 0;
   border-radius: var(--bs-border-radius);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-color: auto;
   position: fixed;
   width: var(--option-list-width);
   top: var(--option-list-top);
@@ -31,6 +33,26 @@
   &:focus-visible {
     outline: none;
   }
+}
+
+/* WebKit (Chromium/Safari) */
+.option-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.option-list::-webkit-scrollbar-track {
+  background: var(--bs-body-bg);
+}
+
+.option-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.22);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.option-list:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.32);
 }
 
 .item {

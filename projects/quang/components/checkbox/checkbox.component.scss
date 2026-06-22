@@ -2,13 +2,22 @@
   display: block;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .label-top {
   display: flex;
   flex-direction: column;
 
-  input {
-    margin: unset;
-    float: unset;
+  /* Bootstrap .form-check reserves space on the left for the input.
+     For top-label layout we want the input aligned flush-left. */
+  padding-left: 0;
+
+  .form-check-input {
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -16,29 +25,58 @@
   display: flex;
   flex-direction: column-reverse;
 
-  input {
-    margin: unset;
-    float: unset;
+  /* Same as .label-top: remove .form-check left gutter. */
+  padding-left: 0;
+
+  .form-check-input {
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
 .label-right {
+  display: flex;
   flex-direction: row-reverse;
-  justify-content: start;
+  /* With row-reverse, flex-start is the right edge. Use flex-end to keep it left-aligned. */
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+
+  /* Avoid Bootstrap .form-check left gutter + floats */
+  padding-left: 0;
 
   label {
-    margin-left: 0.5rem;
     margin-bottom: 0;
     align-self: center;
+  }
+
+  .form-check-input {
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
 .label-left {
+  display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+
+  /* Avoid Bootstrap .form-check left gutter + floats */
+  padding-left: 0;
 
   label {
     margin-bottom: 0;
     align-self: center;
+  }
+
+  .form-check-input {
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 

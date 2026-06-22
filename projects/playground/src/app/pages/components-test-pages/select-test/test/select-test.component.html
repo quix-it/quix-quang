@@ -1,0 +1,152 @@
+<h3>{{ 'title.components.select' | transloco }}</h3>
+<form [formGroup]="testForm">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      @if (showInput()) {
+        <div class="row">
+          <quang-select
+            [autoSelectSingleOption]="true"
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [selectOptions]="singleList"
+            #testComponent
+            class="col-4"
+            componentLabel="form.label.select"
+            componentPlaceholder="Placeholder select singola scelta"
+            formControlName="testInput"
+            id="testComponent"
+            playgroundSourceCode
+            selectionMode="single"
+            successMessage="form.label.success"
+          />
+          <quang-select
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [selectOptions]="stringList"
+            class="col-4"
+            componentLabel="form.label.select"
+            componentPlaceholder="Placeholder select singola scelta"
+            formControlName="testInput"
+            selectionMode="single"
+            successMessage="form.label.success"
+          ></quang-select>
+          <quang-select
+            [errorMap]="errors()"
+            [isReadonly]="isReadonly()"
+            [selectOptions]="numberList"
+            class="col-4"
+            componentLabel="form.label.multipleSelect"
+            componentPlaceholder="Placeholder select scelta multipla"
+            formControlName="testInputMultiple"
+            selectionMode="multiple"
+            successMessage="form.label.success"
+          ></quang-select>
+        </div>
+      }
+      <div class="d-flex gap-3 mt-3">
+        <button
+          (click)="changeFormEnabled()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
+        </button>
+        <button
+          (click)="changeFormInputRequired()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+        </button>
+        <button
+          (click)="changeVisibility()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.changeVisibility' | transloco }}
+        </button>
+        <button
+          (click)="recreateForm()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.recreateForm' | transloco }}
+        </button>
+        <button
+          (click)="setFormValues()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.setForm' | transloco }}
+        </button>
+        <button
+          (click)="checkCurrentFormValueAndValidity()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.checkForm' | transloco }}
+        </button>
+        <button
+          (click)="setReadonly()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+        </button>
+        <button
+          (click)="resetForm()"
+          class="btn btn-outline-secondary"
+        >
+          {{ 'form.buttons.resetForm' | transloco: { readonly: isReadonly() } }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Auto-Updating Options Test -->
+<div class="card mt-4">
+  <div class="card-header">
+    <h5>Auto-Updating Options Test</h5>
+  </div>
+  <div class="card-body">
+    <p class="text-muted">
+      This test verifies that the select component handles gracefully when options are updated frequently.
+    </p>
+    <div class="row">
+      <div class="col-6">
+        <quang-select
+          [selectOptions]="autoUpdateOptionsList()"
+          class="w-100"
+          componentLabel="Dynamic Options (Updates Every 500ms)"
+          componentPlaceholder="Select a time period"
+          selectionMode="single"
+          successMessage="form.label.success"
+        ></quang-select>
+      </div>
+      <div class="col-6">
+        <div class="alert alert-info">
+          <strong>Current Timestamp:</strong>
+          <br />
+          {{ autoUpdateTimestamp() | date: 'HH:mm:ss.SSS' }}
+          <br />
+          <small class="text-muted">The "Now" option label updates every 500ms</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (showValueAndValidity()) {
+  <div class="d-flex flex-column mt-3 ms-3">
+    <span>
+      {{ 'form.label.formValue' | transloco: { value: testForm.value | json } }}
+    </span>
+    <span>
+      {{ 'form.label.formValidity' | transloco: { valid: this.testForm.valid } }}
+    </span>
+  </div>
+}
+
+<!-- Component Documentation Section -->
+<div class="mt-5 border-top pt-4">
+  <playground-component-documentation
+    [componentType]="QuangSelectComponent"
+    [customReadmePath]="componentsReadmePath()"
+    [exampleHtml]="testComponentSource()"
+  />
+</div>

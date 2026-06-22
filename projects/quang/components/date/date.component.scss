@@ -3,6 +3,16 @@
 ::ng-deep {
   .air-datepicker {
     z-index: 99999;
+
+    &.-inline- {
+      z-index: unset;
+    }
+
+    &.quang-calendar-disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
     .air-datepicker--pointer {
       display: none;
     }
@@ -14,11 +24,11 @@
       .air-datepicker-time--sliders {
         display: flex;
         justify-content: center;
-        padding-top: 0.25rem;
         gap: 1rem;
         .air-datepicker-time--row {
           width: 100%;
           position: relative;
+          height: 100%;
           &:first-child::after {
             content: ':';
             display: inline;
@@ -29,9 +39,10 @@
           input {
             width: 100%;
             text-align: center;
-            padding: 0;
-            padding-left: 1rem;
+            padding: 0.375rem 0.75rem;
+            padding-left: 1.5rem;
             border-color: var(--bs-border-color);
+            height: 38px;
           }
           .form-control:focus {
             box-shadow: unset !important;
@@ -41,8 +52,16 @@
     }
     &.-inline-.-only-timepicker- {
       border: 0;
+      padding: 0 !important;
+      background-color: transparent;
+
       .air-datepicker--time {
         border: 0;
+        padding: 0 !important;
+      }
+
+      .air-datepicker-time {
+        padding: 0 !important;
       }
     }
   }
@@ -50,6 +69,25 @@
 
 :host {
   display: block;
+
+  .pointer {
+    cursor: pointer;
+  }
+
+  .quang-date-inline-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+  }
 
   .input-date-container {
     display: flex;

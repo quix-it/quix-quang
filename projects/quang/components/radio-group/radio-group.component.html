@@ -1,0 +1,89 @@
+<fieldset class="mb-3">
+  @if (componentLabel()) {
+    <legend
+      [id]="componentId() + '-label'"
+      class="form-label w-100 d-flex gap-2"
+    >
+      <div>
+        <span>{{ componentLabel() | transloco }}</span>
+        <span [hidden]="!_isRequired()">*</span>
+      </div>
+      @if (helpMessage() && helpMessageTooltip()) {
+        <div
+          [overlayPosition]="helpTooltipPosition()"
+          [quangTooltip]="helpMessage() | transloco"
+          [showMethod]="showHelpTooltipMethod()"
+          class="pointer"
+        >
+          <ng-content select="[help-icon]" />
+        </div>
+      }
+    </legend>
+  }
+
+  <div
+    [attr.aria-labelledby]="componentLabel() ? componentId() + '-label' : null"
+    [attr.role]="'radiogroup'"
+  >
+    @for (option of radioOptions(); track option.value ?? $index; let index = $index) {
+      <div
+        [class.form-check-reverse]="radioPosition() === 'right'"
+        class="form-check text-start"
+      >
+        <input
+          [attr.name]="_radioName()"
+          [attr.required]="getIsRequiredControl()"
+          [checked]="_value() === option.value"
+          [class.is-invalid]="_showErrors()"
+          [class.is-valid]="_showSuccess()"
+          [disabled]="isOptionDisabled(option)"
+          [id]="getOptionId(index)"
+          [ngClass]="componentClass()"
+          [tabIndex]="componentTabIndex()"
+          [value]="option.value ?? ''"
+          (blur)="onBlurHandler()"
+          (change)="onSelectOption(option)"
+          class="form-check-input"
+          type="radio"
+        />
+
+        <label
+          [htmlFor]="getOptionId(index)"
+          [ngClass]="{ 'cursor-pointer': !isOptionDisabled(option) }"
+          class="form-check-label"
+        >
+          @if (!option.renderer) {
+            {{ getOptionLabel(option) | transloco }}
+          }
+          <ng-container
+            [ngTemplateOutlet]="option.renderer ?? null"
+            [ngTemplateOutletContext]="{ $implicit: option, selected: _value() === option.value, index: index }"
+          ></ng-container>
+        </label>
+      </div>
+    }
+  </div>
+
+  <div
+    [class.d-block]="_showSuccess()"
+    class="valid-feedback"
+  >
+    {{ successMessage() | transloco }}
+  </div>
+  <div
+    [class.d-block]="_showErrors()"
+    class="invalid-feedback"
+  >
+    {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
+  </div>
+
+  @if (helpMessage() && !helpMessageTooltip()) {
+    <small
+      [hidden]="_showSuccess() || _showErrors()"
+      aria-live="assertive"
+      class="form-text text-muted"
+    >
+      {{ helpMessage() | transloco }}
+    </small>
+  }
+</fieldset>

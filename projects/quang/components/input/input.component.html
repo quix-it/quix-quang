@@ -1,70 +1,107 @@
-<div
-  *ngIf="componentType()"
-  class="mb-3"
->
-  <label
-    [htmlFor]="componentId()"
-    *ngIf="componentLabel()"
-    class="form-label"
-  >
-    {{ componentLabel() | transloco }}
-    <span [hidden]="!_isRequired()">*</span>
-  </label>
-  <ng-container *ngIf="componentType() !== 'textarea'">
-    <input
-      [attr.maxLength]="maxLengthText()"
-      [attr.minLength]="minLengthText()"
-      [attr.required]="getIsRequiredControl()"
-      [class.is-invalid]="_showErrors()"
-      [class.is-valid]="_showSuccess()"
-      [disabled]="_isDisabled()"
-      [id]="componentId()"
-      [max]="maxNumber()"
-      [min]="minNumber()"
-      [ngClass]="componentClass()"
-      [placeholder]="componentPlaceholder() | transloco"
-      [readOnly]="isReadonly()"
-      [step]="componentStep()"
-      [tabIndex]="componentTabIndex()"
-      [type]="componentType()"
-      [value]="_value()"
-      (blur)="onBlurHandler()"
-      (input)="onChangedEventHandler($event)"
-      autocomplete="off"
-      class="form-control"
-    />
-  </ng-container>
-  <ng-container *ngIf="componentType() === 'textarea'">
-    <textarea
-      [attr.maxLength]="maxLengthText()"
-      [attr.minLength]="minLengthText()"
-      [class.is-invalid]="_showErrors()"
-      [class.is-valid]="_showSuccess()"
-      [class.no-resize]="!resizable()"
-      [disabled]="_isDisabled()"
-      [id]="componentId()"
-      [ngClass]="componentClass()"
-      [placeholder]="componentPlaceholder() | transloco"
-      [readOnly]="isReadonly()"
-      [tabIndex]="componentTabIndex()"
-      [value]="_value()"
-      (blur)="onBlurHandler()"
-      (input)="onChangedEventHandler($event)"
-      class="form-control"
-    ></textarea>
-  </ng-container>
-  <div class="valid-feedback">
-    {{ successMessage() | transloco }}
+@if (componentType()) {
+  <div class="mb-3">
+    @if (componentLabel()) {
+      <label
+        [htmlFor]="componentId()"
+        class="form-label d-flex gap-2"
+      >
+        <div>
+          <span>{{ componentLabel() | transloco }}</span>
+          <span [hidden]="!_isRequired()">*</span>
+        </div>
+        @if (helpMessage() && helpMessageTooltip()) {
+          <div
+            [overlayPosition]="helpTooltipPosition()"
+            [quangTooltip]="helpMessage() | transloco"
+            [showMethod]="showHelpTooltipMethod()"
+            class="pointer"
+          >
+            <ng-content select="[help-icon]" />
+          </div>
+        }
+      </label>
+    }
+    @if (componentType() !== 'textarea') {
+      <div
+        [class.is-invalid]="_showErrors()"
+        class="input-container"
+      >
+        <input
+          [attr.maxLength]="maxLengthText()"
+          [attr.minLength]="minLengthText()"
+          [attr.required]="getIsRequiredControl()"
+          [class.is-invalid]="_showErrors()"
+          [class.is-valid]="_showSuccess()"
+          [class.with-button-password]="showHidePasswordButton()"
+          [disabled]="_isDisabled()"
+          [id]="componentId()"
+          [max]="maxNumber()"
+          [min]="minNumber()"
+          [ngClass]="componentClass()"
+          [placeholder]="componentPlaceholder() | transloco"
+          [readOnly]="isReadonly()"
+          [step]="componentStep()"
+          [tabIndex]="componentTabIndex()"
+          [type]="componentInputType()"
+          [value]="_value()"
+          (blur)="onBlurHandler()"
+          (input)="onChangedEventHandler($event)"
+          autocomplete="off"
+          class="form-control"
+        />
+        @if (componentType() === 'password' && showHidePasswordButton()) {
+          <button
+            [class.border-danger]="_showErrors()"
+            [class.border-success]="_showSuccess()"
+            [ngClass]="buttonClass()"
+            (click)="_ngControl()?.disabled ? null : onTogglePasswordVisibility()"
+            #calendarButton
+            aria-label="calendar-button"
+            class="btn btn-outline-secondary btn-outline-password"
+            type="button"
+          >
+            @if (showPassword()) {
+              <ng-content select="[hide-password]" />
+            } @else {
+              <ng-content select="[show-password]" />
+            }
+          </button>
+        }
+      </div>
+    }
+    @if (componentType() === 'textarea') {
+      <textarea
+        [attr.maxLength]="maxLengthText()"
+        [attr.minLength]="minLengthText()"
+        [class.is-invalid]="_showErrors()"
+        [class.is-valid]="_showSuccess()"
+        [class.no-resize]="!resizable()"
+        [disabled]="_isDisabled()"
+        [id]="componentId()"
+        [ngClass]="componentClass()"
+        [placeholder]="componentPlaceholder() | transloco"
+        [readOnly]="isReadonly()"
+        [tabIndex]="componentTabIndex()"
+        [value]="_value()"
+        (blur)="onBlurHandler()"
+        (input)="onChangedEventHandler($event)"
+        class="form-control"
+      ></textarea>
+    }
+    <div class="valid-feedback">
+      {{ successMessage() | transloco }}
+    </div>
+    <div class="invalid-feedback">
+      {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
+    </div>
+    @if (helpMessage() && !helpMessageTooltip()) {
+      <small
+        [hidden]="_showSuccess() || _showErrors()"
+        aria-live="assertive"
+        class="form-text text-muted"
+      >
+        {{ helpMessage() | transloco }}
+      </small>
+    }
   </div>
-  <div class="invalid-feedback">
-    {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
-  </div>
-  <small
-    [hidden]="_showSuccess() || _showErrors()"
-    *ngIf="helpMessage()"
-    aria-live="assertive"
-    class="form-text text-muted"
-  >
-    {{ helpMessage() | transloco }}
-  </small>
-</div>
+}

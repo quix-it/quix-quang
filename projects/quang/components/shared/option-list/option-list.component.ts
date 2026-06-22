@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NgClass, NgStyle } from '@angular/common'
+import { NgClass, NgStyle, NgTemplateOutlet } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
   ElementRef,
   HostListener,
+  type TemplateRef,
   computed,
   effect,
   inject,
@@ -20,9 +21,16 @@ import { TranslocoPipe } from '@jsverse/transloco'
 import { QUANG_LOGGING_BEHAVIOR } from 'quang'
 import { Subscription, fromEvent } from 'rxjs'
 
+export interface QuangSelectOptionTemplateContext {
+  $implicit: SelectOption
+  selected: boolean
+  index: number
+}
+
 export interface SelectOption {
   label: string
   value: string | number | null
+  renderer?: TemplateRef<QuangSelectOptionTemplateContext>
 }
 
 export enum OptionListParentType {
@@ -32,7 +40,7 @@ export enum OptionListParentType {
 
 @Component({
   selector: 'quang-option-list',
-  imports: [NgStyle, NgClass, TranslocoPipe],
+  imports: [NgStyle, NgClass, NgTemplateOutlet, TranslocoPipe],
   templateUrl: './option-list.component.html',
   styleUrl: './option-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,7 +54,7 @@ export class QuangOptionListComponent {
 
   selectOptions = input<SelectOption[]>([])
 
-  selectButtonRef = input.required<HTMLButtonElement | HTMLInputElement>()
+  selectButtonRef = input.required<HTMLButtonElement | HTMLInputElement | HTMLDivElement>()
 
   _value = input<any>()
 
@@ -73,6 +81,12 @@ export class QuangOptionListComponent {
   changedHandler = output<any>()
 
   blurHandler = output<any>()
+
+  /** Emitted when user presses Escape - parent should close dropdown and return focus to trigger */
+  escapePressed = output<void>()
+
+  /** Emitted when user presses Tab - parent should handle focus transition */
+  tabPressed = output<{ shiftKey: boolean }>()
 
   optionListContainer = viewChild<ElementRef<HTMLDivElement>>('optionListContainer')
 
@@ -116,25 +130,43 @@ export class QuangOptionListComponent {
     () => this.selectOptionsList()?.findIndex((x) => x?.value === this._value()) ?? 0
   )
 
+  /** Signal to track currently focused item index for aria-activedescendant */
+  focusedItemIndex = signal<number>(-1)
+
+  /**
+   * Returns the ID of the currently focused item for aria-activedescendant
+   */
+  getActiveDescendantId(): string | null {
+    const index = this.focusedItemIndex()
+    if (index >= 0 && index < this.selectOptionsList().length) {
+      return `item-${index}`
+    }
+    return null
+  }
+
   optionList$ = effect(() => {
     const optionListContainer = this.optionListContainer()
-    if (optionListContainer && this.parentType() === OptionListParentType.SELECT) {
+    const parentType = this.parentType()
+
+    // Focus the option list container when opened (only for SELECT)
+    if (optionListContainer && parentType === OptionListParentType.SELECT) {
       optionListContainer?.nativeElement.focus()
-      const optionListContainerNativeElement = optionListContainer?.nativeElement
-      if (optionListContainerNativeElement) {
-        const ul = optionListContainerNativeElement?.children[0] as HTMLUListElement
-        const listItem = ul?.children.item(this.selectedElementIndex()) as HTMLLIElement | undefined
-        if (listItem) {
-          setTimeout(() => {
-            listItem.scrollIntoView({ behavior: this.scrollBehaviorOnOpen() })
-          }, 0)
-        }
-      }
     }
+
     const ul = optionListContainer?.nativeElement?.children[0] as HTMLUListElement | undefined
     const listItems = (ul?.children ?? []) as HTMLLIElement[]
     let currentIndex = this.selectedElementIndex()
     listItems?.[currentIndex]?.classList.add('selected')
+    // Initialize focusedItemIndex with current selection
+    this.focusedItemIndex.set(currentIndex)
+
+    // Scroll to selected item when option list opens
+    const listItem = listItems[currentIndex]
+    if (listItem) {
+      setTimeout(() => {
+        listItem.scrollIntoView({ behavior: this.scrollBehaviorOnOpen(), block: 'nearest' })
+      }, 0)
+    }
 
     if (this.onKeyDown) {
       this.onKeyDown.unsubscribe()
@@ -154,49 +186,46 @@ export class QuangOptionListComponent {
             } else {
               currentIndex += 1
             }
-            if (currentIndex === 0) {
-              event.preventDefault()
-              optionListContainer?.nativeElement?.scroll(0, 0)
-            }
-            const optionListBottom = optionListContainer?.nativeElement?.getBoundingClientRect()?.bottom ?? 0
-            const itemListHeight = optionListContainer?.nativeElement?.children?.[0]?.children
-              ?.item(currentIndex)
-              ?.getBoundingClientRect()?.height
-            const itemListBottom = optionListContainer?.nativeElement?.children?.[0]?.children
-              ?.item(currentIndex)
-              ?.getBoundingClientRect()?.bottom
-            if (optionListBottom > (itemListBottom ?? 0) + (itemListHeight ?? 0)) event.preventDefault()
+            event.preventDefault()
 
             listItems[currentIndex]?.classList.add('selected')
-            if (
-              (optionListContainer?.nativeElement?.scrollTop ?? 0) >=
-              (optionListContainer?.nativeElement?.scrollHeight ?? 0) -
-                (optionListContainer?.nativeElement?.offsetHeight ?? 0)
-            ) {
-              event.preventDefault()
-            }
+            // Scroll item into view if not visible
+            listItems[currentIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            // Update focusedItemIndex for aria-activedescendant
+            this.focusedItemIndex.set(currentIndex)
             break
           }
           case 'ArrowUp': {
             if (this.parentType() === OptionListParentType.AUTOCOMPLETE) optionListContainer?.nativeElement.focus()
             if (currentIndex !== this.selectedElementIndex()) listItems[currentIndex]?.classList.remove('selected')
             if (currentIndex !== 0) currentIndex -= 1
-            const optionListTop = optionListContainer?.nativeElement?.getBoundingClientRect()?.top ?? 0
-            const itemListHeight = optionListContainer?.nativeElement?.children?.[0]?.children
-              ?.item(currentIndex)
-              ?.getBoundingClientRect()?.height
-            const itemListTop = optionListContainer?.nativeElement?.children?.[0]?.children
-              ?.item(currentIndex)
-              ?.getBoundingClientRect()?.top
-            if (optionListTop < (itemListTop ?? 0) - (itemListHeight ?? 0)) event.preventDefault()
+            event.preventDefault()
+
             listItems[currentIndex]?.classList.add('selected')
-            if (!optionListContainer?.nativeElement?.scrollTop) {
-              event.preventDefault()
-            }
+            // Scroll item into view if not visible
+            listItems[currentIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            // Update focusedItemIndex for aria-activedescendant
+            this.focusedItemIndex.set(currentIndex)
             break
           }
           case 'Enter': {
+            event.preventDefault()
             this.onSelectItem(this.selectOptionsList()[currentIndex])
+            break
+          }
+          case 'Escape': {
+            event.preventDefault()
+            this.escapePressed.emit()
+            break
+          }
+          case 'Tab': {
+            // Only handle Tab when focus is on the option list itself
+            // If focus is on the parent input, let the input's blur handler deal with it
+            if (document.activeElement?.id === optionListContainer?.nativeElement?.id) {
+              // Allow Tab to close dropdown and move focus naturally
+              // Emit event so parent can handle focus transition
+              this.tabPressed.emit({ shiftKey: (event as KeyboardEvent).shiftKey })
+            }
             break
           }
           default: {
@@ -299,6 +328,7 @@ export class QuangOptionListComponent {
         this.changedHandler.emit(null)
       }
     }
+    this.getOptionListTop()
   }
 
   getSelected(item: SelectOption): boolean {
@@ -327,12 +357,15 @@ export class QuangOptionListComponent {
     let bottomValue = 'unset'
     const isTop = diff >= 0
     if (isTop) {
-      topValue = `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.offsetHeight ?? 0)}px`
+      topValue = `${(this.selectButtonRef()?.getBoundingClientRect()?.top ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
     } else {
       bottomValue = `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
     }
     nativeElement?.classList.toggle('option-list-top', !isTop)
     this.elementTop.set(topValue)
     this.elementBottom.set(bottomValue)
+    setTimeout(() => {
+      this.getOptionListTop()
+    })
   }
 }

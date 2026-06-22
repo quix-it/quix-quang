@@ -12,7 +12,7 @@ export interface ToastData {
   showCloseButton?: boolean
   date?: Date
   dateFormat?: string
-  customTemplate?: TemplateRef<any>
+  customTemplate?: TemplateRef<unknown>
   customIcon?: string
   hideHeader?: boolean
 }
@@ -23,7 +23,7 @@ export interface ToastData {
 export class QuangToastService {
   private toastState = signalState({
     count: 0,
-    currentTimeout: null as ReturnType<typeof setTimeout> | number | null,
+    currentTimeout: null as ReturnType<typeof setTimeout> | null,
   })
 
   public isShowing = computed(() => this.toastState.count() > 0)
@@ -39,7 +39,10 @@ export class QuangToastService {
     this.currentToast.set(toastData)
 
     if (this.count() > 1) {
-      clearTimeout(this.currentTimeout() as number)
+      const currentTimeout = this.currentTimeout()
+      if (currentTimeout) {
+        clearTimeout(currentTimeout)
+      }
       patchState(this.toastState, {
         count: this.count() - 1,
         currentTimeout: null,

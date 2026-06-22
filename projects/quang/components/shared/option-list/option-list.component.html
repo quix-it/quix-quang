@@ -1,4 +1,6 @@
 <div
+  [attr.aria-activedescendant]="getActiveDescendantId()"
+  [attr.aria-label]="componentLabel()"
   [ngStyle]="{
     'max-height': optionListMaxHeight(),
     '--option-list-width': elementWidth(),
@@ -7,18 +9,27 @@
   }"
   (blur)="onBlurHandler($event)"
   #optionListContainer
+  aria-orientation="vertical"
   class="option-list"
   id="optionList"
-  tabindex="1"
+  role="listbox"
+  tabindex="0"
 >
-  <ul>
-    @for (item of selectOptionsList(); track i; let i = $index; let last = $last) {
+  <ul role="presentation">
+    @for (
+      item of selectOptionsList();
+      track (item.value ?? '') + (item.label ?? '');
+      let i = $index;
+      let last = $last
+    ) {
       <li
+        [attr.aria-selected]="getSelected(item)"
         [class.m-0]="last"
         [class.selected]="selectionMode() === 'single' ? getSelected(item) : null"
         [id]="'item-' + i"
         (mousedown)="$event.stopImmediatePropagation(); onSelectItem(item)"
         class="item"
+        role="option"
       >
         <input
           [checked]="getSelected(item)"
@@ -27,11 +38,12 @@
           [id]="i + '-' + item.value + '-checkbox'"
           [name]="i + '-' + item.value + '-checkbox'"
           [ngClass]="componentClass()"
-          [tabIndex]="componentTabIndex()"
           [value]="getSelected(item)"
           (blur)="onBlurHandler($event)"
           #inputCheckbox
+          aria-hidden="true"
           class="form-check-input opacity-100"
+          tabindex="-1"
           type="checkbox"
         />
         <label
@@ -39,7 +51,13 @@
           [for]="i + '-' + item.value + '-checkbox'"
           class="form-check-label checkbox-label w-100 opacity-100"
         >
-          {{ translateValue() ? (item.label | transloco) : item.label }}
+          @if (!item.renderer) {
+            {{ translateValue() ? (item.label | transloco) : item.label }}
+          }
+          <ng-container
+            [ngTemplateOutlet]="item.renderer ?? null"
+            [ngTemplateOutletContext]="{ $implicit: item, selected: getSelected(item), index: i }"
+          ></ng-container>
         </label>
       </li>
     }

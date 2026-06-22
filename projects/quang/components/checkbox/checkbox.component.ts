@@ -1,8 +1,9 @@
-import { NgClass, NgIf } from '@angular/common'
+import { NgClass } from '@angular/common'
 import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
 
 import { QuangBaseComponent } from 'quang/components/shared'
 
@@ -19,7 +20,7 @@ export type LabelPosition = 'top' | 'left' | 'right' | 'bottom'
       multi: true,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgClass],
+  imports: [TranslocoPipe, NgClass, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**

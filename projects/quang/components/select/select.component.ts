@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf } from '@angular/common'
+import { NgClass, NgTemplateOutlet } from '@angular/common'
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -10,9 +10,12 @@ import {
   signal,
   viewChild,
 } from '@angular/core'
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
+import { QuangTooltipDirective } from 'quang/overlay/tooltip'
+import { combineLatest, filter } from 'rxjs'
 
 import {
   OptionListParentType,
@@ -36,7 +39,7 @@ import {
       multi: false,
     },
   ],
-  imports: [TranslocoPipe, NgIf, NgFor, NgClass, QuangOptionListComponent],
+  imports: [TranslocoPipe, NgClass, NgTemplateOutlet, QuangOptionListComponent, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
@@ -65,9 +68,8 @@ export class QuangSelectComponent
 
   selectButton = viewChild<ElementRef<HTMLButtonElement>>('selectButton')
 
+  /** Whether the option list is currently visible */
   _showOptions = signal<boolean>(false)
-
-  _optionHideTimeout = signal<any | undefined>(undefined)
 
   _selectedItems = computed(() => {
     if (this._value() !== null) {
@@ -86,45 +88,45 @@ export class QuangSelectComponent
 
   nullOption = input<boolean>(true)
 
+  autoSelectSingleOption = input<boolean>(false)
+
   readonly ParentType = OptionListParentType.SELECT
 
-  changeOptionsVisibility(skipTimeout = false): void {
+  constructor() {
+    super()
+    combineLatest([toObservable(this.autoSelectSingleOption), toObservable(this.selectOptions)])
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter(([autoselect, options]) => autoselect === true && options.length === 1)
+      )
+      .subscribe(([_, options]) => {
+        if (this._value() === null || this._value() === undefined || this._value() === '') {
+          this.onChangedHandler(options[0].value)
+        }
+      })
+  }
+
+  changeOptionsVisibility(): void {
     if (this.isReadonly()) return
     if (this._showOptions()) {
-      this._showOptions.set(skipTimeout)
+      this.hideOptionVisibility()
     } else {
       this.showOptionVisibility()
     }
   }
 
   showOptionVisibility(): void {
-    if (this._optionHideTimeout()) {
-      clearTimeout(this._optionHideTimeout())
-      this._optionHideTimeout.set(null)
-    }
     this._showOptions.set(true)
   }
 
-  hideOptionVisibility(skipTimeout = false): void {
-    if (this._optionHideTimeout()) {
-      clearTimeout(this._optionHideTimeout())
-    }
-    this._optionHideTimeout.set(
-      setTimeout(
-        () => {
-          this._showOptions.set(false)
-        },
-        skipTimeout ? 0 : 50
-      )
-    )
+  hideOptionVisibility(): void {
+    this._showOptions.set(false)
   }
 
   override onBlurHandler() {
     if (this.selectionMode() === 'single') {
-      setTimeout(() => {
-        this.hideOptionVisibility()
-        super.onBlurHandler()
-      }, 100)
+      this.hideOptionVisibility()
+      super.onBlurHandler()
     }
   }
 
@@ -132,6 +134,8 @@ export class QuangSelectComponent
     super.onChangedHandler(value)
     if (this.selectionMode() === 'single') {
       this.hideOptionVisibility()
+      // Return focus to button after selection
+      this.focusButton()
     }
   }
 
@@ -139,5 +143,68 @@ export class QuangSelectComponent
     if (this.selectionMode() === 'multiple') {
       this.hideOptionVisibility()
     }
+  }
+
+  /**
+   * Handles keydown events on the select button for accessibility.
+   * @param event The keyboard event
+   */
+  onButtonKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'ArrowDown':
+      case 'ArrowUp':
+        // Open dropdown if closed
+        if (!this._showOptions()) {
+          event.preventDefault()
+          this.showOptionVisibility()
+        }
+        break
+      case ' ':
+      case 'Enter':
+        // Toggle dropdown with Space or Enter
+        if (!this._showOptions()) {
+          event.preventDefault()
+          this.showOptionVisibility()
+        }
+        break
+      case 'Escape':
+        // Close dropdown and keep focus on button
+        if (this._showOptions()) {
+          event.preventDefault()
+          this.onEscapePressed()
+        }
+        break
+    }
+  }
+
+  /**
+   * Handles Escape key press from option list.
+   * Closes dropdown and returns focus to button.
+   */
+  onEscapePressed(): void {
+    this.hideOptionVisibility()
+    this.focusButton()
+  }
+
+  /**
+   * Handles Tab key press from option list.
+   * Closes dropdown and allows natural tab navigation.
+   */
+  onTabPressed(_event: { shiftKey: boolean }): void {
+    this.hideOptionVisibility()
+  }
+
+  /**
+   * Sets focus to the select button element.
+   */
+  focusButton(): void {
+    const buttonEl = this.selectButton()?.nativeElement
+    if (buttonEl) {
+      buttonEl.focus()
+    }
+  }
+
+  getOptionIndex(option: SelectOption): number {
+    return this.selectOptions().findIndex((x) => x.value === option.value)
   }
 }

@@ -15,6 +15,6 @@ export class HomeComponent {
   protected HomeComponent = HomeComponent
   private readonly translation = inject(QuangTranslationService)
   readmePath = computed(() =>
-    this.translation.getActiveLang() === 'it' ? 'assets/docs/root-readme.it.md' : 'assets/docs/root-readme.md'
+    this.translation.getActiveLang() === 'it' ? 'assets/docs/root-readme-it.md' : 'assets/docs/root-readme.md'
   )
 }

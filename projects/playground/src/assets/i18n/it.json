@@ -40,8 +40,10 @@
       "checkbox": "Componente checkbox",
       "paginator": "Componente di paginazione",
       "select": "Componente select",
+      "radioGroup": "Componente radio group",
       "autocomplete": "Componente di autocomplete",
       "table": "Componente tabella",
+      "tabs": "Componente tabs",
       "readme": "Readme",
       "usage": "Utilizzo",
       "properties": "Proprietà",
@@ -67,13 +69,19 @@
       "autocomplete": "Autocomplete intestazione",
       "wysiwyg": "Wysiwyg intestazione",
       "success": "Valido!",
+      "help": "Testo di aiuto",
       "formValue": "Valore form: {{value}}",
       "formValidity": "Form valido: {{valid}}"
     },
     "errors": {
       "required": "Questo campo è obbligatorio",
+      "requiredTrue": "Questo campo deve essere selezionato",
+      "noMatch": "Il valore non è valido",
       "minLength": "Lunghezza minima di {{requiredLength}} caratteri",
       "maxLength": "Lunghezza massima di {{requiredLength}} caratteri"
+    },
+    "helpMessage": {
+      "inputTest": "Questo è un messaggio di aiuto per il componente di test input. Può essere personalizzato."
     },
     "buttons": {
       "enabled": "Form abilitato: {{enabled}}",
@@ -83,6 +91,8 @@
       "checkForm": "Controlla valore e validità form",
       "readonly": "Readonly: {{readonly}}",
       "required": "Required: {{required}}",
+      "showSuccess": "Mostra successMessage: {{showSuccess}}",
+      "showHelperText": "Mostra helpMessage: {{showHelperText}}",
       "changeDateFormat": "Cambia formato data",
       "selectInputType": "Seleziona tipologia di input:",
       "changeHeight": "Cambia altezza",
@@ -102,6 +112,19 @@
       "isFiscalCode": "Valida che il valore sia un codice fiscale valido.",
       "isVatNumber": "Valida che il valore sia un numero di partita IVA valido per le località specificate.",
       "wysiwygRequired": "Valida che il contenuto dell'editor WYSIWYG non sia vuoto."
+    },
+    "showcase": {
+      "toc": {
+        "validators": "Validator",
+        "liveExample": "Esempio live"
+      },
+      "sections": {
+        "validatorsTitle": "Validator"
+      },
+      "liveExample": {
+        "title": "Esempio form live",
+        "description": "Invia valori non validi e vedi gli errori dopo markAllAsTouched()."
+      }
     }
   },
   "quangPaginator": {
@@ -117,7 +140,28 @@
       "toast": "QuangToast",
       "popover": "QuangPopover",
       "tooltip": "QuangTooltip",
-      "modal": "QuangModal"
+      "modal": "QuangModal",
+      "modal.service": "QuangModalService",
+      "modalService": {
+        "multipleModalSupport": "Supporto Modal Multipli:",
+        "supportDescription": "Puoi aprire più modal contemporaneamente. Prova ad aprire modal dall'interno di altri modal!",
+        "openCenterModal": "Apri Modal Centrale",
+        "openLeftModal": "Apri Modal Sinistro",
+        "openRightModal": "Apri Modal Destro",
+        "openModals": "Modal Aperti",
+        "dynamicModalContent": "Contenuto Modal Dinamico",
+        "contentDescription": "Questo contenuto è stato caricato dinamicamente usando QuangModalService!",
+        "counter": "Contatore",
+        "increment": "Incrementa",
+        "decrement": "Decrementa",
+        "openAdditionalModals": "Apri Modal Aggiuntivi:",
+        "centerModal": "+ Modal Centrale",
+        "leftModal": "+ Modal Sinistro",
+        "rightModal": "+ Modal Destro",
+        "closeFirstModal": "Chiudi Primo Modal",
+        "totalOpenModals": "Totale modal aperti:",
+        "modalIds": "ID Modal:"
+      }
     }
   },
   "menu": {
@@ -129,7 +173,9 @@
       "input": "Input",
       "paginator": "Paginator",
       "select": "Select",
+      "radioGroup": "Radio group",
       "table": "Table",
+      "tabs": "Tabs",
       "checkbox": "Checkbox / Toggle",
       "wysiwyg": "Wysiwyg",
       "loader": "Loader"
@@ -139,6 +185,7 @@
       "tooltip": "Tooltip",
       "popover": "Popover",
       "modal": "Modal",
+      "modalService": "Servizio Modal",
       "toast": "Toast"
     },
     "auth": "Autenticazione",
@@ -146,6 +193,10 @@
     "dataHandling": "Gestione Dati",
     "device": "Device",
     "form": "Validazione Form",
+    "formShowcase": "Showcase",
+    "formTest": "Test",
+    "formValidators": "Validator",
+    "formExample": "Esempio live",
     "network": "Network",
     "translation": "Traduzione",
     "language": {
@@ -172,7 +223,231 @@
   },
   "utils": {
     "copyContent": "Copia negli appunti",
-    "copied": "Copiato!"
+    "copied": "Copiato!",
+    "exampleViewer": {
+      "result": "Risultato",
+      "typescript": "TypeScript",
+      "html": "HTML"
+    }
+  },
+  "shared": {
+    "onThisPage": "In questa pagina",
+    "api": "API"
+  },
+  "toggle": {
+    "showcase": {
+      "subtitle": "Checkbox e toggle sono lo stesso componente con una presentazione diversa.",
+      "toc": {
+        "basic": "Base",
+        "interactive": "Interattivo"
+      }
+    },
+    "examples": {
+      "basic": {
+        "title": "Base",
+        "description": "Checkbox e toggle obbligatori in un form reattivo."
+      },
+      "interactive": {
+        "title": "Playground interattivo",
+        "description": "Prova diverse configurazioni (tipo, posizione label, readonly, required, disabled) e osserva la validazione."
+      }
+    }
+  },
+  "examples": {
+    "select": {
+      "description": "Un componente select che supporta selezione singola e multipla.",
+      "single": {
+        "title": "Selezione singola",
+        "description": "Select obbligatoria a scelta singola collegata a un controllo di form reattivo."
+      },
+      "multiple": {
+        "title": "Selezione multipla",
+        "description": "Select obbligatoria a scelta multipla collegata a un controllo array."
+      },
+      "dynamic": {
+        "title": "Opzioni dinamiche",
+        "description": "Le opzioni si aggiornano frequentemente per verificare che il componente gestisca bene i cambiamenti dinamici."
+      },
+      "template": {
+        "title": "Opzioni con template",
+        "description": "Sostituisci il rendering di specifiche opzioni usando un template per-opzione."
+      }
+    },
+    "radioGroup": {
+      "description": "Un componente radio group con opzioni standard e template opzionali per singola opzione.",
+      "toc": "Esempi",
+      "api": "Riferimento API",
+      "standard": {
+        "title": "Opzioni standard",
+        "description": "Renderizza le opzioni con label e stato disabilitato usando il layout predefinito."
+      },
+      "template": {
+        "title": "Opzioni con template",
+        "description": "Sostituisci il rendering di specifiche opzioni usando il template renderer per opzione."
+      }
+    },
+    "tabs": {
+      "description": "Un componente tabs che supporta tabs disabilitate, template personalizzati e binding bidirezionale dei dati.",
+      "toc": "Esempi",
+      "api": "Riferimento API",
+      "simple": {
+        "title": "Tabs Semplici",
+        "description": "Tabs base con supporto alla traduzione e integrazione con form control.",
+        "home": "Home",
+        "profile": "Profilo",
+        "settings": "Impostazioni",
+        "selectedTab": "Tab selezionata",
+        "none": "nessuna"
+      },
+      "disabled": {
+        "title": "Tab Disabilitata",
+        "description": "Le singole tabs possono essere disabilitate indipendentemente dallo stato del form control.",
+        "tab1": "Tab Abilitata",
+        "tab2": "Tab Disabilitata",
+        "tab3": "Altra Tab",
+        "selectedTab": "Tab selezionata",
+        "info": "La tab centrale è disabilitata e non può essere selezionata"
+      },
+      "events": {
+        "title": "Gestione Eventi",
+        "description": "Ascolta i cambiamenti di selezione delle tabs usando l'evento output tabChange.",
+        "overview": "Panoramica",
+        "details": "Dettagli",
+        "analytics": "Analisi",
+        "formValue": "Valore form",
+        "lastEvent": "Ultimo evento tabChange",
+        "clickCount": "Conteggio click",
+        "none": "nessuno"
+      },
+      "content": {
+        "title": "Cambio Contenuto Tab",
+        "description": "Visualizza contenuti diversi in base alla tab selezionata usando il controllo di flusso @switch.",
+        "tabOverview": "Panoramica",
+        "tabDetails": "Dettagli",
+        "tabSettings": "Impostazioni",
+        "overview": {
+          "title": "Panoramica",
+          "description": "Benvenuto nella sezione panoramica! Qui puoi trovare informazioni rapide e statistiche.",
+          "point1": "Statistiche e metriche rapide",
+          "point2": "Riepilogo attività recenti",
+          "point3": "Notifiche importanti"
+        },
+        "details": {
+          "title": "Informazioni Dettagliate",
+          "description": "Visualizza i dettagli completi sui tuoi dati.",
+          "field1": "Nome",
+          "value1": "Mario Rossi",
+          "field2": "Email",
+          "value2": "mario.rossi@esempio.it",
+          "field3": "Ruolo",
+          "value3": "Amministratore"
+        },
+        "settings": {
+          "title": "Impostazioni di Configurazione",
+          "description": "Personalizza le tue preferenze e le impostazioni dell'applicazione.",
+          "option1": "Preferenza Tema",
+          "choice1": "Modalità Chiara",
+          "choice2": "Modalità Scura",
+          "choice3": "Predefinito di Sistema",
+          "enableNotifications": "Abilita notifiche email",
+          "save": "Salva Impostazioni"
+        }
+      },
+      "template": {
+        "title": "Template Personalizzati",
+        "description": "Usa template personalizzati per renderizzare tabs con icone, badge o qualsiasi contenuto personalizzato.",
+        "dashboard": "Dashboard",
+        "messages": "Messaggi",
+        "notifications": "Notifiche",
+        "active": "Attiva",
+        "selectedTab": "Tab selezionata"
+      },
+      "interactive": {
+        "title": "Esempio Interattivo",
+        "description": "Testa tutte le funzionalità includendo disabilitato, readonly, validazione e integrazione form.",
+        "tab1": "Tab 1",
+        "tab2": "Tab 2",
+        "tab3": "Tab 3",
+        "selectedTab": "Tab selezionata",
+        "none": "nessuna",
+        "markAsTouched": "Segna come Toccato"
+      },
+      "tab1": "Prima Tab",
+      "tab2": "Seconda Tab",
+      "tab3": "Terza Tab",
+      "custom1": "Personalizzata 1",
+      "custom2": "Personalizzata 2",
+      "custom3": "Personalizzata 3"
+    },
+    "checkbox": {
+      "interactive": {
+        "helper": "Usa i pulsanti per cambiare la configurazione del componente a runtime.",
+        "buttons": {
+          "toggleType": "Cambia tipo (attuale: {{type}})",
+          "labelPosition": "Posizione label (attuale: {{position}})",
+          "setValue": "Imposta valore a true"
+        }
+      }
+    },
+    "autocomplete": {
+      "description": "Un componente autocomplete flessibile con supporto per dati asincroni, inserimento testo libero e selezione multipla.",
+      "toc": "Esempi",
+      "api": "Riferimento API",
+      "simple": {
+        "title": "Autocomplete Semplice",
+        "description": "Autocomplete base con una lista fissa di opzioni. Usa il filtro interno per cercare tra le opzioni mentre l'utente digita.",
+        "label": "Seleziona un paese",
+        "selectedValue": "Valore selezionato",
+        "none": "nessuno"
+      },
+      "async": {
+        "title": "Caricamento Dati Asincrono",
+        "description": "Autocomplete che recupera le opzioni da un server quando l'utente digita. Usa l'output searchTextChange per attivare chiamate API con debouncing.",
+        "label": "Cerca un paese",
+        "placeholder": "Inizia a digitare per cercare...",
+        "selectedValue": "Valore selezionato",
+        "loading": "Caricamento...",
+        "none": "nessuno"
+      },
+      "freeText": {
+        "title": "Inserimento Testo Libero",
+        "description": "Autocomplete che permette agli utenti di inserire qualsiasi valore testuale, non solo opzioni dalla lista. Utile per tag o voci personalizzate.",
+        "label": "Inserisci o seleziona un tag",
+        "placeholder": "Digita un tag personalizzato o seleziona dalla lista...",
+        "value": "Valore",
+        "fromList": "Dalla lista",
+        "customText": "Testo personalizzato",
+        "none": "nessuno"
+      },
+      "multiple": {
+        "title": "Selezione Multipla",
+        "description": "Autocomplete che permette di selezionare più valori. Supporta modalità di visualizzazione verticale e orizzontale per gli elementi selezionati, e i chip possono essere posizionati sopra o sotto l'input.",
+        "labelVertical": "Seleziona tecnologie (verticale)",
+        "labelHorizontal": "Seleziona tecnologie (orizzontale)",
+        "selected": "Selezionati",
+        "chipsPosition": "Posizione Chips"
+      },
+      "multipleWithFreeText": {
+        "title": "Selezione Multipla con Testo Libero",
+        "description": "Autocomplete che permette di selezionare più valori dalle opzioni o aggiungere qualsiasi testo personalizzato come chip. Premi Invio per aggiungere testo personalizzato come nuovo chip preservando le selezioni precedenti."
+      },
+      "interactive": {
+        "title": "Playground Interattivo",
+        "description": "Esplora tutte le opzioni dell'autocomplete in modo interattivo. Attiva o disattiva le checkbox per abilitare o disabilitare le diverse funzionalità e vedere come influenzano il comportamento del componente.",
+        "optionsTitle": "Opzioni del Componente",
+        "behavior": "Comportamento",
+        "state": "Stato",
+        "label": "Seleziona un paese",
+        "currentValue": "Valore attuale del form",
+        "selectOptionsTitle": "Opzioni di Selezione",
+        "addOption": "Aggiungi Opzione",
+        "noOptions": "Nessuna opzione disponibile. Clicca 'Aggiungi Opzione' per crearne una."
+      },
+      "template": {
+        "title": "Opzioni con template",
+        "description": "Sostituisci il rendering di specifiche opzioni usando un template per-opzione."
+      }
+    }
   },
   "device": {
     "functions": {
@@ -197,5 +472,8 @@
       "setTranslationKey": "Imposta una singola chiave e valore di traduzione per una lingua.",
       "translationsTokens": "Token di iniezione per la configurazione delle traduzioni: AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH. Usali per fornire le impostazioni di lingua e traduzione nella tua app Angular."
     }
+  },
+  "toggles": {
+    "multipleSorting": "Ordinamento multiplo"
   }
 }

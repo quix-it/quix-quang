@@ -1,22 +1,33 @@
 <div
-  [class.form-check-reverse]="labelPosition() === 'left' && checkType() === 'checkbox'"
   [class.form-switch]="checkType() === 'toggle'"
   [class.label-bottom]="labelPosition() === 'bottom'"
-  [class.label-left]="labelPosition() === 'left' && checkType() === 'toggle'"
-  [class.label-right]="labelPosition() === 'right' && checkType() === 'toggle'"
+  [class.label-left]="labelPosition() === 'left'"
+  [class.label-right]="labelPosition() === 'right'"
   [class.label-top]="labelPosition() === 'top'"
   [class.toggle-wrapper]="checkType() === 'toggle'"
   [ngClass]="{ 'mb-3': !removeMargin(), 'form-check': !removeMargin() }"
 >
-  <label
-    [htmlFor]="componentId()"
-    [ngClass]="{ 'cursor-pointer': !_isDisabled() }"
-    *ngIf="componentLabel()"
-    class="form-label"
-  >
-    {{ componentLabel() | transloco }}
-    <span [hidden]="!_isRequired()">*</span>
-  </label>
+  @if (componentLabel()) {
+    <label
+      [htmlFor]="componentId()"
+      class="form-label d-flex gap-2"
+    >
+      <div>
+        <span>{{ componentLabel() | transloco }}</span>
+        <span [hidden]="!_isRequired()">*</span>
+      </div>
+      @if (helpMessage() && helpMessageTooltip()) {
+        <div
+          [overlayPosition]="helpTooltipPosition()"
+          [quangTooltip]="helpMessage() | transloco"
+          [showMethod]="showHelpTooltipMethod()"
+          class="pointer"
+        >
+          <ng-content select="[help-icon]" />
+        </div>
+      }
+    </label>
+  }
   <input
     [attr.required]="getIsRequiredControl()"
     [attr.role]="checkType() === 'checkbox' ? 'checkbox' : 'switch'"
@@ -41,12 +52,13 @@
   <div class="invalid-feedback">
     {{ _currentErrorMessage() | transloco: _currentErrorMessageExtraData() }}
   </div>
-  <small
-    [hidden]="_showSuccess() || _showErrors()"
-    *ngIf="helpMessage()"
-    aria-live="assertive"
-    class="form-text text-muted"
-  >
-    {{ helpMessage() | transloco }}
-  </small>
+  @if (helpMessage() && !helpMessageTooltip()) {
+    <small
+      [hidden]="_showSuccess() || _showErrors()"
+      aria-live="assertive"
+      class="form-text text-muted"
+    >
+      {{ helpMessage() | transloco }}
+    </small>
+  }
 </div>

@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf } from '@angular/common'
+import { NgClass } from '@angular/common'
 import { ChangeDetectionStrategy, Component, OnInit, computed, input, output, signal } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
@@ -8,7 +8,7 @@ import { makeId } from 'quang/components/shared'
 
 @Component({
   selector: 'quang-paginator',
-  imports: [TranslocoPipe, NgIf, NgFor, NgClass],
+  imports: [TranslocoPipe, NgClass],
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -71,8 +71,11 @@ export class QuangPaginatorComponent implements OnInit {
     this._pageSize.set(this.pageSize())
   }
 
-  onChangeSize(event: any): void {
-    this._pageSize.set(parseInt(event.target.value))
+  onChangeSize(event: Event): void {
+    const target = event.target
+    const value = target instanceof HTMLSelectElement ? target.value : undefined
+    if (!value) return
+    this._pageSize.set(parseInt(value))
     this.changeSize.emit(this._pageSize())
     this.goToFirstPage()
   }
