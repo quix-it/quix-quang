@@ -70,42 +70,49 @@
         <button
           (click)="changeFormEnabled()"
           class="btn btn-outline-secondary"
+          type="button"
         >
           {{ 'form.buttons.enabled' | transloco: { enabled: !testForm.testInput().disabled() } }}
         </button>
         <button
           (click)="changeFormInputRequired()"
           class="btn btn-outline-secondary"
+          type="button"
         >
           {{ 'form.buttons.required' | transloco: { required: testForm.testInput().required() } }}
         </button>
         <button
           (click)="changeVisibility()"
           class="btn btn-outline-secondary"
+          type="button"
         >
           {{ 'form.buttons.changeVisibility' | transloco }}
         </button>
         <button
           (click)="recreateForm()"
           class="btn btn-outline-secondary"
+          type="button"
         >
           {{ 'form.buttons.recreateForm' | transloco }}
         </button>
         <button
           (click)="setFormValues()"
           class="btn btn-outline-secondary"
+          type="button"
         >
           {{ 'form.buttons.setForm' | transloco }}
         </button>
         <button
           (click)="checkCurrentFormValueAndValidity()"
           class="btn btn-outline-secondary"
+          type="button"
         >
           {{ 'form.buttons.checkForm' | transloco }}
         </button>
         <button
           (click)="setReadonly()"
           class="btn btn-outline-secondary"
+          type="button"
         >
           {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
         </button>
