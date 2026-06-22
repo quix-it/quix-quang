@@ -90,7 +90,9 @@ export class QuangOptionListComponent {
 
   optionListContainer = viewChild<ElementRef<HTMLDivElement>>('optionListContainer')
 
-  destroyRef = inject(DestroyRef)
+  destroyRef = inject(DestroyRef, { self: true })
+
+  _ = this.destroyRef.onDestroy(() => this.resizeObserver?.disconnect())
 
   parentType = input.required<OptionListParentType>()
 
@@ -100,11 +102,12 @@ export class QuangOptionListComponent {
 
   searchResetTimer: ReturnType<typeof setTimeout> | null = null
 
+  private resizeObserver: ResizeObserver | null = null
+
   selectButtonRef$ = toObservable(this.selectButtonRef)
-    .pipe(takeUntilDestroyed(this.destroyRef))
+    .pipe(takeUntilDestroyed())
     .subscribe(() => {
       this.getOptionListWidth()
-      this.getOptionListTop()
       this.getScrollParent(this.selectButtonRef())?.addEventListener('scroll', () => {
         this.getOptionListWidth()
         this.getOptionListTop()
@@ -166,6 +169,12 @@ export class QuangOptionListComponent {
       setTimeout(() => {
         listItem.scrollIntoView({ behavior: this.scrollBehaviorOnOpen(), block: 'nearest' })
       }, 0)
+    }
+
+    this.resizeObserver?.disconnect()
+    if (optionListContainer) {
+      this.resizeObserver = new ResizeObserver(() => this.getOptionListTop())
+      this.resizeObserver.observe(optionListContainer.nativeElement)
     }
 
     if (this.onKeyDown) {
@@ -362,10 +371,8 @@ export class QuangOptionListComponent {
       bottomValue = `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
     }
     nativeElement?.classList.toggle('option-list-top', !isTop)
+    // console.log(topValue)
     this.elementTop.set(topValue)
     this.elementBottom.set(bottomValue)
-    setTimeout(() => {
-      this.getOptionListTop()
-    })
   }
 }

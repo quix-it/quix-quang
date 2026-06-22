@@ -115,7 +115,7 @@ export class QuangTableComponent<T> {
       if (properties) {
         const propertiesObj = JSON.parse(properties)
         for (const key of Object.keys(propertiesObj)) {
-          console.log('key', key, propertiesObj[key])
+          // console.log('key', key, propertiesObj[key])
           tdWithProperty.nativeElement[key] = propertiesObj[key]
         }
       }
