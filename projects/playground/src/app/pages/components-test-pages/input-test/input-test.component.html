@@ -9,7 +9,7 @@
     ></quang-select>
   </div>
 </div>
-<form [formGroup]="testForm">
+<form [formRoot]="testForm">
   <div class="card">
     <div class="card-header"></div>
     <div class="card-body">
@@ -19,6 +19,7 @@
             [class.col-6]="inputType() === 'password'"
             [componentType]="inputType()"
             [errorMap]="errors()"
+            [formField]="testForm.testInput"
             [helpMessage]="helpMessage()"
             [helpMessageTooltip]="true"
             [isReadonly]="isReadonly()"
@@ -26,7 +27,6 @@
             [minNumber]="0"
             #testComponent
             componentLabel="form.label.input"
-            formControlName="testInput"
             id="testComponent"
             playgroundSourceCode
             showTooltipMethod="click"
@@ -42,6 +42,7 @@
               [class.col-6]="inputType() === 'password'"
               [componentType]="inputType()"
               [errorMap]="errors()"
+              [formField]="testForm.testInput"
               [helpMessage]="helpMessage()"
               [isReadonly]="isReadonly()"
               [maxNumber]="10"
@@ -49,7 +50,6 @@
               [showHidePasswordButton]="true"
               #testComponent
               componentLabel="form.label.input"
-              formControlName="testInput"
               id="testComponent"
               playgroundSourceCode
               successMessage="form.label.success"
@@ -71,13 +71,13 @@
           (click)="changeFormEnabled()"
           class="btn btn-outline-secondary"
         >
-          {{ 'form.buttons.enabled' | transloco: { enabled: testForm.enabled } }}
+          {{ 'form.buttons.enabled' | transloco: { enabled: !testForm.testInput().disabled() } }}
         </button>
         <button
           (click)="changeFormInputRequired()"
           class="btn btn-outline-secondary"
         >
-          {{ 'form.buttons.required' | transloco: { required: getIsRequiredInput() } }}
+          {{ 'form.buttons.required' | transloco: { required: testForm.testInput().required() } }}
         </button>
         <button
           (click)="changeVisibility()"
@@ -116,10 +116,10 @@
 @if (showValueAndValidity()) {
   <div class="d-flex flex-column mt-3 ms-3">
     <span>
-      {{ 'form.label.formValue' | transloco: { value: testForm.value | json } }}
+      {{ 'form.label.formValue' | transloco: { value: testForm().value() | json } }}
     </span>
     <span>
-      {{ 'form.label.formValidity' | transloco: { valid: this.testForm.valid } }}
+      {{ 'form.label.formValidity' | transloco: { valid: testForm().valid() } }}
     </span>
   </div>
 }
