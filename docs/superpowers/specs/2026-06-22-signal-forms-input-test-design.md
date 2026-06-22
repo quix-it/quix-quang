@@ -128,3 +128,26 @@ This is a significant breaking change to the public component API and is out of 
 - Modifying `QuangInputComponent` or `QuangBaseComponent` for compatibility
 - Testing other quang components (select, autocomplete, etc.) with signal forms
 - Async validators
+
+---
+
+## Findings
+
+### TypeScript Template Errors
+
+**No compile-time errors occurred.** The build (`npx nx build playground`) succeeded with zero errors. Angular 21's `FormField` directive does **not** enforce `FormValueControl<T>` type-checking at compile time for third-party components. The template compiled cleanly even though `QuangInputComponent` lacks `value: ModelSignal<string>`.
+
+### Runtime Behavior
+
+Manual runtime verification was deferred to the human reviewer (dev server requires interactive browser). However, based on the architectural analysis:
+
+- `QuangInputComponent` implements `NG_VALUE_ACCESSOR` (CVA pattern) — no `FormValueControl<T>` interface.
+- `FormField` directive expects `value: ModelSignal<T>` to read/write values.
+- The directive cannot sync values to a CVA-only component.
+- Buttons that manipulate the model signal directly (`recreateForm`, `setFormValues`) **will** update `testModel` but the change will **not** propagate to the visual input.
+- Buttons that toggle form state (`changeFormEnabled`, `changeFormInputRequired`) toggle signals correctly but the visual component will not reflect disabled/required state from the form.
+- `checkCurrentFormValueAndValidity` will show the model's value (which may not reflect user typing if two-way binding fails).
+
+### Verdict
+
+`QuangInputComponent` is **not** compatible with full signal forms `[formField]` binding because it implements the CVA pattern (`NG_VALUE_ACCESSOR`) instead of the `FormValueControl<T>` interface required by the `FormField` directive.
