@@ -120,7 +120,27 @@ Nothing removed or renamed — only a new capability added.
 
 1. **Signal forms path** — the existing playground `InputTestComponent` (already migrated to `[formField]` in commits on `quang21`): no console crash; typing updates `testForm` value; required/minLength/maxLength validation errors render; disabled toggle disables the input; touched state updates on blur.
 2. **Reactive forms path (regression)** — an existing reactive-forms usage of `quang-input` (and at least one other component): value sync, error display, disabled, and touched behave exactly as before. Confirm the new `effect` does not change error/touched **timing** or cause duplicate error flashes.
-3. **Error key mapping** — verify signal-forms validation error keys (`required`, `minLength`, `maxLength`, …) match the keys consumers register in `errorMap`. If signal-forms keys differ from reactive-forms keys, document the mapping (out of scope to remap unless they diverge).
+3. **Error key mapping** — resolved by investigation, no base change needed (see below). Confirm in the playground that signal-forms errors render with the camelCase keys.
+
+### Error key convention (investigated)
+
+`checkFormErrors` matches error keys **exactly** (`Object.entries(control.errors)` → `_errorMessagesByKey.get(key)`, no normalization). The error keys differ by form system:
+
+| Validator | Signal-forms `kind` | Reactive `Validators` key |
+|---|---|---|
+| required | `required` | `required` |
+| min | `min` | `min` |
+| max | `max` | `max` |
+| minLength | `minLength` | `minlength` |
+| maxLength | `maxLength` | `maxlength` |
+| pattern | `pattern` | `pattern` |
+| email | `email` | `email` |
+
+(Signal-forms kinds come from the error classes in `fesm2022/signals.mjs:121-165`; the interop control surfaces them via `signalErrorsToValidationErrors`, keyed by `error.kind`.)
+
+**Decision:** the base does **not** remap or normalize keys. Error-key matching is a consumer concern — the `errorMap` keys must match whatever the active form system emits. Under `[formField]`, consumers register camelCase keys (`minLength`, `maxLength`, …); under reactive forms, lowercase (`minlength`, `maxlength`). The migrated `InputTestComponent` already registers camelCase keys, so its messages render correctly. Normalizing in the base would be scope creep and could mask consumer-side key mistakes.
+
+**Documentation deliverable:** note in the library docs that signal-forms (`[formField]`) consumers must use signal-forms `kind` strings for `errorMap` keys (camelCase length keys), distinct from reactive-forms keys.
 
 ---
 
