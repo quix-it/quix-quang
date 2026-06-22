@@ -133,6 +133,15 @@ This is a significant breaking change to the public component API and is out of 
 
 ## Findings
 
+> **SUPERSEDED (2026-06-22):** The "not compatible" verdict below is incorrect.
+> Angular's `[formField]` directive binds to `ControlValueAccessor` hosts via
+> `cvaControlCreate` + a fake `InteropNgControl`, so `QuangInputComponent` IS
+> usable with signal forms. The only issue was a runtime crash in
+> `setupFormControl` (`.pipe` on the interop control's absent `statusChanges`/
+> `valueChanges`), fixed in
+> `2026-06-22-signal-forms-base-component-interop-design.md`. Disregard the
+> "Verdict" and runtime-behavior claims in this section.
+
 ### TypeScript Template Errors
 
 **No compile-time errors occurred.** The build (`npx nx build playground`) succeeded with zero errors. Angular 21's `FormField` directive does **not** enforce `FormValueControl<T>` type-checking at compile time for third-party components. The template compiled cleanly even though `QuangInputComponent` lacks `value: ModelSignal<string>`.
@@ -151,3 +160,24 @@ Manual runtime verification was deferred to the human reviewer (dev server requi
 ### Verdict
 
 `QuangInputComponent` is **not** compatible with full signal forms `[formField]` binding because it implements the CVA pattern (`NG_VALUE_ACCESSOR`) instead of the `FormValueControl<T>` interface required by the `FormField` directive.
+
+---
+
+## Error-key convention (signal forms vs reactive)
+
+`checkFormErrors` matches `errorMap` keys exactly against the keys in
+`control.errors`. The keys differ by form system:
+
+| Validator | Signal forms `kind` | Reactive `Validators` key |
+|---|---|---|
+| required | `required` | `required` |
+| min | `min` | `min` |
+| max | `max` | `max` |
+| minLength | `minLength` | `minlength` |
+| maxLength | `maxLength` | `maxlength` |
+| pattern | `pattern` | `pattern` |
+| email | `email` | `email` |
+
+When binding a quang component with `[formField]`, register `errorMap` keys
+using the signal-forms `kind` strings (camelCase length keys). Under reactive
+forms, use the lowercase keys. The base does not normalize keys.
