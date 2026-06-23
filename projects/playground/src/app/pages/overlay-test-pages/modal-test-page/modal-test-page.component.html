@@ -27,6 +27,12 @@
     </ng-container>
     <ng-container body>
       <h3>{{ content() }}</h3>
+      <form [formGroup]="dateInModalForm">
+        <quang-date
+          componentLabel="form.label.date"
+          formControlName="dateInModal"
+        />
+      </form>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
