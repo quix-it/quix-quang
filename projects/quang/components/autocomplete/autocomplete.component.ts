@@ -83,6 +83,10 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
    * When false (default), the form value is only updated when:
    * - User selects an option from the dropdown
    * - User stops typing and the input loses focus (blur)
+   *
+   * Note: when `allowFreeText` (or the deprecated `syncFormWithText`) is true,
+   * the input text IS the form value, so the value is always synced while typing
+   * regardless of this flag.
    * @default false
    */
   updateValueOnType = input<boolean>(false)
@@ -617,7 +621,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   onBlurInput(event: FocusEvent): void {
     const relatedTarget = event.relatedTarget as HTMLElement | null
     const optionListId = this.optionList()?.optionListContainer()?.nativeElement?.id
-    if (relatedTarget?.id === optionListId) return
+    // Only skip blur handling when focus actually moved into the option list.
+    // Guard against both ids being undefined (e.g. clicking outside the field,
+    // where relatedTarget is null and the option list isn't rendered), which
+    // would otherwise short-circuit and skip the form value update.
+    if (optionListId && relatedTarget?.id === optionListId) return
     this.onBlurHandler()
   }
 
@@ -879,10 +887,12 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
       // Update form value based on what the user typed
       // - When updateValueOnType is true: update on both match and no-match
-      // - When updateValueOnType is false: only clear the value when text doesn't match
+      // - When allowFreeText is true: the input text IS the form value, so the
+      //   value must always stay in sync with what the user types
+      // - Otherwise: only clear the value when text doesn't match
       this.processTextToFormValue(value, {
         exitSearchMode: false,
-        updateOnMatch: this.updateValueOnType(),
+        updateOnMatch: this.updateValueOnType() || this._allowFreeTextInternal(),
         clearSearchText: false,
       })
     }, this.searchTextDebounce())

@@ -1752,7 +1752,9 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
     expect(hostComponent.form.get('autocomplete')?.value).toBe('custom value')
   })
 
-  it('should NOT update form value while typing with free text when updateValueOnType is false', async () => {
+  it('should sync form value while typing with free text even when updateValueOnType is false', async () => {
+    // With allowFreeText, the input text IS the form value, so the value must
+    // stay in sync as the user types regardless of the updateValueOnType flag.
     hostComponent.updateValueOnType = false
     hostComponent.allowFreeText = true
     fixture.detectChanges()
@@ -1763,10 +1765,10 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
     await vi.advanceTimersByTimeAsync(100)
     fixture.detectChanges()
 
-    // Form value should still be null
-    expect(hostComponent.form.get('autocomplete')?.value).toBeNull()
+    // Form value is synced with the typed text while typing
+    expect(hostComponent.form.get('autocomplete')?.value).toBe('custom value')
 
-    // Now trigger blur - value should update
+    // And it remains after blur
     autocompleteComponent.onBlurHandler()
     await vi.advanceTimersByTimeAsync(150)
     fixture.detectChanges()
@@ -3042,5 +3044,147 @@ describe('QuangAutocompleteComponent - Chips Position Snapshot Tests', () => {
 
     const containerWrap = hostFixture.nativeElement.querySelector('.container-wrap')
     expect(containerWrap.classList.contains('chips-bottom')).toBe(false)
+  })
+})
+
+// ============================================================================
+// Documented behaviors (QUANG bug):
+//  - allowFreeText FALSE: behaves as a select-with-autocomplete. The input is
+//    only a search box; the form value can only become one of the listed option
+//    values; non-matching text is cleared on blur; value derives from the
+//    selected option.
+//  - allowFreeText TRUE: behaves as a normal text input. Any typed value is
+//    valid; the input text IS the form value, even with no matching option.
+// ============================================================================
+describe('QuangAutocompleteComponent - Documented free text behaviors', () => {
+  @Component({
+    template: `
+      <form [formGroup]="form">
+        <quang-autocomplete
+          [allowFreeText]="allowFreeText"
+          [searchTextDebounce]="50"
+          [selectOptions]="options"
+          formControlName="autocomplete"
+        />
+        <input
+          id="outside-input"
+          type="text"
+        />
+      </form>
+    `,
+    standalone: true,
+    imports: [ReactiveFormsModule, QuangAutocompleteComponent],
+  })
+  class FreeTextBehaviorHostComponent {
+    allowFreeText = false
+    form = new FormGroup({
+      autocomplete: new FormControl<string | null>(null),
+    })
+    options: SelectOption[] = [
+      { label: 'Italy', value: 'IT' },
+      { label: 'France', value: 'FR' },
+      { label: 'Germany', value: 'DE' },
+    ]
+  }
+
+  let fixture: ComponentFixture<FreeTextBehaviorHostComponent>
+  let host: FreeTextBehaviorHostComponent
+  let cmp: QuangAutocompleteComponent
+  let input: HTMLInputElement
+
+  async function setup(allowFreeText: boolean): Promise<void> {
+    fixture = TestBed.createComponent(FreeTextBehaviorHostComponent)
+    host = fixture.componentInstance
+    host.allowFreeText = allowFreeText
+    fixture.detectChanges()
+    cmp = fixture.debugElement.query(By.directive(QuangAutocompleteComponent)).componentInstance
+    input = fixture.nativeElement.querySelector('quang-autocomplete input')
+  }
+
+  function formValue(): string | number | string[] | number[] | null {
+    return host.form.get('autocomplete')?.value ?? null
+  }
+
+  async function type(text: string): Promise<void> {
+    input.value = text
+    input.dispatchEvent(new Event('input'))
+    await vi.advanceTimersByTimeAsync(100)
+    fixture.detectChanges()
+  }
+
+  // Click outside the field -> the input loses focus to nothing (relatedTarget null)
+  async function clickOutsideBlur(): Promise<void> {
+    input.dispatchEvent(new FocusEvent('blur', { relatedTarget: null }))
+    await vi.advanceTimersByTimeAsync(150)
+    fixture.detectChanges()
+  }
+
+  beforeEach(async () => {
+    vi.useFakeTimers()
+    await TestBed.configureTestingModule({
+      imports: [FreeTextBehaviorHostComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+  })
+
+  afterEach(() => {
+    fixture.destroy()
+    vi.useRealTimers()
+  })
+
+  describe('allowFreeText = false (select with autocomplete)', () => {
+    it('typing only filters the options and does not change the form value', async () => {
+      await setup(false)
+      await type('Ita')
+
+      expect(cmp._filteredOptions().map((o) => o.label)).toEqual(['Italy'])
+      expect(formValue()).toBe(null)
+    })
+
+    it('selecting an option sets the form value to the option value', async () => {
+      await setup(false)
+      cmp.onValueChange('FR')
+      await vi.advanceTimersByTimeAsync(100)
+      fixture.detectChanges()
+
+      expect(formValue()).toBe('FR')
+      expect(cmp._inputValue()).toBe('France')
+    })
+
+    it('typing non-matching text then clicking outside clears the input and leaves value null', async () => {
+      await setup(false)
+      await type('not an option')
+      await clickOutsideBlur()
+
+      expect(formValue()).toBe(null)
+      expect(cmp._inputValue()).toBe('')
+    })
+  })
+
+  describe('allowFreeText = true (normal text input)', () => {
+    it('typing any text syncs the form value to the typed text', async () => {
+      await setup(true)
+      await type('custom value')
+
+      expect(formValue()).toBe('custom value')
+    })
+
+    it('the input text equals the form value when no option matches', async () => {
+      await setup(true)
+      await type('custom value')
+
+      expect(cmp._inputValue()).toBe('custom value')
+      expect(cmp._inputValue()).toBe(formValue())
+    })
+
+    it('clicking outside before debounce still keeps the typed text as the value', async () => {
+      await setup(true)
+      input.value = 'typed before blur'
+      input.dispatchEvent(new Event('input'))
+      // blur immediately, before the debounce timer fires
+      await clickOutsideBlur()
+
+      expect(formValue()).toBe('typed before blur')
+    })
   })
 })
