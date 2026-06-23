@@ -1,4 +1,15 @@
-import { AfterViewInit, DestroyRef, Directive, Injector, computed, inject, input, output, signal } from '@angular/core'
+import {
+  AfterViewInit,
+  DestroyRef,
+  Directive,
+  Injector,
+  computed,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 import { ControlValueAccessor, FormControl, NgControl, Validators } from '@angular/forms'
 
@@ -107,6 +118,10 @@ export abstract class QuangBaseComponent<T = unknown> implements ControlValueAcc
           this.setupFormControl()
         }
       })
+
+    effect(() => {
+      this.checkFormErrors()
+    })
   }
 
   registerOnChange(fn: (value: T) => void): void {
@@ -167,11 +182,11 @@ export abstract class QuangBaseComponent<T = unknown> implements ControlValueAcc
 
     const control = this._ngControl()?.control
 
-    this._statusChange$ = control?.statusChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+    this._statusChange$ = control?.statusChanges?.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.checkFormErrors()
     })
 
-    this._valueChange$ = control?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+    this._valueChange$ = control?.valueChanges?.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.checkFormErrors()
     })
 

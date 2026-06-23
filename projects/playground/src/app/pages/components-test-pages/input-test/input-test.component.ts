@@ -1,12 +1,11 @@
 import { JsonPipe } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core'
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, viewChild } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { FormField, FormRoot, disabled, form, maxLength, minLength, required } from '@angular/forms/signals'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { AngularSvgIconModule } from 'angular-svg-icon'
 import { QuangTranslationService } from 'quang/translation'
-import { distinctUntilChanged } from 'rxjs'
 
 import { ComponentDocumentationComponent } from '../../../shared/components/component-documentation/component-documentation.component'
 import { InputType, QuangInputComponent } from 'quang/components/input'
@@ -20,7 +19,8 @@ import { SourceCodeDirective } from '../../../shared/directives/source-code.dire
   imports: [
     FormsModule,
     JsonPipe,
-    ReactiveFormsModule,
+    FormRoot,
+    FormField,
     QuangInputComponent,
     TranslocoPipe,
     QuangSelectComponent,
@@ -45,7 +45,6 @@ export class InputTestComponent {
     return ''
   })
 
-  // Path to the components README.md file
   componentsReadmePath = computed(() =>
     this.quangTranslationService.activeLang() === 'en' ? './assets/docs/input.md' : './assets/docs/input-it.md'
   )
@@ -60,77 +59,68 @@ export class InputTestComponent {
 
   showValueAndValidity = signal<boolean>(false)
 
-  formBuilder = inject(NonNullableFormBuilder)
-
   errors = signal([
     {
-      error: Validators.required.name,
+      error: 'required',
       message: 'form.errors.required',
     },
     {
-      error: Validators.minLength.name,
+      error: 'minLength',
       message: 'form.errors.minLength',
     },
     {
-      error: Validators.maxLength.name,
+      error: 'maxLength',
       message: 'form.errors.maxLength',
     },
     {
       error: 'noMatch',
       message: 'form.errors.noMatch',
     },
-    // {
-    //   error: 'fiscalCode',
-    //   message: 'form.error.fiscalCode'
-    // }
   ])
 
   helpMessage = signal<string>('form.helpMessage.inputTest')
 
-  testForm = this.formBuilder.group({
-    testInput: this.formBuilder.control<string>('', [
-      Validators.required,
-      Validators.minLength(1),
-      Validators.maxLength(30),
-      // isFiscalCode()
-    ]),
-  })
+  readonly isFormDisabled = signal(false)
+  readonly isRequired = signal(true)
+  readonly recreatedMinLength = signal(1)
+  readonly testModel = signal({ testInput: '' })
 
-  testFormChange = this.testForm.controls.testInput.valueChanges
-    .pipe(distinctUntilChanged(), takeUntilDestroyed())
-    .subscribe((val) => {
-      if (val && val === 'ciao') {
-        // this.testForm.controls.testInput.setErrors(null)
-      } else if (val) {
-        console.log('ciaoni')
-        // this.testForm.controls.testInput.setErrors({ noMatch: true })
-        console.log('this.testForm.controls.testInput', this.testForm.controls.testInput.errors)
-      }
-    })
+  readonly testForm = form(this.testModel, (p) => {
+    disabled(p.testInput, () => this.isFormDisabled())
+    required(p.testInput, { when: () => this.isRequired() })
+    minLength(p.testInput, () => this.recreatedMinLength())
+    maxLength(p.testInput, 30)
+  })
 
   showInput = signal(true)
   showPassword = signal(false)
+
+  constructor() {
+    effect(() => {
+      const val = this.testModel().testInput
+      if (val === 'ciao') {
+        // noop
+      } else if (val) {
+        console.log('ciaoni')
+        console.log('errors:', this.testForm.testInput().errors())
+      }
+    })
+  }
 
   onToggleShowPassword(event: boolean): void {
     this.showPassword.set(event)
   }
 
   changeFormEnabled() {
-    if (this.testForm.enabled) this.testForm.disable()
-    else this.testForm.enable()
+    this.isFormDisabled.update((v) => !v)
   }
 
   getIsRequiredInput() {
-    return this.testForm.controls.testInput.hasValidator(Validators.required)
+    return this.testForm.testInput().required()
   }
 
   changeFormInputRequired() {
-    if (this.getIsRequiredInput()) {
-      this.testForm.controls.testInput.removeValidators(Validators.required)
-    } else {
-      this.testForm.controls.testInput.addValidators(Validators.required)
-    }
-    this.testForm.controls.testInput.updateValueAndValidity()
+    this.isRequired.update((v) => !v)
   }
 
   changeVisibility() {
@@ -138,25 +128,18 @@ export class InputTestComponent {
   }
 
   recreateForm() {
-    this.testForm = this.formBuilder.group({
-      testInput: this.formBuilder.control<string>('New form created', [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(30),
-      ]),
-    })
+    this.testModel.set({ testInput: 'New form created' })
+    this.recreatedMinLength.set(10)
   }
 
   setFormValues() {
-    this.testForm.patchValue({
-      testInput: 'ciao!',
-    })
+    this.testModel.update((m) => ({ ...m, testInput: 'ciao!' }))
   }
 
   checkCurrentFormValueAndValidity() {
     this.showValueAndValidity.set(true)
-    console.log('Current form value:', this.testForm.value)
-    console.log('Current form validity:', this.testForm.valid)
+    console.log('Current form value:', this.testForm().value())
+    console.log('Current form validity:', this.testForm().valid())
   }
 
   setReadonly() {
