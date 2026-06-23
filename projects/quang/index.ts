@@ -1,3 +1,4 @@
+import { OVERLAY_DEFAULT_CONFIG } from '@angular/cdk/overlay'
 import { APP_BASE_HREF } from '@angular/common'
 import { EnvironmentProviders, InjectionToken, Provider, makeEnvironmentProviders } from '@angular/core'
 
@@ -8,6 +9,7 @@ export const QUANG_LOGGING_BEHAVIOR = new InjectionToken<'normal' | 'verbose'>('
 export interface QuangConfig {
   verbose?: boolean
   baseHref?: string
+  overlayUsePopover?: boolean
 }
 
 /** The list of features as an enum to uniquely type each feature. */
@@ -46,5 +48,6 @@ export function provideQuangConfig(config?: QuangConfig, ...features: QuangFeatu
     { provide: APP_BASE_HREF, useValue: config?.baseHref ?? '/' },
     { provide: QUANG_LOGGING_BEHAVIOR, useValue: config?.verbose ? 'verbose' : 'normal' },
     features.map((feature) => feature.ɵproviders),
+    ...[config?.overlayUsePopover ? [] : [{ provide: OVERLAY_DEFAULT_CONFIG, useValue: { usePopover: false } }]],
   ])
 }
