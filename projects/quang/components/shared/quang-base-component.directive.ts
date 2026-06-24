@@ -63,6 +63,13 @@ export abstract class QuangBaseComponent<T = unknown> implements ControlValueAcc
   // If true, the help message will be shown in a tooltip. Remember to set the `helpMessage` input and add help-icon as ng-content
   helpMessageTooltip = input<boolean>(false)
 
+  /**
+   * When true, strips leading/trailing whitespace from the value when the field
+   * loses focus (blur). Only affects string values. Never trims while typing.
+   * @default false
+   */
+  trim = input<boolean>(false)
+
   componentBlur = output<void>()
 
   _value = signal<T | null>(null)
@@ -156,6 +163,12 @@ export abstract class QuangBaseComponent<T = unknown> implements ControlValueAcc
   }
 
   onBlurHandler() {
+    if (this.trim() && typeof this._value() === 'string') {
+      const trimmed = (this._value() as string).trim()
+      if (trimmed !== this._value()) {
+        this.onChangedHandler(trimmed as T)
+      }
+    }
     if (this.onTouched) {
       this.onTouched()
     }

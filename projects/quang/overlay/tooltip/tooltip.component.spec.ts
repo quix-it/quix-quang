@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { provideNoopAnimations } from '@angular/platform-browser/animations'
 
 import { QuangTooltipComponent } from './tooltip.component'
 
@@ -8,6 +9,7 @@ describe('QuangTooltipComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [QuangTooltipComponent],
+      providers: [provideNoopAnimations()],
     }).compileComponents()
 
     fixture = TestBed.createComponent(QuangTooltipComponent)

@@ -3,6 +3,7 @@
   [attr.aria-label]="componentLabel()"
   [ngStyle]="{
     'max-height': optionListMaxHeight(),
+    visibility: _positioned() ? 'visible' : 'hidden',
     '--option-list-width': elementWidth(),
     '--option-list-top': elementTop(),
     '--option-list-bottom': elementBottom(),

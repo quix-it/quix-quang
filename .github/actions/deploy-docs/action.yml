@@ -1,0 +1,94 @@
+name: Build and publish docs to gh-pages
+description: Builds the playground and publishes it to the gh-pages branch (root or /preview/).
+
+inputs:
+  base-href:
+    description: Base href passed to the Angular build.
+    required: true
+  target:
+    description: Publish target — "root" or "preview".
+    required: true
+  commit-message:
+    description: Commit message for the gh-pages publish.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 24
+        cache: npm
+
+    - name: Install
+      shell: bash
+      run: npm ci
+
+    - name: Prepare docs content
+      shell: bash
+      run: npm run copy-readme
+
+    - name: Build playground
+      shell: bash
+      env:
+        BASE_HREF: ${{ inputs.base-href }}
+      run: npx ng build playground --configuration production --base-href="$BASE_HREF"
+
+    - name: Checkout gh-pages (worktree)
+      shell: bash
+      run: |
+        set -euxo pipefail
+        git fetch origin gh-pages
+        git worktree add -B gh-pages gh-pages-worktree origin/gh-pages
+
+    - name: Publish to gh-pages
+      shell: bash
+      env:
+        TARGET: ${{ inputs.target }}
+      run: |
+        set -euxo pipefail
+        # Remove legacy multi-preview folder (single /preview/ now).
+        rm -rf gh-pages-worktree/previews
+        if [[ "$TARGET" == "preview" ]]; then
+          DEST="gh-pages-worktree/preview"
+          rm -rf "$DEST"
+          mkdir -p "$DEST"
+          rsync -a --delete dist/playground/browser/ "$DEST/"
+        else
+          # Root publish; keep the /preview/ folder untouched.
+          rsync -a --delete --exclude 'preview' dist/playground/browser/ gh-pages-worktree/
+        fi
+
+    - name: Commit and push
+      shell: bash
+      env:
+        COMMIT_MESSAGE: ${{ inputs.commit-message }}
+      run: |
+        set -euxo pipefail
+        cd gh-pages-worktree
+
+        if [[ -z "$(git status --porcelain)" ]]; then
+          echo "No changes to publish."
+          exit 0
+        fi
+
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+        git add -A
+        git commit -m "$COMMIT_MESSAGE"
+
+        # gh-pages may advance between checkout and push (other runs/workflows
+        # write the same branch). Rebase onto latest remote tip and retry.
+        for attempt in 1 2 3 4 5; do
+          if git push origin HEAD:gh-pages; then
+            exit 0
+          fi
+          echo "Push rejected (attempt ${attempt}); rebasing onto origin/gh-pages."
+          git fetch origin gh-pages
+          git rebase origin/gh-pages
+        done
+
+        echo "Failed to push after retries." >&2
+        exit 1

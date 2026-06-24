@@ -76,6 +76,13 @@ export class QuangOptionListComponent {
 
   elementBottom = signal<string>('0px')
 
+  /**
+   * Whether the option list position has been computed. The list is kept hidden
+   * until this is true so it never paints at the default position first (which
+   * caused a top→bottom flicker, most visible when the field is near the page top).
+   */
+  _positioned = signal<boolean>(false)
+
   scrollBehaviorOnOpen = input<ScrollBehavior>('smooth')
 
   changedHandler = output<any>()
@@ -173,6 +180,9 @@ export class QuangOptionListComponent {
 
     this.resizeObserver?.disconnect()
     if (optionListContainer) {
+      // Compute the position immediately so the list paints in place on first
+      // render instead of flashing at the default position first.
+      this.getOptionListTop()
       this.resizeObserver = new ResizeObserver(() => this.getOptionListTop())
       this.resizeObserver.observe(optionListContainer.nativeElement)
     }
@@ -371,8 +381,8 @@ export class QuangOptionListComponent {
       bottomValue = `${window.innerHeight - (this.selectButtonRef()?.getBoundingClientRect()?.bottom ?? 0) + (this.selectButtonRef()?.getBoundingClientRect()?.height ?? 0)}px`
     }
     nativeElement?.classList.toggle('option-list-top', !isTop)
-    // console.log(topValue)
     this.elementTop.set(topValue)
     this.elementBottom.set(bottomValue)
+    this._positioned.set(true)
   }
 }

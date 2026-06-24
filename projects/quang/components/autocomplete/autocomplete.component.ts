@@ -746,11 +746,14 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
           this.onValueChange(matchingOption.value ?? '', false)
         }
       } else if (shouldUseFreeText) {
-        // Free text allowed: use the typed text as value
+        // Free text allowed: use the typed text as value.
+        // While the user is still typing (exitSearchMode=false) keep the raw text.
+        // On blur/tab (exitSearchMode=true) trim only when the `trim` option is on,
+        // otherwise preserve the raw text including leading/trailing whitespace.
         if (options.exitSearchMode) {
-          this.onChangedHandler(searchText)
+          this.onChangedHandler(this.trim() ? searchText : text)
         } else {
-          this.onValueChange(searchText, false)
+          this.onValueChange(text, false)
         }
       } else if (shouldClearOnBlurEmpty || shouldClearOnBlurNoMatch) {
         // On blur with empty input or no valid selection: clear the value to null
