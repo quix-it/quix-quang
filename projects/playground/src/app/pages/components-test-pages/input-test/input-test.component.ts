@@ -57,6 +57,8 @@ export class InputTestComponent {
 
   isReadonly = signal<boolean>(false)
 
+  trim = signal<boolean>(false)
+
   showValueAndValidity = signal<boolean>(false)
 
   errors = signal([
@@ -144,5 +146,9 @@ export class InputTestComponent {
 
   setReadonly() {
     this.isReadonly.set(!this.isReadonly())
+  }
+
+  setTrim() {
+    this.trim.set(!this.trim())
   }
 }

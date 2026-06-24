@@ -167,9 +167,9 @@ describe('QuangTabsComponent', () => {
 
     it('should apply flex layout classes', () => {
       const container = fixture.nativeElement.querySelector('#tabs-container')
+      // Default orientation is horizontal: flex row, no flex-column.
       expect(container.classList.contains('d-flex')).toBe(true)
-      expect(container.classList.contains('flex-column')).toBe(true)
-      expect(container.classList.contains('flex-lg-row')).toBe(true)
+      expect(container.classList.contains('flex-column')).toBe(false)
     })
   })
 
@@ -606,7 +606,13 @@ describe('QuangTabsComponent', () => {
       expect(host.form.get('selectedTab')?.value).toBe('tab2')
     })
   })
+})
 
+// Snapshot tests live in a separate top-level `QuangTabsComponent` describe (with
+// no shared beforeEach) so the suite above does not instantiate the TestBed before
+// this block configures it. The describe chain is kept identical so the stored
+// snapshot keys (`QuangTabsComponent > Snapshot Tests > ...`) still match.
+describe('QuangTabsComponent', () => {
   describe('Snapshot Tests', () => {
     let snapshotFixture: ComponentFixture<SnapshotHostComponent>
     let snapshotHost: SnapshotHostComponent

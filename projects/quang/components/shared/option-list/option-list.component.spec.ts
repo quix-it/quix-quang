@@ -468,6 +468,25 @@ describe('QuangOptionListComponent - Positioning', () => {
 
     expect(top === 'unset' || bottom === 'unset').toBe(true)
   })
+
+  it('keeps the list hidden until it is positioned, then shows it (prevents top/bottom flicker)', () => {
+    const container = fixture.nativeElement.querySelector('.option-list') as HTMLElement
+
+    // Visibility is driven by _positioned so the list never paints at the
+    // default position (which flashed on top of the field before moving below).
+    optionListComponent._positioned.set(false)
+    fixture.detectChanges()
+    expect(container.style.visibility).toBe('hidden')
+
+    optionListComponent._positioned.set(true)
+    fixture.detectChanges()
+    expect(container.style.visibility).toBe('visible')
+  })
+
+  it('computes its position as soon as it opens, so it does not reposition after first paint', () => {
+    // After the list renders, the effect has already computed the position.
+    expect(optionListComponent._positioned()).toBe(true)
+  })
 })
 
 describe('QuangOptionListComponent - Scrollable Parent Detection', () => {

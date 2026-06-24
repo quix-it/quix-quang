@@ -66,6 +66,15 @@ import { SelectOption } from 'quang/components/shared'
               />
               <span>syncFormWithText</span>
             </label>
+
+            <label class="option-item">
+              <input
+                [checked]="trim()"
+                (change)="trim.set(!trim())"
+                type="checkbox"
+              />
+              <span>trim</span>
+            </label>
           </div>
 
           <!-- State Options -->
@@ -159,6 +168,7 @@ import { SelectOption } from 'quang/components/shared'
           [multiple]="multiple()"
           [selectOptions]="options()"
           [syncFormWithText]="syncFormWithText()"
+          [trim]="trim()"
           [updateValueOnType]="updateValueOnType()"
         />
       </div>
@@ -356,6 +366,7 @@ export class AutocompleteInteractiveExampleComponent {
   updateValueOnType = signal(false)
   allowFreeText = signal(false)
   syncFormWithText = signal(false)
+  trim = signal(false)
 
   // State options
   isDisabled = signal(false)
@@ -436,6 +447,7 @@ import { SelectOption } from 'quang/components/shared'
       [updateValueOnType]="updateValueOnType()"
       [allowFreeText]="allowFreeText()"
       [syncFormWithText]="syncFormWithText()"
+      [trim]="trim()"
       [isReadonly]="isReadonly()"
       [multiple]="multiple()"
       [selectOptions]="options()"
@@ -453,6 +465,7 @@ export class AutocompleteInteractiveComponent {
   updateValueOnType = signal(false)       // Update form value while typing
   allowFreeText = signal(false)           // Allow custom text as value
   syncFormWithText = signal(false)        // Sync form with typed text
+  trim = signal(false)                    // Trim whitespace on blur
   isReadonly = signal(false)
   multiple = signal(false)
 
@@ -469,6 +482,7 @@ export const AUTOCOMPLETE_INTERACTIVE_HTML = `<quang-autocomplete
   [updateValueOnType]="updateValueOnType()"
   [allowFreeText]="allowFreeText()"
   [syncFormWithText]="syncFormWithText()"
+  [trim]="trim()"
   [isReadonly]="isReadonly()"
   [multiple]="multiple()"
   [selectOptions]="options()"

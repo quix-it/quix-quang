@@ -3064,6 +3064,7 @@ describe('QuangAutocompleteComponent - Documented free text behaviors', () => {
           [allowFreeText]="allowFreeText"
           [searchTextDebounce]="50"
           [selectOptions]="options"
+          [trim]="trim"
           formControlName="autocomplete"
         />
         <input
@@ -3077,6 +3078,7 @@ describe('QuangAutocompleteComponent - Documented free text behaviors', () => {
   })
   class FreeTextBehaviorHostComponent {
     allowFreeText = false
+    trim = false
     form = new FormGroup({
       autocomplete: new FormControl<string | null>(null),
     })
@@ -3092,10 +3094,11 @@ describe('QuangAutocompleteComponent - Documented free text behaviors', () => {
   let cmp: QuangAutocompleteComponent
   let input: HTMLInputElement
 
-  async function setup(allowFreeText: boolean): Promise<void> {
+  async function setup(allowFreeText: boolean, trim = false): Promise<void> {
     fixture = TestBed.createComponent(FreeTextBehaviorHostComponent)
     host = fixture.componentInstance
     host.allowFreeText = allowFreeText
+    host.trim = trim
     fixture.detectChanges()
     cmp = fixture.debugElement.query(By.directive(QuangAutocompleteComponent)).componentInstance
     input = fixture.nativeElement.querySelector('quang-autocomplete input')
@@ -3185,6 +3188,33 @@ describe('QuangAutocompleteComponent - Documented free text behaviors', () => {
       await clickOutsideBlur()
 
       expect(formValue()).toBe('typed before blur')
+    })
+
+    it('keeps whitespace untrimmed in the value while the user is still typing', async () => {
+      await setup(true)
+      await type('hello ')
+
+      // While typing, the raw text (including trailing space) is the value
+      expect(formValue()).toBe('hello ')
+    })
+
+    it('keeps untrimmed value on blur by default (trim disabled)', async () => {
+      await setup(true, false)
+      await type('  hello world  ')
+      expect(formValue()).toBe('  hello world  ')
+
+      await clickOutsideBlur()
+      expect(formValue()).toBe('  hello world  ')
+    })
+
+    it('trims the value only once the field loses focus (blur) when trim is enabled', async () => {
+      await setup(true, true)
+      await type('  hello world  ')
+      // While typing, the raw text (including whitespace) is the value
+      expect(formValue()).toBe('  hello world  ')
+
+      await clickOutsideBlur()
+      expect(formValue()).toBe('hello world')
     })
   })
 })
