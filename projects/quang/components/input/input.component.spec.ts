@@ -121,3 +121,70 @@ describe('QuangInputComponent', () => {
     expect((inputs[1].nativeElement as HTMLInputElement).classList.contains('is-invalid')).toBe(true)
   })
 })
+
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <quang-input
+        [trim]="trim"
+        componentType="text"
+        formControlName="field"
+      />
+    </form>
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangInputComponent],
+})
+class TrimHostComponent {
+  trim = false
+  form = new FormGroup({ field: new FormControl<string | null>(null) })
+}
+
+describe('QuangInputComponent - trim', () => {
+  let fixture: ComponentFixture<TrimHostComponent>
+  let host: TrimHostComponent
+  let input: HTMLInputElement
+
+  async function setup(trim: boolean): Promise<void> {
+    fixture = TestBed.createComponent(TrimHostComponent)
+    host = fixture.componentInstance
+    host.trim = trim
+    fixture.detectChanges()
+    input = fixture.nativeElement.querySelector('input')
+  }
+
+  function typeText(text: string): void {
+    input.value = text
+    input.dispatchEvent(new Event('input'))
+    fixture.detectChanges()
+  }
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TrimHostComponent],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+  })
+
+  it('does not trim on blur when trim is false (default)', async () => {
+    await setup(false)
+    typeText('  hi  ')
+    input.dispatchEvent(new Event('blur'))
+    fixture.detectChanges()
+    expect(host.form.get('field')?.value).toBe('  hi  ')
+  })
+
+  it('does not trim while typing even when trim is true', async () => {
+    await setup(true)
+    typeText('  hi  ')
+    expect(host.form.get('field')?.value).toBe('  hi  ')
+  })
+
+  it('trims leading/trailing whitespace on blur when trim is true', async () => {
+    await setup(true)
+    typeText('  hi  ')
+    input.dispatchEvent(new Event('blur'))
+    fixture.detectChanges()
+    expect(host.form.get('field')?.value).toBe('hi')
+  })
+})

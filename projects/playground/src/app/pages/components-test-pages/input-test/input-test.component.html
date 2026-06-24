@@ -24,6 +24,7 @@
             [isReadonly]="isReadonly()"
             [maxNumber]="10"
             [minNumber]="0"
+            [trim]="trim()"
             #testComponent
             componentLabel="form.label.input"
             formControlName="testInput"
@@ -108,6 +109,12 @@
           class="btn btn-outline-secondary"
         >
           {{ 'form.buttons.readonly' | transloco: { readonly: isReadonly() } }}
+        </button>
+        <button
+          (click)="setTrim()"
+          class="btn btn-outline-secondary"
+        >
+          trim: {{ trim() }}
         </button>
       </div>
     </div>
