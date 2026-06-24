@@ -11,7 +11,7 @@
     "build:playground": "npm run copy-readme && ng build playground",
     "build:quang": "ng build --project quang",
     "build-publish": "npm run build:quang && node scripts/npm-publish.js",
-    "build-publish:prerelease": "npm run build:quang && cd dist/quang && npm publish --tag prerelease",
+    "build-publish:prerelease": "npm run build:quang && node scripts/npm-login.js && cd dist/quang && npm publish --tag prerelease",
     "sync-version": "jq '.version = \"'$npm_package_version'\"' projects/quang/package.json > temp.json && mv temp.json projects/quang/package.json",
     "version": "npm run sync-version && git add -A",
     "postversion": "git push && git push --tags",
