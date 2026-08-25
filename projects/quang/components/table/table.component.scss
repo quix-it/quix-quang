@@ -27,6 +27,12 @@
       line-height: 0 !important;
       visibility: collapse !important;
     }
+
+    // th keeps its real padding so its measured offsetWidth matches the visible
+    // sticky header th, which the JS copies this width onto.
+    th {
+      padding: 0.5rem !important;
+    }
   }
 
   .table-header-container {
