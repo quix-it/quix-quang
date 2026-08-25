@@ -2,7 +2,7 @@
   "name": "quang",
   "author": "Quix Srl",
   "homepage": "https://quix-it.github.io/quix-quang/",
-  "version": "22.0.3-0",
+  "version": "22.0.3",
   "scripts": {
     "prepare": "husky",
     "ng": "ng",
