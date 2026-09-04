@@ -7,9 +7,9 @@ l'applicazione dimostrativa `projects/playground/`.
 
 | Voce | Tipo | Path posseduti | Scheda | Documentata a |
 |---|---|---|---|---|
-| Configurazione Quang | feature | `projects/quang/index.ts` | `features/configurazione-quang.md` | — |
-| Autenticazione | feature | `projects/quang/auth/` | `features/autenticazione.md` | — |
-| Autocomplete | feature | `projects/quang/components/autocomplete/` | `features/autocomplete.md` | — |
+| Configurazione Quang | feature | `projects/quang/index.ts` | `features/configurazione-quang.md` | `68c44102` |
+| Autenticazione | feature | `projects/quang/auth/` | `features/autenticazione.md` | `68c44102` |
+| Autocomplete | feature | `projects/quang/components/autocomplete/` | `features/autocomplete.md` | `68c44102` |
 | Checkbox | feature | `projects/quang/components/checkbox/` | `features/checkbox.md` | — |
 | Date | feature | `projects/quang/components/date/` | `features/date.md` | — |
 | Input | feature | `projects/quang/components/input/` | `features/input.md` | — |
