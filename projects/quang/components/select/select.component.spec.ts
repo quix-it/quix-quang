@@ -1,4 +1,4 @@
-import { Component, Injectable, TemplateRef, viewChild } from '@angular/core'
+import { Component, Injectable, TemplateRef, signal, viewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { By } from '@angular/platform-browser'
@@ -67,7 +67,7 @@ class TestHostComponent {
       </ng-template>
 
       <quang-select
-        [selectOptions]="options"
+        [selectOptions]="options()"
         formControlName="country"
       />
     </form>
@@ -82,18 +82,18 @@ class TestHostTemplatedComponent {
 
   private readonly optTpl = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('optTpl')
 
-  options: SelectOption[] = [
+  options = signal<SelectOption[]>([
     { label: 'Italy', value: 'IT' },
     { label: 'France', value: 'FR' },
     { label: 'Germany', value: 'DE' },
-  ]
+  ])
 
   setTemplatedOptions(): void {
-    this.options = [
+    this.options.set([
       { label: 'Italy', value: 'IT' },
       { label: 'France', value: 'FR', renderer: this.optTpl() },
       { label: 'Germany', value: 'DE' },
-    ]
+    ])
   }
 }
 

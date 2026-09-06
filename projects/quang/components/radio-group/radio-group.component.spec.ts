@@ -1,4 +1,4 @@
-import { Component, Injectable, TemplateRef, ViewChild } from '@angular/core'
+import { Component, Injectable, TemplateRef, ViewChild, signal } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 
@@ -38,8 +38,8 @@ const getTranslocoTestingProviders = () =>
       </ng-template>
 
       <quang-radio-group
-        [radioOptions]="options"
-        [radioPosition]="radioPosition"
+        [radioOptions]="options()"
+        [radioPosition]="radioPosition()"
         formControlName="choice"
       />
     </form>
@@ -55,18 +55,18 @@ class TestHostComponent {
     choice: new FormControl<string | null>(null),
   })
 
-  radioPosition: 'left' | 'right' = 'left'
+  radioPosition = signal<'left' | 'right'>('left')
 
-  options: RadioOption<string>[] = [
+  options = signal<RadioOption<string>[]>([
     { label: 'A', value: 'A' },
     { label: 'B', value: 'B' },
-  ]
+  ])
 
   setTemplatedOptions(): void {
-    this.options = [
+    this.options.set([
       { label: 'A', value: 'A' },
       { value: 'B', renderer: this.optTpl },
-    ]
+    ])
   }
 }
 
@@ -118,7 +118,7 @@ describe('QuangRadioGroupComponent', () => {
   })
 
   it('should support radioPosition="right"', () => {
-    host.radioPosition = 'right'
+    host.radioPosition.set('right')
     fixture.detectChanges()
 
     const wrapper = fixture.nativeElement.querySelector('.form-check') as HTMLElement

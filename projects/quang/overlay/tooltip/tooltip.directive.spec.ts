@@ -1,5 +1,5 @@
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay'
-import { Component } from '@angular/core'
+import { Component, signal } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -13,7 +13,7 @@ import { QuangTooltipDirective } from './tooltip.directive'
   template: `
     <button
       [quangTooltip]="tooltipText"
-      [showMethod]="showMethod"
+      [showMethod]="showMethod()"
     >
       Trigger
     </button>
@@ -21,7 +21,7 @@ import { QuangTooltipDirective } from './tooltip.directive'
 })
 class TooltipHostComponent {
   tooltipText = 'Hello'
-  showMethod: 'click' | 'hover' = 'hover'
+  showMethod = signal<'click' | 'hover'>('hover')
 }
 
 describe('QuangTooltipDirective', () => {
@@ -60,7 +60,7 @@ describe('QuangTooltipDirective', () => {
   })
 
   it('should attach on click and close on backdrop click (click mode)', () => {
-    fixture.componentInstance.showMethod = 'click'
+    fixture.componentInstance.showMethod.set('click')
     fixture.detectChanges()
 
     const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement
