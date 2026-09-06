@@ -580,6 +580,34 @@ describe('QuangAutocompleteComponent - Multiple Selection', () => {
       expect(autocompleteComponent._chipList()).toContain('opt2')
     })
 
+    it('should delete a single chip when Backspace is pressed on the chip after returning to the input', async () => {
+      hostComponent.form.get('autocomplete')?.setValue(['opt1', 'opt2', 'opt3'])
+      await vi.advanceTimersByTimeAsync(0)
+      hostFixture.detectChanges()
+      expect(autocompleteComponent._chipList().length).toBe(3)
+
+      const inputEl = hostFixture.nativeElement.querySelector('input') as HTMLInputElement
+
+      // Backspace on the empty input moves the focus to the last chip
+      inputEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true }))
+      await vi.advanceTimersByTimeAsync(0)
+      hostFixture.detectChanges()
+
+      // The user goes back to the input without pressing Backspace on the chip
+      inputEl.focus()
+      inputEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true }))
+      await vi.advanceTimersByTimeAsync(0)
+      hostFixture.detectChanges()
+
+      const chipButtons = hostFixture.nativeElement.querySelectorAll('.chip button.btn-chip')
+      const lastChipButton = chipButtons[chipButtons.length - 1] as HTMLButtonElement
+      lastChipButton.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true }))
+      await vi.advanceTimersByTimeAsync(0)
+      hostFixture.detectChanges()
+
+      expect(autocompleteComponent._chipList()).toEqual(['opt1', 'opt2'])
+    })
+
     it('should update form control with chip list', async () => {
       autocompleteComponent.onValueChange('opt1')
       autocompleteComponent.onValueChange('opt2')
