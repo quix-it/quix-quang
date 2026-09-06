@@ -11,21 +11,21 @@
     <div class="toast-header">
       @if (!_currentToast()?.customIcon) {
         <span
-          [ngClass]="$safeNavigationMigration(_currentToast()?.type)"
+          [ngClass]="_currentToast()?.type"
           class="rounded me-2"
         ></span>
       }
       @if (_currentToast()?.customIcon) {
         <img
-          [src]="$safeNavigationMigration(_currentToast()?.customIcon)"
+          [src]="_currentToast()?.customIcon"
           alt=""
         />
       }
       @if (_currentToast()?.title) {
-        <strong class="me-auto">{{ $safeNavigationMigration(_currentToast()?.title) | transloco }}</strong>
+        <strong class="me-auto">{{ _currentToast()?.title | transloco }}</strong>
       }
       @if (_currentToast()?.date) {
-        <small>{{ _currentToast()?.date ?? '' | date: $safeNavigationMigration(_currentToast()?.dateFormat) }}</small>
+        <small>{{ _currentToast()?.date ?? '' | date: _currentToast()?.dateFormat }}</small>
       }
       @if (_currentToast()?.showCloseButton) {
         <button
@@ -43,8 +43,8 @@
   @if (_currentToast()?.text) {
     <div class="toast-body">
       {{
-        $safeNavigationMigration(_currentToast()?.text?.trim())
-          | transloco: { textValue: $safeNavigationMigration(_currentToast()?.textValue?.trim()) }
+        _currentToast()?.text?.trim()
+          | transloco: { textValue: _currentToast()?.textValue?.trim() }
       }}
     </div>
   }
