@@ -45,10 +45,10 @@ const getTranslocoTestingProviders = () =>
       </ng-template>
 
       <quang-tabs
-        [componentClass]="componentClass"
-        [componentTabIndex]="componentTabIndex"
+        [componentClass]="componentClass()"
+        [componentTabIndex]="componentTabIndex()"
         [isReadonly]="isReadonly()"
-        [tabs]="tabs"
+        [tabs]="tabs()"
         (tabChange)="onTabChange($event)"
         formControlName="selectedTab"
       />
@@ -66,34 +66,34 @@ class TestHostComponent {
   })
 
   isReadonly = signal<boolean>(false)
-  componentClass = ''
-  componentTabIndex = 0
+  componentClass = signal('')
+  componentTabIndex = signal(0)
   lastTabChangeEvent: string | null = null
 
-  tabs: TabConfiguration[] = [
+  tabs = signal<TabConfiguration[]>([
     { id: 'tab1', label: 'tab.first' },
     { id: 'tab2', label: 'tab.second' },
     { id: 'tab3', label: 'tab.third' },
-  ]
+  ])
 
   onTabChange(tabId: string): void {
     this.lastTabChangeEvent = tabId
   }
 
   setTemplatedTabs(): void {
-    this.tabs = [
+    this.tabs.set([
       { id: 'tab1', label: 'tab.first' },
       { id: 'tab2', label: 'tab.second', renderer: this.tabTpl },
       { id: 'tab3', label: 'tab.third' },
-    ]
+    ])
   }
 
   setDisabledTab(): void {
-    this.tabs = [
+    this.tabs.set([
       { id: 'tab1', label: 'tab.first' },
       { id: 'tab2', label: 'tab.second', disabled: true },
       { id: 'tab3', label: 'tab.third' },
-    ]
+    ])
   }
 }
 
@@ -211,9 +211,9 @@ describe('QuangTabsComponent', () => {
     })
 
     it('should call isTabSelected correctly', () => {
-      expect(tabsComponent.isTabSelected(host.tabs[0])).toBe(true)
-      expect(tabsComponent.isTabSelected(host.tabs[1])).toBe(false)
-      expect(tabsComponent.isTabSelected(host.tabs[2])).toBe(false)
+      expect(tabsComponent.isTabSelected(host.tabs()[0])).toBe(true)
+      expect(tabsComponent.isTabSelected(host.tabs()[1])).toBe(false)
+      expect(tabsComponent.isTabSelected(host.tabs()[2])).toBe(false)
     })
   })
 
@@ -335,9 +335,9 @@ describe('QuangTabsComponent', () => {
     })
 
     it('should call isTabDisabled correctly for individual tabs', () => {
-      expect(tabsComponent.isTabDisabled(host.tabs[0])).toBe(false)
-      expect(tabsComponent.isTabDisabled(host.tabs[1])).toBe(true)
-      expect(tabsComponent.isTabDisabled(host.tabs[2])).toBe(false)
+      expect(tabsComponent.isTabDisabled(host.tabs()[0])).toBe(false)
+      expect(tabsComponent.isTabDisabled(host.tabs()[1])).toBe(true)
+      expect(tabsComponent.isTabDisabled(host.tabs()[2])).toBe(false)
     })
   })
 
@@ -433,9 +433,9 @@ describe('QuangTabsComponent', () => {
 
   describe('Helper Methods', () => {
     it('should return correct tab index with getTabIndex', () => {
-      expect(tabsComponent.getTabIndex(host.tabs[0])).toBe(0)
-      expect(tabsComponent.getTabIndex(host.tabs[1])).toBe(1)
-      expect(tabsComponent.getTabIndex(host.tabs[2])).toBe(2)
+      expect(tabsComponent.getTabIndex(host.tabs()[0])).toBe(0)
+      expect(tabsComponent.getTabIndex(host.tabs()[1])).toBe(1)
+      expect(tabsComponent.getTabIndex(host.tabs()[2])).toBe(2)
     })
 
     it('should return -1 for non-existent tab', () => {
@@ -449,7 +449,7 @@ describe('QuangTabsComponent', () => {
 
       buttons[1].click()
 
-      expect(spy).toHaveBeenCalledWith(host.tabs[1])
+      expect(spy).toHaveBeenCalledWith(host.tabs()[1])
     })
 
     it('should not call onChangedHandler when tab is disabled', () => {
@@ -467,7 +467,7 @@ describe('QuangTabsComponent', () => {
 
   describe('Component Inputs', () => {
     it('should accept componentClass input', () => {
-      host.componentClass = 'custom-class'
+      host.componentClass.set('custom-class')
       fixture.detectChanges()
 
       // The componentClass is inherited from QuangBaseComponent
@@ -475,7 +475,7 @@ describe('QuangTabsComponent', () => {
     })
 
     it('should accept componentTabIndex input', () => {
-      host.componentTabIndex = 5
+      host.componentTabIndex.set(5)
       fixture.detectChanges()
 
       expect(tabsComponent.componentTabIndex()).toBe(5)
@@ -486,7 +486,7 @@ describe('QuangTabsComponent', () => {
         { id: 'new1', label: 'New 1' },
         { id: 'new2', label: 'New 2' },
       ]
-      host.tabs = newTabs
+      host.tabs.set(newTabs)
       fixture.detectChanges()
 
       expect(tabsComponent.tabs().length).toBe(2)
@@ -554,7 +554,7 @@ describe('QuangTabsComponent', () => {
 
   describe('Edge Cases', () => {
     it('should handle empty tabs array', () => {
-      host.tabs = []
+      host.tabs.set([])
       fixture.detectChanges()
 
       const buttons = fixture.nativeElement.querySelectorAll('button')
@@ -562,7 +562,7 @@ describe('QuangTabsComponent', () => {
     })
 
     it('should handle single tab', () => {
-      host.tabs = [{ id: 'only', label: 'Only Tab' }]
+      host.tabs.set([{ id: 'only', label: 'Only Tab' }])
       host.form.patchValue({ selectedTab: 'only' })
       fixture.detectChanges()
 
@@ -592,10 +592,10 @@ describe('QuangTabsComponent', () => {
     })
 
     it('should handle tabs with same label but different ids', () => {
-      host.tabs = [
+      host.tabs.set([
         { id: 'tab1', label: 'Same Label' },
         { id: 'tab2', label: 'Same Label' },
-      ]
+      ])
       fixture.detectChanges()
 
       const buttons = fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>

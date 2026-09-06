@@ -1,4 +1,4 @@
-import { Component, ElementRef, TemplateRef, viewChild } from '@angular/core'
+import { Component, ElementRef, TemplateRef, signal, viewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
@@ -23,12 +23,12 @@ import { OptionListParentType, QuangOptionListComponent, SelectOption } from './
     </ng-template>
 
     <quang-option-list
-      [_value]="value"
-      [nullOption]="nullOption"
+      [_value]="value()"
+      [nullOption]="nullOption()"
       [parentType]="parentType"
       [selectButtonRef]="buttonElement"
       [selectionMode]="selectionMode"
-      [selectOptions]="options"
+      [selectOptions]="options()"
       [translateValue]="translateValue"
       (blurHandler)="onBlur($event)"
       (changedHandler)="onChanged($event)"
@@ -46,14 +46,14 @@ class TestHostComponent {
     return this.buttonRef()?.nativeElement as HTMLButtonElement
   }
 
-  options: SelectOption[] = [
+  options = signal<SelectOption[]>([
     { label: 'Italy', value: 'IT' },
     { label: 'France', value: 'FR' },
     { label: 'Germany', value: 'DE' },
-  ]
+  ])
 
-  value: string | number | null = null
-  nullOption = true
+  value = signal<string | number | null>(null)
+  nullOption = signal(true)
   parentType = OptionListParentType.SELECT
   selectionMode: 'single' | 'multiple' = 'single'
   translateValue = false
@@ -70,11 +70,11 @@ class TestHostComponent {
   }
 
   setTemplatedOptions(): void {
-    this.options = [
+    this.options.set([
       { label: 'Italy', value: 'IT' },
       { label: 'France', value: 'FR', renderer: this.optTpl() },
       { label: 'Germany', value: 'DE' },
-    ]
+    ])
   }
 }
 
@@ -83,11 +83,11 @@ class TestHostComponent {
   template: `
     <button #buttonRef>Open</button>
     <quang-option-list
-      [_value]="value"
+      [_value]="value()"
       [nullOption]="false"
       [parentType]="parentType"
       [selectButtonRef]="buttonElement"
-      [selectOptions]="options"
+      [selectOptions]="options()"
       (changedHandler)="onChanged($event)"
       selectionMode="multiple"
     />
@@ -102,13 +102,13 @@ class MultipleSelectionTestHostComponent {
     return this.buttonRef()?.nativeElement as HTMLButtonElement
   }
 
-  options: SelectOption[] = [
+  options = signal<SelectOption[]>([
     { label: 'Option 1', value: 'opt1' },
     { label: 'Option 2', value: 'opt2' },
     { label: 'Option 3', value: 'opt3' },
-  ]
+  ])
 
-  value: string[] | null = null
+  value = signal<string[] | null>(null)
   parentType = OptionListParentType.AUTOCOMPLETE
 
   changedValue: unknown = undefined
@@ -161,7 +161,7 @@ describe('QuangOptionListComponent - Basic Rendering', () => {
   })
 
   it('should not include null option when nullOption is false', () => {
-    hostComponent.nullOption = false
+    hostComponent.nullOption.set(false)
     fixture.detectChanges()
 
     const listItems = fixture.debugElement.queryAll(By.css('.item'))
@@ -184,7 +184,7 @@ describe('QuangOptionListComponent - Basic Rendering', () => {
   })
 
   it('should render option renderer when provided', () => {
-    hostComponent.value = 'FR'
+    hostComponent.value.set('FR')
     hostComponent.setTemplatedOptions()
     fixture.detectChanges()
 
@@ -233,7 +233,7 @@ describe('QuangOptionListComponent - Selection', () => {
   })
 
   it('should mark selected option with selected class', () => {
-    hostComponent.value = 'FR'
+    hostComponent.value.set('FR')
     fixture.detectChanges()
 
     const listItems = fixture.debugElement.queryAll(By.css('.item'))
@@ -245,7 +245,7 @@ describe('QuangOptionListComponent - Selection', () => {
   it('should return correct selected state via getSelected', () => {
     const optionListComponent = fixture.debugElement.query(By.directive(QuangOptionListComponent)).componentInstance
 
-    hostComponent.value = 'IT'
+    hostComponent.value.set('IT')
     fixture.detectChanges()
 
     expect(optionListComponent.getSelected({ label: 'Italy', value: 'IT' })).toBe(true)
@@ -255,7 +255,7 @@ describe('QuangOptionListComponent - Selection', () => {
   it('should find correct selectedElementIndex', () => {
     const optionListComponent = fixture.debugElement.query(By.directive(QuangOptionListComponent)).componentInstance
 
-    hostComponent.value = 'DE'
+    hostComponent.value.set('DE')
     fixture.detectChanges()
 
     // Germany is at index 3 (after null, Italy, France)
@@ -296,7 +296,7 @@ describe('QuangOptionListComponent - Multiple Selection', () => {
   })
 
   it('should add multiple items to selection', () => {
-    hostComponent.value = ['opt1']
+    hostComponent.value.set(['opt1'])
     fixture.detectChanges()
 
     const listItems = fixture.debugElement.queryAll(By.css('.item'))
@@ -307,7 +307,7 @@ describe('QuangOptionListComponent - Multiple Selection', () => {
   })
 
   it('should remove item from selection when clicked again', () => {
-    hostComponent.value = ['opt1', 'opt2']
+    hostComponent.value.set(['opt1', 'opt2'])
     fixture.detectChanges()
 
     const listItems = fixture.debugElement.queryAll(By.css('.item'))
@@ -318,7 +318,7 @@ describe('QuangOptionListComponent - Multiple Selection', () => {
   })
 
   it('should check checkboxes for selected items', () => {
-    hostComponent.value = ['opt1', 'opt3']
+    hostComponent.value.set(['opt1', 'opt3'])
     fixture.detectChanges()
 
     const checkboxes = fixture.debugElement.queryAll(By.css('input[type="checkbox"]'))

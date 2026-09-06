@@ -1,4 +1,4 @@
-import { Component, DebugElement, Injectable, TemplateRef, viewChild } from '@angular/core'
+import { Component, DebugElement, Injectable, TemplateRef, signal, viewChild } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { By } from '@angular/platform-browser'
@@ -1279,7 +1279,7 @@ describe('QuangAutocompleteComponent - AutoSelectOnExactMatch', () => {
     template: `
       <form [formGroup]="form">
         <quang-autocomplete
-          [autoSelectOnExactMatch]="autoSelectOnExactMatch"
+          [autoSelectOnExactMatch]="autoSelectOnExactMatch()"
           [searchTextDebounce]="50"
           [selectOptions]="options"
           formControlName="autocomplete"
@@ -1300,7 +1300,7 @@ describe('QuangAutocompleteComponent - AutoSelectOnExactMatch', () => {
       { label: 'Italy', value: 'IT' },
     ]
 
-    autoSelectOnExactMatch = true
+    autoSelectOnExactMatch = signal(true)
   }
 
   let fixture: ComponentFixture<AutoSelectTestHostComponent>
@@ -1375,7 +1375,7 @@ describe('QuangAutocompleteComponent - AutoSelectOnExactMatch', () => {
 
   it('should NOT auto-select when autoSelectOnExactMatch is false', async () => {
     // Disable auto-select
-    hostComponent.autoSelectOnExactMatch = false
+    hostComponent.autoSelectOnExactMatch.set(false)
     fixture.detectChanges()
 
     // Type "Italy"
@@ -1659,11 +1659,11 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
     template: `
       <form [formGroup]="form">
         <quang-autocomplete
-          [allowFreeText]="allowFreeText"
-          [autoSelectOnExactMatch]="autoSelectOnExactMatch"
+          [allowFreeText]="allowFreeText()"
+          [autoSelectOnExactMatch]="autoSelectOnExactMatch()"
           [searchTextDebounce]="50"
-          [selectOptions]="options"
-          [updateValueOnType]="updateValueOnType"
+          [selectOptions]="options()"
+          [updateValueOnType]="updateValueOnType()"
           formControlName="autocomplete"
         />
       </form>
@@ -1676,15 +1676,15 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
       autocomplete: new FormControl<string | null>(null),
     })
 
-    options: SelectOption[] = [
+    options = signal<SelectOption[]>([
       { label: 'Italy', value: 'IT' },
       { label: 'France', value: 'FR' },
       { label: 'Germany', value: 'DE' },
-    ]
+    ])
 
-    updateValueOnType = false
-    allowFreeText = false
-    autoSelectOnExactMatch = true
+    updateValueOnType = signal(false)
+    allowFreeText = signal(false)
+    autoSelectOnExactMatch = signal(true)
   }
 
   let fixture: ComponentFixture<UpdateValueOnTypeTestHostComponent>
@@ -1711,7 +1711,7 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
 
   it('should NOT update form value while typing when updateValueOnType is false (default)', async () => {
     // Default is false
-    expect(hostComponent.updateValueOnType).toBe(false)
+    expect(hostComponent.updateValueOnType()).toBe(false)
 
     // Type an exact match
     const mockEvent = { target: { value: 'Italy' } } as unknown as Event
@@ -1724,7 +1724,7 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   })
 
   it('should update form value while typing when updateValueOnType is true and exact match found', async () => {
-    hostComponent.updateValueOnType = true
+    hostComponent.updateValueOnType.set(true)
     fixture.detectChanges()
 
     // Type an exact match
@@ -1738,8 +1738,8 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   })
 
   it('should update form value while typing with free text when updateValueOnType is true', async () => {
-    hostComponent.updateValueOnType = true
-    hostComponent.allowFreeText = true
+    hostComponent.updateValueOnType.set(true)
+    hostComponent.allowFreeText.set(true)
     fixture.detectChanges()
 
     // Type custom text that doesn't match any option
@@ -1755,8 +1755,8 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   it('should sync form value while typing with free text even when updateValueOnType is false', async () => {
     // With allowFreeText, the input text IS the form value, so the value must
     // stay in sync as the user types regardless of the updateValueOnType flag.
-    hostComponent.updateValueOnType = false
-    hostComponent.allowFreeText = true
+    hostComponent.updateValueOnType.set(false)
+    hostComponent.allowFreeText.set(true)
     fixture.detectChanges()
 
     // Type custom text
@@ -1777,7 +1777,7 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   })
 
   it('should auto-select exact match on blur regardless of updateValueOnType setting', async () => {
-    hostComponent.updateValueOnType = false
+    hostComponent.updateValueOnType.set(false)
     fixture.detectChanges()
 
     // Type an exact match
@@ -1799,9 +1799,9 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   })
 
   it('should respect autoSelectOnExactMatch=false when updateValueOnType is true', async () => {
-    hostComponent.updateValueOnType = true
-    hostComponent.autoSelectOnExactMatch = false
-    hostComponent.allowFreeText = true
+    hostComponent.updateValueOnType.set(true)
+    hostComponent.autoSelectOnExactMatch.set(false)
+    hostComponent.allowFreeText.set(true)
     fixture.detectChanges()
 
     // Type an exact match
@@ -1816,9 +1816,9 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   })
 
   it('should NOT update form value when autoSelectOnExactMatch=false and allowFreeText=false', async () => {
-    hostComponent.updateValueOnType = true
-    hostComponent.autoSelectOnExactMatch = false
-    hostComponent.allowFreeText = false
+    hostComponent.updateValueOnType.set(true)
+    hostComponent.autoSelectOnExactMatch.set(false)
+    hostComponent.allowFreeText.set(false)
     fixture.detectChanges()
 
     // Type an exact match
@@ -1833,7 +1833,7 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   })
 
   it('should handle case-insensitive matching when updateValueOnType is true', async () => {
-    hostComponent.updateValueOnType = true
+    hostComponent.updateValueOnType.set(true)
     fixture.detectChanges()
 
     // Type in lowercase
@@ -1847,7 +1847,7 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   })
 
   it('should handle whitespace-trimmed matching when updateValueOnType is true', async () => {
-    hostComponent.updateValueOnType = true
+    hostComponent.updateValueOnType.set(true)
     fixture.detectChanges()
 
     // Type with extra whitespace
@@ -1863,8 +1863,8 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   it('should clear form value while typing non-matching text when updateValueOnType is true and allowFreeText is false (updateValueWithoutExitingSearchMode)', async () => {
     // Set an initial value
     hostComponent.form.get('autocomplete')?.setValue('IT')
-    hostComponent.updateValueOnType = true
-    hostComponent.allowFreeText = false
+    hostComponent.updateValueOnType.set(true)
+    hostComponent.allowFreeText.set(false)
     fixture.detectChanges()
 
     expect(hostComponent.form.get('autocomplete')?.value).toBe('IT')
@@ -1887,8 +1887,8 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
   it('should keep form value when typing matching text after clearing with updateValueOnType true', async () => {
     // Set an initial value
     hostComponent.form.get('autocomplete')?.setValue('IT')
-    hostComponent.updateValueOnType = true
-    hostComponent.allowFreeText = false
+    hostComponent.updateValueOnType.set(true)
+    hostComponent.allowFreeText.set(false)
     fixture.detectChanges()
 
     // Type something that doesn't match - should clear
@@ -1910,11 +1910,11 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
 
   it('should handle option with null value on blur (shouldAutoSelect with exitSearchMode=true)', async () => {
     // Add an option with undefined value (to test ?? '' fallback)
-    hostComponent.options = [
+    hostComponent.options.set([
       { label: 'Italy', value: 'IT' },
       { label: 'None', value: undefined as unknown as string },
-    ]
-    hostComponent.updateValueOnType = false
+    ])
+    hostComponent.updateValueOnType.set(false)
     fixture.detectChanges()
     await vi.advanceTimersByTimeAsync(10)
     fixture.detectChanges()
@@ -1936,11 +1936,11 @@ describe('QuangAutocompleteComponent - UpdateValueOnType', () => {
 
   it('should handle option with null value while typing (shouldAutoSelect with exitSearchMode=false)', async () => {
     // Add an option with undefined value (to test ?? '' fallback)
-    hostComponent.options = [
+    hostComponent.options.set([
       { label: 'Italy', value: 'IT' },
       { label: 'None', value: undefined as unknown as string },
-    ]
-    hostComponent.updateValueOnType = true
+    ])
+    hostComponent.updateValueOnType.set(true)
     fixture.detectChanges()
     await vi.advanceTimersByTimeAsync(10)
     fixture.detectChanges()
@@ -1961,9 +1961,9 @@ describe('QuangAutocompleteComponent - Keyboard Navigation', () => {
     template: `
       <form [formGroup]="form">
         <quang-autocomplete
-          [allowFreeText]="allowFreeText"
+          [allowFreeText]="allowFreeText()"
           [searchTextDebounce]="50"
-          [selectOptions]="options"
+          [selectOptions]="options()"
           formControlName="autocomplete"
         />
       </form>
@@ -1976,13 +1976,13 @@ describe('QuangAutocompleteComponent - Keyboard Navigation', () => {
       autocomplete: new FormControl<string | null>(null),
     })
 
-    options: SelectOption[] = [
+    options = signal<SelectOption[]>([
       { label: 'Option 1', value: 'opt1' },
       { label: 'Option 2', value: 'opt2' },
       { label: 'Option 3', value: 'opt3' },
-    ]
+    ])
 
-    allowFreeText = false
+    allowFreeText = signal(false)
   }
 
   let fixture: ComponentFixture<KeyboardNavTestHostComponent>
@@ -2070,7 +2070,7 @@ describe('QuangAutocompleteComponent - Keyboard Navigation', () => {
   })
 
   it('should handle Enter key with allowFreeText and no filtered options', async () => {
-    hostComponent.allowFreeText = true
+    hostComponent.allowFreeText.set(true)
     fixture.detectChanges()
 
     // Type text that doesn't match any option
@@ -2080,7 +2080,7 @@ describe('QuangAutocompleteComponent - Keyboard Navigation', () => {
     fixture.detectChanges()
 
     // Now filter to empty (simulate filtering that returns no results)
-    hostComponent.options = []
+    hostComponent.options.set([])
     fixture.detectChanges()
 
     const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' })
@@ -2095,7 +2095,7 @@ describe('QuangAutocompleteComponent - Keyboard Navigation', () => {
   })
 
   it('should not handle Enter specially when allowFreeText is false', async () => {
-    hostComponent.allowFreeText = false
+    hostComponent.allowFreeText.set(false)
     fixture.detectChanges()
 
     autocompleteComponent.showOptionVisibility()
@@ -2110,7 +2110,7 @@ describe('QuangAutocompleteComponent - Keyboard Navigation', () => {
   })
 
   it('should not handle Enter specially when there are filtered options', async () => {
-    hostComponent.allowFreeText = true
+    hostComponent.allowFreeText.set(true)
     fixture.detectChanges()
 
     autocompleteComponent.showOptionVisibility()
@@ -2235,7 +2235,7 @@ describe('QuangAutocompleteComponent - Options Change Handling', () => {
         <quang-autocomplete
           [multiple]="true"
           [searchTextDebounce]="50"
-          [selectOptions]="options"
+          [selectOptions]="options()"
           formControlName="autocomplete"
         />
       </form>
@@ -2248,11 +2248,11 @@ describe('QuangAutocompleteComponent - Options Change Handling', () => {
       autocomplete: new FormControl<string[] | null>(null),
     })
 
-    options: SelectOption[] = [
+    options = signal<SelectOption[]>([
       { label: 'Option 1', value: 'opt1' },
       { label: 'Option 2', value: 'opt2' },
       { label: 'Option 3', value: 'opt3' },
-    ]
+    ])
   }
 
   let fixture: ComponentFixture<OptionsChangeTestHostComponent>
@@ -2286,12 +2286,12 @@ describe('QuangAutocompleteComponent - Options Change Handling', () => {
     expect(autocompleteComponent._chipList().length).toBe(2)
 
     // Change options - this triggers handleOptionsChange
-    hostComponent.options = [
+    hostComponent.options.set([
       { label: 'New Option 1', value: 'opt1' },
       { label: 'New Option 2', value: 'opt2' },
       { label: 'New Option 3', value: 'opt3' },
       { label: 'Option 4', value: 'opt4' },
-    ]
+    ])
     fixture.detectChanges()
     await vi.advanceTimersByTimeAsync(0)
 
@@ -2305,7 +2305,7 @@ describe('QuangAutocompleteComponent - Options Change Handling', () => {
     expect(hostComponent.form.get('autocomplete')?.value).toBeNull()
 
     // Change options
-    hostComponent.options = [{ label: 'New Option', value: 'new' }]
+    hostComponent.options.set([{ label: 'New Option', value: 'new' }])
     fixture.detectChanges()
     await vi.advanceTimersByTimeAsync(0)
 
@@ -2491,9 +2491,9 @@ describe('QuangAutocompleteComponent - InternalFilterOptions', () => {
     template: `
       <form [formGroup]="form">
         <quang-autocomplete
-          [internalFilterOptions]="internalFilterOptions"
+          [internalFilterOptions]="internalFilterOptions()"
           [searchTextDebounce]="50"
-          [selectOptions]="options"
+          [selectOptions]="options()"
           (searchTextChange)="onSearchTextChange($event)"
           formControlName="autocomplete"
         />
@@ -2507,34 +2507,36 @@ describe('QuangAutocompleteComponent - InternalFilterOptions', () => {
       autocomplete: new FormControl<string | null>(null),
     })
 
-    options: SelectOption[] = [
+    options = signal<SelectOption[]>([
       { label: 'Italy', value: 'IT' },
       { label: 'France', value: 'FR' },
       { label: 'Germany', value: 'DE' },
       { label: 'Spain', value: 'ES' },
-    ]
+    ])
 
-    internalFilterOptions = true
+    internalFilterOptions = signal(true)
     searchText = ''
 
     onSearchTextChange(text: string): void {
       this.searchText = text
       // When internalFilterOptions is false, filtering is handled externally
-      if (!this.internalFilterOptions && text) {
-        this.options = [
-          { label: 'Italy', value: 'IT' },
-          { label: 'France', value: 'FR' },
-          { label: 'Germany', value: 'DE' },
-          { label: 'Spain', value: 'ES' },
-        ].filter((x) => x.label.toLowerCase().includes(text.toLowerCase()))
-      } else if (!this.internalFilterOptions) {
+      if (!this.internalFilterOptions() && text) {
+        this.options.set(
+          [
+            { label: 'Italy', value: 'IT' },
+            { label: 'France', value: 'FR' },
+            { label: 'Germany', value: 'DE' },
+            { label: 'Spain', value: 'ES' },
+          ].filter((x) => x.label.toLowerCase().includes(text.toLowerCase()))
+        )
+      } else if (!this.internalFilterOptions()) {
         // Reset to all options when search text is empty
-        this.options = [
+        this.options.set([
           { label: 'Italy', value: 'IT' },
           { label: 'France', value: 'FR' },
           { label: 'Germany', value: 'DE' },
           { label: 'Spain', value: 'ES' },
-        ]
+        ])
       }
     }
   }
@@ -2563,7 +2565,7 @@ describe('QuangAutocompleteComponent - InternalFilterOptions', () => {
 
   it('should filter options internally when internalFilterOptions is true (default)', async () => {
     // Default is true
-    expect(hostComponent.internalFilterOptions).toBe(true)
+    expect(hostComponent.internalFilterOptions()).toBe(true)
 
     // Type partial text
     const mockEvent = { target: { value: 'It' } } as unknown as Event
@@ -2577,7 +2579,7 @@ describe('QuangAutocompleteComponent - InternalFilterOptions', () => {
   })
 
   it('should NOT filter options internally when internalFilterOptions is false', async () => {
-    hostComponent.internalFilterOptions = false
+    hostComponent.internalFilterOptions.set(false)
     fixture.detectChanges()
 
     // Type partial text - but filtering is disabled internally
@@ -2590,11 +2592,11 @@ describe('QuangAutocompleteComponent - InternalFilterOptions', () => {
     // But the host component's onSearchTextChange will update options externally
     expect(hostComponent.searchText).toBe('It')
     // After external filtering, options are updated
-    expect(hostComponent.options.length).toBe(1)
+    expect(hostComponent.options().length).toBe(1)
   })
 
   it('should emit searchTextChange for external filtering when internalFilterOptions is false', async () => {
-    hostComponent.internalFilterOptions = false
+    hostComponent.internalFilterOptions.set(false)
     fixture.detectChanges()
 
     // Type search text
@@ -2606,19 +2608,19 @@ describe('QuangAutocompleteComponent - InternalFilterOptions', () => {
     // searchTextChange should be emitted for external handling
     expect(hostComponent.searchText).toBe('Fr')
     // External filter updated options
-    expect(hostComponent.options.length).toBe(1)
-    expect(hostComponent.options[0].label).toBe('France')
+    expect(hostComponent.options().length).toBe(1)
+    expect(hostComponent.options()[0].label).toBe('France')
   })
 
   it('should return all options from filterOptions when internalFilterOptions is false', async () => {
-    hostComponent.internalFilterOptions = false
+    hostComponent.internalFilterOptions.set(false)
     // Keep all original options
-    hostComponent.options = [
+    hostComponent.options.set([
       { label: 'Italy', value: 'IT' },
       { label: 'France', value: 'FR' },
       { label: 'Germany', value: 'DE' },
       { label: 'Spain', value: 'ES' },
-    ]
+    ])
     fixture.detectChanges()
 
     // Access the protected filterOptions method via _filteredOptions computed
@@ -2635,7 +2637,7 @@ describe('QuangAutocompleteComponent - InternalFilterOptions', () => {
   })
 
   it('should return all options when user types only spaces', async () => {
-    hostComponent.internalFilterOptions = true
+    hostComponent.internalFilterOptions.set(true)
     fixture.detectChanges()
 
     // Type only spaces
@@ -2649,7 +2651,7 @@ describe('QuangAutocompleteComponent - InternalFilterOptions', () => {
   })
 
   it('should filter correctly when search text has leading/trailing spaces', async () => {
-    hostComponent.internalFilterOptions = true
+    hostComponent.internalFilterOptions.set(true)
     fixture.detectChanges()
 
     // Type with spaces around the search term
@@ -2944,7 +2946,7 @@ describe('QuangAutocompleteComponent - E2E Tab Navigation', () => {
   template: `
     <form [formGroup]="form">
       <quang-autocomplete
-        [chipsPosition]="chipsPosition"
+        [chipsPosition]="chipsPosition()"
         [multiple]="true"
         [searchTextDebounce]="50"
         [selectOptions]="options"
@@ -2967,7 +2969,7 @@ class TestHostChipsPositionComponent {
     { label: 'Option 3', value: 'opt3' },
   ]
 
-  chipsPosition: 'top' | 'bottom' = 'top'
+  chipsPosition = signal<'top' | 'bottom'>('top')
 }
 
 describe('QuangAutocompleteComponent - Chips Position Snapshot Tests', () => {
@@ -2994,7 +2996,7 @@ describe('QuangAutocompleteComponent - Chips Position Snapshot Tests', () => {
   })
 
   it('should match snapshot with chips at top position', async () => {
-    hostComponent.chipsPosition = 'top'
+    hostComponent.chipsPosition.set('top')
     hostFixture.detectChanges()
     await vi.advanceTimersByTimeAsync(0)
     hostFixture.detectChanges()
@@ -3004,7 +3006,7 @@ describe('QuangAutocompleteComponent - Chips Position Snapshot Tests', () => {
   })
 
   it('should match snapshot with chips at bottom position', async () => {
-    hostComponent.chipsPosition = 'bottom'
+    hostComponent.chipsPosition.set('bottom')
     hostFixture.detectChanges()
     await vi.advanceTimersByTimeAsync(0)
     hostFixture.detectChanges()
@@ -3014,7 +3016,7 @@ describe('QuangAutocompleteComponent - Chips Position Snapshot Tests', () => {
   })
 
   it('should have chips-container with horizontal flex layout', async () => {
-    hostComponent.chipsPosition = 'top'
+    hostComponent.chipsPosition.set('top')
     hostFixture.detectChanges()
     await vi.advanceTimersByTimeAsync(0)
     hostFixture.detectChanges()
@@ -3027,7 +3029,7 @@ describe('QuangAutocompleteComponent - Chips Position Snapshot Tests', () => {
   })
 
   it('should add chips-bottom class when chipsPosition is bottom', async () => {
-    hostComponent.chipsPosition = 'bottom'
+    hostComponent.chipsPosition.set('bottom')
     hostFixture.detectChanges()
     await vi.advanceTimersByTimeAsync(0)
     hostFixture.detectChanges()
@@ -3037,7 +3039,7 @@ describe('QuangAutocompleteComponent - Chips Position Snapshot Tests', () => {
   })
 
   it('should not have chips-bottom class when chipsPosition is top', async () => {
-    hostComponent.chipsPosition = 'top'
+    hostComponent.chipsPosition.set('top')
     hostFixture.detectChanges()
     await vi.advanceTimersByTimeAsync(0)
     hostFixture.detectChanges()
