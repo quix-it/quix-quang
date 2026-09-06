@@ -29,7 +29,7 @@ export class QuangIsAuthenticatedDirective {
 
   hideViewIfNotAuthenticated = effect(() => {
     if (this.authService.isAuthenticated()) {
-      if (!this.embeddedViewRef) this.viewContainerRef.createEmbeddedView(this.templateRef)
+      if (!this.embeddedViewRef) this.embeddedViewRef = this.viewContainerRef.createEmbeddedView(this.templateRef)
     } else {
       this.viewContainerRef.clear()
       this.embeddedViewRef = null
