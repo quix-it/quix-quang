@@ -321,6 +321,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   /** Subscription to form value changes */
   private formValueChangeSubscription: Subscription | undefined = undefined
 
+  /** Chip element carrying the keydown listener, with its handler, so it is registered only once */
+  private chipKeydownListener: { element: HTMLElement; handler: (event: KeyboardEvent) => void } | undefined = undefined
+
   // ============================================
   // EFFECTS - Reactive side effects
   // ============================================
@@ -783,7 +786,12 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       if (chips.length > 0) {
         const lastChip = chips[chips.length - 1]
         lastChip.focus()
-        lastChip.addEventListener('keydown', (event: KeyboardEvent) => {
+        // Drop the previous registration: this method runs on every keydown of the input,
+        // so without it the same chip accumulates one listener per Backspace.
+        if (this.chipKeydownListener) {
+          this.chipKeydownListener.element.removeEventListener('keydown', this.chipKeydownListener.handler)
+        }
+        const handler = (event: KeyboardEvent) => {
           if (event.key === 'Backspace') {
             event.preventDefault()
             this.deleteChip(this._chipList()[this._chipList().length - 1])
@@ -791,7 +799,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
             return
           }
           event.preventDefault()
-        })
+        }
+        this.chipKeydownListener = { element: lastChip, handler }
+        lastChip.addEventListener('keydown', handler)
       }
     }
   }
