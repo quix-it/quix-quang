@@ -1,0 +1,16 @@
+# Osservazioni sul codice
+
+Righe aggiunte dai run di documentazione automatica. `Ticket: —` significa osservazione in attesa,
+non osservazione già segnalata.
+
+| Repo | Punto | Osservazione | Vista a | Ticket |
+| --- | --- | --- | --- | --- |
+| quix-quang | `projects/quang/index.ts:provideQuangConfig` | il flag `overlayUsePopover` non ha lettori: la chiave `usePopover` che registra su `OVERLAY_DEFAULT_CONFIG` non è letta da nessuna parte nel repo, e il provider sostituisce il valore del token invece di estenderlo | 68c44102 | QUANG-281 |
+| quix-quang | `projects/quang/components/table/table.component.ts:_tdWithPropertiesEffect` | scrive chiavi arbitrarie di `cell.properties` su `nativeElement`, aggirando la sanificazione di Angular; il `JSON.parse` dell'attributo `data-properties` non è protetto e gira dentro un `effect()` | 68c44102 | QUANG-282 |
+| quix-quang | `projects/quang/auth/directives/is-authenticated.directive.ts:QuangIsAuthenticatedDirective` | il ramo autenticato dell'effect non assegna il risultato di `createEmbeddedView` a `embeddedViewRef`: la guardia resta sempre vera e ogni rivalutazione aggiunge una view senza togliere la precedente. Le tre direttive sorelle assegnano | 68c44102 | QUANG-285 |
+| quix-quang | `projects/quang/components/autocomplete/autocomplete.component.ts:handleInputKeydown` | registra un listener `keydown` sull'ultimo chip a ogni Backspace sulla casella, senza rimuoverlo né controllare se c'è già: i listener si sommano sullo stesso bottone e un solo Backspace cancella più chip | 68c44102 | QUANG-286 |
+| quix-quang | `projects/quang/auth/auth-providers.ts:withAuth` | si dichiara `QuangFeatureKind.LoaderFeature` invece di `AuthFeature`, che resta l'unico valore dell'enum mai usato. Innocuo a runtime — `ɵkind` non è letto da nessuna parte — ma il tipo di ritorno mente sulla feature | 68c44102 | QUANG-290 |
+| quix-quang | `projects/quang/index.ts:QUANG_CONFIG` | il token è dichiarato ed esportato ma non viene registrato da `provideQuangConfig` né iniettato in nessun punto del repo: chi lo inietta non riceve la configurazione | 68c44102 | QUANG-289 |
+| quix-quang | `projects/quang/components/date/date.component.ts:setupCalendar` | il callback `onShow` passato da fuori con `datepickerOptions` viene invocato solo quando l'animazione non è completa **e** il timepicker è attivo: le due condizioni prima escono con `return`, quindi nel caso comune non viene chiamato. `onSelect` e `onHide` invece invocano sempre il callback dell'utente | 6252424 | — |
+| quix-quang | `projects/quang/components/input/input.component.html:bottone della password` | il bottone che mostra e nasconde la password porta `aria-label="calendar-button"` e il riferimento di template `#calendarButton`, copiati dal componente date: uno screen reader annuncia un bottone del calendario dentro un campo password | 6252424 | — |
+| quix-quang | `projects/quang/components/shared/quang-base-component.directive.ts:onChangedEventHandler` | propaga `inputElement.value as T` senza conversione: con `quang-input` e `componentType="number"` il `FormControl` riceve una stringa, benché il componente sia tipato `string \| number`. Il cast nasconde la differenza al compilatore | 6252424 | — |
