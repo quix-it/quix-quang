@@ -14,7 +14,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Date | feature | `projects/quang/components/date/` | `features/date.md` | `6252424` |
 | Input | feature | `projects/quang/components/input/` | `features/input.md` | `6252424` |
 | Paginator | feature | `projects/quang/components/paginator/` | `features/paginator.md` | `6252424` |
-| Radio group | feature | `projects/quang/components/radio-group/` | `features/radio-group.md` | — |
+| Radio group | feature | `projects/quang/components/radio-group/` | `features/radio-group.md` | `6252424` |
 | Select | feature | `projects/quang/components/select/` | `features/select.md` | — |
 | Table | feature | `projects/quang/components/table/` | `features/table.md` | — |
 | Tabs | feature | `projects/quang/components/tabs/` | `features/tabs.md` | — |
