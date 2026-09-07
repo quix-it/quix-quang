@@ -13,7 +13,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Checkbox | feature | `projects/quang/components/checkbox/` | `features/checkbox.md` | `6252424` |
 | Date | feature | `projects/quang/components/date/` | `features/date.md` | `6252424` |
 | Input | feature | `projects/quang/components/input/` | `features/input.md` | `6252424` |
-| Paginator | feature | `projects/quang/components/paginator/` | `features/paginator.md` | — |
+| Paginator | feature | `projects/quang/components/paginator/` | `features/paginator.md` | `6252424` |
 | Radio group | feature | `projects/quang/components/radio-group/` | `features/radio-group.md` | — |
 | Select | feature | `projects/quang/components/select/` | `features/select.md` | — |
 | Table | feature | `projects/quang/components/table/` | `features/table.md` | — |
