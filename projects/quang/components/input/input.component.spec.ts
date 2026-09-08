@@ -140,6 +140,51 @@ class TrimHostComponent {
   form = new FormGroup({ field: new FormControl<string | null>(null) })
 }
 
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <quang-input
+        [showHidePasswordButton]="true"
+        componentType="password"
+        formControlName="password"
+      />
+    </form>
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangInputComponent],
+})
+class PasswordHostComponent {
+  form = new FormGroup({ password: new FormControl<string | null>(null) })
+}
+
+describe('QuangInputComponent - show/hide password button', () => {
+  let fixture: ComponentFixture<PasswordHostComponent>
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [PasswordHostComponent],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    fixture = TestBed.createComponent(PasswordHostComponent)
+    fixture.detectChanges()
+  })
+
+  it('does not announce the show/hide password button as the calendar button', () => {
+    const button = fixture.debugElement.query(By.css('quang-input button.btn-outline-password'))
+    expect(button).not.toBeNull()
+
+    expect((button.nativeElement as HTMLButtonElement).getAttribute('aria-label')).not.toBe('calendar-button')
+  })
+
+  it('announces the show/hide password button as the command that shows and hides the password', () => {
+    const button = fixture.debugElement.query(By.css('quang-input button.btn-outline-password'))
+    expect(button).not.toBeNull()
+
+    expect((button.nativeElement as HTMLButtonElement).getAttribute('aria-label')).toContain('password')
+  })
+})
+
 describe('QuangInputComponent - trim', () => {
   let fixture: ComponentFixture<TrimHostComponent>
   let host: TrimHostComponent
