@@ -16,7 +16,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Paginator | feature | `projects/quang/components/paginator/` | `features/paginator.md` | `6252424` |
 | Radio group | feature | `projects/quang/components/radio-group/` | `features/radio-group.md` | `6252424` |
 | Select | feature | `projects/quang/components/select/` | `features/select.md` | `6252424` |
-| Table | feature | `projects/quang/components/table/` | `features/table.md` | — |
+| Table | feature | `projects/quang/components/table/` | `features/table.md` | `6252424` |
 | Tabs | feature | `projects/quang/components/tabs/` | `features/tabs.md` | — |
 | Wysiwyg | feature | `projects/quang/components/wysiwyg/` | `features/wysiwyg.md` | — |
 | Conversione e download | feature | `projects/quang/data-handling/` | `features/conversione-e-download.md` | — |
