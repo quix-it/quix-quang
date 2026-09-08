@@ -17,7 +17,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Radio group | feature | `projects/quang/components/radio-group/` | `features/radio-group.md` | `6252424` |
 | Select | feature | `projects/quang/components/select/` | `features/select.md` | `6252424` |
 | Table | feature | `projects/quang/components/table/` | `features/table.md` | `6252424` |
-| Tabs | feature | `projects/quang/components/tabs/` | `features/tabs.md` | — |
+| Tabs | feature | `projects/quang/components/tabs/` | `features/tabs.md` | `6252424` |
 | Wysiwyg | feature | `projects/quang/components/wysiwyg/` | `features/wysiwyg.md` | — |
 | Conversione e download | feature | `projects/quang/data-handling/` | `features/conversione-e-download.md` | — |
 | Osservazione del ridimensionamento | feature | `projects/quang/device/` | `features/osservazione-ridimensionamento.md` | — |
