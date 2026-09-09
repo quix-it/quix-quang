@@ -21,7 +21,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Wysiwyg | feature | `projects/quang/components/wysiwyg/` | `features/wysiwyg.md` | `6252424` |
 | Conversione e download | feature | `projects/quang/data-handling/` | `features/conversione-e-download.md` | `6252424` |
 | Osservazione del ridimensionamento | feature | `projects/quang/device/` | `features/osservazione-ridimensionamento.md` | `6252424` |
-| Form e validatori | feature | `projects/quang/forms/` | `features/form-e-validatori.md` | — |
+| Form e validatori | feature | `projects/quang/forms/` | `features/form-e-validatori.md` | `6252424` |
 | Loader | feature | `projects/quang/loader/` | `features/loader.md` | — |
 | Modal | feature | `projects/quang/overlay/modal/` | `features/modal.md` | — |
 | Popover | feature | `projects/quang/overlay/popover/` | `features/popover.md` | — |
