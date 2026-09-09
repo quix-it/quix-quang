@@ -65,4 +65,18 @@ export class QuangInputComponent extends QuangBaseComponent<string | number> {
   onTogglePasswordVisibility(): void {
     this.showPassword.update((current) => !current)
   }
+
+  override onChangedEventHandler($event: Event) {
+    if (this.componentType() !== 'number') {
+      super.onChangedEventHandler($event)
+      return
+    }
+
+    // `inputElement.value` è sempre una stringa: senza conversione il `FormControl` di un campo
+    // numerico riceve `"12"` invece di `12`. Un campo svuotato — e ogni valore intermedio che il
+    // browser non sa rappresentare come numero — espone la stringa vuota, e vale `null`, che è la
+    // convenzione dei form Angular per un controllo numerico vuoto: non `0`, non `NaN`.
+    const rawValue = ($event.target as HTMLInputElement).value
+    this.onChangedHandler((rawValue === '' ? null : Number(rawValue)) as string | number)
+  }
 }
