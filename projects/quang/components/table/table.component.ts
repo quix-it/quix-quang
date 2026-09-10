@@ -43,6 +43,13 @@ export interface TableCell {
   cellId?: string | number
 }
 
+/**
+ * Keys of {@link TableCell.properties} that are never written on the cell element:
+ * they would inject markup in the document bypassing Angular sanitization, or
+ * replace the element prototype.
+ */
+const UNSAFE_CELL_PROPERTY_KEYS = new Set(['innerHTML', 'outerHTML', 'insertAdjacentHTML', '__proto__'])
+
 export interface TableRow<T> {
   payload?: T
   rowId?: string | number
@@ -113,9 +120,16 @@ export class QuangTableComponent<T> {
     for (const tdWithProperty of this.tdWithProperties()) {
       const properties = tdWithProperty.nativeElement.getAttribute('data-properties')
       if (properties) {
-        const propertiesObj = JSON.parse(properties)
+        let propertiesObj: Record<string, unknown>
+        try {
+          propertiesObj = JSON.parse(properties)
+        } catch {
+          continue
+        }
         for (const key of Object.keys(propertiesObj)) {
-          // console.log('key', key, propertiesObj[key])
+          if (UNSAFE_CELL_PROPERTY_KEYS.has(key)) {
+            continue
+          }
           tdWithProperty.nativeElement[key] = propertiesObj[key]
         }
       }
