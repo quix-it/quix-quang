@@ -97,6 +97,34 @@ class TestHostTemplatedComponent {
   }
 }
 
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <quang-select
+        [selectOptions]="options"
+        (componentBlur)="blurCount = blurCount + 1"
+        formControlName="country"
+        selectionMode="multiple"
+      />
+    </form>
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangSelectComponent],
+})
+class TestHostMultipleComponent {
+  form = new FormGroup({
+    country: new FormControl<string[] | null>(null),
+  })
+
+  blurCount = 0
+
+  options: SelectOption[] = [
+    { label: 'Italy', value: 'IT' },
+    { label: 'France', value: 'FR' },
+    { label: 'Germany', value: 'DE' },
+  ]
+}
+
 describe('QuangSelectComponent', () => {
   let fixture: ComponentFixture<TestHostComponent>
   let hostComponent: TestHostComponent
@@ -202,5 +230,47 @@ describe('QuangSelectComponent', () => {
     expect(custom).toBeTruthy()
     expect(custom?.textContent).toContain('Custom France')
     expect(custom?.textContent).toContain('selected: true')
+  })
+})
+
+describe('QuangSelectComponent in multiple mode', () => {
+  let fixture: ComponentFixture<TestHostMultipleComponent>
+  let hostComponent: TestHostMultipleComponent
+  let selectComponent: QuangSelectComponent
+
+  beforeEach(async () => {
+    Element.prototype.scrollIntoView = vi.fn()
+
+    await TestBed.configureTestingModule({
+      imports: [TestHostMultipleComponent, NoopAnimationsModule],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    fixture = TestBed.createComponent(TestHostMultipleComponent)
+    hostComponent = fixture.componentInstance
+    fixture.detectChanges()
+    selectComponent = fixture.debugElement.query(By.directive(QuangSelectComponent)).componentInstance
+  })
+
+  afterEach(() => {
+    fixture.destroy()
+  })
+
+  it('should mark the form control as touched on blur in multiple mode', () => {
+    expect(hostComponent.form.get('country')?.touched).toBe(false)
+
+    selectComponent.onBlurHandler()
+    fixture.detectChanges()
+
+    expect(hostComponent.form.get('country')?.touched).toBe(true)
+  })
+
+  it('should emit componentBlur on blur in multiple mode', () => {
+    expect(hostComponent.blurCount).toBe(0)
+
+    selectComponent.onBlurHandler()
+    fixture.detectChanges()
+
+    expect(hostComponent.blurCount).toBe(1)
   })
 })
