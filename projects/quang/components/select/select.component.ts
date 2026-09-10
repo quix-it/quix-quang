@@ -126,8 +126,8 @@ export class QuangSelectComponent
   override onBlurHandler() {
     if (this.selectionMode() === 'single') {
       this.hideOptionVisibility()
-      super.onBlurHandler()
     }
+    super.onBlurHandler()
   }
 
   override onChangedHandler(value: string | number | string[] | number[] | null): void {
