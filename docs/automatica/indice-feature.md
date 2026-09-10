@@ -31,7 +31,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Playground | feature | `projects/playground/` | `features/playground.md` | — |
 | Base dei componenti | condiviso | `projects/quang/components/shared/` | `condivisi/base-componenti.md` | `6252424` |
 | Base degli overlay | condiviso | `projects/quang/overlay/shared/`, `projects/quang/overlay/global-overlay.scss` | `condivisi/base-overlay.md` | — |
-| Utility per interceptor | condiviso | `projects/quang/shared/` | `condivisi/utility-interceptor.md` | — |
+| Utility per interceptor | condiviso | `projects/quang/shared/` | `condivisi/utility-interceptor.md` | `6252424` |
 
 I tre `condiviso` sono tali perché non hanno un ingresso proprio per chi usa la libreria e almeno due
 feature ne dipendono: `components/shared/` è importato da nove componenti, `overlay/shared/` da
