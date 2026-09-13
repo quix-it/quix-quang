@@ -9,8 +9,8 @@
   @if (sizeList().length > 0) {
     <div class="me-3">
       <label
+        [for]="componentId() + '-quang-page-size'"
         class="form-label pagination-label mb-0 text-center"
-        for="pageSize"
       >
         {{ sizeText() | transloco }}
       </label>
@@ -21,7 +21,6 @@
         #input
         autocomplete="off"
         class="form-select page-size"
-        id="pageSize"
         name="pageSize"
       >
         @for (pageSize of sizeList(); track pageSize) {
