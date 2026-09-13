@@ -22,9 +22,9 @@ l'applicazione dimostrativa `projects/playground/`.
 | Conversione e download | feature | `projects/quang/data-handling/` | `features/conversione-e-download.md` | `6252424` |
 | Osservazione del ridimensionamento | feature | `projects/quang/device/` | `features/osservazione-ridimensionamento.md` | `6252424` |
 | Form e validatori | feature | `projects/quang/forms/` | `features/form-e-validatori.md` | `6252424` |
-| Loader | feature | `projects/quang/loader/` | `features/loader.md` | — |
-| Modal | feature | `projects/quang/overlay/modal/` | `features/modal.md` | — |
-| Popover | feature | `projects/quang/overlay/popover/` | `features/popover.md` | — |
+| Loader | feature | `projects/quang/loader/` | `features/loader.md` | `6252424` |
+| Modal | feature | `projects/quang/overlay/modal/` | `features/modal.md` | `6252424` |
+| Popover | feature | `projects/quang/overlay/popover/` | `features/popover.md` | `6252424` |
 | Toast | feature | `projects/quang/overlay/toast/` | `features/toast.md` | — |
 | Tooltip | feature | `projects/quang/overlay/tooltip/` | `features/tooltip.md` | — |
 | Traduzioni | feature | `projects/quang/translation/` | `features/traduzioni.md` | — |
