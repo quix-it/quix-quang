@@ -25,7 +25,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Loader | feature | `projects/quang/loader/` | `features/loader.md` | `6252424` |
 | Modal | feature | `projects/quang/overlay/modal/` | `features/modal.md` | `6252424` |
 | Popover | feature | `projects/quang/overlay/popover/` | `features/popover.md` | `6252424` |
-| Toast | feature | `projects/quang/overlay/toast/` | `features/toast.md` | — |
+| Toast | feature | `projects/quang/overlay/toast/` | `features/toast.md` | `6252424` |
 | Tooltip | feature | `projects/quang/overlay/tooltip/` | `features/tooltip.md` | — |
 | Traduzioni | feature | `projects/quang/translation/` | `features/traduzioni.md` | — |
 | Playground | feature | `projects/playground/` | `features/playground.md` | — |
