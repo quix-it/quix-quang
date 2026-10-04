@@ -540,6 +540,20 @@ describe('QuangTabsComponent', () => {
       expect(buttons[0].classList.contains('flex-grow-1')).toBe(true)
     })
 
+    it('should expose the tabs container as a tablist', () => {
+      const container = fixture.nativeElement.querySelector('#tabs-container') as HTMLElement
+      expect(container.getAttribute('role')).toBe('tablist')
+    })
+
+    it('should expose each tab button with role tab and its selection state', () => {
+      host.form.patchValue({ selectedTab: 'tab2' })
+      fixture.detectChanges()
+
+      const buttons = fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>
+      expect(Array.from(buttons).map((b) => b.getAttribute('role'))).toEqual(['tab', 'tab', 'tab'])
+      expect(Array.from(buttons).map((b) => b.getAttribute('aria-selected'))).toEqual(['false', 'true', 'false'])
+    })
+
     it('should handle keyboard navigation', () => {
       const buttons = fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>
 
