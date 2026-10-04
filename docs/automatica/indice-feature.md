@@ -48,4 +48,5 @@ codice da documentare. Diventerà una voce quando avrà del codice.
 `.github/`, `.vscode/`, `scripts/`, `docs/`, `**/node_modules/`, `**/dist/`, `**/.angular/`,
 `**/coverage/`, `**/test-results/`, `**/ng-package.json`, `**/package.json`,
 `.commitlintrc.json`, `.editorconfig`, `.gitignore`, `.lintstagedrc.json`, `.prettierignore`,
-`.prettierrc`, `projects/quang/test-setup.ts`, `**/.gitkeep`, `CHANGELOG.md`, `**/README*.md`
+`.prettierrc`, `projects/quang/test-setup.ts`, `**/.gitkeep`, `CHANGELOG.md`, `**/README*.md`,
+`.nvmrc`, `projects/quang/eslint.config.mjs`, `CLAUDE.md`
