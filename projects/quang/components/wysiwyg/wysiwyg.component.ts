@@ -13,7 +13,14 @@ import {
   viewChild,
 } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
-import { AbstractControl, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms'
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator,
+  Validators,
+} from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangTooltipDirective } from 'quang/overlay/tooltip'
@@ -37,6 +44,11 @@ export type QuangWysiwygOptions = SunEditorOptions
       useExisting: forwardRef(() => QuangWysiwygComponent),
       multi: true,
     },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => QuangWysiwygComponent),
+      multi: true,
+    },
   ],
   imports: [TranslocoPipe, NgClass, QuangTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,7 +65,7 @@ export type QuangWysiwygOptions = SunEditorOptions
  *
  * The height of the editor can be customized by setting the `minHeight` property. By default, it is `200px`.
  */
-export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit {
+export class QuangWysiwygComponent extends QuangBaseComponent<string> implements AfterViewInit, Validator {
   _inputForWysiwyg = viewChild<ElementRef>('inputForWysiwyg')
 
   minHeight = input<string | undefined>('200px')
@@ -193,14 +205,6 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
       return { required: true }
     }
     return null
-  }
-
-  override onChangedHandler(value: string): void {
-    super.onChangedHandler(value)
-    const control = this._ngControl()
-    if (control?.control) {
-      if (this.validate(control.control)) control.control.setErrors(this.validate(control.control))
-    }
   }
 
   getButtonList(): string[] {
