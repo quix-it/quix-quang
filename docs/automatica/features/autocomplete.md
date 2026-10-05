@@ -44,12 +44,15 @@ aggiornare quando c'è corrispondenza, se azzerare il testo — e con quelli dis
 - nessuna corrispondenza e testo libero attivo → il testo diventa il valore. Solo qui interviene
   `trim` della base: sul blur il testo viene ripulito ai bordi se l'input `trim` è attivo, mentre
   durante la digitazione resta grezzo;
-- sul blur con casella vuota, oppure senza corrispondenza e senza testo libero → il valore viene
-  azzerato a `null`. È la regola che impedisce di lasciare nel form un residuo di testo che non
-  corrisponde a niente;
-- durante la digitazione, senza corrispondenza e senza testo libero → il valore viene svuotato ma
-  **senza** uscire dal modo ricerca, altrimenti la casella tornerebbe all'etichetta precedente sotto
-  le dita dell'utente.
+- sul blur con casella vuota, oppure senza testo libero e senza un'opzione da auto-selezionare
+  (nessuna corrispondenza, o corrispondenza con l'auto-selezione spenta) → il valore viene azzerato a
+  `null`. È la regola che impedisce di lasciare nel form un residuo di testo che non corrisponde a
+  niente;
+- durante la digitazione, senza corrispondenza e senza testo libero → il valore viene svuotato (a
+  stringa vuota, non a `null`) ma **senza** uscire dal modo ricerca, altrimenti la casella tornerebbe
+  all'etichetta precedente sotto le dita dell'utente. Succede solo con `updateValueOnType` attivo: con
+  il default spento la digitazione non tocca il valore del form, e il vecchio valore resta finché il
+  blur non decide.
 
 Se l'opzione trovata è già quella selezionata il metodo esce subito: evita di rilanciare un
 `onChange` identico a ogni blur.
@@ -57,8 +60,10 @@ Se l'opzione trovata è già quella selezionata il metodo esce subito: evita di 
 La scrittura in `searchTextChange` passa da un `setTimeout` con il debounce configurato, non da un
 operatore RxJS. Il timer viene azzerato alla distruzione del componente e il callback controlla un
 flag di distruzione prima di procedere; ricorda anche l'ultimo testo emesso e salta i duplicati. Lo
-stesso callback, dopo aver emesso, aggiorna il valore del form: aggiorna anche in caso di mancata
-corrispondenza quando `updateValueOnType` o il testo libero sono attivi.
+stesso callback, dopo aver emesso, passa il testo al metodo unico senza uscire dal modo ricerca. Se
+il valore del form cambia durante la digitazione dipende da `updateValueOnType` e dal testo libero:
+con almeno uno dei due attivi il valore segue il testo (opzione corrispondente, testo libero o
+svuotamento); con entrambi spenti — il default — il callback emette soltanto.
 
 Il filtro interno è per sottostringa sull'etichetta, senza distinzione di maiuscole. Con
 `internalFilterOptions` a falso il componente non filtra: passa la lista intera e lascia il filtro a
@@ -87,8 +92,9 @@ comportamento proprio solo quando serve — in multipla con testo libero aggiung
 corrisponde, o il testo digitato), e in singola con testo libero interviene solo quando la lista
 filtrata è vuota, perché altrimenti la scelta la fa la tendina.
 
-Il registro delle osservazioni annota un punto di questo file: il listener di tastiera aggiunto
-all'ultimo chip a ogni Backspace (`docs/automatica/osservazioni.md`).
+Il registro delle osservazioni annota due punti di questo file: il listener di tastiera aggiunto
+all'ultimo chip a ogni Backspace, e il commento del callback di debounce che descrive uno
+svuotamento che il codice non fa (`docs/automatica/osservazioni.md`).
 
 ## Dipende da
 
