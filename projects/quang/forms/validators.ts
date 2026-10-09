@@ -165,7 +165,11 @@ export function isVatNumber(localeList: EuroLocale[]) {
   return (control: AbstractControl): ValidationErrors | null => {
     let isInvalidVat = true
     for (const locale of localeList) {
-      if (europeanVatNumber[locale]?.test(control?.value)) {
+      const vatRegex = europeanVatNumber[locale]
+      if (!vatRegex) continue
+      // the patterns carry the g flag: test() resumes from lastIndex, so reset it before each check
+      vatRegex.lastIndex = 0
+      if (vatRegex.test(control?.value)) {
         isInvalidVat = false
         break
       }
