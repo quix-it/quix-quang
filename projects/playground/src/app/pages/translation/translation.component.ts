@@ -19,7 +19,7 @@ export class TranslationComponent {
   translationFunctions = [
     {
       functionName: 'provideTranslation',
-      import: "import { provideTranslation } from 'quang/translation/translation-providers';",
+      import: "import { provideTranslation } from 'quang/translation';",
       exampleUsage: `provideTranslation({
   availableLangs: ['it', 'en'],
   defaultLang: 'it',
@@ -29,7 +29,7 @@ export class TranslationComponent {
     },
     {
       functionName: 'withTranslation',
-      import: "import { withTranslation } from 'quang/translation/translation-providers';",
+      import: "import { withTranslation } from 'quang/translation';",
       exampleUsage: `withTranslation({
   availableLangs: ['it', 'en'],
   defaultLang: 'it',
@@ -40,42 +40,42 @@ export class TranslationComponent {
     {
       functionName: 'setActiveLang',
       import:
-        "import { QuangTranslationService } from 'quang/translation/translation.service';\nprivate readonly translation = inject(QuangTranslationService);",
+        "import { QuangTranslationService } from 'quang/translation';\nprivate readonly translation = inject(QuangTranslationService);",
       exampleUsage: `this.translation.setActiveLang('en');`,
       explanationKey: 'translation.functions.setActiveLang',
     },
     {
       functionName: 'getActiveLang',
       import:
-        "import { QuangTranslationService } from 'quang/translation/translation.service';\nprivate readonly translation = inject(QuangTranslationService);",
+        "import { QuangTranslationService } from 'quang/translation';\nprivate readonly translation = inject(QuangTranslationService);",
       exampleUsage: `lang = this.translation.getActiveLang();`,
       explanationKey: 'translation.functions.getActiveLang',
     },
     {
       functionName: 'translate',
       import:
-        "import { QuangTranslationService } from 'quang/translation/translation.service';\nprivate readonly translation = inject(QuangTranslationService);",
+        "import { QuangTranslationService } from 'quang/translation';\nprivate readonly translation = inject(QuangTranslationService);",
       exampleUsage: `this.translation.translate('menu.device');`,
       explanationKey: 'translation.functions.translate',
     },
     {
       functionName: 'setTranslation',
       import:
-        "import { QuangTranslationService } from 'quang/translation/translation.service';\nprivate readonly translation = inject(QuangTranslationService);",
+        "import { QuangTranslationService } from 'quang/translation';\nprivate readonly translation = inject(QuangTranslationService);",
       exampleUsage: `this.translation.setTranslation({ key: 'value' }, 'en');`,
       explanationKey: 'translation.functions.setTranslation',
     },
     {
       functionName: 'setTranslationKey',
       import:
-        "import { QuangTranslationService } from 'quang/translation/translation.service';\nprivate readonly translation = inject(QuangTranslationService);",
+        "import { QuangTranslationService } from 'quang/translation';\nprivate readonly translation = inject(QuangTranslationService);",
       exampleUsage: `this.translation.setTranslationKey('key', 'value');`,
       explanationKey: 'translation.functions.setTranslationKey',
     },
     {
       functionName: 'translations.tokens',
       import:
-        "import { AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH } from 'quang/translation/translations.tokens';",
+        "import { AVAILABLE_LANGS, DEFAULT_LANG, FALLBACK_LANG, TRANSLATIONS_BASE_PATH } from 'quang/translation';",
       exampleUsage: `{
   provide: AVAILABLE_LANGS, useValue: ['it', 'en'],
   provide: DEFAULT_LANG, useValue: 'it',
