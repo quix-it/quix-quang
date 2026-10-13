@@ -523,3 +523,53 @@ describe('QuangOptionListComponent - Scrollable Parent Detection', () => {
     expect(optionListComponent.getScrollParent(undefined)).toBe(document.body)
   })
 })
+
+describe('QuangOptionListComponent - Scroll parent listener', () => {
+  let fixture: ComponentFixture<QuangOptionListComponent>
+  let optionListComponent: QuangOptionListComponent
+  let firstButton: HTMLButtonElement
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [QuangOptionListComponent, NoopAnimationsModule, TranslocoTestingModule.forRoot({})],
+    }).compileComponents()
+
+    firstButton = document.createElement('button')
+    document.body.appendChild(firstButton)
+
+    fixture = TestBed.createComponent(QuangOptionListComponent)
+    fixture.componentRef.setInput('selectButtonRef', firstButton)
+    fixture.componentRef.setInput('parentType', OptionListParentType.SELECT)
+    fixture.detectChanges()
+    optionListComponent = fixture.componentInstance
+  })
+
+  afterEach(() => {
+    fixture.destroy()
+    firstButton.remove()
+  })
+
+  it('stops recalculating the list position on scroll after the component is destroyed', () => {
+    const scrollParent = optionListComponent.getScrollParent(firstButton)
+    const getOptionListTopSpy = vi.spyOn(optionListComponent, 'getOptionListTop')
+
+    fixture.destroy()
+    scrollParent.dispatchEvent(new Event('scroll'))
+
+    expect(getOptionListTopSpy).not.toHaveBeenCalled()
+  })
+
+  it('keeps one scroll listener on the scroll parent when selectButtonRef changes', () => {
+    const secondButton = document.createElement('button')
+    document.body.appendChild(secondButton)
+    fixture.componentRef.setInput('selectButtonRef', secondButton)
+    fixture.detectChanges()
+
+    const scrollParent = optionListComponent.getScrollParent(secondButton)
+    const getOptionListTopSpy = vi.spyOn(optionListComponent, 'getOptionListTop')
+    scrollParent.dispatchEvent(new Event('scroll'))
+
+    expect(getOptionListTopSpy).toHaveBeenCalledTimes(1)
+    secondButton.remove()
+  })
+})
