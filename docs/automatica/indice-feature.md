@@ -40,6 +40,12 @@ popover e tooltip, `shared/` dagli interceptor di `auth` e `loader`.
 `projects/quang/networking/` contiene solo un `.gitkeep`: è un'area predisposta e ancora vuota, senza
 codice da documentare. Diventerà una voce quando avrà del codice.
 
+## Processi e ricette
+
+| Nome | Tipo | Path attraversati | Scheda | Documentata a |
+|---|---|---|---|---|
+| Aggiungere o estendere un componente con la sua showcase | ricetta | `projects/quang/components/autocomplete/`, `projects/quang/components/checkbox/`, `projects/quang/components/date/`, `projects/quang/components/input/`, `projects/quang/components/paginator/`, `projects/quang/components/radio-group/`, `projects/quang/components/select/`, `projects/quang/components/table/`, `projects/quang/components/tabs/`, `projects/quang/components/wysiwyg/`, `projects/playground/` | `ricette/componente-e-showcase.md` | `f2b37bb` |
+
 ## Non documentabile
 
 `package.json`, `package-lock.json`, `pnpm-lock.yaml`, `angular.json`, `tsconfig*.json`,
