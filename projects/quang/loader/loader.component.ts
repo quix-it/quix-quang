@@ -32,8 +32,17 @@ export class QuangLoaderComponent {
 
   isLoading = this.loaderService.isLoading
 
+  private shownAt = 0
+
   showLoaderBuffer$ = toObservable(this.isLoading).pipe(
-    map((isLoading) => (isLoading ? of(isLoading) : timer(this.showAtLeastFor()).pipe(map(() => isLoading)))),
+    map((isLoading) => {
+      if (isLoading) {
+        this.shownAt = Date.now()
+        return of(isLoading)
+      }
+      const remaining = this.showAtLeastFor() - (Date.now() - this.shownAt)
+      return remaining > 0 ? timer(remaining).pipe(map(() => isLoading)) : of(isLoading)
+    }),
     switchAll()
   )
 
