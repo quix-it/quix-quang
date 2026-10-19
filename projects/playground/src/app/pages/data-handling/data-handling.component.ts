@@ -18,19 +18,19 @@ export class DataHandlingComponent {
   conversionFunctions = [
     {
       functionName: 'blobToBase64',
-      import: "import { blobToBase64 } from 'quang/data-handling/conversion';",
+      import: "import { blobToBase64 } from 'quang/data-handling';",
       exampleUsage: 'const base64 = await blobToBase64(blob);',
       explanationKey: 'dataHandling.conversion.functions.blobToBase64',
     },
     {
       functionName: 'base64ToDataUri',
-      import: "import { base64ToDataUri } from 'quang/data-handling/conversion';",
+      import: "import { base64ToDataUri } from 'quang/data-handling';",
       exampleUsage: "base64ToDataUri(base64, 'image/png');",
       explanationKey: 'dataHandling.conversion.functions.base64ToDataUri',
     },
     {
       functionName: 'dataUriToBlob',
-      import: "import { dataUriToBlob } from 'quang/data-handling/conversion';",
+      import: "import { dataUriToBlob } from 'quang/data-handling';",
       exampleUsage: 'const blob = await dataUriToBlob(dataUri);',
       explanationKey: 'dataHandling.conversion.functions.dataUriToBlob',
     },
@@ -39,13 +39,13 @@ export class DataHandlingComponent {
   downloadFunctions = [
     {
       functionName: 'downloadFile',
-      import: "import { downloadFile } from 'quang/data-handling/download';",
+      import: "import { downloadFile } from 'quang/data-handling';",
       exampleUsage: "downloadFile(file, 'example.txt');",
       explanationKey: 'dataHandling.download.functions.downloadFile',
     },
     {
       functionName: 'handleDownload',
-      import: "import { handleDownload } from 'quang/data-handling/download';",
+      import: "import { handleDownload } from 'quang/data-handling';",
       exampleUsage: "handleDownload(response, 'csv');",
       explanationKey: 'dataHandling.download.functions.handleDownload',
     },
