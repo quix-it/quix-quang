@@ -43,7 +43,7 @@ const getTranslocoTestingProviders = () =>
         [multiple]="multiple"
         [searchTextDebounce]="debounce"
         [selectOptions]="options"
-        [syncFormWithText]="syncFormWithText"
+        [syncFormWithText]="syncFormWithText()"
         [translateValue]="translateValue"
         (searchTextChange)="onSearchTextChange($event)"
         (selectedOption)="onOptionSelected($event)"
@@ -73,7 +73,7 @@ class TestHostComponent {
   debounce = 50 // Shorter debounce for tests
   translateValue = false
   emitOnly = false
-  syncFormWithText = false
+  syncFormWithText = signal(false)
 
   selectedValue: string | number | null = null
   searchText = ''
@@ -1234,7 +1234,7 @@ describe('QuangAutocompleteComponent - Bug Fix: Click after clearing input', () 
 
   it('should work with syncFormWithText=true and internalFilterOptions=true', async () => {
     // Configure to match the playground test case
-    hostComponent.syncFormWithText = true
+    hostComponent.syncFormWithText.set(true)
     fixture.detectChanges()
     await vi.advanceTimersByTimeAsync(0)
 

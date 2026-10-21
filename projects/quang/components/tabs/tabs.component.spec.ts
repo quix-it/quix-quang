@@ -506,15 +506,20 @@ describe('QuangTabsComponent', () => {
     })
 
     it('should support form validation', () => {
-      host.form = new FormGroup({
-        selectedTab: new FormControl<string | null>(null, Validators.required),
-      })
+      // Reconfigure the bound control: replacing host.form would leave the component on the old one
+      const control = host.form.controls.selectedTab
+      control.setValidators(Validators.required)
+      control.setValue(null)
       fixture.detectChanges()
 
-      expect(host.form.get('selectedTab')?.invalid).toBe(true)
+      expect(control.invalid).toBe(true)
 
-      host.form.patchValue({ selectedTab: 'tab1' })
-      expect(host.form.get('selectedTab')?.valid).toBe(true)
+      const buttons = fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>
+      buttons[0].click()
+      fixture.detectChanges()
+
+      expect(control.value).toBe('tab1')
+      expect(control.valid).toBe(true)
     })
 
     it('should update form on tab click', () => {
