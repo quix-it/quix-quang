@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, Injectable } from '@angular/core'
+import { ApplicationRef, Component, Injectable, signal } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import {
   AbstractControl,
@@ -303,7 +303,7 @@ class NormalizeTimeOnlyHostComponent {
 @Component({
   template: `
     <quang-date
-      [activeLanguageOverride]="lang"
+      [activeLanguageOverride]="lang()"
       [formControl]="control"
       componentId="locale"
       componentLabel="Locale"
@@ -314,7 +314,7 @@ class NormalizeTimeOnlyHostComponent {
 })
 class LocaleHostComponent {
   control = new FormControl<string | null>(null)
-  lang: string | undefined
+  lang = signal<string | undefined>(undefined)
 }
 
 describe('QuangDateComponent', () => {
@@ -648,17 +648,25 @@ describe('QuangDateComponent - locale and normalization', () => {
     const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
     const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
 
-    host.lang = 'it'
-    fixture.detectChanges()
-    expect(dateCmp.getLocale()).toBeDefined()
+    const enLocale = dateCmp.getLocale()
 
-    host.lang = 'fr'
+    host.lang.set('it')
     fixture.detectChanges()
-    expect(dateCmp.getLocale()).toBeDefined()
+    expect(dateCmp._activeLanguage()).toBe('it')
+    const itLocale = dateCmp.getLocale()
+    expect(itLocale).not.toBe(enLocale)
 
-    host.lang = 'xx'
+    host.lang.set('fr')
     fixture.detectChanges()
-    expect(dateCmp.getLocale()).toBeDefined()
+    expect(dateCmp._activeLanguage()).toBe('fr')
+    const frLocale = dateCmp.getLocale()
+    expect(frLocale).not.toBe(enLocale)
+    expect(frLocale).not.toBe(itLocale)
+
+    // Unknown languages fall back to English
+    host.lang.set('xx')
+    fixture.detectChanges()
+    expect(dateCmp.getLocale()).toBe(enLocale)
   })
 
   it('should preserve date part when showOnlyTimepicker updates value', async () => {

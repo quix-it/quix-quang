@@ -6,7 +6,12 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { TranslocoTestingModule } from '@jsverse/transloco'
 import { vi } from 'vitest'
 
-import { OptionListParentType, QuangOptionListComponent, SelectOption } from './option-list.component'
+import {
+  OptionListParentType,
+  QuangOptionListComponent,
+  QuangSelectOptionTemplateContext,
+  SelectOption,
+} from './option-list.component'
 
 // Test host component to provide required inputs
 @Component({
@@ -40,7 +45,7 @@ import { OptionListParentType, QuangOptionListComponent, SelectOption } from './
 class TestHostComponent {
   buttonRef = viewChild<ElementRef<HTMLButtonElement>>('buttonRef')
 
-  optTpl = viewChild<TemplateRef<unknown>>('optTpl')
+  optTpl = viewChild<TemplateRef<QuangSelectOptionTemplateContext>>('optTpl')
 
   get buttonElement(): HTMLButtonElement {
     return this.buttonRef()?.nativeElement as HTMLButtonElement

@@ -45,7 +45,7 @@
     "@capacitor/browser": "^8.0.0",
     "@capacitor/core": "^8.0.0",
     "@jsverse/transloco": "^7.5.0",
-    "@ngrx/signals": "^21.1.1",
+    "@ngrx/signals": "^22.0.1",
     "air-datepicker": "^3.6.0",
     "angular-oauth2-oidc": "^20.0.2",
     "angular-svg-icon": "^19.1.1",
@@ -96,9 +96,6 @@
   "overrides": {
     "@angular/build": {
       "vitest": "^4.0.15"
-    },
-    "@ngrx/signals": {
-      "@angular/core": "^22.0.0"
     }
   },
   "repository": {
