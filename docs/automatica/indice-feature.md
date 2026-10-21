@@ -1,6 +1,6 @@
 # Indice delle feature
 
-Repo: `quix-quang` — branch di integrazione `quang22` — baseline `6252424`.
+Repo: `quix-quang` — branch di integrazione `quang22` — baseline `863dcdd`.
 
 Libreria Angular `quang` (`projects/quang/`, pubblicata a entry point secondari `quang/<area>`) più
 l'applicazione dimostrativa `projects/playground/`.
@@ -9,7 +9,7 @@ l'applicazione dimostrativa `projects/playground/`.
 |---|---|---|---|---|
 | Configurazione Quang | feature | `projects/quang/index.ts` | `features/configurazione-quang.md` | `68c44102` |
 | Autenticazione | feature | `projects/quang/auth/` | `features/autenticazione.md` | `68c44102` |
-| Autocomplete | feature | `projects/quang/components/autocomplete/` | `features/autocomplete.md` | `6252424` |
+| Autocomplete | feature | `projects/quang/components/autocomplete/` | `features/autocomplete.md` | `863dcdd` |
 | Checkbox | feature | `projects/quang/components/checkbox/` | `features/checkbox.md` | `6252424` |
 | Date | feature | `projects/quang/components/date/` | `features/date.md` | `6252424` |
 | Input | feature | `projects/quang/components/input/` | `features/input.md` | `6252424` |

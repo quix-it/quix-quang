@@ -18,7 +18,8 @@ scelte diventano chip rimovibili e il valore del form è un array.
 - Input propri principali: `selectOptions` (obbligatorio), `allowFreeText`, `autoSelectOnExactMatch`,
   `updateValueOnType`, `multiple`, `internalFilterOptions`, `searchTextDebounce`, `chipMaxLength`,
   `chipsPosition`, `multiSelectDisplayMode`, `optionListMaxHeight`, `translateValue`. `syncFormWithText`
-  è il vecchio nome di `allowFreeText` ed è marcato deprecato.
+  è il vecchio nome di `allowFreeText` ed è marcato deprecato: i due restano entrambi attivi, in
+  `or` (il `computed` `_allowFreeTextInternal`), quindi basta uno dei due a fare il testo libero.
 - Output: `selectedOption` (il valore scelto, o `null`) e `searchTextChange` (il testo digitato, dopo
   il debounce).
 
