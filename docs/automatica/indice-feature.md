@@ -11,7 +11,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Autenticazione | feature | `projects/quang/auth/` | `features/autenticazione.md` | `68c44102` |
 | Autocomplete | feature | `projects/quang/components/autocomplete/` | `features/autocomplete.md` | `863dcdd` |
 | Checkbox | feature | `projects/quang/components/checkbox/` | `features/checkbox.md` | `6252424` |
-| Date | feature | `projects/quang/components/date/` | `features/date.md` | `6252424` |
+| Date | feature | `projects/quang/components/date/` | `features/date.md` | `863dcdd` |
 | Input | feature | `projects/quang/components/input/` | `features/input.md` | `6252424` |
 | Paginator | feature | `projects/quang/components/paginator/` | `features/paginator.md` | `6252424` |
 | Radio group | feature | `projects/quang/components/radio-group/` | `features/radio-group.md` | `6252424` |
