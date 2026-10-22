@@ -44,7 +44,7 @@ codice da documentare. Diventerà una voce quando avrà del codice.
 
 | Nome | Tipo | Path attraversati | Scheda | Documentata a |
 |---|---|---|---|---|
-| Aggiungere o estendere un componente con la sua showcase | ricetta | `projects/quang/components/autocomplete/`, `projects/quang/components/checkbox/`, `projects/quang/components/date/`, `projects/quang/components/input/`, `projects/quang/components/paginator/`, `projects/quang/components/radio-group/`, `projects/quang/components/select/`, `projects/quang/components/table/`, `projects/quang/components/tabs/`, `projects/quang/components/wysiwyg/`, `projects/playground/` | `ricette/componente-e-showcase.md` | `f2b37bb` |
+| Aggiungere o estendere un componente con la sua showcase | ricetta | `projects/quang/components/autocomplete/`, `projects/quang/components/checkbox/`, `projects/quang/components/date/`, `projects/quang/components/input/`, `projects/quang/components/paginator/`, `projects/quang/components/radio-group/`, `projects/quang/components/select/`, `projects/quang/components/table/`, `projects/quang/components/tabs/`, `projects/quang/components/wysiwyg/`, `projects/playground/` | `ricette/componente-e-showcase.md` | `863dcdd` |
 
 ## Non documentabile
 

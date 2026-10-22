@@ -62,6 +62,14 @@ Nell'ordine, con `<nome>` il nome della cartella del componente:
   mostra la chiave grezza nell'altra lingua.
 - **Il template del componente ha snapshot**: lo spec di tabs confronta `container.innerHTML` con
   `__snapshots__/tabs.component.spec.ts.snap`, che va rigenerato quando il markup cambia.
+- **Nello spec, un campo del componente host che il test cambia dopo il primo render è un
+  `signal`**, letto nel template come `[input]="campo()"` e cambiato con `.set(…)`, e un form legato
+  si riconfigura (`setValidators`, `setValue` sul controllo già legato) invece di essere sostituito.
+  Un campo semplice riassegnato, o un `FormGroup` nuovo, non arriva al componente: il test passa
+  senza esercitare l'input. Così sono scritti gli spec di autocomplete (`syncFormWithText`), date
+  (`activeLanguageOverride`) e tabs dopo `f5f725e2`, che li ha corretti perché passavano a vuoto.
+  Per la stessa ragione l'asserzione verifica l'effetto (la lingua attiva cambia, la locale è
+  diversa), non `toBeDefined()`.
 - I commit di questa forma aggiungono anche una sezione in `CHANGELOG.md` con la versione, divisa
   in `Added`, `Changed`, `Fixed`, `Docs`.
 
