@@ -29,7 +29,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Tooltip | feature | `projects/quang/overlay/tooltip/` | `features/tooltip.md` | `6252424` |
 | Traduzioni | feature | `projects/quang/translation/` | `features/traduzioni.md` | `6252424` |
 | Playground | feature | `projects/playground/` | `features/playground.md` | `6252424` |
-| Base dei componenti | condiviso | `projects/quang/components/shared/` | `condivisi/base-componenti.md` | `6252424` |
+| Base dei componenti | condiviso | `projects/quang/components/shared/` | `condivisi/base-componenti.md` | `863dcdd` |
 | Base degli overlay | condiviso | `projects/quang/overlay/shared/`, `projects/quang/overlay/global-overlay.scss` | `condivisi/base-overlay.md` | `6252424` |
 | Utility per interceptor | condiviso | `projects/quang/shared/` | `condivisi/utility-interceptor.md` | `6252424` |
 
