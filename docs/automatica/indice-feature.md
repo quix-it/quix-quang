@@ -1,6 +1,6 @@
 # Indice delle feature
 
-Repo: `quix-quang` — branch di integrazione `quang22` — baseline `6252424`.
+Repo: `quix-quang` — branch di integrazione `quang22` — baseline `863dcdd`.
 
 Libreria Angular `quang` (`projects/quang/`, pubblicata a entry point secondari `quang/<area>`) più
 l'applicazione dimostrativa `projects/playground/`.
@@ -9,15 +9,15 @@ l'applicazione dimostrativa `projects/playground/`.
 |---|---|---|---|---|
 | Configurazione Quang | feature | `projects/quang/index.ts` | `features/configurazione-quang.md` | `68c44102` |
 | Autenticazione | feature | `projects/quang/auth/` | `features/autenticazione.md` | `68c44102` |
-| Autocomplete | feature | `projects/quang/components/autocomplete/` | `features/autocomplete.md` | `6252424` |
+| Autocomplete | feature | `projects/quang/components/autocomplete/` | `features/autocomplete.md` | `863dcdd` |
 | Checkbox | feature | `projects/quang/components/checkbox/` | `features/checkbox.md` | `6252424` |
-| Date | feature | `projects/quang/components/date/` | `features/date.md` | `6252424` |
+| Date | feature | `projects/quang/components/date/` | `features/date.md` | `863dcdd` |
 | Input | feature | `projects/quang/components/input/` | `features/input.md` | `6252424` |
 | Paginator | feature | `projects/quang/components/paginator/` | `features/paginator.md` | `6252424` |
 | Radio group | feature | `projects/quang/components/radio-group/` | `features/radio-group.md` | `6252424` |
 | Select | feature | `projects/quang/components/select/` | `features/select.md` | `6252424` |
 | Table | feature | `projects/quang/components/table/` | `features/table.md` | `6252424` |
-| Tabs | feature | `projects/quang/components/tabs/` | `features/tabs.md` | `6252424` |
+| Tabs | feature | `projects/quang/components/tabs/` | `features/tabs.md` | `863dcdd` |
 | Wysiwyg | feature | `projects/quang/components/wysiwyg/` | `features/wysiwyg.md` | `6252424` |
 | Conversione e download | feature | `projects/quang/data-handling/` | `features/conversione-e-download.md` | `6252424` |
 | Osservazione del ridimensionamento | feature | `projects/quang/device/` | `features/osservazione-ridimensionamento.md` | `6252424` |
@@ -29,7 +29,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Tooltip | feature | `projects/quang/overlay/tooltip/` | `features/tooltip.md` | `6252424` |
 | Traduzioni | feature | `projects/quang/translation/` | `features/traduzioni.md` | `6252424` |
 | Playground | feature | `projects/playground/` | `features/playground.md` | `6252424` |
-| Base dei componenti | condiviso | `projects/quang/components/shared/` | `condivisi/base-componenti.md` | `6252424` |
+| Base dei componenti | condiviso | `projects/quang/components/shared/` | `condivisi/base-componenti.md` | `863dcdd` |
 | Base degli overlay | condiviso | `projects/quang/overlay/shared/`, `projects/quang/overlay/global-overlay.scss` | `condivisi/base-overlay.md` | `6252424` |
 | Utility per interceptor | condiviso | `projects/quang/shared/` | `condivisi/utility-interceptor.md` | `6252424` |
 
@@ -39,6 +39,12 @@ popover e tooltip, `shared/` dagli interceptor di `auth` e `loader`.
 
 `projects/quang/networking/` contiene solo un `.gitkeep`: è un'area predisposta e ancora vuota, senza
 codice da documentare. Diventerà una voce quando avrà del codice.
+
+## Processi e ricette
+
+| Nome | Tipo | Path attraversati | Scheda | Documentata a |
+|---|---|---|---|---|
+| Aggiungere o estendere un componente con la sua showcase | ricetta | `projects/quang/components/autocomplete/`, `projects/quang/components/checkbox/`, `projects/quang/components/date/`, `projects/quang/components/input/`, `projects/quang/components/paginator/`, `projects/quang/components/radio-group/`, `projects/quang/components/select/`, `projects/quang/components/table/`, `projects/quang/components/tabs/`, `projects/quang/components/wysiwyg/`, `projects/playground/` | `ricette/componente-e-showcase.md` | `863dcdd` |
 
 ## Non documentabile
 
