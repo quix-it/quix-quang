@@ -55,9 +55,9 @@ vi.mock('air-datepicker', () => {
   }
 })
 
-vi.mock('air-datepicker/locale/en', () => ({ default: {} }))
-vi.mock('air-datepicker/locale/it', () => ({ default: {} }))
-vi.mock('air-datepicker/locale/fr', () => ({ default: {} }))
+vi.mock('air-datepicker/locale/en', () => ({ default: { days: ['Sunday'] } }))
+vi.mock('air-datepicker/locale/it', () => ({ default: { days: ['Domenica'] } }))
+vi.mock('air-datepicker/locale/fr', () => ({ default: { days: ['Dimanche'] } }))
 
 @Injectable()
 class TestTranslocoLoader implements TranslocoLoader {
@@ -668,6 +668,32 @@ describe('QuangDateComponent - locale and normalization', () => {
     fixture.detectChanges()
     expect(dateCmp.getLocale()).toBe(enLocale)
   })
+
+  it.each([
+    { browserLanguage: 'it-IT', calendar: 'Italian', firstDay: 'Domenica' },
+    { browserLanguage: 'fr-FR', calendar: 'French', firstDay: 'Dimanche' },
+  ])(
+    'should show the $calendar calendar when the browser language is $browserLanguage',
+    async ({ browserLanguage, firstDay }) => {
+      const languageSpy = vi.spyOn(navigator, 'language', 'get').mockReturnValue(browserLanguage)
+
+      await TestBed.configureTestingModule({
+        imports: [LocaleHostComponent],
+        providers: [getTranslocoTestingProviders()],
+      }).compileComponents()
+
+      const fixture = TestBed.createComponent(LocaleHostComponent)
+      fixture.detectChanges()
+
+      const dateCmp = fixture.debugElement.query(By.directive(QuangDateComponent))
+        .componentInstance as QuangDateComponent
+
+      const locale = dateCmp.getLocale()
+      languageSpy.mockRestore()
+
+      expect(locale.days[0]).toBe(firstDay)
+    }
+  )
 
   it('should preserve date part when showOnlyTimepicker updates value', async () => {
     await TestBed.configureTestingModule({
