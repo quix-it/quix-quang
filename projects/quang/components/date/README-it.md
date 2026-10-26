@@ -66,7 +66,7 @@ Tutti gli input standard ereditati da `QuangBaseComponent`:
 - `successMessage`: `string` — Testo messaggio successo
 - `helpMessage`: `string` — Testo aiuto visualizzato sotto l'input
 - `helpMessageTooltip`: `boolean` — Se true, mostra il messaggio di aiuto come tooltip (con icona proiettata); se false, mostra il messaggio inline sotto l'input. Default: `false`
-- `formControl`: `FormControl` — Controllo form reattivo Angular
+- `formControl`: `FormControl` — Controllo form reattivo Angular. È lo stesso controllo del binding `[formControl]` di Angular, non ne sceglie uno diverso
 - Visualizzazione icona tooltip: per visualizzare l'icona del tooltip, usa `<ng-content select="[help-icon]" />` nel template del componente.
 
 ## Output

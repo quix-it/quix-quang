@@ -94,7 +94,7 @@ Il componente supporta i seguenti tipi di input, ciascuno con comportamenti e co
 - `successMessage`: `string` — Testo del messaggio di successo
 - `helpMessage`: `string` — Testo di aiuto visualizzato come tooltip o sotto l'input
 - `helpMessageTooltip`: `boolean` — Se true, il messaggio di aiuto viene mostrato come tooltip (con icona); se false, il messaggio di aiuto viene mostrato inline sotto l'input. Predefinito: `false`
-- `formControl`: `FormControl` — Controllo di form reattivo di Angular
+- `formControl`: `FormControl` — Controllo di form reattivo di Angular. È lo stesso controllo del binding `[formControl]` di Angular, non ne sceglie uno diverso
 - Visualizzazione icona tooltip: per visualizzare l'icona del tooltip, usa `<ng-content select="[help-icon]" />` nel template del componente.
 
 ## Output

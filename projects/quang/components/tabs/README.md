@@ -9,7 +9,7 @@ The `QuangTabsComponent` is a flexible tabs navigation component that provides s
 - `isReadonly`: `boolean` — Set component to read-only mode. When true, all tabs become non-interactive. Inherited from `QuangBaseComponent`
 - `componentTabIndex`: `number` — Tab index for accessibility. Inherited from `QuangBaseComponent`
 - `componentClass`: `string | string[]` — Additional CSS classes. Inherited from `QuangBaseComponent`
-- `formControl`: `FormControl` — Form control for reactive forms. Inherited from `QuangBaseComponent`
+- `formControl`: `FormControl` — Form control for reactive forms. Inherited from `QuangBaseComponent`. Same control as the Angular `[formControl]` binding; it does not select a different one
 
 ## Outputs
 
