@@ -19,7 +19,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QUANG_LOGGING_BEHAVIOR } from 'quang'
-import { Subscription, fromEvent } from 'rxjs'
+import { Subscription, fromEvent, switchMap } from 'rxjs'
 
 export interface QuangSelectOptionTemplateContext {
   $implicit: SelectOption
@@ -112,13 +112,16 @@ export class QuangOptionListComponent {
   private resizeObserver: ResizeObserver | null = null
 
   selectButtonRef$ = toObservable(this.selectButtonRef)
-    .pipe(takeUntilDestroyed())
+    .pipe(
+      switchMap((selectButtonRef) => {
+        this.getOptionListWidth()
+        return fromEvent(this.getScrollParent(selectButtonRef), 'scroll')
+      }),
+      takeUntilDestroyed()
+    )
     .subscribe(() => {
       this.getOptionListWidth()
-      this.getScrollParent(this.selectButtonRef())?.addEventListener('scroll', () => {
-        this.getOptionListWidth()
-        this.getOptionListTop()
-      })
+      this.getOptionListTop()
     })
 
   selectOptionsList = computed(() => {
