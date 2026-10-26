@@ -32,6 +32,7 @@
         class="item"
         role="option"
       >
+        <!-- Visual marker only, non-focusable by design: selection runs on the li's mousedown, focus and blur on the listbox container. -->
         <input
           [checked]="getSelected(item)"
           [class.d-none]="selectionMode() === 'single' || !item?.value"
@@ -40,7 +41,6 @@
           [name]="i + '-' + item.value + '-checkbox'"
           [ngClass]="componentClass()"
           [value]="getSelected(item)"
-          (blur)="onBlurHandler($event)"
           #inputCheckbox
           aria-hidden="true"
           class="form-check-input opacity-100"
