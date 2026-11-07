@@ -117,6 +117,7 @@ export function requiredCheckbox() {
 
 export function minDate(dateToCompare: Date) {
   return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null
     if (isBefore(new Date(control.value), dateToCompare)) {
       return { minDate: { requiredValue: dateToCompare } }
     }
@@ -126,6 +127,7 @@ export function minDate(dateToCompare: Date) {
 
 export function maxDate(dateToCompare: Date) {
   return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null
     if (isAfter(new Date(control.value), dateToCompare)) {
       return { maxDate: { requiredValue: dateToCompare } }
     }
@@ -135,6 +137,7 @@ export function maxDate(dateToCompare: Date) {
 
 export function dateBetween(start: Date, end: Date) {
   return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null
     if (
       !isWithinInterval(new Date(control.value), {
         start,
