@@ -309,10 +309,9 @@ export class QuangDateComponent extends QuangBaseComponent<string | DateRange | 
             this.isMouseInsideCalendar.set(false)
           }
         }
-        if (isAnimationComplete || !this.showTimepicker()) {
-          return
+        if (!isAnimationComplete && this.showTimepicker()) {
+          this.setupTimepicker()
         }
-        this.setupTimepicker()
 
         userOnShow?.(isAnimationComplete)
       },

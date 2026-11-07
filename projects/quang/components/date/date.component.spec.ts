@@ -89,6 +89,7 @@ interface DateRangeValue {
 interface AirDatepickerLike {
   opts: {
     onSelect: (arg: { date: unknown }) => void
+    onShow: (isAnimationComplete: boolean) => void
   }
   $datepicker: HTMLElement
   selectedDates: Date[]
@@ -250,6 +251,27 @@ class DatepickerOptionsHostComponent {
   control = new FormControl<string | null>(null)
   opts?: {
     onSelect?: (...args: unknown[]) => void
+  }
+}
+
+@Component({
+  template: `
+    <quang-date
+      [datepickerOptions]="opts"
+      [formControl]="control"
+      [timepicker]="timepicker"
+      componentId="onShow"
+      componentLabel="On show"
+    />
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangDateComponent],
+})
+class OnShowHostComponent {
+  control = new FormControl<string | null>(null)
+  timepicker = false
+  opts?: {
+    onShow?: (...args: unknown[]) => void
   }
 }
 
@@ -480,6 +502,47 @@ describe('QuangDateComponent - datepickerOptions chaining', () => {
 
     await new Promise<void>((resolve) => queueMicrotask(() => resolve()))
     expect(tickSpy).toHaveBeenCalled()
+  })
+})
+
+describe('QuangDateComponent - datepickerOptions onShow chaining', () => {
+  const createOnShowFixture = async (timepicker: boolean) => {
+    await TestBed.configureTestingModule({
+      imports: [OnShowHostComponent],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    const fixture = TestBed.createComponent(OnShowHostComponent)
+    const host = fixture.componentInstance
+    host.timepicker = timepicker
+    host.opts = {
+      onShow: vi.fn(),
+    }
+    fixture.detectChanges()
+
+    const dateDebugEl = fixture.debugElement.query(By.directive(QuangDateComponent))
+    const dateCmp = dateDebugEl.componentInstance as QuangDateComponent
+    const dp = dateCmp._airDatepickerInstance() as unknown as AirDatepickerLike
+
+    return { fixture, host, dp }
+  }
+
+  it('should call the user onShow callback when the component has no timepicker', async () => {
+    const { fixture, host, dp } = await createOnShowFixture(false)
+
+    dp.opts.onShow(false)
+    fixture.detectChanges()
+
+    expect(host.opts?.onShow).toHaveBeenCalledTimes(1)
+  })
+
+  it('should call the user onShow callback when notified with the animation complete', async () => {
+    const { fixture, host, dp } = await createOnShowFixture(true)
+
+    dp.opts.onShow(true)
+    fixture.detectChanges()
+
+    expect(host.opts?.onShow).toHaveBeenCalledTimes(1)
   })
 })
 
