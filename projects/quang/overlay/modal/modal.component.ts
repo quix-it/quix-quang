@@ -94,7 +94,7 @@ export class QuangModalComponent implements AfterViewInit, OnDestroy {
       case 'SLIDE_TOP_TO_BOTTOM':
         return 'top-to-bottom-enter-active'
       case 'SLIDE_BOTTOM_TO_TOP':
-        return 'top-to-bottom-enter-active'
+        return 'bottom-to-top-enter-active'
       case 'FADE':
         return 'fade-enter-active'
       default:
