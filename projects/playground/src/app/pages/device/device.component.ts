@@ -24,14 +24,14 @@ export class DeviceComponent {
     {
       functionName: 'resizeObservable',
       import:
-        "import { ResizeObservableService } from 'quang/device/resize-observable.service';\nprivate readonly resizeObservable = inject(ResizeObservableService);",
+        "import { ResizeObservableService } from 'quang/device';\nprivate readonly resizeObservable = inject(ResizeObservableService);",
       exampleUsage: 'this.resizeObservable.resizeObservable(element).subscribe(size => console.log(size));',
       explanationKey: 'device.functions.resizeObservable',
     },
     {
       functionName: 'widthResizeObservable',
       import:
-        "import { ResizeObservableService } from 'quang/device/resize-observable.service';\nprivate readonly resizeObservable = inject(ResizeObservableService);",
+        "import { ResizeObservableService } from 'quang/device';\nprivate readonly resizeObservable = inject(ResizeObservableService);",
       exampleUsage: 'this.resizeObservable.widthResizeObservable(element).subscribe(width => console.log(width));',
       explanationKey: 'device.functions.widthResizeObservable',
     },

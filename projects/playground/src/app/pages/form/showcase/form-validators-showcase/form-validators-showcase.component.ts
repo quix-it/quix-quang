@@ -19,7 +19,7 @@ export class FormValidatorsShowcaseComponent {
   formFunctions = [
     {
       functionName: 'fileMaxSize',
-      import: "import { fileMaxSize } from 'quang/forms/validators';",
+      import: "import { fileMaxSize } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         file: this.formBuilder.control('', [fileMaxSize(5000000)])
       });`,
@@ -27,7 +27,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'fileMinSize',
-      import: "import { fileMinSize } from 'quang/forms/validators';",
+      import: "import { fileMinSize } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         file: this.formBuilder.control('', [fileMinSize(1000)])
       });`,
@@ -35,7 +35,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'isFile',
-      import: "import { isFile } from 'quang/forms/validators';",
+      import: "import { isFile } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         file: this.formBuilder.control('', [isFile()])
       });`,
@@ -43,7 +43,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'fileType',
-      import: "import { fileType } from 'quang/forms/validators';",
+      import: "import { fileType } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         file: this.formBuilder.control('', [fileType(['image/png', 'image/jpeg'])])
       });`,
@@ -51,7 +51,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'fileExtensions',
-      import: "import { fileExtensions } from 'quang/forms/validators';",
+      import: "import { fileExtensions } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         file: this.formBuilder.control('', [fileExtensions(['.png', '.jpg'])])
       });`,
@@ -59,7 +59,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'requiredCheckbox',
-      import: "import { requiredCheckbox } from 'quang/forms/validators';",
+      import: "import { requiredCheckbox } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         agree: this.formBuilder.control(false, [requiredCheckbox()])
       });`,
@@ -67,7 +67,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'minDate',
-      import: "import { minDate } from 'quang/forms/validators';",
+      import: "import { minDate } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         date: this.formBuilder.control('', [minDate(new Date('2023-01-01'))])
       });`,
@@ -75,7 +75,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'maxDate',
-      import: "import { maxDate } from 'quang/forms/validators';",
+      import: "import { maxDate } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         date: this.formBuilder.control('', [maxDate(new Date('2023-12-31'))])
       });`,
@@ -83,7 +83,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'dateBetween',
-      import: "import { dateBetween } from 'quang/forms/validators';",
+      import: "import { dateBetween } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         date: this.formBuilder.control('', [dateBetween(new Date('2023-01-01'), new Date('2023-12-31'))])
       });`,
@@ -91,7 +91,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'isFiscalCode',
-      import: "import { isFiscalCode } from 'quang/forms/validators';",
+      import: "import { isFiscalCode } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         fiscalCode: this.formBuilder.control('', [isFiscalCode()])
       });`,
@@ -99,7 +99,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'isVatNumber',
-      import: "import { isVatNumber } from 'quang/forms/validators';",
+      import: "import { isVatNumber } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         vatNumber: this.formBuilder.control('', [isVatNumber([EuroLocale.IT, EuroLocale.FR])])
       });`,
@@ -107,7 +107,7 @@ export class FormValidatorsShowcaseComponent {
     },
     {
       functionName: 'wysiwygRequired',
-      import: "import { wysiwygRequired } from 'quang/forms/validators';",
+      import: "import { wysiwygRequired } from 'quang/forms';",
       exampleUsage: `this.formBuilder.group({
         content: this.formBuilder.control('<p></p>', [wysiwygRequired()])
       });`,

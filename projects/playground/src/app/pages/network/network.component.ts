@@ -19,13 +19,13 @@ export class NetworkComponent {
   networkFunctions = [
     {
       functionName: 'isHttpMethod',
-      import: "import { isHttpMethod } from 'quang/shared/intercept-utils';",
+      import: "import { isHttpMethod } from 'quang/shared';",
       exampleUsage: `isHttpMethod('POST'); // true\nisHttpMethod('FOO'); // false`,
       explanationKey: 'network.functions.isHttpMethod',
     },
     {
       functionName: 'getExcludedUrlsByMethod',
-      import: "import { getExcludedUrlsByMethod } from 'quang/shared/intercept-utils';",
+      import: "import { getExcludedUrlsByMethod } from 'quang/shared';",
       exampleUsage: `getExcludedUrlsByMethod([
   { url: '/api/foo', method: 'GET' },
   { url: '/api/bar', method: 'POST' }
