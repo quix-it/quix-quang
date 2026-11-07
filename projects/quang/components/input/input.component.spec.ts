@@ -188,3 +188,46 @@ describe('QuangInputComponent - trim', () => {
     expect(host.form.get('field')?.value).toBe('hi')
   })
 })
+
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <quang-input
+        componentType="number"
+        formControlName="amount"
+      />
+    </form>
+  `,
+  standalone: true,
+  imports: [ReactiveFormsModule, QuangInputComponent],
+})
+class NumberHostComponent {
+  form = new FormGroup({ amount: new FormControl<string | number | null>(null) })
+}
+
+describe('QuangInputComponent - componentType="number"', () => {
+  let fixture: ComponentFixture<NumberHostComponent>
+  let host: NumberHostComponent
+  let input: HTMLInputElement
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NumberHostComponent],
+      providers: [getTranslocoTestingProviders()],
+    }).compileComponents()
+
+    fixture = TestBed.createComponent(NumberHostComponent)
+    host = fixture.componentInstance
+    fixture.detectChanges()
+    input = fixture.nativeElement.querySelector('input')
+  })
+
+  // "Chi legge il valore riceve `"12"` invece di `12`."
+  it('propaga al FormControl un numero, non la stringa digitata', () => {
+    input.value = '12'
+    input.dispatchEvent(new Event('input'))
+    fixture.detectChanges()
+
+    expect(host.form.get('amount')?.value).toBe(12)
+  })
+})
