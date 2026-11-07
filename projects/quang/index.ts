@@ -45,6 +45,7 @@ export type QuangFeatures = QuangFeature<QuangFeatureKind>
 
 export function provideQuangConfig(config?: QuangConfig, ...features: QuangFeatures[]): EnvironmentProviders {
   return makeEnvironmentProviders([
+    { provide: QUANG_CONFIG, useValue: config ?? {} },
     { provide: APP_BASE_HREF, useValue: config?.baseHref ?? '/' },
     { provide: QUANG_LOGGING_BEHAVIOR, useValue: config?.verbose ? 'verbose' : 'normal' },
     features.map((feature) => feature.ɵproviders),
