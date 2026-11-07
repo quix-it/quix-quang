@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project follows Conventional Commits.
 
+## [Unreleased]
+
+### Removed
+
+- Paginator: removed `PaginatorIntl` and `QuangPaginatorLanguageService`, dead code left over from the `@angular/material` removal (QUANG-74). Neither was ever injected anywhere, and the five i18n keys the service loaded (`quangPaginator.itemsPerPage`, `.nextPage`, `.previousPage`, `.firstPage`, `.lastPage`) never existed in the translation bundles. The paginator translates its labels through its existing `totalItemsText`/`sizeText`/`pageRangeText` inputs, unaffected by this change (QUANG-301).
+
 ## [20.8.0] - 2026-04-08
 
 ### Added
