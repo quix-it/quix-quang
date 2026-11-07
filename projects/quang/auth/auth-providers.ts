@@ -29,8 +29,8 @@ export function provideAuth(authConfig?: QuangAuthConfig, ...features: QuangAuth
 export function withAuth(
   authConfig?: QuangAuthConfig,
   ...features: QuangAuthFeatures[]
-): QuangFeature<QuangFeatureKind.LoaderFeature> {
-  return quangFeature(QuangFeatureKind.LoaderFeature, [provideAuth(authConfig, ...features)])
+): QuangFeature<QuangFeatureKind.AuthFeature> {
+  return quangFeature(QuangFeatureKind.AuthFeature, [provideAuth(authConfig, ...features)])
 }
 
 /**
