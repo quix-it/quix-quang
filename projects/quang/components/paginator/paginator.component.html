@@ -33,7 +33,7 @@
     </div>
   }
   <div class="pagination-label text-center">
-    {{ pageRangeText() | transloco: { page: page(), amountPages: _totalPages() } }}
+    {{ pageRangeText() | transloco: { page: _currentPage(), amountPages: _totalPages() } }}
   </div>
   <div class="pagination">
     <ul>
