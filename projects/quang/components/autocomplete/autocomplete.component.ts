@@ -385,7 +385,7 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
       this.formValueChangeSubscription = undefined
     }
 
-    if (!formControl) return
+    if (!formControl?.valueChanges) return
 
     this.formValueChangeSubscription = formControl.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -399,6 +399,11 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
     // show the correct display text based on _value and _isSearching state.
     super.writeValue(val)
 
+    if (this.isSignalFormControl()) {
+      this.handleFormValueChange(val)
+      return
+    }
+
     // Handle array values for multiple mode
     if (Array.isArray(val)) {
       val.forEach((x) => {
@@ -409,6 +414,9 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
 
   override onChangedHandler(value: string | number | string[] | number[] | null): void {
     super.onChangedHandler(value)
+    if (this.isSignalFormControl()) {
+      this.handleFormValueChange(value)
+    }
     // Exit search mode - _inputValue will now derive from _value
     // Note: Don't clear _userSearchText here - it's needed for processTextToFormValue matching
     this._isSearching.set(false)
@@ -812,6 +820,15 @@ export class QuangAutocompleteComponent extends QuangBaseComponent<string | numb
   /**
    * Handles form value changes from external sources.
    */
+  /**
+   * `[formField]` (signal forms) provides a control without `valueChanges`, so the chip rebuild
+   * that reactive forms get from that stream must run on every write and change instead.
+   */
+  private isSignalFormControl(): boolean {
+    const control = this._ngControl()?.control
+    return !!control && !control.valueChanges
+  }
+
   private handleFormValueChange(value: string | number | string[] | number[] | null): void {
     if (!(this.multiple() && Array.isArray(value))) {
       return
