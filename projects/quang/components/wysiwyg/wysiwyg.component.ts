@@ -198,7 +198,8 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
   override onChangedHandler(value: string): void {
     super.onChangedHandler(value)
     const control = this._ngControl()
-    if (control?.control) {
+    // the `[formField]` (signal forms) control has no setErrors: errors there come from the form schema
+    if (control?.control?.setErrors) {
       if (this.validate(control.control)) control.control.setErrors(this.validate(control.control))
     }
   }
