@@ -13,7 +13,7 @@ import {
   viewChild,
 } from '@angular/core'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
-import { AbstractControl, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms'
+import { AbstractControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms'
 
 import { TranslocoPipe } from '@jsverse/transloco'
 import { QuangTooltipDirective } from 'quang/overlay/tooltip'
@@ -34,6 +34,12 @@ export type QuangWysiwygOptions = SunEditorOptions
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => QuangWysiwygComponent),
+      multi: true,
+    },
+    // reactive forms and signal forms [formField] both run it: markup-only content fails `required`
+    {
+      provide: NG_VALIDATORS,
       useExisting: forwardRef(() => QuangWysiwygComponent),
       multi: true,
     },
@@ -193,15 +199,6 @@ export class QuangWysiwygComponent extends QuangBaseComponent<string> implements
       return { required: true }
     }
     return null
-  }
-
-  override onChangedHandler(value: string): void {
-    super.onChangedHandler(value)
-    const control = this._ngControl()
-    // the `[formField]` (signal forms) control has no setErrors: errors there come from the form schema
-    if (control?.control?.setErrors) {
-      if (this.validate(control.control)) control.control.setErrors(this.validate(control.control))
-    }
   }
 
   getButtonList(): string[] {
