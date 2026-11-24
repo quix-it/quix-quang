@@ -49,6 +49,21 @@ describe('QuangWysiwygComponent + signal forms [formField]', () => {
     expect(host.model().body).toBe('<div><br></div>')
   })
 
+  it('marks a required field invalid when the editor holds markup only', () => {
+    const host = fixture.componentInstance
+
+    host.wysiwyg().onChangedHandler('<div><br></div>')
+    fixture.detectChanges()
+
+    expect(host.testForm.body().valid()).toBe(false)
+    expect(
+      host.testForm
+        .body()
+        .errors()
+        .map((e) => e.kind)
+    ).toContain('required')
+  })
+
   it('writes real content to the model', () => {
     const host = fixture.componentInstance
 
