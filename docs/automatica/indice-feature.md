@@ -1,6 +1,6 @@
 # Indice delle feature
 
-Repo: `quix-quang` — branch di integrazione `quang22` — baseline `863dcdd`.
+Repo: `quix-quang` — branch di integrazione `quang22` — baseline `c4b11632`.
 
 Libreria Angular `quang` (`projects/quang/`, pubblicata a entry point secondari `quang/<area>`) più
 l'applicazione dimostrativa `projects/playground/`.
@@ -44,7 +44,7 @@ codice da documentare. Diventerà una voce quando avrà del codice.
 
 | Nome | Tipo | Path attraversati | Scheda | Documentata a |
 |---|---|---|---|---|
-| Aggiungere o estendere un componente con la sua showcase | ricetta | `projects/quang/components/autocomplete/`, `projects/quang/components/checkbox/`, `projects/quang/components/date/`, `projects/quang/components/input/`, `projects/quang/components/paginator/`, `projects/quang/components/radio-group/`, `projects/quang/components/select/`, `projects/quang/components/table/`, `projects/quang/components/tabs/`, `projects/quang/components/wysiwyg/`, `projects/playground/` | `ricette/componente-e-showcase.md` | `863dcdd` |
+| Aggiungere o estendere un componente con la sua showcase | ricetta | `projects/quang/components/autocomplete/`, `projects/quang/components/checkbox/`, `projects/quang/components/date/`, `projects/quang/components/input/`, `projects/quang/components/paginator/`, `projects/quang/components/radio-group/`, `projects/quang/components/select/`, `projects/quang/components/table/`, `projects/quang/components/tabs/`, `projects/quang/components/wysiwyg/`, `projects/playground/` | `ricette/componente-e-showcase.md` | `c4b11632` |
 
 ## Non documentabile
 

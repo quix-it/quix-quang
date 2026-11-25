@@ -12,7 +12,8 @@ vecchia pagina di test alla showcase.
 Nell'ordine, con `<nome>` il nome della cartella del componente:
 
 1. Il componente, `projects/quang/components/<nome>/`: `<nome>.component.ts`, `.html`, `.scss`,
-   lo spec `<nome>.component.spec.ts` e, se il template cambia, `__snapshots__/`. Per un componente
+   lo spec `<nome>.component.spec.ts` e, se il template cambia, `__snapshots__/`. Per un campo di form,
+   anche `<nome>.signal-forms.spec.ts` (vedi Convenzioni). Per un componente
    nuovo anche `index.ts` (`export * from './<nome>.component'`) e `ng-package.json`.
 2. I README del componente, `projects/quang/components/<nome>/README.md` e `README-it.md`.
 3. Gli esempi, `projects/playground/src/app/pages/components-test-pages/<nome>-test/examples/`: un
@@ -70,6 +71,15 @@ Nell'ordine, con `<nome>` il nome della cartella del componente:
   (`activeLanguageOverride`) e tabs dopo `f5f725e2`, che li ha corretti perché passavano a vuoto.
   Per la stessa ragione l'asserzione verifica l'effetto (la lingua attiva cambia, la locale è
   diversa), non `toBeDefined()`.
+- **Un campo di form deve funzionare anche con i signal forms** (`[formField]` di
+  `@angular/forms/signals`), che danno al componente un controllo senza `valueChanges`: un componente
+  che si iscrive a quello stream lo fa con la catena opzionale, come la base
+  (`quang-base-component.directive.ts`), o ne controlla la presenza e fa lo stesso lavoro nella
+  scrittura e nel cambiamento del valore, come autocomplete (`isSignalFormControl`). Un controllo
+  proprio del componente, come l'obbligatorietà del wysiwyg, si registra come `NG_VALIDATORS`
+  invece di scrivere gli errori sul controllo: così lo eseguono entrambi i tipi di form. La
+  copertura sta in uno spec a parte, `<nome>.signal-forms.spec.ts`, con un host che lega il
+  componente a un `form()` con `[formField]`: ci sono per input, autocomplete e wysiwyg.
 - I commit di questa forma aggiungono anche una sezione in `CHANGELOG.md` con la versione, divisa
   in `Added`, `Changed`, `Fixed`, `Docs`.
 
