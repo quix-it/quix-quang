@@ -18,7 +18,7 @@ l'applicazione dimostrativa `projects/playground/`.
 | Select | feature | `projects/quang/components/select/` | `features/select.md` | `6252424` |
 | Table | feature | `projects/quang/components/table/` | `features/table.md` | `6252424` |
 | Tabs | feature | `projects/quang/components/tabs/` | `features/tabs.md` | `863dcdd` |
-| Wysiwyg | feature | `projects/quang/components/wysiwyg/` | `features/wysiwyg.md` | `6252424` |
+| Wysiwyg | feature | `projects/quang/components/wysiwyg/` | `features/wysiwyg.md` | `c4b11632` |
 | Conversione e download | feature | `projects/quang/data-handling/` | `features/conversione-e-download.md` | `6252424` |
 | Osservazione del ridimensionamento | feature | `projects/quang/device/` | `features/osservazione-ridimensionamento.md` | `6252424` |
 | Form e validatori | feature | `projects/quang/forms/` | `features/form-e-validatori.md` | `6252424` |
