@@ -87,6 +87,14 @@ libero è attivo, e il valore propagato al form è l'array dei chip. Il tasto Ba
 quando è vuota e ci sono chip, sposta il fuoco sull'ultimo chip; da lì un altro Backspace lo elimina e
 riporta il fuoco alla casella.
 
+Con un valore array che arriva dal form, la lista dei chip viene **ricostruita da zero**: azzerata e
+riempita di nuovo valore per valore, con le stesse regole dell'aggiunta. Con i form reattivi lo fa
+l'ascolto dei `valueChanges` del controllo, che il componente aggancia nel setup del controllo di
+form. I signal forms legati con `[formField]` danno invece un controllo senza `valueChanges`: il
+componente lo riconosce da lì (`isSignalFormControl`) e fa la stessa ricostruzione a ogni scrittura
+del valore dal form e a ogni cambiamento propagato dal componente. Il comportamento è coperto da
+`autocomplete.signal-forms.spec.ts`.
+
 Sui tasti, il resto: le frecce aprono la tendina quando è chiusa e altrimenti lasciano navigare alla
 lista, Esc chiude e riporta il fuoco alla casella, Tab chiude e consolida il valore. Invio ha un
 comportamento proprio solo quando serve — in multipla con testo libero aggiunge il chip (l'opzione che
