@@ -58,12 +58,15 @@ nel form, scritto prima che l'editor sia creato, non va perso.
 
 Un editor di testo ricco non è mai davvero vuoto: appena si tocca produce dei tag, e per il validatore
 `required` di Angular un contenuto fatto di soli tag è un valore valorizzato. Il componente ha quindi
-un controllo proprio: toglie tutti i tag dal valore e, se quello che resta è la stringa vuota mentre
-il controllo ha il validatore `required`, scrive l'errore `required` direttamente sul controllo.
+un controllo proprio, `validate`: toglie tutti i tag dal valore (`STRIP_HTML_REGEX`) e, se quello che
+resta è la stringa vuota mentre il controllo ha il validatore `required`, restituisce l'errore
+`required`.
 
-Quel controllo **non è registrato come validatore**: il componente si dichiara solo come accessore di
-valore. Viene richiamato a mano a ogni cambiamento del contenuto, quindi vale da quando l'utente
-tocca il campo in poi, non sul valore iniziale.
+Il componente **si registra come validatore** (`NG_VALIDATORS`) oltre che come accessore di valore:
+è Angular a richiamare il controllo a ogni validazione del campo, quindi vale anche sul valore
+iniziale — un valore iniziale di soli tag nasce già in errore — e non solo da quando l'utente tocca il
+campo. La stessa registrazione vale sia con i form reattivi sia con i signal forms legati con
+`[formField]`: lo verificano `wysiwyg.component.spec.ts` e `wysiwyg.signal-forms.spec.ts`.
 
 ## Dipende da
 

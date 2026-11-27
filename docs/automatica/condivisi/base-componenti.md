@@ -124,7 +124,11 @@ scelta»; in modo `multiple` no, e la deselezione avviene riscegliendo l'opzione
 tollera di ricevere un valore singolo invece di un array e lo tratta come array di uno.
 
 L'opzione può portare un `renderer`, un `TemplateRef` che sostituisce l'etichetta e riceve nel
-contesto l'opzione, se è selezionata e il suo indice.
+contesto l'opzione, se è selezionata e il suo indice. Il contesto ha un tipo pubblicato,
+`QuangSelectOptionTemplateContext` in `option-list/option-list.component.ts`, esportato da
+`quang/components/shared` (l'opzione è `$implicit`, poi `selected` e `index`): è il tipo con cui
+dichiarare il `viewChild` del template, come fanno gli esempi del playground per select e
+autocomplete.
 
 ## Dipende da
 

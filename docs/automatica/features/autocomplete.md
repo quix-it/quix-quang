@@ -18,7 +18,8 @@ scelte diventano chip rimovibili e il valore del form è un array.
 - Input propri principali: `selectOptions` (obbligatorio), `allowFreeText`, `autoSelectOnExactMatch`,
   `updateValueOnType`, `multiple`, `internalFilterOptions`, `searchTextDebounce`, `chipMaxLength`,
   `chipsPosition`, `multiSelectDisplayMode`, `optionListMaxHeight`, `translateValue`. `syncFormWithText`
-  è il vecchio nome di `allowFreeText` ed è marcato deprecato.
+  è il vecchio nome di `allowFreeText` ed è marcato deprecato: i due restano entrambi attivi, in
+  `or` (il `computed` `_allowFreeTextInternal`), quindi basta uno dei due a fare il testo libero.
 - Output: `selectedOption` (il valore scelto, o `null`) e `searchTextChange` (il testo digitato, dopo
   il debounce).
 
@@ -85,6 +86,14 @@ per confronto su stringa, un valore che non corrisponde a nessuna opzione entra 
 libero è attivo, e il valore propagato al form è l'array dei chip. Il tasto Backspace sulla casella,
 quando è vuota e ci sono chip, sposta il fuoco sull'ultimo chip; da lì un altro Backspace lo elimina e
 riporta il fuoco alla casella.
+
+Con un valore array che arriva dal form, la lista dei chip viene **ricostruita da zero**: azzerata e
+riempita di nuovo valore per valore, con le stesse regole dell'aggiunta. Con i form reattivi lo fa
+l'ascolto dei `valueChanges` del controllo, che il componente aggancia nel setup del controllo di
+form. I signal forms legati con `[formField]` danno invece un controllo senza `valueChanges`: il
+componente lo riconosce da lì (`isSignalFormControl`) e fa la stessa ricostruzione a ogni scrittura
+del valore dal form e a ogni cambiamento propagato dal componente. Il comportamento è coperto da
+`autocomplete.signal-forms.spec.ts`.
 
 Sui tasti, il resto: le frecce aprono la tendina quando è chiusa e altrimenti lasciano navigare alla
 lista, Esc chiude e riporta il fuoco alla casella, Tab chiude e consolida il valore. Invio ha un

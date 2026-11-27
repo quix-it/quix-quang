@@ -74,7 +74,11 @@ scorrimento della pagina, con un ritardo, ma solo se il calendario è visibile.
 
 La lingua del calendario è la prima disponibile fra: l'input di forzatura, la lingua attiva del
 servizio di traduzione se quel servizio è presente, la lingua del browser. Le lingue caricate sono
-tre — inglese, italiano, francese — e qualunque altra ricade sull'inglese.
+tre — inglese, italiano, francese — e qualunque altra ricade sull'inglese (`getLocale`). Due
+conseguenze della scelta. Con il servizio di traduzione presente la lingua del browser non viene mai
+consultata: finché il servizio non ha una lingua attiva vale l'inglese. Il confronto è sulla stringa
+intera, senza maiuscole: una lingua con la regione, come la `it-IT` che i browser riportano di
+solito, non è `it` e ricade sull'inglese.
 
 Il campo orario dentro al calendario viene ritoccato a mano dopo che la libreria lo ha reso: gli
 input diventano di tipo numerico con due cifre e la classe del framework di stile. Poiché la
@@ -90,8 +94,9 @@ Invio e Freccia giù aprono il calendario, Esc lo chiude.
 Lo stato disabilitato non si limita alla casella: il componente ripassa gli input dentro al
 calendario e li disabilita uno per uno, aggiungendo una classe alla radice.
 
-Il registro delle osservazioni annota un punto di questo file: il callback `onShow` fornito
-dall'esterno (`docs/automatica/osservazioni.md`).
+Il registro delle osservazioni annota due punti di questo file: il callback `onShow` fornito
+dall'esterno, e la lingua del browser con la regione che ricade sull'inglese
+(`docs/automatica/osservazioni.md`).
 
 ## Dipende da
 
