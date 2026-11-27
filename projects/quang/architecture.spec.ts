@@ -48,11 +48,21 @@ const packageOf = (spec: string) =>
 describe('library architecture', { timeout: 30_000 }, () => {
   it('has no new import cycles between files', async () => {
     const violations = await projectFiles('tsconfig.json').inFolder(`${LIB}/**`).should().haveNoCycles().check()
+    // Sorted nodes: the same cycle compares equal whichever file archunit starts from.
     const cycles = violations.map((v) =>
-      (v as unknown as { cycle: { sourceLabel: string }[] }).cycle.map((e) => e.sourceLabel).join(' -> ')
+      (v as unknown as { cycle: { sourceLabel: string }[] }).cycle
+        .map((e) => e.sourceLabel)
+        .sort()
+        .join(' -> ')
     )
 
     expect(cycles.filter((c) => !KNOWN_FILE_CYCLES.includes(c))).toEqual([])
+  })
+
+  it('finds the entrypoints and the shipped files (the checks below would pass on nothing)', () => {
+    expect(ENTRYPOINTS.length).toBeGreaterThan(1)
+    expect(SHIPPED.length).toBeGreaterThan(0)
+    expect(quang.length).toBeGreaterThan(0)
   })
 
   it('keeps relative imports inside their entrypoint (the other entrypoints go through quang/...)', () => {
