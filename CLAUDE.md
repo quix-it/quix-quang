@@ -29,6 +29,9 @@ pnpm exec vitest run <path-spec>       # un solo file
   playground, tsc sulle spec e la spec di architettura. La deny list blocca lockfile, force push,
   pubblicazione e deploy.
 
+Su ogni PR `.github/workflows/check.yml` esegue lint, `vitest run` (spec di architettura inclusa) e
+`build:quang`.
+
 I commit passano da husky (che mette `node_modules/.bin` nel PATH, quindi basta node): `.husky/pre-commit` (lint-staged: ESLint `--fix` e Prettier) e
 `.husky/commit-msg` (commitlint, conventional commits).
 

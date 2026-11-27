@@ -114,6 +114,11 @@ husky runs two hooks, installed by `pnpm install`:
 - `pre-commit`: lint-staged, that is ESLint with `--fix` and Prettier on the staged files;
 - `commit-msg`: commitlint with the conventional commits rules.
 
+### Pull request checks
+
+[check.yml](.github/workflows/check.yml) runs on every pull request: install with the toolchain of
+`mise.toml`, `pnpm lint`, the unit tests (architecture spec included) and `pnpm build:quang`.
+
 ### Architecture checks
 
 - ESLint rules at `error` have no backlog; the ones at `warn` still have violations to fix.
