@@ -1,0 +1,55 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm lint)",
+      "Bash(pnpm lint:fix)",
+      "Bash(pnpm exec vitest run *)",
+      "Bash(pnpm exec eslint *)",
+      "Bash(pnpm ng lint *)",
+      "Bash(pnpm build:quang)",
+      "Bash(pnpm build:playground)"
+    ],
+    "ask": ["Edit(.claude/**)", "Bash(gh pr merge *)"],
+    "deny": [
+      "Edit(pnpm-lock.yaml)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git push --force-with-lease *)",
+      "Bash(git reset --hard *)",
+      "Bash(rm -rf *)",
+      "Bash(pnpm publish*)",
+      "Bash(pnpm build-publish*)",
+      "Bash(pnpm deploy:git*)",
+      "Bash(npm publish *)",
+      "Bash(npm version *)",
+      "Bash(gh repo delete *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/lint-edited-file.sh",
+            "timeout": 60,
+            "statusMessage": "ESLint on the edited file"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-project.sh",
+            "timeout": 180,
+            "statusMessage": "Typecheck and architecture spec"
+          }
+        ]
+      }
+    ]
+  }
+}

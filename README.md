@@ -14,7 +14,7 @@ This repository consists of two main parts:
    - Overlay components (modals, popovers, toasts, tooltips)
    - Translation services
    - And more
-   
+
    For detailed documentation on Quang components and modules, see the [Quang README](/projects/quang/README.md).
 
 2. **Playground** (`/projects/playground`): A testing application for demonstrating and testing the Quang library components and features.
@@ -113,6 +113,16 @@ husky runs two hooks, installed by `pnpm install`:
 
 - `pre-commit`: lint-staged, that is ESLint with `--fix` and Prettier on the staged files;
 - `commit-msg`: commitlint with the conventional commits rules.
+
+### Architecture checks
+
+- ESLint rules at `error` have no backlog; the ones at `warn` still have violations to fix.
+- [architecture.spec.ts](projects/quang/architecture.spec.ts) runs with the unit tests: relative
+  imports stay inside their entrypoint, `quang/...` imports target an entrypoint root, no cycles
+  between entrypoints or new ones between files, every imported package is declared in the library's
+  `package.json`.
+- [.claude/settings.json](.claude/settings.json) runs ESLint on every file Claude edits and, at the
+  end of its turn, typechecks library and playground and runs the architecture spec.
 
 ### Linting and Formatting
 

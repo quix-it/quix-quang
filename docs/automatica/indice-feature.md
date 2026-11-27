@@ -49,4 +49,5 @@ codice da documentare. Diventerà una voce quando avrà del codice.
 `**/coverage/`, `**/test-results/`, `**/ng-package.json`, `**/package.json`,
 `.commitlintrc.json`, `.editorconfig`, `.gitignore`, `.lintstagedrc.json`, `.prettierignore`,
 `.prettierrc`, `projects/quang/test-setup.ts`, `**/.gitkeep`, `CHANGELOG.md`, `**/README*.md`,
-`.nvmrc`, `projects/quang/eslint.config.mjs`, `CLAUDE.md`
+`mise.toml`, `pnpm-workspace.yaml`, `.husky/`, `.claude/`, `projects/quang/eslint.config.mjs`,
+`projects/quang/architecture.spec.ts`, `CLAUDE.md`
