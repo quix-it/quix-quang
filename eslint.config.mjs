@@ -29,7 +29,7 @@ export default tseslint.config(
       'www',
       'commitlint.config.js',
       'karma.conf.js',
-      'package-lock.json',
+      'pnpm-lock.yaml',
       'package.json',
     ],
   },

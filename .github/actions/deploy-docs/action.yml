@@ -15,25 +15,34 @@ inputs:
 runs:
   using: composite
   steps:
+    # mise.toml is the single source of the toolchain: Node major and exact pnpm come from it.
+    - name: Read toolchain from mise.toml
+      id: toolchain
+      shell: bash
+      run: |
+        echo "node=$(sed -n 's/^node = "\(.*\)"/\1/p' mise.toml)" >> "$GITHUB_OUTPUT"
+        echo "pnpm=$(sed -n 's/^pnpm = "\(.*\)"/\1/p' mise.toml)" >> "$GITHUB_OUTPUT"
+
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: 24
-        cache: npm
+        node-version: ${{ steps.toolchain.outputs.node }}
 
     - name: Install
       shell: bash
-      run: npm ci
+      run: |
+        npm i -g "pnpm@${{ steps.toolchain.outputs.pnpm }}"
+        pnpm install --frozen-lockfile
 
     - name: Prepare docs content
       shell: bash
-      run: npm run copy-readme
+      run: pnpm copy-readme
 
     - name: Build playground
       shell: bash
       env:
         BASE_HREF: ${{ inputs.base-href }}
-      run: npx ng build playground --configuration production --base-href="$BASE_HREF"
+      run: pnpm ng build playground --configuration production --base-href="$BASE_HREF"
 
     - name: Checkout gh-pages (worktree)
       shell: bash
