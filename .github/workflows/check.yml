@@ -1,0 +1,31 @@
+name: Check
+
+# Lint, unit tests (architecture spec included) and the library build on every pull request.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup toolchain
+        uses: ./.github/actions/setup-toolchain
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Unit tests
+        run: pnpm exec vitest run
+
+      - name: Build library
+        run: pnpm build:quang

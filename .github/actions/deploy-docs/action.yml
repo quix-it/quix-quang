@@ -15,25 +15,18 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 24
-        cache: npm
-
-    - name: Install
-      shell: bash
-      run: npm ci
+    - name: Setup toolchain
+      uses: ./.github/actions/setup-toolchain
 
     - name: Prepare docs content
       shell: bash
-      run: npm run copy-readme
+      run: pnpm copy-readme
 
     - name: Build playground
       shell: bash
       env:
         BASE_HREF: ${{ inputs.base-href }}
-      run: npx ng build playground --configuration production --base-href="$BASE_HREF"
+      run: pnpm ng build playground --configuration production --base-href="$BASE_HREF"
 
     - name: Checkout gh-pages (worktree)
       shell: bash

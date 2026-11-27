@@ -9,7 +9,7 @@
     "inlineSources": true,
     "types": []
   },
-  "exclude": ["**/*.spec.ts"],
+  "exclude": ["**/*.spec.ts", "test-setup.ts"],
   "angularCompilerOptions": {
     "extendedDiagnostics": {
       "checks": {

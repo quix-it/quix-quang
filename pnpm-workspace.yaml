@@ -1,0 +1,7 @@
+# Dependency build scripts stay off: every one listed ships prebuilt binaries the Angular CLI uses
+# as they are. pnpm fails on any new unlisted one.
+allowBuilds:
+  '@parcel/watcher': false
+  esbuild: false
+  lmdb: false
+  msgpackr-extract: false
